@@ -73,56 +73,5 @@ namespace Restaurant.ViewModels
                 Debug.WriteLine("Error! - " + ex.Message);
             });
         }
-
-        public async Task<string> GetToken()
-        {
-            using (var client = new HttpClient())
-            {
-                //setup client
-                client.BaseAddress = new Uri(address);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                //setup login data
-                var formContent = new FormUrlEncodedContent(new[]
-                {
-                    new KeyValuePair<string, string>("grant_type", "password"),
-                    new KeyValuePair<string, string>("username", Email),
-                    new KeyValuePair<string, string>("password", Password),
-                });
-
-                //send request
-                HttpResponseMessage responseMessage = await client.PostAsync("/Token", formContent);
-
-                //get access token from response body
-                var responseJson = await responseMessage.Content.ReadAsStringAsync();
-                var jObject = JObject.Parse(responseJson);
-                return jObject.GetValue("access_token").ToString();
-            }
-        }
-    }
-
-    class AuthenticatedHttpClientHandler : HttpClientHandler
-    {
-        private readonly Func<Task<string>> getToken;
-
-        public AuthenticatedHttpClientHandler(Func<Task<string>> getToken)
-        {
-            if (getToken == null) throw new ArgumentNullException("getToken");
-            this.getToken = getToken;
-        }
-
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            // See if the request has an authorize header
-            var auth = request.Headers.Authorization;
-            if (auth != null)
-            {
-                var token = await getToken().ConfigureAwait(false);
-                request.Headers.Authorization = new AuthenticationHeaderValue(auth.Scheme, token);
-            }
-
-            return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
-        }
     }
 }

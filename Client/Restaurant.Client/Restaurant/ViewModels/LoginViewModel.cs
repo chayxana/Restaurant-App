@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using ReactiveUI;
 using Refit;
 using Restaurant.Model;
+using Restaurant.Models;
 using Splat;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reactive.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
@@ -19,15 +21,15 @@ namespace Restaurant.ViewModels
 {
     public class LoginViewModel : ReactiveObject, IRoutableViewModel
     {
-        string address = "http://192.168.56.1:13900/";
-
         public IScreen HostScreen { get; set; }
 
         public string UrlPathSegment
         {
             get { return "Login"; }
         }
-        public ReactiveCommand<string> Login { get; set; }
+        public ReactiveCommand<AuthenticationResult> Login { get; set; }
+
+        public ReactiveCommand<object> OpenRegester { get; set; }
 
         private string email;
 
@@ -46,32 +48,51 @@ namespace Restaurant.ViewModels
         }
         public LoginViewModel(IScreen screen = null)
         {
-
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
-            var canLogin = this.WhenAny(x => x.Password, x => !string.IsNullOrEmpty(x.Value));
-            Login = ReactiveCommand.CreateAsyncTask(async _ =>
+            
+            var canLogin = this.WhenAny(x => x.Email, x => x.Password, (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
+            Login = ReactiveCommand.CreateAsyncTask(canLogin, async _ =>
             {
-                //var api = RestService.For<IRestaurantApi>(new HttpClient(new AuthenticatedHttpClientHandler(GetToken)) { BaseAddress = new Uri(address) });
-
                 var client = new HttpClient(NetCache.UserInitiated)
                 {
-                    BaseAddress = new Uri(address)
+                    BaseAddress = new Uri(Helper.address)
                 };
 
                 var api = RestService.For<IRestaurantApi>(client);
-                var a = await api.GetToken(Email, Password);
-                //var result = await GetToken();
-                return "";
+                var token = await api.GetToken(Email, Password);
+                return token;
             });
-            Login.Subscribe(l =>
-            {
-                Debug.WriteLine("Bla bla!");
-            });
+
+            Login.Subscribe(l => Helper.Token = l.access_token);
 
             Login.ThrownExceptions.Subscribe(ex =>
             {
                 Debug.WriteLine("Error! - " + ex.Message);
             });
+
+
+
+
+            OpenRegester = ReactiveCommand.Create();
+            OpenRegester.Subscribe(x =>
+            {
+                var viewModel = Locator.Current.GetService<RegesterViewModel>();
+                if (viewModel == null)
+                {
+                    var regViewModel = new RegesterViewModel(HostScreen);
+                    Locator.CurrentMutable.RegisterConstant(regViewModel, typeof(RegesterViewModel));
+                    HostScreen.Router.Navigate.Execute(viewModel);
+                }
+                else
+                {
+                    HostScreen.Router.Navigate.Execute(viewModel);
+                }
+            });
+            OpenRegester.ThrownExceptions.Subscribe(ex =>
+            {
+
+            });
+
         }
     }
 }

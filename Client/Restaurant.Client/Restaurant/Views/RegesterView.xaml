@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Restaurant.Views.RegesterView">
+  <ContentPage.Content>
+    <StackLayout Orientation="Vertical" VerticalOptions="Center">
+      <StackLayout Orientation="Vertical" Padding="15">
+        <Entry x:Name="RegesterEmail" Placeholder="Email" HorizontalOptions="FillAndExpand" Text="{Binding RegesterEmail}" />
+      </StackLayout>
+
+      <StackLayout Orientation="Vertical" Padding="15">
+        <Entry x:Name="RegesterPassword" Placeholder="Password" HorizontalOptions="FillAndExpand" IsPassword="true" Text="{Binding RegesterPassword}"/>
+      </StackLayout>
+
+      <StackLayout Orientation="Vertical" Padding="15">
+        <Entry x:Name="RegesterConfirmPassword" Placeholder="Confirm password" HorizontalOptions="FillAndExpand" IsPassword="true" Text="{Binding ConfirmPassword}"/>
+      </StackLayout>
+
+
+      <Button x:Name="Regester" Text="Regester" Command="{Binding Regester}" HorizontalOptions="Center"/>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

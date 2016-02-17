@@ -21,6 +21,7 @@ namespace Restaurant.Views
             this.Bind(ViewModel, vm => vm.Email, v => v.Email.Text);
             this.Bind(ViewModel, vm => vm.Password, v => v.Password.Text);
             this.BindCommand(ViewModel, vm => vm.Login, v => v.Login);
+            this.BindCommand(ViewModel, vm => vm.OpenRegester, v => v.OpenRegester);
         }
 
         public LoginViewModel ViewModel

@@ -20,7 +20,7 @@ namespace Restaurant
         public App()
         {
             var app = new AppBotstrapper();
-            MainPage = app.MainPage();           
+            MainPage = app.MainPage();
         }
 
         protected override void OnStart()
@@ -66,6 +66,8 @@ namespace Restaurant
             Locator.CurrentMutable.RegisterConstant(new NativeMessageHandler(), typeof(HttpMessageHandler));
 
             Locator.CurrentMutable.Register(() => new LoginView(), typeof(IViewFor<LoginViewModel>));
+
+            Locator.CurrentMutable.Register(() => new RegesterView(), typeof(IViewFor<RegesterViewModel>));
 
             Router.Navigate.Execute(new LoginViewModel(this));
         }

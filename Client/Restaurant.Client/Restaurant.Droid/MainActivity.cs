@@ -20,7 +20,8 @@ namespace Restaurant.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
-                 UserError.RegisterHandler(ue => {
+            UserError.RegisterHandler(ue =>
+            {
                 var toast = Toast.MakeText(this, ue.ErrorMessage, ToastLength.Short);
                 toast.Show();
 

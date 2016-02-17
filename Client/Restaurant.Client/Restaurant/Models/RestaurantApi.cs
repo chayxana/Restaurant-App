@@ -12,11 +12,11 @@ namespace Restaurant.Model
     public interface IRestaurantApi
     {
         [Post("/api/Account/Register")]
-        Task<object> RegesterRaw(string email, string password);
+        Task<object> RegesterRaw([Body(BodySerializationMethod.UrlEncoded)] Dictionary<string, string> form);
         
         [Post("/Token")]
         [Headers("Content-Type: application/x-www-form-urlencoded")]
-        Task<object> GetTokenRaw([Body(BodySerializationMethod.UrlEncoded)] Dictionary<string, string> form);
+        Task<AuthenticationResult> GetTokenRaw([Body(BodySerializationMethod.UrlEncoded)] Dictionary<string, string> form);
 
         [Get("/api/Values")]
         [Headers("Authorization: Bearer")]
@@ -25,12 +25,18 @@ namespace Restaurant.Model
 
     public static class RestaurantApiExtensions
     {
-        public static Task<object> Regester(this IRestaurantApi This, string email, string password)
+        public static Task<object> Regester(this IRestaurantApi This, string email, string password, string confirmPassword)
         {
-            return This.RegesterRaw(email, password);
+            var dict = new Dictionary<string, string>
+            {
+                { "Email", email },
+                { "Password", password},
+                { "ConfirmPassword", confirmPassword }
+            };
+            return This.RegesterRaw(dict);
         }
 
-        public static Task<object> GetToken(this IRestaurantApi This, string email, string password)
+        public static Task<AuthenticationResult> GetToken(this IRestaurantApi This, string email, string password)
         {
             var dict = new Dictionary<string, string>
             {

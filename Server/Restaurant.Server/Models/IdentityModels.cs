@@ -66,9 +66,13 @@ namespace Restaurant.Server.Models
     public class Order
     {
         public Guid Id { get; set; }
+
         public virtual User User { get; set; }
+
         public virtual Food Food { get; set; }
+
         public int Quantity { get; set; }
+
         public DateTime OrderDate { get; set; }
     }
 }

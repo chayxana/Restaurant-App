@@ -87,6 +87,7 @@ namespace Restaurant.ViewModels
 
             Regester.Subscribe(r => 
             {
+                MessageBus.Current.SendMessage("User regestred!");
                 Debug.WriteLine("Complete!");
             });
 

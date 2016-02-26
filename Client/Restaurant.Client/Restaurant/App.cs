@@ -69,6 +69,8 @@ namespace Restaurant
 
             Locator.CurrentMutable.Register(() => new RegesterView(), typeof(IViewFor<RegesterViewModel>));
 
+            Locator.CurrentMutable.Register(() => new MainView(), typeof(IViewFor<MainViewModel>));
+
             Router.Navigate.Execute(new LoginViewModel(this));
         }
 

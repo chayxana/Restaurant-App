@@ -49,7 +49,7 @@ namespace Restaurant.ViewModels
         public LoginViewModel(IScreen screen = null)
         {
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
-            
+
             var canLogin = this.WhenAny(x => x.Email, x => x.Password, (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
             Login = ReactiveCommand.CreateAsyncTask(canLogin, async _ =>
             {
@@ -63,15 +63,16 @@ namespace Restaurant.ViewModels
                 return token;
             });
 
-            Login.Subscribe(l => Helper.Token = l.access_token);
+            Login.Subscribe(l => 
+            {
+                HostScreen.Router.Navigate.Execute(new MainViewModel(l));
+            });
 
             Login.ThrownExceptions.Subscribe(ex =>
             {
+                UserError.Throw("Invalid login or password!");
                 Debug.WriteLine("Error! - " + ex.Message);
             });
-
-
-
 
             OpenRegester = ReactiveCommand.Create();
             OpenRegester.Subscribe(x =>
@@ -81,7 +82,7 @@ namespace Restaurant.ViewModels
                 {
                     var regViewModel = new RegesterViewModel(HostScreen);
                     Locator.CurrentMutable.RegisterConstant(regViewModel, typeof(RegesterViewModel));
-                    HostScreen.Router.Navigate.Execute(viewModel);
+                    HostScreen.Router.Navigate.Execute(regViewModel);
                 }
                 else
                 {

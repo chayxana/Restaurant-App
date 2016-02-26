@@ -35,7 +35,7 @@ namespace Restaurant.Server.Models
                 Database.CreateIfNotExists();
             }
         }
-        
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
@@ -51,15 +51,13 @@ namespace Restaurant.Server.Models
     {
         public Food()
         {
-            this.Orders = new HashSet<Order>();
+            Orders = new HashSet<Order>();
         }
         public Guid Id { get; set; }
 
         public string Name { get; set; }
 
         public decimal Price { get; set; }
-
-        public double Quantity { get; set; }
 
         public ICollection<Order> Orders { get; set; }
     }
@@ -68,16 +66,9 @@ namespace Restaurant.Server.Models
     public class Order
     {
         public Guid Id { get; set; }
-
-        public DateTime OrderDate { get; set; }
-
         public virtual User User { get; set; }
-
         public virtual Food Food { get; set; }
-
-    }
-    public class Food
-    {
-
+        public int Quantity { get; set; }
+        public DateTime OrderDate { get; set; }
     }
 }

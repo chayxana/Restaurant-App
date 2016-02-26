@@ -76,4 +76,8 @@ namespace Restaurant.Server.Models
         public virtual Food Food { get; set; }
 
     }
+    public class Food
+    {
+
+    }
 }

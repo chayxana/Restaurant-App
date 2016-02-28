@@ -17,6 +17,14 @@ namespace Restaurant.ViewModels
 {
     public class RegesterViewModel : ReactiveObject, IRoutableViewModel
     {
+        private bool isLoading;
+
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set { this.RaiseAndSetIfChanged(ref isLoading, value); }
+        }
+
         public IScreen HostScreen { get; }
 
         public string UrlPathSegment
@@ -78,11 +86,14 @@ namespace Restaurant.ViewModels
             {
                 var client = new HttpClient(NetCache.UserInitiated)
                 {
-                    BaseAddress = new Uri(Helper.address)
+                    BaseAddress = new Uri(Helper.Address)
                 };
                 var api = RestService.For<IRestaurantApi>(client);
-                var result = await api.Regester(this.RegesterEmail, this.RegesterPassword, this.ConfirmPassword);
-                return result;
+                IsLoading = true;
+                //var result = await api.Regester(this.RegesterEmail, this.RegesterPassword, this.ConfirmPassword);
+                await Task.Delay(4000);
+                IsLoading = false;
+                return new object();
             });
 
             Regester.Subscribe(r => 
@@ -93,6 +104,7 @@ namespace Restaurant.ViewModels
 
             Regester.ThrownExceptions.Subscribe(ex =>
             {
+                IsLoading = false;
                 Debug.WriteLine("Error!");
             });
         }

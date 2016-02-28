@@ -17,7 +17,7 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v4.4</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
@@ -162,6 +162,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\AndroidManifest.xml" />
+    <AndroidResource Include="Resources\values\colors.xml" />
+    <AndroidResource Include="Resources\values\styles.xml" />
+    <AndroidResource Include="Resources\values-v21\styles.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_email.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_key_variant.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\ic_email.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\ic_key_variant.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_email.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_key_variant.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_email.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_key_variant.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_email.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_key_variant.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_email.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_key_variant.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Restaurant\Restaurant.csproj">

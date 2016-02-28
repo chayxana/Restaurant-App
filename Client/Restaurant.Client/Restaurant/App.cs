@@ -45,9 +45,13 @@ namespace Restaurant
         // in this object, it will be serialized automatically.
         public RoutingState Router { get; protected set; }
 
+        public RouterHost RouterHost { get; protected set; }
+
         public AppBotstrapper()
         {
             Router = new RoutingState();
+            RouterHost = new RouterHost();
+
             Locator.CurrentMutable.RegisterConstant(this, typeof(IScreen));
 
             // Set up Akavache
@@ -71,12 +75,24 @@ namespace Restaurant
 
             Locator.CurrentMutable.Register(() => new MainView(), typeof(IViewFor<MainViewModel>));
 
-            Router.Navigate.Execute(new LoginViewModel(this));
+            var a = new LoginViewModel(this);
+            Locator.CurrentMutable.RegisterConstant(a, typeof(LoginViewModel));
+
+
+            Router.Navigate.Execute(a);
         }
 
         public Page MainPage()
         {
-            return new RoutedViewHost();
+            return new ViewModels.RoutedViewHost();
         }
+    }
+    public class RouterHost : RoutingState
+    {
+        public RouterHost() : base()
+        {
+            PopToRoot = ReactiveCommand.Create();               
+        }
+        public ReactiveCommand<object> PopToRoot { get; set; }
     }
 }

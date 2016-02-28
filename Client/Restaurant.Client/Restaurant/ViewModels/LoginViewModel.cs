@@ -48,14 +48,15 @@ namespace Restaurant.ViewModels
         }
         public LoginViewModel(IScreen screen = null)
         {
-            HostScreen = screen ?? Locator.Current.GetService<IScreen>();
-
+            HostScreen = (screen ?? Locator.Current.GetService<IScreen>());
+            
             var canLogin = this.WhenAny(x => x.Email, x => x.Password, (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
             Login = ReactiveCommand.CreateAsyncTask(canLogin, async _ =>
             {
+                Debug.WriteLine(Helper.Address);
                 var client = new HttpClient(NetCache.UserInitiated)
                 {
-                    BaseAddress = new Uri(Helper.address)
+                    BaseAddress = new Uri(Helper.Address)
                 };
 
                 var api = RestService.For<IRestaurantApi>(client);
@@ -65,7 +66,8 @@ namespace Restaurant.ViewModels
 
             Login.Subscribe(l => 
             {
-                HostScreen.Router.Navigate.Execute(new MainViewModel(l));
+                //(HostScreen as AppBotstrapper).RouterHost.PopToRoot.Execute(new MainViewModel(l));
+                HostScreen.Router.NavigateAndReset.Execute(new MainViewModel(l));
             });
 
             Login.ThrownExceptions.Subscribe(ex =>
@@ -83,6 +85,7 @@ namespace Restaurant.ViewModels
                     var regViewModel = new RegesterViewModel(HostScreen);
                     Locator.CurrentMutable.RegisterConstant(regViewModel, typeof(RegesterViewModel));
                     HostScreen.Router.Navigate.Execute(regViewModel);
+                    //(HostScreen as AppBotstrapper).RouterHost.PushAsync.Execute(regViewModel);
                 }
                 else
                 {

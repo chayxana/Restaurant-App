@@ -3,21 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Restaurant.Views.RegesterView">
   <ContentPage.Content>
-    <StackLayout Orientation="Vertical" VerticalOptions="Center">
-      <StackLayout Orientation="Vertical" Padding="15">
-        <Entry x:Name="RegesterEmail" Placeholder="Email" HorizontalOptions="FillAndExpand" Text="{Binding RegesterEmail}" />
+    <StackLayout VerticalOptions="Center" Padding="25">
+      <StackLayout Orientation="Vertical" x:Name="regesterStack">
+        <StackLayout Orientation="Vertical" Padding="15">
+          <Entry x:Name="RegesterEmail" Placeholder="Email" HorizontalOptions="FillAndExpand" Text="{Binding RegesterEmail}" />
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical" Padding="15">
+          <Entry x:Name="RegesterPassword" Placeholder="Password" HorizontalOptions="FillAndExpand" IsPassword="true" Text="{Binding RegesterPassword}"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical" Padding="15">
+          <Entry x:Name="RegesterConfirmPassword" Placeholder="Confirm password" HorizontalOptions="FillAndExpand" IsPassword="true" Text="{Binding ConfirmPassword}"/>
+        </StackLayout>
+
+
+        <Button x:Name="Regester" Text="Regester" Command="{Binding Regester}" WidthRequest="300" HorizontalOptions="Center"/>
       </StackLayout>
-
-      <StackLayout Orientation="Vertical" Padding="15">
-        <Entry x:Name="RegesterPassword" Placeholder="Password" HorizontalOptions="FillAndExpand" IsPassword="true" Text="{Binding RegesterPassword}"/>
+      <StackLayout x:Name="loadingLayout" Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="False">
+        <Label VerticalOptions="Center">Please wait...</Label>
+        <ActivityIndicator VerticalOptions="Center" IsRunning="{Binding IsLoading}"></ActivityIndicator>
       </StackLayout>
-
-      <StackLayout Orientation="Vertical" Padding="15">
-        <Entry x:Name="RegesterConfirmPassword" Placeholder="Confirm password" HorizontalOptions="FillAndExpand" IsPassword="true" Text="{Binding ConfirmPassword}"/>
-      </StackLayout>
-
-
-      <Button x:Name="Regester" Text="Regester" Command="{Binding Regester}" HorizontalOptions="Center"/>
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>

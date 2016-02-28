@@ -17,6 +17,20 @@ namespace Restaurant.Views
         {
             InitializeComponent();
             ViewModel = Locator.Current.GetService<RegesterViewModel>();
+            ViewModel.WhenAnyValue(x => x.IsLoading).Subscribe((x) => 
+            {
+                if (x)
+                {
+                    loadingLayout.IsVisible = true;
+                    regesterStack.IsVisible = false;
+                }
+                else
+                {
+                    loadingLayout.IsVisible = false;
+                    regesterStack.IsVisible = true;
+                }
+            });
+            
             BindingContext = ViewModel;
         }
 

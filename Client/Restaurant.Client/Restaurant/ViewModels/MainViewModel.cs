@@ -10,15 +10,16 @@ namespace Restaurant.ViewModels
 {
     public class MainViewModel : ReactiveObject, IRoutableViewModel
     {
+        AuthenticationResult Model;
         public MainViewModel(AuthenticationResult result)
         {
-
+            Model = result;
         }
         public IScreen HostScreen { get; set; }
 
         public string UrlPathSegment
         {
-            get { return "Restaurant"; }
+            get { return Model.userName; }
         }
     }
 }

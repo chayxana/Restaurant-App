@@ -1,16 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- For honeycomb and up -->
 <resources>
-  <style name="MyTheme.Base" parent="@android:style/Theme.Holo.Light.DarkActionBar"> 
-    
-  </style>
-  <style name="MyTheme" parent="MyTheme.Base">
-    <item name="android:actionBarStyle">@style/MyTheme.ActionBarStyle</item>
-  </style>
-  <style name="MyTheme.ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
-    <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
-    <item name="android:background">@color/primary</item>
-  </style>
-  <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-    <item name="android:textColor">@android:color/white</item>
+
+    <!--<style name="myTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/myTheme.ActionBar</item>
+        <item name="android:actionMenuTextColor">@color/textPrimary</item>
+    </style>
+
+    <style name="myTheme.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/bluePrimary</item>
+        <item name="android:titleTextStyle">@style/myTheme.ActionBar.Text</item>
+    </style>
+
+    <style name="myTheme.ActionBar.Text" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/textPrimary</item>
+    </style>-->
+
+  <style name="MyTheme" parent="@android:style/Theme.Material.Light.DarkActionBar">
+    <item name="android:windowContentOverlay">@null</item>
+    <item name="android:windowActionBarOverlay">true</item>
+    <item name="android:actionMenuTextColor">@color/textPrimary</item>
   </style>
 </resources>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:WelcomeStartPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Restaurant.Pages;assembly=Restaurant"
+             xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
+             x:Class="Restaurant.Pages.WelcomeStartPage">
+
+  <local:WelcomeStartPageXaml.Content>
+    <Grid VerticalOptions="Fill" HorizontalOptions="Fill" Padding="24" x:Name="mainGrid">
+      <StackLayout x:Name="label1" Padding="24,0" Scale="0" VerticalOptions="Center">
+        <Label StyleId="label1" Style="{StaticResource whiteLabelStyle}" Text="It looks like this is your first time challenging sport and ranking match. Let's get you registered, athlete!"
+					FontSize="Medium" XAlign="Center" />
+      </StackLayout>
+
+      <StackLayout x:Name="label2" Grid.Row="1" Padding="24,0" Scale="0" VerticalOptions="Center">
+        <Label StyleId="label2" Text="First thing's first, you must log into the mainframe." Style="{StaticResource whiteLabelStyle}" FontSize="Medium" XAlign="Center" />
+      </StackLayout>
+
+      <StackLayout x:Name="buttonStack" Spacing="0" Scale="0" VerticalOptions="End" Grid.Row="2">
+        <ActivityIndicator  IsRunning="{Binding IsBusy}" Color="White" HorizontalOptions="Center"
+					VerticalOptions="EndAndExpand" />
+
+        <Label Text="{Binding AuthenticationStatus, StringFormat='\{0\}...'}" FontSize="Medium"
+					XAlign="Center" YAlign="Center" VerticalOptions="EndAndExpand" Style="{StaticResource whiteLabelStyle}"/>
+        
+          <controls:AnimateButton x:Name="btnAuthenticate" StyleId="authButton" Text="LOG IN" BackgroundColor="{StaticResource blueLight}" TextColor="White"/>
+
+      </StackLayout>
+
+      <StackLayout Grid.Row="3" x:Name="signUpStack">
+        <Button x:Name="SignUpButton" Text="SIGN UP" TextColor="{StaticResource asphaltPrimary}" FontSize="12" BackgroundColor="Transparent"/>
+      </StackLayout>
+    </Grid>
+
+  </local:WelcomeStartPageXaml.Content>
+</local:WelcomeStartPageXaml>

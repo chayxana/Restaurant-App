@@ -22,6 +22,7 @@ namespace Restaurant.Droid
             ActionBar.SetIcon(new ColorDrawable(Resources.GetColor(Android.Resource.Color.Transparent)));
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+                       
             //if ((int)Android.OS.Build.VERSION.SdkInt >= 21) {  }
 
             UserError.RegisterHandler(ue =>
@@ -33,6 +34,7 @@ namespace Restaurant.Droid
             });
 
             LoadApplication(new App());
+            
 
         }
     }

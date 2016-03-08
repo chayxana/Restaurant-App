@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:AuthenticationPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Restaurant.Pages;assembly=Restaurant"
+             xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
+             x:Class="Restaurant.Pages.AuthenticationPage">
+  <local:AuthenticationPageXaml.Resources>
+    <ResourceDictionary>
+      <Style TargetType="Label" BasedOn="{StaticResource whiteLabelStyle}" />
+    </ResourceDictionary>
+  </local:AuthenticationPageXaml.Resources>
+  <local:AuthenticationPageXaml.Content>
+    <StackLayout Orientation="Vertical" VerticalOptions="Center">
+      <StackLayout.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+          <OnPlatform.iOS>
+            10, 10, 10, 10
+          </OnPlatform.iOS>
+          <OnPlatform.Android>
+            25, 25, 25, 25
+          </OnPlatform.Android>
+          <OnPlatform.WinPhone>
+            10, 10, 10, 10
+          </OnPlatform.WinPhone>
+        </OnPlatform>
+      </StackLayout.Padding>
+
+      <StackLayout Orientation="Vertical" Padding="10">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <Image Source="ic_email.png" HeightRequest="25" Grid.Column="0" WidthRequest="25"
+                 VerticalOptions="Center"></Image>
+
+          <controls:RestaurantEntry x:Name="Email" Placeholder="Enter your email"
+                                    Grid.Column="1" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HasBorder="False"/>
+        </Grid>
+
+        <ContentView BackgroundColor="{StaticResource redDark}" HorizontalOptions="Fill" >
+          <ContentView.HeightRequest>
+            <OnPlatform x:TypeArguments="x:Double" iOS="1"  Android="0"/>
+          </ContentView.HeightRequest>
+        </ContentView>
+      </StackLayout>
+
+
+
+      <StackLayout Orientation="Vertical" Padding="10">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <Image Source="ic_key_variant.png" Grid.Column="0" WidthRequest="25" HeightRequest="25" VerticalOptions="Center"></Image>
+          <controls:RestaurantEntry HasBorder="False" x:Name="Password"
+                                    Placeholder="Enter password" Grid.Column="1"
+                                    HorizontalOptions="FillAndExpand" IsPassword="true"/>
+        </Grid>
+        <ContentView BackgroundColor="{StaticResource redDark}" HorizontalOptions="Fill" >
+          <ContentView.HeightRequest>
+            <OnPlatform x:TypeArguments="x:Double" iOS="1"  Android="0"/>
+          </ContentView.HeightRequest>
+        </ContentView>
+
+      </StackLayout>
+      <StackLayout Orientation="Vertical" Padding="10">
+        <controls:AnimateButton x:Name="Login" Text="Log In" BackgroundColor="{StaticResource redLight}"/>
+      </StackLayout>
+
+
+    </StackLayout>
+  </local:AuthenticationPageXaml.Content>
+
+</local:AuthenticationPageXaml>

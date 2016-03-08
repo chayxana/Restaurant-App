@@ -3,6 +3,7 @@ using ReactiveUI;
 using Refit;
 using Restaurant.Model;
 using Restaurant.Models;
+using Restaurant.ReactiveUI;
 using Splat;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant.ViewModels
 {
-    public class RegesterViewModel : ReactiveObject, IRoutableViewModel
+    public class RegesterViewModel : ReactiveObject, INavigatableViewModel
     {
         private bool isLoading;
 
@@ -24,17 +25,6 @@ namespace Restaurant.ViewModels
             get { return isLoading; }
             set { this.RaiseAndSetIfChanged(ref isLoading, value); }
         }
-
-        public IScreen HostScreen { get; }
-
-        public string UrlPathSegment
-        {
-            get
-            {
-                return "Regester";
-            }
-        }
-
 
         private string email;
 
@@ -68,9 +58,19 @@ namespace Restaurant.ViewModels
 
         public ReactiveCommand<object> Regester { get; set; }
 
-        public RegesterViewModel(IScreen screen = null)
+        public INavigatableScreen NavigationScreen { get; private set; }
+
+        public string Title
         {
-            HostScreen = screen ?? Locator.Current.GetService<IScreen>();
+            get
+            {
+                return "Sign Up";
+            }
+        }
+
+        public RegesterViewModel(INavigatableScreen screen = null)
+        {
+            NavigationScreen = screen ?? Locator.Current.GetService<INavigatableScreen>();
 
             var canRegester = this.WhenAny(
                                     x => x.RegesterEmail,
@@ -90,7 +90,7 @@ namespace Restaurant.ViewModels
                 };
                 var api = RestService.For<IRestaurantApi>(client);
                 IsLoading = true;
-                //var result = await api.Regester(this.RegesterEmail, this.RegesterPassword, this.ConfirmPassword);
+                var result = await api.Regester(this.RegesterEmail, this.RegesterPassword, this.ConfirmPassword);
                 await Task.Delay(4000);
                 IsLoading = false;
                 return new object();

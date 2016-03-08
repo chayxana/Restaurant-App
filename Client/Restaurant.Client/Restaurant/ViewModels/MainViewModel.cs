@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using Restaurant.Model;
+using Restaurant.ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,18 +9,26 @@ using System.Threading.Tasks;
 
 namespace Restaurant.ViewModels
 {
-    public class MainViewModel : ReactiveObject, IRoutableViewModel
+    public class MainViewModel : ReactiveObject, INavigatableViewModel
     {
-        AuthenticationResult Model;
-        public MainViewModel(AuthenticationResult result)
+        public MainViewModel()
         {
-            Model = result;
         }
-        public IScreen HostScreen { get; set; }
 
-        public string UrlPathSegment
+        public INavigatableScreen NavigationScreen
         {
-            get { return Model.userName; }
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string Title
+        {
+            get
+            {
+                return "Main";
+            }
         }
     }
 }

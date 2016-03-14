@@ -22,7 +22,7 @@ namespace Restaurant.ViewModels
         {
             get
             {
-                throw new NotImplementedException();
+                return "Foods";
             }
         }
     }

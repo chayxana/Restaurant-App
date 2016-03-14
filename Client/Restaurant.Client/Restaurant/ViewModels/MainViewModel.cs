@@ -1,8 +1,11 @@
 ﻿using ReactiveUI;
 using Restaurant.Model;
+using Restaurant.Models;
+using Restaurant.Pages.MainPages;
 using Restaurant.ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,16 +14,16 @@ namespace Restaurant.ViewModels
 {
     public class MainViewModel : ReactiveObject, INavigatableViewModel
     {
-        public MainViewModel()
+        public ClientUser User { get; set; }
+
+        public MainViewModel(ClientUser user)
         {
+            User = user;
         }
 
         public INavigatableScreen NavigationScreen
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get;
         }
 
         public string Title
@@ -30,5 +33,13 @@ namespace Restaurant.ViewModels
                 return "Main";
             }
         }
+    }
+    public class MasterPageItem
+    {
+        public string Title { get; set; }
+
+        public string IconSource { get; set; }
+
+        public Type TargetType { get; set; }
     }
 }

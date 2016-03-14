@@ -48,13 +48,13 @@ namespace Restaurant.iOS.Renderers
             {
                 NavigationBar.BarTintColor = basePage.ActionBarBackgroundColor.ToUIColor();
                 NavigationBar.TintColor = basePage.ActionBarTextColor.ToUIColor();
-
+                
                 var titleAttributes = new UIStringAttributes();
                 titleAttributes.Font = UIFont.FromName("SegoeUI", 22);
                 titleAttributes.ForegroundColor = basePage.ActionBarTextColor == Color.Default ? titleAttributes.ForegroundColor ?? UINavigationBar.Appearance.TintColor : basePage.ActionBarTextColor.ToUIColor();
                 NavigationBar.TitleTextAttributes = titleAttributes;
 
-                UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
+                UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;                
             }
         }
     }

@@ -1,6 +1,74 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<local:SignUpPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Restaurant.Pages.SignUpPage">
-  <Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
-</ContentPage>
+             x:Class="Restaurant.Pages.SignUpPage"
+             xmlns:local="clr-namespace:Restaurant.Pages;assembly=Restaurant"
+             xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant">
+  <local:SignUpPageXaml.Content>
+    <StackLayout VerticalOptions="Center" Padding="25">
+      <StackLayout Orientation="Vertical" x:Name="regesterStack">
+        <StackLayout Orientation="Vertical" Padding="15">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="ic_email.png" HeightRequest="25" Grid.Column="0" WidthRequest="25"
+                   VerticalOptions="Center"></Image>
+
+            <controls:RestaurantEntry x:Name="RegesterEmail" Text="{Binding RegesterEmail}" Placeholder="Enter your email"
+                                      Grid.Column="1" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HasBorder="False"/>
+          </Grid>
+          <ContentView BackgroundColor="{StaticResource indigoPrimary}" HorizontalOptions="Fill" >
+            <ContentView.HeightRequest>
+              <OnPlatform x:TypeArguments="x:Double" iOS="1"  Android="0"/>
+            </ContentView.HeightRequest>
+          </ContentView>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical" Padding="15">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="ic_key_variant.png" Grid.Column="0" WidthRequest="25" HeightRequest="25" VerticalOptions="Center"></Image>
+            <controls:RestaurantEntry HasBorder="False" x:Name="RegesterPassword" Placeholder="Password" Grid.Column="1"
+                                      HorizontalOptions="FillAndExpand" IsPassword="true" Text="{Binding RegesterPassword}"/>
+          </Grid>
+          <ContentView BackgroundColor="{StaticResource indigoPrimary}" HorizontalOptions="Fill" >
+            <ContentView.HeightRequest>
+              <OnPlatform x:TypeArguments="x:Double" iOS="1"  Android="0"/>
+            </ContentView.HeightRequest>
+          </ContentView>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical" Padding="15">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="ic_key_variant.png" Grid.Column="0" WidthRequest="25" HeightRequest="25" VerticalOptions="Center"></Image>
+            <controls:RestaurantEntry HasBorder="False" x:Name="RegesterConfirmPassword" Placeholder="Confirm password" Grid.Column="1"
+                                      HorizontalOptions="FillAndExpand" IsPassword="true" Text="{Binding ConfirmPassword}"/>
+          </Grid>
+          <ContentView BackgroundColor="{StaticResource indigoPrimary}" HorizontalOptions="Fill" >
+            <ContentView.HeightRequest>
+              <OnPlatform x:TypeArguments="x:Double" iOS="1"  Android="0"/>
+            </ContentView.HeightRequest>
+          </ContentView>
+        </StackLayout>
+
+
+        <StackLayout Padding="15">
+          <controls:AnimateButton x:Name="Regester" Text="Sign Up" Command="{Binding Regester}"  BackgroundColor="{StaticResource indigoPinkAccent}" WidthRequest="300" HorizontalOptions="Center"/>
+        </StackLayout>
+      </StackLayout>
+      <StackLayout x:Name="loadingLayout" Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="End" IsVisible="False">
+        <Label VerticalOptions="Center" TextColor="{StaticResource asphaltPrimary}">Please wait...</Label>
+        <ActivityIndicator VerticalOptions="Center" IsRunning="{Binding IsLoading}"></ActivityIndicator>
+      </StackLayout>
+    </StackLayout>
+  </local:SignUpPageXaml.Content>
+</local:SignUpPageXaml>

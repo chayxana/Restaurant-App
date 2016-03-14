@@ -23,9 +23,9 @@ namespace Restaurant.ViewModels
     public class AuthenticationViewModel : ReactiveObject, INavigatableViewModel
     {
 
-        private App.ColorTheme theme;
+        private ColorTheme theme;
 
-        public App.ColorTheme Theme
+        public ColorTheme Theme
         {
             get { return theme; }
             set { this.RaiseAndSetIfChanged(ref theme, value); }
@@ -35,6 +35,8 @@ namespace Restaurant.ViewModels
         public ReactiveCommand<AuthenticationResult> Login { get; set; }
 
         public ReactiveCommand<object> OpenRegester { get; set; }
+
+        public ReactiveCommand<object> OpenLogin { get; set; }
 
         private string email;
 
@@ -52,38 +54,47 @@ namespace Restaurant.ViewModels
             set { this.RaiseAndSetIfChanged(ref password, value); }
         }
 
+        private string authenticationStatus;
+
+        public string AuthenticationStatus
+        {
+            get { return authenticationStatus; }
+            set { this.RaiseAndSetIfChanged(ref authenticationStatus, value); }
+        }
+
         public INavigatableScreen NavigationScreen { get; protected set; }
 
         public string Title
         {
-            get { return "Login"; }
+            get { return "Authentication"; }
         }
 
         public AuthenticationViewModel(INavigatableScreen screen = null)
         {
             NavigationScreen = (screen ?? Locator.Current.GetService<INavigatableScreen>());
 
-            var canLogin = this.WhenAny(x => x.Email, x => x.Password, (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
-            Login = ReactiveCommand.CreateAsyncTask<AuthenticationResult>(canLogin, async _ =>
+            var canLogin = this.WhenAny(x => x.Email, x => x.Password,
+                (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
+
+
+            Login = ReactiveCommand.CreateAsyncTask(canLogin, async _ =>
              {
                  Debug.WriteLine(Helper.Address);
                  var client = new HttpClient(NetCache.UserInitiated)
                  {
                      BaseAddress = new Uri(Helper.Address)
                  };
-
                  var api = RestService.For<IRestaurantApi>(client);
                  var token = await api.GetToken(Email, Password);
                  return token;
              });
 
-            //Login = ReactiveCommand.Create();
+            Login.Subscribe(token =>
+            {
+                var mainViewModel = new MainViewModel(new ClientUser(token.access_token));
+                NavigationScreen.Navigation.Navigate.Execute(mainViewModel);
+            });
 
-            //Login.Subscribe(l =>
-            //{
-            //    //(HostScreen as AppBotstrapper).RouterHost.PopToRoot.Execute(new MainViewModel(l));
-            //    NavigationScreen.Navigation.NavigateAndChangeRoot.Execute(new MainViewModel());
-            //});
 
             Login.ThrownExceptions.Subscribe(ex =>
             {
@@ -91,26 +102,32 @@ namespace Restaurant.ViewModels
                 Debug.WriteLine("Error! - " + ex.Message);
             });
 
+
+            #region OpenRegester
             OpenRegester = ReactiveCommand.Create();
             OpenRegester.Subscribe(x =>
             {
-                var viewModel = Locator.Current.GetService<RegesterViewModel>();
+                var viewModel = Locator.Current.GetService<SignUpViewModel>();
                 if (viewModel == null)
                 {
-                    var regViewModel = new RegesterViewModel(NavigationScreen);
-                    Locator.CurrentMutable.RegisterConstant(regViewModel, typeof(RegesterViewModel));
+                    var regViewModel = new SignUpViewModel(NavigationScreen);
+                    Locator.CurrentMutable.RegisterConstant(regViewModel, typeof(SignUpViewModel));
                     NavigationScreen.Navigation.Navigate.Execute(regViewModel);
-                    //(HostScreen as AppBotstrapper).RouterHost.PushAsync.Execute(regViewModel);
                 }
                 else
                 {
                     NavigationScreen.Navigation.Navigate.Execute(viewModel);
                 }
             });
-            OpenRegester.ThrownExceptions.Subscribe(ex =>
-            {
 
+
+            OpenLogin = ReactiveCommand.Create();
+            OpenLogin.Subscribe(x =>
+            {
+                var authenViewModel = Locator.Current.GetService<AuthenticationViewModel>();
+                NavigationScreen.Navigation.Navigate.Execute(authenViewModel);
             });
+            #endregion
 
         }
     }

@@ -65,9 +65,13 @@ namespace Restaurant.Server.Controllers
         {
             try
             {
-                bool result = Context.Foods.Remove(food);
-                if (result)
+                var result = GetFoods().SingleOrDefault(f => f.Id == food.Id);
+                if (result != null)
                 {
+                    result.Name = food.Name;
+                    result.Orders = food.Orders;
+                    result.Price = food.Price;
+                    result.Type = food.Type;
                     Context.SaveChanges();
                     return Ok(new ResultResponce { IsSucceeded = true });
                 }

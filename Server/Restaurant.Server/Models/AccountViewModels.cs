@@ -29,7 +29,7 @@ namespace Restaurant.Server.Models
     {
         public string Email { get; set; }
 
-        public bool HasRegistered { get; set; }
+        public bool IsRegistered { get; set; }
 
         public string LoginProvider { get; set; }
     }

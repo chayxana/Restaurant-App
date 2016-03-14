@@ -21,7 +21,7 @@ namespace Restaurant.Server.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : BaseApiContoller
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;

@@ -1,4 +1,5 @@
 ﻿using Refit;
+using Restaurant.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,7 @@ namespace Restaurant.Model
         Task<AuthenticationResult> GetTokenRaw([Body(BodySerializationMethod.UrlEncoded)] Dictionary<string, string> form);
 
         [Get("/api/Values")]
-        [Headers("Authorization: Bearer")]
-        Task<object> GetValues();
+        Task<object> GetValues([Header("Authorization:Bearer")] string token);
     }
 
     public static class RestaurantApiExtensions
@@ -48,9 +48,9 @@ namespace Restaurant.Model
             return This.GetTokenRaw(dict);
         }        
 
-        public static Task<object> Values(this IRestaurantApi This)
+        public static Task<object> Values(this IRestaurantApi This, ClientUser clientUser)
         {
-            return This.GetValues();
+            return This.GetValues(clientUser.AuthenticationToken);
         }
     }
 }

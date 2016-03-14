@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using ImageCircle.Forms.Plugin.iOS;
 
 namespace Restaurant.iOS
 {
@@ -22,8 +23,8 @@ namespace Restaurant.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            UINavigationBar.Appearance.BarTintColor = FromHexString("#2196F3"); //bar background
-            UINavigationBar.Appearance.TintColor = UIColor.White; //Tint color of button items
+            //UINavigationBar.Appearance.BarTintColor = FromHexString("#2196F3"); //bar background
+            //UINavigationBar.Appearance.TintColor = UIColor.White; //Tint color of button items
             UINavigationBar.Appearance.SetTitleTextAttributes(new UITextAttributes()
             {
                 Font = UIFont.FromName("HelveticaNeue-Light", (nfloat)20f),
@@ -31,6 +32,7 @@ namespace Restaurant.iOS
             });
 
             global::Xamarin.Forms.Forms.Init();
+            ImageCircleRenderer.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

@@ -24,7 +24,16 @@ namespace Restaurant.ReactiveUI
 
         public NavigationHost()
         {
+            SubscribeNavigationHosts();
+        }
 
+        public NavigationHost(ContentPage root) : base(root)
+        {
+            SubscribeNavigationHosts();
+        }
+
+        private void SubscribeNavigationHosts()
+        {
             bool currentlyPopping = false;
 
             this.WhenAnyObservable(x => x.Router.NavigationStack.Changed)
@@ -73,26 +82,8 @@ namespace Restaurant.ReactiveUI
                 });
             Router = Locator.Current.GetService<INavigatableScreen>().Navigation;
             if (Router == null) throw new Exception("You *must* register an IScreen class representing your App's main Screen");
-
-            this.WhenAnyValue(x => x.Router)
-                    .SelectMany(router =>
-                    {
-                        return router.NavigationStack.ToObservable()
-                                .Select(x => (Page)ViewLocator.Current.ResolveView(x))
-                                .SelectMany(x => this.PushAsync(x).ToObservable())
-                                .Finally(() =>
-                                {
-
-                                    var vm = router.GetCurrentViewModel();
-                                    if (vm == null) return;
-
-                                    ((IViewFor)this.CurrentPage).ViewModel = vm;
-                                    this.CurrentPage.Title = vm.Title;
-                                });
-                    })
-                    .Subscribe();
         }
-
+        
         IObservable<Page> pageForViewModel(INavigatableViewModel vm)
         {
             if (vm == null) return Observable.Empty<Page>();

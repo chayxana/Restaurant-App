@@ -9,6 +9,7 @@ using Android.OS;
 using ReactiveUI;
 using System.Reactive.Linq;
 using Android.Graphics.Drawables;
+using ImageCircle.Forms.Plugin.Droid;
 
 namespace Restaurant.Droid
 {
@@ -22,7 +23,8 @@ namespace Restaurant.Droid
             ActionBar.SetIcon(new ColorDrawable(Resources.GetColor(Android.Resource.Color.Transparent)));
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-                       
+            ImageCircleRenderer.Init();
+
             //if ((int)Android.OS.Build.VERSION.SdkInt >= 21) {  }
 
             UserError.RegisterHandler(ue =>

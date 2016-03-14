@@ -14,7 +14,7 @@ using Xamarin.Forms.Platform.Android;
 using Android.Graphics.Drawables;
 using System.ComponentModel;
 
-[assembly: ExportRenderer(typeof(Restaurant.ThemedNavigationPage), typeof(Restaurant.Droid.Renderers.ThemedNavigationRenderer))]
+[assembly: ExportRenderer(typeof(NavigationPage), typeof(Restaurant.Droid.Renderers.ThemedNavigationRenderer))]
 namespace Restaurant.Droid.Renderers
 {
     /// <summary>
@@ -31,11 +31,10 @@ namespace Restaurant.Droid.Renderers
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
-            var navPage = (ThemedNavigationPage)Element;
-            var page = navPage.CurrentPage as MainBaseContentPage;
-
             if (e.PropertyName == ThemedNavigationPage.CurrentPageProperty.PropertyName)
             {
+                var navPage = (NavigationPage)Element;
+                var page = navPage.CurrentPage as IColoredPage;
                 if ((int)Android.OS.Build.VERSION.SdkInt >= 21)
                 {
                     SetThemeColors(page);
@@ -44,13 +43,19 @@ namespace Restaurant.Droid.Renderers
         }
         protected override Task<bool> OnPushAsync(Page view, bool animated)
         {
-            ChangeTheme(view);
+            ChangeTheme(view as IColoredPage);
             return base.OnPushAsync(view, animated);
         }
 
-        void ChangeTheme(Page page)
+        protected override Task<bool> OnPopViewAsync(Page page, bool animated)
         {
-            var basePage = page as MainBaseContentPage;
+
+            return base.OnPopViewAsync(page, animated);
+        }
+
+        void ChangeTheme(IColoredPage page)
+        {
+            var basePage = page as IColoredPage;
             if (basePage != null)
             {
                 if ((int)Android.OS.Build.VERSION.SdkInt >= 21)
@@ -60,7 +65,7 @@ namespace Restaurant.Droid.Renderers
             }
         }
 
-        private void SetThemeColors(MainBaseContentPage basePage)
+        private void SetThemeColors(IColoredPage basePage)
         {
             var context = Context as Activity;
             context.Window.SetNavigationBarColor(basePage.NavigationBarColor.ToAndroid());

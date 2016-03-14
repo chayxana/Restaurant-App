@@ -18,6 +18,15 @@ namespace Restaurant.ViewModels
 {
     public class SignUpViewModel : ReactiveObject, INavigatableViewModel
     {
+        private string name;
+
+        public string Name
+        {
+            get { return name; }
+            set { this.RaiseAndSetIfChanged(ref name, value); }
+        }
+
+
         private bool isLoading;
 
         public bool IsLoading
@@ -73,10 +82,12 @@ namespace Restaurant.ViewModels
             NavigationScreen = screen ?? Locator.Current.GetService<INavigatableScreen>();
 
             var canRegester = this.WhenAny(
+                                    x => x.Name,
                                     x => x.RegesterEmail,
                                     x => x.RegesterPassword,
                                     x => x.ConfirmPassword,
-                                    (e, p, cp) => !string.IsNullOrEmpty(e.Value)
+                                    (n,e, p, cp) => !string.IsNullOrEmpty(n.Value)
+                                                  && !string.IsNullOrEmpty(e.Value)
                                                   && !string.IsNullOrEmpty(p.Value)
                                                   && !string.IsNullOrEmpty(cp.Value)
 

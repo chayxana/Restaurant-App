@@ -4,6 +4,7 @@ using Restaurant.ViewModels;
 using Splat;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,7 @@ namespace Restaurant.Pages.MainPages
 
     public class BaseMasterDetailPage<T> : MainBaseMasterDetailPage, IViewFor<T> where T : class, INavigatableViewModel
     {
+
         public T ViewModel
         {
             get; set;
@@ -51,7 +53,7 @@ namespace Restaurant.Pages.MainPages
         }
     }
 
-    public class MainBaseMasterDetailPage : MasterDetailPage
+    public class MainBaseMasterDetailPage : MasterDetailPage, IColoredPage
     {
         public Color ActionBarTextColor { get; set; }
 
@@ -65,7 +67,7 @@ namespace Restaurant.Pages.MainPages
         {
             var btnDone = new ToolbarItem
             {
-                Text = text,
+                Icon = "ic_plus.png"
             };
 
             btnDone.Clicked += async (sender, e) =>

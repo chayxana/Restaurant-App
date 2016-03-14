@@ -266,6 +266,12 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_account.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_account.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_account.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_plus.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\ic_plus.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_plus.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_plus.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_plus.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_plus.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Restaurant\Restaurant.csproj">

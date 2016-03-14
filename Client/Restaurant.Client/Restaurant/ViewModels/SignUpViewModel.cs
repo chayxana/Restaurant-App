@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant.ViewModels
 {
-    public class RegesterViewModel : ReactiveObject, INavigatableViewModel
+    public class SignUpViewModel : ReactiveObject, INavigatableViewModel
     {
         private bool isLoading;
 
@@ -68,7 +68,7 @@ namespace Restaurant.ViewModels
             }
         }
 
-        public RegesterViewModel(INavigatableScreen screen = null)
+        public SignUpViewModel(INavigatableScreen screen = null)
         {
             NavigationScreen = screen ?? Locator.Current.GetService<INavigatableScreen>();
 
@@ -90,8 +90,8 @@ namespace Restaurant.ViewModels
                 };
                 var api = RestService.For<IRestaurantApi>(client);
                 IsLoading = true;
-                var result = await api.Regester(this.RegesterEmail, this.RegesterPassword, this.ConfirmPassword);
-                await Task.Delay(4000);
+                //var result = await api.Regester(this.RegesterEmail, this.RegesterPassword, this.ConfirmPassword);
+                await Task.Delay(7000);
                 IsLoading = false;
                 return new object();
             });

@@ -11,12 +11,12 @@ using Xamarin.Forms;
 
 namespace Restaurant.Views
 {
-    public partial class RegesterView : ContentPage, IViewFor<RegesterViewModel>
+    public partial class RegesterView : ContentPage, IViewFor<SignUpViewModel>
     {
         public RegesterView()
         {
             InitializeComponent();
-            ViewModel = Locator.Current.GetService<RegesterViewModel>();
+            ViewModel = Locator.Current.GetService<SignUpViewModel>();
             //ViewModel.WhenAnyValue(x => x.IsLoading).Subscribe((x) => 
             //{
             //    if (x)
@@ -34,19 +34,19 @@ namespace Restaurant.Views
             BindingContext = ViewModel;
         }
 
-        public RegesterViewModel ViewModel
+        public SignUpViewModel ViewModel
         {
-            get { return (RegesterViewModel)GetValue(ViewModelProperty); }
+            get { return (SignUpViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
         public static readonly BindableProperty ViewModelProperty =
-            BindableProperty.Create<RegesterView, RegesterViewModel>(x => x.ViewModel, default(RegesterViewModel), BindingMode.OneWay);
+            BindableProperty.Create<RegesterView, SignUpViewModel>(x => x.ViewModel, default(SignUpViewModel), BindingMode.OneWay);
 
         object IViewFor.ViewModel
         {
             get { return ViewModel; }
 
-            set { ViewModel = (RegesterViewModel)value; }
+            set { ViewModel = (SignUpViewModel)value; }
         }
     }
 }

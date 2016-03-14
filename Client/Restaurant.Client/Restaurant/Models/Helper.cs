@@ -23,8 +23,6 @@ namespace Restaurant.Models
                 }
                 return "http://localhost:13900";
             } 
-        }
-
-        public static string Token { get; set; }
+        }        
     }
 }

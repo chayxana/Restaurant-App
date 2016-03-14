@@ -7,6 +7,26 @@
   <local:SignUpPageXaml.Content>
     <StackLayout VerticalOptions="Center" Padding="25">
       <StackLayout Orientation="Vertical" x:Name="regesterStack">
+
+        <StackLayout Orientation="Vertical" Padding="15">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="ic_account.png" HeightRequest="25" Grid.Column="0" WidthRequest="25"
+                   VerticalOptions="Center"></Image>
+
+            <controls:RestaurantEntry x:Name="RegesterName" Text="{Binding Name}" Placeholder="Enter your name"
+                                      Grid.Column="1" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HasBorder="False"/>
+          </Grid>
+          <ContentView BackgroundColor="{StaticResource indigoPrimary}" HorizontalOptions="Fill" >
+            <ContentView.HeightRequest>
+              <OnPlatform x:TypeArguments="x:Double" iOS="1"  Android="0"/>
+            </ContentView.HeightRequest>
+          </ContentView>
+        </StackLayout>
+        
         <StackLayout Orientation="Vertical" Padding="15">
           <Grid>
             <Grid.ColumnDefinitions>

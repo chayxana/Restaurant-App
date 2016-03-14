@@ -65,15 +65,19 @@ namespace Restaurant.Pages.MainPages
 
         public void AddDoneButton(string text = "Done")
         {
-            var btnDone = new ToolbarItem
+            var btnPlus = new ToolbarItem
             {
                 Icon = "ic_plus.png"
             };
-
-            btnDone.Clicked += async (sender, e) =>
+            var btnMore = new ToolbarItem
+            {
+                Icon = "ic_more_vert_white"
+            };
+            btnPlus.Clicked += async (sender, e) =>
             await Navigation.PopModalAsync();
 
-            this.ToolbarItems.Add(btnDone);
+            this.ToolbarItems.Add(btnPlus);
+            this.ToolbarItems.Add(btnMore);
         }
     }
 }

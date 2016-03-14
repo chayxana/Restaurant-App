@@ -24,13 +24,15 @@ namespace Restaurant.Server.Models
         }
         public string Name { get; set; }
 
+        public string Picture { get; set; }
+
         public ICollection<Order> Orders { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext()
-            : base("RestaurantSqlConnection", throwIfV1Schema: false)
+            : base("RestaurantSqlConnection")
         {
             if (!Database.Exists())
             {

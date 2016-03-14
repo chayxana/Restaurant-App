@@ -3,6 +3,7 @@ using ReactiveUI;
 using Refit;
 using Restaurant.Model;
 using Restaurant.Models;
+using Restaurant.ReactiveUI;
 using Splat;
 using System;
 using System.Collections.Generic;
@@ -15,18 +16,24 @@ using System.Threading.Tasks;
 
 namespace Restaurant.ViewModels
 {
-    public class RegesterViewModel : ReactiveObject, IRoutableViewModel
+    public class SignUpViewModel : ReactiveObject, INavigatableViewModel
     {
-        public IScreen HostScreen { get; }
+        private string name;
 
-        public string UrlPathSegment
+        public string Name
         {
-            get
-            {
-                return "Regester";
-            }
+            get { return name; }
+            set { this.RaiseAndSetIfChanged(ref name, value); }
         }
 
+
+        private bool isLoading;
+
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set { this.RaiseAndSetIfChanged(ref isLoading, value); }
+        }
 
         private string email;
 
@@ -60,15 +67,27 @@ namespace Restaurant.ViewModels
 
         public ReactiveCommand<object> Regester { get; set; }
 
-        public RegesterViewModel(IScreen screen = null)
+        public INavigatableScreen NavigationScreen { get; private set; }
+
+        public string Title
         {
-            HostScreen = screen ?? Locator.Current.GetService<IScreen>();
+            get
+            {
+                return "Sign Up";
+            }
+        }
+
+        public SignUpViewModel(INavigatableScreen screen = null)
+        {
+            NavigationScreen = screen ?? Locator.Current.GetService<INavigatableScreen>();
 
             var canRegester = this.WhenAny(
+                                    x => x.Name,
                                     x => x.RegesterEmail,
                                     x => x.RegesterPassword,
                                     x => x.ConfirmPassword,
-                                    (e, p, cp) => !string.IsNullOrEmpty(e.Value)
+                                    (n,e, p, cp) => !string.IsNullOrEmpty(n.Value)
+                                                  && !string.IsNullOrEmpty(e.Value)
                                                   && !string.IsNullOrEmpty(p.Value)
                                                   && !string.IsNullOrEmpty(cp.Value)
 
@@ -78,11 +97,14 @@ namespace Restaurant.ViewModels
             {
                 var client = new HttpClient(NetCache.UserInitiated)
                 {
-                    BaseAddress = new Uri(Helper.address)
+                    BaseAddress = new Uri(Helper.Address)
                 };
                 var api = RestService.For<IRestaurantApi>(client);
-                var result = await api.Regester(this.RegesterEmail, this.RegesterPassword, this.ConfirmPassword);
-                return result;
+                IsLoading = true;
+                //var result = await api.Regester(this.RegesterEmail, this.RegesterPassword, this.ConfirmPassword);
+                await Task.Delay(7000);
+                IsLoading = false;
+                return new object();
             });
 
             Regester.Subscribe(r => 
@@ -93,6 +115,7 @@ namespace Restaurant.ViewModels
 
             Regester.ThrownExceptions.Subscribe(ex =>
             {
+                IsLoading = false;
                 Debug.WriteLine("Error!");
             });
         }

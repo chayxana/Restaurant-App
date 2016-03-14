@@ -22,6 +22,8 @@ namespace Restaurant.Server.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public string Name { get; set; }
+
         public ICollection<Order> Orders { get; set; }
     }
 

@@ -1,24 +1,45 @@
 ﻿using ReactiveUI;
 using Restaurant.Model;
+using Restaurant.Models;
+using Restaurant.Pages.MainPages;
+using Restaurant.ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Restaurant.ViewModels
 {
-    public class MainViewModel : ReactiveObject, IRoutableViewModel
+    public class MainViewModel : ReactiveObject, INavigatableViewModel
     {
-        public MainViewModel(AuthenticationResult result)
-        {
+        public ClientUser User { get; set; }
 
-        }
-        public IScreen HostScreen { get; set; }
-
-        public string UrlPathSegment
+        public MainViewModel(ClientUser user)
         {
-            get { return "Restaurant"; }
+            User = user;
         }
+
+        public INavigatableScreen NavigationScreen
+        {
+            get;
+        }
+
+        public string Title
+        {
+            get
+            {
+                return "Main";
+            }
+        }
+    }
+    public class MasterPageItem
+    {
+        public string Title { get; set; }
+
+        public string IconSource { get; set; }
+
+        public Type TargetType { get; set; }
     }
 }

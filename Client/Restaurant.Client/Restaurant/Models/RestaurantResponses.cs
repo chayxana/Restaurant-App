@@ -18,7 +18,6 @@ namespace Restaurant.Model
         public string userName { get; set; }
         public string token_type { get; set; }
         public DateTime issued { get; set; }
-
         public DateTime expires { get; set; }
     }
 }

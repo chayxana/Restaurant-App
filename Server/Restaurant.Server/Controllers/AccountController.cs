@@ -328,7 +328,7 @@ namespace Restaurant.Server.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new User() { UserName = model.Email, Email = model.Email };
+            var user = new User() { UserName = model.Email, Email = model.Email, Name = model.Name };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 

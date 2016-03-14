@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
+             x:Class="Restaurant.App">
+  <Application.Resources>
+    <ResourceDictionary>
+      <Color x:Key="asphaltPrimary">#365271</Color>
+      <Color x:Key="asphaltLight">#889DB5</Color>
+      <Color x:Key="asphaltDark">#1C2B39</Color>
+
+      <Color x:Key="indigoPrimary">#3F51B5</Color>
+      <Color x:Key="indigoDark">#303F9F</Color>
+      <Color x:Key="indigoLight">#C5CAE9</Color>
+      <Color x:Key="indigoPinkAccent">#FF4081</Color>
+      
+
+      <Color x:Key="bluePrimary">#1FAECE</Color>
+      <Color x:Key="blueLight">#91E2F4</Color>
+      <Color x:Key="blueDark">#2C7797</Color>
+
+      <Color x:Key="purplePrimary">#9378CD</Color>
+      <Color x:Key="purpleLight">#CEC0EC</Color>
+      <Color x:Key="purpleDark">#614CA0</Color>
+
+      <Color x:Key="greenPrimary">#B3E770</Color>
+      <Color x:Key="greenLight">#CFEFA7</Color>
+      <Color x:Key="greenDark">#5A8622</Color>
+
+      <Color x:Key="redLight">#F69781</Color>
+      <Color x:Key="redPrimary">#F56D4F</Color>
+      <Color x:Key="redDark">#BC3C26</Color>
+
+      <Color x:Key="yellowPrimary">#F1C40F</Color>
+      <Color x:Key="yellowLight">#F7E28B</Color>
+      <Color x:Key="yellowDark">#E7963B</Color>
+
+      <Color x:Key="grayPrimary">#ADB7BE</Color>
+      <Color x:Key="grayLight">#ECF0F1</Color>
+      <Color x:Key="grayDark">#76828A</Color>
+      <Color x:Key="grayMedium">#9AA4AB</Color>
+
+      <Style x:Key="labelStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="FontSize">
+          <Setter.Value>
+            <OnPlatform x:TypeArguments="x:Double" iOS="14" Android="11" />
+          </Setter.Value>
+        </Setter>
+        <Setter Property="FontFamily" Value="SegoeUI" />
+      </Style>
+      <Style x:Key="header" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+        <Setter Property="FontFamily" Value="SegoeUI" />
+        <Setter Property="TextColor" Value="{StaticResource asphaltPrimary}" />
+      </Style>
+      <Style TargetType="Label" BasedOn="{StaticResource labelStyle}" />
+      <Style x:Key="whiteLabelStyle" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+        <Setter Property="TextColor" Value="#FFFFFF" />
+      </Style>
+      <Style x:Key="sub" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+        <Setter Property="TextColor" Value="{StaticResource grayDark}" />
+        <Setter Property="FontSize" Value="Small" />
+      </Style>
+
+      <Style x:Key="buttonStyle" TargetType="Button">
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="BorderRadius" Value="4" />
+        <Setter Property="FontSize" Value="Medium" />
+        <Setter Property="BackgroundColor" Value="{StaticResource grayPrimary}" />
+        <Style.Triggers>
+          <Trigger TargetType="Button" Property="IsEnabled" Value="False">
+            <Setter Property="TextColor" Value="#BBDEFB" />
+            <Setter Property="BackgroundColor" Value="#B6B6B6"></Setter>
+          </Trigger>
+        </Style.Triggers>
+      </Style>
+      <Style TargetType="Button" BasedOn="{StaticResource buttonStyle}" />
+      <Style TargetType="controls:AnimateButton" BasedOn="{StaticResource buttonStyle}" />
+      <Style x:Key="deleteButtonStyle" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="BackgroundColor" Value="{StaticResource redPrimary}" />
+      </Style>
+
+      <Style x:Key="flatButtonStyle" TargetType="Button">
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="FontSize" Value="Medium" />
+      </Style>
+      
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

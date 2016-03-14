@@ -15,11 +15,12 @@ namespace Restaurant.Views
         public MainView()
         {
             InitializeComponent();
-            var existingPages = Navigation.NavigationStack.ToList();
-            foreach (var page in existingPages)
-            {
-                Navigation.RemovePage(page);
-            }
+            var a = this.Navigation.NavigationStack.ToList();
+            //var existingPages = Navigation.NavigationStack.ToList();
+            //foreach (var page in existingPages)
+            //{
+            //    Navigation.RemovePage(page);
+            //}
         }
 
         public MainViewModel ViewModel

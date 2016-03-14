@@ -8,6 +8,8 @@ using Android.Widget;
 using Android.OS;
 using ReactiveUI;
 using System.Reactive.Linq;
+using Android.Graphics.Drawables;
+using ImageCircle.Forms.Plugin.Droid;
 
 namespace Restaurant.Droid
 {
@@ -16,9 +18,14 @@ namespace Restaurant.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
+
             base.OnCreate(bundle);
+            ActionBar.SetIcon(new ColorDrawable(Resources.GetColor(Android.Resource.Color.Transparent)));
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            ImageCircleRenderer.Init();
+
+            //if ((int)Android.OS.Build.VERSION.SdkInt >= 21) {  }
 
             UserError.RegisterHandler(ue =>
             {
@@ -29,6 +36,8 @@ namespace Restaurant.Droid
             });
 
             LoadApplication(new App());
+            
+
         }
     }
 }

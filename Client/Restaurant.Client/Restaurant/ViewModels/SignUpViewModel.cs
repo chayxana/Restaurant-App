@@ -101,8 +101,8 @@ namespace Restaurant.ViewModels
                 };
                 var api = RestService.For<IRestaurantApi>(client);
                 IsLoading = true;
-                //var result = await api.Regester(this.RegesterEmail, this.RegesterPassword, this.ConfirmPassword);
-                await Task.Delay(7000);
+                var result = await api.Regester(this.Name, this.RegesterEmail, this.RegesterPassword, this.ConfirmPassword);
+                await Task.Delay(2000);
                 IsLoading = false;
                 return new object();
             });

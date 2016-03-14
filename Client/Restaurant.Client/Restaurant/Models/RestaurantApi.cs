@@ -14,7 +14,7 @@ namespace Restaurant.Model
     {
         [Post("/api/Account/Register")]
         Task<object> RegesterRaw([Body(BodySerializationMethod.UrlEncoded)] Dictionary<string, string> form);
-        
+
         [Post("/Token")]
         [Headers("Content-Type: application/x-www-form-urlencoded")]
         Task<AuthenticationResult> GetTokenRaw([Body(BodySerializationMethod.UrlEncoded)] Dictionary<string, string> form);
@@ -25,10 +25,11 @@ namespace Restaurant.Model
 
     public static class RestaurantApiExtensions
     {
-        public static Task<object> Regester(this IRestaurantApi This, string email, string password, string confirmPassword)
+        public static Task<object> Regester(this IRestaurantApi This, string name, string email, string password, string confirmPassword)
         {
             var dict = new Dictionary<string, string>
             {
+                { "Name", name },
                 { "Email", email },
                 { "Password", password},
                 { "ConfirmPassword", confirmPassword }
@@ -46,7 +47,7 @@ namespace Restaurant.Model
             };
 
             return This.GetTokenRaw(dict);
-        }        
+        }
 
         public static Task<object> Values(this IRestaurantApi This, ClientUser clientUser)
         {

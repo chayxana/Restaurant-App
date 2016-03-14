@@ -18,9 +18,9 @@ namespace Restaurant.Pages
             Initialize();
             
             // Example: Using WhenAny instead of Value Converters 
-            ViewModel.WhenAnyValue(x => x.IsLoading).Subscribe(x => 
+            ViewModel.WhenAnyValue(x => x.IsLoading).Subscribe(isLoading => 
             {
-                if (x)
+                if (isLoading)
                 {
                     loadingLayout.IsVisible = true;
                     regesterStack.IsVisible = false;

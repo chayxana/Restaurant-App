@@ -13,7 +13,7 @@ namespace Restaurant.Server.Models
     {
         public User()
         {
-            this.Orders = new HashSet<Order>();
+            Orders = new HashSet<Order>();
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager, string authenticationType)
         {
@@ -45,12 +45,11 @@ namespace Restaurant.Server.Models
             return new ApplicationDbContext();
         }
 
-        public HashSet<Order> Order { get; set; }
+        public HashSet<Order> Orders { get; set; }
 
-        public HashSet<Food> Food { get; set; }
+        public HashSet<Food> Foods { get; set; }
     }
-
-
+    
     public class Food
     {
         public Food()
@@ -61,18 +60,23 @@ namespace Restaurant.Server.Models
 
         public string Name { get; set; }
 
+        public int Type { get; set; }
+
         public decimal Price { get; set; }
 
         public ICollection<Order> Orders { get; set; }
     }
-
-
+    
     public class Order
     {
         public Guid Id { get; set; }
+
         public virtual User User { get; set; }
+
         public virtual Food Food { get; set; }
+
         public int Quantity { get; set; }
+
         public DateTime OrderDate { get; set; }
     }
 }

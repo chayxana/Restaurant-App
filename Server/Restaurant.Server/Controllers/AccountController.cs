@@ -64,6 +64,7 @@ namespace Restaurant.Server.Controllers
             {
                 Email = User.Identity.GetUserName(),
                 IsRegistered = externalLogin == null,
+                Name = externalLogin.UserName,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
         }

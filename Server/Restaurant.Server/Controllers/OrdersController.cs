@@ -1,32 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Security.Claims;
 using System.Web.Http;
+using Microsoft.Ajax.Utilities;
 using Restaurant.Server.Models;
 
 namespace Restaurant.Server.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/Food")]
-    public class FoodsController : BaseApiContoller
+    [RoutePrefix("api/Order")]
+    public class OrdersController : BaseApiContoller
     {
         /// <summary>
-        /// Adding a new food
+        /// Adding new order to current user
         /// </summary>
-        /// <param name="food"></param>
+        /// <param name="order"></param>
         /// <returns></returns>
         [Route("Add")]
-        public IHttpActionResult AddFood(Food food)
+        public IHttpActionResult AddOrder(Order order)
         {
             try
             {
-                if (Context.Foods.Add(food))
+                if (CurrentUser != null)
                 {
+                    CurrentUser.Orders.Add(order);
                     Context.SaveChanges();
                     return Ok(new ResultResponce { IsSucceeded = true });
                 }
@@ -40,18 +40,18 @@ namespace Restaurant.Server.Controllers
         }
 
         /// <summary>
-        /// Deleting existed food
+        /// Deleting the order from current user
         /// </summary>
-        /// <param name="food"></param>
+        /// <param name="order"></param>
         /// <returns></returns>
         [Route("Delete")]
-        public IHttpActionResult DeleteFood(Food food)
+        public IHttpActionResult DeleteOrder(Order order)
         {
             try
             {
-                bool result = Context.Foods.Remove(food);
-                if (result)
+                if (CurrentUser != null)
                 {
+                    CurrentUser.Orders.Remove(order);
                     Context.SaveChanges();
                     return Ok(new ResultResponce { IsSucceeded = true });
                 }
@@ -65,18 +65,18 @@ namespace Restaurant.Server.Controllers
         }
 
         /// <summary>
-        /// Update existed food
+        /// Updating the order in current user
         /// </summary>
-        /// <param name="food"></param>
+        /// <param name="order"></param>
         /// <returns></returns>
         [Route("Update")]
-        public IHttpActionResult UpdateFood(Food food)
+        public IHttpActionResult UpdateOrder(Order order)
         {
             try
             {
-                if (food != null)
+                if (order != null)
                 {
-                    Context.Entry(food).State = System.Data.Entity.EntityState.Modified;
+                    Context.Entry(order).State = System.Data.Entity.EntityState.Modified;
                     Context.SaveChanges();
                     return Ok(new ResultResponce { IsSucceeded = true });
                 }
@@ -89,5 +89,4 @@ namespace Restaurant.Server.Controllers
             return InternalServerError();
         }
     }
-
 }

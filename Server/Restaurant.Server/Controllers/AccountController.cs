@@ -58,10 +58,12 @@ namespace Restaurant.Server.Controllers
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
+            var user = Context.Users.Find(User.Identity.GetUserName());
+
             return new UserInfoViewModel
             {
                 Email = User.Identity.GetUserName(),
-                IsRegistered = externalLogin == null,                
+                IsRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
         }

@@ -50,7 +50,7 @@ namespace Restaurant.ReactiveUI
             this.WhenAnyObservable(x => x.Router.NavigateAndChangeRoot)
                 .SelectMany(x => pageForViewModel(x)).Subscribe((p) =>
                 {
-
+                    Navigation.PushModalAsync(p);
                 });
             this.WhenAnyObservable(x => x.Router.Navigate)
                 .SelectMany(_ => pageForViewModel(Router.GetCurrentViewModel()))

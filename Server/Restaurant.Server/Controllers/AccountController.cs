@@ -61,7 +61,7 @@ namespace Restaurant.Server.Controllers
             return new UserInfoViewModel
             {
                 Email = User.Identity.GetUserName(),
-                HasRegistered = externalLogin == null,
+                IsRegistered = externalLogin == null,                
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
         }

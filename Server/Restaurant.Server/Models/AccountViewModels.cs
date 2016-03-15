@@ -32,6 +32,10 @@ namespace Restaurant.Server.Models
         public bool IsRegistered { get; set; }
 
         public string LoginProvider { get; set; }
+        
+        public string  Name { get; set; }
+
+        public string Picture { get; set; }
     }
 
     public class UserLoginInfoViewModel

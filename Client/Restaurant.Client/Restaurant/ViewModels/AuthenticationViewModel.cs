@@ -92,7 +92,7 @@ namespace Restaurant.ViewModels
             Login.Subscribe(token =>
             {
                 var mainViewModel = new MainViewModel(new ClientUser(token.access_token));
-                NavigationScreen.Navigation.Navigate.Execute(mainViewModel);
+                NavigationScreen.Navigation.NavigateAndChangeRoot.Execute(mainViewModel);
             });
 
 

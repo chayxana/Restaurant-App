@@ -14,6 +14,10 @@ namespace Restaurant.Pages.MainPages
         public FoodsPage()
         {
             InitializeComponent();
+            var theme = App.Current.GetThemeFromColor("bluePink");
+            ActionBarBackgroundColor = theme.Primary;
+            StatusBarColor = theme.Dark;
+            ActionBarTextColor = Color.White;
         }
     }
     public class FoodsXamlPage : BaseContentPage<FoodsViewModel>

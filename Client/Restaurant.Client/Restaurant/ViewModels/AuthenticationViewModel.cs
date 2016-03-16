@@ -32,7 +32,8 @@ namespace Restaurant.ViewModels
         }
 
 
-        public ReactiveCommand<AuthenticationResult> Login { get; set; }
+        public ReactiveCommand<object> Login { get; set; }
+        //public ReactiveCommand<AuthenticationResult> Login { get; set; }
 
         public ReactiveCommand<object> OpenRegester { get; set; }
 
@@ -77,25 +78,30 @@ namespace Restaurant.ViewModels
                 (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
 
 
-            Login = ReactiveCommand.CreateAsyncTask(canLogin, async _ =>
-             {
-                 Debug.WriteLine(Helper.Address);
-                 var client = new HttpClient(NetCache.UserInitiated)
-                 {
-                     BaseAddress = new Uri(Helper.Address)
-                 };
-                 var api = RestService.For<IRestaurantApi>(client);
-                 var token = await api.GetToken(Email, Password);
-                 return token;
-             });
+            //Login = ReactiveCommand.CreateAsyncTask(canLogin, async _ =>
+            // {
+            //     Debug.WriteLine(Helper.Address);
+            //     var client = new HttpClient(NetCache.UserInitiated)
+            //     {
+            //         BaseAddress = new Uri(Helper.Address)
+            //     };
+            //     var api = RestService.For<IRestaurantApi>(client);
+            //     var token = await api.GetToken(Email, Password);
+            //     return token;
+            // });
 
-            Login.Subscribe(token =>
+            //Login.Subscribe(token =>
+            //{
+            //    var mainViewModel = new MainViewModel(new ClientUser(null));
+            //    NavigationScreen.Navigation.NavigateAndChangeRoot.Execute(mainViewModel);
+            //});
+
+            Login = ReactiveCommand.Create();
+            Login.Subscribe(_ => 
             {
-                var mainViewModel = new MainViewModel(new ClientUser(token.access_token));
+                var mainViewModel = new MainViewModel(new ClientUser(null));
                 NavigationScreen.Navigation.NavigateAndChangeRoot.Execute(mainViewModel);
             });
-
-
             Login.ThrownExceptions.Subscribe(ex =>
             {
                 UserError.Throw("Invalid login or password!");

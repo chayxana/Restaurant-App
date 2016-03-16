@@ -36,15 +36,69 @@ namespace Restaurant
 
         public Color StatusBarColor { get; set; }
 
+        bool _hasSubscribed;
+
+        public bool HasInitialized
+        {
+            get;
+            private set;
+        }
+
+        public MainBaseContentPage()
+        {
+            ActionBarTextColor = Color.White;
+            NavigationBarColor = Color.Black;
+            SubscribeToAuthentication();
+            SubscribeToIncomingPayload();
+        }
+
+        private void SubscribeToAuthentication()
+        {
+            /// SubscribeToAuthenTication
+        }
+
+        protected override void OnAppearing()
+        {
+            if (!_hasSubscribed)
+            {
+                SubscribeToAuthentication();
+                SubscribeToIncomingPayload();
+                _hasSubscribed = true;
+            }
+
+            var nav = Parent as NavigationPage;
+            if (nav != null)
+            {
+                nav.BarBackgroundColor = ActionBarBackgroundColor;
+                nav.BarTextColor = ActionBarTextColor;
+            }
+
+            if (!HasInitialized)
+            {
+                HasInitialized = true;
+                OnLoaded();
+            }
+            base.OnAppearing();
+        }
+
+        private void SubscribeToIncomingPayload()
+        {
+            // TODO: Notification
+        }
+
         protected virtual void Initialize()
         {
         }
 
+        protected virtual void OnLoaded()
+        {
+        }
+
         /// <summary>
-		/// Wraps the ContentPage within a NavigationPage
-		/// </summary>
-		/// <returns>The navigation page.</returns>
-		public NavigationPage WithinNavigationPage()
+        /// Wraps the ContentPage within a NavigationPage
+        /// </summary>
+        /// <returns>The navigation page.</returns>
+        public NavigationPage WithinNavigationPage()
         {
             var nav = new ThemedNavigationPage(this);
             ApplyTheme(nav);

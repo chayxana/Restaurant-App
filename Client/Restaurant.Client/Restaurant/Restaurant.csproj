@@ -66,16 +66,16 @@
       <DependentUpon>WelcomeStartPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controls\RestaurantEntry.cs" />
     <Compile Include="ReactiveUI\INavigatableScreen.cs" />
     <Compile Include="ReactiveUI\INavigatableViewModel.cs" />
-    <Compile Include="Controls\RestaurantEntry.cs" />
+    <Compile Include="ReactiveUI\NavigationState.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModels\AuthenticationViewModel.cs" />
     <Compile Include="ViewModels\FoodsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="ReactiveUI\NavigationHost.cs" />
-    <Compile Include="ReactiveUI\NavigationState.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -239,6 +239,12 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Restaurant.Core\Restaurant.Core.csproj">
+      <Project>{7d568fd4-f4cd-4df5-9dc5-c75cb0fddcd2}</Project>
+      <Name>Restaurant.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

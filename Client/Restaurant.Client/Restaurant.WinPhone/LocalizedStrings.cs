@@ -7,6 +7,7 @@ namespace Restaurant.WinPhone
     /// </summary>
     public class LocalizedStrings
     {
+        //Test from qutfullo
         private static AppResources _localizedResources = new AppResources();
 
         public AppResources LocalizedResources { get { return _localizedResources; } }

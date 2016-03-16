@@ -48,7 +48,8 @@ namespace Restaurant.iOS.Renderers
             {
                 NavigationBar.BarTintColor = basePage.ActionBarBackgroundColor.ToUIColor();
                 NavigationBar.TintColor = basePage.ActionBarTextColor.ToUIColor();
-                
+                UINavigationBar.Appearance.ShadowImage = new UIImage();
+                UINavigationBar.Appearance.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
                 var titleAttributes = new UIStringAttributes();
                 titleAttributes.Font = UIFont.FromName("SegoeUI", 22);
                 titleAttributes.ForegroundColor = basePage.ActionBarTextColor == Color.Default ? titleAttributes.ForegroundColor ?? UINavigationBar.Appearance.TintColor : basePage.ActionBarTextColor.ToUIColor();

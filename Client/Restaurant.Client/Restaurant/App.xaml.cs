@@ -1,4 +1,4 @@
-﻿﻿using Akavache;
+﻿using Akavache;
 using ModernHttpClient;
 using ReactiveUI;
 using ReactiveUI.XamForms;
@@ -15,6 +15,9 @@ using System.Net.Http;
 using System.Text;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
 namespace Restaurant
 {
@@ -22,8 +25,10 @@ namespace Restaurant
     {
         public App()
         {
+            InitializeComponent();
             var app = new AppBotstrapper();
             MainPage = app.MainPage();
+            AnimationSpeed = 200;
         }
 
         protected override void OnStart()
@@ -48,6 +53,8 @@ namespace Restaurant
                 return (App)Application.Current;
             }
         }
+
+        public static uint AnimationSpeed { get; internal set; }
 
         public ColorTheme GetThemeFromColor(string color)
         {
@@ -96,7 +103,8 @@ namespace Restaurant
 
         public Page MainPage()
         {
-            return null;
+            Locator.CurrentMutable.RegisterConstant(new AuthenticationViewModel(), typeof(AuthenticationViewModel));
+            return new WelcomeStartPage().WithinNavigationPage();
         }
     }
 

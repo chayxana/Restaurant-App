@@ -34,7 +34,7 @@
           <Image Source="ic_email.png" HeightRequest="25" Grid.Column="0" WidthRequest="25"
                  VerticalOptions="Center"></Image>
 
-          <controls:RestaurantEntry x:Name="Email" Placeholder="Enter your email"
+          <controls:RestaurantEntry x:Name="Email" Placeholder="Enter your email" Text="{Binding Email}"
                                     Grid.Column="1" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HasBorder="False"/>
         </Grid>
 
@@ -54,7 +54,7 @@
             <ColumnDefinition Width="*"/>
           </Grid.ColumnDefinitions>
           <Image Source="ic_key_variant.png" Grid.Column="0" WidthRequest="25" HeightRequest="25" VerticalOptions="Center"></Image>
-          <controls:RestaurantEntry HasBorder="False" x:Name="Password"
+          <controls:RestaurantEntry HasBorder="False" x:Name="Password" Text="{Binding Password}"
                                     Placeholder="Enter password" Grid.Column="1"
                                     HorizontalOptions="FillAndExpand" IsPassword="true"/>
         </Grid>
@@ -65,8 +65,16 @@
         </ContentView>
 
       </StackLayout>
+      <StackLayout>
+        <ActivityIndicator  IsRunning="{Binding IsBusy}" Color="White" HorizontalOptions="Center"
+					VerticalOptions="EndAndExpand" />
+
+        <Label Text="{Binding AuthenticationStatus, StringFormat='\{0\}...'}" FontSize="Medium"
+					XAlign="Center" YAlign="Center" VerticalOptions="EndAndExpand" Style="{StaticResource whiteLabelStyle}"/>
+
+      </StackLayout>
       <StackLayout Orientation="Vertical" Padding="20">
-        <controls:AnimateButton x:Name="Login" Text="Log In" BackgroundColor="{StaticResource redLight}"/>
+        <controls:AnimateButton x:Name="Login" Text="Log In" Command="{Binding Login}" BackgroundColor="{StaticResource redLight}"/>
       </StackLayout>
 
 

@@ -4,6 +4,8 @@
              x:Class="Restaurant.Pages.MainPages.FoodsPage"
              xmlns:local="clr-namespace:Restaurant.Pages.MainPages;assembly=Restaurant">
   <local:FoodsXamlPage.Content>
-    <Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
+    <StackLayout BackgroundColor="{StaticResource bluePinkPrimary}">
+      <Label Text="Hello World" VerticalOptions="Center" HorizontalOptions="Center" />
+    </StackLayout>
   </local:FoodsXamlPage.Content>
 </local:FoodsXamlPage>

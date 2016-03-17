@@ -77,9 +77,23 @@ namespace Restaurant.ReactiveUI
                 .Where(_ => !currentlyPopping && Router != null)
                 .Subscribe(_ =>
                 {
-                    Router.NavigationStack.RemoveAt(Router.NavigationStack.Count - 1);
-                    ((IViewFor)this.CurrentPage).ViewModel = Router.GetCurrentViewModel();
+                    try
+                    {
+                        if(Router.NavigationStack.Count > 1)
+                        {
+                            Router.NavigationStack.RemoveAt(Router.NavigationStack.Count - 1);
+                            ((IViewFor)this.CurrentPage).ViewModel = Router.GetCurrentViewModel();
+                        }
+                        
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    
                 });
+           
+                        
             Router = Locator.Current.GetService<INavigatableScreen>().Navigation;
             if (Router == null) throw new Exception("You *must* register an IScreen class representing your App's main Screen");
         }

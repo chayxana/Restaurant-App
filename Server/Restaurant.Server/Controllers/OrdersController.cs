@@ -24,8 +24,10 @@ namespace Restaurant.Server.Controllers
         {
             try
             {
-                if (CurrentUser != null)
+                if (CurrentUser != null && order != null)
                 {
+                    order.Id = Guid.NewGuid();
+                    order.OrderedDate = DateTime.Now;
                     CurrentUser.Orders.Add(order);
                     Context.SaveChanges();
                     return Ok(new ResultResponce { IsSucceeded = true });
@@ -47,21 +49,32 @@ namespace Restaurant.Server.Controllers
         [Route("Delete")]
         public IHttpActionResult DeleteOrder(Order order)
         {
+            ResultResponce result = new ResultResponce() { IsSucceeded = false };
             try
             {
                 if (CurrentUser != null)
                 {
-                    CurrentUser.Orders.Remove(order);
-                    Context.SaveChanges();
-                    return Ok(new ResultResponce { IsSucceeded = true });
+                    Order orderToDelete = CurrentUser.Orders.FirstOrDefault(o => o.Id == order.Id);
+                    if (orderToDelete == null)
+                    {
+                        return Ok(result);
+                    }
+                    else
+                    {
+                        CurrentUser.Orders.Remove(orderToDelete);
+                        Context.SaveChanges();
+                        result.IsSucceeded = true;
+                        return Ok(result);
+                    }
                 }
+                return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Context.GetValidationErrors();
+                result.IsSucceeded = false;
+                result.Errors.Add("Error", ex);
+                return Ok(result);
             }
-
-            return InternalServerError();
         }
 
         /// <summary>

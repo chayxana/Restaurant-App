@@ -10,11 +10,14 @@ using Xamarin.Forms;
 
 namespace Restaurant.Pages
 {
-    public partial class AuthenticationPage
+    public partial class AuthenticationPage : AuthenticationPageXaml
     {
         public AuthenticationPage()
         {
             InitializeComponent();
+            var theme = App.Current.GetThemeFromColor("red");
+            StatusBarColor = theme.Dark;
+            ActionBarBackgroundColor = theme.Primary;
         }
     }
 

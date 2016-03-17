@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace Restaurant.Server.Models
 {
@@ -45,11 +46,11 @@ namespace Restaurant.Server.Models
             return new ApplicationDbContext();
         }
 
-        public HashSet<Order> Orders { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
-        public HashSet<Food> Foods { get; set; }
+        public DbSet<Food> Foods { get; set; }
     }
-    
+
     public class Food
     {
         public Food()
@@ -66,7 +67,7 @@ namespace Restaurant.Server.Models
 
         public ICollection<Order> Orders { get; set; }
     }
-    
+
     public class Order
     {
         public Guid Id { get; set; }
@@ -77,6 +78,6 @@ namespace Restaurant.Server.Models
 
         public int Quantity { get; set; }
 
-        public DateTime OrderDate { get; set; }
+        public DateTime OrderedDate { get; set; }
     }
 }

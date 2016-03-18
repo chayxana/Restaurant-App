@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using Restaurant.Pages.MainPages;
 using Splat;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,7 @@ namespace Restaurant.ReactiveUI
 {
     public class NavigationHost : NavigationPage, IActivatable
     {
-        public static readonly BindableProperty RouterProperty = BindableProperty.Create<NavigationHost, NavigationState>(
-           x => x.Router, null, BindingMode.OneWay);
+        public static readonly BindableProperty RouterProperty = BindableProperty.Create<NavigationHost, NavigationState>(x => x.Router, null, BindingMode.OneWay);
 
         public NavigationState Router
         {
@@ -35,7 +35,6 @@ namespace Restaurant.ReactiveUI
         private void SubscribeNavigationHosts()
         {
             bool currentlyPopping = false;
-
             this.WhenAnyObservable(x => x.Router.NavigationStack.Changed)
                 .Where(_ => Router.NavigationStack.IsEmpty)
                 .SelectMany(_ => pageForViewModel(Router.GetCurrentViewModel()))
@@ -47,11 +46,17 @@ namespace Restaurant.ReactiveUI
                     return x;
                 })
                 .Subscribe();
-            this.WhenAnyObservable(x => x.Router.NavigateAndChangeRoot)
-                .SelectMany(x => pageForViewModel(x)).Subscribe((p) =>
+
+            this.WhenAnyObservable(x => x.Router.NavigateToMainPage)
+                .SelectMany(x => pageForViewModel(x))
+                .Subscribe((p) =>
                 {
-                    Navigation.PushModalAsync(p);
-                });
+                    App.Current.MainPage = p;
+                    while (Navigation.NavigationStack.Count > 1)
+                        Navigation.RemovePage(Navigation.NavigationStack[0]); //WelcomeStartPage
+                    });
+
+
             this.WhenAnyObservable(x => x.Router.Navigate)
                 .SelectMany(_ => pageForViewModel(Router.GetCurrentViewModel()))
                 .SelectMany(x => this.PushAsync(x).ToObservable())
@@ -70,34 +75,31 @@ namespace Restaurant.ReactiveUI
                 .Subscribe();
 
             var poppingEvent = Observable.FromEventPattern<NavigationEventArgs>(x => this.Popped += x, x => this.Popped -= x);
-
-            // NB: Catch when the user hit back as opposed to the application
-            // requesting Back via NavigateBack
             poppingEvent
-                .Where(_ => !currentlyPopping && Router != null)
-                .Subscribe(_ =>
-                {
-                    try
-                    {
-                        if(Router.NavigationStack.Count > 1)
-                        {
-                            Router.NavigationStack.RemoveAt(Router.NavigationStack.Count - 1);
-                            ((IViewFor)this.CurrentPage).ViewModel = Router.GetCurrentViewModel();
-                        }
-                        
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
-                    
-                });
-           
-                        
+                 .Where(_ => !currentlyPopping && Router != null)
+                 .Subscribe(_ =>
+                 {
+                     try
+                     {
+                         if (Router.NavigationStack.Count > 1)
+                         {
+                             Router.NavigationStack.RemoveAt(Router.NavigationStack.Count - 1);
+                             ((IViewFor)this.CurrentPage).ViewModel = Router.GetCurrentViewModel();
+                         }
+
+                     }
+                     catch (Exception)
+                     {
+                         throw;
+                     }
+
+                 });
+
+
             Router = Locator.Current.GetService<INavigatableScreen>().Navigation;
             if (Router == null) throw new Exception("You *must* register an IScreen class representing your App's main Screen");
         }
-        
+
         IObservable<Page> pageForViewModel(INavigatableViewModel vm)
         {
             if (vm == null) return Observable.Empty<Page>();

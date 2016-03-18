@@ -16,16 +16,22 @@ namespace Restaurant.ReactiveUI
     /// navigate to other ViewModels.
     /// </summary>
     [DataContract]
-    public class NavigationState : ReactiveObject
+    public class NavigationState : ReactiveObject, ISupportsActivation
     {
         static NavigationState()
         {
+        }
+
+        public ViewModelActivator Activator
+        {
+            get;
         }
 
         public NavigationState()
         {
             _NavigationStack = new ReactiveList<INavigatableViewModel>();
             setupRx();
+            Activator = new ViewModelActivator();
         }
 
         [DataMember]
@@ -60,7 +66,7 @@ namespace Restaurant.ReactiveUI
         /// must be a ViewModel that implements IRoutableViewModel.
         /// </summary>
         [IgnoreDataMember]
-        public ReactiveCommand<INavigatableViewModel> NavigateAndChangeRoot { get; protected set; }
+        public ReactiveCommand<INavigatableViewModel> NavigateToMainPage { get; protected set; }
 
 
         /// <summary>
@@ -96,7 +102,7 @@ namespace Restaurant.ReactiveUI
                 NavigationStack.Add(vm);
                 return Observable.Return<INavigatableViewModel>(vm);
             });
-            NavigateAndChangeRoot = new ReactiveCommand<INavigatableViewModel>(Observable.Return(true), x => 
+            NavigateToMainPage = new ReactiveCommand<INavigatableViewModel>(Observable.Return(true), x => 
             {
                 var vm = x as INavigatableViewModel;
                 if (vm == null)

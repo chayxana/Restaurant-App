@@ -145,7 +145,7 @@ namespace Restaurant
         Color StatusBarColor { get; set; }
     }
 
-    public class ThemedNavigationPage : NavigationHost
+    public class ThemedNavigationPage : NavigationHost, IActivatable
     {
         public ThemedNavigationPage()
         {
@@ -158,6 +158,14 @@ namespace Restaurant
 
     public class ColoredThemedNavigationPage : NavigationPage
     {
+        public ColoredThemedNavigationPage()
+        {
 
+        }
+
+        public ColoredThemedNavigationPage(Page page) : base(page)
+        {
+
+        }
     }
 }

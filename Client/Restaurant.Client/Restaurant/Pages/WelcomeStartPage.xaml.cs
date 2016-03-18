@@ -34,7 +34,6 @@ namespace Restaurant.Pages
             StatusBarColor = theme.Dark;
             NavigationBarColor = theme.Primary;
             BackgroundColor = theme.Primary;
-
         }
     }
 

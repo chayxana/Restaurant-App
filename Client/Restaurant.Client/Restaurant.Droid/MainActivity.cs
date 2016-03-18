@@ -35,8 +35,7 @@ namespace Restaurant.Droid
                 return Observable.Return(RecoveryOptionResult.CancelOperation);
             });
 
-            LoadApplication(new App());
-            
+            LoadApplication(new App());            
 
         }
     }

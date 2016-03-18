@@ -18,6 +18,7 @@ namespace Restaurant.Pages.MainPages
             ActionBarBackgroundColor = theme.Primary;
             StatusBarColor = theme.Dark;
             ActionBarTextColor = Color.White;
+
         }
     }
     public class FoodsXamlPage : BaseContentPage<FoodsViewModel>

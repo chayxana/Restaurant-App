@@ -32,13 +32,7 @@ namespace Restaurant.Pages.MainPages
     public class BaseMasterDetailPage<T> : MainBaseMasterDetailPage, IViewFor<T> where T : class, INavigatableViewModel
     {
 
-        public T ViewModel
-        {
-            get; set;
-        }
-
-        public static readonly BindableProperty ViewModelProperty = BindableProperty.Create<BaseMasterDetailPage<T>, T>(x => x.ViewModel, default(T), BindingMode.OneWay);
-
+        public T ViewModel { get; set; }
 
         object IViewFor.ViewModel
         {
@@ -63,6 +57,7 @@ namespace Restaurant.Pages.MainPages
 
         public Color NavigationBarColor { get; set; }
 
+
         public void AddDoneButton(string text = "Done")
         {
             var btnPlus = new ToolbarItem
@@ -73,8 +68,6 @@ namespace Restaurant.Pages.MainPages
             {
                 Icon = "ic_more_vert_white"
             };
-            btnPlus.Clicked += async (sender, e) =>
-            await Navigation.PopModalAsync();
 
             this.ToolbarItems.Add(btnPlus);
             this.ToolbarItems.Add(btnMore);

@@ -23,21 +23,21 @@ namespace Restaurant.ViewModels
     public class AuthenticationViewModel : ReactiveObject, INavigatableViewModel
     {
 
-        private ColorTheme theme;
-
-        public ColorTheme Theme
-        {
-            get { return theme; }
-            set { this.RaiseAndSetIfChanged(ref theme, value); }
-        }
-
+        
 
         public ReactiveCommand<object> Login { get; set; }
-        //public ReactiveCommand<AuthenticationResult> Login { get; set; }
 
         public ReactiveCommand<object> OpenRegester { get; set; }
 
         public ReactiveCommand<object> OpenLogin { get; set; }
+
+
+        private bool isBusy;
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set { this.RaiseAndSetIfChanged(ref isBusy, value); }
+        }
 
         private string email;
 
@@ -78,30 +78,22 @@ namespace Restaurant.ViewModels
                 (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
 
 
-            //Login = ReactiveCommand.CreateAsyncTask(canLogin, async _ =>
-            // {
-            //     Debug.WriteLine(Helper.Address);
-            //     var client = new HttpClient(NetCache.UserInitiated)
-            //     {
-            //         BaseAddress = new Uri(Helper.Address)
-            //     };
-            //     var api = RestService.For<IRestaurantApi>(client);
-            //     var token = await api.GetToken(Email, Password);
-            //     return token;
-            // });
+            Login = ReactiveCommand.CreateAsyncTask<object>(canLogin, async _ =>
+             {
+                 IsBusy = true;
+                 AuthenticationStatus = "started logging...";
+                 await Task.Delay(1000);
+                 Debug.WriteLine(Helper.Address);
+                 var client = new HttpClient(NetCache.UserInitiated)
+                 {
+                     BaseAddress = new Uri(Helper.Address)
+                 };
+                 //var api = RestService.For<IRestaurantApi>(client);
+                 //var token = await api.GetToken(Email, Password);
+                 AuthenticationStatus = "started authentication...";
+                 return null;
+             });
 
-            //Login.Subscribe(token =>
-            //{
-            //    var mainViewModel = new MainViewModel(new ClientUser(null));
-            //    NavigationScreen.Navigation.NavigateAndChangeRoot.Execute(mainViewModel);
-            //});
-
-            Login = ReactiveCommand.Create();
-            Login.Subscribe(_ => 
-            {
-                var mainViewModel = new MainViewModel(new ClientUser(null));
-                NavigationScreen.Navigation.NavigateAndChangeRoot.Execute(mainViewModel);
-            });
             Login.ThrownExceptions.Subscribe(ex =>
             {
                 UserError.Throw("Invalid login or password!");
@@ -135,6 +127,12 @@ namespace Restaurant.ViewModels
             });
             #endregion
 
+        }
+
+        public void NavigateToMainPage()
+        {
+            var mainViewModel = new MainViewModel(new ClientUser(null));
+            NavigationScreen.Navigation.NavigateToMainPage.Execute(mainViewModel);
         }
     }
 }

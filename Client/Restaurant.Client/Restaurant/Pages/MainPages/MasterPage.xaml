@@ -5,6 +5,7 @@
              xmlns:local="clr-namespace:Restaurant.Pages.MainPages;assembly=Restaurant"
              xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
              xmlns:views="clr-namespace:Restaurant.Views;assembly=Restaurant"
+             xmlns:image="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              Icon="ic_menu.png"
              Title="Master"
              Padding="40" BackgroundColor="{StaticResource grayLight}">
@@ -29,7 +30,38 @@
       </Grid.RowDefinitions>
       <views:ProfileStripView Grid.Row="0"/>
       <StackLayout Grid.Row="1">
-
+        <ListView x:Name="listView" BackgroundColor="{StaticResource grayLight}">
+         <ListView.SeparatorColor>
+           <OnPlatform x:TypeArguments="Color" iOS="White"/>
+         </ListView.SeparatorColor>
+          <ListView.ItemTemplate>
+            <DataTemplate>
+              <ViewCell>
+                <ViewCell.View>
+                  <StackLayout StyleId="test">
+                    <Grid>
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                      </Grid.ColumnDefinitions>
+                      <StackLayout Padding="10">
+                        <Image HorizontalOptions="End"
+                                          VerticalOptions="Center"                                         
+                                          WidthRequest="25"
+                                          HeightRequest="25"
+                                          Source="{Binding IconSource}"/>
+                      </StackLayout>                      
+                      
+                      <StackLayout Grid.Column="1" VerticalOptions="Center">
+                        <Label Text="{Binding Title}" TextColor="{StaticResource grayDark}" FontSize="Medium"/>
+                      </StackLayout>
+                    </Grid>
+                  </StackLayout>
+                </ViewCell.View>
+              </ViewCell>
+            </DataTemplate>
+          </ListView.ItemTemplate>
+        </ListView>
       </StackLayout>
     </Grid>
   </ContentPage.Content>

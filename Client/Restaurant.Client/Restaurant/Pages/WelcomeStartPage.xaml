@@ -19,7 +19,7 @@
 
 			<StackLayout x:Name="buttonStack" Spacing="0" Scale="0" VerticalOptions="End" Grid.Row="2">
 				
-					<controls:AnimateButton x:Name="btnAuthenticate" StyleId="authButton" Text="Log In" Command="{Binding OpenLogin}" BackgroundColor="{StaticResource blueLight}" TextColor="White"/>
+					<controls:AnimateButton x:Name="btnAuthenticate" StyleId="authButton" Text="Sign In" Command="{Binding OpenLogin}" BackgroundColor="{StaticResource blueLight}" TextColor="White"/>
 
 			</StackLayout>
       

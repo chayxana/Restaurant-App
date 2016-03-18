@@ -16,7 +16,7 @@ namespace Restaurant.Controls
             {
                 var btn = (AnimateButton)sender;
                 await btn.ScaleTo(1.2, _animationTime);
-                btn.ScaleTo(1, _animationTime);
+                await btn.ScaleTo(1, _animationTime);
                 await Task.Delay(400);
             };
         }

@@ -23,11 +23,20 @@ namespace Restaurant
 {
     public partial class App : Application
     {
+        public bool SignIn { get; set; } = false;
+
         public App()
         {
             InitializeComponent();
             var app = new AppBotstrapper();
-            MainPage = app.MainPage();
+            if (SignIn)
+            {
+                MainPage = app.MainPage();
+            }
+            else
+            {
+                MainPage = app.WelcomeStartPage();
+            }
             AnimationSpeed = 200;
         }
 
@@ -99,12 +108,19 @@ namespace Restaurant
             Locator.CurrentMutable.Register(() => new SignUpPage(), typeof(IViewFor<SignUpViewModel>));
 
             Locator.CurrentMutable.Register(() => new MainPage(), typeof(IViewFor<MainViewModel>));
+
+        }
+
+        public Page WelcomeStartPage()
+        {
+            Locator.CurrentMutable.RegisterConstant(new AuthenticationViewModel(), typeof(AuthenticationViewModel));
+            return new WelcomeStartPage().WithinNavigationPage();
         }
 
         public Page MainPage()
         {
-            Locator.CurrentMutable.RegisterConstant(new AuthenticationViewModel(), typeof(AuthenticationViewModel));
-            return new WelcomeStartPage().WithinNavigationPage();
+            Locator.CurrentMutable.RegisterConstant(new MainViewModel(null), typeof(MainViewModel));
+            return new MainPage();
         }
     }
 
@@ -147,5 +163,12 @@ namespace Restaurant
         {
             return string.Format(s, args);
         }
+    }
+
+    public interface ILoginManager
+    {
+        void ShowMainPage();
+
+        void LogOut();
     }
 }

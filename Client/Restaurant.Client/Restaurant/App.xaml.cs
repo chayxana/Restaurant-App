@@ -3,7 +3,6 @@ using ModernHttpClient;
 using ReactiveUI;
 using ReactiveUI.XamForms;
 using Restaurant.Pages;
-using Restaurant.Pages.MainPages;
 using Restaurant.ReactiveUI;
 using Restaurant.ViewModels;
 using Restaurant.Views;
@@ -107,7 +106,7 @@ namespace Restaurant
 
             Locator.CurrentMutable.Register(() => new SignUpPage(), typeof(IViewFor<SignUpViewModel>));
 
-            Locator.CurrentMutable.Register(() => new MainPage(), typeof(IViewFor<MainViewModel>));
+            Locator.CurrentMutable.Register(() => new MainPage(), typeof(IViewFor<MainViewModel>)); 
 
         }
 

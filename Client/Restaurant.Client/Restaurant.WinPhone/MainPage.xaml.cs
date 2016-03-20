@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using NControl.Controls.WP80;
 
 namespace Restaurant.WinPhone
 {
@@ -16,6 +17,7 @@ namespace Restaurant.WinPhone
         {
             InitializeComponent();
             SupportedOrientations = SupportedPageOrientation.PortraitOrLandscape;
+            NControls.Init();
 
             //global::Xamarin.Forms.Forms.Init();
             //LoadApplication(new Restaurant.App());

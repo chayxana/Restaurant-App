@@ -24,7 +24,7 @@ namespace Restaurant.Pages
                 await AnimateControls(0, Easing.SinOut);
                 ViewModel.NavigateToMainPage();
                 ViewModel.IsBusy = false;
-            });                    
+            });                 
         }
 
         private async Task AnimateControls(int scale, Easing easing)

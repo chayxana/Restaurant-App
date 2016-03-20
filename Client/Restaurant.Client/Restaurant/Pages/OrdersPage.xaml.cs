@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-namespace Restaurant.Pages.MainPages
+namespace Restaurant.Pages
 {
-    public partial class AboutPage : ContentPage
+    public partial class OrdersPage : ContentPage
     {
-        public AboutPage()
+        public OrdersPage()
         {
             InitializeComponent();
-
         }
     }
 }

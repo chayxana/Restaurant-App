@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-namespace Restaurant.Pages.MainPages
+namespace Restaurant.Pages
 {
     public partial class MasterPage : ContentPage
     {

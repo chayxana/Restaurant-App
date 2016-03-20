@@ -31,15 +31,15 @@ namespace Restaurant.Droid.Renderers
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
-            //if (e.PropertyName == ThemedNavigationPage.CurrentPageProperty.PropertyName)
-            //{
-            //    var navPage = (NavigationPage)Element;
-            //    var page = navPage.CurrentPage as IColoredPage;
-            //    if ((int)Android.OS.Build.VERSION.SdkInt >= 21)
-            //    {
-            //        SetThemeColors(page);
-            //    }
-            //}
+            if (e.PropertyName == ThemedNavigationPage.CurrentPageProperty.PropertyName)
+            {
+                var navPage = (NavigationPage)Element;
+                var page = navPage.CurrentPage as IColoredPage;
+                if ((int)Android.OS.Build.VERSION.SdkInt >= 21)
+                {
+                    SetThemeColors(page);
+                }
+            }
         }
         protected override Task<bool> OnPushAsync(Page view, bool animated)
         {
@@ -70,7 +70,6 @@ namespace Restaurant.Droid.Renderers
             var context = Context as Activity;
             context.Window.SetNavigationBarColor(basePage.NavigationBarColor.ToAndroid());
             context.Window.SetStatusBarColor(basePage.StatusBarColor.ToAndroid());
-
             var actionBar = context.ActionBar;
             ColorDrawable colorDrawable = new ColorDrawable(basePage.ActionBarBackgroundColor.ToAndroid());
             actionBar.SetBackgroundDrawable(colorDrawable);

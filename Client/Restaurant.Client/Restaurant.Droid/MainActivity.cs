@@ -10,6 +10,7 @@ using ReactiveUI;
 using System.Reactive.Linq;
 using Android.Graphics.Drawables;
 using ImageCircle.Forms.Plugin.Droid;
+using NControl.Controls.Droid;
 
 namespace Restaurant.Droid
 {
@@ -24,7 +25,7 @@ namespace Restaurant.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             ImageCircleRenderer.Init();
-
+            NControls.Init();
             //if ((int)Android.OS.Build.VERSION.SdkInt >= 21) {  }
 
             UserError.RegisterHandler(ue =>
@@ -35,8 +36,17 @@ namespace Restaurant.Droid
                 return Observable.Return(RecoveryOptionResult.CancelOperation);
             });
 
-            LoadApplication(new App());            
+            LoadApplication(new App());
 
+        }
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override bool OnPrepareOptionsMenu(IMenu menu)
+        {
+            return base.OnPrepareOptionsMenu(menu);
         }
     }
 }

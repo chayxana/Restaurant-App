@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-namespace Restaurant.Pages.MainPages
+namespace Restaurant.Pages
 {
     public partial class MainPage : MainPageXaml
     {
@@ -20,7 +20,6 @@ namespace Restaurant.Pages.MainPages
             InitializeComponent();
             Master = new MasterPage(ViewModel);
             Detail = new FoodsPage().ToThemedNavigationPage();
-            AddDoneButton();
         }
     }
 
@@ -43,7 +42,7 @@ namespace Restaurant.Pages.MainPages
         public BaseMasterDetailPage()
         {
             ViewModel = Locator.Current.GetService<T>();
-            BindingContext = ViewModel;
+            BindingContext = ViewModel;            
         }
     }
 
@@ -60,16 +59,11 @@ namespace Restaurant.Pages.MainPages
 
         public void AddDoneButton(string text = "Done")
         {
-            var btnPlus = new ToolbarItem
-            {
-                Icon = "ic_plus.png"
-            };
+    
             var btnMore = new ToolbarItem
             {
                 Icon = "ic_more_vert_white"
             };
-
-            this.ToolbarItems.Add(btnPlus);
             this.ToolbarItems.Add(btnMore);
         }
     }

@@ -22,9 +22,6 @@ namespace Restaurant.ViewModels
 {
     public class AuthenticationViewModel : ReactiveObject, INavigatableViewModel
     {
-
-        
-
         public ReactiveCommand<object> Login { get; set; }
 
         public ReactiveCommand<object> OpenRegester { get; set; }

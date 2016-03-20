@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Restaurant.Pages.MainPages.MasterPage"
+             x:Class="Restaurant.Pages.MasterPage"
              xmlns:local="clr-namespace:Restaurant.Pages.MainPages;assembly=Restaurant"
              xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
              xmlns:views="clr-namespace:Restaurant.Views;assembly=Restaurant"

@@ -1,5 +1,4 @@
 ﻿using ReactiveUI;
-using Restaurant.Pages.MainPages;
 using Splat;
 using System;
 using System.Collections.Generic;
@@ -86,7 +85,6 @@ namespace Restaurant.ReactiveUI
                              Router.NavigationStack.RemoveAt(Router.NavigationStack.Count - 1);
                              ((IViewFor)this.CurrentPage).ViewModel = Router.GetCurrentViewModel();
                          }
-
                      }
                      catch (Exception)
                      {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-namespace Restaurant.Pages.MainPages
+namespace Restaurant.Pages
 {
     public partial class FoodsPage : FoodsXamlPage
     {
@@ -18,7 +18,12 @@ namespace Restaurant.Pages.MainPages
             ActionBarBackgroundColor = theme.Primary;
             StatusBarColor = theme.Dark;
             ActionBarTextColor = Color.White;
-
+            list.ItemSelected += (s, e) =>
+            {
+                list.SelectedItem = null;
+            };
+            Title = "Foods";
+                       
         }
     }
     public class FoodsXamlPage : BaseContentPage<FoodsViewModel>

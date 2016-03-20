@@ -17,6 +17,11 @@ namespace Restaurant.iOS.Renderers
     /// </summary>
     public class ThemedNavigationRenderer : NavigationRenderer
     {
+        public override void PushViewController(UIViewController viewController, bool animated)
+        {
+            base.PushViewController(viewController, animated);
+        }
+
         protected override Task<bool> OnPushAsync(Page page, bool animated)
         {
             ChangeTheme(page);

@@ -5,6 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 using ImageCircle.Forms.Plugin.iOS;
+using NControl.Controls.iOS;
 
 namespace Restaurant.iOS
 {
@@ -32,9 +33,9 @@ namespace Restaurant.iOS
             });
 
             global::Xamarin.Forms.Forms.Init();
+            NControls.Init();
             ImageCircleRenderer.Init();
             LoadApplication(new App());
-
             return base.FinishedLaunching(app, options);
         }
 

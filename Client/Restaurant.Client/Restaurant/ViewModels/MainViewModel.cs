@@ -7,15 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Restaurant.ViewModels
 {
-    public class Order
-    {
-        public Food Food { get; set; }
-    }
 
     public class MainViewModel : ReactiveObject, INavigatableViewModel
     {
@@ -23,25 +20,19 @@ namespace Restaurant.ViewModels
 
         public FoodsViewModel FoodViewModel { get; set; }
 
-        private int ordersCount;
+        public BasketViewModel BasketViewModel { get; set; }
 
-        public int OrdersCount
+        public MainViewModel(ClientUser user, IDetailedScreen screen = null)
         {
-            get { return ordersCount; }
-            set { this.RaiseAndSetIfChanged(ref ordersCount, value); }
-        }
-
-        public ReactiveList<Order> Orders { get; set; }
-
-        public MainViewModel(ClientUser user)
-        {
+            DetailScreen = (screen ?? Locator.Current.GetService<IDetailedScreen>());
             Locator.CurrentMutable.RegisterConstant(this, typeof(MainViewModel));
+            Locator.CurrentMutable.RegisterConstant(new BasketViewModel(), typeof(BasketViewModel));
+            Locator.CurrentMutable.RegisterConstant(new FoodsViewModel(), typeof(FoodsViewModel));
+            FoodViewModel = Locator.Current.GetService<FoodsViewModel>();
+            BasketViewModel = Locator.Current.GetService<BasketViewModel>();
             User = user;
-            Orders = new ReactiveList<Order>();
-            FoodViewModel = new FoodsViewModel();     
-            this.WhenAnyValue(x => x.Orders.Count).Subscribe(x => OrdersCount = x);
-            Locator.CurrentMutable.RegisterConstant(FoodViewModel, typeof(FoodsViewModel));
         }
+        public IDetailedScreen DetailScreen { get; set; }
 
         public INavigatableScreen NavigationScreen
         {
@@ -54,6 +45,29 @@ namespace Restaurant.ViewModels
             {
                 return "Main";
             }
+        }
+    }
+
+    public interface IDetailedScreen
+    {
+        DetailState DetailState { get; set; }
+    }
+
+    public class DetailState : ReactiveObject
+    {
+        public ReactiveCommand<INavigatableViewModel> MoveToDetail { get; set; }
+
+        public DetailState()
+        {
+            MoveToDetail = new ReactiveCommand<INavigatableViewModel>(Observable.Return(true), x =>
+            {
+                var vm = x as INavigatableViewModel;
+                if (vm == null)
+                {
+                    throw new Exception("Navigate must be called on an INavigatableViewModel");
+                }
+                return Observable.Return<INavigatableViewModel>(vm);
+            });
         }
     }
 }

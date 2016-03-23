@@ -22,8 +22,7 @@ namespace Restaurant.Pages
             {
                 list.SelectedItem = null;
             };
-            Title = "Foods";
-                       
+            Title = "Foods";                       
         }
     }
     public class FoodsXamlPage : BaseContentPage<FoodsViewModel>

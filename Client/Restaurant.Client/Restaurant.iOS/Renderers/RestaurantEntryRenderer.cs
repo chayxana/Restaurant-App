@@ -16,7 +16,6 @@ namespace Restaurant.iOS.Renderers
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
         {
             base.OnElementChanged(e);
-
             var view = (RestaurantEntry)Element;
 
             if (view != null)

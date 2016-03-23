@@ -53,12 +53,13 @@ namespace Restaurant.ReactiveUI
                     App.Current.MainPage = p;
                     while (Navigation.NavigationStack.Count > 1)
                         Navigation.RemovePage(Navigation.NavigationStack[0]); //WelcomeStartPage
-                    });
+                });
 
 
             this.WhenAnyObservable(x => x.Router.Navigate)
                 .SelectMany(_ => pageForViewModel(Router.GetCurrentViewModel()))
-                .SelectMany(x => this.PushAsync(x).ToObservable())
+                .SelectMany(x =>
+                        this.PushAsync(x).ToObservable())
                 .Subscribe();
 
             this.WhenAnyObservable(x => x.Router.NavigateBack)
@@ -80,11 +81,9 @@ namespace Restaurant.ReactiveUI
                  {
                      try
                      {
-                         if (Router.NavigationStack.Count > 1)
-                         {
-                             Router.NavigationStack.RemoveAt(Router.NavigationStack.Count - 1);
-                             ((IViewFor)this.CurrentPage).ViewModel = Router.GetCurrentViewModel();
-                         }
+
+                         Router.NavigationStack.RemoveAt(Router.NavigationStack.Count - 1);
+                         ((IViewFor)this.CurrentPage).ViewModel = Router.GetCurrentViewModel();
                      }
                      catch (Exception)
                      {

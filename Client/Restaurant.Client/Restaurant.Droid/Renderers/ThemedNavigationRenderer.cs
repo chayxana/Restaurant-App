@@ -26,7 +26,7 @@ namespace Restaurant.Droid.Renderers
     {
         protected override void OnElementChanged(ElementChangedEventArgs<NavigationPage> e)
         {
-            base.OnElementChanged(e);            
+            base.OnElementChanged(e);
         }
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -70,11 +70,22 @@ namespace Restaurant.Droid.Renderers
             var context = Context as Activity;
             context.Window.SetNavigationBarColor(basePage.NavigationBarColor.ToAndroid());
             context.Window.SetStatusBarColor(basePage.StatusBarColor.ToAndroid());
+
             var actionBar = context.ActionBar;
             ColorDrawable colorDrawable = new ColorDrawable(basePage.ActionBarBackgroundColor.ToAndroid());
             actionBar.SetBackgroundDrawable(colorDrawable);
 
             int titleId = context.Resources.GetIdentifier("action_bar_title", "id", "android");
+
+
+            var page = basePage as Page;
+            if (page != null)
+            {
+                if(page.Title == "Foods")
+                {
+                    var basketMenu = page.ToolbarItems.Where(t => t.ClassId == "basket").FirstOrDefault();                    
+                }
+            }
 
             //TextView abTitle = (TextView)context.FindViewById(titleId);
             //abTitle.SetTextColor(basePage.BarTextColor.ToAndroid());

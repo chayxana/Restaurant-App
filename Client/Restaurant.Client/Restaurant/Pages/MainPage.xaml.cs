@@ -19,13 +19,21 @@ namespace Restaurant.Pages
         {
             InitializeComponent();
             Master = new MasterPage(ViewModel);
-            Detail = new FoodsPage().ToThemedNavigationPage();
+            Detail = new FoodsPage().WithinNavigationPage();
+
+            Locator.CurrentMutable.Register(() => new BasketPage(), typeof(IViewFor<BasketViewModel>));
+
         }
     }
 
-    public class MainPageXaml : BaseMasterDetailPage<MainViewModel>
+    public class MainPageXaml : BaseMasterDetailPage<MainViewModel>, IDetailedScreen
     {
+        public DetailState DetailState { get; set; }
 
+        public MainPageXaml()
+        {
+
+        }
     }
 
     public class BaseMasterDetailPage<T> : MainBaseMasterDetailPage, IViewFor<T> where T : class, INavigatableViewModel

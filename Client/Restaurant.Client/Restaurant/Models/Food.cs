@@ -38,7 +38,6 @@ namespace Restaurant.Models
         }
 
         private bool isOrdered;
-
         public bool IsOrdered
         {
             get { return isOrdered; }
@@ -72,7 +71,7 @@ namespace Restaurant.Models
             ApplyOrder.Subscribe(_ =>
             {
                 IsOrdered = false;
-                MainViewModel.Orders.Add(new Order { Food = this });
+                MainViewModel.BasketViewModel.Orders.Add(new Order { Food = this, Id = Guid.NewGuid() });
             });
         }
 

@@ -36,13 +36,21 @@ namespace Restaurant.Droid
                 return Observable.Return(RecoveryOptionResult.CancelOperation);
             });
 
-            LoadApplication(new App());
-
+            LoadApplication(new App());            
         }
+        private int hot_number = 0;
+        private TextView ui_hot = null;
+
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            return base.OnCreateOptionsMenu(menu);
+            menu.Clear();
+            MenuInflater.Inflate(Resource.Menu.menu_actionbar, menu);
+            View menu_hotlist = menu.FindItem(Resource.Id.menu_hotlist).ActionView;
+            ui_hot = (TextView)menu_hotlist.FindViewById(Resource.Id.hotlist_hot);
+            return true;
+            //return base.OnCreateOptionsMenu(menu);
         }
+
 
         public override bool OnPrepareOptionsMenu(IMenu menu)
         {

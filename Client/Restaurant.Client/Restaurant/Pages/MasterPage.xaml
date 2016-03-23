@@ -6,7 +6,7 @@
              xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
              xmlns:views="clr-namespace:Restaurant.Views;assembly=Restaurant"
              xmlns:image="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
-             Icon="ic_menu.png"
+             Icon="ic_menu_white.png"
              Title="Master"
              Padding="40" BackgroundColor="{StaticResource grayLight}">
   <ContentPage.Padding>

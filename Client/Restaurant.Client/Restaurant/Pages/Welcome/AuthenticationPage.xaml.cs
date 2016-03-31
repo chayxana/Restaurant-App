@@ -22,7 +22,7 @@ namespace Restaurant.Pages
             ViewModel.Login.Subscribe(async x =>
             {
                 await AnimateControls(0, Easing.SinOut);
-                ViewModel.NavigateToMainPage();
+                ViewModel.NavigateToMainPage(x);
                 ViewModel.IsBusy = false;
             });                 
         }

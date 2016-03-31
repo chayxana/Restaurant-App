@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Restaurant.ViewModels;
+using Splat;
 using Xamarin.Forms;
 
 namespace Restaurant.Views
@@ -13,7 +9,7 @@ namespace Restaurant.Views
         public ProfileStripView()
         {
             InitializeComponent();
-            root.BindingContext = this;
+            root.BindingContext = Locator.Current.GetService<MainViewModel>();
         }
     }
 }

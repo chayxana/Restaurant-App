@@ -1,5 +1,4 @@
 ﻿using Fusillade;
-using Newtonsoft.Json.Linq;
 using ReactiveUI;
 using Refit;
 using Restaurant.Model;
@@ -7,22 +6,14 @@ using Restaurant.Models;
 using Restaurant.ReactiveUI;
 using Splat;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Reactive.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Restaurant.ViewModels
 {
     public class AuthenticationViewModel : ReactiveObject, INavigatableViewModel
     {
-        public ReactiveCommand<object> Login { get; set; }
+        public ReactiveCommand<UserInfo> Login { get; set; }
 
         public ReactiveCommand<object> OpenRegester { get; set; }
 
@@ -62,10 +53,7 @@ namespace Restaurant.ViewModels
 
         public INavigatableScreen NavigationScreen { get; protected set; }
 
-        public string Title
-        {
-            get { return "Authentication"; }
-        }
+        public string Title => "Authentication";
 
         public AuthenticationViewModel(INavigatableScreen screen = null)
         {
@@ -75,20 +63,24 @@ namespace Restaurant.ViewModels
                 (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
 
 
-            Login = ReactiveCommand.CreateAsyncTask<object>(canLogin, async _ =>
+            Login = ReactiveCommand.CreateAsyncTask(canLogin, async _ =>
              {
                  IsBusy = true;
                  AuthenticationStatus = "started logging...";
-                 await Task.Delay(1000);
                  Debug.WriteLine(Helper.Address);
                  var client = new HttpClient(NetCache.UserInitiated)
                  {
                      BaseAddress = new Uri(Helper.Address)
                  };
-                 //var api = RestService.For<IRestaurantApi>(client);
-                 //var token = await api.GetToken(Email, Password);
+                 var api = RestService.For<IRestaurantApi>(client);
+                 var token = await api.GetToken(Email, Password);
                  AuthenticationStatus = "started authentication...";
-                 return null;
+                 Global.AuthenticatedClient = new HttpClient(new AuthenticatedHttpClientHandler(token.access_token))
+                 {
+                     BaseAddress = new Uri(Helper.Address)
+                 };
+                 var info = await Global.AuthenticatedApi.GetUserInfo();
+                 return info;
              });
 
             Login.ThrownExceptions.Subscribe(ex =>
@@ -126,9 +118,10 @@ namespace Restaurant.ViewModels
 
         }
 
-        public void NavigateToMainPage()
+        public void NavigateToMainPage(UserInfo user)
         {
-            var mainViewModel = new MainViewModel(new ClientUser(null));
+            user.Picture = Helper.Address + "/" + user.Picture;
+            var mainViewModel = new MainViewModel(user);
             NavigationScreen.Navigation.NavigateToMainPage.Execute(mainViewModel);
         }
     }

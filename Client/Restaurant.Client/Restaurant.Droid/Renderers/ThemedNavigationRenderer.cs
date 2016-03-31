@@ -31,9 +31,9 @@ namespace Restaurant.Droid.Renderers
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
-            if (e.PropertyName == ThemedNavigationPage.CurrentPageProperty.PropertyName)
+            if (e.PropertyName == NavigationPage.CurrentPageProperty.PropertyName)
             {
-                var navPage = (NavigationPage)Element;
+                var navPage = Element;
                 var page = navPage.CurrentPage as IColoredPage;
                 if ((int)Android.OS.Build.VERSION.SdkInt >= 21)
                 {
@@ -68,22 +68,29 @@ namespace Restaurant.Droid.Renderers
         private void SetThemeColors(IColoredPage basePage)
         {
             var context = Context as Activity;
-            context.Window.SetNavigationBarColor(basePage.NavigationBarColor.ToAndroid());
-            context.Window.SetStatusBarColor(basePage.StatusBarColor.ToAndroid());
-
-            var actionBar = context.ActionBar;
-            ColorDrawable colorDrawable = new ColorDrawable(basePage.ActionBarBackgroundColor.ToAndroid());
-            actionBar.SetBackgroundDrawable(colorDrawable);
-
-            int titleId = context.Resources.GetIdentifier("action_bar_title", "id", "android");
-
-
-            var page = basePage as Page;
-            if (page != null)
+            if (context != null)
             {
+                context.Window.SetNavigationBarColor(basePage.NavigationBarColor.ToAndroid());
+                context.Window.SetStatusBarColor(basePage.StatusBarColor.ToAndroid());
+
+                var actionBar = context.ActionBar;
+                ColorDrawable colorDrawable = new ColorDrawable(basePage.ActionBarBackgroundColor.ToAndroid());
+                actionBar.SetBackgroundDrawable(colorDrawable);
+
+                int titleId = context.Resources.GetIdentifier("action_bar_title", "id", "android");
+
+
+                var page = basePage as Page;
+                if (page == null) return;
                 if(page.Title == "Foods")
                 {
-                    var basketMenu = page.ToolbarItems.Where(t => t.ClassId == "basket").FirstOrDefault();                    
+                    var basketMenu = page.ToolbarItems.FirstOrDefault(t => t.ClassId == "basket");
+                    //page.ToolbarItems.Remove(basketMenu);
+                    var tempContext = context as MainActivity;
+                    if(tempContext != null)
+                    {
+                        //tempContext.SetActionBar()                                            
+                    }                    
                 }
             }
 

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Akavache.Internal;
 
 namespace Restaurant.ViewModels
 {
@@ -27,16 +28,16 @@ namespace Restaurant.ViewModels
 
         public INavigatableScreen NavigationScreen { get; }
 
-        public string Title { get { return "Your basket"; } }
+        public string Title => "Your basket";
 
-        public BasketViewModel()
+        public BasketViewModel(INavigatableScreen navigationScreen = null)
         {
+            NavigationScreen = navigationScreen;
             Orders = new ReactiveList<Order>();
             this.WhenAnyValue(x => x.Orders.Count)
                 .Subscribe(x =>
                 {
                     OrdersCount = x;
-                    var a = Orders.GroupBy(o => o.Food);
                 });
         }
     }

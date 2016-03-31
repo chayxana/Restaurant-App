@@ -52,36 +52,17 @@ namespace Restaurant.iOS.Renderers
             }
             return base.PopViewController(animated);
         }
-        Dictionary<UIButton, ICommand> buttonCommands = new Dictionary<UIButton, ICommand>();
+
+        readonly Dictionary<UIButton, ICommand> buttonCommands = new Dictionary<UIButton, ICommand>();
         ToolbarItem toolBarItem;
         public override void ViewWillAppear(bool animated)
         {
             if (toolBarItem != null)
             {
-                var tools = new List<UIBarButtonItem>();
-                MainViewModel viewModel = (toolBarItem.BindingContext as FoodsViewModel)?.MainViewModel as MainViewModel;
-                var badge = new UIBadgeLabel
-                {
-                    Text = "0",
-                    TextColor = UIColor.White,
-                    Hidden = true,
-                    Frame = new CGRect(20, -6, 20, 20),
-                    ShadowOpacityBadge = 0,
-                    ShadowColorBadge = UIColor.Red,                                       
-                };
-                badge.Font = badge.Font.WithSize(12);
-                viewModel.BasketViewModel
-                    .WhenAnyValue(x => x.OrdersCount)
-                    .Subscribe(x => 
-                    {
-                        if (x > 0)
-                            badge.Hidden = false;
-                        badge.Text = x.ToString();
-                    });
+                MainViewModel viewModel = (toolBarItem.BindingContext as FoodsViewModel)?.MainViewModel;
                 UIButton button = UIButton.FromType(UIButtonType.Custom);
-                button.Frame = new CGRect(0, 0, 30, 30);
+                button.Frame = new CGRect(0, -5, 25, 25);
                 button.SetImage(UIImage.FromFile("ic_shopping_cart_white_2x.png"), UIControlState.Normal);
-                button.AddSubview(badge);
                 button.TouchUpInside += (s, e) =>
                 {
                     var tool = s as UIButton;
@@ -89,14 +70,21 @@ namespace Restaurant.iOS.Renderers
                     command.Execute(null);
                 };
                 buttonCommands.Add(button, toolBarItem.Command);
-                NavigationBar.Items[0].RightBarButtonItem = new UIBarButtonItem(button);
+                BadgeBarButtonItem barButtonItem = new BadgeBarButtonItem(button);
+                NavigationBar.Items[0].RightBarButtonItem = barButtonItem;
+                viewModel.BasketViewModel
+                    .WhenAnyValue(x => x.OrdersCount)
+                    .Subscribe(x =>
+                    {
+                        barButtonItem.BadgeValue = x.ToString();
+                    });
             }
             base.ViewWillAppear(animated);
         }
 
         void ChangeTheme(Page page)
         {
-            var item = page.ToolbarItems.Where(t => t.ClassId == "basket").FirstOrDefault();
+            var item = page.ToolbarItems.FirstOrDefault(t => t.ClassId == "basket");
             if (item != null)
             {
                 toolBarItem = item;

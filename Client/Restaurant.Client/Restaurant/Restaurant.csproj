@@ -80,6 +80,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModels\AuthenticationViewModel.cs" />
     <Compile Include="ViewModels\FoodsViewModel.cs" />
+    <Compile Include="ViewModels\Global.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />

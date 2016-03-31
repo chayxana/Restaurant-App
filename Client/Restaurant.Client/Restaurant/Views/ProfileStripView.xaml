@@ -10,13 +10,13 @@
 
 		<StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Start" Padding="10,18,0,20">
 			<ContentView Padding="0,20,0,0">
-				<controls:CircleImage Source="noavatar.png"
+				<controls:CircleImage Source="{Binding User.Picture}"
 					HorizontalOptions="End" VerticalOptions="Center" Aspect="AspectFill" WidthRequest="70" HeightRequest="70" />
-			</ContentView>
+			</ContentView>  
 
 			<StackLayout Padding="0,15,0,0" HorizontalOptions="Start" VerticalOptions="Start">
-				<Label Text="Profile Name" FontSize="Small" HorizontalOptions="StartAndExpand" Style="{StaticResource header}" />
-				<Label Text="profile email" FontSize="Micro" HorizontalOptions="StartAndExpand"  />
+				<Label Text="{Binding User.Name}" FontSize="Small" HorizontalOptions="StartAndExpand" Style="{StaticResource header}" />
+				<Label Text="{Binding User.Email}" FontSize="Micro" HorizontalOptions="StartAndExpand"  />
 
 				<ContentView Padding="0,15,0,0">
 					<Label Text="Alias" FontSize="Small" TextColor="Black"/>

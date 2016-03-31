@@ -3,6 +3,8 @@
 <resources>
   <style name="MyTheme.Base" parent="@android:style/Theme.Holo.Light.DarkActionBar"> </style>
   <style name="MyTheme" parent="MyTheme.Base">
+    <!-- You can also set colorControlNormal, colorControlActivated
+         colorControlHighlight and colorSwitchThumbNormal. -->
     <item name="android:actionBarStyle">@style/MyTheme.ActionBarStyle</item>
     <item name="android:windowContentOverlay">@null</item>
   </style>

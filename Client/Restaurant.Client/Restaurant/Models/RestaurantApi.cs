@@ -6,10 +6,34 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Restaurant.Model
 {
+    internal class AuthenticatedHttpClientHandler : HttpClientHandler
+    {
+        private readonly string token;
+
+        public AuthenticatedHttpClientHandler(string token)
+        {
+            if (token == null) throw new ArgumentNullException("getToken");
+            this.token = token;
+        }
+
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            // See if the request has an authorize header
+            var auth = request.Headers.Authorization;
+            if (auth != null)
+            {
+                request.Headers.Authorization = new AuthenticationHeaderValue(auth.Scheme, token);
+            }
+
+            return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
+        }
+    }
+
     public interface IRestaurantApi
     {
         [Post("/api/Account/Register")]
@@ -20,7 +44,12 @@ namespace Restaurant.Model
         Task<AuthenticationResult> GetTokenRaw([Body(BodySerializationMethod.UrlEncoded)] Dictionary<string, string> form);
 
         [Get("/api/Values")]
-        Task<object> GetValues([Header("Authorization:Bearer")] string token);
+        [Headers("Authorization: Bearer")]
+        Task<object> GetValues();
+
+        [Get("/api/Account/UserInfo")]
+        [Headers("Authorization: Bearer")]
+        Task<UserInfo> GetUserInfoRaw();
     }
 
     public static class RestaurantApiExtensions
@@ -49,9 +78,13 @@ namespace Restaurant.Model
             return This.GetTokenRaw(dict);
         }
 
-        public static Task<object> Values(this IRestaurantApi This, ClientUser clientUser)
+        public static Task<object> Values(this IRestaurantApi This)
         {
-            return This.GetValues(clientUser.AuthenticationToken);
+            return This.GetValues();
+        }
+        public static Task<UserInfo> GetUserInfo(this IRestaurantApi This)
+        {
+            return This.GetUserInfoRaw();
         }
     }
 }

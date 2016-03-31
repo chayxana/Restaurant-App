@@ -13,7 +13,9 @@ namespace Restaurant.ReactiveUI
 {
     public class NavigationHost : NavigationPage, IActivatable
     {
+#pragma warning disable CS0618 // Type or member is obsolete
         public static readonly BindableProperty RouterProperty = BindableProperty.Create<NavigationHost, NavigationState>(x => x.Router, null, BindingMode.OneWay);
+#pragma warning restore CS0618 // Type or member is obsolete
 
         public NavigationState Router
         {

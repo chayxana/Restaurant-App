@@ -13,7 +13,6 @@ namespace Restaurant.Pages
         public AboutPage()
         {
             InitializeComponent();
-
         }
     }
 }

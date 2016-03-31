@@ -17,6 +17,8 @@ namespace Restaurant.Pages
             var theme = App.Current.GetThemeFromColor("bluePink");
             ActionBarBackgroundColor = theme.Primary;
             StatusBarColor = theme.Dark;
+            NavigationBarColor = theme.Dark;
+
             ActionBarTextColor = Color.White;
             list.ItemSelected += (s, e) =>
             {

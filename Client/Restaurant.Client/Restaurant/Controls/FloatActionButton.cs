@@ -135,11 +135,13 @@ namespace Restaurant.Controls
         /// The command property.
         /// </summary>
         public static BindableProperty CommandProperty =
+#pragma warning disable CS0618 // Type or member is obsolete
             BindableProperty.Create<FloatActionButton, ICommand>(p => p.Command, null,
                 BindingMode.TwoWay, null, (bindable, oldValue, newValue) => {
                     var ctrl = (FloatActionButton)bindable;
                     ctrl.Command = newValue;
                 });
+#pragma warning restore CS0618 // Type or member is obsolete
 
         /// <summary>
         /// Gets or sets the color of the buton.
@@ -166,11 +168,13 @@ namespace Restaurant.Controls
         /// The command parameter property.
         /// </summary>
         public static BindableProperty CommandParameterProperty =
+#pragma warning disable CS0618 // Type or member is obsolete
             BindableProperty.Create<FloatActionButton, object>(p => p.CommandParameter, null,
                 BindingMode.TwoWay, null, (bindable, oldValue, newValue) => {
                     var ctrl = (FloatActionButton)bindable;
                     ctrl.CommandParameter = newValue;
                 });
+#pragma warning restore CS0618 // Type or member is obsolete
 
         /// <summary>
         /// Gets or sets the color of the buton.
@@ -189,11 +193,13 @@ namespace Restaurant.Controls
         /// The button color property.
         /// </summary>
         public static BindableProperty ButtonColorProperty =
+#pragma warning disable CS0618 // Type or member is obsolete
             BindableProperty.Create<FloatActionButton, Color>(p => p.ButtonColor, Color.Gray,
                 BindingMode.TwoWay, null, (bindable, oldValue, newValue) => {
                     var ctrl = (FloatActionButton)bindable;
                     ctrl.ButtonColor = newValue;
                 });
+#pragma warning restore CS0618 // Type or member is obsolete
 
         /// <summary>
         /// Gets or sets the color of the buton.
@@ -213,11 +219,13 @@ namespace Restaurant.Controls
         /// The button font family property.
         /// </summary>
         public static BindableProperty ButtonFontFamilyProperty =
+#pragma warning disable CS0618 // Type or member is obsolete
             BindableProperty.Create<FloatActionButton, string>(p => p.ButtonFontFamily, null,
                 BindingMode.TwoWay, null, (bindable, oldValue, newValue) => {
                     var ctrl = (FloatActionButton)bindable;
                     ctrl.ButtonFontFamily = newValue;
                 });
+#pragma warning restore CS0618 // Type or member is obsolete
 
         /// <summary>
         /// Gets or sets the color of the buton.
@@ -237,11 +245,13 @@ namespace Restaurant.Controls
         /// The button icon property.
         /// </summary>
         public static BindableProperty ButtonIconProperty =
+#pragma warning disable CS0618 // Type or member is obsolete
             BindableProperty.Create<FloatActionButton, string>(p => p.ButtonIcon, FontAwesomeLabel.FAPlus,
                 BindingMode.TwoWay, null, (bindable, oldValue, newValue) => {
                     var ctrl = (FloatActionButton)bindable;
                     ctrl.ButtonIcon = newValue;
                 });
+#pragma warning restore CS0618 // Type or member is obsolete
 
         /// <summary>
         /// Gets or sets the button icon.
@@ -261,11 +271,13 @@ namespace Restaurant.Controls
         /// The button icon property.
         /// </summary>
         public static BindableProperty HasShadowProperty =
+#pragma warning disable CS0618 // Type or member is obsolete
             BindableProperty.Create<FloatActionButton, bool>(p => p.HasShadow, true,
                 BindingMode.TwoWay, null, (bindable, oldValue, newValue) => {
                     var ctrl = (FloatActionButton)bindable;
                     ctrl.HasShadow = newValue;
                 });
+#pragma warning restore CS0618 // Type or member is obsolete
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance has shadow.
@@ -289,11 +301,13 @@ namespace Restaurant.Controls
         /// The button icon color property.
         /// </summary>
         public static BindableProperty ButtonIconColorProperty =
+#pragma warning disable CS0618 // Type or member is obsolete
             BindableProperty.Create<FloatActionButton, Color>(p => p.ButtonColor, Color.White,
                 BindingMode.TwoWay, null, (bindable, oldValue, newValue) => {
                     var ctrl = (FloatActionButton)bindable;
                     ctrl.ButtonIconColor = newValue;
                 });
+#pragma warning restore CS0618 // Type or member is obsolete
 
         /// <summary>
         /// Gets or sets the button icon color.

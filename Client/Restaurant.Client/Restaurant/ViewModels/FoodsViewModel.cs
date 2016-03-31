@@ -3,12 +3,6 @@ using Restaurant.Models;
 using Restaurant.ReactiveUI;
 using Splat;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reactive.Linq;
 
 namespace Restaurant.ViewModels
 {
@@ -40,13 +34,7 @@ namespace Restaurant.ViewModels
             get; set;
         }
 
-        public string Title
-        {
-            get
-            {
-                return "Foods";
-            }
-        }
+        public string Title => "Foods";
 
         public ReactiveList<Food> Foods { get; set; }
     }

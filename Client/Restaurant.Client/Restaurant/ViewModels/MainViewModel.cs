@@ -1,28 +1,22 @@
 ﻿using ReactiveUI;
 using Restaurant.Model;
-using Restaurant.Models;
 using Restaurant.ReactiveUI;
 using Splat;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Restaurant.ViewModels
 {
 
     public class MainViewModel : ReactiveObject, INavigatableViewModel
     {
-        public ClientUser User { get; set; }
+        public UserInfo User { get; set; }
 
         public FoodsViewModel FoodViewModel { get; set; }
 
         public BasketViewModel BasketViewModel { get; set; }
 
-        public MainViewModel(ClientUser user, IDetailedScreen screen = null)
+        public MainViewModel(UserInfo user, IDetailedScreen screen = null)
         {
             DetailScreen = (screen ?? Locator.Current.GetService<IDetailedScreen>());
             Locator.CurrentMutable.RegisterConstant(this, typeof(MainViewModel));

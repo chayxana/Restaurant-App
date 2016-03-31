@@ -16,6 +16,7 @@ using Microsoft.Owin.Security.OAuth;
 using Restaurant.Server.Models;
 using Restaurant.Server.Providers;
 using Restaurant.Server.Results;
+using System.Linq;
 
 namespace Restaurant.Server.Controllers
 {
@@ -58,15 +59,20 @@ namespace Restaurant.Server.Controllers
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
-            var user = Context.Users.Find(User.Identity.GetUserName());
-
-            return new UserInfoViewModel
+            var user = Context.Users.ToList().Where(u => u.Email == User.Identity.GetUserName()).FirstOrDefault();
+            if(user != null)
             {
-                Email = User.Identity.GetUserName(),
-                IsRegistered = externalLogin == null,
-                Name = externalLogin.UserName,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
-            };
+                return new UserInfoViewModel
+                {
+                    Email = User.Identity.GetUserName(),
+                    IsRegistered = externalLogin == null,
+                    Name = user.Name,
+                    Picture = user.Picture,
+                    LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                };
+            }
+            return null;
+            
         }
 
         // POST api/Account/Logout
@@ -331,7 +337,7 @@ namespace Restaurant.Server.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new User() { UserName = model.Email, Email = model.Email, Name = model.Name };
+            var user = new User() { UserName = model.Email, Email = model.Email, Name = model.Name, Picture = "Content/Pictures/noavatar.png"};
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 

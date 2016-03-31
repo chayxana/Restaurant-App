@@ -36,7 +36,7 @@ namespace Restaurant
 
         public Color StatusBarColor { get; set; }
 
-        bool _hasSubscribed;
+        bool hasSubscribed;
 
         public bool HasInitialized
         {
@@ -54,16 +54,16 @@ namespace Restaurant
 
         private void SubscribeToAuthentication()
         {
-            /// SubscribeToAuthenTication
+            //SubscribeToAuthenTication
         }
 
         protected override void OnAppearing()
         {
-            if (!_hasSubscribed)
+            if (!hasSubscribed)
             {
                 SubscribeToAuthentication();
                 SubscribeToIncomingPayload();
-                _hasSubscribed = true;
+                hasSubscribed = true;
             }
 
             var nav = Parent as NavigationPage;

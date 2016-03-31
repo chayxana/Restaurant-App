@@ -1,18 +1,13 @@
-﻿using Fusillade;
+﻿using System;
+using System.Diagnostics;
+using System.Net.Http;
+using Fusillade;
 using ReactiveUI;
 using Refit;
 using Restaurant.Model;
 using Restaurant.Models;
 using Restaurant.ReactiveUI;
 using Splat;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Restaurant.ViewModels
 {
@@ -69,13 +64,7 @@ namespace Restaurant.ViewModels
 
         public INavigatableScreen NavigationScreen { get; private set; }
 
-        public string Title
-        {
-            get
-            {
-                return "Sign Up";
-            }
-        }
+        public string Title => "Sign Up";
 
         public SignUpViewModel(INavigatableScreen screen = null)
         {
@@ -101,10 +90,9 @@ namespace Restaurant.ViewModels
                 };
                 var api = RestService.For<IRestaurantApi>(client);
                 IsLoading = true;
-                var result = await api.Regester(this.Name, this.RegesterEmail, this.RegesterPassword, this.ConfirmPassword);
-                await Task.Delay(2000);
+                var result = await api.Regester(Name, RegesterEmail, RegesterPassword, ConfirmPassword);
                 IsLoading = false;
-                return new object();
+                return result;
             });
 
             Regester.Subscribe(r => 

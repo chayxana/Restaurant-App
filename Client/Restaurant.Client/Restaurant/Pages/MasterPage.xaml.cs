@@ -15,6 +15,7 @@ namespace Restaurant.Pages
 
         public MasterPage(MainViewModel viewModel)
         {
+            this.BindingContext = viewModel;
             InitializeComponent();
 
             var masterPageItems = new List<MasterPageItem>();
@@ -22,7 +23,7 @@ namespace Restaurant.Pages
             masterPageItems.Add(new MasterPageItem
             {
                 Title = "Foods",
-                IconSource = "ic_food.png",
+                IconSource = "ic_restaurant_menu_black.png",
                 TargetType = typeof(FoodsPage)
             });
 
@@ -56,7 +57,13 @@ namespace Restaurant.Pages
 
             listView.ItemsSource = masterPageItems;
         }
+        public void Cell_Tapped(object sender, EventArgs e)
+        {
+           
+        }
     }
+
+
 
     public class MasterPageItem
     {

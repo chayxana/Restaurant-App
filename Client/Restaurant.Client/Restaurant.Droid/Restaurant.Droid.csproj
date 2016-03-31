@@ -52,8 +52,24 @@
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ModernHttpClient, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\modernhttpclient.2.4.2\lib\MonoAndroid\ModernHttpClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
+    <Reference Include="OkHttp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\modernhttpclient.2.4.2\lib\MonoAndroid\OkHttp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Outcoder.Calcium.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Calcium.1.0.20\lib\MonoAndroid10\Outcoder.Calcium.Android.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
@@ -171,6 +187,9 @@
     </None>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\layout\toolbar.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -268,7 +287,25 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_basket_white.png" />
     <AndroidResource Include="Resources\layout\action_bar_notifitcation_icon.xml" />
     <AndroidResource Include="Resources\drawable\rounded_square.xml" />
-    <AndroidResource Include="Resources\menu\menu_actionbar.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_menu_white.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_shopping_cart_white.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_menu_white.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_shopping_cart_white.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_menu_white.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_shopping_cart_white.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_menu_white.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_shopping_cart_white.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_menu_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_shopping_cart_white_24dp.png" />
+    <AndroidResource Include="Resources\menu\my_menu.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\menu\home_menu.xml" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_restaurant_menu_black.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_restaurant_menu_black.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_restaurant_menu_black.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_restaurant_menu_black.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_restaurant_menu_black.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Restaurant\Restaurant.csproj">
@@ -276,7 +313,9 @@
       <Project>{D79C8F36-ECE8-45CE-99C0-C5AF383814B7}</Project>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

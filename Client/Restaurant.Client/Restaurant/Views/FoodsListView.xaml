@@ -27,16 +27,16 @@
 										<ColumnDefinition Width="*"/>
 										<ColumnDefinition Width="Auto"/>
 									</Grid.ColumnDefinitions>
-									<StackLayout Padding="16,10" Spacing="4" Grid.Column="0"
+									<StackLayout Padding="16,15" Spacing="4" Grid.Column="0"
 															 IsVisible="{Binding IsOrdered, Converter={x:Static converters:InverseBoolConverter.Instance}}">
 										<Label Text="{Binding Name}" FontSize="Large" TextColor="Black" VerticalOptions="CenterAndExpand" />
 										<Label Text="{Binding Description}" VerticalOptions="CenterAndExpand" TextColor="Black"/>
 										<Label Text="{Binding Price, StringFormat='\{0\} Somoni'}" FontSize="Large" TextColor="{StaticResource grayPrimary}" VerticalOptions="CenterAndExpand"/>
 									</StackLayout>
-									<StackLayout Padding="16,20" VerticalOptions="Center" HorizontalOptions="Start" IsVisible="{Binding IsOrdered}">
-										<StackLayout Orientation="Horizontal">
+									<StackLayout Padding="16,20, 16, 30" VerticalOptions="Center" HorizontalOptions="Start" IsVisible="{Binding IsOrdered}">
+										<StackLayout Orientation="Vertical">
 											<Label Text="{Binding Quantity, StringFormat='Quantity: \{0\}'}" TextColor="Black" FontSize="Medium"/>
-											<Label Text="{Binding TotalPrice, StringFormat='(Total Price: \{0\})'}" FontSize="Medium" TextColor="{StaticResource grayPrimary}" />
+											<Label Text="{Binding TotalPrice, StringFormat='Total Price: \{0\}'}" FontSize="Medium" TextColor="{StaticResource grayPrimary}" />
 										</StackLayout>
 										<Stepper Value="{Binding Quantity}" Minimum=".5"/>
 									</StackLayout>

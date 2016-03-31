@@ -26,6 +26,7 @@ namespace Restaurant.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::ModernHttpClient.Resource.String.library_name = global::Restaurant.Droid.Resource.String.library_name;
 			global::NControl.Controls.Droid.Resource.Animation.abc_fade_in = global::Restaurant.Droid.Resource.Animation.abc_fade_in;
 			global::NControl.Controls.Droid.Resource.Animation.abc_fade_out = global::Restaurant.Droid.Resource.Animation.abc_fade_out;
 			global::NControl.Controls.Droid.Resource.Animation.abc_grow_fade_in_from_bottom = global::Restaurant.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
@@ -3105,6 +3106,8 @@ namespace Restaurant.Droid
 			global::NControl.Droid.Resource.Styleable.ViewStubCompat_android_inflatedId = global::Restaurant.Droid.Resource.Styleable.ViewStubCompat_android_inflatedId;
 			global::NControl.Droid.Resource.Styleable.ViewStubCompat_android_layout = global::Restaurant.Droid.Resource.Styleable.ViewStubCompat_android_layout;
 			global::NGraphics.Android.Resource.String.library_name = global::Restaurant.Droid.Resource.String.library_name;
+			global::Outcoder.Resource.String.ApplicationName = global::Restaurant.Droid.Resource.String.ApplicationName;
+			global::Outcoder.Resource.String.Hello = global::Restaurant.Droid.Resource.String.Hello;
 			global::Splat.Resource.String.library_name = global::Restaurant.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::Restaurant.Droid.Resource.Attribute.actionBarSize;
 		}
@@ -4054,32 +4057,38 @@ namespace Restaurant.Droid
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f08004a
-			public const int abc_background_cache_hint_selector_material_dark = 2131230794;
-			
 			// aapt resource value: 0x7f08004b
-			public const int abc_background_cache_hint_selector_material_light = 2131230795;
+			public const int ListViewHighlighted = 2131230795;
+			
+			// aapt resource value: 0x7f08004a
+			public const int ListViewSelected = 2131230794;
 			
 			// aapt resource value: 0x7f08004c
-			public const int abc_color_highlight_material = 2131230796;
+			public const int abc_background_cache_hint_selector_material_dark = 2131230796;
+			
+			// aapt resource value: 0x7f08004d
+			public const int abc_background_cache_hint_selector_material_light = 2131230797;
+			
+			// aapt resource value: 0x7f08004e
+			public const int abc_color_highlight_material = 2131230798;
 			
 			// aapt resource value: 0x7f080004
 			public const int abc_input_method_navigation_guard = 2131230724;
 			
-			// aapt resource value: 0x7f08004d
-			public const int abc_primary_text_disable_only_material_dark = 2131230797;
-			
-			// aapt resource value: 0x7f08004e
-			public const int abc_primary_text_disable_only_material_light = 2131230798;
-			
 			// aapt resource value: 0x7f08004f
-			public const int abc_primary_text_material_dark = 2131230799;
+			public const int abc_primary_text_disable_only_material_dark = 2131230799;
 			
 			// aapt resource value: 0x7f080050
-			public const int abc_primary_text_material_light = 2131230800;
+			public const int abc_primary_text_disable_only_material_light = 2131230800;
 			
 			// aapt resource value: 0x7f080051
-			public const int abc_search_url_text = 2131230801;
+			public const int abc_primary_text_material_dark = 2131230801;
+			
+			// aapt resource value: 0x7f080052
+			public const int abc_primary_text_material_light = 2131230802;
+			
+			// aapt resource value: 0x7f080053
+			public const int abc_search_url_text = 2131230803;
 			
 			// aapt resource value: 0x7f080005
 			public const int abc_search_url_text_normal = 2131230725;
@@ -4090,11 +4099,11 @@ namespace Restaurant.Droid
 			// aapt resource value: 0x7f080007
 			public const int abc_search_url_text_selected = 2131230727;
 			
-			// aapt resource value: 0x7f080052
-			public const int abc_secondary_text_material_dark = 2131230802;
+			// aapt resource value: 0x7f080054
+			public const int abc_secondary_text_material_dark = 2131230804;
 			
-			// aapt resource value: 0x7f080053
-			public const int abc_secondary_text_material_light = 2131230803;
+			// aapt resource value: 0x7f080055
+			public const int abc_secondary_text_material_light = 2131230805;
 			
 			// aapt resource value: 0x7f080049
 			public const int accent = 2131230793;
@@ -4300,11 +4309,11 @@ namespace Restaurant.Droid
 			// aapt resource value: 0x7f08003b
 			public const int switch_thumb_disabled_material_light = 2131230779;
 			
-			// aapt resource value: 0x7f080054
-			public const int switch_thumb_material_dark = 2131230804;
+			// aapt resource value: 0x7f080056
+			public const int switch_thumb_material_dark = 2131230806;
 			
-			// aapt resource value: 0x7f080055
-			public const int switch_thumb_material_light = 2131230805;
+			// aapt resource value: 0x7f080057
+			public const int switch_thumb_material_light = 2131230807;
 			
 			// aapt resource value: 0x7f08003c
 			public const int switch_thumb_normal_material_dark = 2131230780;
@@ -4909,91 +4918,106 @@ namespace Restaurant.Droid
 			public const int ic_menu = 2130837591;
 			
 			// aapt resource value: 0x7f020058
-			public const int ic_more_vert_white = 2130837592;
+			public const int ic_menu_white = 2130837592;
 			
 			// aapt resource value: 0x7f020059
-			public const int ic_pause_dark = 2130837593;
+			public const int ic_menu_white_24dp = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public const int ic_pause_light = 2130837594;
+			public const int ic_more_vert_white = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public const int ic_play_dark = 2130837595;
+			public const int ic_pause_dark = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int ic_play_light = 2130837596;
+			public const int ic_pause_light = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int ic_plus = 2130837597;
+			public const int ic_play_dark = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
-			public const int ic_setting_dark = 2130837598;
+			public const int ic_play_light = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int ic_setting_light = 2130837599;
+			public const int ic_plus = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int ic_settings = 2130837600;
+			public const int ic_restaurant_menu_black = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int ic_wechat = 2130837601;
+			public const int ic_setting_dark = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int icon = 2130837602;
+			public const int ic_setting_light = 2130837602;
 			
 			// aapt resource value: 0x7f020063
-			public const int mr_ic_cast_dark = 2130837603;
+			public const int ic_settings = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-			public const int mr_ic_cast_light = 2130837604;
+			public const int ic_shopping_cart_white = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int mr_ic_media_route_connecting_mono_dark = 2130837605;
+			public const int ic_shopping_cart_white_24dp = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int mr_ic_media_route_connecting_mono_light = 2130837606;
+			public const int ic_wechat = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int mr_ic_media_route_mono_dark = 2130837607;
+			public const int icon = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int mr_ic_media_route_mono_light = 2130837608;
+			public const int mr_ic_cast_dark = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int mr_ic_pause_dark = 2130837609;
+			public const int mr_ic_cast_light = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int mr_ic_pause_light = 2130837610;
+			public const int mr_ic_media_route_connecting_mono_dark = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
-			public const int mr_ic_play_dark = 2130837611;
+			public const int mr_ic_media_route_connecting_mono_light = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
-			public const int mr_ic_play_light = 2130837612;
+			public const int mr_ic_media_route_mono_dark = 2130837612;
 			
 			// aapt resource value: 0x7f02006d
-			public const int mr_ic_settings_dark = 2130837613;
+			public const int mr_ic_media_route_mono_light = 2130837613;
 			
 			// aapt resource value: 0x7f02006e
-			public const int mr_ic_settings_light = 2130837614;
+			public const int mr_ic_pause_dark = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int noavatar = 2130837615;
-			
-			// aapt resource value: 0x7f020074
-			public const int notification_template_icon_bg = 2130837620;
+			public const int mr_ic_pause_light = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int rassolnik = 2130837616;
+			public const int mr_ic_play_dark = 2130837616;
 			
 			// aapt resource value: 0x7f020071
-			public const int rounded_square = 2130837617;
+			public const int mr_ic_play_light = 2130837617;
 			
 			// aapt resource value: 0x7f020072
-			public const int shashlik = 2130837618;
+			public const int mr_ic_settings_dark = 2130837618;
 			
 			// aapt resource value: 0x7f020073
-			public const int yogurt = 2130837619;
+			public const int mr_ic_settings_light = 2130837619;
+			
+			// aapt resource value: 0x7f020074
+			public const int noavatar = 2130837620;
+			
+			// aapt resource value: 0x7f020079
+			public const int notification_template_icon_bg = 2130837625;
+			
+			// aapt resource value: 0x7f020075
+			public const int rassolnik = 2130837621;
+			
+			// aapt resource value: 0x7f020076
+			public const int rounded_square = 2130837622;
+			
+			// aapt resource value: 0x7f020077
+			public const int shashlik = 2130837623;
+			
+			// aapt resource value: 0x7f020078
+			public const int yogurt = 2130837624;
 			
 			static Drawable()
 			{
@@ -5164,6 +5188,9 @@ namespace Restaurant.Droid
 			// aapt resource value: 0x7f0b0036
 			public const int @fixed = 2131427382;
 			
+			// aapt resource value: 0x7f0b0087
+			public const int help = 2131427463;
+			
 			// aapt resource value: 0x7f0b0004
 			public const int home = 2131427332;
 			
@@ -5218,8 +5245,11 @@ namespace Restaurant.Droid
 			// aapt resource value: 0x7f0b0072
 			public const int media_route_volume_slider = 2131427442;
 			
-			// aapt resource value: 0x7f0b0083
-			public const int menu_hotlist = 2131427459;
+			// aapt resource value: 0x7f0b0085
+			public const int menu_settings = 2131427461;
+			
+			// aapt resource value: 0x7f0b0084
+			public const int menu_share = 2131427460;
 			
 			// aapt resource value: 0x7f0b001b
 			public const int middle = 2131427355;
@@ -5232,6 +5262,9 @@ namespace Restaurant.Droid
 			
 			// aapt resource value: 0x7f0b001f
 			public const int never = 2131427359;
+			
+			// aapt resource value: 0x7f0b0086
+			public const int new_game = 2131427462;
 			
 			// aapt resource value: 0x7f0b000f
 			public const int none = 2131427343;
@@ -5382,6 +5415,9 @@ namespace Restaurant.Droid
 			
 			// aapt resource value: 0x7f0b0044
 			public const int title_template = 2131427396;
+			
+			// aapt resource value: 0x7f0b0083
+			public const int toolbar = 2131427459;
 			
 			// aapt resource value: 0x7f0b0030
 			public const int top = 2131427376;
@@ -5595,6 +5631,9 @@ namespace Restaurant.Droid
 			// aapt resource value: 0x7f030030
 			public const int support_simple_spinner_dropdown_item = 2130903088;
 			
+			// aapt resource value: 0x7f030031
+			public const int toolbar = 2130903089;
+			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -5609,7 +5648,10 @@ namespace Restaurant.Droid
 		{
 			
 			// aapt resource value: 0x7f0c0000
-			public const int menu_actionbar = 2131492864;
+			public const int home_menu = 2131492864;
+			
+			// aapt resource value: 0x7f0c0001
+			public const int my_menu = 2131492865;
 			
 			static Menu()
 			{
@@ -5627,8 +5669,8 @@ namespace Restaurant.Droid
 			// aapt resource value: 0x7f050020
 			public const int ApplicationName = 2131034144;
 			
-			// aapt resource value: 0x7f050021
-			public const int Hello = 2131034145;
+			// aapt resource value: 0x7f05001f
+			public const int Hello = 2131034143;
 			
 			// aapt resource value: 0x7f05000b
 			public const int abc_action_bar_home_description = 2131034123;
@@ -5681,8 +5723,8 @@ namespace Restaurant.Droid
 			// aapt resource value: 0x7f05001b
 			public const int abc_toolbar_collapse_description = 2131034139;
 			
-			// aapt resource value: 0x7f05001f
-			public const int app_name = 2131034143;
+			// aapt resource value: 0x7f050021
+			public const int app_name = 2131034145;
 			
 			// aapt resource value: 0x7f05001d
 			public const int appbar_scrolling_view_behavior = 2131034141;

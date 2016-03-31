@@ -83,7 +83,6 @@
           </Trigger>
         </Style.Triggers>
       </Style>
-      <Style TargetType="Button" BasedOn="{StaticResource buttonStyle}" />
       <Style TargetType="controls:AnimateButton" BasedOn="{StaticResource buttonStyle}" />
       <Style x:Key="deleteButtonStyle" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
         <Setter Property="TextColor" Value="White" />

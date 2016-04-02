@@ -1,10 +1,6 @@
 ﻿using NControl.Abstractions;
 using NControl.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -104,7 +100,7 @@ namespace Restaurant.Controls
                 VerticalTextAlignment = TextAlignment.Center,
                 TextColor = Color.White,
                 Text = FontMaterialDesignLabel.MDPlus,
-                FontSize = 20,
+                FontSize = 24,
             };
 
             layout.Children.Add(ButtonShadowElement);

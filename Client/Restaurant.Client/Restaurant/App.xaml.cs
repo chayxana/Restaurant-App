@@ -1,18 +1,11 @@
 ﻿using Akavache;
 using ModernHttpClient;
 using ReactiveUI;
-using ReactiveUI.XamForms;
 using Restaurant.Pages;
 using Restaurant.ReactiveUI;
 using Restaurant.ViewModels;
-using Restaurant.Views;
 using Splat;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

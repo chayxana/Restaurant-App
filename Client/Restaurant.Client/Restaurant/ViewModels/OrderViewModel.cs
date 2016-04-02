@@ -2,11 +2,6 @@
 using Restaurant.Models;
 using Restaurant.ReactiveUI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Akavache.Internal;
 
 namespace Restaurant.ViewModels
 {

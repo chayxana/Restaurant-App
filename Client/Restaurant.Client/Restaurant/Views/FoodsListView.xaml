@@ -20,7 +20,7 @@
 						<StackLayout Padding="0,0,.5,.5"  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
 							<StackLayout StyleId="leagueRow" Orientation="Vertical" Padding="10" Spacing="0" VerticalOptions="FillAndExpand">
 								<AbsoluteLayout HeightRequest="150">
-									<Image x:Name="photoImage" Source="{Binding ImageUrl}" Aspect="AspectFill"	AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+									<Image x:Name="photoImage" Source="{Binding Food.ImageUrl}" Aspect="AspectFill"	AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
 								</AbsoluteLayout>
 								<Grid BackgroundColor="White">
 									<Grid.ColumnDefinitions>
@@ -29,9 +29,9 @@
 									</Grid.ColumnDefinitions>
 									<StackLayout Padding="16,15" Spacing="4" Grid.Column="0"
 															 IsVisible="{Binding IsOrdered, Converter={x:Static converters:InverseBoolConverter.Instance}}">
-										<Label Text="{Binding Name}" FontSize="Large" TextColor="Black" VerticalOptions="CenterAndExpand" />
-										<Label Text="{Binding Description}" VerticalOptions="CenterAndExpand" TextColor="Black"/>
-										<Label Text="{Binding Price, StringFormat='\{0\} Somoni'}" FontSize="Large" TextColor="{StaticResource grayPrimary}" VerticalOptions="CenterAndExpand"/>
+										<Label Text="{Binding Food.Name}" FontSize="Large" TextColor="Black" VerticalOptions="CenterAndExpand" />
+										<Label Text="{Binding Food.Description}" VerticalOptions="CenterAndExpand" TextColor="Black"/>
+										<Label Text="{Binding Food.Price, StringFormat='\{0\} Somoni'}" FontSize="Large" TextColor="{StaticResource grayPrimary}" VerticalOptions="CenterAndExpand"/>
 									</StackLayout>
 									<StackLayout Padding="16,20, 16, 30" VerticalOptions="Center" HorizontalOptions="Start" IsVisible="{Binding IsOrdered}">
 										<StackLayout Orientation="Vertical">

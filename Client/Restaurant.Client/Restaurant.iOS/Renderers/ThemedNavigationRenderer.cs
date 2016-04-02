@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Forms;
@@ -12,7 +11,6 @@ using CoreGraphics;
 using Restaurant.ViewModels;
 using Restaurant.iOS.Controls;
 using ReactiveUI;
-using System.Reactive.Linq;
 
 [assembly: ExportRenderer(typeof(Restaurant.ThemedNavigationPage), typeof(Restaurant.iOS.Renderers.ThemedNavigationRenderer))]
 namespace Restaurant.iOS.Renderers
@@ -24,11 +22,6 @@ namespace Restaurant.iOS.Renderers
     /// </summary>
     public class ThemedNavigationRenderer : NavigationRenderer
     {
-        public override void PushViewController(UIViewController viewController, bool animated)
-        {
-            base.PushViewController(viewController, animated);
-        }
-
         protected override Task<bool> OnPushAsync(Page page, bool animated)
         {
             ChangeTheme(page);
@@ -92,7 +85,7 @@ namespace Restaurant.iOS.Renderers
             }
             var basePage = page as MainBaseContentPage;
             if (basePage != null)
-            {
+            {  
                 NavigationBar.BarTintColor = basePage.ActionBarBackgroundColor.ToUIColor();
                 NavigationBar.TintColor = basePage.ActionBarTextColor.ToUIColor();
                 UINavigationBar.Appearance.ShadowImage = new UIImage();
@@ -105,6 +98,11 @@ namespace Restaurant.iOS.Renderers
 
                 UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
             }
+        }
+
+        public override UIStatusBarStyle PreferredStatusBarStyle()
+        {
+            return UIStatusBarStyle.LightContent;
         }
     }
 }

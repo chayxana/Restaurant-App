@@ -60,7 +60,7 @@ namespace Restaurant.Server.Controllers
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
             var user = Context.Users.ToList().Where(u => u.Email == User.Identity.GetUserName()).FirstOrDefault();
-            if(user != null)
+            if (user != null)
             {
                 return new UserInfoViewModel
                 {
@@ -72,7 +72,7 @@ namespace Restaurant.Server.Controllers
                 };
             }
             return null;
-            
+
         }
 
         // POST api/Account/Logout
@@ -88,11 +88,8 @@ namespace Restaurant.Server.Controllers
         public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            
-            if (user == null)
-            {
-                return null;
-            }
+
+            if (user == null) return null;
 
             List<UserLoginInfoViewModel> logins = new List<UserLoginInfoViewModel>();
 
@@ -134,7 +131,7 @@ namespace Restaurant.Server.Controllers
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -267,9 +264,9 @@ namespace Restaurant.Server.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -337,7 +334,7 @@ namespace Restaurant.Server.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new User() { UserName = model.Email, Email = model.Email, Name = model.Name, Picture = "Content/Pictures/noavatar.png"};
+            var user = new User() { UserName = model.Email, Email = model.Email, Name = model.Name, Picture = "Content/Pictures/noavatar.png" };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -377,7 +374,7 @@ namespace Restaurant.Server.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
             return Ok();
         }

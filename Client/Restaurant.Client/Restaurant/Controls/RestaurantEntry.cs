@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Restaurant.Controls
 {

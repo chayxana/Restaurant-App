@@ -26,7 +26,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>9.2</string>
+	<string>8.4</string>
 	<key>CFBundleDisplayName</key>
 	<string>Restaurant</string>
 	<key>CFBundleIdentifier</key>

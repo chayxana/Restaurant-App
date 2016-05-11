@@ -3,7 +3,9 @@ using Restaurant.Models;
 using Restaurant.ReactiveUI;
 using Splat;
 using System;
+using System.Linq;
 using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
 
 namespace Restaurant.ViewModels
 {
@@ -11,21 +13,21 @@ namespace Restaurant.ViewModels
     {
         public MainViewModel MainViewModel { get; set; }
         public ReactiveCommand<object> OpenOrder { get; set; }
+
         public FoodsViewModel(INavigatableScreen screen = null)
         {
             OrderableFoods = new ReactiveList<Order>();
             OpenOrder = ReactiveCommand.Create();
             NavigationScreen = (screen ?? Locator.Current.GetService<INavigatableScreen>());
             MainViewModel = Locator.Current.GetService<MainViewModel>();
-            new ReactiveList<Food>
+
+            var foods = Global.AuthenticationManager.AuthenticatedApi.GetFoods();
+            foods.ToObservable()
+            .Do(x =>
             {
-                new Food { Id = Guid.NewGuid(), Name = "Shashlik", Description = "Description of shashlik", ImageUrl="shashlik.jpg", Price = 9},
-                new Food { Id = Guid.NewGuid(), Name = "Rassolnik", Description = "Description of rassolnik", ImageUrl="rassolnik.jpg", Price= 3.5M},
-                new Food { Id = Guid.NewGuid(), Name = "Shashlik", Description = "Description of shashlik", ImageUrl="shashlik.jpg", Price= 8.5M},
-                new Food { Id = Guid.NewGuid(), Name = "Rassolnik", Description = "Description of rassolnik", ImageUrl="rassolnik.jpg", Price = 3.5M}
-            }
-            .ToObservable()
-            .Do(x => OrderableFoods.Add( new Order { Food = x, Id = Guid.NewGuid() }))
+                var orders = x.Select(f => new Order {Food = f, Id = Guid.NewGuid()});
+                OrderableFoods.AddRange(orders);
+            })
             .Subscribe();
 
             OpenOrder.Do(_ =>

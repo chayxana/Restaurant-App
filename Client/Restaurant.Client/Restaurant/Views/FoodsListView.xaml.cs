@@ -11,30 +11,30 @@ namespace Restaurant.Views
         {
             InitializeComponent();
         }
-        private FloatActionButton prevActionButton;
+        private Button prevActionButton;
         private void ActionButton_Clicked(object sender, EventArgs e)
         {
-            var button = sender as FloatActionButton;
+            var button = sender as Button;
             if (button == null) return;
             if(prevActionButton != null && prevActionButton != button)
             {
                 var lastFood = prevActionButton.BindingContext as Order;
                 if (lastFood != null) lastFood.IsOrdered = false;
-                prevActionButton.ButtonColor = (Color)App.Current.Resources["indigoPinkAccent"];
-                prevActionButton.ButtonIcon = NControl.Controls.FontMaterialDesignLabel.MDPlus;
+                prevActionButton.BorderColor = (Color)App.Current.Resources["indigoPinkAccent"];
+                //prevActionButton.ButtonIcon = NControl.Controls.FontMaterialDesignLabel.MDPlus;
             }
             prevActionButton = button;
             var food = button.BindingContext as Order;
             if (food != null && food.IsOrdered)
             {
-                button.ButtonColor = (Color)App.Current.Resources["indigoPinkAccent"];
-                button.ButtonIcon = NControl.Controls.FontMaterialDesignLabel.MDPlus;
+                button.BorderColor = (Color)App.Current.Resources["indigoPinkAccent"];
+                //button.ButtonIcon = NControl.Controls.FontMaterialDesignLabel.MDPlus;
                 food.ApplyOrder.Execute(null);
             }
             else
             {
-                button.ButtonColor = (Color)App.Current.Resources["greenPrimary"];
-                button.ButtonIcon = NControl.Controls.FontMaterialDesignLabel.MDCheck;
+                button.BorderColor = (Color)App.Current.Resources["greenPrimary"];
+                //button.ButtonIcon = NControl.Controls.FontMaterialDesignLabel.MDCheck;
                 if (food != null) food.IsOrdered = true;
             }
         }

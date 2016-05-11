@@ -5,14 +5,14 @@ namespace Restaurant.Controls
 {
     public class AnimateButton : Button
     {
-        public AnimateButton() : base()
+        public AnimateButton()
         {
-            const int _animationTime = 100;
+            const int animationTime = 100;
             Clicked += async (sender, e) =>
             {
                 var btn = (AnimateButton)sender;
-                await btn.ScaleTo(1.2, _animationTime);
-                await btn.ScaleTo(1, _animationTime);
+                await btn.ScaleTo(1.2, animationTime);
+                await btn.ScaleTo(1, animationTime);
                 await Task.Delay(400);
             };
         }

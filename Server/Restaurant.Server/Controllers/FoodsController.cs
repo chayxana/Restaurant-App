@@ -1,89 +1,134 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Description;
 using Restaurant.Server.Models;
 
 namespace Restaurant.Server.Controllers
 {
-    [Authorize]
-    [RoutePrefix("api/Food")]
-    public class FoodsController : BaseApiContoller
+    public class FoodsController : ApiController
     {
-        /// <summary>
-        /// Adding a new food
-        /// </summary>
-        /// <param name="food"></param>
-        /// <returns></returns>
-        [Route("Add")]
-        public IHttpActionResult AddFood(Food food)
-        {
-            try
-            {
-                if (food != null)
-                {
-                    food.Id = Guid.NewGuid();
-                    Context.Foods.Add(food);
-                    Context.SaveChanges();
-                    return Ok(new ResultResponce { IsSucceeded = true });
-                }
-            }
-            catch (Exception)
-            {
-                Context.GetValidationErrors();
-            }
+        private ApplicationDbContext db = new ApplicationDbContext();
 
-            return InternalServerError();
+        // GET: api/Foods
+        public IQueryable<Food> GetFoods()
+        {
+            return db.Foods;
         }
 
-        /// <summary>
-        /// Deleting existed food
-        /// </summary>
-        /// <param name="food"></param>
-        /// <returns></returns>
-        [Route("Delete")]
-        public IHttpActionResult DeleteFood(Food food)
+        // GET: api/Foods/5
+        [ResponseType(typeof(Food))]
+        public async Task<IHttpActionResult> GetFood(Guid id)
         {
-            var response = new ResultResponce() { IsSucceeded = true };
-            try
+            Food food = await db.Foods.FindAsync(id);
+            if (food == null)
             {
-                Food foodToDelete = Context.Foods.FirstOrDefault(f => f.Name == food.Name);
-                Context.Foods.Remove(foodToDelete);
-                Context.SaveChanges();
-                return Ok(response);
+                return NotFound();
+            }
 
-            }
-            catch (Exception ex)
-            {
-                response.IsSucceeded = false;
-                response.Errors.Add("Error", ex);
-                return Ok(response);
-            }
+            return Ok(food);
         }
 
-        /// <summary>
-        /// Update existed food
-        /// </summary>
-        /// <param name="food"></param>
-        /// <returns></returns>
-        [Route("Update")]
-        public IHttpActionResult UpdateFood(Food food)
+        // PUT: api/Foods/5
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> PutFood(Guid id, Food food)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (food != null)
-                {
-                    Context.Entry(food).State = System.Data.Entity.EntityState.Modified;
-                    Context.SaveChanges();
-                    return Ok(new ResultResponce { IsSucceeded = true });
-                }
-            }
-            catch (Exception)
-            {
-                Context.GetValidationErrors();
+                return BadRequest(ModelState);
             }
 
-            return InternalServerError();
+            if (id != food.Id)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(food).State = EntityState.Modified;
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!FoodExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        // POST: api/Foods
+        [ResponseType(typeof(Food))]
+        public async Task<IHttpActionResult> PostFood(Food food)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.Foods.Add(food);
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (FoodExists(food.Id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtRoute("DefaultApi", new { id = food.Id }, food);
+        }
+
+        // DELETE: api/Foods/5
+        [ResponseType(typeof(Food))]
+        public async Task<IHttpActionResult> DeleteFood(Guid id)
+        {
+            Food food = await db.Foods.FindAsync(id);
+            if (food == null)
+            {
+                return NotFound();
+            }
+
+            db.Foods.Remove(food);
+            await db.SaveChangesAsync();
+
+            return Ok(food);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private bool FoodExists(Guid id)
+        {
+            return db.Foods.Count(e => e.Id == id) > 0;
         }
     }
-
 }

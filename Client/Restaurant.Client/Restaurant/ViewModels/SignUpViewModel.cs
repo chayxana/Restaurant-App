@@ -68,8 +68,11 @@ namespace Restaurant.ViewModels
 
         public SignUpViewModel(INavigatableScreen screen = null)
         {
+            //Gets intance of INavigatableScreen instance
             NavigationScreen = screen ?? Locator.Current.GetService<INavigatableScreen>();
 
+            //Observable for all properties and it will be true when
+            //all this properties will be not empty
             var canRegester = this.WhenAny(
                                     x => x.Name,
                                     x => x.RegesterEmail,
@@ -78,34 +81,47 @@ namespace Restaurant.ViewModels
                                     (n,e, p, cp) => !string.IsNullOrEmpty(n.Value)
                                                   && !string.IsNullOrEmpty(e.Value)
                                                   && !string.IsNullOrEmpty(p.Value)
-                                                  && !string.IsNullOrEmpty(cp.Value)
+                                                  && !string.IsNullOrEmpty(cp.Value) 
+                                                  && cp.Value == p.Value
 
                                 );
 
-            Regester = ReactiveCommand.CreateAsyncTask(canRegester, async _ => 
-            {
-                var client = new HttpClient(NetCache.UserInitiated)
+            //Creating reactive command for regester
+            Regester = ReactiveCommand
+                .CreateAsyncTask(canRegester, async _ => 
                 {
-                    BaseAddress = new Uri(Helper.Address)
-                };
-                var api = RestService.For<IRestaurantApi>(client);
-                IsLoading = true;
-                var result = await api.Regester(Name, RegesterEmail, RegesterPassword, ConfirmPassword);
-                IsLoading = false;
-                return result;
-            });
+                    IsLoading = true;
+                    var client = new HttpClient(NetCache.UserInitiated)
+                    {
+                        BaseAddress = new Uri(Helper.Address)
+                    };
+                    var api = RestService.For<IRestaurantApi>(client);
+                    var result = await api.Regester(Name, RegesterEmail, RegesterPassword, ConfirmPassword);
+                    return result;
+                });
 
-            Regester.Subscribe(r => 
-            {
-                MessageBus.Current.SendMessage("User regestred!");
-                Debug.WriteLine("Complete!");
-            });
+            //When regstir command executing sets true for IsLoading property
+            //Regester
+            //    .IsExecuting
+            //    .Subscribe(x => IsLoading = true);
+            
+            //Raises when completes regester command
+            Regester
+                .Subscribe(r => 
+                {
+                    MessageBus.Current.SendMessage("User regestred!");
+                    Debug.WriteLine("Complete!");
+                    IsLoading = false;
+                });
 
-            Regester.ThrownExceptions.Subscribe(ex =>
-            {
-                IsLoading = false;
-                Debug.WriteLine("Error!");
-            });
+            //Raises when regester throws any exception
+            Regester
+                .ThrownExceptions
+                .Subscribe(ex =>
+                {
+                    Debug.WriteLine("Error!");
+                    IsLoading = false;
+                });
         }
     }
 }

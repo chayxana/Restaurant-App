@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 
 namespace Restaurant.Server.Models
@@ -53,19 +54,18 @@ namespace Restaurant.Server.Models
 
     public class Food
     {
-        public Food()
-        {
-            Orders = new HashSet<Order>();
-        }
         public Guid Id { get; set; }
 
         public string Name { get; set; }
 
         public int Type { get; set; }
 
+        [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        [DataType(DataType.Upload)]
+        public string Picture { get; set; }
+
     }
 
     public class Order

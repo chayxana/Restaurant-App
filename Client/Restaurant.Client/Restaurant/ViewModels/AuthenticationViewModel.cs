@@ -13,14 +13,31 @@ namespace Restaurant.ViewModels
 {
     public class AuthenticationViewModel : ReactiveObject, INavigatableViewModel
     {
+        /// <summary>
+        /// Gets and sets login command
+        /// Command that logins to service
+        /// </summary>
         public ReactiveCommand<UserInfo> Login { get; set; }
 
+        /// <summary>
+        /// Gets and sets Open regester, 
+        /// Command that opens regester page
+        /// </summary>
         public ReactiveCommand<object> OpenRegester { get; set; }
 
+        /// <summary>
+        /// Gets and sets OpenLogin
+        /// Command thats opens login page 
+        /// </summary>
         public ReactiveCommand<object> OpenLogin { get; set; }
 
 
         private bool isBusy;
+        /// <summary>
+        /// Gets and sets IsBusy
+        /// When some command executing we will provide this property some value 
+        /// for control UI
+        /// </summary>
         public bool IsBusy
         {
             get { return isBusy; }
@@ -28,7 +45,9 @@ namespace Restaurant.ViewModels
         }
 
         private string email;
-
+        /// <summary>
+        /// Gets and sets user Email
+        /// </summary>
         public string Email
         {
             get { return email; }
@@ -36,7 +55,9 @@ namespace Restaurant.ViewModels
         }
 
         private string password;
-
+        /// <summary>
+        /// Gets and sets non encrypted user passwords
+        /// </summary>
         public string Password
         {
             get { return password; }
@@ -44,16 +65,26 @@ namespace Restaurant.ViewModels
         }
 
         private string authenticationStatus;
-
+        /// <summary>
+        /// Gets and sets status of authentication
+        /// </summary>
         public string AuthenticationStatus
         {
             get { return authenticationStatus; }
             set { this.RaiseAndSetIfChanged(ref authenticationStatus, value); }
         }
 
+        /// <summary>
+        /// Gets and sets Navigation Screeen
+        /// instance that provide navigation beetween view models
+        /// </summary>
         public INavigatableScreen NavigationScreen { get; protected set; }
 
+        /// <summary>
+        /// Gets view model title
+        /// </summary>
         public string Title => "Authentication";
+       
 
         public AuthenticationViewModel(INavigatableScreen screen = null)
         {
@@ -63,31 +94,41 @@ namespace Restaurant.ViewModels
                 (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
 
 
-            Login = ReactiveCommand.CreateAsyncTask(canLogin, async _ =>
-             {
-                 IsBusy = true;
-                 AuthenticationStatus = "started logging...";
-                 Debug.WriteLine(Helper.Address);
-                 var client = new HttpClient(NetCache.UserInitiated)
+            Login = ReactiveCommand
+                .CreateAsyncTask(canLogin, async _ =>
                  {
-                     BaseAddress = new Uri(Helper.Address)
-                 };
-                 var api = RestService.For<IRestaurantApi>(client);
-                 var token = await api.GetToken(Email, Password);
-                 AuthenticationStatus = "started authentication...";
-                 Global.AuthenticatedClient = new HttpClient(new AuthenticatedHttpClientHandler(token.access_token))
-                 {
-                     BaseAddress = new Uri(Helper.Address)
-                 };
-                 var info = await Global.AuthenticatedApi.GetUserInfo();
-                 return info;
-             });
+                     AuthenticationStatus = "started logging...";
+                     Debug.WriteLine(Helper.Address);
+                     var client = new HttpClient(NetCache.UserInitiated)
+                     {
+                         BaseAddress = new Uri(Helper.Address)
+                     };
+                     var api = RestService.For<IRestaurantApi>(client);
+                     var token = await api.GetToken(Email, Password);
+                     AuthenticationStatus = "started authentication...";
+                     Global.AuthenticationManager.AuthenticatedClient = new HttpClient(new AuthenticatedHttpClientHandler(token.access_token))
+                     {
+                         BaseAddress = new Uri(Helper.Address)
+                     };
+                     var info = await Global.AuthenticationManager.AuthenticatedApi.GetUserInfo();
+                     return info;
+                 });
 
-            Login.ThrownExceptions.Subscribe(ex =>
-            {
-                UserError.Throw("Invalid login or password!");
-                Debug.WriteLine("Error! - " + ex.Message);
-            });
+            Login
+                .IsExecuting
+                .Subscribe(x => IsBusy = true);
+
+            Login.
+                Subscribe(x => IsBusy = false);
+
+            Login
+                .ThrownExceptions
+                .Subscribe(ex =>
+                {
+                    UserError.Throw("Invalid login or password!");
+                    Debug.WriteLine("Error! - " + ex.Message);
+                    IsBusy = false;
+                });
 
 
             #region OpenRegester

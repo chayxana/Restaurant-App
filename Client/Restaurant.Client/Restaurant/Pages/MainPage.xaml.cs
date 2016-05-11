@@ -23,7 +23,7 @@ namespace Restaurant.Pages
     {
         public DetailState DetailState { get; set; }
 
-        public MainPageXaml()
+        protected MainPageXaml()
         {
 
         }
@@ -40,7 +40,8 @@ namespace Restaurant.Pages
 
             set { ViewModel = (T)value; }
         }
-        public BaseMasterDetailPage()
+
+        protected BaseMasterDetailPage()
         {
             ViewModel = Locator.Current.GetService<T>();
             BindingContext = ViewModel;            

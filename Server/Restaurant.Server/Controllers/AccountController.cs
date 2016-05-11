@@ -59,7 +59,7 @@ namespace Restaurant.Server.Controllers
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
-            var user = Context.Users.ToList().Where(u => u.Email == User.Identity.GetUserName()).FirstOrDefault();
+            var user = DbContext.Users.ToList().FirstOrDefault(u => u.Email == User.Identity.GetUserName());
             if (user != null)
             {
                 return new UserInfoViewModel
@@ -68,7 +68,7 @@ namespace Restaurant.Server.Controllers
                     IsRegistered = externalLogin == null,
                     Name = user.Name,
                     Picture = user.Picture,
-                    LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                    LoginProvider = externalLogin?.LoginProvider
                 };
             }
             return null;
@@ -91,16 +91,10 @@ namespace Restaurant.Server.Controllers
 
             if (user == null) return null;
 
-            List<UserLoginInfoViewModel> logins = new List<UserLoginInfoViewModel>();
-
-            foreach (IdentityUserLogin linkedAccount in user.Logins)
+            List<UserLoginInfoViewModel> logins = user.Logins.Select(linkedAccount => new UserLoginInfoViewModel
             {
-                logins.Add(new UserLoginInfoViewModel
-                {
-                    LoginProvider = linkedAccount.LoginProvider,
-                    ProviderKey = linkedAccount.ProviderKey
-                });
-            }
+                LoginProvider = linkedAccount.LoginProvider, ProviderKey = linkedAccount.ProviderKey
+            }).ToList();
 
             if (user.PasswordHash != null)
             {
@@ -289,7 +283,6 @@ namespace Restaurant.Server.Controllers
         public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
         {
             IEnumerable<AuthenticationDescription> descriptions = Authentication.GetExternalAuthenticationTypes();
-            List<ExternalLoginViewModel> logins = new List<ExternalLoginViewModel>();
 
             string state;
 
@@ -303,25 +296,19 @@ namespace Restaurant.Server.Controllers
                 state = null;
             }
 
-            foreach (AuthenticationDescription description in descriptions)
+            return descriptions.Select(description => new ExternalLoginViewModel
             {
-                ExternalLoginViewModel login = new ExternalLoginViewModel
+                Name = description.Caption,
+                Url = Url.Route("ExternalLogin", new
                 {
-                    Name = description.Caption,
-                    Url = Url.Route("ExternalLogin", new
-                    {
-                        provider = description.AuthenticationType,
-                        response_type = "token",
-                        client_id = Startup.PublicClientId,
-                        redirect_uri = new Uri(Request.RequestUri, returnUrl).AbsoluteUri,
-                        state = state
-                    }),
-                    State = state
-                };
-                logins.Add(login);
-            }
-
-            return logins;
+                    provider = description.AuthenticationType,
+                    response_type = "token",
+                    client_id = Startup.PublicClientId,
+                    redirect_uri = new Uri(Request.RequestUri, returnUrl).AbsoluteUri,
+                    state = state
+                }),
+                State = state
+            }).ToList();
         }
 
         // POST api/Account/Register

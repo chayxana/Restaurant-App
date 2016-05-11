@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Restaurant.Models;
 
 namespace Restaurant.Model
 {
@@ -47,6 +48,11 @@ namespace Restaurant.Model
         [Get("/api/Account/UserInfo")]
         [Headers("Authorization: Bearer")]
         Task<UserInfo> GetUserInfoRaw();
+
+        [Get("api/Foods")]
+        [Headers("Authorization: Bearer")]
+        Task<List<Food>> GetFoods();
+
     }
 
     public static class RestaurantApiExtensions
@@ -79,9 +85,15 @@ namespace Restaurant.Model
         {
             return This.GetValues();
         }
+
         public static Task<UserInfo> GetUserInfo(this IRestaurantApi This)
         {
             return This.GetUserInfoRaw();
+        }
+
+        public static Task<List<Food>> GetFoods(this IRestaurantApi This)
+        {
+            return This.GetFoods();
         }
     }
 }

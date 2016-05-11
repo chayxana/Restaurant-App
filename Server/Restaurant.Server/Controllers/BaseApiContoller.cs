@@ -14,37 +14,29 @@ namespace Restaurant.Server.Controllers
     public class BaseApiContoller : ApiController
     {
         /// <summary>
-        /// Return context
+        /// Return _dbContext
         /// </summary>
-        private ApplicationDbContext context;
-        public ApplicationDbContext Context
-        {
-            get
-            {
-                if (context == null)
-                {
-                    context = new ApplicationDbContext();
-                }
-                return context;
-            }
-        }
+        private ApplicationDbContext _dbContext;
+
+        protected ApplicationDbContext DbContext => _dbContext ?? (_dbContext = new ApplicationDbContext());
 
         /// <summary>
-        /// Returns current user info
+        /// Returns current _user info
         /// </summary>
-        private User user;
-        public User CurrentUser
+        private User _user;
+
+        protected User CurrentUser
         {
             get
             {
-                if (user == null)
+                if (_user == null)
                 {
                     var identity = User.Identity as ClaimsIdentity;
-                    Claim identityClaim = identity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
-                    user = Context.Users.FirstOrDefault(u => u.Id == identityClaim.Value);
-                    return user;
+                    Claim identityClaim = identity?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+                    _user = DbContext.Users.FirstOrDefault(u => u.Id == identityClaim.Value);
+                    return _user;
                 }
-                return user;
+                return _user;
             }
         }
     }

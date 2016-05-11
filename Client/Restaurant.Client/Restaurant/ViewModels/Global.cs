@@ -4,12 +4,28 @@ using System.Net.Http;
 
 namespace Restaurant.ViewModels
 {
-    internal class Global
+    internal abstract class Global
     {
-        public static HttpClient AuthenticatedClient { get; set; }
+        private static AuthenticationManager _authenticationManager;
+        public static AuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                if (_authenticationManager == null)
+                {
+                    _authenticationManager = new AuthenticationManager();
+                }
+                return _authenticationManager;
+            }
+        }
+    }
 
-        private static IRestaurantApi _authenticatedApi;
-        public static IRestaurantApi AuthenticatedApi
+    internal class AuthenticationManager
+    {
+        public HttpClient AuthenticatedClient { get; set; }
+
+        private IRestaurantApi _authenticatedApi;
+        public IRestaurantApi AuthenticatedApi
         {
             get
             {

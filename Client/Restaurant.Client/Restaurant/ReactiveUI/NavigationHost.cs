@@ -48,6 +48,7 @@ namespace Restaurant.ReactiveUI
                 .SelectMany(x => pageForViewModel(x))
                 .Subscribe((p) =>
                 {
+                    App.Current.MainPage = null;
                     App.Current.MainPage = p;
                     while (Navigation.NavigationStack.Count > 1)
                         Navigation.RemovePage(Navigation.NavigationStack[0]); //WelcomeStartPage
@@ -102,10 +103,7 @@ namespace Restaurant.ReactiveUI
             var ret = ViewLocator.Current.ResolveView(vm);
             if (ret == null)
             {
-                var msg = String.Format(
-                    "Couldn't find a View for ViewModel. You probably need to register an IViewFor<{0}>",
-                    vm.GetType().Name);
-
+                var msg =$"Couldn't find a View for ViewModel. You probably need to register an IViewFor<{vm.GetType().Name}>";
                 return Observable.Throw<Page>(new Exception(msg));
             }
 

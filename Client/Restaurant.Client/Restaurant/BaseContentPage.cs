@@ -108,7 +108,7 @@ namespace Restaurant
         }
 
 
-        public void ApplyTheme(NavigationPage nav)
+        protected void ApplyTheme(NavigationPage nav)
         {
             nav.BarBackgroundColor = ActionBarBackgroundColor;
             nav.BarTextColor = ActionBarTextColor;

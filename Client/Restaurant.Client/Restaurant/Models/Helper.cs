@@ -10,13 +10,13 @@ namespace Restaurant.Models
             {
                 if(Device.OS == TargetPlatform.iOS)
                 {
-                    return "http://192.168.163.1:13900/";
+                    return "http://192.168.127.1:8080/";
                 }
                 else if(Device.OS == TargetPlatform.Android)
                 {
-                    return "http://10.71.34.1:13900/";
+                    return "http://10.71.34.1:8080/";
                 }
-                return "http://localhost:13900";
+                return "http://localhost:8080/";
             } 
         }        
     }

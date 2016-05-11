@@ -105,5 +105,13 @@ namespace Restaurant.UWP
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+        
+        /// <summary>
+        /// Changes UI main theme 
+        /// </summary>
+        private void OnThemeChanging()
+        {
+            
+        }
     }
 }

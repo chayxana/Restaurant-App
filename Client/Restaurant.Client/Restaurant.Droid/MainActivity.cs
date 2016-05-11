@@ -15,7 +15,6 @@ namespace Restaurant.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
-
             base.OnCreate(bundle);
             ActionBar.SetIcon(new ColorDrawable(Android.Graphics.Color.Transparent));
             Xamarin.Forms.Forms.Init(this, bundle);

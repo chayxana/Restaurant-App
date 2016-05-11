@@ -12,7 +12,7 @@ using System.Net.Http;
 namespace Restaurant.ViewModels
 {
     public class AuthenticationViewModel : ReactiveObject, INavigatableViewModel
-    {
+    {   
         /// <summary>
         /// Gets and sets login command
         /// Command that logins to service

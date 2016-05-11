@@ -1,5 +1,4 @@
 ﻿using Microsoft.Phone.Controls;
-using NControl.Controls.WP80;
 
 namespace Restaurant.WinPhone
 {
@@ -9,7 +8,6 @@ namespace Restaurant.WinPhone
         {
             InitializeComponent();
             SupportedOrientations = SupportedPageOrientation.PortraitOrLandscape;
-            NControls.Init();
 
             //global::Xamarin.Forms.Forms.Init();
             //LoadApplication(new Restaurant.App());

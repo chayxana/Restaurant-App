@@ -33,11 +33,12 @@ namespace Restaurant.Droid.Renderers
                 }
             }
         }
-        protected override Task<bool> OnPushAsync(Page view, bool animated)
-        {
-            ChangeTheme(view as IColoredPage);
-            return base.OnPushAsync(view, animated);
-        }
+        //protected override Task<bool> OnPushAsync(Page view, bool animated)
+        //{
+        //    return base.OnPushAsync(view, animated);
+
+        //    ChangeTheme(view as IColoredPage);
+        //}
 
         protected override Task<bool> OnPopViewAsync(Page page, bool animated)
         {

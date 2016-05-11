@@ -97,6 +97,7 @@ namespace Restaurant.ViewModels
             Login = ReactiveCommand
                 .CreateAsyncTask(canLogin, async _ =>
                  {
+                     IsBusy = true;
                      AuthenticationStatus = "started logging...";
                      Debug.WriteLine(Helper.Address);
                      var client = new HttpClient(NetCache.UserInitiated)
@@ -113,10 +114,7 @@ namespace Restaurant.ViewModels
                      var info = await Global.AuthenticationManager.AuthenticatedApi.GetUserInfo();
                      return info;
                  });
-
-            Login
-                .IsExecuting
-                .Subscribe(x => IsBusy = true);
+            
 
             Login.
                 Subscribe(x => IsBusy = false);

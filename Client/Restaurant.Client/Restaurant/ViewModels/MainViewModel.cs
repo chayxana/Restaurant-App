@@ -1,6 +1,5 @@
 ﻿using ReactiveUI;
 using Restaurant.Model;
-using Restaurant.ReactiveUI;
 using Splat;
 using System;
 using System.Reactive.Linq;
@@ -49,19 +48,20 @@ namespace Restaurant.ViewModels
 
     public class DetailState : ReactiveObject
     {
-        public ReactiveCommand<INavigatableViewModel> MoveToDetail { get; set; }
+
+        //public ReactiveUI.Legacy.ReactiveCommand<INavigatableViewModel> MoveToDetail { get; set; }
 
         public DetailState()
         {
-            MoveToDetail = new ReactiveCommand<INavigatableViewModel>(Observable.Return(true), x =>
-            {
-                var vm = x as INavigatableViewModel;
-                if (vm == null)
-                {
-                    throw new Exception("Navigate must be called on an INavigatableViewModel");
-                }
-                return Observable.Return<INavigatableViewModel>(vm);
-            });
+            //MoveToDetail = new ReactiveUI.Legacy.ReactiveCommand<INavigatableViewModel>(Observable.Return(true), x =>
+            //{
+            //    var vm = x as INavigatableViewModel;
+            //    if (vm == null)
+            //    {
+            //        throw new Exception("Navigate must be called on an INavigatableViewModel");
+            //    }
+            //    return Observable.Return<INavigatableViewModel>(vm);
+            //});
         }
     }
 }

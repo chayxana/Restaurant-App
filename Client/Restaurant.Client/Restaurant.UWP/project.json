@@ -1,29 +1,15 @@
 ﻿{
   "dependencies": {
-    "akavache": "4.1.2",
-    "akavache.core": "4.1.2",
-    "akavache.sqlite3": "4.1.2",
-    "CommonServiceLocator": "1.3.0",
-    "ExifLib.PCL": "1.0.1",
-    "fusillade": "0.6.0",
-    "Microsoft.ApplicationInsights": "1.0.0",
-    "Microsoft.ApplicationInsights.PersistenceChannel": "1.0.0",
-    "Microsoft.ApplicationInsights.WindowsApps": "1.0.0",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
+    "akavache": "5.0.0",
+    "akavache.sqlite3": "5.0.0",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.3",
     "modernhttpclient": "2.4.2",
-    "Newtonsoft.Json": "8.0.3",
-    "Punchclock": "1.2.0",
-    "reactiveui": "6.5.0",
-    "reactiveui-core": "6.5.0",
-    "reactiveui-xamforms": "6.5.0",
+    "Newtonsoft.Json": "10.0.2",
+    "reactiveui": "7.3.0",
+    "reactiveui-core": "7.3.0",
     "refit": "2.4.1",
-    "Rx-Core": "2.2.5",
-    "Rx-Interfaces": "2.2.5",
-    "Rx-Linq": "2.2.5",
-    "Splat": "1.6.2",
-    "SQLitePCL.raw_basic": "0.8.6",
-    "Xam.Plugins.Forms.ImageCircle": "1.4.1",
-    "Xamarin.Forms": "2.2.0.31"
+    "Xam.Plugins.Forms.ImageCircle": "1.8.1",
+    "Xamarin.Forms": "2.3.4.231"
   },
   "frameworks": {
     "uap10.0": {}

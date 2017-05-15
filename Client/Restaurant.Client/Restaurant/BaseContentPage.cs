@@ -1,11 +1,11 @@
 ﻿using ReactiveUI;
-using Restaurant.ReactiveUI;
+//using Restaurant.ReactiveUI;
 using Splat;
 using Xamarin.Forms;
 
 namespace Restaurant
 {
-    public class BaseContentPage<T> : MainBaseContentPage, IViewFor<T> where T : class, INavigatableViewModel
+    public class BaseContentPage<T> : MainBaseContentPage, IViewFor<T> where T : class
     {
         public T ViewModel { get; set; }
 
@@ -140,13 +140,13 @@ namespace Restaurant
         Color StatusBarColor { get; set; }
     }
 
-    public class ThemedNavigationPage : NavigationHost, IActivatable
+    public class ThemedNavigationPage : NavigationPage, IActivatable
     {
         public ThemedNavigationPage()
         {
         }
 
-        public ThemedNavigationPage(ContentPage root) : base(root)
+        public ThemedNavigationPage(ContentPage root) 
         {
         }
     }

@@ -4,7 +4,7 @@ namespace Restaurant.Controls
 {
     public class RestaurantEntry : Entry
     {
-     
+
         /// <summary>
         /// The PlaceholderTextColor property
         /// </summary>
@@ -48,25 +48,6 @@ namespace Restaurant.Controls
             set
             {
                 SetValue(FontProperty, value);
-            }
-        }
-
-#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
-        public static readonly BindableProperty FontFamilyProperty =
-#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
-            BindableProperty.Create("FontFamily", typeof(string), typeof(RestaurantEntry), null);
-
-#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
-        public string FontFamily
-#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
-        {
-            get
-            {
-                return (string)this.GetValue(FontFamilyProperty);
-            }
-            set
-            {
-                this.SetValue(FontFamilyProperty, value);
             }
         }
 

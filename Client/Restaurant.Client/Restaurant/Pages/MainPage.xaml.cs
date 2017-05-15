@@ -1,5 +1,4 @@
 ﻿using ReactiveUI;
-using Restaurant.ReactiveUI;
 using Restaurant.ViewModels;
 using Splat;
 using Xamarin.Forms;
@@ -29,7 +28,7 @@ namespace Restaurant.Pages
         }
     }
 
-    public class BaseMasterDetailPage<T> : MainBaseMasterDetailPage, IViewFor<T> where T : class, INavigatableViewModel
+    public class BaseMasterDetailPage<T> : MainBaseMasterDetailPage, IViewFor<T> where T : class
     {
 
         public T ViewModel { get; set; }

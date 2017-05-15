@@ -1,9 +1,8 @@
-﻿using Fusillade;
-using ReactiveUI;
+﻿using ReactiveUI;
+using ReactiveUI.Legacy;
 using Refit;
 using Restaurant.Model;
 using Restaurant.Models;
-using Restaurant.ReactiveUI;
 using Splat;
 using System;
 using System.Diagnostics;
@@ -11,7 +10,7 @@ using System.Net.Http;
 
 namespace Restaurant.ViewModels
 {
-    public class AuthenticationViewModel : ReactiveObject, INavigatableViewModel
+    public class AuthenticationViewModel : ReactiveObject
     {   
         /// <summary>
         /// Gets and sets login command
@@ -78,7 +77,7 @@ namespace Restaurant.ViewModels
         /// Gets and sets Navigation Screeen
         /// instance that provide navigation beetween view models
         /// </summary>
-        public INavigatableScreen NavigationScreen { get; protected set; }
+        //public INavigatableScreen NavigationScreen { get; protected set; }
 
         /// <summary>
         /// Gets view model title
@@ -86,21 +85,21 @@ namespace Restaurant.ViewModels
         public string Title => "Authentication";
        
 
-        public AuthenticationViewModel(INavigatableScreen screen = null)
+        public AuthenticationViewModel()
         {
-            NavigationScreen = (screen ?? Locator.Current.GetService<INavigatableScreen>());
+            //NavigationScreen = (screen ?? Locator.Current.GetService<INavigatableScreen>());
 
             var canLogin = this.WhenAny(x => x.Email, x => x.Password,
                 (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
 
 
-            Login = ReactiveCommand
+            Login = ReactiveUI.Legacy.ReactiveCommand
                 .CreateAsyncTask(canLogin, async _ =>
                  {
                      IsBusy = true;
                      AuthenticationStatus = "started logging...";
                      Debug.WriteLine(Helper.Address);
-                     var client = new HttpClient(NetCache.UserInitiated)
+                     var client = new HttpClient()
                      {
                          BaseAddress = new Uri(Helper.Address)
                      };
@@ -130,28 +129,28 @@ namespace Restaurant.ViewModels
 
 
             #region OpenRegester
-            OpenRegester = ReactiveCommand.Create();
+            OpenRegester = ReactiveUI.Legacy.ReactiveCommand.Create();
             OpenRegester.Subscribe(x =>
             {
                 var viewModel = Locator.Current.GetService<SignUpViewModel>();
                 if (viewModel == null)
                 {
-                    var regViewModel = new SignUpViewModel(NavigationScreen);
-                    Locator.CurrentMutable.RegisterConstant(regViewModel, typeof(SignUpViewModel));
-                    NavigationScreen.Navigation.Navigate.Execute(regViewModel);
+                    //var regViewModel = new SignUpViewModel(NavigationScreen);
+                    //Locator.CurrentMutable.RegisterConstant(regViewModel, typeof(SignUpViewModel));
+                    //NavigationScreen.Navigation.Navigate.Execute(regViewModel);
                 }
                 else
                 {
-                    NavigationScreen.Navigation.Navigate.Execute(viewModel);
+                    //NavigationScreen.Navigation.Navigate.Execute(viewModel);
                 }
             });
 
 
-            OpenLogin = ReactiveCommand.Create();
+            OpenLogin = ReactiveUI.Legacy.ReactiveCommand.Create();
             OpenLogin.Subscribe(x =>
             {
                 var authenViewModel = Locator.Current.GetService<AuthenticationViewModel>();
-                NavigationScreen.Navigation.Navigate.Execute(authenViewModel);
+                //NavigationScreen.Navigation.Navigate.Execute(authenViewModel);
             });
             #endregion
 
@@ -161,7 +160,7 @@ namespace Restaurant.ViewModels
         {
             user.Picture = Helper.Address + "/" + user.Picture;
             var mainViewModel = new MainViewModel(user);
-            NavigationScreen.Navigation.NavigateToMainPage.Execute(mainViewModel);
+            //NavigationScreen.Navigation.NavigateToMainPage.Execute(mainViewModel);
         }
     }
 }

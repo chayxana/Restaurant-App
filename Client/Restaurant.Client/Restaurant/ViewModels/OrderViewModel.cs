@@ -1,6 +1,5 @@
 ﻿using ReactiveUI;
 using Restaurant.Models;
-using Restaurant.ReactiveUI;
 using System;
 
 namespace Restaurant.ViewModels

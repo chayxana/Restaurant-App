@@ -2,7 +2,7 @@
 using ModernHttpClient;
 using ReactiveUI;
 using Restaurant.Pages;
-using Restaurant.ReactiveUI;
+//using Restaurant.ReactiveUI;
 using Restaurant.ViewModels;
 using Splat;
 using System.Net.Http;
@@ -68,17 +68,17 @@ namespace Restaurant
         }
     }
 
-    public class AppBotstrapper : ReactiveObject, INavigatableScreen
+    public class AppBotstrapper : ReactiveObject// INavigatableScreen
     {
         // The Router holds the ViewModels for the back stack. Because it's
         // in this object, it will be serialized automatically.
-        public NavigationState Navigation { get; protected set; }
+        //public NavigationState Navigation { get; protected set; }
 
         public AppBotstrapper()
         {
-            Navigation = new NavigationState();
+            //Navigation = new NavigationState();
 
-            Locator.CurrentMutable.RegisterConstant(this, typeof(INavigatableScreen));
+            //Locator.CurrentMutable.RegisterConstant(this, typeof(INavigatableScreen));
 
             // Set up Akavache
             // 

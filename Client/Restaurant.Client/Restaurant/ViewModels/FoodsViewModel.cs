@@ -1,6 +1,6 @@
 ﻿using ReactiveUI;
+using ReactiveUI.Legacy;
 using Restaurant.Models;
-using Restaurant.ReactiveUI;
 using Splat;
 using System;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace Restaurant.ViewModels
         public FoodsViewModel(INavigatableScreen screen = null)
         {
             OrderableFoods = new ReactiveList<Order>();
-            OpenOrder = ReactiveCommand.Create();
+            OpenOrder = ReactiveUI.Legacy.ReactiveCommand.Create();
             NavigationScreen = (screen ?? Locator.Current.GetService<INavigatableScreen>());
             MainViewModel = Locator.Current.GetService<MainViewModel>();
 
@@ -32,7 +32,7 @@ namespace Restaurant.ViewModels
 
             OpenOrder.Do(_ =>
                 {
-                    NavigationScreen.Navigation.Navigate.Execute(Locator.Current.GetService<BasketViewModel>());
+                    //NavigationScreen.Navigation.Navigate.Execute(Locator.Current.GetService<BasketViewModel>());
                 }).Subscribe();
 
         }

@@ -21,13 +21,13 @@ namespace Restaurant.Droid
             ImageCircleRenderer.Init();
             //if ((int)Android.OS.Build.VERSION.SdkInt >= 21) {  }
 
-            UserError.RegisterHandler(ue =>
-            {
-                var toast = Toast.MakeText(this, ue.ErrorMessage, ToastLength.Short);
-                toast.Show();
+            //UserError.RegisterHandler(ue =>
+            //{
+            //    var toast = Toast.MakeText(this, ue.ErrorMessage, ToastLength.Short);
+            //    toast.Show();
 
-                return Observable.Return(RecoveryOptionResult.CancelOperation);
-            });
+            //    return Observable.Return(RecoveryOptionResult.CancelOperation);
+            //});
 
             LoadApplication(new App());          
 

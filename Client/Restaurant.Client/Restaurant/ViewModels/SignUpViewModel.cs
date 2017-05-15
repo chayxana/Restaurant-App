@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.Http;
-using Fusillade;
 using ReactiveUI;
 using Refit;
 using Restaurant.Model;
 using Restaurant.Models;
-using Restaurant.ReactiveUI;
 using Splat;
 
 namespace Restaurant.ViewModels
@@ -60,7 +58,7 @@ namespace Restaurant.ViewModels
             }
         }
 
-        public ReactiveCommand<object> Regester { get; set; }
+        public ReactiveUI.Legacy.ReactiveCommand<object> Regester { get; set; }
 
         public INavigatableScreen NavigationScreen { get; private set; }
 
@@ -87,11 +85,11 @@ namespace Restaurant.ViewModels
                                 );
 
             //Creating reactive command for regester
-            Regester = ReactiveCommand
+            Regester = ReactiveUI.Legacy. ReactiveCommand
                 .CreateAsyncTask(canRegester, async _ => 
                 {
                     IsLoading = true;
-                    var client = new HttpClient(NetCache.UserInitiated)
+                var client = new HttpClient() // NetCache.UserInitiated)
                     {
                         BaseAddress = new Uri(Helper.Address)
                     };

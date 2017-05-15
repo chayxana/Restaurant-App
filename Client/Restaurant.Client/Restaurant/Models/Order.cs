@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using ReactiveUI.Legacy;
 using Restaurant.ViewModels;
 using Splat;
 using System;
@@ -51,8 +52,8 @@ namespace Restaurant.Models
         public Order()
         {
             var mainViewModel = Locator.Current.GetService<MainViewModel>();
-            BeginOrder = ReactiveCommand.Create();
-            ApplyOrder = ReactiveCommand.Create();
+            BeginOrder = ReactiveUI.Legacy.ReactiveCommand.Create();
+            ApplyOrder = ReactiveUI.Legacy.ReactiveCommand.Create();
 
             BeginOrder.Subscribe(_ => { IsOrdered = true; });
             ApplyOrder

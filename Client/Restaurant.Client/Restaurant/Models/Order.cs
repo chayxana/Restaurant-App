@@ -4,6 +4,7 @@ using Restaurant.ViewModels;
 using Splat;
 using System;
 using System.Reactive.Linq;
+using Restaurant.DataTransferObjects;
 
 namespace Restaurant.Models
 {
@@ -11,7 +12,7 @@ namespace Restaurant.Models
     {
         public Guid Id { get; set; }
 
-        public Food Food { get; set; }
+        public FoodDto Food { get; set; }
 
         private decimal quntity = .5M;
 

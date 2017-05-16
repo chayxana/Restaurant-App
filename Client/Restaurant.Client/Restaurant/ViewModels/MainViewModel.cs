@@ -3,6 +3,7 @@ using Restaurant.Model;
 using Splat;
 using System;
 using System.Reactive.Linq;
+using Restaurant.Abstractions;
 
 namespace Restaurant.ViewModels
 {
@@ -26,19 +27,8 @@ namespace Restaurant.ViewModels
             User = user;
         }
         public IDetailedScreen DetailScreen { get; set; }
-
-        public INavigatableScreen NavigationScreen
-        {
-            get;
-        }
-
-        public string Title
-        {
-            get
-            {
-                return "Main";
-            }
-        }
+        
+        public string Title => "Main";
     }
 
     public interface IDetailedScreen

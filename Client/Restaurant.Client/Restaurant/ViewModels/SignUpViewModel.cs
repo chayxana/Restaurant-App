@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using ReactiveUI;
 using Refit;
+using Restaurant.Abstractions;
 using Restaurant.Model;
 using Restaurant.Models;
 using Splat;
@@ -60,14 +61,13 @@ namespace Restaurant.ViewModels
 
         public ReactiveUI.Legacy.ReactiveCommand<object> Regester { get; set; }
 
-        public INavigatableScreen NavigationScreen { get; private set; }
+     
 
         public string Title => "Sign Up";
 
-        public SignUpViewModel(INavigatableScreen screen = null)
+        public SignUpViewModel()
         {
-            //Gets intance of INavigatableScreen instance
-            NavigationScreen = screen ?? Locator.Current.GetService<INavigatableScreen>();
+            
 
             //Observable for all properties and it will be true when
             //all this properties will be not empty

@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Restaurant.DataTransferObjects;
 using Restaurant.Models;
 
 namespace Restaurant.Model
@@ -51,7 +52,7 @@ namespace Restaurant.Model
 
         [Get("api/Foods")]
         [Headers("Authorization: Bearer")]
-        Task<List<Food>> GetFoods();
+        Task<List<FoodDto>> GetFoods();
 
     }
 
@@ -91,7 +92,7 @@ namespace Restaurant.Model
             return This.GetUserInfoRaw();
         }
 
-        public static Task<List<Food>> GetFoods(this IRestaurantApi This)
+        public static Task<List<FoodDto>> GetFoods(this IRestaurantApi This)
         {
             return This.GetFoods();
         }

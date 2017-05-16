@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Restaurant.Models
+namespace Restaurant.DataTransferObjects
 {
-    public class Food 
+    public class FoodDto
     {
         public Guid Id { get; set; }
 

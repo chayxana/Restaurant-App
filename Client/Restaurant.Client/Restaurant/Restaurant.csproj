@@ -36,16 +36,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Abstractions\INavigatableViewModel.cs" />
+    <Compile Include="Abstractions\Managers\IThemeManager.cs" />
+    <Compile Include="Abstractions\Repositories\IFoodRepository.cs" />
+    <Compile Include="Abstractions\Repositories\IOrderRepository.cs" />
     <Compile Include="Abstractions\Services\IDialogService.cs" />
     <Compile Include="Abstractions\Services\INavigationService.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="BaseContentPage.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Themes\MaterialTheme.cs" />
     <Compile Include="Controls\AnimateButton.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Managers\ThemeManager.cs" />
     <Compile Include="Models\ClientUser.cs" />
-    <Compile Include="Models\Food.cs" />
     <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\RestaurantApi.cs" />
@@ -76,12 +82,11 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\RestaurantEntry.cs" />
+    <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModels\AuthenticationViewModel.cs" />
     <Compile Include="ViewModels\FoodsViewModel.cs" />
     <Compile Include="ViewModels\Global.cs" />
-    <Compile Include="ViewModels\INavigatableScreen.cs" />
-    <Compile Include="ViewModels\INavigatableViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
@@ -229,6 +234,12 @@
     <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Xamarin.Forms.2.3.4.231\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Restaurant.DataTransferObjects\Restaurant.DataTransferObjects.csproj">
+      <Project>{D0A345D9-B756-4978-BCDB-0648C883F8BD}</Project>
+      <Name>Restaurant.DataTransferObjects</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

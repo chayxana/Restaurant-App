@@ -1,6 +1,8 @@
 ﻿using ReactiveUI;
 using Restaurant.Models;
 using System;
+using Restaurant.Abstractions;
+using Restaurant.Abstractions.Services;
 
 namespace Restaurant.ViewModels
 {
@@ -20,13 +22,11 @@ namespace Restaurant.ViewModels
             set { this.RaiseAndSetIfChanged(ref ordersCount, value); }
         }
 
-        public INavigatableScreen NavigationScreen { get; }
 
         public string Title => "Your basket";
 
-        public BasketViewModel(INavigatableScreen navigationScreen = null)
+        public BasketViewModel(INavigationService navigationService = null)
         {
-            NavigationScreen = navigationScreen;
             Orders = new ReactiveList<Order>();
             this.WhenAnyValue(x => x.Orders.Count)
                 .Subscribe(x =>

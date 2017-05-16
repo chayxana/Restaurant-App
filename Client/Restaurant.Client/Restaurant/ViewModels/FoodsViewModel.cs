@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
+using Restaurant.Abstractions;
 
 namespace Restaurant.ViewModels
 {
@@ -14,11 +15,11 @@ namespace Restaurant.ViewModels
         public MainViewModel MainViewModel { get; set; }
         public ReactiveCommand<object> OpenOrder { get; set; }
 
-        public FoodsViewModel(INavigatableScreen screen = null)
+        public FoodsViewModel()
         {
-            OrderableFoods = new ReactiveList<Order>();
-            OpenOrder = ReactiveUI.Legacy.ReactiveCommand.Create();
-            NavigationScreen = (screen ?? Locator.Current.GetService<INavigatableScreen>());
+            //OrderableFoods = new ReactiveList<Order>();
+            //OpenOrder = ReactiveUI.Legacy.ReactiveCommand.Create();
+            //NavigationScreen = (screen ?? Locator.Current.GetService<INavigatableScreen>());
             MainViewModel = Locator.Current.GetService<MainViewModel>();
 
             var foods = Global.AuthenticationManager.AuthenticatedApi.GetFoods();
@@ -36,11 +37,7 @@ namespace Restaurant.ViewModels
                 }).Subscribe();
 
         }
-        public INavigatableScreen NavigationScreen
-        {
-            get; set;
-        }
-
+      
         public string Title => "Foods";
 
         public ReactiveList<Order> OrderableFoods { get; set; }

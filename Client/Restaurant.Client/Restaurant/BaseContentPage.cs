@@ -1,5 +1,4 @@
 ﻿using ReactiveUI;
-//using Restaurant.ReactiveUI;
 using Splat;
 using Xamarin.Forms;
 
@@ -16,7 +15,6 @@ namespace Restaurant
         }
         public BaseContentPage()
         {
-            ViewModel = Locator.Current.GetService<T>();
             BindingContext = ViewModel;
         }
     }

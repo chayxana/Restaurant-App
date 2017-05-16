@@ -6,6 +6,7 @@ using Restaurant.Pages;
 using Restaurant.ViewModels;
 using Splat;
 using System.Net.Http;
+using Restaurant.Themes;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -47,24 +48,13 @@ namespace Restaurant
             base.OnSleep();
         }
 
-        public new static App Current
-        {
-            get
-            {
-                return (App)Application.Current;
-            }
-        }
+        public new static App Current => (App)Application.Current;
 
         public static uint AnimationSpeed { get; internal set; }
 
-        public ColorTheme GetThemeFromColor(string color)
+        public MaterialTheme GetThemeFromColor(string color)
         {
-            return new ColorTheme
-            {
-                Primary = (Color)App.Current.Resources["{0}Primary".Fmt(color)],
-                Light = (Color)App.Current.Resources["{0}Light".Fmt(color)],
-                Dark = (Color)App.Current.Resources["{0}Dark".Fmt(color)],
-            };
+           return new MaterialTheme();
         }
     }
 
@@ -113,47 +103,6 @@ namespace Restaurant
         {
             Locator.CurrentMutable.RegisterConstant(new MainViewModel(null), typeof(MainViewModel));
             return new MainPage();
-        }
-    }
-
-    public class ColorTheme
-    {
-        public Color Primary
-        {
-            get;
-            set;
-        }
-
-        public Color Light
-        {
-            get;
-            set;
-        }
-
-        public Color Dark
-        {
-            get;
-            set;
-        }
-
-        public Color Medium
-        {
-            get;
-            set;
-        }
-
-        public Color PrimaryText
-        {
-            get;
-            set;
-        }
-    }
-
-    public static class Extensions
-    {
-        public static string Fmt(this string s, params object[] args)
-        {
-            return string.Format(s, args);
         }
     }
 

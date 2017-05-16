@@ -12,7 +12,6 @@
       <Color x:Key="indigoPrimary">#3F51B5</Color>
       <Color x:Key="indigoDark">#303F9F</Color>
       <Color x:Key="indigoLight">#C5CAE9</Color>
-      <Color x:Key="indigoPinkAccent">#FF4081</Color>
 
 
       <Color x:Key="bluePrimary">#1FAECE</Color>
@@ -44,10 +43,7 @@
       <Color x:Key="bluePinkPrimary">#2196F3</Color>
       <Color x:Key="bluePinkDark">#1976D2</Color>
       <Color x:Key="bluePinkLight">#BBDEFB</Color>
-      <Color x:Key="bluePinkAccent">#FF4081</Color>
-
-
-
+    
       <Style x:Key="labelStyle" TargetType="Label">
         <Setter Property="TextColor" Value="White" />
         <Setter Property="FontSize">

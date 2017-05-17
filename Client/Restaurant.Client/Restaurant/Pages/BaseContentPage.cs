@@ -1,9 +1,10 @@
 ﻿using ReactiveUI;
-using Splat;
+using Restaurant.Abstractions;
 using Xamarin.Forms;
 
 namespace Restaurant
 {
+    [Injectable]
     public class BaseContentPage<T> : MainBaseContentPage, IViewFor<T> where T : class
     {
         public T ViewModel { get; set; }
@@ -29,7 +30,7 @@ namespace Restaurant
 
         public Color StatusBarColor { get; set; }
 
-        bool hasSubscribed;
+        bool _hasSubscribed;
 
         public bool HasInitialized
         {
@@ -52,11 +53,11 @@ namespace Restaurant
 
         protected override void OnAppearing()
         {
-            if (!hasSubscribed)
+            if (!_hasSubscribed)
             {
                 SubscribeToAuthentication();
                 SubscribeToIncomingPayload();
-                hasSubscribed = true;
+                _hasSubscribed = true;
             }
 
             var nav = Parent as NavigationPage;
@@ -138,27 +139,15 @@ namespace Restaurant
         Color StatusBarColor { get; set; }
     }
 
-    public class ThemedNavigationPage : NavigationPage, IActivatable
+    public class ThemedNavigationPage : NavigationPage
     {
         public ThemedNavigationPage()
         {
         }
 
-        public ThemedNavigationPage(ContentPage root) 
+        public ThemedNavigationPage(ContentPage root) : base(root)
         {
         }
     }
 
-    public class ColoredThemedNavigationPage : NavigationPage
-    {
-        public ColoredThemedNavigationPage()
-        {
-
-        }
-
-        public ColoredThemedNavigationPage(Page page) : base(page)
-        {
-
-        }
-    }
 }

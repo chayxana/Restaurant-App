@@ -53,6 +53,7 @@ namespace Restaurant.Pages
 
             listView.ItemsSource = masterPageItems;
         }
+
         public void Cell_Tapped(object sender, EventArgs e)
         {
            

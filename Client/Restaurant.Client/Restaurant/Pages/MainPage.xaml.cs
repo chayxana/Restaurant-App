@@ -10,10 +10,8 @@ namespace Restaurant.Pages
         public MainPage()
         {
             InitializeComponent();
-            Master = new MasterPage(ViewModel);
-            Detail = new FoodsPage().WithinNavigationPage();
-
-            Locator.CurrentMutable.Register(() => new BasketPage(), typeof(IViewFor<BasketViewModel>));
+            //Master = new MasterPage(ViewModel);
+            //Detail = new FoodsPage().WithinNavigationPage();
 
         }
     }

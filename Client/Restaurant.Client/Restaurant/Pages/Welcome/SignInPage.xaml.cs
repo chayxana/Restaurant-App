@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace Restaurant.Pages
 {
-    public partial class AuthenticationPage : AuthenticationPageXaml
+    public partial class SignInPage : SignInPageXaml
     {
-        public AuthenticationPage()
+        public SignInPage()
         {
             InitializeComponent();
             var theme = App.Current.GetThemeFromColor("red");
@@ -35,7 +35,7 @@ namespace Restaurant.Pages
         }
     }
 
-    public class AuthenticationPageXaml : BaseContentPage<AuthenticationViewModel>
+    public class SignInPageXaml : BaseContentPage<SignInViewModel>
     {
 
     }

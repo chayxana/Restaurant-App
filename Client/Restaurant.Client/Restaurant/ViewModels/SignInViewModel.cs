@@ -10,7 +10,7 @@ using System.Net.Http;
 
 namespace Restaurant.ViewModels
 {
-    public class AuthenticationViewModel : ReactiveObject
+    public class SignInViewModel : ReactiveObject
     {   
         /// <summary>
         /// Gets and sets login command
@@ -18,17 +18,7 @@ namespace Restaurant.ViewModels
         /// </summary>
         public ReactiveCommand<UserInfo> Login { get; set; }
 
-        /// <summary>
-        /// Gets and sets Open regester, 
-        /// Command that opens regester page
-        /// </summary>
-        public ReactiveCommand<object> OpenRegester { get; set; }
 
-        /// <summary>
-        /// Gets and sets OpenLogin
-        /// Command thats opens login page 
-        /// </summary>
-        public ReactiveCommand<object> OpenLogin { get; set; }
 
 
         private bool isBusy;
@@ -85,10 +75,8 @@ namespace Restaurant.ViewModels
         public string Title => "Authentication";
        
 
-        public AuthenticationViewModel()
+        public SignInViewModel()
         {
-            //NavigationScreen = (screen ?? Locator.Current.GetService<INavigatableScreen>());
-
             var canLogin = this.WhenAny(x => x.Email, x => x.Password,
                 (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
 
@@ -127,32 +115,7 @@ namespace Restaurant.ViewModels
                     IsBusy = false;
                 });
 
-
-            #region OpenRegester
-            OpenRegester = ReactiveUI.Legacy.ReactiveCommand.Create();
-            OpenRegester.Subscribe(x =>
-            {
-                var viewModel = Locator.Current.GetService<SignUpViewModel>();
-                if (viewModel == null)
-                {
-                    //var regViewModel = new SignUpViewModel(NavigationScreen);
-                    //Locator.CurrentMutable.RegisterConstant(regViewModel, typeof(SignUpViewModel));
-                    //NavigationScreen.Navigation.Navigate.Execute(regViewModel);
-                }
-                else
-                {
-                    //NavigationScreen.Navigation.Navigate.Execute(viewModel);
-                }
-            });
-
-
-            OpenLogin = ReactiveUI.Legacy.ReactiveCommand.Create();
-            OpenLogin.Subscribe(x =>
-            {
-                var authenViewModel = Locator.Current.GetService<AuthenticationViewModel>();
-                //NavigationScreen.Navigation.Navigate.Execute(authenViewModel);
-            });
-            #endregion
+   
 
         }
 

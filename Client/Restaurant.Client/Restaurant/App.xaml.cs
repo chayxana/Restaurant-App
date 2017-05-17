@@ -21,15 +21,14 @@ namespace Restaurant
         public App()
         {
             InitializeComponent();
-            var app = new AppBotstrapper();
-            if (SignIn)
-            {
-                MainPage = app.MainPage();
-            }
-            else
-            {
-                MainPage = app.WelcomeStartPage();
-            }
+            //if (SignIn)
+            //{
+            //    MainPage = app.MainPage();
+            //}
+            //else
+            //{
+            //    MainPage = app.WelcomeStartPage();
+            //}
             AnimationSpeed = 200;
         }
 
@@ -85,7 +84,7 @@ namespace Restaurant
             // HttpMessageHandler to be ModernHttpClient.
             Locator.CurrentMutable.RegisterConstant(new NativeMessageHandler(), typeof(HttpMessageHandler));
 
-            Locator.CurrentMutable.Register(() => new AuthenticationPage(), typeof(IViewFor<AuthenticationViewModel>));
+            Locator.CurrentMutable.Register(() => new SignInPage(), typeof(IViewFor<SignInViewModel>));
 
             Locator.CurrentMutable.Register(() => new SignUpPage(), typeof(IViewFor<SignUpViewModel>));
 
@@ -95,21 +94,12 @@ namespace Restaurant
 
         public Page WelcomeStartPage()
         {
-            Locator.CurrentMutable.RegisterConstant(new AuthenticationViewModel(), typeof(AuthenticationViewModel));
             return new WelcomeStartPage().WithinNavigationPage();
         }
 
         public Page MainPage()
         {
-            Locator.CurrentMutable.RegisterConstant(new MainViewModel(null), typeof(MainViewModel));
             return new MainPage();
         }
-    }
-
-    public interface ILoginManager
-    {
-        void ShowMainPage();
-
-        void LogOut();
     }
 }

@@ -22,7 +22,8 @@ namespace Restaurant.Pages
             await label2.ScaleTo(1, (uint)App.AnimationSpeed, Easing.SinIn);
             await buttonStack.ScaleTo(1, (uint)App.AnimationSpeed, Easing.SinIn);
         }
-        protected override void Initialize()
+
+        protected sealed override void Initialize()
         {
             base.Initialize();
             var theme = App.Current.GetThemeFromColor("blue");
@@ -32,7 +33,7 @@ namespace Restaurant.Pages
         }
     }
 
-    public class WelcomeStartPageXaml : BaseContentPage<AuthenticationViewModel>
+    public class WelcomeStartPageXaml : BaseContentPage<WelcomeViewModel>
     {
 
     }

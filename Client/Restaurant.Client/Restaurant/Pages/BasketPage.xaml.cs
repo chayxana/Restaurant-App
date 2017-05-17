@@ -1,14 +1,17 @@
-﻿using Restaurant.ViewModels;
+﻿using Restaurant.Abstractions;
+using Restaurant.Abstractions.Managers;
+using Restaurant.ViewModels;
 using Xamarin.Forms;
 
 namespace Restaurant.Pages
 {
     public partial class BasketPage : BasketPageXaml
     {
-        public BasketPage()
+        public BasketPage(IThemeManager themeManager)
         {
             InitializeComponent();
-            var theme = App.Current.GetThemeFromColor("green");
+
+            var theme = themeManager.GetThemeFromColor("green");
             ActionBarBackgroundColor = theme.Primary;
             NavigationBarColor = theme.Dark;
             StatusBarColor = theme.Dark;
@@ -20,8 +23,8 @@ namespace Restaurant.Pages
             orders.SelectedItem = null;
         }
     }
+
     public class BasketPageXaml : BaseContentPage<BasketViewModel>
     {
-
     }
 }

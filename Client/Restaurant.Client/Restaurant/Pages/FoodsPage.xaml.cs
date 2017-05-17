@@ -1,14 +1,16 @@
-﻿using Restaurant.ViewModels;
+﻿using Restaurant.Abstractions.Managers;
+using Restaurant.ViewModels;
 using Xamarin.Forms;
 
 namespace Restaurant.Pages
 {
     public partial class FoodsPage : FoodsXamlPage
     {
-        public FoodsPage()
+        public FoodsPage(IThemeManager themeManager)
         {
             InitializeComponent();
-            var theme = App.Current.GetThemeFromColor("bluePink");
+
+            var theme = themeManager.GetThemeFromColor("bluePink");
             ActionBarBackgroundColor = theme.Primary;
             StatusBarColor = theme.Dark;
             NavigationBarColor = theme.Dark;

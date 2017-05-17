@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<local:AuthenticationPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
+<local:SignInPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
 						 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 						 xmlns:local="clr-namespace:Restaurant.Pages;assembly=Restaurant"
 						 xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
-						 x:Class="Restaurant.Pages.AuthenticationPage">
-	<local:AuthenticationPageXaml.Resources>
+						 x:Class="Restaurant.Pages.SignInPage">
+	<local:SignInPageXaml.Resources>
 		<ResourceDictionary>
 			<Style TargetType="Label" BasedOn="{StaticResource whiteLabelStyle}" />
 		</ResourceDictionary>
-	</local:AuthenticationPageXaml.Resources>
-	<local:AuthenticationPageXaml.Content>
+	</local:SignInPageXaml.Resources>
+	<local:SignInPageXaml.Content>
 		<StackLayout Orientation="Vertical" VerticalOptions="Center" x:Name="uiMain">
 			<StackLayout.Padding>
 				<OnPlatform x:TypeArguments="Thickness">
@@ -80,6 +80,6 @@
 			</StackLayout>
 
 		</StackLayout>
-	</local:AuthenticationPageXaml.Content>
+	</local:SignInPageXaml.Content>
 
-</local:AuthenticationPageXaml>
+</local:SignInPageXaml>

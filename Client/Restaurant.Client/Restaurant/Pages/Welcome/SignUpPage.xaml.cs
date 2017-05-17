@@ -17,19 +17,19 @@ namespace Restaurant.Pages
             Initialize();
             
             // Example: Using WhenAny instead of Value Converters 
-            ViewModel.WhenAnyValue(x => x.IsLoading).Subscribe(isLoading => 
-            {
-                if (isLoading)
-                {
-                    loadingLayout.IsVisible = true;
-                    regesterStack.IsVisible = false;
-                }
-                else
-                {
-                    loadingLayout.IsVisible = false;
-                    regesterStack.IsVisible = true;
-                }
-            });
+            //ViewModel.WhenAnyValue(x => x.IsLoading).Subscribe(isLoading => 
+            //{
+            //    if (isLoading)
+            //    {
+            //        loadingLayout.IsVisible = true;
+            //        regesterStack.IsVisible = false;
+            //    }
+            //    else
+            //    {
+            //        loadingLayout.IsVisible = false;
+            //        regesterStack.IsVisible = true;
+            //    }
+            //});
         }
 
         protected override void Initialize()

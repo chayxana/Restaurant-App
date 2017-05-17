@@ -15,7 +15,6 @@ namespace Restaurant
         }
         public BaseContentPage()
         {
-            BindingContext = ViewModel;
         }
     }
 

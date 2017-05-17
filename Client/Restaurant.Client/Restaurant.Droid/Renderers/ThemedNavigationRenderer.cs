@@ -6,7 +6,7 @@ using Xamarin.Forms.Platform.Android;
 using Android.Graphics.Drawables;
 using System.ComponentModel;
 
-[assembly: ExportRenderer(typeof(NavigationPage), typeof(Restaurant.Droid.Renderers.ThemedNavigationRenderer))]
+//[assembly: ExportRenderer(typeof(NavigationPage), typeof(Restaurant.Droid.Renderers.ThemedNavigationRenderer))]
 namespace Restaurant.Droid.Renderers
 {
     /// <summary>

@@ -3,25 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ReactiveUI.Legacy;
+using System.Windows.Input;
+using JetBrains.Annotations;
+using ReactiveUI;
 using Restaurant.Abstractions;
+using Restaurant.Abstractions.Services;
 
 namespace Restaurant.ViewModels
 {
-    public class WelcomeViewModel : INavigatableViewModel
+    [UsedImplicitly]
+    public class WelcomeViewModel : IWelcomeViewModel
     {
-        public string Title { get; }
+        public WelcomeViewModel(INavigationService navigationService, 
+            ISignInViewModel signInViewModel,
+            ISignUpViewModel signUpViewModel)
+        {
+            GoLogin = ReactiveCommand.Create(() => 
+                                    navigationService.NavigateAsync(signInViewModel));
+
+            GoRegister = ReactiveCommand.Create(() => 
+                                    navigationService.NavigateAsync(signUpViewModel));
+        }
+
+        public string Title => "Welcome page";
 
         /// <summary>
         /// Gets and sets Open regester, 
         /// Command that opens regester page
         /// </summary>
-        public ReactiveCommand<object> OpenRegester { get; set; }
+        public ICommand GoRegister { get; }
 
         /// <summary>
         /// Gets and sets OpenLogin
         /// Command thats opens login page 
         /// </summary>
-        public ReactiveCommand<object> OpenLogin { get; set; }
+        public ICommand GoLogin { get;  }
     }
 }

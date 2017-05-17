@@ -1,14 +1,17 @@
 using Restaurant.ViewModels;
 using System.Threading.Tasks;
-
+using Restaurant.Abstractions.Managers;
 using Xamarin.Forms;
 
 namespace Restaurant.Pages
 {
     public partial class WelcomeStartPage : WelcomeStartPageXaml
     {
-        public WelcomeStartPage()
+        private readonly IThemeManager _themeManager;
+
+        public WelcomeStartPage(IThemeManager themeManager)
         {
+            _themeManager = themeManager;
             NavigationPage.SetHasNavigationBar(this, false);
 
             InitializeComponent();
@@ -21,12 +24,13 @@ namespace Restaurant.Pages
             await label1.ScaleTo(1, (uint)App.AnimationSpeed, Easing.SinIn);
             await label2.ScaleTo(1, (uint)App.AnimationSpeed, Easing.SinIn);
             await buttonStack.ScaleTo(1, (uint)App.AnimationSpeed, Easing.SinIn);
+            BindingContext = ViewModel;
         }
 
         protected sealed override void Initialize()
         {
             base.Initialize();
-            var theme = App.Current.GetThemeFromColor("blue");
+            var theme = _themeManager.GetThemeFromColor("blue");
             StatusBarColor = theme.Dark;
             NavigationBarColor = theme.Primary;
             BackgroundColor = theme.Primary;

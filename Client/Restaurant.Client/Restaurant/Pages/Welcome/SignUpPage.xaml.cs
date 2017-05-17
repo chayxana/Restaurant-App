@@ -1,14 +1,18 @@
 ﻿using ReactiveUI;
 using Restaurant.ViewModels;
 using System;
+using Restaurant.Abstractions.Managers;
 using Xamarin.Forms;
 
 namespace Restaurant.Pages
 {
     public partial class SignUpPage : SignUpPageXaml
     {
-        public SignUpPage()
+        private readonly IThemeManager _themeManager;
+
+        public SignUpPage(IThemeManager themeManager)
         {
+            _themeManager = themeManager;
             InitializeComponent();
             Initialize();
             
@@ -30,7 +34,7 @@ namespace Restaurant.Pages
 
         protected override void Initialize()
         {
-            var color = App.Current.GetThemeFromColor("indigo");
+            var color = _themeManager.GetThemeFromColor("indigo");
             StatusBarColor = color.Dark;
             ActionBarBackgroundColor = color.Primary;
             NavigationBarColor = Color.Black;

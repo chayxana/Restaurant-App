@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- For honeycomb and up -->
 <resources>
-  <style name="MyTheme.Base" parent="@android:style/Theme.Holo.Light.DarkActionBar"> </style>
+  <style name="MyTheme.Base" parent="Theme.AppCompat.Light.NoActionBar"> </style>
   <style name="MyTheme" parent="MyTheme.Base">
     <!-- You can also set colorControlNormal, colorControlActivated
          colorControlHighlight and colorSwitchThumbNormal. -->
-    <item name="android:actionBarStyle">@style/MyTheme.ActionBarStyle</item>
-    <item name="android:windowContentOverlay">@null</item>
+    <!--<item name="android:actionBarStyle">@style/MyTheme.ActionBarStyle</item>-->
+    <!--<item name="android:windowContentOverlay">@null</item>-->
   </style>
   <style name="MyTheme.ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
     <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>

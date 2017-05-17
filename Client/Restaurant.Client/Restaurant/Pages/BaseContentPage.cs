@@ -4,7 +4,6 @@ using Xamarin.Forms;
 
 namespace Restaurant
 {
-    [Injectable]
     public class BaseContentPage<T> : MainBaseContentPage, IViewFor<T> where T : class
     {
         public T ViewModel { get; set; }

@@ -7,19 +7,20 @@ using Splat;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Windows.Input;
+using JetBrains.Annotations;
 
 namespace Restaurant.ViewModels
 {
-    public class SignInViewModel : ReactiveObject
+    [UsedImplicitly]
+    public class SignInViewModel : ReactiveObject, ISignInViewModel
     {   
         /// <summary>
         /// Gets and sets login command
         /// Command that logins to service
         /// </summary>
-        public ReactiveCommand<UserInfo> Login { get; set; }
-
-
-
+        public ICommand Login { get; set; }
+        
 
         private bool isBusy;
         /// <summary>
@@ -52,22 +53,8 @@ namespace Restaurant.ViewModels
             get { return password; }
             set { this.RaiseAndSetIfChanged(ref password, value); }
         }
-
-        private string authenticationStatus;
-        /// <summary>
-        /// Gets and sets status of authentication
-        /// </summary>
-        public string AuthenticationStatus
-        {
-            get { return authenticationStatus; }
-            set { this.RaiseAndSetIfChanged(ref authenticationStatus, value); }
-        }
-
-        /// <summary>
-        /// Gets and sets Navigation Screeen
-        /// instance that provide navigation beetween view models
-        /// </summary>
-        //public INavigatableScreen NavigationScreen { get; protected set; }
+        
+        
 
         /// <summary>
         /// Gets view model title
@@ -85,7 +72,6 @@ namespace Restaurant.ViewModels
                 .CreateAsyncTask(canLogin, async _ =>
                  {
                      IsBusy = true;
-                     AuthenticationStatus = "started logging...";
                      Debug.WriteLine(Helper.Address);
                      var client = new HttpClient()
                      {
@@ -93,27 +79,25 @@ namespace Restaurant.ViewModels
                      };
                      var api = RestService.For<IRestaurantApi>(client);
                      var token = await api.GetToken(Email, Password);
-                     AuthenticationStatus = "started authentication...";
                      Global.AuthenticationManager.AuthenticatedClient = new HttpClient(new AuthenticatedHttpClientHandler(token.access_token))
                      {
-                         BaseAddress = new Uri(Helper.Address)
+                         BaseAddress = new Uri(Helper.Address)  
                      };
                      var info = await Global.AuthenticationManager.AuthenticatedApi.GetUserInfo();
                      return info;
                  });
             
 
-            Login.
-                Subscribe(x => IsBusy = false);
+            //Login.
+            //    Subscribe(x => IsBusy = false);
 
-            Login
-                .ThrownExceptions
-                .Subscribe(ex =>
-                {
-                    UserError.Throw("Invalid login or password!");
-                    Debug.WriteLine("Error! - " + ex.Message);
-                    IsBusy = false;
-                });
+            //Login
+            //    .ThrownExceptions
+            //    .Subscribe(ex =>
+            //    {
+            //        Debug.WriteLine("Error! - " + ex.Message);
+            //        IsBusy = false;
+            //    });
 
    
 
@@ -121,8 +105,6 @@ namespace Restaurant.ViewModels
 
         public void NavigateToMainPage(UserInfo user)
         {
-            user.Picture = Helper.Address + "/" + user.Picture;
-            var mainViewModel = new MainViewModel(user);
             //NavigationScreen.Navigation.NavigateToMainPage.Execute(mainViewModel);
         }
     }

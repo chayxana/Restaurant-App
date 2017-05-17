@@ -19,11 +19,10 @@ namespace Restaurant.Services
         private readonly IContainer _container;
         private readonly INavigationFacade _navigationFacade;
 
-        private INavigation Navigation => App.Current.MainPage.Navigation;
 
         public IViewFor CurrentPage { get; private set; }
 
-        public NavigationService(INavigationFacade navigationFacade) : this(Bootstrapper.Container, navigationFacade)
+        public NavigationService(INavigationFacade navigationFacade) : this(App.Container, navigationFacade)
         { }
 
         public NavigationService(IContainer container, INavigationFacade navigationFacade)

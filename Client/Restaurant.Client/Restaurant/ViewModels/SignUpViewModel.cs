@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Windows.Input;
 using ReactiveUI;
 using Refit;
 using Restaurant.Abstractions;
@@ -10,7 +11,7 @@ using Splat;
 
 namespace Restaurant.ViewModels
 {
-    public class SignUpViewModel : ReactiveObject, INavigatableViewModel
+    public class SignUpViewModel : ReactiveObject, ISignUpViewModel
     {
         private string name;
 
@@ -59,7 +60,7 @@ namespace Restaurant.ViewModels
             }
         }
 
-        public ReactiveUI.Legacy.ReactiveCommand<object> Regester { get; set; }
+        public ICommand Regester { get; set; }
 
      
 
@@ -104,22 +105,22 @@ namespace Restaurant.ViewModels
             //    .Subscribe(x => IsLoading = true);
             
             //Raises when completes regester command
-            Regester
-                .Subscribe(r => 
-                {
-                    MessageBus.Current.SendMessage("User regestred!");
-                    Debug.WriteLine("Complete!");
-                    IsLoading = false;
-                });
+            //Regester
+            //    .Subscribe(r => 
+            //    {
+            //        MessageBus.Current.SendMessage("User regestred!");
+            //        Debug.WriteLine("Complete!");
+            //        IsLoading = false;
+            //    });
 
-            //Raises when regester throws any exception
-            Regester
-                .ThrownExceptions
-                .Subscribe(ex =>
-                {
-                    Debug.WriteLine("Error!");
-                    IsLoading = false;
-                });
+            ////Raises when regester throws any exception
+            //Regester
+            //    .ThrownExceptions
+            //    .Subscribe(ex =>
+            //    {
+            //        Debug.WriteLine("Error!");
+            //        IsLoading = false;
+            //    });
         }
     }
 }

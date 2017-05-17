@@ -2,10 +2,10 @@
 using ModernHttpClient;
 using ReactiveUI;
 using Restaurant.Pages;
-//using Restaurant.ReactiveUI;
 using Restaurant.ViewModels;
 using Splat;
 using System.Net.Http;
+using Autofac;
 using Restaurant.Themes;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,26 +16,29 @@ namespace Restaurant
 {
     public partial class App : Application
     {
-        public bool SignIn { get; set; } = false;
+        public static IContainer Container { get; private set; }
 
         public App()
         {
             InitializeComponent();
-            //if (SignIn)
-            //{
-            //    MainPage = app.MainPage();
-            //}
-            //else
-            //{
-            //    MainPage = app.WelcomeStartPage();
-            //}
             AnimationSpeed = 200;
+
+
+            var bootstrapper = new Bootstrapper();
+            Container = bootstrapper.Build();
+
+            var welcomePage = Container.Resolve<IViewFor<WelcomeViewModel>>();
+            welcomePage.ViewModel = Container.Resolve<IWelcomeViewModel>() as WelcomeViewModel;
+
+
+            MainPage = new NavigationPage(welcomePage as Page);
         }
 
         protected override void OnStart()
         {
             base.OnStart();
         }
+
 
         protected override void OnResume()
         {
@@ -51,10 +54,6 @@ namespace Restaurant
 
         public static uint AnimationSpeed { get; internal set; }
 
-        public MaterialTheme GetThemeFromColor(string color)
-        {
-           return new MaterialTheme();
-        }
     }
 
     public class AppBotstrapper : ReactiveObject// INavigatableScreen
@@ -82,24 +81,15 @@ namespace Restaurant
             // end up issuing multiple requests to the same resource, it will
             // de-dupe them. We're saying here, that we want our *backing*
             // HttpMessageHandler to be ModernHttpClient.
-            Locator.CurrentMutable.RegisterConstant(new NativeMessageHandler(), typeof(HttpMessageHandler));
+            //Locator.CurrentMutable.RegisterConstant(new NativeMessageHandler(), typeof(HttpMessageHandler));
 
-            Locator.CurrentMutable.Register(() => new SignInPage(), typeof(IViewFor<SignInViewModel>));
+            //Locator.CurrentMutable.Register(() => new SignInPage(), typeof(IViewFor<SignInViewModel>));
 
-            Locator.CurrentMutable.Register(() => new SignUpPage(), typeof(IViewFor<SignUpViewModel>));
+            //Locator.CurrentMutable.Register(() => new SignUpPage(), typeof(IViewFor<SignUpViewModel>));
 
-            Locator.CurrentMutable.Register(() => new MainPage(), typeof(IViewFor<MainViewModel>)); 
+            //Locator.CurrentMutable.Register(() => new MainPage(), typeof(IViewFor<MainViewModel>)); 
 
         }
 
-        public Page WelcomeStartPage()
-        {
-            return new WelcomeStartPage().WithinNavigationPage();
-        }
-
-        public Page MainPage()
-        {
-            return new MainPage();
-        }
     }
 }

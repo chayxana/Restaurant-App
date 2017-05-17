@@ -45,6 +45,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Facades\NavigationFacade.cs" />
     <Compile Include="Pages\BaseContentPage.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Abstractions\InjectableAttribute.cs" />
@@ -86,6 +87,9 @@
     <Compile Include="Controls\RestaurantEntry.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="ViewModels\ISignInViewModel.cs" />
+    <Compile Include="ViewModels\ISignUpViewModel.cs" />
+    <Compile Include="ViewModels\IWelcomeViewModel.cs" />
     <Compile Include="ViewModels\SignInViewModel.cs" />
     <Compile Include="ViewModels\FoodsViewModel.cs" />
     <Compile Include="ViewModels\Global.cs" />

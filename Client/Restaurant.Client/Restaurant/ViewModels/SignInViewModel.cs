@@ -3,6 +3,8 @@ using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Managers;
+using Restaurant.Abstractions.Services;
+using Restaurant.Abstractions.ViewModels;
 using Restaurant.DataTransferObjects;
 
 namespace Restaurant.ViewModels
@@ -18,7 +20,6 @@ namespace Restaurant.ViewModels
         /// Command that logins to service
         /// </summary>
         public ICommand Login { get; }
-
 
         /// <summary>
         /// Gets and sets user Email
@@ -40,7 +41,10 @@ namespace Restaurant.ViewModels
 
         public override string Title => "Login";
 
-        public SignInViewModel(IAuthenticationManager authenticationManager, IAutoMapperFacade autoMapperFacade)
+        public SignInViewModel(IAuthenticationManager authenticationManager, 
+            IAutoMapperFacade autoMapperFacade,
+            INavigationService navigationService,
+            IMainViewModel mainViewModel)
         {
             var canLogin = this.WhenAny(x => x.Email, x => x.Password,
                 (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
@@ -50,7 +54,7 @@ namespace Restaurant.ViewModels
                 var result = await authenticationManager.Login(autoMapperFacade.Map<LoginDto>(this));
                 if (result.ok)
                 {
-                    //TODO: login
+                   await navigationService.NavigateAsync(mainViewModel);
                 }
             }, canLogin);
         }

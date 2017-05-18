@@ -4,6 +4,7 @@ using ReactiveUI;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Managers;
 using Restaurant.Abstractions.Services;
+using Restaurant.Abstractions.ViewModels;
 using Restaurant.Facades;
 using Restaurant.Managers;
 using Restaurant.Pages;

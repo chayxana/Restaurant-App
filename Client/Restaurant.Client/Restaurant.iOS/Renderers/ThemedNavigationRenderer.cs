@@ -67,7 +67,7 @@ namespace Restaurant.iOS.Renderers
                 buttonCommands.Add(button, toolBarItem.Command);
                 BadgeBarButtonItem barButtonItem = new BadgeBarButtonItem(button);
                 NavigationBar.Items[0].RightBarButtonItem = barButtonItem;
-                viewModel.BasketViewModel.WhenAnyValue(x => x.OrdersCount).Subscribe(x =>
+                viewModel.OrderViewModel.WhenAnyValue(x => x.OrdersCount).Subscribe(x =>
                 {
                     barButtonItem.BadgeValue = x.ToString();
                 });

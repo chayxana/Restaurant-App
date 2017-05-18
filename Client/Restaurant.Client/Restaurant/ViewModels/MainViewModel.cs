@@ -4,13 +4,15 @@ using Restaurant.Model;
 
 namespace Restaurant.ViewModels
 {
-    public class MainViewModel : ReactiveObject, INavigatableViewModel
+    public class MainViewModel : ReactiveObject, IMainViewModel
     {
-        public UserInfo User { get; set; }
-
+        public MainViewModel()
+        {
+            
+        }
         public FoodsViewModel FoodViewModel { get; set; }
 
-        public BasketViewModel BasketViewModel { get; set; }
+        public OrderViewModel OrderViewModel { get; set; }
 
         public IDetailedScreen DetailScreen { get; set; }
         

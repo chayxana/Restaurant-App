@@ -14,8 +14,8 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
     <JavaMaximumHeapSize>
@@ -283,10 +283,6 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_shopping_cart_white.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_menu_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_shopping_cart_white_24dp.png" />
-    <AndroidResource Include="Resources\menu\my_menu.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\menu\home_menu.xml" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_restaurant_menu_black.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_restaurant_menu_black.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_restaurant_menu_black.png" />

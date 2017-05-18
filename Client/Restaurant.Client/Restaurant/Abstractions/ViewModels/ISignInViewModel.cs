@@ -1,7 +1,6 @@
 ﻿using System.Windows.Input;
-using Restaurant.Abstractions;
 
-namespace Restaurant.ViewModels
+namespace Restaurant.Abstractions.ViewModels
 {
     public interface ISignInViewModel : INavigatableViewModel
     {

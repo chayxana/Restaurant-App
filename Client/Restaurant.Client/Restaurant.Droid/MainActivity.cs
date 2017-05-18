@@ -15,6 +15,7 @@ namespace Restaurant.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.toolbar;
+            
 
             base.OnCreate(bundle);
             //Android.App.ActionBar.SetIcon(new ColorDrawable(Android.Graphics.Color.Transparent));

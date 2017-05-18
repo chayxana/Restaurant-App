@@ -1,7 +1,6 @@
-using Restaurant.ViewModels;
-using System;
 using System.Threading.Tasks;
 using Restaurant.Abstractions.Managers;
+using Restaurant.ViewModels;
 using Xamarin.Forms;
 
 namespace Restaurant.Pages
@@ -14,11 +13,11 @@ namespace Restaurant.Pages
             var theme = themeManager.GetThemeFromColor("red");
             StatusBarColor = theme.Dark;
             ActionBarBackgroundColor = theme.Primary;
-            //ViewModel.Login.Subscribe(async x =>
+            //SignInViewModel.Login.Subscribe(async x =>
             //{
             //    await AnimateControls(0, Easing.SinOut);
-            //    ViewModel.NavigateToMainPage(x);
-            //    ViewModel.IsBusy = false;
+            //    SignInViewModel.NavigateToMainPage(x);
+            //    SignInViewModel.IsBusy = false;
             //});                 
         }
 

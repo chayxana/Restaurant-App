@@ -1,109 +1,88 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Net.Http;
 using System.Windows.Input;
+using JetBrains.Annotations;
 using ReactiveUI;
 using Refit;
-using Restaurant.Abstractions;
 using Restaurant.Model;
 using Restaurant.Models;
-using Splat;
 
 namespace Restaurant.ViewModels
 {
+    [UsedImplicitly]
     public class SignUpViewModel : ReactiveObject, ISignUpViewModel
     {
-        private string name;
+        private string _name;
 
         public string Name
         {
-            get { return name; }
-            set { this.RaiseAndSetIfChanged(ref name, value); }
+            get => _name;
+            set => this.RaiseAndSetIfChanged(ref _name, value);
         }
 
 
-        private bool isLoading;
+        private bool _isLoading;
 
         public bool IsLoading
         {
-            get { return isLoading; }
-            set { this.RaiseAndSetIfChanged(ref isLoading, value); }
+            get => _isLoading;
+            set => this.RaiseAndSetIfChanged(ref _isLoading, value);
         }
 
-        private string email;
+        private string _email;
 
         public string RegesterEmail
         {
-            get { return email; }
-            set { this.RaiseAndSetIfChanged(ref email, value); }
+            get => _email;
+            set => this.RaiseAndSetIfChanged(ref _email, value);
         }
 
-        private string password;
+        private string _password;
 
         public string RegesterPassword
         {
-            get { return password; }
-            set { this.RaiseAndSetIfChanged(ref password, value); }
+            get => _password;
+            set => this.RaiseAndSetIfChanged(ref _password, value);
         }
 
-        private string confirmPassword;
+        private string _confirmPassword;
 
         public string ConfirmPassword
         {
-            get
-            {
-                return confirmPassword;
-            }
-            set
-            {
-                this.RaiseAndSetIfChanged(ref confirmPassword, value);
-            }
+            get => _confirmPassword;
+            set => this.RaiseAndSetIfChanged(ref _confirmPassword, value);
         }
 
         public ICommand Regester { get; set; }
 
-     
+
 
         public string Title => "Sign Up";
 
         public SignUpViewModel()
         {
+            var canRegester = this.WhenAny(x => x.Name, x => x.RegesterEmail, x => x.RegesterPassword,
+                x => x.ConfirmPassword, (n, e, p, cp) => !string.IsNullOrEmpty(n.Value));
             
-
-            //Observable for all properties and it will be true when
-            //all this properties will be not empty
-            var canRegester = this.WhenAny(
-                                    x => x.Name,
-                                    x => x.RegesterEmail,
-                                    x => x.RegesterPassword,
-                                    x => x.ConfirmPassword,
-                                    (n,e, p, cp) => !string.IsNullOrEmpty(n.Value)
-                                                  && !string.IsNullOrEmpty(e.Value)
-                                                  && !string.IsNullOrEmpty(p.Value)
-                                                  && !string.IsNullOrEmpty(cp.Value) 
-                                                  && cp.Value == p.Value
-
-                                );
-
             //Creating reactive command for regester
-            Regester = ReactiveUI.Legacy. ReactiveCommand
-                .CreateAsyncTask(canRegester, async _ => 
+            Regester = ReactiveCommand
+                .CreateFromTask(async _ =>
                 {
                     IsLoading = true;
-                var client = new HttpClient() // NetCache.UserInitiated)
+                    var client = new HttpClient // NetCache.UserInitiated)
                     {
                         BaseAddress = new Uri(Helper.Address)
                     };
                     var api = RestService.For<IRestaurantApi>(client);
                     var result = await api.Regester(Name, RegesterEmail, RegesterPassword, ConfirmPassword);
                     return result;
-                });
+                }, canRegester);
 
             //When regstir command executing sets true for IsLoading property
             //Regester
             //    .IsExecuting
             //    .Subscribe(x => IsLoading = true);
-            
+
             //Raises when completes regester command
             //Regester
             //    .Subscribe(r => 

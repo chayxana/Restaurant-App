@@ -1,25 +1,19 @@
-﻿using Newtonsoft.Json;
-using Restaurant.Models;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Restaurant.Models;
 
 namespace Restaurant
 {
     public class Settings
     {
         static Settings _instance;
-        static readonly string _filePath = ""; //Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "settings.json");
+        static readonly string FilePath = ""; //Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "settings.json");
         public static Stream SettingFileStream { get; set; }
-        public static Settings Instance
-        {
-            get
-            {
-                return _instance ?? (_instance = Settings.Load());
-            }
-        }
+        public static Settings Instance => _instance ?? (_instance = Load());
 
-        public string AuthUserID
+        public string AuthUserId
         {
             get;
             set;
@@ -56,7 +50,7 @@ namespace Restaurant
                 //if (App.CurrentAthlete != null)
                     //DeviceToken = App.CurrentAthlete.DeviceToken;
 
-                Debug.WriteLine(string.Format("Saving settings: {0}", _filePath));
+                Debug.WriteLine("Saving settings: {0}", FilePath);
                 var json = JsonConvert.SerializeObject(this);
                 using (var sw = new StreamWriter(SettingFileStream))
                 {
@@ -67,7 +61,7 @@ namespace Restaurant
 
         public static Settings Load()
         {
-            Debug.WriteLine(string.Format("Loading settings: {0}", _filePath));
+            Debug.WriteLine("Loading settings: {0}", FilePath);
             return null;
             //var settings = Helpers.LoadFromFile<Settings>(_filePath) ?? new Settings();
             //return settings;

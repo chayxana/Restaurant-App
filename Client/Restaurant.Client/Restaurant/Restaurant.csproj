@@ -35,8 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Abstractions\Facades\IAutoMapperFacade.cs" />
     <Compile Include="Abstractions\Facades\INavigationFacade.cs" />
     <Compile Include="Abstractions\INavigatableViewModel.cs" />
+    <Compile Include="Abstractions\Managers\IAuthenticationManager.cs" />
     <Compile Include="Abstractions\Managers\IThemeManager.cs" />
     <Compile Include="Abstractions\Repositories\IFoodRepository.cs" />
     <Compile Include="Abstractions\Repositories\IOrderRepository.cs" />
@@ -46,6 +48,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Facades\NavigationFacade.cs" />
+    <Compile Include="Managers\AuthentiticationManager.cs" />
     <Compile Include="Pages\BaseContentPage.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Abstractions\InjectableAttribute.cs" />
@@ -96,6 +99,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WelcomeViewModel.cs" />
     <Compile Include="Views\FoodsListView.xaml.cs">
       <DependentUpon>FoodsListView.xaml</DependentUpon>

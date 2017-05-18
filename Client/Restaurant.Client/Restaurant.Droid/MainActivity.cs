@@ -1,18 +1,15 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
-using ReactiveUI;
-using System.Reactive.Linq;
-using Android.Graphics.Drawables;
-using Android.Support.V7.App;
+using Android.Views;
 using ImageCircle.Forms.Plugin.Droid;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
 
 namespace Restaurant.Droid
 {
     [Activity(Label = "Restaurant", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    public class MainActivity : FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
@@ -21,7 +18,7 @@ namespace Restaurant.Droid
 
             base.OnCreate(bundle);
             //Android.App.ActionBar.SetIcon(new ColorDrawable(Android.Graphics.Color.Transparent));
-            Xamarin.Forms.Forms.Init(this, bundle);
+            Forms.Init(this, bundle);
             ImageCircleRenderer.Init();
             //if ((int)Android.OS.Build.VERSION.SdkInt >= 21) {  }
 

@@ -1,6 +1,6 @@
-using Restaurant.ViewModels;
 using System.Threading.Tasks;
 using Restaurant.Abstractions.Managers;
+using Restaurant.ViewModels;
 using Xamarin.Forms;
 
 namespace Restaurant.Pages
@@ -21,9 +21,9 @@ namespace Restaurant.Pages
         {
             base.OnLoaded();
             await Task.Delay(300);
-            await label1.ScaleTo(1, (uint)App.AnimationSpeed, Easing.SinIn);
-            await label2.ScaleTo(1, (uint)App.AnimationSpeed, Easing.SinIn);
-            await buttonStack.ScaleTo(1, (uint)App.AnimationSpeed, Easing.SinIn);
+            await label1.ScaleTo(1, App.AnimationSpeed, Easing.SinIn);
+            await label2.ScaleTo(1, App.AnimationSpeed, Easing.SinIn);
+            await buttonStack.ScaleTo(1, App.AnimationSpeed, Easing.SinIn);
             BindingContext = ViewModel;
         }
 

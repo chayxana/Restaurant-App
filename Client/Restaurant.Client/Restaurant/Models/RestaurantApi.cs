@@ -1,23 +1,22 @@
-﻿using Refit;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Refit;
 using Restaurant.DataTransferObjects;
-using Restaurant.Models;
 
 namespace Restaurant.Model
 {
     internal class AuthenticatedHttpClientHandler : HttpClientHandler
     {
-        private readonly string token;
+        private readonly string _token;
 
         public AuthenticatedHttpClientHandler(string token)
         {
             if (token == null) throw new ArgumentNullException("getToken");
-            this.token = token;
+            this._token = token;
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -26,7 +25,7 @@ namespace Restaurant.Model
             var auth = request.Headers.Authorization;
             if (auth != null)
             {
-                request.Headers.Authorization = new AuthenticationHeaderValue(auth.Scheme, token);
+                request.Headers.Authorization = new AuthenticationHeaderValue(auth.Scheme, _token);
             }
 
             return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);

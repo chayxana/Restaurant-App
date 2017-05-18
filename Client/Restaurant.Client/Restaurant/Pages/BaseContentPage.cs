@@ -1,5 +1,4 @@
 ﻿using ReactiveUI;
-using Restaurant.Abstractions;
 using Xamarin.Forms;
 
 namespace Restaurant
@@ -10,11 +9,8 @@ namespace Restaurant
 
         object IViewFor.ViewModel
         {
-            get { return ViewModel; }
-            set { ViewModel = (T)value; }
-        }
-        public BaseContentPage()
-        {
+            get => ViewModel;
+            set => ViewModel = (T)value;
         }
     }
 
@@ -115,7 +111,7 @@ namespace Restaurant
         {
             var btnDone = new ToolbarItem
             {
-                Text = text,
+                Text = text
             };
 
             btnDone.Clicked += async (sender, e) =>

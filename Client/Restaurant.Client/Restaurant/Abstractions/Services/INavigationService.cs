@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using ReactiveUI;
-using Xamarin.Forms;
 
 namespace Restaurant.Abstractions.Services
 {

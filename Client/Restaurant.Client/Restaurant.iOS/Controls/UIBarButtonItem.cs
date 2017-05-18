@@ -1,6 +1,6 @@
-﻿using CoreGraphics;
+﻿using System;
+using CoreGraphics;
 using Foundation;
-using System;
 using UIKit;
 
 namespace Restaurant.iOS.Controls
@@ -132,7 +132,7 @@ namespace Restaurant.iOS.Controls
 
                 if (badgeText.Length >= 2)
                 {
-                    double flexSpace = (double)badgeText.Length;
+                    double flexSpace = badgeText.Length;
                     double rectWidth = initialSize + (stringSize.Width + flexSpace);
                     double rectHeight = initialSize;
                     size = new CGSize(rectWidth * badgeScaleFactor, rectHeight * badgeScaleFactor);

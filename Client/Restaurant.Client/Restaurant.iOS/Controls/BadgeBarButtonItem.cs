@@ -1,7 +1,7 @@
-﻿using CoreAnimation;
+﻿using System;
+using CoreAnimation;
 using CoreGraphics;
 using Foundation;
-using System;
 using UIKit;
 
 namespace Restaurant.iOS.Controls
@@ -122,7 +122,7 @@ namespace Restaurant.iOS.Controls
         public BadgeBarButtonItem(UIButton customButton)
         {
             InitializeValues();
-            this.CustomView = customButton;
+            CustomView = customButton;
         }
 
         public BadgeBarButtonItem()
@@ -186,7 +186,7 @@ namespace Restaurant.iOS.Controls
             // Bounce animation on badge if value changed and if animation authorized
             if (animated && ShouldAnimate && Badge.Text != BadgeValue)
             {
-                CABasicAnimation animation = new CABasicAnimation()
+                CABasicAnimation animation = new CABasicAnimation
                 {
                     KeyPath = "transform.scale",
                     From = NSNumber.FromDouble(1.5),

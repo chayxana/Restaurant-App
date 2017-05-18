@@ -55,7 +55,7 @@ namespace Restaurant.Models
             ApplyOrder.Do(_ => 
             {
                 IsOrdered = false;
-                mainViewModel.BasketViewModel.Orders.Add(this);
+                mainViewModel.OrderViewModel.Orders.Add(this);
             }).Subscribe();
         }
     }

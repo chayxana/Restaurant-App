@@ -4,13 +4,14 @@ using System.Windows.Input;
 using JetBrains.Annotations;
 using ReactiveUI;
 using Refit;
+using Restaurant.Abstractions.ViewModels;
 using Restaurant.Model;
 using Restaurant.Models;
 
 namespace Restaurant.ViewModels
 {
     [UsedImplicitly]
-    public class SignUpViewModel : ReactiveObject, ISignUpViewModel
+    public class SignUpViewModel : ViewModelBase, ISignUpViewModel
     {
         private string _name;
 
@@ -20,18 +21,9 @@ namespace Restaurant.ViewModels
             set => this.RaiseAndSetIfChanged(ref _name, value);
         }
 
-
-        private bool _isLoading;
-
-        public bool IsLoading
-        {
-            get => _isLoading;
-            set => this.RaiseAndSetIfChanged(ref _isLoading, value);
-        }
-
         private string _email;
 
-        public string RegesterEmail
+        public string Email
         {
             get => _email;
             set => this.RaiseAndSetIfChanged(ref _email, value);
@@ -39,7 +31,7 @@ namespace Restaurant.ViewModels
 
         private string _password;
 
-        public string RegesterPassword
+        public string Password
         {
             get => _password;
             set => this.RaiseAndSetIfChanged(ref _password, value);
@@ -53,28 +45,28 @@ namespace Restaurant.ViewModels
             set => this.RaiseAndSetIfChanged(ref _confirmPassword, value);
         }
 
-        public ICommand Regester { get; set; }
+        public ICommand Regester { get; }
 
 
 
-        public string Title => "Sign Up";
+        public override string Title => "Sign Up";
 
         public SignUpViewModel()
         {
-            var canRegester = this.WhenAny(x => x.Name, x => x.RegesterEmail, x => x.RegesterPassword,
+            var canRegester = this.WhenAny(x => x.Name, x => x.Email, x => x.Password,
                 x => x.ConfirmPassword, (n, e, p, cp) => !string.IsNullOrEmpty(n.Value));
             
             //Creating reactive command for regester
             Regester = ReactiveCommand
                 .CreateFromTask(async _ =>
                 {
-                    IsLoading = true;
+                    IsBusy = true;
                     var client = new HttpClient // NetCache.UserInitiated)
                     {
                         BaseAddress = new Uri(Helper.Address)
                     };
                     var api = RestService.For<IRestaurantApi>(client);
-                    var result = await api.Regester(Name, RegesterEmail, RegesterPassword, ConfirmPassword);
+                    var result = await api.Regester(Name, Email, Password, ConfirmPassword);
                     return result;
                 }, canRegester);
 

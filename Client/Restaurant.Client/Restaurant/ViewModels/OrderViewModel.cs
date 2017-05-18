@@ -6,7 +6,7 @@ using Restaurant.Models;
 
 namespace Restaurant.ViewModels
 {
-    public class BasketViewModel : ReactiveObject, INavigatableViewModel
+    public class OrderViewModel : ReactiveObject, INavigatableViewModel
     {
         private ReactiveList<Order> _orders;
         public ReactiveList<Order> Orders
@@ -25,7 +25,7 @@ namespace Restaurant.ViewModels
 
         public string Title => "Your basket";
 
-        public BasketViewModel(INavigationService navigationService = null)
+        public OrderViewModel(INavigationService navigationService = null)
         {
             Orders = new ReactiveList<Order>();
             this.WhenAnyValue(x => x.Orders.Count).Subscribe(x =>

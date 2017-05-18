@@ -1,13 +1,12 @@
-﻿using ReactiveUI;
-using ReactiveUI.Legacy;
-using Restaurant.Models;
-using Splat;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Windows.Input;
+using ReactiveUI;
 using Restaurant.Abstractions;
+using Restaurant.Models;
+using Splat;
 
 namespace Restaurant.ViewModels
 {
@@ -22,13 +21,11 @@ namespace Restaurant.ViewModels
             MainViewModel = Locator.Current.GetService<MainViewModel>();
 
             var foods = Global.AuthenticationManager.AuthenticatedApi.GetFoods();
-            foods.ToObservable()
-            .Do(x =>
+            foods.ToObservable().Do(x =>
             {
                 var orders = x.Select(f => new Order { Food = f, Id = Guid.NewGuid() });
                 OrderableFoods.AddRange(orders);
-            })
-            .Subscribe();
+            }).Subscribe();
 
             //OpenOrder.Do(_ =>
             //    {

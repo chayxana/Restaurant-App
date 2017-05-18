@@ -1,6 +1,6 @@
-﻿using CoreGraphics;
+﻿using System;
+using CoreGraphics;
 using Foundation;
-using System;
 using UIKit;
 
 namespace Restaurant.iOS.Controls
@@ -94,14 +94,14 @@ namespace Restaurant.iOS.Controls
                 if (Text.Length >= 2)
                 {
                     InvalidateIntrinsicContentSize();
-                    Font = this.Font.WithSize(10);
+                    Font = Font.WithSize(10);
                     //CGSize stringSize = Text.StringSize(UIFont.BoldSystemFontOfSize(12));
                     //this.Frame = new CGRect(Frame.X - Frame.X, Frame.Y, Frame.Width * stringSize.Width, Frame.Height);
                 }
             }
         }
 
-        public UIBadgeLabel() : base()
+        public UIBadgeLabel()
         {
             Initialize();
             Setup();

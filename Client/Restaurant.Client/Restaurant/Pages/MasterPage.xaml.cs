@@ -1,6 +1,6 @@
-﻿using Restaurant.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Restaurant.ViewModels;
 using Xamarin.Forms;
 
 namespace Restaurant.Pages
@@ -11,7 +11,7 @@ namespace Restaurant.Pages
 
         public MasterPage(MainViewModel viewModel)
         {
-            this.BindingContext = viewModel;
+            BindingContext = viewModel;
             InitializeComponent();
 
             var masterPageItems = new List<MasterPageItem>();

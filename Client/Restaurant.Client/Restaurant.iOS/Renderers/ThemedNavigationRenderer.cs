@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using CoreGraphics;
+using ReactiveUI;
+using Restaurant;
+using Restaurant.iOS.Controls;
+using Restaurant.iOS.Renderers;
+using Restaurant.ViewModels;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using System.Linq;
-using System.Windows.Input;
-using CoreGraphics;
-using Restaurant.ViewModels;
-using Restaurant.iOS.Controls;
-using ReactiveUI;
 
-[assembly: ExportRenderer(typeof(Restaurant.ThemedNavigationPage), typeof(Restaurant.iOS.Renderers.ThemedNavigationRenderer))]
+[assembly: ExportRenderer(typeof(ThemedNavigationPage), typeof(ThemedNavigationRenderer))]
 namespace Restaurant.iOS.Renderers
 {
     /// <summary>
@@ -65,12 +67,10 @@ namespace Restaurant.iOS.Renderers
                 buttonCommands.Add(button, toolBarItem.Command);
                 BadgeBarButtonItem barButtonItem = new BadgeBarButtonItem(button);
                 NavigationBar.Items[0].RightBarButtonItem = barButtonItem;
-                viewModel.BasketViewModel
-                    .WhenAnyValue(x => x.OrdersCount)
-                    .Subscribe(x =>
-                    {
-                        barButtonItem.BadgeValue = x.ToString();
-                    });
+                viewModel.BasketViewModel.WhenAnyValue(x => x.OrdersCount).Subscribe(x =>
+                {
+                    barButtonItem.BadgeValue = x.ToString();
+                });
             }
             base.ViewWillAppear(animated);
         }

@@ -1,6 +1,5 @@
-﻿using Restaurant.Controls;
+﻿using System;
 using Restaurant.Models;
-using System;
 using Xamarin.Forms;
 
 namespace Restaurant.Views
@@ -11,19 +10,19 @@ namespace Restaurant.Views
         {
             InitializeComponent();
         }
-        private Button prevActionButton;
+        private Button _prevActionButton;
         private void ActionButton_Clicked(object sender, EventArgs e)
         {
             var button = sender as Button;
             if (button == null) return;
-            if(prevActionButton != null && prevActionButton != button)
+            if(_prevActionButton != null && _prevActionButton != button)
             {
-                var lastFood = prevActionButton.BindingContext as Order;
+                var lastFood = _prevActionButton.BindingContext as Order;
                 if (lastFood != null) lastFood.IsOrdered = false;
-                prevActionButton.BorderColor = (Color)App.Current.Resources["indigoPinkAccent"];
+                _prevActionButton.BorderColor = (Color)App.Current.Resources["indigoPinkAccent"];
                 //prevActionButton.ButtonIcon = NControl.Controls.FontMaterialDesignLabel.MDPlus;
             }
-            prevActionButton = button;
+            _prevActionButton = button;
             var food = button.BindingContext as Order;
             if (food != null && food.IsOrdered)
             {

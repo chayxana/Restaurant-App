@@ -1,10 +1,12 @@
-using Android.Views;
-using Xamarin.Forms.Platform.Android;
-using Xamarin.Forms;
-using Restaurant.Controls;
+using System.ComponentModel;
 using Android.Text;
+using Android.Views;
+using Restaurant.Controls;
+using Restaurant.Droid.Renderers;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
 
-[assembly: ExportRenderer(typeof(RestaurantEntry), typeof(Restaurant.Droid.Renderers.RestaurantEntryRenderer))]
+[assembly: ExportRenderer(typeof(RestaurantEntry), typeof(RestaurantEntryRenderer))]
 namespace Restaurant.Droid.Renderers
 {
     public class RestaurantEntryRenderer : EntryRenderer
@@ -21,7 +23,7 @@ namespace Restaurant.Droid.Renderers
             SetMaxLength(view);
         }
 
-        protected override void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 

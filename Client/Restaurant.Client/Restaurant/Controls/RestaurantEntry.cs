@@ -16,8 +16,8 @@ namespace Restaurant.Controls
         /// </summary>
         public Color PlaceholderTextColor
         {
-            get { return (Color)GetValue(PlaceholderTextColorProperty); }
-            set { SetValue(PlaceholderTextColorProperty, value); }
+            get => (Color)GetValue(PlaceholderTextColorProperty);
+            set => SetValue(PlaceholderTextColorProperty, value);
         }
 
 
@@ -26,14 +26,8 @@ namespace Restaurant.Controls
 
         public bool HasBorder
         {
-            get
-            {
-                return (bool)GetValue(HasBorderProperty);
-            }
-            set
-            {
-                SetValue(HasBorderProperty, value);
-            }
+            get => (bool)GetValue(HasBorderProperty);
+            set => SetValue(HasBorderProperty, value);
         }
 
         public static readonly BindableProperty FontProperty =
@@ -41,14 +35,8 @@ namespace Restaurant.Controls
 
         public Font Font
         {
-            get
-            {
-                return (Font)GetValue(FontProperty);
-            }
-            set
-            {
-                SetValue(FontProperty, value);
-            }
+            get => (Font)GetValue(FontProperty);
+            set => SetValue(FontProperty, value);
         }
 
         public static readonly BindableProperty MaxLengthProperty =
@@ -56,14 +44,8 @@ namespace Restaurant.Controls
 
         public int MaxLength
         {
-            get
-            {
-                return (int)this.GetValue(MaxLengthProperty);
-            }
-            set
-            {
-                this.SetValue(MaxLengthProperty, value);
-            }
+            get => (int)GetValue(MaxLengthProperty);
+            set => SetValue(MaxLengthProperty, value);
         }
 
         public static readonly BindableProperty XAlignProperty =
@@ -71,14 +53,8 @@ namespace Restaurant.Controls
 
         public TextAlignment XAlign
         {
-            get
-            {
-                return (TextAlignment)GetValue(XAlignProperty);
-            }
-            set
-            {
-                SetValue(XAlignProperty, value);
-            }
+            get => (TextAlignment)GetValue(XAlignProperty);
+            set => SetValue(XAlignProperty, value);
         }
     }
 }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using JetBrains.Annotations;
@@ -9,7 +6,6 @@ using ReactiveUI;
 using Restaurant.Abstractions;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Services;
-using Xamarin.Forms;
 
 namespace Restaurant.Services
 {

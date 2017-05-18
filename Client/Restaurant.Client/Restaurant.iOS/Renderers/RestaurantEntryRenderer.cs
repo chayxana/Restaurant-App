@@ -1,12 +1,13 @@
-﻿using Foundation;
-using Restaurant.Controls;
-using System;
+﻿using System;
 using System.ComponentModel;
+using Foundation;
+using Restaurant.Controls;
+using Restaurant.iOS.Renderers;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRenderer(typeof(RestaurantEntry), typeof(Restaurant.iOS.Renderers.RestaurantEntryRenderer))]
+[assembly: ExportRenderer(typeof(RestaurantEntry), typeof(RestaurantEntryRenderer))]
 namespace Restaurant.iOS.Renderers
 {
     public class RestaurantEntryRenderer : EntryRenderer
@@ -114,7 +115,7 @@ YOURTEXTFIELD.attributedPlaceholder = [[NSAttributedString alloc] initWithString
             */
             if (string.IsNullOrEmpty(view.Placeholder) == false && view.PlaceholderTextColor != Color.Default)
             {
-                NSAttributedString placeholderString = new NSAttributedString(view.Placeholder, new UIStringAttributes() { ForegroundColor = view.PlaceholderTextColor.ToUIColor() });
+                NSAttributedString placeholderString = new NSAttributedString(view.Placeholder, new UIStringAttributes { ForegroundColor = view.PlaceholderTextColor.ToUIColor() });
                 Control.AttributedPlaceholder = placeholderString;
             }
         }

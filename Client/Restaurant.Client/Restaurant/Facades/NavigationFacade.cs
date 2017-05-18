@@ -15,12 +15,12 @@ namespace Restaurant.Facades
 
         public Task PushAsync(IViewFor page)
         {
-            return Navigation.PushAsync(page as Page);
+            return Navigation.PushAsync(page as Page, true);
         }
 
         public Task PushModalAsync(IViewFor page)
         {
-            return Navigation.PushModalAsync(page as Page);
+            return Navigation.PushModalAsync(page as Page, true);
         }
     }
 }

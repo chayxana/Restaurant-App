@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.Services;
+using Restaurant.Abstractions.ViewModels;
 
 namespace Restaurant.ViewModels
 {

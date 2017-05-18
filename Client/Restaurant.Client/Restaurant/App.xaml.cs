@@ -1,6 +1,7 @@
 ﻿using Akavache;
 using Autofac;
 using ReactiveUI;
+using Restaurant.Abstractions.ViewModels;
 using Restaurant.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

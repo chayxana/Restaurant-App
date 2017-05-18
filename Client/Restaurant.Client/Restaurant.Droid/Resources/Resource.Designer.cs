@@ -2458,9 +2458,6 @@ namespace Restaurant.Droid
 			// aapt resource value: 0x7f070038
 			public const int @fixed = 2131165240;
 			
-			// aapt resource value: 0x7f07009d
-			public const int help = 2131165341;
-			
 			// aapt resource value: 0x7f070005
 			public const int home = 2131165189;
 			
@@ -2499,12 +2496,6 @@ namespace Restaurant.Droid
 			
 			// aapt resource value: 0x7f07008e
 			public const int media_actions = 2131165326;
-			
-			// aapt resource value: 0x7f07009b
-			public const int menu_settings = 2131165339;
-			
-			// aapt resource value: 0x7f07009a
-			public const int menu_share = 2131165338;
 			
 			// aapt resource value: 0x7f07001d
 			public const int middle = 2131165213;
@@ -2592,9 +2583,6 @@ namespace Restaurant.Droid
 			
 			// aapt resource value: 0x7f070021
 			public const int never = 2131165217;
-			
-			// aapt resource value: 0x7f07009c
-			public const int new_game = 2131165340;
 			
 			// aapt resource value: 0x7f070010
 			public const int none = 2131165200;
@@ -3025,25 +3013,6 @@ namespace Restaurant.Droid
 			}
 			
 			private Layout()
-			{
-			}
-		}
-		
-		public partial class Menu
-		{
-			
-			// aapt resource value: 0x7f0d0000
-			public const int home_menu = 2131558400;
-			
-			// aapt resource value: 0x7f0d0001
-			public const int my_menu = 2131558401;
-			
-			static Menu()
-			{
-				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
-			}
-			
-			private Menu()
 			{
 			}
 		}

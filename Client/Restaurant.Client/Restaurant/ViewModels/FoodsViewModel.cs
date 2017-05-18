@@ -29,7 +29,7 @@ namespace Restaurant.ViewModels
 
             //OpenOrder.Do(_ =>
             //    {
-            //        //NavigationScreen.Navigation.Navigate.Execute(Locator.Current.GetService<BasketViewModel>());
+            //        //NavigationScreen.Navigation.Navigate.Execute(Locator.Current.GetService<OrderViewModel>());
             //    }).Subscribe();
 
         }

@@ -10,5 +10,11 @@ namespace Restaurant.Abstractions.Repositories
         Task<IEnumerable<FoodDto>> GetAllAsync(int? page = null, int? max = null);
 
         Task<FoodDto> Get(Guid id);
+
+        Task<bool> Create(FoodDto food);
+
+        Task<bool> Update(FoodDto food);
+
+        Task<bool> Delete(FoodDto food);
     }
 }

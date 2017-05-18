@@ -1,5 +1,4 @@
-﻿using Restaurant.Abstractions;
-using Restaurant.Abstractions.Managers;
+﻿using Restaurant.Abstractions.Managers;
 using Restaurant.ViewModels;
 using Xamarin.Forms;
 

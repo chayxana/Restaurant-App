@@ -1,7 +1,5 @@
-﻿using ReactiveUI;
+﻿using Restaurant.Abstractions.Managers;
 using Restaurant.ViewModels;
-using System;
-using Restaurant.Abstractions.Managers;
 using Xamarin.Forms;
 
 namespace Restaurant.Pages
@@ -17,7 +15,7 @@ namespace Restaurant.Pages
             Initialize();
             
             // Example: Using WhenAny instead of Value Converters 
-            //ViewModel.WhenAnyValue(x => x.IsLoading).Subscribe(isLoading => 
+            //SignInViewModel.WhenAnyValue(x => x.IsLoading).Subscribe(isLoading => 
             //{
             //    if (isLoading)
             //    {

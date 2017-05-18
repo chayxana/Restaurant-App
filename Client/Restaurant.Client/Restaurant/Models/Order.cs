@@ -1,10 +1,11 @@
-﻿using ReactiveUI;
+﻿using System;
+using System.Reactive.Linq;
+using ReactiveUI;
 using ReactiveUI.Legacy;
+using Restaurant.DataTransferObjects;
 using Restaurant.ViewModels;
 using Splat;
-using System;
-using System.Reactive.Linq;
-using Restaurant.DataTransferObjects;
+using ReactiveCommand = ReactiveUI.Legacy.ReactiveCommand;
 
 namespace Restaurant.Models
 {
@@ -14,36 +15,30 @@ namespace Restaurant.Models
 
         public FoodDto Food { get; set; }
 
-        private decimal quntity = .5M;
+        private decimal _quntity = .5M;
 
         public decimal Quantity
         {
-            get { return quntity; }
+            get => _quntity;
             set
             {
                 if (value > 0.5M)
                 {
                     value = (int)value;
                 }
-                this.RaiseAndSetIfChanged(ref quntity, value);
+                this.RaiseAndSetIfChanged(ref _quntity, value);
                 this.RaisePropertyChanged(nameof(TotalPrice));
             }
         }
 
-        private bool isOrdered;
+        private bool _isOrdered;
         public bool IsOrdered
         {
-            get { return isOrdered; }
-            set { this.RaiseAndSetIfChanged(ref isOrdered, value); }
+            get => _isOrdered;
+            set => this.RaiseAndSetIfChanged(ref _isOrdered, value);
         }
 
-        public decimal TotalPrice
-        {
-            get
-            {
-                return Quantity * Food.Price;
-            }
-        }
+        public decimal TotalPrice => Quantity * Food.Price;
 
         public ReactiveCommand<object> BeginOrder { get; set; }
 
@@ -53,16 +48,15 @@ namespace Restaurant.Models
         public Order()
         {
             var mainViewModel = Locator.Current.GetService<MainViewModel>();
-            BeginOrder = ReactiveUI.Legacy.ReactiveCommand.Create();
-            ApplyOrder = ReactiveUI.Legacy.ReactiveCommand.Create();
+            BeginOrder = ReactiveCommand.Create();
+            ApplyOrder = ReactiveCommand.Create();
 
             BeginOrder.Subscribe(_ => { IsOrdered = true; });
-            ApplyOrder
-                .Do(_ => 
-                {
-                    IsOrdered = false;
-                    mainViewModel.BasketViewModel.Orders.Add(this);
-                }).Subscribe();
+            ApplyOrder.Do(_ => 
+            {
+                IsOrdered = false;
+                mainViewModel.BasketViewModel.Orders.Add(this);
+            }).Subscribe();
         }
     }
 }

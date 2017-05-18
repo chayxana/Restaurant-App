@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using JetBrains.Annotations;
 using ReactiveUI;
-using Restaurant.Abstractions;
 using Restaurant.Abstractions.Services;
 
 namespace Restaurant.ViewModels

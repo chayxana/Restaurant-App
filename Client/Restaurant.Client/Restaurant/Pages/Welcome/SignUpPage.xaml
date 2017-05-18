@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:Restaurant.Pages;assembly=Restaurant"
              xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant">
   <local:SignUpPageXaml.Content>
-    <!--<StackLayout VerticalOptions="Center" Padding="25">
+    <StackLayout VerticalOptions="Center" Padding="25">
       <StackLayout Orientation="Vertical" x:Name="regesterStack">
 
         <StackLayout Orientation="Vertical" Padding="15">
@@ -82,13 +82,13 @@
 
 
         <StackLayout Padding="15">
-          <controls:AnimateButton x:Name="Regester" Text="Sign Up" Command="{Binding Regester}"  BackgroundColor="{StaticResource indigoPinkAccent}" WidthRequest="300" HorizontalOptions="Center"/>
+          <controls:AnimateButton x:Name="Regester" Text="Sign Up" Command="{Binding Regester}"  WidthRequest="300" HorizontalOptions="Center"/>
         </StackLayout>
       </StackLayout>
       <StackLayout x:Name="loadingLayout" Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="End" IsVisible="False">
         <Label VerticalOptions="Center" TextColor="{StaticResource asphaltPrimary}">Please wait...</Label>
         <ActivityIndicator VerticalOptions="Center" IsRunning="{Binding IsLoading}"></ActivityIndicator>
       </StackLayout>
-    </StackLayout>-->
+    </StackLayout>
   </local:SignUpPageXaml.Content>
 </local:SignUpPageXaml>

@@ -1,25 +1,25 @@
-﻿using ReactiveUI;
-using Restaurant.Models;
-using System;
+﻿using System;
+using ReactiveUI;
 using Restaurant.Abstractions;
 using Restaurant.Abstractions.Services;
+using Restaurant.Models;
 
 namespace Restaurant.ViewModels
 {
     public class BasketViewModel : ReactiveObject, INavigatableViewModel
     {
-        private ReactiveList<Order> orders;
+        private ReactiveList<Order> _orders;
         public ReactiveList<Order> Orders
         {
-            get { return orders; }
-            set { this.RaiseAndSetIfChanged(ref orders, value); }
+            get => _orders;
+            set => this.RaiseAndSetIfChanged(ref _orders, value);
         }
 
-        private int ordersCount;
+        private int _ordersCount;
         public int OrdersCount
         {
-            get { return ordersCount; }
-            set { this.RaiseAndSetIfChanged(ref ordersCount, value); }
+            get => _ordersCount;
+            set => this.RaiseAndSetIfChanged(ref _ordersCount, value);
         }
 
 
@@ -28,11 +28,10 @@ namespace Restaurant.ViewModels
         public BasketViewModel(INavigationService navigationService = null)
         {
             Orders = new ReactiveList<Order>();
-            this.WhenAnyValue(x => x.Orders.Count)
-                .Subscribe(x =>
-                {
-                    OrdersCount = x;
-                });
+            this.WhenAnyValue(x => x.Orders.Count).Subscribe(x =>
+            {
+                OrdersCount = x;
+            });
         }
     }
 }

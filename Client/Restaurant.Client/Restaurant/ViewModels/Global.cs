@@ -1,6 +1,6 @@
-﻿using Refit;
+﻿using System.Net.Http;
+using Refit;
 using Restaurant.Model;
-using System.Net.Http;
 
 namespace Restaurant.ViewModels
 {

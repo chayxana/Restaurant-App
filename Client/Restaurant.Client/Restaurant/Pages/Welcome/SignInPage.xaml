@@ -11,7 +11,7 @@
 	</local:SignInPageXaml.Resources>
 	<local:SignInPageXaml.Content>
 		<StackLayout Orientation="Vertical" VerticalOptions="Center" x:Name="uiMain">
-			<!--<StackLayout.Padding>
+			<StackLayout.Padding>
 				<OnPlatform x:TypeArguments="Thickness">
 					<OnPlatform.iOS>
 						25, 25, 25, 25
@@ -23,7 +23,7 @@
 						10, 10, 10, 10
 					</OnPlatform.WinPhone>
 				</OnPlatform>
-			</StackLayout.Padding>-->
+			</StackLayout.Padding>
 
 			<StackLayout Orientation="Vertical" Padding="20" x:Name="emailStack" Scale="0">
 				<Grid>
@@ -39,9 +39,9 @@
 				</Grid>
 
 				<ContentView BackgroundColor="{StaticResource redPrimary}" HorizontalOptions="Fill" >
-					<!--<ContentView.HeightRequest>
+					<ContentView.HeightRequest>
 						<OnPlatform x:TypeArguments="x:Double" iOS="1"  Android="0"/>
-					</ContentView.HeightRequest>-->
+					</ContentView.HeightRequest>
 				</ContentView>
 			</StackLayout>
 
@@ -59,9 +59,9 @@
 																		HorizontalOptions="FillAndExpand" IsPassword="true"/>
 				</Grid>
 				<ContentView BackgroundColor="{StaticResource redPrimary}" HorizontalOptions="Fill" >
-					<!--<ContentView.HeightRequest>
+					<ContentView.HeightRequest>
 						<OnPlatform x:TypeArguments="x:Double" iOS="1"  Android="0"/>
-					</ContentView.HeightRequest>-->
+					</ContentView.HeightRequest>
 				</ContentView>
 
 			</StackLayout>

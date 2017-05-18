@@ -10,7 +10,7 @@ namespace Restaurant.Pages
         public MainPage()
         {
             InitializeComponent();
-            //Master = new MasterPage(ViewModel);
+            //Master = new MasterPage(SignInViewModel);
             //Detail = new FoodsPage().WithinNavigationPage();
 
         }
@@ -33,9 +33,9 @@ namespace Restaurant.Pages
 
         object IViewFor.ViewModel
         {
-            get { return ViewModel; }
+            get => ViewModel;
 
-            set { ViewModel = (T)value; }
+            set => ViewModel = (T)value;
         }
 
         protected BaseMasterDetailPage()
@@ -63,7 +63,7 @@ namespace Restaurant.Pages
             {
                 Icon = "ic_more_vert_white"
             };
-            this.ToolbarItems.Add(btnMore);
+            ToolbarItems.Add(btnMore);
         }
     }
 }

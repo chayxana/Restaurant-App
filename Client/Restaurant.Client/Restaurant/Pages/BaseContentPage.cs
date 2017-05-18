@@ -38,8 +38,8 @@ namespace Restaurant
 
         public MainBaseContentPage()
         {
-            ActionBarTextColor = Color.White;
-            NavigationBarColor = Color.Black;
+            //ActionBarTextColor = Color.White;
+            //NavigationBarColor = Color.Black;
             SubscribeToAuthentication();
             SubscribeToIncomingPayload();
         }

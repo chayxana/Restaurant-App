@@ -24,9 +24,9 @@ namespace Restaurant.Pages
 
         private async Task AnimateControls(int scale, Easing easing)
         {
-            //await emailStack.ScaleTo(scale, App.AnimationSpeed, easing);
-            //await passwordStack.ScaleTo(scale, App.AnimationSpeed, easing);
-            //await loginStack.ScaleTo(scale, App.AnimationSpeed, easing);
+            await emailStack.ScaleTo(scale, App.AnimationSpeed, easing);
+            await passwordStack.ScaleTo(scale, App.AnimationSpeed, easing);
+            await loginStack.ScaleTo(scale, App.AnimationSpeed, easing);
         }
 
         protected override async void OnLoaded()

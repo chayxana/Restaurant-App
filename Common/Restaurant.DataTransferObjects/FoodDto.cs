@@ -11,5 +11,9 @@ namespace Restaurant.DataTransferObjects
         public string Picture { get; set; }
 
         public decimal Price { get; set; }
+
+
+
+        public string Test { get; set; }
     }
 }

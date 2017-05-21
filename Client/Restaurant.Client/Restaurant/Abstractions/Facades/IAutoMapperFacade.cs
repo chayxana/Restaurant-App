@@ -4,6 +4,6 @@
     {
         TDestination Map<TDestination>(object source);
 
-        TDestination Map<TDestination, TSource>(TSource source);
+        TDestination Map<TSource,TDestination>(TSource source);
     }
 }

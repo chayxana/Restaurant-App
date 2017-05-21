@@ -40,6 +40,7 @@ namespace Restaurant.Droid.Renderers
                 SetPlaceholderTextColor(view);
             }
         }
+        
 
         void SetTextAlignment(RestaurantEntry view)
         {

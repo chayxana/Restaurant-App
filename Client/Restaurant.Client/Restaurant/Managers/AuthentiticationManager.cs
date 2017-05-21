@@ -20,12 +20,12 @@ namespace Restaurant.Managers
 
         public Task<AuthenticationResult> Login(LoginDto loginDto)
         {
-            throw new NotImplementedException();
+            return _api.GetTokenRaw(loginDto);
         }
 
-        public Task<bool> Register(RegisterDto registerDto)
+        public Task<object> Register(RegisterDto registerDto)
         {
-            throw new NotImplementedException();
+            return _api.RegesterRaw(registerDto);
         }
 
         public Task<bool> ValidateToken(string accessToken)

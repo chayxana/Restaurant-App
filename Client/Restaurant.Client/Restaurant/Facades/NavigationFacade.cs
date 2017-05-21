@@ -1,10 +1,12 @@
 ﻿using System.Threading.Tasks;
+using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.Facades;
 using Xamarin.Forms;
 
 namespace Restaurant.Facades
-{
+{   
+    [UsedImplicitly]
     public class NavigationFacade : INavigationFacade
     {
         private INavigation Navigation => App.Current.MainPage.Navigation;

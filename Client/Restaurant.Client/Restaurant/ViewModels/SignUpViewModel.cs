@@ -4,7 +4,11 @@ using System.Windows.Input;
 using JetBrains.Annotations;
 using ReactiveUI;
 using Refit;
+using Restaurant.Abstractions.Facades;
+using Restaurant.Abstractions.Managers;
+using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
+using Restaurant.DataTransferObjects;
 using Restaurant.Model;
 using Restaurant.Models;
 
@@ -13,6 +17,9 @@ namespace Restaurant.ViewModels
     [UsedImplicitly]
     public class SignUpViewModel : ViewModelBase, ISignUpViewModel
     {
+        private readonly IAutoMapperFacade _autoMapperFacade;
+        private readonly IAuthenticationManager _authenticationManager;
+        private readonly INavigationService _navigationService;
         private string _name;
 
         public string Name
@@ -48,50 +55,25 @@ namespace Restaurant.ViewModels
         public ICommand Regester { get; }
 
 
-
         public override string Title => "Sign Up";
 
-        public SignUpViewModel()
+        public SignUpViewModel(
+            IAutoMapperFacade autoMapperFacade,
+            IAuthenticationManager authenticationManager,
+            INavigationService navigationService)
         {
+            _autoMapperFacade = autoMapperFacade;
+            _authenticationManager = authenticationManager;
+            _navigationService = navigationService;
+
             var canRegester = this.WhenAny(x => x.Name, x => x.Email, x => x.Password,
                 x => x.ConfirmPassword, (n, e, p, cp) => !string.IsNullOrEmpty(n.Value));
-            
-            //Creating reactive command for regester
+
             Regester = ReactiveCommand
                 .CreateFromTask(async _ =>
                 {
-                    IsBusy = true;
-                    var client = new HttpClient // NetCache.UserInitiated)
-                    {
-                        BaseAddress = new Uri(Helper.Address)
-                    };
-                    var api = RestService.For<IRestaurantApi>(client);
-                    var result = await api.Regester(Name, Email, Password, ConfirmPassword);
-                    return result;
+                    var result = await _authenticationManager.Register(_autoMapperFacade.Map<RegisterDto>(this));
                 }, canRegester);
-
-            //When regstir command executing sets true for IsLoading property
-            //Regester
-            //    .IsExecuting
-            //    .Subscribe(x => IsLoading = true);
-
-            //Raises when completes regester command
-            //Regester
-            //    .Subscribe(r => 
-            //    {
-            //        MessageBus.Current.SendMessage("User regestred!");
-            //        Debug.WriteLine("Complete!");
-            //        IsLoading = false;
-            //    });
-
-            ////Raises when regester throws any exception
-            //Regester
-            //    .ThrownExceptions
-            //    .Subscribe(ex =>
-            //    {
-            //        Debug.WriteLine("Error!");
-            //        IsLoading = false;
-            //    });
         }
     }
 }

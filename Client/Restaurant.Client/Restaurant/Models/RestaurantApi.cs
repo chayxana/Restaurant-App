@@ -35,21 +35,20 @@ namespace Restaurant.Model
     public interface IRestaurantApi
     {
         [Post("/api/Account/Register")]
-        Task<object> RegesterRaw([Body(BodySerializationMethod.UrlEncoded)] Dictionary<string, string> form);
+        Task<object> RegesterRaw([Body] RegisterDto registerDto);
 
         [Post("/Token")]
         [Headers("Content-Type: application/x-www-form-urlencoded")]
-        Task<AuthenticationResult> GetTokenRaw([Body(BodySerializationMethod.UrlEncoded)] Dictionary<string, string> form);
+        Task<AuthenticationResult> GetTokenRaw([Body] LoginDto loginDto);
 
         [Get("/api/Values")]
-        [Headers("Authorization: Bearer")]
-        Task<object> GetValues();
+        Task<object> GetValues([Header("Authorization: bearer")] string accessToken);
 
         [Get("/api/Account/UserInfo")]
         [Headers("Authorization: Bearer")]
         Task<UserInfo> GetUserInfoRaw();
 
-        [Get("api/Foods")]
+        [Get("/api/Foods")]
         [Headers("Authorization: Bearer")]
         Task<List<FoodDto>> GetFoods();
 
@@ -57,34 +56,34 @@ namespace Restaurant.Model
 
     public static class RestaurantApiExtensions
     {
-        public static Task<object> Regester(this IRestaurantApi This, string name, string email, string password, string confirmPassword)
-        {
-            var dict = new Dictionary<string, string>
-            {
-                { "Name", name },
-                { "Email", email },
-                { "Password", password},
-                { "ConfirmPassword", confirmPassword }
-            };
-            return This.RegesterRaw(dict);
-        }
+        //public static Task<object> Regester(this IRestaurantApi This, string name, string email, string password, string confirmPassword)
+        //{
+        //    var dict = new Dictionary<string, string>
+        //    {
+        //        { "Name", name },
+        //        { "Email", email },
+        //        { "Password", password},
+        //        { "ConfirmPassword", confirmPassword }
+        //    };
+        //    return This.RegesterRaw(dict);
+        //}
 
-        public static Task<AuthenticationResult> GetToken(this IRestaurantApi This, string email, string password)
-        {
-            var dict = new Dictionary<string, string>
-            {
-                { "grant_type", "password"},
-                { "username", email },
-                { "password", password}
-            };
+        //public static Task<AuthenticationResult> GetToken(this IRestaurantApi This, string email, string password)
+        //{
+        //    var dict = new Dictionary<string, string>
+        //    {
+        //        { "grant_type", "password"},
+        //        { "username", email },
+        //        { "password", password}
+        //    };
 
-            return This.GetTokenRaw(dict);
-        }
+        //    return This.GetTokenRaw(dict);
+        //}
 
-        public static Task<object> Values(this IRestaurantApi This)
-        {
-            return This.GetValues();
-        }
+        //public static Task<object> Values(this IRestaurantApi This)
+        //{
+        //    return This.GetValues();
+        //}
 
         public static Task<UserInfo> GetUserInfo(this IRestaurantApi This)
         {

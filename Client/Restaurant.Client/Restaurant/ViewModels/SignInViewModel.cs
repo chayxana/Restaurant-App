@@ -41,7 +41,8 @@ namespace Restaurant.ViewModels
 
         public override string Title => "Login";
 
-        public SignInViewModel(IAuthenticationManager authenticationManager, 
+        public SignInViewModel(
+            IAuthenticationManager authenticationManager, 
             IAutoMapperFacade autoMapperFacade,
             INavigationService navigationService,
             IMainViewModel mainViewModel)

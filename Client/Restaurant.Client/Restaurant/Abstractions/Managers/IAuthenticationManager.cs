@@ -12,7 +12,7 @@ namespace Restaurant.Abstractions.Managers
     {
         Task<AuthenticationResult> Login(LoginDto loginDto);
 
-        Task<bool> Register(RegisterDto registerDto);
+        Task<object> Register(RegisterDto registerDto);
 
         Task<bool> ValidateToken(string accessToken);
 

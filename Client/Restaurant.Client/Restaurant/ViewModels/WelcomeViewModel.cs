@@ -9,7 +9,8 @@ namespace Restaurant.ViewModels
     [UsedImplicitly]
     public class WelcomeViewModel : IWelcomeViewModel
     {
-        public WelcomeViewModel(INavigationService navigationService, 
+        public WelcomeViewModel(
+            INavigationService navigationService, 
             ISignInViewModel signInViewModel,
             ISignUpViewModel signUpViewModel)
         {

@@ -3,6 +3,7 @@ using Restaurant.Abstractions.Managers;
 using Restaurant.ViewModels;
 using Xamarin.Forms;
 
+// ReSharper disable once CheckNamespace
 namespace Restaurant.Pages
 {
     public partial class WelcomeStartPage : WelcomeStartPageXaml
@@ -39,6 +40,5 @@ namespace Restaurant.Pages
 
     public class WelcomeStartPageXaml : BaseContentPage<WelcomeViewModel>
     {
-
     }
 }

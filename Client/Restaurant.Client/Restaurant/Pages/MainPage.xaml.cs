@@ -12,7 +12,7 @@ namespace Restaurant.Pages
         {
             InitializeComponent();
             Master = new MasterPage();
-            Detail = App.Container.Resolve<IViewFor<FoodsViewModel>>() as Page;
+            Detail = new NavigationPage(App.Container.Resolve<IViewFor<FoodsViewModel>>() as Page);
         }
     }
 
@@ -22,7 +22,6 @@ namespace Restaurant.Pages
 
         protected MainPageXaml()
         {
-
         }
     }
 

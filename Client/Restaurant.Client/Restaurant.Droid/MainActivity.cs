@@ -18,6 +18,9 @@ namespace Restaurant.Droid
             
 
             base.OnCreate(bundle);
+
+            Window.AddFlags(WindowManagerFlags.Fullscreen);
+
             //Android.App.ActionBar.SetIcon(new ColorDrawable(Android.Graphics.Color.Transparent));
             Forms.Init(this, bundle);
             ImageCircleRenderer.Init();
@@ -31,9 +34,10 @@ namespace Restaurant.Droid
             //    return Observable.Return(RecoveryOptionResult.CancelOperation);
             //});
             
-            LoadApplication(new App());          
-            
-            
+            LoadApplication(new App());
+            XFGloss.Droid.Library.Init(this, bundle);
+
+
 
         }
 

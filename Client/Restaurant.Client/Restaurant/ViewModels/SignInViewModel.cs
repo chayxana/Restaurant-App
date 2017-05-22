@@ -6,6 +6,7 @@ using Restaurant.Abstractions.Managers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.DataTransferObjects;
+using Restaurant.Pages;
 
 namespace Restaurant.ViewModels
 {
@@ -54,7 +55,7 @@ namespace Restaurant.ViewModels
                 var result = await authenticationManager.Login(autoMapperFacade.Map<LoginDto>(this));
                 if (result.ok)
                 {
-                   await navigationService.NavigateAsync(typeof(IMainViewModel));
+                   App.Current.MainPage = new MainPage();
                 }
             }, canLogin);
         }

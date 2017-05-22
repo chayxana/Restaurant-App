@@ -9,7 +9,6 @@ namespace Restaurant.Views
         public ProfileStripView()
         {
             InitializeComponent();
-            root.BindingContext = Locator.Current.GetService<MainViewModel>();
         }
     }
 }

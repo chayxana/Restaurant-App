@@ -58,8 +58,7 @@ namespace Restaurant.ViewModels
         public SignUpViewModel(
             IAutoMapperFacade autoMapperFacade,
             IAuthenticationManager authenticationManager,
-            INavigationService navigationService, 
-            IMainViewModel mainViewModel)
+            INavigationService navigationService)
         {
             _navigationService = navigationService;
 
@@ -77,7 +76,7 @@ namespace Restaurant.ViewModels
 
                         if (loginResult.ok)
                         {
-                           await _navigationService.NavigateAsync(mainViewModel);
+                            await _navigationService.NavigateAsync(typeof(IMainViewModel));
                         }
                     }
                 }, canRegester);

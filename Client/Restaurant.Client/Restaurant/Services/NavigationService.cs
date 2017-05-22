@@ -33,9 +33,23 @@ namespace Restaurant.Services
             return _navigationFacade.PushAsync(CurrentPage);
         }
 
+        public Task NavigateAsync(Type viewModelType)
+        {
+            var vm = _container.Resolve(viewModelType);
+            CurrentPage = GetView(vm as INavigatableViewModel);
+            return _navigationFacade.PushAsync(CurrentPage);
+        }
+
         public Task NavigateModalAsync(INavigatableViewModel viewModel)
         {
             CurrentPage = GetView(viewModel);
+            return _navigationFacade.PushModalAsync(CurrentPage);
+        }
+
+        public Task NavigateModalAsync(Type viewModelType)
+        {
+            var vm = _container.Resolve(viewModelType);
+            CurrentPage = GetView(vm as INavigatableViewModel);
             return _navigationFacade.PushModalAsync(CurrentPage);
         }
 

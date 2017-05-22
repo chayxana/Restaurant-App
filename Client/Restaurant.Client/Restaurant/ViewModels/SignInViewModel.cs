@@ -44,8 +44,7 @@ namespace Restaurant.ViewModels
         public SignInViewModel(
             IAuthenticationManager authenticationManager, 
             IAutoMapperFacade autoMapperFacade,
-            INavigationService navigationService,
-            IMainViewModel mainViewModel)
+            INavigationService navigationService)
         {
             var canLogin = this.WhenAny(x => x.Email, x => x.Password,
                 (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
@@ -55,7 +54,7 @@ namespace Restaurant.ViewModels
                 var result = await authenticationManager.Login(autoMapperFacade.Map<LoginDto>(this));
                 if (result.ok)
                 {
-                   await navigationService.NavigateAsync(mainViewModel);
+                   await navigationService.NavigateAsync(typeof(IMainViewModel));
                 }
             }, canLogin);
         }

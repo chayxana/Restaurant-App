@@ -17,8 +17,6 @@ namespace Restaurant.ViewModels
     [UsedImplicitly]
     public class SignUpViewModel : ViewModelBase, ISignUpViewModel
     {
-        private readonly IAutoMapperFacade _autoMapperFacade;
-        private readonly IAuthenticationManager _authenticationManager;
         private readonly INavigationService _navigationService;
         private string _name;
 
@@ -60,10 +58,9 @@ namespace Restaurant.ViewModels
         public SignUpViewModel(
             IAutoMapperFacade autoMapperFacade,
             IAuthenticationManager authenticationManager,
-            INavigationService navigationService)
+            INavigationService navigationService, 
+            IMainViewModel mainViewModel)
         {
-            _autoMapperFacade = autoMapperFacade;
-            _authenticationManager = authenticationManager;
             _navigationService = navigationService;
 
             var canRegester = this.WhenAny(x => x.Name, x => x.Email, x => x.Password,
@@ -72,7 +69,17 @@ namespace Restaurant.ViewModels
             Regester = ReactiveCommand
                 .CreateFromTask(async _ =>
                 {
-                    var result = await _authenticationManager.Register(_autoMapperFacade.Map<RegisterDto>(this));
+                    var result = await authenticationManager.Register(autoMapperFacade.Map<RegisterDto>(this));
+                    if (result != null)
+                    {
+                        var loginResult = await authenticationManager.Login(
+                            new LoginDto() { Login = this.Email, Password = this.Password });
+
+                        if (loginResult.ok)
+                        {
+                           await _navigationService.NavigateAsync(mainViewModel);
+                        }
+                    }
                 }, canRegester);
         }
     }

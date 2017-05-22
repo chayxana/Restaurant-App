@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Reflection;
+using System.Threading.Tasks;
 using Autofac;
 using Fusillade;
 using JetBrains.Annotations;
@@ -10,6 +12,7 @@ using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Managers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
+using Restaurant.DataTransferObjects;
 using Restaurant.Facades;
 using Restaurant.Managers;
 using Restaurant.Model;
@@ -43,20 +46,55 @@ namespace Restaurant
             builder.RegisterType<SignUpViewModel>().As<ISignUpViewModel>();
 
 
-            var client = new HttpClient(NetCache.UserInitiated)
-            {
-                BaseAddress = new Uri(Helper.Address)
-            };
+            //var client = new HttpClient(NetCache.UserInitiated)
+            //{
+            //    BaseAddress = new Uri(Helper.Address)
+            //};
 
-            var api = RestService.For<IRestaurantApi>(client);
+            //var api = RestService.For<IRestaurantApi>(client);
 
-            builder.Register(x => api).As<IRestaurantApi>();
+            builder.RegisterType<RestaurantApiTest>().As<IRestaurantApi>();
 
             builder.RegisterType<AuthentiticationManager>().As<IAuthenticationManager>();
             builder.RegisterType<AutoMapperFacade>().As<IAutoMapperFacade>();
             builder.RegisterType<MainViewModel>().As<IMainViewModel>();
 
             return builder.Build();
+        }
+    }
+
+    public class RestaurantApiTest : IRestaurantApi
+    {
+        public const string test_email = "test@test.ru";
+        public const string test_password = "123";
+
+        public Task<object> RegesterRaw(RegisterDto registerDto)
+        {
+            return Task.FromResult(new object());
+        }
+
+        public Task<AuthenticationResult> GetTokenRaw(LoginDto loginDto)
+        {
+            return Task.FromResult(new AuthenticationResult()
+            {
+                ok = true,
+                access_token = Guid.NewGuid().ToString()
+            });
+        }
+
+        public Task<object> GetValues(string accessToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UserInfo> GetUserInfoRaw()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<FoodDto>> GetFoods()
+        {
+            throw new NotImplementedException();
         }
     }
 }

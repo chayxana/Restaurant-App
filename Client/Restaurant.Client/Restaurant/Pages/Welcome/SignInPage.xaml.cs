@@ -30,8 +30,9 @@ namespace Restaurant.Pages
 
         protected override async void OnLoaded()
         {
-            await AnimateControls(1, Easing.SinIn);
             base.OnLoaded();
+            await AnimateControls(1, Easing.SinIn);
+            BindingContext = ViewModel;
         }
     }
 

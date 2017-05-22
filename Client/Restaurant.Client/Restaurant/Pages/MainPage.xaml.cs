@@ -54,16 +54,6 @@ namespace Restaurant.Pages
         public Color StatusBarColor { get; set; }
 
         public Color NavigationBarColor { get; set; }
-
-
-        public void AddDoneButton(string text = "Done")
-        {
-    
-            var btnMore = new ToolbarItem
-            {
-                Icon = "ic_more_vert_white"
-            };
-            ToolbarItems.Add(btnMore);
-        }
+        
     }
 }

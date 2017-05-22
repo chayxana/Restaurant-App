@@ -96,7 +96,7 @@
     <Compile Include="Abstractions\ViewModels\ISignInViewModel.cs" />
     <Compile Include="Abstractions\ViewModels\ISignUpViewModel.cs" />
     <Compile Include="Abstractions\ViewModels\IWelcomeViewModel.cs" />
-    <Compile Include="ViewModels\IMainViewModel.cs" />
+    <Compile Include="Abstractions\ViewModels\IMainViewModel.cs" />
     <Compile Include="ViewModels\SignInViewModel.cs" />
     <Compile Include="ViewModels\FoodsViewModel.cs" />
     <Compile Include="ViewModels\Global.cs" />

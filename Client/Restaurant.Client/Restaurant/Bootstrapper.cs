@@ -52,7 +52,9 @@ namespace Restaurant
 
             builder.Register(x => api).As<IRestaurantApi>();
 
-            builder.RegisterAssemblyModules(this.GetType().GetTypeInfo().Assembly);
+            builder.RegisterType<AuthentiticationManager>().As<IAuthenticationManager>();
+            builder.RegisterType<AutoMapperFacade>().As<IAutoMapperFacade>();
+            builder.RegisterType<MainViewModel>().As<IMainViewModel>();
 
             return builder.Build();
         }

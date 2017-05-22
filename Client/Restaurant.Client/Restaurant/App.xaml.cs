@@ -2,6 +2,7 @@
 using Autofac;
 using ReactiveUI;
 using Restaurant.Abstractions.ViewModels;
+using Restaurant.Mappers;
 using Restaurant.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -22,6 +23,7 @@ namespace Restaurant
 
             var bootstrapper = new Bootstrapper();
             Container = bootstrapper.Build();
+            AutoMapperConfiguration.Configure();
 
             var welcomePage = Container.Resolve<IViewFor<WelcomeViewModel>>();
             welcomePage.ViewModel = Container.Resolve<IWelcomeViewModel>() as WelcomeViewModel;

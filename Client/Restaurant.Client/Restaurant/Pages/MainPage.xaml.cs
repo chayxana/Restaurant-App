@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using Autofac;
+using ReactiveUI;
 using Restaurant.ViewModels;
 using Splat;
 using Xamarin.Forms;
@@ -10,9 +11,8 @@ namespace Restaurant.Pages
         public MainPage()
         {
             InitializeComponent();
-            //Master = new MasterPage(SignInViewModel);
-            //Detail = new FoodsPage().WithinNavigationPage();
-
+            Master = new MasterPage();
+            Detail = App.Container.Resolve<IViewFor<FoodsViewModel>>() as Page;
         }
     }
 
@@ -39,9 +39,7 @@ namespace Restaurant.Pages
         }
 
         protected BaseMasterDetailPage()
-        {
-            ViewModel = Locator.Current.GetService<T>();
-            BindingContext = ViewModel;            
+        {         
         }
     }
 

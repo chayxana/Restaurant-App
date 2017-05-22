@@ -9,9 +9,8 @@ namespace Restaurant.Pages
     {
         public MainViewModel ViewModel { get; set; }
 
-        public MasterPage(MainViewModel viewModel)
+        public MasterPage()
         {
-            BindingContext = viewModel;
             InitializeComponent();
 
             var masterPageItems = new List<MasterPageItem>();

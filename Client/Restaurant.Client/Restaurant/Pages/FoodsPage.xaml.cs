@@ -25,6 +25,5 @@ namespace Restaurant.Pages
     }
     public class FoodsXamlPage : BaseContentPage<FoodsViewModel>
     {
-
     }
 }

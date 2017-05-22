@@ -21,7 +21,7 @@ namespace Restaurant.UnitTests.ViewModels
         {
             _authenticationManager = new Mock<IAuthenticationManager>();
             _autoMapperFacade = new Mock<IAutoMapperFacade>();
-            _signInViewModel = new SignInViewModel(_authenticationManager.Object, _autoMapperFacade.Object, null, null);
+            _signInViewModel = new SignInViewModel(_authenticationManager.Object, _autoMapperFacade.Object, null);
         }
 
         [Test]

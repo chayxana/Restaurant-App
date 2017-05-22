@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using ReactiveUI;
 
 namespace Restaurant.Abstractions.Services
@@ -9,6 +10,10 @@ namespace Restaurant.Abstractions.Services
 
         Task NavigateAsync(INavigatableViewModel viewModel);
 
+        Task NavigateAsync(Type viewModelType);
+
         Task NavigateModalAsync(INavigatableViewModel viewModel);
+
+        Task NavigateModalAsync(Type viewModelType);
     }
 }

@@ -9,16 +9,13 @@ namespace Restaurant.ViewModels
     [UsedImplicitly]
     public class WelcomeViewModel : IWelcomeViewModel
     {
-        public WelcomeViewModel(
-            INavigationService navigationService, 
-            ISignInViewModel signInViewModel,
-            ISignUpViewModel signUpViewModel)
+        public WelcomeViewModel(INavigationService navigationService)
         {
-            GoLogin = ReactiveCommand.Create(() => 
-                                    navigationService.NavigateAsync(signInViewModel));
+            GoLogin = ReactiveCommand.Create(() =>
+                                    navigationService.NavigateAsync(typeof(ISignInViewModel)));
 
-            GoRegister = ReactiveCommand.Create(() => 
-                                    navigationService.NavigateAsync(signUpViewModel));
+            GoRegister = ReactiveCommand.Create(() =>
+                                    navigationService.NavigateAsync(typeof(ISignUpViewModel)));
         }
 
         public string Title => "Welcome page";
@@ -33,6 +30,6 @@ namespace Restaurant.ViewModels
         /// Gets and sets OpenLogin
         /// Command thats opens login page 
         /// </summary>
-        public ICommand GoLogin { get;  }
+        public ICommand GoLogin { get; }
     }
 }

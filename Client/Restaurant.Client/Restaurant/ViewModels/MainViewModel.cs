@@ -10,6 +10,9 @@ namespace Restaurant.ViewModels
         {
             
         }
+
+        public UserInfoDto User { get; set; }
+
         public FoodsViewModel FoodViewModel { get; set; }
 
         public OrderViewModel OrderViewModel { get; set; }

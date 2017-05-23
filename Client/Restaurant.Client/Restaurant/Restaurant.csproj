@@ -42,6 +42,7 @@
     <Compile Include="Abstractions\Managers\IThemeManager.cs" />
     <Compile Include="Abstractions\Repositories\IFoodRepository.cs" />
     <Compile Include="Abstractions\Repositories\IOrderRepository.cs" />
+    <Compile Include="Abstractions\Repositories\IUserRepository.cs" />
     <Compile Include="Abstractions\Services\IDialogService.cs" />
     <Compile Include="Abstractions\Services\INavigationService.cs" />
     <Compile Include="App.xaml.cs">

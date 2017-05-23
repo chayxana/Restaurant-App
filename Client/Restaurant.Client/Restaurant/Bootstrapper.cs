@@ -87,12 +87,19 @@ namespace Restaurant
             throw new NotImplementedException();
         }
 
-        public Task<UserInfoDto> GetUserInfoRaw()
+        public Task<UserInfoDto> GetUserInfoRaw(string accessToken)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(new UserInfoDto()
+            {
+                Picture = "https://media.licdn.com/mpr/mpr/shrinknp_100_100/AAEAAQAAAAAAAAmKAAAAJDE4OGFkYzA4LWFkMTYtNDE5YS05NDZmLTBhZGNhMzc0Y2Q5Mg.jpg",
+                Email = "jurabek.azizkhujaev@gmail.com",
+                IsRegistered = true,
+                Name = "Jurabek"
+            });
+
         }
 
-        public Task<List<FoodDto>> GetFoods()
+        public Task<List<FoodDto>> GetFoods(string accessToken)
         {
             throw new NotImplementedException();
         }

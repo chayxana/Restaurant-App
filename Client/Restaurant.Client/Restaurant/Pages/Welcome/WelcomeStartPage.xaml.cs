@@ -21,10 +21,11 @@ namespace Restaurant.Pages
         protected override async void OnLoaded()
         {
             base.OnLoaded();
-            await Task.Delay(300);
+            
             await label1.ScaleTo(1, App.AnimationSpeed, Easing.SinIn);
             await label2.ScaleTo(1, App.AnimationSpeed, Easing.SinIn);
             await buttonStack.ScaleTo(1, App.AnimationSpeed, Easing.SinIn);
+
             BindingContext = ViewModel;
         }
 

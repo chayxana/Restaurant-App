@@ -45,12 +45,10 @@ namespace Restaurant.Model
         Task<object> GetValues([Header("Authorization: bearer")] string accessToken);
 
         [Get("/api/Account/UserInfo")]
-        [Headers("Authorization: Bearer")]
-        Task<UserInfoDto> GetUserInfoRaw();
+        Task<UserInfoDto> GetUserInfoRaw([Header("Authorization: bearer")] string accessToken);
 
         [Get("/api/Foods")]
-        [Headers("Authorization: Bearer")]
-        Task<List<FoodDto>> GetFoods();
+        Task<List<FoodDto>> GetFoods([Header("Authorization: bearer")] string accessToken);
 
     }
 
@@ -85,14 +83,14 @@ namespace Restaurant.Model
         //    return This.GetValues();
         //}
 
-        public static Task<UserInfoDto> GetUserInfo(this IRestaurantApi This)
-        {
-            return This.GetUserInfoRaw();
-        }
+        //public static Task<UserInfoDto> GetUserInfo(this IRestaurantApi This)
+        //{
+        //    return This.GetUserInfoRaw();
+        //}
 
-        public static Task<List<FoodDto>> GetFoods(this IRestaurantApi This)
-        {
-            return This.GetFoods();
-        }
+        //public static Task<List<FoodDto>> GetFoods(this IRestaurantApi This)
+        //{
+        //    return This.GetFoods();
+        //}
     }
 }

@@ -6,7 +6,7 @@ using UIKit;
 namespace Restaurant.iOS.Controls
 {
 
-    public class MKNumberBadgeView : UIView
+    public sealed class MKNumberBadgeView : UIView
     {
         public int Value { get; set; }
 
@@ -79,7 +79,7 @@ namespace Restaurant.iOS.Controls
     }
 
 
-    public class CustomBadge : UIView
+    public sealed class CustomBadge : UIView
     {
         private String badgeText;
         private UIColor badgeTextColor;
@@ -153,7 +153,8 @@ namespace Restaurant.iOS.Controls
                 return new UIEdgeInsets(puffer, puffer, puffer, puffer);
             }
         }
-        private void drawArc(CGContext context, CGRect rect)
+
+        private void DrawArc(CGContext context, CGRect rect)
         {
             var radius = rect.GetMaxY() * badgeCornerRoundness;
             var puffer = new nfloat(Padding(rect));

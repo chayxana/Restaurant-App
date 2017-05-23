@@ -16,17 +16,4 @@ namespace Restaurant.Model
         public DateTime issued { get; set; }
         public DateTime expires { get; set; }
     }
-
-    public class UserInfo
-    {
-        public string Email { get; set; }
-
-        public bool IsRegistered { get; set; }
-
-        public string LoginProvider { get; set; }
-
-        public string Name { get; set; }
-
-        public string Picture { get; set; }
-    }
 }

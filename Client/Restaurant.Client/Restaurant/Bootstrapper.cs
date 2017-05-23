@@ -87,7 +87,7 @@ namespace Restaurant
             throw new NotImplementedException();
         }
 
-        public Task<UserInfo> GetUserInfoRaw()
+        public Task<UserInfoDto> GetUserInfoRaw()
         {
             throw new NotImplementedException();
         }

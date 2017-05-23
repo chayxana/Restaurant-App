@@ -3,6 +3,7 @@ using Autofac;
 using ReactiveUI;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Mappers;
+using Restaurant.Pages;
 using Restaurant.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -29,7 +30,7 @@ namespace Restaurant
             welcomePage.ViewModel = Container.Resolve<IWelcomeViewModel>() as WelcomeViewModel;
 
 
-            MainPage = new NavigationPage(welcomePage as Page);
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()

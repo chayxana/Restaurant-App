@@ -46,7 +46,7 @@ namespace Restaurant.Model
 
         [Get("/api/Account/UserInfo")]
         [Headers("Authorization: Bearer")]
-        Task<UserInfo> GetUserInfoRaw();
+        Task<UserInfoDto> GetUserInfoRaw();
 
         [Get("/api/Foods")]
         [Headers("Authorization: Bearer")]
@@ -85,7 +85,7 @@ namespace Restaurant.Model
         //    return This.GetValues();
         //}
 
-        public static Task<UserInfo> GetUserInfo(this IRestaurantApi This)
+        public static Task<UserInfoDto> GetUserInfo(this IRestaurantApi This)
         {
             return This.GetUserInfoRaw();
         }

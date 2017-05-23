@@ -8,12 +8,12 @@
         <!--<Image Source="menu_back.jpg"></Image>-->
 
         <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Spacing="20" Padding="10, 70,10,10">
-            <controls:CircleImage Source="https://media.licdn.com/mpr/mpr/shrinknp_100_100/AAEAAQAAAAAAAAmKAAAAJDE4OGFkYzA4LWFkMTYtNDE5YS05NDZmLTBhZGNhMzc0Y2Q5Mg.jpg"
+            <controls:CircleImage Source="{Binding User.Picture}"
 					HorizontalOptions="Start" VerticalOptions="Start" Aspect="AspectFill" WidthRequest="70" HeightRequest="70" />
 
             <StackLayout Padding="0,15,0,0" HorizontalOptions="Start" VerticalOptions="Start">
-                <Label Text="Jurabek Azizkhujaev" FontSize="14" HorizontalOptions="StartAndExpand" Style="{StaticResource header}" />
-                <Label Text="jurabek@gmail.com" FontSize="12" HorizontalOptions="StartAndExpand"  />
+                <Label Text="{Binding User.Email}" FontSize="14" HorizontalOptions="StartAndExpand" Style="{StaticResource header}" />
+                <Label Text="{Binding User.Name}" FontSize="12" HorizontalOptions="StartAndExpand"  />
             </StackLayout>
         </StackLayout>
     </Grid>

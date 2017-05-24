@@ -22,6 +22,13 @@ namespace Restaurant.Pages
             };
             Title = "Foods";                       
         }
+
+        protected override async void OnLoaded()
+        {
+            base.OnLoaded();
+            BindingContext = ViewModel;
+            await ViewModel.LoadFoods();
+        }
     }
     public class FoodsXamlPage : BaseContentPage<FoodsViewModel>
     {

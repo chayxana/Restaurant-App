@@ -9,6 +9,6 @@
     <ToolbarItem Text="{Binding MainViewModel.BasketViewModel.OrdersCount, StringFormat='Basket(\{0\})'}" ClassId="basket" Command="{Binding OpenOrder}" x:Name="orderToolbar"/>
   </local:FoodsXamlPage.ToolbarItems>
   <local:FoodsXamlPage.Content>
-    <views:FoodsListView ItemsSource="{Binding OrderableFoods}" x:Name="list"/>
+    <views:FoodsListView ItemsSource="{Binding Foods}" x:Name="list"/>
   </local:FoodsXamlPage.Content>
 </local:FoodsXamlPage>

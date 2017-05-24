@@ -1,14 +1,18 @@
 ﻿using ReactiveUI;
 using Restaurant.Abstractions;
+using Restaurant.Abstractions.Repositories;
 using Restaurant.Model;
 
 namespace Restaurant.ViewModels
 {
     public class MainViewModel : ReactiveObject, IMainViewModel
     {
-        public MainViewModel()
+        private readonly IUserRepository _userRepository;
+
+        public MainViewModel(IUserRepository userRepository)
         {
-            
+            _userRepository = userRepository;
+            OnLoad();
         }
 
         public UserInfoDto User { get; set; }
@@ -20,6 +24,11 @@ namespace Restaurant.ViewModels
         public IDetailedScreen DetailScreen { get; set; }
         
         public string Title => "Main";
+
+        private async void OnLoad()
+        {
+            User = await _userRepository.GetUserInfo();
+        }
     }
 
     public interface IDetailedScreen

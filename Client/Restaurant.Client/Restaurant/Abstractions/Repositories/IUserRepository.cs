@@ -9,6 +9,6 @@ namespace Restaurant.Abstractions.Repositories
 {
     public interface IUserRepository
     {
-        UserInfoDto GetUserInfo();
+        Task<UserInfoDto> GetUserInfo();
     }
 }

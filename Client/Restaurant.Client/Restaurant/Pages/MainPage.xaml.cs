@@ -11,8 +11,12 @@ namespace Restaurant.Pages
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = App.Container.Resolve<IMainViewModel>();
             Master = new MasterPage();
-            Detail = new NavigationPage(App.Container.Resolve<IViewFor<FoodsViewModel>>() as Page);
+
+            var page = App.Container.Resolve<IViewFor<FoodsViewModel>>() as Page;
+
+            Detail = new NavigationPage(page);
         }
     }
 

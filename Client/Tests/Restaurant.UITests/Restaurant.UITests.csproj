@@ -57,10 +57,21 @@
     <Compile Include="AppInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Restaurant.DataTransferObjects\Restaurant.DataTransferObjects.csproj">
+      <Project>{d0a345d9-b756-4978-bcdb-0648c883f8bd}</Project>
+      <Name>Restaurant.DataTransferObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Restaurant\Restaurant\Restaurant.csproj">
+      <Project>{977745b4-e9ce-4eb2-87bb-4bff0376bd6a}</Project>
+      <Name>Restaurant</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -57,6 +57,8 @@
     <Compile Include="Pages\BaseContentPage.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Abstractions\InjectableAttribute.cs" />
+    <Compile Include="Repositories\FoodRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Themes\MaterialTheme.cs" />
     <Compile Include="Controls\AnimateButton.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />

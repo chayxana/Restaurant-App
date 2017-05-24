@@ -10,6 +10,7 @@ using ReactiveUI;
 using Refit;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Managers;
+using Restaurant.Abstractions.Repositories;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.DataTransferObjects;
@@ -18,6 +19,7 @@ using Restaurant.Managers;
 using Restaurant.Model;
 using Restaurant.Models;
 using Restaurant.Pages;
+using Restaurant.Repositories;
 using Restaurant.Services;
 using Restaurant.ViewModels;
 
@@ -53,6 +55,8 @@ namespace Restaurant
 
             //var api = RestService.For<IRestaurantApi>(client);
 
+            builder.RegisterType<UserRepository>().As<IUserRepository>();
+            builder.RegisterType<FoodRepository>().As<IFoodRepository>();
             builder.RegisterType<RestaurantApiTest>().As<IRestaurantApi>();
 
             builder.RegisterType<AuthentiticationManager>().As<IAuthenticationManager>();
@@ -99,9 +103,23 @@ namespace Restaurant
 
         }
 
-        public Task<List<FoodDto>> GetFoods(string accessToken)
+        public Task<IEnumerable<FoodDto>> GetFoods(string accessToken)
         {
-            throw new NotImplementedException();
+            return Task.FromResult<IEnumerable<FoodDto>>(new List<FoodDto>
+            {
+                new FoodDto  {Picture =  "http://xcook.info/sites/default/files/styles/large/public/borshh-bez-mjasa.jpg?itok=g4K2JTOD", Name = "Borsh"},
+                new FoodDto { Picture = "https://sxodim.com/uploads/almaty/2016/06/200715021547_mzvadi__shashlik-745x493.jpg", Name = "Gusht"},
+                new FoodDto { Picture = "http://realkebab.ru/wp-content/uploads/2013/09/kebab1.png", Name = "Qima"},
+                new FoodDto(),
+                new FoodDto(),
+                new FoodDto(),
+                new FoodDto(),
+                new FoodDto(),
+                new FoodDto(),
+                new FoodDto(),
+                new FoodDto(),
+                new FoodDto(),
+            });
         }
     }
 }

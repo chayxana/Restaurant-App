@@ -9,8 +9,8 @@
 
     <xfg:ContentPageGloss.BackgroundGradient>
         <xfg:Gradient Rotation="150">
-            <xfg:GradientStep StepColor="#B23DC6" StepPercentage="0" />
-            <xfg:GradientStep StepColor="#E43A74" StepPercentage="1" />
+            <xfg:GradientStep StepColor="#ef5350" StepPercentage="0" />
+            <xfg:GradientStep StepColor="#EC407A" StepPercentage="1" />
         </xfg:Gradient>
     </xfg:ContentPageGloss.BackgroundGradient>
 
@@ -21,7 +21,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <views:ProfileStripView Grid.Row="0"/>
-            <StackLayout Grid.Row="1" BackgroundColor="{StaticResource grayLight}" Padding="0, 20">
+            <StackLayout Grid.Row="1"  Padding="0, 20" BackgroundColor="{StaticResource grayLight}">
                 <ListView x:Name="listView">
                     <ListView.SeparatorColor>
                         <OnPlatform x:TypeArguments="Color" iOS="White"/>

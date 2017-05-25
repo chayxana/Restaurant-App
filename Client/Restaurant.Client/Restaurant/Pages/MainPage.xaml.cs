@@ -13,8 +13,9 @@ namespace Restaurant.Pages
             InitializeComponent();
             BindingContext = App.Container.Resolve<IMainViewModel>();
             Master = new MasterPage();
-
-            var page = App.Container.Resolve<IViewFor<FoodsViewModel>>() as Page;
+            var view = App.Container.Resolve<IViewFor<FoodsViewModel>>();
+            view.ViewModel = App.Container.Resolve<FoodsViewModel>();
+            var page = view as Page;
 
             Detail = new NavigationPage(page);
         }
@@ -42,7 +43,7 @@ namespace Restaurant.Pages
         }
 
         protected BaseMasterDetailPage()
-        {         
+        {
         }
     }
 
@@ -55,6 +56,6 @@ namespace Restaurant.Pages
         public Color StatusBarColor { get; set; }
 
         public Color NavigationBarColor { get; set; }
-        
+
     }
 }

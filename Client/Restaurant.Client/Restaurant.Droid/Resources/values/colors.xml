@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+  <color name="material_blue_500">#2196F3</color>
+  <color name="material_blue_700">#1976D2</color>
+  <color name="accent">#FFC107</color>
+  <color name="ListViewSelected">#96BCE3</color>
+  <color name="ListViewHighlighted">#E39696</color>
+</resources>

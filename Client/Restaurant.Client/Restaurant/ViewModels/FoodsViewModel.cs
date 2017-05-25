@@ -30,6 +30,14 @@ namespace Restaurant.ViewModels
             private set => this.RaiseAndSetIfChanged(ref _foods, value);
         }
 
+        private FoodDto _selectedFood;
+
+        public FoodDto SelectedFood
+        {
+            get => _selectedFood;
+            set => this.RaiseAndSetIfChanged(ref _selectedFood, value);
+        }
+
         public string Title => "Foods";
 
         public async Task LoadFoods()

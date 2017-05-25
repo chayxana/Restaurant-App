@@ -108,9 +108,27 @@ namespace Restaurant
         {
             return Task.FromResult<IEnumerable<FoodDto>>(new List<FoodDto>
             {
-                new FoodDto  {Picture =  "http://xcook.info/sites/default/files/styles/large/public/borshh-bez-mjasa.jpg?itok=g4K2JTOD", Name = "Borsh"},
-                new FoodDto { Picture = "https://sxodim.com/uploads/almaty/2016/06/200715021547_mzvadi__shashlik-745x493.jpg", Name = "Gusht"},
-                new FoodDto { Picture = "http://realkebab.ru/wp-content/uploads/2013/09/kebab1.png", Name = "Qima"},
+                new FoodDto
+                {
+                    Picture =  "http://xcook.info/sites/default/files/styles/large/public/borshh-bez-mjasa.jpg?itok=g4K2JTOD",
+                    Name = "Borsh",
+                    Description = "Borsh description",
+                    Price = 3.5m
+                },
+                new FoodDto
+                {
+                    Picture = "https://sxodim.com/uploads/almaty/2016/06/200715021547_mzvadi__shashlik-745x493.jpg",
+                    Name = "Gusht",
+                    Description = "Shashlik kusochka",
+                    Price = 10
+                },
+                new FoodDto
+                {
+                    Picture = "http://realkebab.ru/wp-content/uploads/2013/09/kebab1.png",
+                    Name = "Qima",
+                    Description = "Shashlik qima",
+                    Price = 9
+                },
                 new FoodDto(),
                 new FoodDto(),
                 new FoodDto(),

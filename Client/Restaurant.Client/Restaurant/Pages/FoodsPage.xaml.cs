@@ -1,6 +1,9 @@
-﻿using Restaurant.Abstractions.Managers;
+﻿using ReactiveUI;
+using Restaurant.Abstractions.Managers;
 using Restaurant.ViewModels;
 using Xamarin.Forms;
+using System;
+using System.Reactive.Linq;
 
 namespace Restaurant.Pages
 {
@@ -14,12 +17,7 @@ namespace Restaurant.Pages
             ActionBarBackgroundColor = theme.Primary;
             StatusBarColor = theme.Dark;
             NavigationBarColor = theme.Dark;
-
             ActionBarTextColor = Color.White;
-            list.ItemSelected += (s, e) =>
-            {
-                list.SelectedItem = null;
-            };
             Title = "Foods";                       
         }
 
@@ -28,6 +26,10 @@ namespace Restaurant.Pages
             base.OnLoaded();
             BindingContext = ViewModel;
             await ViewModel.LoadFoods();
+            this.WhenAnyValue(x => x.ViewModel.SelectedFood).Where(x => x != null).Subscribe(food =>
+            {
+                Navigation.PushAsync(new FoodDetailPage());
+            });
         }
     }
     public class FoodsXamlPage : BaseContentPage<FoodsViewModel>

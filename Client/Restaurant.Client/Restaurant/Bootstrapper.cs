@@ -46,6 +46,7 @@ namespace Restaurant
             builder.RegisterType<WelcomeViewModel>().As<IWelcomeViewModel>();
             builder.RegisterType<SignInViewModel>().As<ISignInViewModel>();
             builder.RegisterType<SignUpViewModel>().As<ISignUpViewModel>();
+            builder.RegisterType<FoodsViewModel>().AsSelf();
 
 
             //var client = new HttpClient(NetCache.UserInitiated)

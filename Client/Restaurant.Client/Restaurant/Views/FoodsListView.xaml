@@ -32,14 +32,14 @@
                                         <Label Text="{Binding Description}" VerticalOptions="CenterAndExpand" TextColor="Black"/>
                                         <Label Text="{Binding Price, StringFormat='\{0\} Somoni'}" FontSize="Large" TextColor="{StaticResource grayPrimary}" VerticalOptions="CenterAndExpand"/>
                                     </StackLayout>
-                                    <StackLayout Padding="16,20, 16, 30" VerticalOptions="Center" HorizontalOptions="Start" IsVisible="{Binding IsOrdered}">
+                                    <!--<StackLayout Padding="16,20, 16, 30" VerticalOptions="Center" HorizontalOptions="Start" IsVisible="{Binding IsOrdered}">
                                         <StackLayout Orientation="Vertical">
                                             <Label Text="{Binding Quantity, StringFormat='Quantity: \{0\}'}" TextColor="Black" FontSize="Medium"/>
                                             <Label Text="{Binding TotalPrice, StringFormat='Total Price: \{0\}'}" FontSize="Medium" TextColor="{StaticResource grayPrimary}" />
                                         </StackLayout>
                                         <Stepper Value="{Binding Quantity}" Minimum=".5"/>
-                                    </StackLayout>
-                                    <StackLayout Grid.Column="1" Padding="5,10" VerticalOptions="Center" Spacing="4">
+                                    </StackLayout>-->
+                                    <!--<StackLayout Grid.Column="1" Padding="5,10" VerticalOptions="Center" Spacing="4">
                                         <Button Clicked="ActionButton_Clicked"
 																								BorderColor="{StaticResource indigoPinkAccent}">
                                             <Button.HeightRequest>
@@ -49,7 +49,7 @@
                                                 <OnPlatform x:TypeArguments="x:Double" iOS="65"  Android="50" WinPhone="50"/>
                                             </Button.WidthRequest>
                                         </Button>
-                                    </StackLayout>
+                                    </StackLayout>-->
                                 </Grid>
                             </StackLayout>
                         </StackLayout>

@@ -23,7 +23,12 @@ namespace Restaurant.ViewModels
             _foodRepository = foodRepository;
         }
 
-        public ObservableCollection<FoodDto> Foods { get; private set; }
+        private ObservableCollection<FoodDto> _foods;
+        public ObservableCollection<FoodDto> Foods
+        {
+            get => _foods;
+            private set => this.RaiseAndSetIfChanged(ref _foods, value);
+        }
 
         public string Title => "Foods";
 

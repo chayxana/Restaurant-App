@@ -5,7 +5,6 @@
              x:Class="Restaurant.Views.ProfileStripView">
 
     <Grid x:Name="root">
-        <!--<Image Source="menu_back.jpg"></Image>-->
 
         <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Spacing="20" Padding="10, 70,10,10">
             <controls:CircleImage Source="{Binding User.Picture}"

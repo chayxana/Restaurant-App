@@ -9,6 +9,7 @@ using ReactiveUI;
 using Restaurant;
 using Restaurant.iOS.Controls;
 using Restaurant.iOS.Renderers;
+using Restaurant.Pages;
 using Restaurant.ViewModels;
 using UIKit;
 using Xamarin.Forms;

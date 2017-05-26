@@ -1,4 +1,6 @@
 ﻿using Xamarin.Forms;
+using static Xamarin.Forms.Device;
+using static Xamarin.Forms.TargetPlatform;
 
 namespace Restaurant.Models
 {
@@ -8,16 +10,16 @@ namespace Restaurant.Models
         {
             get
             {
-                if(Device.OS == TargetPlatform.iOS)
+                if (RuntimePlatform == Device.iOS)
                 {
                     return "http://192.168.127.1:8080/";
                 }
-                if(Device.OS == TargetPlatform.Android)
+                if (RuntimePlatform == Device.Android)
                 {
                     return "http://10.71.34.1:8080/";
                 }
                 return "http://localhost:8080/";
-            } 
-        }        
+            }
+        }
     }
 }

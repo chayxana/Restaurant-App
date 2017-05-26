@@ -1,5 +1,5 @@
 # Restaurant
-Restaurant service for Ordering foods to Restaurant-Service 
+Service for Ordering foods 
 
 This service provides cross platform client server application. </br>
 Server side uses ASP.NET Web API </br>

@@ -6,7 +6,7 @@ namespace Restaurant.Mappers
 {
     public class ViewModelToDataTransferObjectsProfile : Profile
     {
-        public ViewModelToDataTransferObjectsProfile()
+        protected override void Configure()
         {
             CreateMap<SignUpViewModel, RegisterDto>()
                 .ForMember(x => x.Name, map => map.MapFrom(x => x.Name))

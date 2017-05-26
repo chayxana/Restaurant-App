@@ -5,11 +5,29 @@ using Restaurant.Abstractions.Facades;
 using Xamarin.Forms;
 
 namespace Restaurant.Facades
-{   
+{
     [UsedImplicitly]
     public class NavigationFacade : INavigationFacade
     {
-        private INavigation Navigation => App.Current.MainPage.Navigation;
+        private INavigation Navigation
+        {
+            get
+            {
+                if (App.Current.MainPage is MasterDetailPage masterDetailPage)
+                {
+                    if (masterDetailPage.Detail is NavigationPage navigationPage)
+                    {
+                        return navigationPage.Navigation;
+                    }
+                    else
+                    {
+                        var detailNavigationPage = new NavigationPage(masterDetailPage);
+                        return detailNavigationPage.Navigation;
+                    }
+                }
+                return App.Current.MainPage.Navigation;
+            }
+        }
 
         public Task PushAsync(IViewFor page)
         {

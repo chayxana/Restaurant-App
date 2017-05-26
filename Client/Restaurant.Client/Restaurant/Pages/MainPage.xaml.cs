@@ -21,9 +21,8 @@ namespace Restaurant.Pages
         }
     }
 
-    public class MainPageXaml : BaseMasterDetailPage<MainViewModel>, IDetailedScreen
+    public class MainPageXaml : BaseMasterDetailPage<MainViewModel>
     {
-        public DetailState DetailState { get; set; }
 
         protected MainPageXaml()
         {

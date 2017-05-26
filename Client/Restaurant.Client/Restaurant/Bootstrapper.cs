@@ -22,6 +22,7 @@ using Restaurant.Pages;
 using Restaurant.Repositories;
 using Restaurant.Services;
 using Restaurant.ViewModels;
+using Xamarin.Forms;
 
 namespace Restaurant
 {
@@ -30,6 +31,16 @@ namespace Restaurant
     {
         public IContainer Build()
         {
+
+            foreach (var type in typeof(App).GetTypeInfo().Assembly.ExportedTypes)
+            {
+                if (type.IsAssignableTo<IViewFor>())
+                {
+                    
+                }
+            }
+
+
             var builder = new ContainerBuilder();
 
             builder.RegisterType<NavigationFacade>().As<INavigationFacade>();

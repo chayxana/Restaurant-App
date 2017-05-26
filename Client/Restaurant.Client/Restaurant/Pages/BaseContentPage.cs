@@ -1,7 +1,7 @@
 ﻿using ReactiveUI;
 using Xamarin.Forms;
 
-namespace Restaurant
+namespace Restaurant.Pages
 {
     public class BaseContentPage<T> : MainBaseContentPage, IViewFor<T> where T : class
     {

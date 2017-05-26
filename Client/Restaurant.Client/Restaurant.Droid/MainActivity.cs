@@ -15,37 +15,15 @@ namespace Restaurant.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.toolbar;
-            
 
             base.OnCreate(bundle);
-
-            Window.AddFlags(WindowManagerFlags.Fullscreen);
-
-            //Android.App.ActionBar.SetIcon(new ColorDrawable(Android.Graphics.Color.Transparent));
+            
             Forms.Init(this, bundle);
             ImageCircleRenderer.Init();
-            //if ((int)Android.OS.Build.VERSION.SdkInt >= 21) {  }
-
-            //UserError.RegisterHandler(ue =>
-            //{
-            //    var toast = Toast.MakeText(this, ue.ErrorMessage, ToastLength.Short);
-            //    toast.Show();
-
-            //    return Observable.Return(RecoveryOptionResult.CancelOperation);
-            //});
-            
             LoadApplication(new App());
             XFGloss.Droid.Library.Init(this, bundle);
-
-
-
         }
-
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            
-            return base.OnCreateOptionsMenu(menu);
-        }
+        
     }
 }
 

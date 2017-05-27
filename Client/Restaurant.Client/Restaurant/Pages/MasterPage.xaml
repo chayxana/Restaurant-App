@@ -22,13 +22,13 @@
             </Grid.RowDefinitions>
             <views:ProfileStripView Grid.Row="0"/>
             <StackLayout Grid.Row="1"  Padding="0, 20" BackgroundColor="{StaticResource grayLight}">
-                <ListView x:Name="listView">
+                <ListView x:Name="listView" ItemsSource="{Binding MasterViewModel.Items}" SelectedItem="{Binding MasterViewModel.SelectedItem}">
                     <ListView.SeparatorColor>
                         <OnPlatform x:TypeArguments="Color" iOS="White"/>
                     </ListView.SeparatorColor>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell Tapped="Cell_Tapped">
+                            <ViewCell>
                                 <ViewCell.View>
                                     <StackLayout StyleId="test">
                                         <Grid>

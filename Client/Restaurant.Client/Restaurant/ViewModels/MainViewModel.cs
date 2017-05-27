@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Reactive.Linq;
 using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.Repositories;
 using Restaurant.Abstractions.Services;
 using Restaurant.Model;
+using Restaurant.Models;
 using Restaurant.Pages;
 
 namespace Restaurant.ViewModels
@@ -39,6 +41,7 @@ namespace Restaurant.ViewModels
             User = await _userRepository.GetUserInfo();
             MasterViewModel
                 .SelectedMasterItem
+                .Where(x => x != null)
                 .Subscribe(async masterItem => await _navigationService.NavigateAsync(masterItem.NavigationType));
         }
     }

@@ -60,6 +60,7 @@
     <Compile Include="Pages\FoodDetailPage.xaml.cs">
       <DependentUpon>FoodDetailPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\MasterItem.cs" />
     <Compile Include="Repositories\FoodRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Themes\MaterialTheme.cs" />

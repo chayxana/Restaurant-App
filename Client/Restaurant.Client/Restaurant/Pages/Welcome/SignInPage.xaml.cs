@@ -31,13 +31,11 @@ namespace Restaurant.Pages
         protected override async void OnLoaded()
         {
             BindingContext = ViewModel;
-
-            base.OnLoaded();
             await AnimateControls(1, Easing.SinIn);
         }
     }
 
-    public class SignInPageXaml : BaseContentPage<SignInViewModel>
+    public abstract class SignInPageXaml : BaseContentPage<SignInViewModel>
     {
 
     }

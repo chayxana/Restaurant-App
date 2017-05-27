@@ -23,7 +23,6 @@ namespace Restaurant.Pages
 
         protected override async void OnLoaded()
         {
-            base.OnLoaded();
             BindingContext = ViewModel;
             await ViewModel.LoadFoods();
             this.WhenAnyValue(x => x.ViewModel.SelectedFood).Where(x => x != null).Subscribe(food =>
@@ -32,7 +31,7 @@ namespace Restaurant.Pages
             });
         }
     }
-    public class FoodsXamlPage : BaseContentPage<FoodsViewModel>
+    public abstract class FoodsXamlPage : BaseContentPage<FoodsViewModel>
     {
     }
 }

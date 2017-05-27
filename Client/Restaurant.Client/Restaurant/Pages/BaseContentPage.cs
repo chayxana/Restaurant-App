@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace Restaurant.Pages
 {
-    public class BaseContentPage<T> : MainBaseContentPage, IViewFor<T> where T : class
+    public abstract class BaseContentPage<T> : MainBaseContentPage, IViewFor<T> where T : class
     {
         public T ViewModel { get; set; }
 
@@ -14,7 +14,7 @@ namespace Restaurant.Pages
         }
     }
 
-    public class MainBaseContentPage : ContentPage, IColoredPage
+    public abstract class MainBaseContentPage : ContentPage, IColoredPage
     {
         public Color ActionBarBackgroundColor { get; set; }
 
@@ -23,35 +23,15 @@ namespace Restaurant.Pages
         public Color NavigationBarColor { get; set; }
 
         public Color StatusBarColor { get; set; }
-
-        bool _hasSubscribed;
-
+        
         public bool HasInitialized
         {
             get;
             private set;
         }
-
-        public MainBaseContentPage()
-        {
-            SubscribeToAuthentication();
-            SubscribeToIncomingPayload();
-        }
-
-        private void SubscribeToAuthentication()
-        {
-            //SubscribeToAuthenTication
-        }
-
+        
         protected override void OnAppearing()
         {
-            if (!_hasSubscribed)
-            {
-                SubscribeToAuthentication();
-                SubscribeToIncomingPayload();
-                _hasSubscribed = true;
-            }
-
             var nav = Parent as NavigationPage;
             if (nav != null)
             {
@@ -66,19 +46,11 @@ namespace Restaurant.Pages
             }
             base.OnAppearing();
         }
-
-        private void SubscribeToIncomingPayload()
-        {
-            // TODO: Notification
-        }
-
         protected virtual void Initialize()
         {
         }
 
-        protected virtual void OnLoaded()
-        {
-        }
+        protected abstract void OnLoaded();
 
         /// <summary>
         /// Wraps the ContentPage within a NavigationPage
@@ -86,37 +58,15 @@ namespace Restaurant.Pages
         /// <returns>The navigation page.</returns>
         public NavigationPage WithinNavigationPage()
         {
-            var nav = new ThemedNavigationPage(this);
-            ApplyTheme(nav);
-            return nav;
-        }
-
-        public NavigationPage ToThemedNavigationPage()
-        {
             var nav = new NavigationPage(this);
             ApplyTheme(nav);
             return nav;
         }
 
-
         protected void ApplyTheme(NavigationPage nav)
         {
             nav.BarBackgroundColor = ActionBarBackgroundColor;
             nav.BarTextColor = ActionBarTextColor;
-        }
-
-        public void AddDoneButton(string text = "Done", ContentPage page = null)
-        {
-            var btnDone = new ToolbarItem
-            {
-                Text = text
-            };
-
-            btnDone.Clicked += async (sender, e) =>
-            await Navigation.PopModalAsync();
-
-            page = page ?? this;
-            page.ToolbarItems.Add(btnDone);
         }
     }
 
@@ -130,16 +80,4 @@ namespace Restaurant.Pages
 
         Color StatusBarColor { get; set; }
     }
-
-    public class ThemedNavigationPage : NavigationPage
-    {
-        public ThemedNavigationPage()
-        {
-        }
-
-        public ThemedNavigationPage(ContentPage root) : base(root)
-        {
-        }
-    }
-
 }

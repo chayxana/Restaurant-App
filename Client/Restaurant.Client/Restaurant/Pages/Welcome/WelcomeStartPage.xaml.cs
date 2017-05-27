@@ -20,8 +20,6 @@ namespace Restaurant.Pages
         }
         protected override async void OnLoaded()
         {
-            base.OnLoaded();
-            
             await label1.ScaleTo(1, App.AnimationSpeed, Easing.SinIn);
             await label2.ScaleTo(1, App.AnimationSpeed, Easing.SinIn);
             await buttonStack.ScaleTo(1, App.AnimationSpeed, Easing.SinIn);
@@ -39,7 +37,7 @@ namespace Restaurant.Pages
         }
     }
 
-    public class WelcomeStartPageXaml : BaseContentPage<WelcomeViewModel>
+    public abstract class WelcomeStartPageXaml : BaseContentPage<WelcomeViewModel>
     {
     }
 }

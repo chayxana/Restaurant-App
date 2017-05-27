@@ -21,9 +21,13 @@ namespace Restaurant.Pages
         {
             orders.SelectedItem = null;
         }
+
+        protected override void OnLoaded()
+        {
+        }
     }
 
-    public class BasketPageXaml : BaseContentPage<OrderViewModel>
+    public abstract class BasketPageXaml : BaseContentPage<OrderViewModel>
     {
     }
 }

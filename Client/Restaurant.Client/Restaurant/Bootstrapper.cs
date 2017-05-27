@@ -31,10 +31,9 @@ namespace Restaurant
     {
         public IContainer Build()
         {
-
             foreach (var type in typeof(App).GetTypeInfo().Assembly.ExportedTypes)
             {
-                if (type.IsAssignableTo<IViewFor>())
+                if (type.IsAssignableTo<IViewFor>() && !type.GetTypeInfo().IsAbstract)
                 {
                     
                 }
@@ -52,7 +51,7 @@ namespace Restaurant
             builder.RegisterType<SignUpPage>().As<IViewFor<SignUpViewModel>>();
             builder.RegisterType<MainPage>().As<IViewFor<MainViewModel>>();
             builder.RegisterType<FoodsPage>().As<IViewFor<FoodsViewModel>>();
-
+            builder.RegisterType<MasterViewModel>().As<IMasterViewModel>();
 
             builder.RegisterType<WelcomeViewModel>().As<IWelcomeViewModel>();
             builder.RegisterType<SignInViewModel>().As<ISignInViewModel>();

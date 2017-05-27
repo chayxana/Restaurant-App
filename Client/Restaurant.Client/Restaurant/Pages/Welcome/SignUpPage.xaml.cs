@@ -12,22 +12,6 @@ namespace Restaurant.Pages
         {
             _themeManager = themeManager;
             InitializeComponent();
-            Initialize();
-            
-            // Example: Using WhenAny instead of Value Converters 
-            //SignInViewModel.WhenAnyValue(x => x.IsLoading).Subscribe(isLoading => 
-            //{
-            //    if (isLoading)
-            //    {
-            //        loadingLayout.IsVisible = true;
-            //        regesterStack.IsVisible = false;
-            //    }
-            //    else
-            //    {
-            //        loadingLayout.IsVisible = false;
-            //        regesterStack.IsVisible = true;
-            //    }
-            //});
         }
 
         protected override void Initialize()
@@ -38,8 +22,12 @@ namespace Restaurant.Pages
             NavigationBarColor = Color.Black;
             base.Initialize();
         }
+
+        protected override void OnLoaded()
+        {
+        }
     }
-    public class SignUpPageXaml : BaseContentPage<SignUpViewModel>
+    public abstract class SignUpPageXaml : BaseContentPage<SignUpViewModel>
     {
 
     }

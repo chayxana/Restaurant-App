@@ -25,10 +25,6 @@ namespace Restaurant.Pages
         {
             BindingContext = ViewModel;
             await ViewModel.LoadFoods();
-            this.WhenAnyValue(x => x.ViewModel.SelectedFood).Where(x => x != null).Subscribe(food =>
-            {
-                Navigation.PushAsync(new FoodDetailPage());
-            });
         }
     }
     public abstract class FoodsXamlPage : BaseContentPage<FoodsViewModel>

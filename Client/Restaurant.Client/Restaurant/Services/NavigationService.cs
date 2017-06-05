@@ -6,6 +6,7 @@ using ReactiveUI;
 using Restaurant.Abstractions;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Services;
+using Xamarin.Forms;
 
 namespace Restaurant.Services
 {
@@ -56,12 +57,14 @@ namespace Restaurant.Services
         IViewFor GetView(INavigatableViewModel vm)
         {
             var viewType = typeof(IViewFor<>).MakeGenericType(vm.GetType());
-            var view = _container.Resolve(viewType);
+            var view = _container.Resolve(viewType) as Page;
+            
             var ret = view as IViewFor;
 
             if (ret == null)
                 throw new Exception($"Resolve service type '{viewType.FullName}' does not implement '{typeof(IViewFor).FullName}'.");
 
+            view.Title = vm.Title;
             ret.ViewModel = vm;
             return ret;
         }

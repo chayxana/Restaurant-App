@@ -3,4 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Restaurant.Pages;assembly=Restaurant"
              x:Class="Restaurant.Pages.FoodDetailPage">
+  <Grid>
+    <ScrollView>
+      <Image Source="{Binding SelectedFood.Picture}"></Image>
+    </ScrollView>
+  </Grid>
 </pages:FoodDetailPageXaml>

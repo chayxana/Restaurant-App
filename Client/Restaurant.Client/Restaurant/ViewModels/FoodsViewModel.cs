@@ -5,22 +5,34 @@ using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Autofac;
+using Autofac.Core;
 using ReactiveUI;
 using Restaurant.Abstractions;
 using Restaurant.Abstractions.Repositories;
 using Restaurant.DataTransferObjects;
 using Restaurant.Models;
 using Splat;
+using Restaurant.Abstractions.Services;
 
 namespace Restaurant.ViewModels
 {
     public class FoodsViewModel : ReactiveObject, INavigatableViewModel
     {
         private readonly IFoodRepository _foodRepository;
-
-        public FoodsViewModel(IFoodRepository foodRepository)
+        private readonly INavigationService _navigationService;
+        public FoodsViewModel(
+            IFoodRepository foodRepository,
+            INavigationService navigationService)
         {
             _foodRepository = foodRepository;
+            _navigationService = navigationService;
+            this.WhenAnyValue(x => x.SelectedFood).Where(x => x != null).Subscribe(food =>
+            {
+                var viewModel =
+                    App.Container.Resolve<FoodDetailViewModel>(new NamedParameter("selectedFood", SelectedFood));
+                _navigationService.NavigateAsync(viewModel);
+            });
         }
 
         private ObservableCollection<FoodDto> _foods;

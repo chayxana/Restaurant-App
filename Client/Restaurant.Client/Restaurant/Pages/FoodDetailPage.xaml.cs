@@ -19,7 +19,7 @@ namespace Restaurant.Pages
 
         protected override void OnLoaded()
         {
-
+            BindingContext = ViewModel;
         }
     }
 

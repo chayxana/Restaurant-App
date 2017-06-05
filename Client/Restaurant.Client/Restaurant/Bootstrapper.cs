@@ -35,7 +35,7 @@ namespace Restaurant
             {
                 if (type.IsAssignableTo<IViewFor>() && !type.GetTypeInfo().IsAbstract)
                 {
-                    
+
                 }
             }
 
@@ -52,13 +52,14 @@ namespace Restaurant
             builder.RegisterType<MainPage>().As<IViewFor<MainViewModel>>();
             builder.RegisterType<FoodsPage>().As<IViewFor<FoodsViewModel>>();
             builder.RegisterType<MasterViewModel>().As<IMasterViewModel>();
+            builder.RegisterType<FoodDetailPage>().As<IViewFor<FoodDetailViewModel>>();
 
             builder.RegisterType<WelcomeViewModel>().As<IWelcomeViewModel>();
             builder.RegisterType<SignInViewModel>().As<ISignInViewModel>();
             builder.RegisterType<SignUpViewModel>().As<ISignUpViewModel>();
             builder.RegisterType<FoodsViewModel>().AsSelf();
-
-
+            builder.RegisterType<FoodDetailViewModel>().AsSelf();
+            
             //var client = new HttpClient(NetCache.UserInitiated)
             //{
             //    BaseAddress = new Uri(Helper.Address)

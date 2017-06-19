@@ -9,5 +9,6 @@ namespace Restaurant.Controls
 {
     public class FlatButton : Button
     {
+
     }
 }

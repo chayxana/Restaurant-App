@@ -4,7 +4,6 @@ namespace Restaurant.Controls
 {
     public class RestaurantEntry : Entry
     {
-
         /// <summary>
         /// The PlaceholderTextColor property
         /// </summary>

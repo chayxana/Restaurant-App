@@ -9,11 +9,10 @@
 			IsPullToRefreshEnabled="true"
 			SeparatorVisibility="None"
 			HasUnevenRows="True"
-			StyleId="foodsList"
-			BackgroundColor="{StaticResource grayLight}">
+			StyleId="foodsList">
     <ListView.ItemTemplate>
         <DataTemplate>
-            <ViewCell>
+            <controls:CustomViewCell IsTransparentBackgroundWhenSelectedCell="True">
                 <ViewCell.View>
                     <AbsoluteLayout>
                         <StackLayout Padding="0,0,.5,.5"  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
@@ -32,6 +31,7 @@
                                         <Label Text="{Binding Description}" VerticalOptions="CenterAndExpand" TextColor="Black"/>
                                         <Label Text="{Binding Price, StringFormat='\{0\} Somoni'}" FontSize="Large" TextColor="{StaticResource grayPrimary}" VerticalOptions="CenterAndExpand"/>
                                     </StackLayout>
+                                    
                                     <!--<StackLayout Padding="16,20, 16, 30" VerticalOptions="Center" HorizontalOptions="Start" IsVisible="{Binding IsOrdered}">
                                         <StackLayout Orientation="Vertical">
                                             <Label Text="{Binding Quantity, StringFormat='Quantity: \{0\}'}" TextColor="Black" FontSize="Medium"/>
@@ -55,7 +55,7 @@
                         </StackLayout>
                     </AbsoluteLayout>
                 </ViewCell.View>
-            </ViewCell>
+            </controls:CustomViewCell>
         </DataTemplate>
     </ListView.ItemTemplate>
 </ListView>

@@ -16,7 +16,7 @@ using Button = Xamarin.Forms.Button;
 [assembly: ExportRenderer(typeof(Restaurant.Controls.FlatButton), typeof(Restaurant.Droid.Renderers.FlatButtonRenderer))]
 namespace Restaurant.Droid.Renderers
 {
-    public class FlatButtonRenderer : Xamarin.Forms.Platform.Android.ButtonRenderer
+    public class FlatButtonRenderer : ButtonRenderer
     {
         protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
         {

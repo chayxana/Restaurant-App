@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" >
+        <shape android:shape="rectangle">
+            <!--Change the selected color by modifying this hex value-->
+            <solid android:color="#ECF0F1" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#ECF0F1" />
+        </shape>
+    </item>
+</selector>

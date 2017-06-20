@@ -4059,8 +4059,8 @@ namespace Restaurant.Droid
 			// aapt resource value: 0x7f0200b3
 			public const int noavatar = 2130837683;
 			
-			// aapt resource value: 0x7f0200b8
-			public const int notification_template_icon_bg = 2130837688;
+			// aapt resource value: 0x7f0200b9
+			public const int notification_template_icon_bg = 2130837689;
 			
 			// aapt resource value: 0x7f0200b4
 			public const int rassolnik = 2130837684;
@@ -4072,7 +4072,10 @@ namespace Restaurant.Droid
 			public const int shashlik = 2130837686;
 			
 			// aapt resource value: 0x7f0200b7
-			public const int yogurt = 2130837687;
+			public const int ViewCellBackground = 2130837687;
+			
+			// aapt resource value: 0x7f0200b8
+			public const int yogurt = 2130837688;
 			
 			static Drawable()
 			{

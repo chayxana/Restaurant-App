@@ -92,6 +92,7 @@
     <Compile Include="Controls\UIBarButtonItem.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Renderers\CustomViewCellRenderer.cs" />
     <Compile Include="Renderers\RestaurantEntryRenderer.cs" />
     <Compile Include="Renderers\ThemedNavigationRenderer.cs" />
     <BundleResource Include="Resources\Default-568h%402x.png" />

@@ -21,7 +21,10 @@ namespace Restaurant.Droid.Renderers
         protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
         {
             base.OnElementChanged(e);
-            Control.StateListAnimator = null;
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+            {
+                Control.StateListAnimator = null;
+            }
         }
     }
 }

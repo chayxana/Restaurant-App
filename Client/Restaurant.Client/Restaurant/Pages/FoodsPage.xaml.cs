@@ -26,6 +26,11 @@ namespace Restaurant.Pages
             BindingContext = ViewModel;
             await ViewModel.LoadFoods();
         }
+
+        private void List_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            ((ListView) sender).SelectedItem = null;
+        }
     }
     public abstract class FoodsXamlPage : BaseContentPage<FoodsViewModel>
     {

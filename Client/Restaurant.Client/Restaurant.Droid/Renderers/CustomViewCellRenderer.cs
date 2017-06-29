@@ -22,9 +22,9 @@ namespace Restaurant.Droid.Renderers
     {
         protected override View GetCellCore(Cell item, View convertView, ViewGroup parent, Context context)
         {
-            var cell =  base.GetCellCore(item, convertView, parent, context);
-            cell.SetBackgroundResource(Resource.Drawable.ViewCellBackground);
-            return cell;
+            return base.GetCellCore(item, convertView, parent, context);
+            //cell.SetBackgroundResource(Resource.Drawable.ViewCellBackground);
+            //return cell;
         }
     }
 }

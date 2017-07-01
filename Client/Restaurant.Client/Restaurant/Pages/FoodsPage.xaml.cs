@@ -27,6 +27,11 @@ namespace Restaurant.Pages
             await ViewModel.LoadFoods();
         }
 
+        private void List_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            ((ListView) sender).SelectedItem = null;
+        }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();

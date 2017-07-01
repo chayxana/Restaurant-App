@@ -28,9 +28,9 @@ namespace Restaurant.ViewModels
             _foodRepository = foodRepository;
             _navigationService = navigationService;
             this.WhenAnyValue(x => x.SelectedFood).Where(x => x != null).Subscribe(food =>
-            {
-                var viewModel =
-                    App.Container.Resolve<FoodDetailViewModel>(new NamedParameter("selectedFood", SelectedFood));
+            {   
+                var selectedFood = Foods.SingleOrDefault(f => f.Id == food.Id);
+                var viewModel = App.Container.Resolve<FoodDetailViewModel>(new NamedParameter("selectedFood", selectedFood));
                 _navigationService.NavigateAsync(viewModel);
             });
         }

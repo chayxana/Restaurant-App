@@ -18,16 +18,13 @@
                HorizontalOptions="Fill"/>
 
       </ContentView>
-      <StackLayout Grid.Row="1" Orientation="Vertical" Spacing="14" VerticalOptions="Fill" BackgroundColor="{StaticResource grayLight}">
+      <StackLayout Grid.Row="1" Orientation="Vertical" VerticalOptions="Fill" BackgroundColor="{StaticResource grayLight}">
         <AbsoluteLayout Padding="24,8,24,0">
           <Label Text="{Binding SelectedFood.Name}" TextColor="{StaticResource asphaltPrimary}" FontSize="Large" VerticalOptions="CenterAndExpand" />
           <Label Text="{Binding SelectedFood.Description}" TextColor="{StaticResource asphaltPrimary}" FontSize="Small" VerticalOptions="CenterAndExpand" />
         </AbsoluteLayout>
         <Grid>
           <StackLayout>
-            <Label Text="{Binding }"></Label>
-            <Stepper></Stepper>
-            
           </StackLayout>
         </Grid>
 

@@ -18,13 +18,18 @@ namespace Restaurant.Pages
             StatusBarColor = theme.Dark;
             NavigationBarColor = theme.Dark;
             ActionBarTextColor = Color.White;
-            Title = "Foods";                       
+            Title = "Foods";
         }
 
         protected override async void OnLoaded()
         {
             BindingContext = ViewModel;
             await ViewModel.LoadFoods();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
         }
     }
     public abstract class FoodsXamlPage : BaseContentPage<FoodsViewModel>

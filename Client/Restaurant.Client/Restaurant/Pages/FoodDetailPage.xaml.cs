@@ -27,6 +27,11 @@ namespace Restaurant.Pages
             Parallax();
         }
 
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+        }
+
         void Parallax()
         {
             if (_imageHeight <= 0)

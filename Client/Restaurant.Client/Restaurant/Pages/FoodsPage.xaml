@@ -4,11 +4,14 @@
              x:Class="Restaurant.Pages.FoodsPage"
              xmlns:local="clr-namespace:Restaurant.Pages;assembly=Restaurant"
              xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
-             xmlns:views="clr-namespace:Restaurant.Views;assembly=Restaurant">
+             xmlns:views="clr-namespace:Restaurant.Views;assembly=Restaurant"
+             BackgroundColor="{StaticResource WindowBackgroundTable}">
   <local:FoodsXamlPage.ToolbarItems>
     <ToolbarItem Text="{Binding MainViewModel.BasketViewModel.OrdersCount, StringFormat='Basket(\{0\})'}" ClassId="basket" Command="{Binding OpenOrder}" x:Name="orderToolbar"/>
   </local:FoodsXamlPage.ToolbarItems>
   <local:FoodsXamlPage.Content>
-    <views:FoodsListView ItemsSource="{Binding Foods}" SelectedItem="{Binding SelectedFood}" x:Name="list" ItemSelected="List_OnItemSelected"/>
+    <views:FoodsListView ItemsSource="{Binding Foods}"
+                         SelectedItem="{Binding SelectedFood}"
+                         x:Name="FoodsList" />
   </local:FoodsXamlPage.Content>
 </local:FoodsXamlPage>

@@ -19,17 +19,22 @@ namespace Restaurant.Pages
             NavigationBarColor = theme.Dark;
             ActionBarTextColor = Color.White;
             Title = "Foods";
+
+            Observable.FromEventPattern<SelectedItemChangedEventArgs>(FoodsList, "ItemSelected")
+
+                .Select(x => x.Sender)
+                .Cast<ListView>()
+                .Subscribe(l =>
+                {
+                    l.SelectedItem = null;
+                });
+                //.Do(x => x.SelectedItem = null);
         }
 
         protected override async void OnLoaded()
         {
             BindingContext = ViewModel;
             await ViewModel.LoadFoods();
-        }
-
-        private void List_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            ((ListView) sender).SelectedItem = null;
         }
 
         protected override void OnAppearing()

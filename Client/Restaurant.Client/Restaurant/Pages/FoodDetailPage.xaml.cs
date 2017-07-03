@@ -12,19 +12,16 @@ namespace Restaurant.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FoodDetailPage : FoodDetailPageXaml
     {
-        private double _imageHeight;
-
         public FoodDetailPage()
         {
             InitializeComponent();
+            MainScroll.ParallaxView = HeaderView;
         }
 
         protected override void OnLoaded()
         {
             BindingContext = ViewModel;
-
-            scrollView.Scrolled += (sender, e) => Parallax();
-            Parallax();
+            MainScroll.Parallax();
         }
 
         protected override void OnDisappearing()
@@ -32,25 +29,11 @@ namespace Restaurant.Pages
             base.OnDisappearing();
         }
 
-        void Parallax()
+        protected override void OnSizeAllocated(double width, double height)
         {
-            if (_imageHeight <= 0)
-                _imageHeight = photoImage.Height;
-
-            var y = scrollView.ScrollY * .4;
-            if (y >= 0)
-            {
-                //Move the Image's Y coordinate a fraction of the ScrollView's Y position
-                photoImage.Scale = 1;
-                photoImage.TranslationY = y;
-            }
-            else
-            {
-                //Calculate a scale that equalizes the height vs scroll
-                double newHeight = _imageHeight + (scrollView.ScrollY * -1);
-                photoImage.Scale = newHeight / _imageHeight;
-                photoImage.TranslationY = scrollView.ScrollY / 2;
-            }
+            base.OnSizeAllocated(width, height);
+            //MainStack.HeightRequest = HeaderView.Height;
+            MainScroll.Parallax();
         }
     }
 

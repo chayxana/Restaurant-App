@@ -49,7 +49,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CardView.cs" />
-    <Compile Include="Controls\FavoriteImage.cs" />
+    <Compile Include="Controls\AnimatedImage.cs" />
     <Compile Include="Controls\FlatButton.cs" />
     <Compile Include="Controls\CustomViewCell.cs" />
     <Compile Include="Controls\HeaderDivider.xaml.cs">

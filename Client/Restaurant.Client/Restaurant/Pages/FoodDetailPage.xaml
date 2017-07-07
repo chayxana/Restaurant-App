@@ -3,64 +3,62 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Restaurant.Pages;assembly=Restaurant"
              xmlns:local="clr-namespace:Restaurant.Converters;assembly=Restaurant"
-						 xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
-                          x:Class="Restaurant.Pages.FoodDetailPage" BackgroundColor="{StaticResource grayLight}">
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="200" x:Name="Row1Header"/>
-      <RowDefinition Height="*"/>
-    </Grid.RowDefinitions>
-    <Grid RowSpacing="0" ColumnSpacing="0" x:Name="HeaderView">
-      <Image
-          HorizontalOptions="FillAndExpand"
-          VerticalOptions="FillAndExpand"
-          Source="{Binding SelectedFood.Picture}"
-          Aspect="AspectFill"/>
-    </Grid>
-    <controls:ParallaxScrollView x:Name="MainScroll" Grid.RowSpan="2">
-      <Grid RowSpacing="0">
+			 xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
+             x:Class="Restaurant.Pages.FoodDetailPage" BackgroundColor="{StaticResource WindowBackground}">
+    <Grid>
         <Grid.RowDefinitions>
-          <RowDefinition Height="200" x:Name="Row1Content"/>
-          <RowDefinition Height="*"/>
+            <RowDefinition Height="200" x:Name="Row1Header"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="MainStack"
-              VerticalOptions="End"
-              HorizontalOptions="FillAndExpand">
-          <Image Source="profile_pic_shadow.png"
-                 Aspect="AspectFill"
-                 HorizontalOptions="FillAndExpand"
-                 VerticalOptions="FillAndExpand"/>
-          <StackLayout
-              Spacing="0"
-              VerticalOptions="End"
-              HorizontalOptions="FillAndExpand">
-            <Label
-                Text="{Binding SelectedFood.Name}"
-                FontSize="18"
-                TextColor="White">
-              <Label.FontFamily>
-                <OnPlatform x:TypeArguments="x:String" Android="sans-serif-light" iOS="HelveticaNeue-Light"/>
-              </Label.FontFamily>
-            </Label>
-            <Label
-                x:Name="SpeakerTitle"
-                Text="{Binding SelectedFood.Description}"
-                FontSize="12"
-                TextColor="White"/>
-          </StackLayout>
+        <Grid RowSpacing="0" ColumnSpacing="0" x:Name="HeaderView">
+            <Image HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand"
+                   Source="{Binding SelectedFood.Picture}"
+                   Aspect="AspectFill"/>
         </Grid>
-        <StackLayout Grid.Row="1" Spacing="0">
-          <StackLayout Padding="20">
-            <Label FontSize="20" Text="Excepteur aliquip ut et nisi magna sunt sint do cillum excepteur sint sint. Officia ea magna laboris cupidatat nisi commodo labore magna ut magna quis id ipsum magna. Adipisicing do labore laboris ut do nisi duis consectetur."></Label>
-            <Label FontSize="20" Text="Excepteur aliquip ut et nisi magna sunt sint do cillum excepteur sint sint. Officia ea magna laboris cupidatat nisi commodo labore magna ut magna quis id ipsum magna. Adipisicing do labore laboris ut do nisi duis consectetur."></Label>
-            <Label FontSize="20" Text="Excepteur aliquip ut et nisi magna sunt sint do cillum excepteur sint sint. Officia ea magna laboris cupidatat nisi commodo labore magna ut magna quis id ipsum magna. Adipisicing do labore laboris ut do nisi duis consectetur."></Label>
-            <Label FontSize="20" Text="Excepteur aliquip ut et nisi magna sunt sint do cillum excepteur sint sint. Officia ea magna laboris cupidatat nisi commodo labore magna ut magna quis id ipsum magna. Adipisicing do labore laboris ut do nisi duis consectetur."></Label>
-            <Label FontSize="20" Text="Excepteur aliquip ut et nisi magna sunt sint do cillum excepteur sint sint. Officia ea magna laboris cupidatat nisi commodo labore magna ut magna quis id ipsum magna. Adipisicing do labore laboris ut do nisi duis consectetur."></Label>
-            <Label FontSize="20" Text="Excepteur aliquip ut et nisi magna sunt sint do cillum excepteur sint sint. Officia ea magna laboris cupidatat nisi commodo labore magna ut magna quis id ipsum magna. Adipisicing do labore laboris ut do nisi duis consectetur."></Label>
-            <Label FontSize="20" Text="Excepteur aliquip ut et nisi magna sunt sint do cillum excepteur sint sint. Officia ea magna laboris cupidatat nisi commodo labore magna ut magna quis id ipsum magna. Adipisicing do labore laboris ut do nisi duis consectetur."></Label>
-          </StackLayout>
-        </StackLayout>
-      </Grid>
-    </controls:ParallaxScrollView>
-  </Grid>
+        <controls:ParallaxScrollView x:Name="MainScroll" Grid.RowSpan="2">
+            <AbsoluteLayout>
+                <Grid RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="200" x:Name="Row1Content"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid x:Name="MainStack"
+                          VerticalOptions="End"
+                          HorizontalOptions="FillAndExpand">
+                        
+                        <Image Source="profile_pic_shadow.png"
+                               Aspect="AspectFill"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand"/>
+                        
+                        <StackLayout Padding="10"
+                                     Spacing="0"
+                                     VerticalOptions="End"
+                                     HorizontalOptions="FillAndExpand">
+                            
+                            <Label Text="{Binding SelectedFood.Name}"
+                                   FontSize="18"
+                                   TextColor="White">
+                                <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String" Android="sans-serif-light" iOS="HelveticaNeue-Light"/>
+                                </Label.FontFamily>
+                            </Label>
+                            <Label x:Name="SpeakerTitle"
+                                   Text="{Binding SelectedFood.Description}"
+                                   FontSize="12"
+                                   TextColor="White"/>
+                        </StackLayout>
+                    </Grid>
+                    <StackLayout Grid.Row="1" Spacing="0" Padding="10" BackgroundColor="{StaticResource WindowBackground}">
+                        
+                        <controls:CardView Padding="20">
+                            <Label FontSize="20" Text="Excepteur aliquip ut et nisi magna sunt sint do cillum excepteur sint sint. Officia ea magna laboris cupidatat nisi commodo labore magna ut magna quis id ipsum magna. Adipisicing do labore laboris ut do nisi duis consectetur."></Label>
+                        </controls:CardView>
+                    </StackLayout>
+                </Grid>
+
+            </AbsoluteLayout>
+        </controls:ParallaxScrollView>
+    </Grid>
 </pages:FoodDetailPageXaml>

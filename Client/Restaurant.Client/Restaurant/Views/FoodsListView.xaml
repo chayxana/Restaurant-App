@@ -18,8 +18,8 @@
                                  Padding="{DynamicResource CardPadding}">
                         <controls:CardView>
                             <AbsoluteLayout>
-                                <StackLayout Padding="0,0,.5,.5"  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                                    <StackLayout StyleId="leagueRow" Orientation="Vertical" Padding="10" Spacing="0" VerticalOptions="FillAndExpand">
+                                <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                                    <StackLayout StyleId="leagueRow" Orientation="Vertical" Spacing="0" VerticalOptions="FillAndExpand">
                                         <AbsoluteLayout HeightRequest="150">
                                             <Image x:Name="photoImage" Source="{Binding Picture}" Aspect="AspectFill"	AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
                                         </AbsoluteLayout>
@@ -28,11 +28,54 @@
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
-                                            <StackLayout Padding="16,15" Spacing="4" Grid.Column="0"
-                                                         IsVisible="{Binding IsOrdered, Converter={x:Static converters:InverseBoolConverter.Instance}}">
-                                                <Label Text="{Binding Name}" FontSize="Large" TextColor="Black" VerticalOptions="CenterAndExpand" />
-                                                <Label Text="{Binding Description}" VerticalOptions="CenterAndExpand" TextColor="Black"/>
-                                                <Label Text="{Binding Price, StringFormat='\{0\} Somoni'}" FontSize="Large" TextColor="{StaticResource grayPrimary}" VerticalOptions="CenterAndExpand"/>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <StackLayout Grid.Row="1" Grid.Column="0">
+
+                                                <StackLayout Padding="10, 0">
+                                                    <Label Text="{Binding Name}" FontSize="Large" TextColor="Black" VerticalOptions="CenterAndExpand" />
+                                                    <Label Text="{Binding Description}" VerticalOptions="CenterAndExpand" TextColor="Black"/>
+                                                    <Label Text="{Binding Price, StringFormat='\{0\} Somoni'}" FontSize="Large" TextColor="{StaticResource grayPrimary}" VerticalOptions="CenterAndExpand"/>
+                                                </StackLayout>
+
+                                                <controls:HeaderDivider/>
+
+                                                <AbsoluteLayout Padding="10">
+                                                    <StackLayout Padding="5" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                                                        <Label Text="View details" HorizontalOptions="Start" TextColor="{StaticResource bluePrimary}">
+                                                            <Label.GestureRecognizers>
+                                                                <TapGestureRecognizer></TapGestureRecognizer>
+                                                            </Label.GestureRecognizers>
+                                                        </Label>
+                                                    </StackLayout>
+                                                   
+
+                                                    <StackLayout AbsoluteLayout.LayoutFlags="All" Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,0,1,1">
+
+                                                        <StackLayout Padding="5" HorizontalOptions="EndAndExpand"
+                                                                     VerticalOptions="Center">
+                                                            <controls:AnimatedImage Aspect="AspectFit" 
+                                                                                    Source="shopping_basket.png">
+                                                                <controls:AnimatedImage.GestureRecognizers>
+                                                                    <TapGestureRecognizer />
+                                                                </controls:AnimatedImage.GestureRecognizers>
+                                                            </controls:AnimatedImage>
+                                                        </StackLayout>
+
+                                                        <StackLayout Padding="5" HorizontalOptions="End"
+                                                                     VerticalOptions="Center">
+                                                            <controls:AnimatedImage Aspect="AspectFit"
+                                                                                    Source="heart_empty.png">
+                                                                <controls:AnimatedImage.GestureRecognizers>
+                                                                    <TapGestureRecognizer />
+                                                                </controls:AnimatedImage.GestureRecognizers>
+                                                            </controls:AnimatedImage>
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                </AbsoluteLayout>
                                             </StackLayout>
                                         </Grid>
                                     </StackLayout>

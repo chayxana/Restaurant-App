@@ -121,26 +121,32 @@ namespace Restaurant
             {
                 new FoodDto
                 {
-                    Picture =  "http://xcook.info/sites/default/files/styles/large/public/borshh-bez-mjasa.jpg?itok=g4K2JTOD",
-                    Name = "Borsh",
-                    Description = "Borsh description",
+                    Picture =  "https://images.pexels.com/photos/115095/pexels-photo-115095.jpeg?w=320&h=200&auto=compress&cs=tinysrgb",
+                    Name = "Bread Dish",
+                    Description = "Bread Dish With Potato Fries and Vegetable Dish",
                     Price = 3.5m
                 },
                 new FoodDto
                 {
-                    Picture = "https://sxodim.com/uploads/almaty/2016/06/200715021547_mzvadi__shashlik-745x493.jpg",
-                    Name = "Gusht",
-                    Description = "Shashlik kusochka",
+                    Picture = "https://images.pexels.com/photos/254884/pexels-photo-254884.jpeg?w=320&h=200&auto=compress&cs=tinysrgb",
+                    Name = "Directly",
+                    Description = "Above Shot of Food Served on Table",
                     Price = 10
                 },
                 new FoodDto
                 {
-                    Picture = "http://realkebab.ru/wp-content/uploads/2013/09/kebab1.png",
-                    Name = "Qima",
-                    Description = "Shashlik qima",
+                    Picture = "https://images.pexels.com/photos/132716/pexels-photo-132716.jpeg?w=320&h=200&auto=compress&cs=tinysrgb",
+                    Name = "Frying Pan",
+                    Description = "Vegetable Food Cooked on Frying Pan",
                     Price = 9
                 },
-                new FoodDto(),
+                new FoodDto()
+                {
+                    Picture = "https://static.pexels.com/photos/76093/pexels-photo-76093.jpegw=320&h=200&auto=compress&cs=tinysrgb",
+                    Name = "Some food",
+                    Price = 20,
+                    Description = "Some food description"
+                },
                 new FoodDto(),
                 new FoodDto(),
                 new FoodDto(),

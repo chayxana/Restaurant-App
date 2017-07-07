@@ -21,14 +21,12 @@ namespace Restaurant.Pages
             Title = "Foods";
 
             Observable.FromEventPattern<SelectedItemChangedEventArgs>(FoodsList, "ItemSelected")
-
                 .Select(x => x.Sender)
                 .Cast<ListView>()
                 .Subscribe(l =>
                 {
                     l.SelectedItem = null;
                 });
-                //.Do(x => x.SelectedItem = null);
         }
 
         protected override async void OnLoaded()

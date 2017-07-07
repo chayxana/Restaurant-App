@@ -36,14 +36,16 @@
                                             <StackLayout Grid.Row="1" Grid.Column="0">
 
                                                 <StackLayout Padding="10, 0">
-                                                    <Label Text="{Binding Name}" FontSize="Large" TextColor="Black" VerticalOptions="CenterAndExpand" />
-                                                    <Label Text="{Binding Description}" VerticalOptions="CenterAndExpand" TextColor="Black"/>
-                                                    <Label Text="{Binding Price, StringFormat='\{0\} Somoni'}" FontSize="Large" TextColor="{StaticResource grayPrimary}" VerticalOptions="CenterAndExpand"/>
+                                                    <StackLayout Orientation="Horizontal">
+                                                        <Label Text="{Binding Name}" FontSize="16" TextColor="{StaticResource grayDark}" VerticalOptions="CenterAndExpand" />
+                                                        <Label Text="{Binding Price, StringFormat='\{0\} $'}" FontSize="16" TextColor="{StaticResource  bluePrimary}" VerticalOptions="CenterAndExpand"/>
+                                                    </StackLayout>
+                                                    <Label Text="{Binding Description}" VerticalOptions="CenterAndExpand" TextColor="{StaticResource grayPrimary}"/>
                                                 </StackLayout>
 
-                                                <controls:HeaderDivider/>
+                                                <controls:HeaderDivider Padding="5"/>
 
-                                                <AbsoluteLayout Padding="10">
+                                                <AbsoluteLayout Padding="5">
                                                     <StackLayout Padding="5" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                                                         <Label Text="View details" HorizontalOptions="Start" TextColor="{StaticResource bluePrimary}">
                                                             <Label.GestureRecognizers>

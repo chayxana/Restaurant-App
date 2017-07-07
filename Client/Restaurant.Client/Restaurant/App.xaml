@@ -6,7 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
 
-            <OnPlatform x:TypeArguments="Thickness" Android="8,16" iOS="0,0,0,16" WinPhone="0,0,0,16" x:Key="CardPadding"/>
+            <OnPlatform x:TypeArguments="Thickness" Android="12,10" iOS="0,0,0,16" WinPhone="0,0,0,16" x:Key="CardPadding"/>
             <OnPlatform x:TypeArguments="x:Double" Android="16" iOS="0" WinPhone="0" x:Key="CardSpacing"/>
 
             <OnPlatform x:TypeArguments="Color" Android="#F5F5F5" iOS="#EFEFF4" WinPhone="#EFEFF4" x:Key="WindowBackgroundTable"/>

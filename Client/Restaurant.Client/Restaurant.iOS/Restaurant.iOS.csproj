@@ -136,6 +136,9 @@
     <BundleResource Include="Resources\rassolnik.jpg" />
     <BundleResource Include="Resources\shashlik.jpg" />
     <BundleResource Include="Resources\yogurt.jpg" />
+    <BundleResource Include="Resources\add_basket.png" />
+    <BundleResource Include="Resources\like.png" />
+    <BundleResource Include="Resources\like_fill.png" />
     <None Include="app.config" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="Info.plist" />

@@ -327,6 +327,24 @@
     <AndroidResource Include="Resources\drawable-mdpi\shopping_basket.png" />
     <AndroidResource Include="Resources\drawable-hdpi\shopping_basket.png" />
     <AndroidResource Include="Resources\drawable-ldpi\shopping_basket.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\add_basket.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\like.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\like_fill.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\add_basket.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\like.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\like_fill.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\like.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\like_fill.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\add_basket.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\add_basket.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\like.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\like_fill.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\add_basket.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\like.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\like_fill.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\like.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\like_fill.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\add_basket.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Restaurant\Restaurant.csproj">

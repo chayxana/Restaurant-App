@@ -33,8 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CategoryDto.cs" />
     <Compile Include="FoodDto.cs" />
     <Compile Include="LoginDto.cs" />
+    <Compile Include="NotificationDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterDto.cs" />
     <Compile Include="UserInfoDto.cs" />

@@ -43,7 +43,7 @@
                                                     <Label Text="{Binding Description}" VerticalOptions="CenterAndExpand" TextColor="{StaticResource grayPrimary}"/>
                                                 </StackLayout>
 
-                                                <controls:HeaderDivider Padding="5"/>
+                                                <controls:HeaderDivider /> 
 
                                                 <AbsoluteLayout Padding="5">
                                                     <StackLayout Padding="5" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
@@ -60,7 +60,7 @@
                                                         <StackLayout Padding="5" HorizontalOptions="EndAndExpand"
                                                                      VerticalOptions="Center">
                                                             <controls:AnimatedImage Aspect="AspectFit" 
-                                                                                    Source="shopping_basket.png">
+                                                                                    Source="add_basket.png">
                                                                 <controls:AnimatedImage.GestureRecognizers>
                                                                     <TapGestureRecognizer />
                                                                 </controls:AnimatedImage.GestureRecognizers>
@@ -70,7 +70,7 @@
                                                         <StackLayout Padding="5" HorizontalOptions="End"
                                                                      VerticalOptions="Center">
                                                             <controls:AnimatedImage Aspect="AspectFit"
-                                                                                    Source="heart_empty.png">
+                                                                                    Source="like.png">
                                                                 <controls:AnimatedImage.GestureRecognizers>
                                                                     <TapGestureRecognizer />
                                                                 </controls:AnimatedImage.GestureRecognizers>
@@ -78,6 +78,9 @@
                                                         </StackLayout>
                                                     </StackLayout>
                                                 </AbsoluteLayout>
+
+                                                <controls:FooterDivider />
+
                                             </StackLayout>
                                         </Grid>
                                     </StackLayout>

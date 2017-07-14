@@ -16,6 +16,8 @@
             <Color x:Key="asphaltPrimary">#365271</Color>
             <Color x:Key="asphaltLight">#889DB5</Color>
             <Color x:Key="asphaltDark">#1C2B39</Color>
+            
+            <Color x:Key="icon">#848687</Color>
 
             <Color x:Key="indigoPrimary">#3F51B5</Color>
             <Color x:Key="indigoDark">#303F9F</Color>

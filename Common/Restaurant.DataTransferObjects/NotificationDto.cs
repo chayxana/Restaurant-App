@@ -16,6 +16,5 @@ namespace Restaurant.DataTransferObjects
 
         public string TotalAmount { get; set; }
 
-
     }
 }

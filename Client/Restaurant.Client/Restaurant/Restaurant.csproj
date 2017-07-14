@@ -52,6 +52,9 @@
     <Compile Include="Controls\AnimatedImage.cs" />
     <Compile Include="Controls\FlatButton.cs" />
     <Compile Include="Controls\CustomViewCell.cs" />
+    <Compile Include="Controls\FooterDivider.xaml.cs">
+      <DependentUpon>FooterDivider.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\HeaderDivider.xaml.cs">
       <DependentUpon>HeaderDivider.xaml</DependentUpon>
     </Compile>
@@ -292,6 +295,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\HeaderDivider.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\FooterDivider.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

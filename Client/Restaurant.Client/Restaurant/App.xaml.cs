@@ -1,5 +1,4 @@
-﻿using Akavache;
-using Autofac;
+﻿using Autofac;
 using ReactiveUI;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Mappers;
@@ -16,19 +15,13 @@ namespace Restaurant
     {
         public static IContainer Container { get; private set; }
 
-        public App()
+        public App(BootstrapperBase bootstrapper)
         {
             InitializeComponent();
             AnimationSpeed = 200;
-
-
-            var bootstrapper = new Bootstrapper();
+            
             Container = bootstrapper.Build();
             AutoMapperConfiguration.Configure();
-            BlobCache.ApplicationName = "Restaurant";
-            var welcomePage = Container.Resolve<IViewFor<WelcomeViewModel>>();
-            welcomePage.ViewModel = Container.Resolve<IWelcomeViewModel>() as WelcomeViewModel;
-
 
             MainPage = new MainPage();
         }

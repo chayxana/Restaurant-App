@@ -45,6 +45,7 @@
     <Compile Include="Abstractions\Repositories\IUserRepository.cs" />
     <Compile Include="Abstractions\Services\IDialogService.cs" />
     <Compile Include="Abstractions\Services\INavigationService.cs" />
+    <Compile Include="Abstractions\Providers\ITokenProvider.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -61,7 +62,6 @@
     <Compile Include="Controls\ParallaxScrollView.cs" />
     <Compile Include="Facades\AutoMapperFacade.cs" />
     <Compile Include="Facades\NavigationFacade.cs" />
-    <Compile Include="Managers\AuthentiticationManager.cs" />
     <Compile Include="Mappers\AutoMapperConfiguration.cs" />
     <Compile Include="Mappers\ViewModelToDataTransferObjectsProfile.cs" />
     <Compile Include="Pages\BaseContentPage.cs" />
@@ -76,13 +76,11 @@
     <Compile Include="Themes\MaterialTheme.cs" />
     <Compile Include="Controls\AnimateButton.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />
-    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="BootstrapperBase.cs" />
     <Compile Include="Managers\ThemeManager.cs" />
     <Compile Include="Models\ClientUser.cs" />
-    <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\RestaurantApi.cs" />
-    <Compile Include="Models\RestaurantResponses.cs" />
     <Compile Include="Pages\BasketPage.xaml.cs">
       <DependentUpon>BasketPage.xaml</DependentUpon>
     </Compile>
@@ -202,12 +200,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Akavache, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\akavache.core.5.0.0\lib\Portable-Net45+Win8+WP8+Wpa81\Akavache.dll</HintPath>
-    </Reference>
-    <Reference Include="Akavache.Sqlite3, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\akavache.sqlite3.5.0.0\lib\Portable-Net45+Win8+WP8+Wpa81\Akavache.Sqlite3.dll</HintPath>
-    </Reference>
     <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
     </Reference>
@@ -229,26 +221,14 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.2\lib\portable-net45+win8+wpa81+wp8\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Punchclock, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Punchclock.1.1.1\lib\Portable-net45+win+wpa81+wp80\Punchclock.dll</HintPath>
-    </Reference>
-    <Reference Include="ReactiveUI, Version=7.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\reactiveui-core.7.3.0\lib\portable-net45+netcore45+wpa81+win8+wp8+UAP10+MonoAndroid403+MonoTouch10+Xamarin.iOS10\ReactiveUI.dll</HintPath>
+    <Reference Include="ReactiveUI, Version=7.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\reactiveui-core.7.4.0\lib\portable-net45+netcore45+wpa81+win8+wp8+UAP10+MonoAndroid403+MonoTouch10+Xamarin.iOS10\ReactiveUI.dll</HintPath>
     </Reference>
     <Reference Include="Refit, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\refit.2.4.1\lib\Portable-Net45+NetCore45+WP8+WPA81\Refit.dll</HintPath>
     </Reference>
     <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Splat.1.6.2\lib\Portable-net45+win+wpa81+wp80\Splat.dll</HintPath>
-    </Reference>
-    <Reference Include="SQLitePCLRaw.batteries_e_sqlite3, Version=1.0.0.0, Culture=neutral, PublicKeyToken=17faffbb2a73a73f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\SQLitePCLRaw.bundle_e_sqlite3.1.1.0\lib\portable-net45+netcore45+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SQLitePCLRaw.batteries_e_sqlite3.dll</HintPath>
-    </Reference>
-    <Reference Include="SQLitePCLRaw.batteries_v2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8226ea5df37bcae9, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\SQLitePCLRaw.bundle_e_sqlite3.1.1.0\lib\portable-net45+netcore45+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SQLitePCLRaw.batteries_v2.dll</HintPath>
-    </Reference>
-    <Reference Include="SQLitePCLRaw.core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1488e028ca7ab535, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\SQLitePCLRaw.core.1.1.0\lib\portable-net45+netcore45+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SQLitePCLRaw.core.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Primitives, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\System.ComponentModel.Primitives.4.3.0\lib\netstandard1.0\System.ComponentModel.Primitives.dll</HintPath>

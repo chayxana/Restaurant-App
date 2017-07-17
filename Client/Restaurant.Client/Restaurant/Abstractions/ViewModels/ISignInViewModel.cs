@@ -8,5 +8,4 @@ namespace Restaurant.Abstractions.ViewModels
         string Password { get; set; }
         ICommand Login { get; }
     }
-
 }

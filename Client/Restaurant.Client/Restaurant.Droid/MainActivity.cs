@@ -20,7 +20,7 @@ namespace Restaurant.Droid
             
             Forms.Init(this, bundle);
             ImageCircleRenderer.Init();
-            LoadApplication(new App());
+            LoadApplication(new App(new Bootstrapper()));
             XFGloss.Droid.Library.Init(this, bundle);
         }
         

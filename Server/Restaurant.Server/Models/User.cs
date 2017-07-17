@@ -8,5 +8,8 @@ namespace Restaurant.Server.Models
 {
     public class User : IdentityUser
     {
+        public virtual  ICollection<Order> Orders { get; set; }
+
+        public UserProfile UserProfile { get; set; }
     }
 }

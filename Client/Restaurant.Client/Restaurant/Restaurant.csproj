@@ -206,9 +206,6 @@
     <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\AutoMapper.4.2.1\lib\portable-net45+win+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="Fusillade, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\fusillade.0.7.0\lib\Portable-net45+win+wpa81+wp80\Fusillade.dll</HintPath>
-    </Reference>
     <Reference Include="ImageCircle.Forms.Plugin.Abstractions, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Xam.Plugins.Forms.ImageCircle.1.8.1\lib\portable-net45+wp80+win8+wpa81\ImageCircle.Forms.Plugin.Abstractions.dll</HintPath>
     </Reference>

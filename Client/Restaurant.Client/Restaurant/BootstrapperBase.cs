@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
-using Fusillade;
 using JetBrains.Annotations;
 using ReactiveUI;
 using Refit;

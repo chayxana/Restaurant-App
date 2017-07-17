@@ -9,37 +9,14 @@ using Restaurant.DataTransferObjects;
 
 namespace Restaurant.Model
 {
-    internal class AuthenticatedHttpClientHandler : HttpClientHandler
-    {
-        private readonly string _token;
-
-        public AuthenticatedHttpClientHandler(string token)
-        {
-            if (token == null) throw new ArgumentNullException("getToken");
-            this._token = token;
-        }
-
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            // See if the request has an authorize header
-            var auth = request.Headers.Authorization;
-            if (auth != null)
-            {
-                request.Headers.Authorization = new AuthenticationHeaderValue(auth.Scheme, _token);
-            }
-
-            return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
-        }
-    }
-
     public interface IRestaurantApi
     {
         [Post("/api/Account/Register")]
         Task<object> RegesterRaw([Body] RegisterDto registerDto);
 
-        [Post("/Token")]
-        [Headers("Content-Type: application/x-www-form-urlencoded")]
-        Task<AuthenticationResult> GetTokenRaw([Body] LoginDto loginDto);
+        //[Post("/Token")]
+        //[Headers("Content-Type: application/x-www-form-urlencoded")]
+        //Task<AuthenticationResult> GetTokenRaw([Body] LoginDto loginDto);
 
         [Get("/api/Values")]
         Task<object> GetValues([Header("Authorization: bearer")] string accessToken);

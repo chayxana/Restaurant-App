@@ -1,11 +1,11 @@
 ﻿using Autofac;
 using ReactiveUI;
 using Restaurant.ViewModels;
-using Splat;
 using Xamarin.Forms;
 
 namespace Restaurant.Pages
 {
+    // ReSharper disable once RedundantExtendsListEntry
     public partial class MainPage : MainPageXaml
     {
         public MainPage()
@@ -55,6 +55,5 @@ namespace Restaurant.Pages
         public Color StatusBarColor { get; set; }
 
         public Color NavigationBarColor { get; set; }
-
     }
 }

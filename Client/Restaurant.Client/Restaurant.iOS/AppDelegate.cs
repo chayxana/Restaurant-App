@@ -32,7 +32,7 @@ namespace Restaurant.iOS
 
             Forms.Init();
             ImageCircleRenderer.Init();
-            LoadApplication(new App());
+            LoadApplication(new App(new Bootstrapper()));
             return base.FinishedLaunching(app, options);
         }
 

@@ -2,7 +2,7 @@
 
 namespace Restaurant.Mappers
 {
-    public class AutoMapperConfiguration
+    public static class AutoMapperConfiguration
     {
         public static void Configure()
         {

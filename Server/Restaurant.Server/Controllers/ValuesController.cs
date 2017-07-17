@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Restaurant.Server.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Roles = "Admin, User", Policy = "")]
     public class ValuesController : Controller
     {
         // GET api/values

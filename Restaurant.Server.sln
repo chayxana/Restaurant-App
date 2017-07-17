@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26606.0
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Server", "Server\Restaurant.Server\Restaurant.Server.csproj", "{BC899196-C0E7-455C-88A2-9A80FB8CD6D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B1792D31-E4CE-45B9-8731-90A6E6FE7BF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Server.Tests", "Server\Tests\Restaurant.Server.Tests\Restaurant.Server.Tests.csproj", "{61519B60-051B-4F75-B869-A5B11C8CCBF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +19,15 @@ Global
 		{BC899196-C0E7-455C-88A2-9A80FB8CD6D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC899196-C0E7-455C-88A2-9A80FB8CD6D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC899196-C0E7-455C-88A2-9A80FB8CD6D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61519B60-051B-4F75-B869-A5B11C8CCBF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61519B60-051B-4F75-B869-A5B11C8CCBF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61519B60-051B-4F75-B869-A5B11C8CCBF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61519B60-051B-4F75-B869-A5B11C8CCBF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{61519B60-051B-4F75-B869-A5B11C8CCBF1} = {B1792D31-E4CE-45B9-8731-90A6E6FE7BF6}
 	EndGlobalSection
 EndGlobal

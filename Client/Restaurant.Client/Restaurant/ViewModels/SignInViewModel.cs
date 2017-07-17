@@ -53,7 +53,7 @@ namespace Restaurant.ViewModels
             Login = ReactiveCommand.CreateFromTask(async _ =>
             {
                 var result = await authenticationManager.Login(autoMapperFacade.Map<LoginDto>(this));
-                if (result.ok)
+                if (!result.IsError)
                 {
                    App.Current.MainPage = new MainPage();
                 }

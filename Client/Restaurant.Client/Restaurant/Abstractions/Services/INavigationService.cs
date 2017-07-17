@@ -15,5 +15,7 @@ namespace Restaurant.Abstractions.Services
         Task NavigateModalAsync(INavigatableViewModel viewModel);
 
         Task NavigateModalAsync(Type viewModelType);
+
+        IViewFor ResolveView(INavigatableViewModel vm);
     }
 }

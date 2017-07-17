@@ -30,31 +30,31 @@ namespace Restaurant.Services
 
         public Task NavigateAsync(INavigatableViewModel viewModel)
         {
-            CurrentPage = GetView(viewModel);
+            CurrentPage = ResolveView(viewModel);
             return _navigationFacade.PushAsync(CurrentPage);
         }
 
         public Task NavigateAsync(Type viewModelType)
         {
             var vm = _container.Resolve(viewModelType);
-            CurrentPage = GetView(vm as INavigatableViewModel);
+            CurrentPage = ResolveView(vm as INavigatableViewModel);
             return _navigationFacade.PushAsync(CurrentPage);
         }
 
         public Task NavigateModalAsync(INavigatableViewModel viewModel)
         {
-            CurrentPage = GetView(viewModel);
+            CurrentPage = ResolveView(viewModel);
             return _navigationFacade.PushModalAsync(CurrentPage);
         }
 
         public Task NavigateModalAsync(Type viewModelType)
         {
             var vm = _container.Resolve(viewModelType);
-            CurrentPage = GetView(vm as INavigatableViewModel);
+            CurrentPage = ResolveView(vm as INavigatableViewModel);
             return _navigationFacade.PushModalAsync(CurrentPage);
         }
 
-        IViewFor GetView(INavigatableViewModel vm)
+        public IViewFor ResolveView(INavigatableViewModel vm)
         {
             var viewType = typeof(IViewFor<>).MakeGenericType(vm.GetType());
             var view = _container.Resolve(viewType) as Page;

@@ -23,13 +23,7 @@ namespace Restaurant.Pages
         public Color NavigationBarColor { get; set; }
 
         public Color StatusBarColor { get; set; }
-        
-        public bool HasInitialized
-        {
-            get;
-            private set;
-        }
-        
+
         protected override void OnAppearing()
         {
             var nav = Parent as NavigationPage;
@@ -39,23 +33,17 @@ namespace Restaurant.Pages
                 nav.BarTextColor = ActionBarTextColor;
             }
 
-            if (!HasInitialized)
-            {
-                HasInitialized = true;
-                OnLoaded();
-            }
             base.OnAppearing();
+            OnLoaded();
         }
+
         protected virtual void Initialize()
         {
         }
 
         protected abstract void OnLoaded();
 
-        /// <summary>
-        /// Wraps the ContentPage within a NavigationPage
-        /// </summary>
-        /// <returns>The navigation page.</returns>
+
         public NavigationPage WithinNavigationPage()
         {
             var nav = new NavigationPage(this);

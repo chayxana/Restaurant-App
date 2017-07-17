@@ -36,10 +36,10 @@ namespace Restaurant.UnitTests.ViewModels
             _autoMapperFacade.Setup(x => x.Map<LoginDto>(It.IsAny<SignInViewModel>()))
                 .Returns(loginDto);
 
-            _authenticationManager.Setup(x => x.Login(It.IsAny<LoginDto>())).Returns(Task.FromResult(new AuthenticationResult
-            {
-                ok = true
-            }));
+            //_authenticationManager.Setup(x => x.Login(It.IsAny<LoginDto>())).Returns(Task.FromResult(new AuthenticationResult
+            //{
+            //    ok = true
+            //}));
 
             _signInViewModel.Login.Execute(null);
         }

@@ -74,7 +74,7 @@ namespace Restaurant.ViewModels
                         var loginResult = await authenticationManager.Login(
                             new LoginDto() { Login = this.Email, Password = this.Password });
 
-                        if (loginResult.ok)
+                        if (!loginResult.IsError)
                         {
                             await _navigationService.NavigateAsync(typeof(IMainViewModel));
                         }

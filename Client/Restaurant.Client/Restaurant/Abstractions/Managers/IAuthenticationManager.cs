@@ -10,7 +10,7 @@ namespace Restaurant.Abstractions.Managers
 {
     public interface IAuthenticationManager
     {
-        Task<AuthenticationResult> Login(LoginDto loginDto);
+        Task<TokenResponse> Login(LoginDto loginDto);
 
         Task<object> Register(RegisterDto registerDto);
 

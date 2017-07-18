@@ -123,6 +123,104 @@ namespace Restaurant.Server.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Restaurant.Server.Models.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("Restaurant.Server.Models.DailyLunch", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("AdditionalAmount");
+
+                    b.Property<decimal>("Amount");
+
+                    b.Property<DateTime>("DateTime");
+
+                    b.Property<string>("Decsription");
+
+                    b.Property<string>("QRCode");
+
+                    b.Property<string>("Reciept");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DailyLunch");
+                });
+
+            modelBuilder.Entity("Restaurant.Server.Models.Food", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("CategoryId");
+
+                    b.Property<string>("Currency");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<string>("Recept");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Food");
+                });
+
+            modelBuilder.Entity("Restaurant.Server.Models.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("DailyLunchId");
+
+                    b.Property<DateTime>("DateTime");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DailyLunchId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("Restaurant.Server.Models.OrderItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("FoodId");
+
+                    b.Property<Guid>("OderId");
+
+                    b.Property<decimal>("Quantity");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoodId");
+
+                    b.HasIndex("OderId");
+
+                    b.ToTable("OrderItem");
+                });
+
             modelBuilder.Entity("Restaurant.Server.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -173,6 +271,23 @@ namespace Restaurant.Server.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Restaurant.Server.Models.UserProfile", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Picture");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("UserProfile");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
@@ -208,6 +323,47 @@ namespace Restaurant.Server.Migrations
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Restaurant.Server.Models.Food", b =>
+                {
+                    b.HasOne("Restaurant.Server.Models.Category", "Category")
+                        .WithMany("Foods")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Restaurant.Server.Models.Order", b =>
+                {
+                    b.HasOne("Restaurant.Server.Models.DailyLunch", "DailyLunch")
+                        .WithMany("Orders")
+                        .HasForeignKey("DailyLunchId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Restaurant.Server.Models.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Restaurant.Server.Models.OrderItem", b =>
+                {
+                    b.HasOne("Restaurant.Server.Models.Food", "Food")
+                        .WithMany()
+                        .HasForeignKey("FoodId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Restaurant.Server.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Restaurant.Server.Models.UserProfile", b =>
+                {
+                    b.HasOne("Restaurant.Server.Models.User", "User")
+                        .WithOne("UserProfile")
+                        .HasForeignKey("Restaurant.Server.Models.UserProfile", "UserId");
                 });
         }
     }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Server.Models
 {
-    public class Food
+    public class Food : BaseEntity
     {
         public virtual Category Category { get; set; }
 

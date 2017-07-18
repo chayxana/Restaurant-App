@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Restaurant.Server.Abstractions;
 using Restaurant.Server.Abstractions.Facades;
 using Restaurant.Server.Models;
 
@@ -17,6 +13,7 @@ namespace Restaurant.Server.Facades
         {
             _userManager = userManager;
         }
+
         public Task<IdentityResult> Create(User user, string password)
         {
             return _userManager.CreateAsync(user, password);

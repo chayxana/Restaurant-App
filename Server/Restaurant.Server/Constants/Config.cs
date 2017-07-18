@@ -2,7 +2,6 @@
 using IdentityServer4;
 using IdentityServer4.Models;
 
-
 namespace Restaurant.Server.Constants
 {
     public static class Config
@@ -21,7 +20,10 @@ namespace Restaurant.Server.Constants
         {
             return new List<ApiResource>
             {
-                new ApiResource("api1", "My API")
+                new ApiResource("api1", "Restaurant Manager Api")
+                {
+                    UserClaims = { "role" }
+                }
             };
         }
 
@@ -41,7 +43,7 @@ namespace Restaurant.Server.Constants
                     {
                         new Secret("secret".Sha256())
                     },
-                    AllowedScopes = { "api1" }
+                    AllowedScopes = { "api1"}
                 },
 
                 // OpenID Connect hybrid flow and client credentials client (MVC)

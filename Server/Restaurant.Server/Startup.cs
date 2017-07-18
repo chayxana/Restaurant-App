@@ -6,6 +6,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,25 +33,19 @@ namespace Restaurant.Server
 
         public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, IdentityRole>(options =>
-                {
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = false;
-                })
-                .AddEntityFrameworkStores<DatabaseContext>()
-                .AddDefaultTokenProviders();
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            }).AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
 
-            services.AddScoped<IUserManagerFacade, UserManagerFacade>();
             services.AddMvc();
-            
+
             services.AddIdentityServer()
                 .AddTemporarySigningCredential()
                 .AddInMemoryPersistedGrants()
@@ -59,12 +54,11 @@ namespace Restaurant.Server
                 .AddInMemoryClients(Config.GetClients())
                 .AddAspNetIdentity<User>();
 
-            var builder = new ContainerBuilder();
-            builder.Populate(services);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -76,10 +70,49 @@ namespace Restaurant.Server
                {
                    Authority = "http://localhost:62798",
                    RequireHttpsMetadata = false,
-                   ApiName = "api1"
+                   ApiName = "api1",
+                   RoleClaimType = "role",
+                   NameClaimType = "name",
                });
 
             app.UseMvc();
+
+            await CreateRoles(app.ApplicationServices.GetService<IServiceProvider>());
+        }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+            string[] roleNames = { "Admin", "Member" };
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await roleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    await roleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+
+            var admin = new User
+            {
+                UserName = Configuration["AppSettings:AdminUserName"],
+                Email = Configuration["AppSettings:AdminEmail"],
+            };
+
+            //Ensure you have these values in your appsettings.json file
+            string password = Configuration["AppSettings:AdminPassword"];
+            var user = await userManager.FindByEmailAsync(Configuration["AppSettings:AdminEmail"]);
+
+            if (user == null)
+            {
+                var createPowerUser = await userManager.CreateAsync(admin, password);
+                if (createPowerUser.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(admin, "Admin");
+                }
+            }
         }
     }
 }

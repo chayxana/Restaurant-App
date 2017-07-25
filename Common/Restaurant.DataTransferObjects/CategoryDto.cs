@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Restaurant.DataTransferObjects
 {
@@ -12,6 +9,8 @@ namespace Restaurant.DataTransferObjects
 
         public string Name { get; set; }
 
-        public IEnumerable<FoodDto> Foods { get; set; }
+        public string ShortName { get; set; }
+
+        public string Color { get; set; }
     }
 }

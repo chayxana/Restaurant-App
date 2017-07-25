@@ -1,4 +1,6 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
 
 namespace Restaurant.Server.Models
 {
@@ -9,6 +11,7 @@ namespace Restaurant.Server.Models
             Id = Guid.NewGuid();
         }
 
+        [Key]
         public virtual Guid Id { get; set; }
     }
 }

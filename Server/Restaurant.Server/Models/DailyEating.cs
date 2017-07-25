@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Server.Models
 {
-    public class DailyLunch : BaseEntity
+    [Table("DailyEatings")]
+    public class DailyEating : BaseEntity
     {
         public DateTime DateTime { get; set; }
-
-        [NotMapped]
-        public virtual decimal TotalAmount => AdditionalAmount + Amount;
 
         public decimal AdditionalAmount { get; set; }
 
@@ -20,9 +18,10 @@ namespace Restaurant.Server.Models
         public string Decsription { get; set; }
 
         public string Reciept { get; set; }
-
-        public string QRCode { get; set; }
         
         public virtual ICollection<Order> Orders { get; set; }
+
+        [NotMapped]
+        public virtual decimal TotalAmount => AdditionalAmount + Amount;
     }
 }

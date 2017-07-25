@@ -9,7 +9,7 @@ namespace Restaurant.Server.Controllers
 {
     [Route("api/[controller]")]
     [Authorize(Roles = "Admin")]
-    public class ValuesController : Controller
+    public class ValuesController : Microsoft.AspNetCore.Mvc.Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;

@@ -9,14 +9,10 @@ namespace Restaurant.Server.Models
     {
         public DateTime DateTime { get; set; }
         
-        public Guid DailyLunchId { get; set; }
-
-        public virtual DailyLunch DailyLunch { get; set; }
-
+        public Guid EatingId { get; set; }
+        
         public string UserId { get; set; }
 
-        public virtual User User { get; set; }
-
-        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; }
     }
 }

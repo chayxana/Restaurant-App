@@ -13,9 +13,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Restaurant.Server.Abstractions.Facades;
+using Restaurant.Server.Abstractions.Repositories;
 using Restaurant.Server.Constants;
 using Restaurant.Server.Facades;
+using Restaurant.Server.Mappers;
 using Restaurant.Server.Models;
+using Restaurant.Server.Repositories;
 
 namespace Restaurant.Server
 {
@@ -43,6 +46,10 @@ namespace Restaurant.Server
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
             }).AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
+
+            services.AddScoped<IRepository<DailyEating>, DailyEatingRepository>();
+            services.AddScoped<IMapperFacade, MapperFacade>();
+            services.AddLogging();
 
             services.AddMvc();
 
@@ -76,7 +83,7 @@ namespace Restaurant.Server
                });
 
             app.UseMvc();
-
+            AutoMapperConfiguration.Configure();
             await CreateRoles(app.ApplicationServices.GetService<IServiceProvider>());
         }
 

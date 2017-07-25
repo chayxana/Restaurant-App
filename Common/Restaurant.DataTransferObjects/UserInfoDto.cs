@@ -1,4 +1,4 @@
-﻿namespace Restaurant.Model
+﻿namespace Restaurant.DataTransferObjects
 {
     public class UserInfoDto
     {

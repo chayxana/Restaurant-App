@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Restaurant.Server.Controllers
 {
+    [Route("api/[controller]")]
     public class ImageController : Controller
     {
     }

@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Restaurant.DataTransferObjects;
 using Restaurant.Server.Abstractions.Facades;
 using Restaurant.Server.Models;
 
 namespace Restaurant.Server.Controllers
 {
     [Route("api/[controller]")]
-    public class AccountController : Controller
+    public class AccountController : ControllerBase
     {
         private readonly IUserManagerFacade _userManagerFacade;
 
@@ -26,21 +27,5 @@ namespace Restaurant.Server.Controllers
 
             return result.Succeeded ? Ok() : Error(result);
         }
-
-        private IActionResult Error(IdentityResult result)
-        {
-            foreach (var identityError in result.Errors)
-            {
-                ModelState.AddModelError(identityError.Code, identityError.Description);
-            }
-            return BadRequest(ModelState);
-        }
-    }
-
-    public class UserDto
-    {
-        public string Email { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
     }
 }

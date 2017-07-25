@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Restaurant.Server.Migrations
 {
-    public partial class initDatabase : Migration
+    public partial class FirsMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -38,19 +38,21 @@ namespace Restaurant.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Color = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
+                    ShortName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "DailyLunch",
+                name: "DailyEatings",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -58,12 +60,11 @@ namespace Restaurant.Server.Migrations
                     Amount = table.Column<decimal>(nullable: false),
                     DateTime = table.Column<DateTime>(nullable: false),
                     Decsription = table.Column<string>(nullable: true),
-                    QRCode = table.Column<string>(nullable: true),
                     Reciept = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DailyLunch", x => x.Id);
+                    table.PrimaryKey("PK_DailyEatings", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,24 +114,24 @@ namespace Restaurant.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Food",
+                name: "Foods",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CategoryId = table.Column<Guid>(nullable: false),
                     Currency = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
                     Recept = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Food", x => x.Id);
+                    table.PrimaryKey("PK_Foods", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Food_Category_CategoryId",
+                        name: "FK_Foods_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Category",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -201,25 +202,25 @@ namespace Restaurant.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order",
+                name: "Orders",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    DailyLunchId = table.Column<Guid>(nullable: false),
                     DateTime = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<string>(nullable: true)
+                    EatingId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Order_DailyLunch_DailyLunchId",
-                        column: x => x.DailyLunchId,
-                        principalTable: "DailyLunch",
+                        name: "FK_Orders_DailyEatings_EatingId",
+                        column: x => x.EatingId,
+                        principalTable: "DailyEatings",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Order_AspNetUsers_UserId",
+                        name: "FK_Orders_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -242,31 +243,48 @@ namespace Restaurant.Server.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderItem",
+                name: "FavoriteFoods",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    FoodId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FavoriteFoods", x => new { x.FoodId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_FavoriteFoods_Foods_FoodId",
+                        column: x => x.FoodId,
+                        principalTable: "Foods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderItems",
+                columns: table => new
+                {
                     FoodId = table.Column<Guid>(nullable: false),
                     OderId = table.Column<Guid>(nullable: false),
                     Quantity = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderItem", x => x.Id);
+                    table.PrimaryKey("PK_OrderItems", x => new { x.FoodId, x.OderId });
                     table.ForeignKey(
-                        name: "FK_OrderItem_Food_FoodId",
+                        name: "FK_OrderItems_Foods_FoodId",
                         column: x => x.FoodId,
-                        principalTable: "Food",
+                        principalTable: "Foods",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderItem_Order_OderId",
+                        name: "FK_OrderItems_Orders_OderId",
                         column: x => x.OderId,
-                        principalTable: "Order",
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -298,28 +316,23 @@ namespace Restaurant.Server.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Food_CategoryId",
-                table: "Food",
+                name: "IX_Foods_CategoryId",
+                table: "Foods",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_DailyLunchId",
-                table: "Order",
-                column: "DailyLunchId");
+                name: "IX_Orders_EatingId",
+                table: "Orders",
+                column: "EatingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_UserId",
-                table: "Order",
+                name: "IX_Orders_UserId",
+                table: "Orders",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderItem_FoodId",
-                table: "OrderItem",
-                column: "FoodId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderItem_OderId",
-                table: "OrderItem",
+                name: "IX_OrderItems_OderId",
+                table: "OrderItems",
                 column: "OderId");
 
             migrationBuilder.CreateIndex(
@@ -358,7 +371,10 @@ namespace Restaurant.Server.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "OrderItem");
+                name: "FavoriteFoods");
+
+            migrationBuilder.DropTable(
+                name: "OrderItems");
 
             migrationBuilder.DropTable(
                 name: "UserProfile");
@@ -367,16 +383,16 @@ namespace Restaurant.Server.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Food");
+                name: "Foods");
 
             migrationBuilder.DropTable(
-                name: "Order");
+                name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "DailyLunch");
+                name: "DailyEatings");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

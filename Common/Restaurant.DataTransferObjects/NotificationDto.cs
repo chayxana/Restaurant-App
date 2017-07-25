@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Restaurant.DataTransferObjects
 {
@@ -15,6 +11,5 @@ namespace Restaurant.DataTransferObjects
         public string AdditionalPriceForEveryOne { get; set; }
 
         public string TotalAmount { get; set; }
-
     }
 }

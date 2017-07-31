@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Restaurant.Abstractions.Repositories;
+using Restaurant.DataTransferObjects;
 using Restaurant.Model;
 
 namespace Restaurant.Repositories

@@ -48,6 +48,7 @@ namespace Restaurant.Server
             }).AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
 
             services.AddScoped<IRepository<DailyEating>, DailyEatingRepository>();
+            services.AddScoped<IRepository<Food>, FoodRepository>();
             services.AddScoped<IMapperFacade, MapperFacade>();
             services.AddLogging();
 

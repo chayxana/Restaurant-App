@@ -53,6 +53,7 @@
     <Compile Include="Controls\AnimatedImage.cs" />
     <Compile Include="Controls\FlatButton.cs" />
     <Compile Include="Controls\CustomViewCell.cs" />
+    <Compile Include="Controls\FloatingActionButton.cs" />
     <Compile Include="Controls\FooterDivider.xaml.cs">
       <DependentUpon>FooterDivider.xaml</DependentUpon>
     </Compile>
@@ -259,12 +260,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\Restaurant.DataTransferObjects\Restaurant.DataTransferObjects.csproj">
-      <Project>{D0A345D9-B756-4978-BCDB-0648C883F8BD}</Project>
-      <Name>Restaurant.DataTransferObjects</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Pages\FoodDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
@@ -281,6 +276,12 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Restaurant.DataTransferObjects\Restaurant.DataTransferObjects.csproj">
+      <Project>{d0a345d9-b756-4978-bcdb-0648c883f8bd}</Project>
+      <Name>Restaurant.DataTransferObjects</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -24,27 +24,35 @@ namespace Restaurant.Server.Controllers
             _mapperFacade = mapperFacade;
             _repository = repository;
         }
-        
+
         [HttpGet]
         public IEnumerable<FoodDto> Get()
         {
             return _mapperFacade.Map<IEnumerable<FoodDto>>(_repository.GetAll());
         }
-        
+
         [HttpGet("{id}", Name = "Get")]
         public FoodDto Get(Guid id)
         {
             return _mapperFacade.Map<FoodDto>(_repository.Get(id));
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]FoodDto foodDto)
         {
             try
             {
+                var files = HttpContext.Request.Form.Files;
+                foreach (var Image in files)
+                {
+                    if (Image != null && Image.Length > 0)
+                    {
+                    }
+                }
+
                 var food = _mapperFacade.Map<Food>(foodDto);
                 _repository.Create(food);
-                return await _repository.Commit() ? Ok() : (IActionResult) BadRequest();
+                return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
 
             }
             catch (Exception)
@@ -52,7 +60,7 @@ namespace Restaurant.Server.Controllers
                 return BadRequest();
             }
         }
-        
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(Guid id, [FromBody]FoodDto foodDto)
         {
@@ -69,7 +77,7 @@ namespace Restaurant.Server.Controllers
                 return BadRequest();
             }
         }
-        
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {

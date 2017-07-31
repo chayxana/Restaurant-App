@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Restaurant.Server.Abstractions.Repositories;
@@ -36,7 +37,6 @@ namespace Restaurant.Server.Repositories
         {
             return _context.Foods
                  .Where(x => x.Id == id)
-                 .Include(x => x.Category)
                  .FirstOrDefault();
         }
 

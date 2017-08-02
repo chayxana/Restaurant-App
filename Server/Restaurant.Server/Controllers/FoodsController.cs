@@ -43,9 +43,9 @@ namespace Restaurant.Server.Controllers
             try
             {
                 var files = HttpContext.Request.Form.Files;
-                foreach (var Image in files)
+                foreach (var image in files)
                 {
-                    if (Image != null && Image.Length > 0)
+                    if (image != null && image.Length > 0)
                     {
                     }
                 }

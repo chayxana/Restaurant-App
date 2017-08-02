@@ -5,7 +5,6 @@ using ReactiveUI.Legacy;
 using Restaurant.DataTransferObjects;
 using Restaurant.ViewModels;
 using Splat;
-using ReactiveCommand = ReactiveUI.Legacy.ReactiveCommand;
 
 namespace Restaurant.Models
 {

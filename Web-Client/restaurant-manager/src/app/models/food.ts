@@ -1,7 +1,7 @@
 import { Category } from "./category";
-import { BaseModel } from "app/models/base.model";
+import { IBaseModel } from "app/models/base.model";
 
-export class Food implements BaseModel {
+export class Food implements IBaseModel {
     id: string;
     name: string;
     description: string;

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs/Observable';
+import { BaseModel } from "app/models/base.model";
 
-export abstract class BaseService<T> {
+export abstract class BaseService<T extends BaseModel>{
     protected headers: Headers;
     protected options: RequestOptions;
 
@@ -11,34 +12,40 @@ export abstract class BaseService<T> {
         this.options = new RequestOptions({ headers: this.headers });
     }
 
-    abstract baseUrl(): string;
+    abstract baseUrl(id?: string): string;
 
     getAll(): Observable<T[]> {
-        
-        return this.http.get(this.baseUrl())
+
+        return this.http.get(this.baseUrl(), this.options)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     get(id: string): Observable<T> {
-        return null;
+        return this.http.get(this.baseUrl(id), this.options)
+            .map(this.extractData)
+            .catch(this.handleError);
     }
 
-    update(model: T) {
-        return null;
+    update(model: T): Observable<boolean> {
+        return this.http.put(this.baseUrl(model.id), { model }, this.options)
+            .map(r => r.ok)
+            .catch(this.handleError);
     }
 
-    create(model: T) {
-        return null;
+    create(model: T): Observable<boolean> {
+        return this.http.post(this.baseUrl(), { model }, this.options)
+            .map(x => x.ok)
+            .catch(this.handleError);
     }
 
 
-    public extractData(res: Response) {
+    protected extractData(res: Response) {
         let body = res.json();
         return body || {};
     }
 
-    public handleError(error: Response | any) {
+    protected handleError(error: Response | any) {
         // In a real world app, you might use a remote logging infrastructure
         let errMsg: string;
         if (error instanceof Response) {

@@ -9,13 +9,13 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class FoodService extends BaseService<Food> {
-  
+
 
   constructor(http: Http) {
     super(http);
   }
 
-  baseUrl(): string {
-    return "http://localhost:4200/api/foods/";
+  baseUrl(id?: string): string {
+    return "http://localhost:4200/api/foods/" + id;
   }
 }

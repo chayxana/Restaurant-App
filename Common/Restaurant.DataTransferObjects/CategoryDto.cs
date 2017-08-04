@@ -9,8 +9,6 @@ namespace Restaurant.DataTransferObjects
 
         public string Name { get; set; }
 
-        public string ShortName { get; set; }
-
         public string Color { get; set; }
     }
 }

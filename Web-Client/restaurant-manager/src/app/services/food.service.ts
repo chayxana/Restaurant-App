@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Http } from '@angular/http';
 import { Food } from 'app/models/food'
 import { BaseService } from "app/services/base.service";
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { ApiUrl } from "app/shared/constants";
 
 @Injectable()
 export class FoodService extends BaseService<Food> {
@@ -16,6 +16,6 @@ export class FoodService extends BaseService<Food> {
   }
 
   baseUrl(id?: string): string {
-    return "http://localhost:4200/api/foods/" + id;
+    return ApiUrl + "/foods/" + id || "";
   }
 }

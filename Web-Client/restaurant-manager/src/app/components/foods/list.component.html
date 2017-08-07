@@ -1,62 +1,40 @@
-<table class="ui compact celled definition table">
-  <thead class="full-width">
-    <tr>
-      <th></th>
-      <th>Name</th>
-      <th>Registration Date</th>
-      <th>E-mail address</th>
-      <th>Premium Plan</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="collapsing">
-        <div class="ui fitted slider checkbox">
-          <input type="checkbox"> <label></label>
-        </div>
-      </td>
-      <td>John Lilki</td>
-      <td>September 14, 2013</td>
-      <td>jhlilk22@yahoo.com</td>
-      <td>No</td>
-    </tr>
-    <tr>
-      <td class="collapsing">
-        <div class="ui fitted slider checkbox">
-          <input type="checkbox"> <label></label>
-        </div>
-      </td>
-      <td>Jamie Harington</td>
-      <td>January 11, 2014</td>
-      <td>jamieharingonton@yahoo.com</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td class="collapsing">
-        <div class="ui fitted slider checkbox">
-          <input type="checkbox"> <label></label>
-        </div>
-      </td>
-      <td>Jill Lewis</td>
-      <td>May 11, 2014</td>
-      <td>jilsewris22@yahoo.com</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-  <tfoot class="full-width">
-    <tr>
-      <th></th>
-      <th colspan="4">
-        <a routerLink="/foods/create" class="ui right floated small primary labeled icon button">
+<div class="ui container basic segment" [ngClass]="{ loading : isLoading }">
+
+  <table class="ui red celled table">
+    <thead class="full-width">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Picture</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let food of foods">
+
+        <td>{{food.name}}</td>
+
+        <td>{{food.description}}</td>
+
+        <td>{{food.price}}</td>
+
+        <td>{{food.category?.name}}</td>
+
+        <td>
+          <img [src]="food.picture" class="ui mini rounded image">
+        </td>
+
+      </tr>
+    </tbody>
+    <tfoot class="full-width">
+      <tr>
+        <th colspan="5">
+          <a routerLink="/foods/create" class="ui right floated small primary labeled icon button">
             <i class="plus icon"></i> Create food
         </a>
-        <div class="ui small  button">
-          Approve
-        </div>
-        <div class="ui small  disabled button">
-          Approve All
-        </div>
-      </th>
-    </tr>
-  </tfoot>
-</table>
+        </th>
+      </tr>
+    </tfoot>
+  </table>
+</div>

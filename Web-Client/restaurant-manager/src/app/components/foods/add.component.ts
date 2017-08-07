@@ -56,7 +56,8 @@ export class AddFoodComponent implements OnInit {
     description: '',
     price: null,
     category: null,
-    categoryId: null
+    categoryId: null,
+    picture: null
   };
 
   imageUrl: any;

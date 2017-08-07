@@ -9,6 +9,8 @@ using Restaurant.Server.Api.Abstractions.Repositories;
 using Restaurant.Server.Api.Models;
 using Restaurant.Server.Api.Providers;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Restaurant.Server.Api.Controllers
 {
@@ -33,7 +35,9 @@ namespace Restaurant.Server.Api.Controllers
         [HttpGet]
         public IEnumerable<FoodDto> Get()
         {
-            return _mapperFacade.Map<IEnumerable<FoodDto>>(_repository.GetAll());
+			var entities = _repository.GetAll().Include(x => x.Category).ToList();
+
+			return _mapperFacade.Map<IEnumerable<FoodDto>>(entities);
         }
 
         [HttpGet("{id}", Name = "Get")]

@@ -3,7 +3,6 @@ import { Category } from "app/models/category";
 import { CategoryService } from "app/services/category.service";
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
-import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-categories',
@@ -34,8 +33,7 @@ export class AddCategoryComponent implements OnInit {
   }
   constructor(
     private categoryService: CategoryService,
-    private router: Router,
-    private toastrService: ToastrService) { }
+    private router: Router) { }
 
   ngOnInit() {
   }
@@ -50,7 +48,7 @@ export class AddCategoryComponent implements OnInit {
   }
 
   onSuccess() {
-    this.toastrService.success("Category created successefully!", "Done")
+    // this.toastrService.success("Category created successefully!", "Done")
     this.saving = false;
     this.category.name = '';
     this.category.color = '';

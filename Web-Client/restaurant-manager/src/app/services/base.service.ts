@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs/Observable';
 import { IBaseModel } from "app/models/base.model";
+import { IBaseService } from "app/services/interfaces/base.service";
 
-export abstract class BaseService<T extends IBaseModel>{
+export abstract class BaseService<T extends IBaseModel> implements IBaseService<T>{
     protected headers: Headers;
     protected options: RequestOptions;
 

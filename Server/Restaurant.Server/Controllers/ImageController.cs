@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Restaurant.Server.Controllers
+namespace Restaurant.Server.Api.Controllers
 {
     [Route("api/[controller]")]
     public class ImageController : Controller

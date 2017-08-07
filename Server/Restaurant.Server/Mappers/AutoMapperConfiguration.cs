@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Restaurant.Server.Mappers
+namespace Restaurant.Server.Api.Mappers
 {
     public static class AutoMapperConfiguration
     {

@@ -6,5 +6,6 @@ export class Food implements IBaseModel {
     name: string;
     description: string;
     price: number;
-    category: Category
+    category: Category;
+    categoryId: string;
 }

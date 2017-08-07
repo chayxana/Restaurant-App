@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Restaurant.Server.Controllers
+namespace Restaurant.Server.Api.Controllers
 {
     public abstract class ControllerBase : Controller
     {

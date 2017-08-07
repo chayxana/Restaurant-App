@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Restaurant.Server.Models
+namespace Restaurant.Server.Api.Models
 {
     public class DatabaseContext : IdentityDbContext<User>
     {

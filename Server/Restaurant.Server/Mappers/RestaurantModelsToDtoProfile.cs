@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Restaurant.DataTransferObjects;
-using Restaurant.Server.Models;
+using Restaurant.Server.Api.Models;
 
-namespace Restaurant.Server.Mappers
+namespace Restaurant.Server.Api.Mappers
 {
     public class RestaurantModelsToDtoProfile : Profile
     {
@@ -18,15 +16,29 @@ namespace Restaurant.Server.Mappers
 
             CreateMap<Food, FoodDto>()
                 .ForMember(x => x.CategoryDto, 
-                    map => map.MapFrom(x => Mapper.Map<FoodDto>(x.Category)));
+                    map => map.MapFrom(x => Mapper.Map<FoodDto>(x.Category)))
+				.ForMember(x => x.Id, 
+					map => map.MapFrom(x => x.Id.ToString("N")))
+				.ForMember(x => x.CategoryId, 
+					map => map.MapFrom(x => x.CategoryId.ToString("N")));
 
             CreateMap<FoodDto, Food>()
                 .ForMember(x => x.Category, 
-                    map => map.MapFrom(x => Mapper.Map<Category>(x.CategoryDto)));
+                    map => map.MapFrom(x => Mapper.Map<Category>(x.CategoryDto)))
+			    .ForMember(x => x.Id, 
+					map => map.MapFrom(x => string.IsNullOrEmpty(x.Id) ? Guid.NewGuid() : Guid.Parse(x.Id)))
+				.ForMember(x => x.CategoryId, 
+					map => map.MapFrom(x => string.IsNullOrEmpty(x.CategoryId) ? Guid.Empty : Guid.Parse(x.CategoryId)));
 
-            CreateMap<Category, CategoryDto>();
+			CreateMap<Category, CategoryDto>()
+				.ForMember(x => x.Id, 
+					map => map.MapFrom(x => x.Id.ToString("N")));
 
-            CreateMap<Order, OrderDto>()
+            CreateMap<CategoryDto, Category>()
+				.ForMember(x => x.Id,
+					map => map.MapFrom(x => string.IsNullOrEmpty(x.Id) ? Guid.NewGuid() : Guid.Parse(x.Id)));
+
+			CreateMap<Order, OrderDto>()
                 .ForMember(x => x.OrderItems,
                     map => map.MapFrom(x => Mapper.Map<IEnumerable<OrderItemDto>>(x.OrderItems)));
 

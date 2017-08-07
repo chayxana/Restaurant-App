@@ -1,24 +1,32 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace Restaurant.DataTransferObjects
 {
     public class FoodDto
     {
-        public FoodDto()
-        {
-            Id = Guid.NewGuid();
-        }
+		[JsonProperty("id")]
+        public string Id { get; set; }
 
-        public Guid Id { get; set; }
-
+		[JsonProperty("name")]
         public string Name { get; set; }
 
+		[JsonProperty("description")]
         public string Description { get; set; }
 
+		[JsonProperty("picture")]
         public string Picture { get; set; }
 
+		[JsonProperty("price")]
         public decimal Price { get; set; }
 
+		[JsonProperty("category")]
         public CategoryDto CategoryDto { get; set; }
+
+		[JsonProperty("categoryId")]
+		public string CategoryId { get; set; }
+
+		[JsonProperty("currency")]
+	    public string Currency { get; set; }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Restaurant.Server.Abstractions.Facades;
-using Restaurant.Server.Models;
+using Restaurant.Server.Api.Abstractions.Facades;
+using Restaurant.Server.Api.Models;
 
-namespace Restaurant.Server.Facades
+namespace Restaurant.Server.Api.Facades
 {
     public class UserManagerFacade : IUserManagerFacade
     {

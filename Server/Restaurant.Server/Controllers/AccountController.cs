@@ -1,12 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.DataTransferObjects;
-using Restaurant.Server.Abstractions.Facades;
-using Restaurant.Server.Models;
+using Restaurant.Server.Api.Abstractions.Facades;
+using Restaurant.Server.Api.Models;
 
-namespace Restaurant.Server.Controllers
+namespace Restaurant.Server.Api.Controllers
 {
     [Route("api/[controller]")]
     public class AccountController : ControllerBase

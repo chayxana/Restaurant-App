@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Restaurant.Server.Models
+namespace Restaurant.Server.Api.Models
 {
     public class Favorite
     {

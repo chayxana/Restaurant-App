@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26711.1
+VisualStudioVersion = 15.0.26730.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Server", "Server\Restaurant.Server\Restaurant.Server.csproj", "{BC899196-C0E7-455C-88A2-9A80FB8CD6D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Server.Api", "Server\Restaurant.Server\Restaurant.Server.Api.csproj", "{BC899196-C0E7-455C-88A2-9A80FB8CD6D8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B1792D31-E4CE-45B9-8731-90A6E6FE7BF6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{F8E0DECE-D2E6-4C7F-B1B5-43AAC7EDD9D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.DataTransferObjects", "Common\Restaurant.DataTransferObjects\Restaurant.DataTransferObjects.csproj", "{C938CE97-DD53-4F96-BE7A-B666A9286135}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.DataTransferObjects", "Common\Restaurant.DataTransferObjects\Restaurant.DataTransferObjects.csproj", "{C938CE97-DD53-4F96-BE7A-B666A9286135}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

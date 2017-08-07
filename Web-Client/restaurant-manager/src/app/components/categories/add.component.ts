@@ -1,50 +1,63 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from "app/models/category";
 import { CategoryService } from "app/services/category.service";
+import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
+import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-categories',
   template: `
     <div class="ui raised very padded text container segment">
-      <form class="ui form" #ngForm="ngForm" (ngSubmit)="onSubmit()">
-        <div class="field">
+      <form class="ui form" #categoryForm="ngForm" (ngSubmit)="onSubmit(categoryForm)">
+        <div class="field" [ngClass]="{error : name.invalid && (name.dirty || name.touched) }">
           <label>Name</label>
-          <input type="text" placeholder="Name" [(ngModel)]="category.name" name="name">
+          <input type="text" required placeholder="Name" [(ngModel)]="category.name" name="name" #name="ngModel">
         </div>
-        <div class="field">
+        <div class="field" [ngClass]="{error : color.invalid && (color.dirty || color.touched)}">
           <label>Color</label>
-          <input type="color" [(ngModel)]="category.color" name="color">
+          <input type="color" required [(ngModel)]="category.color" name="color" #color="ngModel">
         </div>
-        <button class="ui button blue" type="submit">Save</button>
-        <button class="ui button" type="submit">Cancel</button>
+        <button [disabled]="categoryForm.invalid" class="ui button blue" type="submit" [ngClass]="{ loading : saving }">Save</button>
+        <button class="ui button" type="button" (click)="onCancel()">Cancel</button>
       </form>
-
-      <div class="ui icon info message">
-        <i class="notched circle loading icon"></i>
-        <div class="content">
-          <div class="header">Just one second </div>
-          <p>We're fetching that content for you.</p>
-        </div>
-      </div>
     </div>`
-
 })
+
 export class AddCategoryComponent implements OnInit {
-  saving: boolean;
+  saving: boolean = false;
+
   category: Category = {
     id: '',
     color: '',
     name: ''
   }
-  constructor(private categoryService: CategoryService) { }
+  constructor(
+    private categoryService: CategoryService,
+    private router: Router,
+    private toastrService: ToastrService) { }
 
   ngOnInit() {
   }
 
-  onSubmit() {
+  onSubmit(form: NgForm) {
     this.saving = true;
+
     this.categoryService.create(this.category).subscribe(x => {
-      this.saving = false;
+      this.onSuccess();
+      form.reset();
     });
+  }
+
+  onSuccess() {
+    this.toastrService.success("Category created successefully!", "Done")
+    this.saving = false;
+    this.category.name = '';
+    this.category.color = '';
+  }
+
+
+  onCancel() {
+    this.router.navigate(['/foods'])
   }
 }

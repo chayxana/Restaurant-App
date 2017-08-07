@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Restaurant.Server.Models
+namespace Restaurant.Server.Api.Models
 {
     public class Food : BaseEntity
     {
@@ -17,6 +14,9 @@ namespace Restaurant.Server.Models
 
         [Required]
         public decimal Price { get; set; }
+
+		[Required]
+	    public string Picture { get; set; }
 
         public string Currency { get; set; }
         

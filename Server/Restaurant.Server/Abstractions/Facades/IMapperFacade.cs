@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using Restaurant.Server.Models;
-
-namespace Restaurant.Server.Abstractions.Facades
+﻿namespace Restaurant.Server.Api.Abstractions.Facades
 {
     public interface IMapperFacade
     {

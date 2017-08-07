@@ -1,35 +1,41 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.DataTransferObjects;
-using Restaurant.Server.Abstractions.Facades;
-using Restaurant.Server.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Restaurant.Server.Api.Abstractions.Facades;
+using Restaurant.Server.Api.Abstractions.Repositories;
+using Restaurant.Server.Api.Models;
 
-namespace Restaurant.Server.Controllers
+namespace Restaurant.Server.Api.Controllers
 {
-	[Route("api/[controller]")]
+	[Produces("application/json")]
+	[Route("/api/[controller]")]
 	[AllowAnonymous]
 	public class CategoriesController : Controller
     {
 		private readonly IMapperFacade mapperFacade;
-		private readonly DatabaseContext context;
+		private readonly IRepository<Category> repository;
 
 		public CategoriesController(
 			IMapperFacade mapperFacade, 
-			DatabaseContext context)
+			IRepository<Category> repository)
 		{
 			this.mapperFacade = mapperFacade;
-			this.context = context;
+			this.repository = repository;
 		}
+
+		[HttpGet]
+		public IEnumerable<CategoryDto> Get()
+		{
+			return mapperFacade.Map<IEnumerable<CategoryDto>>(repository.GetAll());
+		}
+
 		[HttpPost]
-		public void Post(CategoryDto category)
+		public void Post([FromBody]CategoryDto category)
 		{
 			var entity = mapperFacade.Map<Category>(category);
-			context.Add(entity);
-			context.SaveChanges();
+			repository.Create(entity);
+			repository.Commit().Wait();
 		}
     }
 }

@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Restaurant.Server.Models;
+using Restaurant.Server.Api.Models;
 
-namespace Restaurant.Server.Migrations
+namespace Restaurant.Server.Api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
     partial class DatabaseContextModelSnapshot : ModelSnapshot
@@ -123,7 +123,7 @@ namespace Restaurant.Server.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Restaurant.Server.Models.Category", b =>
+            modelBuilder.Entity("Restaurant.Server.Api.Models.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -133,14 +133,12 @@ namespace Restaurant.Server.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<string>("ShortName");
-
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Restaurant.Server.Models.DailyEating", b =>
+            modelBuilder.Entity("Restaurant.Server.Api.Models.DailyEating", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -160,7 +158,7 @@ namespace Restaurant.Server.Migrations
                     b.ToTable("DailyEatings");
                 });
 
-            modelBuilder.Entity("Restaurant.Server.Models.Favorite", b =>
+            modelBuilder.Entity("Restaurant.Server.Api.Models.Favorite", b =>
                 {
                     b.Property<Guid>("FoodId");
 
@@ -171,7 +169,7 @@ namespace Restaurant.Server.Migrations
                     b.ToTable("FavoriteFoods");
                 });
 
-            modelBuilder.Entity("Restaurant.Server.Models.Food", b =>
+            modelBuilder.Entity("Restaurant.Server.Api.Models.Food", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -185,6 +183,9 @@ namespace Restaurant.Server.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
+                    b.Property<string>("Picture")
+                        .IsRequired();
+
                     b.Property<decimal>("Price");
 
                     b.Property<string>("Recept");
@@ -196,7 +197,7 @@ namespace Restaurant.Server.Migrations
                     b.ToTable("Foods");
                 });
 
-            modelBuilder.Entity("Restaurant.Server.Models.Order", b =>
+            modelBuilder.Entity("Restaurant.Server.Api.Models.Order", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -217,7 +218,7 @@ namespace Restaurant.Server.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Restaurant.Server.Models.OrderItem", b =>
+            modelBuilder.Entity("Restaurant.Server.Api.Models.OrderItem", b =>
                 {
                     b.Property<Guid>("FoodId");
 
@@ -232,7 +233,7 @@ namespace Restaurant.Server.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("Restaurant.Server.Models.User", b =>
+            modelBuilder.Entity("Restaurant.Server.Api.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -282,7 +283,7 @@ namespace Restaurant.Server.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Restaurant.Server.Models.UserProfile", b =>
+            modelBuilder.Entity("Restaurant.Server.Api.Models.UserProfile", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -309,7 +310,7 @@ namespace Restaurant.Server.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Restaurant.Server.Models.User")
+                    b.HasOne("Restaurant.Server.Api.Models.User")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -317,7 +318,7 @@ namespace Restaurant.Server.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Restaurant.Server.Models.User")
+                    b.HasOne("Restaurant.Server.Api.Models.User")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -330,59 +331,59 @@ namespace Restaurant.Server.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Restaurant.Server.Models.User")
+                    b.HasOne("Restaurant.Server.Api.Models.User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Restaurant.Server.Models.Favorite", b =>
+            modelBuilder.Entity("Restaurant.Server.Api.Models.Favorite", b =>
                 {
-                    b.HasOne("Restaurant.Server.Models.Food")
+                    b.HasOne("Restaurant.Server.Api.Models.Food")
                         .WithMany()
                         .HasForeignKey("FoodId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Restaurant.Server.Models.Food", b =>
+            modelBuilder.Entity("Restaurant.Server.Api.Models.Food", b =>
                 {
-                    b.HasOne("Restaurant.Server.Models.Category", "Category")
+                    b.HasOne("Restaurant.Server.Api.Models.Category", "Category")
                         .WithMany("Foods")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Restaurant.Server.Models.Order", b =>
+            modelBuilder.Entity("Restaurant.Server.Api.Models.Order", b =>
                 {
-                    b.HasOne("Restaurant.Server.Models.DailyEating")
+                    b.HasOne("Restaurant.Server.Api.Models.DailyEating")
                         .WithMany("Orders")
                         .HasForeignKey("EatingId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Restaurant.Server.Models.User")
+                    b.HasOne("Restaurant.Server.Api.Models.User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Restaurant.Server.Models.OrderItem", b =>
+            modelBuilder.Entity("Restaurant.Server.Api.Models.OrderItem", b =>
                 {
-                    b.HasOne("Restaurant.Server.Models.Food")
+                    b.HasOne("Restaurant.Server.Api.Models.Food")
                         .WithMany()
                         .HasForeignKey("FoodId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Restaurant.Server.Models.Order")
+                    b.HasOne("Restaurant.Server.Api.Models.Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Restaurant.Server.Models.UserProfile", b =>
+            modelBuilder.Entity("Restaurant.Server.Api.Models.UserProfile", b =>
                 {
-                    b.HasOne("Restaurant.Server.Models.User", "User")
+                    b.HasOne("Restaurant.Server.Api.Models.User", "User")
                         .WithOne("UserProfile")
-                        .HasForeignKey("Restaurant.Server.Models.UserProfile", "UserId")
+                        .HasForeignKey("Restaurant.Server.Api.Models.UserProfile", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
         }

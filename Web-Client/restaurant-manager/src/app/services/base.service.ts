@@ -34,11 +34,10 @@ export abstract class BaseService<T extends IBaseModel>{
     }
 
     create(model: T): Observable<boolean> {
-        return this.http.post(this.baseUrl(), { model }, this.options)
+        return this.http.post(this.baseUrl(), model, this.options)
             .map(x => x.ok)
             .catch(this.handleError);
     }
-
 
     protected extractData(res: Response) {
         let body = res.json();

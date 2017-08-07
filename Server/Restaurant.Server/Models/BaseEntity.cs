@@ -1,8 +1,7 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 
-namespace Restaurant.Server.Models
+namespace Restaurant.Server.Api.Models
 {
     public abstract class BaseEntity
     {

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -12,15 +8,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Restaurant.Server.Abstractions.Facades;
-using Restaurant.Server.Abstractions.Repositories;
-using Restaurant.Server.Constants;
-using Restaurant.Server.Facades;
-using Restaurant.Server.Mappers;
-using Restaurant.Server.Models;
-using Restaurant.Server.Repositories;
+using Restaurant.Server.Api.Abstractions.Facades;
+using Restaurant.Server.Api.Abstractions.Repositories;
+using Restaurant.Server.Api.Constants;
+using Restaurant.Server.Api.Facades;
+using Restaurant.Server.Api.Mappers;
+using Restaurant.Server.Api.Models;
+using Restaurant.Server.Api.Providers;
+using Restaurant.Server.Api.Repositories;
 
-namespace Restaurant.Server
+namespace Restaurant.Server.Api
 {
     public class Startup
     {
@@ -49,10 +46,20 @@ namespace Restaurant.Server
 
             services.AddScoped<IRepository<DailyEating>, DailyEatingRepository>();
             services.AddScoped<IRepository<Food>, FoodRepository>();
-            services.AddScoped<IMapperFacade, MapperFacade>();
+            services.AddScoped<IRepository<Category>, CategoryRepository>();
+			services.AddScoped<IMapperFacade, MapperFacade>();
+	        services.AddSingleton<IFileUploadProvider, FileUploadProvider>();
             services.AddLogging();
 
-            services.AddMvc();
+
+			services.AddCors(o => o.AddPolicy("ServerPolicy", builder =>
+			{
+				builder.AllowAnyOrigin()
+					   .AllowAnyMethod()
+					   .AllowAnyHeader();
+			}));
+
+			services.AddMvc();
 
             services.AddIdentityServer()
                 .AddTemporarySigningCredential()
@@ -70,9 +77,9 @@ namespace Restaurant.Server
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+			app.UseCors("ServerPolicy");
 
-
-            app.UseIdentity()
+			app.UseIdentity()
                .UseIdentityServer()
                .UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
                {
@@ -83,7 +90,10 @@ namespace Restaurant.Server
                    NameClaimType = "name",
                });
 
-            app.UseMvc();
+			app.UseMvc();
+			app.UseStaticFiles();
+			
+
             AutoMapperConfiguration.Configure();
             await CreateRoles(app.ApplicationServices.GetService<IServiceProvider>());
         }

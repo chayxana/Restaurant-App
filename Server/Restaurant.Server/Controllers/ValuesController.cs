@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using Restaurant.Server.Models;
+using Restaurant.Server.Api.Models;
 
-namespace Restaurant.Server.Controllers
+namespace Restaurant.Server.Api.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(Roles = "Admin")]
+	[AllowAnonymous]
     public class ValuesController : Microsoft.AspNetCore.Mvc.Controller
     {
         private readonly UserManager<User> _userManager;
@@ -26,12 +26,13 @@ namespace Restaurant.Server.Controllers
         [Authorize(Roles = "Member")]
         public IEnumerable<string> Get()
         {
-            var user = _userManager.GetUserAsync(User).Result;
+            //var user = _userManager.GetUserAsync(User).Result;
 
-            var result =_userManager.IsInRoleAsync(user, "Admin").Result;
+            //var result =_userManager.IsInRoleAsync(user, "Admin").Result;
 
             return new string[] { "value1", "value2" };
         }
+		
 
         // GET api/values/5
         [HttpGet("{id}")]

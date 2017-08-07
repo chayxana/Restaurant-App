@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Restaurant.DataTransferObjects;
-using Restaurant.Server.Abstractions.Facades;
-using Restaurant.Server.Abstractions.Repositories;
-using Restaurant.Server.Constants;
-using Restaurant.Server.Models;
+using Restaurant.Server.Api.Abstractions.Facades;
+using Restaurant.Server.Api.Abstractions.Repositories;
+using Restaurant.Server.Api.Constants;
+using Restaurant.Server.Api.Models;
 
-namespace Restaurant.Server.Controllers
+namespace Restaurant.Server.Api.Controllers
 {
     [Produces("application/json")]
     [Route("/api/[controller]")]
@@ -24,18 +24,15 @@ namespace Restaurant.Server.Controllers
         private readonly IRepository<DailyEating> _repository;
         private readonly ILogger _logger;
         private readonly IMapperFacade _mapperFacade;
-        private readonly IHostingEnvironment _appEnvironment;
 
         public DailyEatingsController(
             IRepository<DailyEating> repository,
             ILogger<DailyEatingsController> logger,
-            IMapperFacade mapperFacade,
-            IHostingEnvironment appEnvironment)
+            IMapperFacade mapperFacade)
         {
             _repository = repository;
             _logger = logger;
             _mapperFacade = mapperFacade;
-            _appEnvironment = appEnvironment;
         }
 
         [HttpGet]
@@ -58,11 +55,7 @@ namespace Restaurant.Server.Controllers
             {
                 if (receipt != null)
                 {
-                    var filePath = Folders.UploadFilesPath + receipt.FileName;
-                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + filePath, FileMode.Create))
-                    {
-                        await receipt.CopyToAsync(fileStream);
-                    }
+                    
                     dailyEatingDto.Reciept = receipt.FileName;
                 }
 

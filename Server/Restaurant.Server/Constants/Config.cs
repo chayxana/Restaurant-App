@@ -2,7 +2,7 @@
 using IdentityServer4;
 using IdentityServer4.Models;
 
-namespace Restaurant.Server.Constants
+namespace Restaurant.Server.Api.Constants
 {
     public static class Config
     {

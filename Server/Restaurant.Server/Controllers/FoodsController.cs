@@ -1,14 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.DataTransferObjects;
-using Restaurant.Server.Abstractions.Facades;
-using Restaurant.Server.Abstractions.Repositories;
-using Restaurant.Server.Models;
-using Restaurant.Server.Repositories;
+using Restaurant.Server.Api.Abstractions.Facades;
+using Restaurant.Server.Api.Abstractions.Repositories;
+using Restaurant.Server.Api.Models;
+using Restaurant.Server.Api.Providers;
+using System.IO;
 
-namespace Restaurant.Server.Controllers
+namespace Restaurant.Server.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
@@ -16,13 +18,16 @@ namespace Restaurant.Server.Controllers
     {
         private readonly IMapperFacade _mapperFacade;
         private readonly IRepository<Food> _repository;
+	    private readonly IFileUploadProvider _fileUploadProvider;
 
-        public FoodsController(
+	    public FoodsController(
             IMapperFacade mapperFacade,
-            IRepository<Food> repository)
+            IRepository<Food> repository,
+			IFileUploadProvider fileUploadProvider)
         {
             _mapperFacade = mapperFacade;
             _repository = repository;
+	        _fileUploadProvider = fileUploadProvider;
         }
 
         [HttpGet]
@@ -37,29 +42,29 @@ namespace Restaurant.Server.Controllers
             return _mapperFacade.Map<FoodDto>(_repository.Get(id));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody]FoodDto foodDto)
-        {
-            try
-            {
-                var files = HttpContext.Request.Form.Files;
-                foreach (var image in files)
-                {
-                    if (image != null && image.Length > 0)
-                    {
-                    }
-                }
+		[HttpPost]
+		public async Task<IActionResult> Post([FromBody]FoodDto foodDto)
+		{
+			try
+			{
+				var food = _mapperFacade.Map<Food>(foodDto);
+				food.Picture = _fileUploadProvider.UploadedFileName;
+				_repository.Create(food);
+				return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
 
-                var food = _mapperFacade.Map<Food>(foodDto);
-                _repository.Create(food);
-                return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
+			}
+			catch (Exception ex)
+			{
+				return BadRequest();
+			}
+		}
 
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-        }
+		[HttpPost]
+		[Route("UploadFile")]
+	    public async Task Post(IFormFile file)
+	    {
+			await _fileUploadProvider.Upload(file);
+	    }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(Guid id, [FromBody]FoodDto foodDto)

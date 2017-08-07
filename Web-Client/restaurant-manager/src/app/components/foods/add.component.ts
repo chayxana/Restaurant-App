@@ -84,7 +84,8 @@ export class AddFoodComponent implements OnInit {
 
   onSubmit(form: NgForm, file: HTMLInputElement) {
     this.isLoading = true;
-    this.foodService.uploadImage(this.file).then(uploaded => {
+    this.food.id = Guid.NewGuid();
+    this.foodService.uploadImage(this.file, this.food.id).then(uploaded => {
       if (uploaded) {
         this.foodService.create(this.food).subscribe(x => {
           this.isLoading = false;

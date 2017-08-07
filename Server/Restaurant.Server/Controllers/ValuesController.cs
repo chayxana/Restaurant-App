@@ -9,7 +9,7 @@ namespace Restaurant.Server.Api.Controllers
 {
     [Route("api/[controller]")]
 	[AllowAnonymous]
-    public class ValuesController : Microsoft.AspNetCore.Mvc.Controller
+    public class ValuesController : Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using Restaurant.DataTransferObjects;
 using Restaurant.Server.Api.Models;
+using Restaurant.Server.Api.Constants;
 
 namespace Restaurant.Server.Api.Mappers
 {
@@ -16,11 +17,13 @@ namespace Restaurant.Server.Api.Mappers
 
             CreateMap<Food, FoodDto>()
                 .ForMember(x => x.CategoryDto, 
-                    map => map.MapFrom(x => Mapper.Map<FoodDto>(x.Category)))
+                    map => map.MapFrom(x => Mapper.Map<CategoryDto>(x.Category)))
 				.ForMember(x => x.Id, 
 					map => map.MapFrom(x => x.Id.ToString("N")))
 				.ForMember(x => x.CategoryId, 
-					map => map.MapFrom(x => x.CategoryId.ToString("N")));
+					map => map.MapFrom(x => x.CategoryId.ToString("N")))
+				.ForMember(x => x.Picture, 
+					map => map.MapFrom(x => Folders.UploadFilesPath + x.Picture));
 
             CreateMap<FoodDto, Food>()
                 .ForMember(x => x.Category, 

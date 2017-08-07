@@ -8,4 +8,5 @@ export class Food implements IBaseModel {
     price: number;
     category: Category;
     categoryId: string;
+    picture: string;
 }

@@ -30,7 +30,7 @@ export class FoodService extends BaseService<Food> {
     });
   }
 
-  uploadImage(picture: File) {
+  uploadImage(picture: File, foodId: string) {
     return new Promise((resolve, reject) => {
       let xhr: XMLHttpRequest = new XMLHttpRequest();
       xhr.onreadystatechange = () => {
@@ -47,6 +47,7 @@ export class FoodService extends BaseService<Food> {
 
       let formData = new FormData();
       formData.append("file", picture, picture.name);
+      formData.append("id", foodId);
       xhr.send(formData);
     });
   }

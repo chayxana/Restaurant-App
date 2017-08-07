@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Restaurant.Server.Models;
+using Restaurant.Server.Api.Models;
 
-namespace Restaurant.Server.Abstractions.Repositories
+namespace Restaurant.Server.Api.Abstractions.Repositories
 {
     public interface IRepository<T> 
         where T : BaseEntity

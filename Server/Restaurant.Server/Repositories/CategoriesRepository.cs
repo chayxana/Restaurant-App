@@ -4,9 +4,9 @@ using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Repositories
 {
-	public class OrderRepository : RepositoryBase<Order>, IRepository<Order>
+	public class CategoryRepository : RepositoryBase<Category>, IRepository<Category>
 	{
-		public OrderRepository(DatabaseContext context, ILogger<Order> logger) : base(context, logger)
+		public CategoryRepository(DatabaseContext context, ILogger<Category> logger) : base(context, logger)
 		{
 		}
 	}

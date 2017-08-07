@@ -1,46 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Restaurant.Server.Abstractions.Repositories;
-using Restaurant.Server.Models;
+﻿using Microsoft.Extensions.Logging;
+using Restaurant.Server.Api.Abstractions.Repositories;
+using Restaurant.Server.Api.Models;
 
-namespace Restaurant.Server.Repositories
+namespace Restaurant.Server.Api.Repositories
 {
-    public class DailyEatingRepository : RepositoryBase, IRepository<DailyEating>
+	public class DailyEatingRepository : RepositoryBase<DailyEating>, IRepository<DailyEating>
     {
-        private readonly DatabaseContext _context;
 
         public DailyEatingRepository(DatabaseContext context, ILogger<DailyEatingRepository> logger) 
             : base(context, logger)
         {
-            _context = context;
-        }
-
-        public void Create(DailyEating entity)
-        {
-            _context.Add(entity);
-        }
-
-        public void Update(DailyEating entity)
-        {
-            _context.Update(entity);
-        }
-
-        public void Delete(DailyEating entity)
-        {
-            _context.Remove(entity);
-        }
-
-        public DailyEating Get(Guid id)
-        {
-            return _context.Find<DailyEating>(id);
-        }
-
-        public IQueryable<DailyEating> GetAll()
-        {
-            return _context.DailyEatings;
-        }
+        }		
     }
 }

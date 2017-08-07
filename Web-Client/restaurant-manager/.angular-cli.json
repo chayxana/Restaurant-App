@@ -19,7 +19,8 @@
     "prefix": "app",
     "styles": [
       "styles.css",
-      "../semantic/dist/semantic.min.css"
+      "../semantic/dist/semantic.min.css",
+      "../node_modules/ngx-toastr/toastr.css"
     ],
     "scripts": [],
     "environmentSource": "environments/environment.ts",

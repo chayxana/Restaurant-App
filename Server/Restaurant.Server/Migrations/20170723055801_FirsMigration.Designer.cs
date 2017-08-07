@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Restaurant.Server.Models;
+using Restaurant.Server.Api.Models;
 
-namespace Restaurant.Server.Migrations
+namespace Restaurant.Server.Api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
     [Migration("20170723055801_FirsMigration")]

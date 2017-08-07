@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Restaurant.Server.Constants
+﻿namespace Restaurant.Server.Api.Constants
 {
     public class Folders
     {
-        public const string UploadFilesPath = "/Uploads/";
+        public const string UploadFilesPath = "/Images/";
     }
 }

@@ -15,8 +15,8 @@ export class CategoryService extends BaseService<Category> {
   baseUrl(id?: string): string {
     var entityId = '';
     if (id)
-      entityId = id;
+      entityId = "/" + id;
 
-    return ApiUrl + "/categories/" + entityId;
+    return ApiUrl + "categories" + entityId;
   }
 }

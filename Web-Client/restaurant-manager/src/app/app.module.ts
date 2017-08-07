@@ -11,7 +11,6 @@ import { routes } from "app/app.router";
 import { AddCategoryComponent } from "app/components/categories/add.component";
 import { CategoryService } from "app/services/category.service";
 import { FoodService } from "app/services/food.service";
-import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -30,8 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpModule,
     ReactiveFormsModule,
     CommonModule,
-    BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [FoodService, CategoryService],
   bootstrap: [AppComponent]

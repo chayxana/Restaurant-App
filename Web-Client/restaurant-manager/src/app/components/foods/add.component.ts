@@ -10,13 +10,6 @@ import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-add-food',
   template: `
-  <div class="ui raised very padded text container segment">
-    <div class="ui small message" *ngIf="isSuccess" [ngClass]="{ success : isSuccess }">
-        <div class="content">
-          <p>{{statusMessage}}</p>
-        </div>
-    </div>
-
     <form class="ui form" #foodForm="ngForm" (ngSubmit)="onSubmit(foodForm, file)">
       <div class="field" [ngClass]="{error : name.invalid && (name.dirty || name.touched) }">
         <label>Name</label>
@@ -44,10 +37,10 @@ import { NgForm } from '@angular/forms';
         <img [src]="imageUrl" width="300" *ngIf="imageUrl" height="300" />
       </div>
       <button class="ui button blue" [ngClass]="{ loading : isLoading }" [disabled]="foodForm.invalid" type="submit">Save</button>
-      <button class="ui button" type="submit">Cancel</button>
-    </form>
-  </div>`
+      <button class="ui button">Cancel</button>
+    </form>`
 })
+
 export class AddFoodComponent implements OnInit {
 
   food: Food = {

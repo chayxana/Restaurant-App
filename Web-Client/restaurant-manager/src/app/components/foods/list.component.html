@@ -3,15 +3,19 @@
   <table class="ui red celled table">
     <thead class="full-width">
       <tr>
+        <th>Picture</th>
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
         <th>Category</th>
-        <th>Picture</th>
+        <th>Edit/Delete</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let food of foods">
+        <td>
+          <img [src]="food.picture" class="ui mini rounded image">
+        </td>
 
         <td>{{food.name}}</td>
 
@@ -19,17 +23,14 @@
 
         <td>{{food.price}}</td>
 
-        <td>{{food.category?.name}}</td>
+        <td><b>{{food.category?.name}}</b></td>
 
-        <td>
-          <img [src]="food.picture" class="ui mini rounded image">
-        </td>
-
+        <td><a href="#">Edit</a>/<a href="#">Delete</a> </td>
       </tr>
     </tbody>
     <tfoot class="full-width">
       <tr>
-        <th colspan="5">
+        <th colspan="6">
           <a routerLink="/foods/create" class="ui right floated small primary labeled icon button">
             <i class="plus icon"></i> Create food
         </a>

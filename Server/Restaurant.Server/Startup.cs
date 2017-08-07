@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Restaurant.Server.Api.Abstractions.Facades;
+using Restaurant.Server.Api.Abstractions.Providers;
 using Restaurant.Server.Api.Abstractions.Repositories;
 using Restaurant.Server.Api.Constants;
 using Restaurant.Server.Api.Facades;
@@ -21,6 +22,8 @@ namespace Restaurant.Server.Api
 {
     public class Startup
     {
+        private readonly IConfigurationRoot _configuration;
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -28,15 +31,14 @@ namespace Restaurant.Server.Api
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
-            Configuration = builder.Build();
+            _configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; }
-
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DatabaseContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, IdentityRole>(options =>
             {
@@ -49,6 +51,9 @@ namespace Restaurant.Server.Api
             services.AddScoped<IRepository<Category>, CategoryRepository>();
 			services.AddScoped<IMapperFacade, MapperFacade>();
 	        services.AddSingleton<IFileUploadProvider, FileUploadProvider>();
+            services.AddScoped<IUserAndRoleBootstrapper, UserAndRoleBootstrapper>();
+            services.AddSingleton(_ => _configuration);
+            
             services.AddLogging();
 
 
@@ -68,14 +73,12 @@ namespace Restaurant.Server.Api
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
                 .AddAspNetIdentity<User>();
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddConsole(_configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 			app.UseCors("ServerPolicy");
 
@@ -92,45 +95,10 @@ namespace Restaurant.Server.Api
 
 			app.UseMvc();
 			app.UseStaticFiles();
-			
 
             AutoMapperConfiguration.Configure();
-            await CreateRoles(app.ApplicationServices.GetService<IServiceProvider>());
+            await app.ApplicationServices.GetService<IUserAndRoleBootstrapper>().CreateDefaultUsersAndRoles();
         }
-
-        private async Task CreateRoles(IServiceProvider serviceProvider)
-        {
-            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
-            string[] roleNames = { "Admin", "Member" };
-
-            foreach (var roleName in roleNames)
-            {
-                var roleExist = await roleManager.RoleExistsAsync(roleName);
-                if (!roleExist)
-                {
-                    await roleManager.CreateAsync(new IdentityRole(roleName));
-                }
-            }
-
-            var admin = new User
-            {
-                UserName = Configuration["AppSettings:AdminUserName"],
-                Email = Configuration["AppSettings:AdminEmail"],
-            };
-
-            //Ensure you have these values in your appsettings.json file
-            string password = Configuration["AppSettings:AdminPassword"];
-            var user = await userManager.FindByEmailAsync(Configuration["AppSettings:AdminEmail"]);
-
-            if (user == null)
-            {
-                var createPowerUser = await userManager.CreateAsync(admin, password);
-                if (createPowerUser.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(admin, "Admin");
-                }
-            }
-        }
+      
     }
 }

@@ -10,7 +10,7 @@ namespace Restaurant.Server.Api.Abstractions.Repositories
     {
         void Create(T entity);
 
-        void Update(T entity);
+        void Update(Guid id, T entity);
 
         void Delete(T entity);
 

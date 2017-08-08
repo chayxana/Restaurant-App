@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.DataTransferObjects;
@@ -13,29 +15,42 @@ namespace Restaurant.Server.Api.Controllers
 	[AllowAnonymous]
 	public class CategoriesController : Controller
     {
-		private readonly IMapperFacade mapperFacade;
-		private readonly IRepository<Category> repository;
+		private readonly IMapperFacade _mapperFacade;
+		private readonly IRepository<Category> _repository;
 
 		public CategoriesController(
 			IMapperFacade mapperFacade, 
 			IRepository<Category> repository)
 		{
-			this.mapperFacade = mapperFacade;
-			this.repository = repository;
+			_mapperFacade = mapperFacade;
+			_repository = repository;
 		}
 
 		[HttpGet]
 		public IEnumerable<CategoryDto> Get()
 		{
-			return mapperFacade.Map<IEnumerable<CategoryDto>>(repository.GetAll());
+			return _mapperFacade.Map<IEnumerable<CategoryDto>>(_repository.GetAll());
 		}
 
+        [HttpGet("{id}")]
+        public CategoryDto Get(Guid id)
+        {
+            return _mapperFacade.Map<CategoryDto>(_repository.Get(id));
+        }
+
 		[HttpPost]
-		public void Post([FromBody]CategoryDto category)
+		public async Task<IActionResult> Post([FromBody]CategoryDto category)
 		{
-			var entity = mapperFacade.Map<Category>(category);
-			repository.Create(entity);
-			repository.Commit().Wait();
+		    try
+		    {
+		        var entity = _mapperFacade.Map<Category>(category);
+		        _repository.Create(entity);
+                return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
+            }
+		    catch (Exception)
+		    {
+		        return BadRequest();
+		    }
 		}
     }
 }

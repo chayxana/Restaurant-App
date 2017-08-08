@@ -70,8 +70,8 @@ namespace Restaurant.Server.Api.Controllers
         {
             try
             {
-                var dailyEating = _mapperFacade.Map<DailyEating, DailyEatingDto>(dto);
-                _repository.Update(dailyEating);
+                var dailyEating = _mapperFacade.Map<DailyEating>(dto);
+                _repository.Update(id, dailyEating);
                 return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
             }
             catch (Exception)

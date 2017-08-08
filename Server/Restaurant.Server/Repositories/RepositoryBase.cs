@@ -2,11 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Restaurant.Server.Api.Abstractions.Repositories;
 using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Repositories
 {
-    public abstract class RepositoryBase<T> where T: BaseEntity
+    public abstract class RepositoryBase<T> : IRepository<T> where T: BaseEntity
     {
         private readonly DatabaseContext _context;
         private readonly ILogger _logger;

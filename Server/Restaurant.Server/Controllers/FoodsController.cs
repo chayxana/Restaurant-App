@@ -83,9 +83,7 @@ namespace Restaurant.Server.Api.Controllers
             {
                 var food = _mapperFacade.Map<Food>(foodDto);
                 _repository.Update(food);
-
                 return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
-
             }
             catch (Exception)
             {

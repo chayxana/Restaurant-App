@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from "app/models/category";
 import { CategoryService } from "app/services/category.service";
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 
 @Component({
@@ -25,37 +25,44 @@ import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 
 export class AddCategoryComponent implements OnInit {
   saving: boolean = false;
+  isEditMode: boolean;
+  isLoading: boolean;
 
   category: Category = {
     id: '',
     color: '',
     name: ''
   }
+
   constructor(
     private categoryService: CategoryService,
-    private router: Router) { }
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(route => {
+      var id = route["id"];
+      if (id) {
+        this.isLoading = true;
+        this.categoryService.get(id).subscribe(cat => {
+          this.category = cat;
+          this.isLoading = false;
+        });
+      }
+    });
   }
 
   onSubmit(form: NgForm) {
     this.saving = true;
 
     this.categoryService.create(this.category).subscribe(x => {
-      this.onSuccess();
       form.reset();
+      this.saving = false;
     });
-  }
-
-  onSuccess() {
-    // this.toastrService.success("Category created successefully!", "Done")
-    this.saving = false;
-    this.category.name = '';
-    this.category.color = '';
   }
 
 
   onCancel() {
-    this.router.navigate(['/foods'])
+    this.router.navigate(['/categories'])
   }
 }

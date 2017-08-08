@@ -51,7 +51,7 @@ namespace Restaurant.Server.Api
             services.AddScoped<IRepository<Category>, CategoryRepository>();
 			services.AddScoped<IMapperFacade, MapperFacade>();
 	        services.AddSingleton<IFileUploadProvider, FileUploadProvider>();
-            services.AddScoped<IUserAndRoleBootstrapper, UserAndRoleBootstrapper>();
+            services.AddScoped<IUserBootstrapper, UserBootstrapper>();
             services.AddSingleton(_ => _configuration);
             
             services.AddLogging();
@@ -97,7 +97,9 @@ namespace Restaurant.Server.Api
 			app.UseStaticFiles();
 
             AutoMapperConfiguration.Configure();
-            await app.ApplicationServices.GetService<IUserAndRoleBootstrapper>().CreateDefaultUsersAndRoles();
+	        var userBootsrapper = app.ApplicationServices.GetService<IUserBootstrapper>();
+
+			await userBootsrapper.CreateDefaultUsersAndRoles();
         }
       
     }

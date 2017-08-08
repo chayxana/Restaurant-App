@@ -47,7 +47,7 @@ export class FoodService extends BaseService<Food> {
 
       let formData = new FormData();
       formData.append("file", picture, picture.name);
-      formData.append("id", foodId);
+      formData.append("foodId", foodId);
       xhr.send(formData);
     });
   }

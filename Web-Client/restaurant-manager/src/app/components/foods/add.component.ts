@@ -6,10 +6,12 @@ import { Category } from "app/models/category";
 import { Food } from "app/models/food";
 import { Http } from "@angular/http";
 import { NgForm } from '@angular/forms';
+import { ContentUrl } from "app/shared/constants";
 
 @Component({
   selector: 'app-add-food',
   template: `
+  <div class="ui raised very padded text container segment"  [ngClass]="{ loading : isLoading }">
     <form class="ui form" #foodForm="ngForm" (ngSubmit)="onSubmit(foodForm, file)">
       <div class="field" [ngClass]="{error : name.invalid && (name.dirty || name.touched) }">
         <label>Name</label>
@@ -34,11 +36,14 @@ import { NgForm } from '@angular/forms';
       <div class="field">
         <label>Picture</label>
         <input type="file" (change)="imageUpload($event)" #file>
-        <img [src]="imageUrl" width="300" *ngIf="imageUrl" height="300" />
       </div>
-      <button class="ui button blue" [ngClass]="{ loading : isLoading }" [disabled]="foodForm.invalid" type="submit">Save</button>
-      <button class="ui button">Cancel</button>
-    </form>`
+      <div class="ui basic segment" *ngIf="imageUrl">
+        <img [src]="imageUrl" class="ui centered medium rounded image" />        
+      </div>
+      <button class="ui button blue" [ngClass]="{ loading : isSaving }" [disabled]="foodForm.invalid" type="submit">Save</button>
+      <button class="ui button" (click)="onCancel()">Cancel</button>
+    </form>
+   </div>`
 })
 
 export class AddFoodComponent implements OnInit {
@@ -56,6 +61,8 @@ export class AddFoodComponent implements OnInit {
   imageUrl: any;
   file: File;
   categories: Category[];
+  isSaving: boolean;
+  isEditMode: boolean;
   isLoading: boolean;
 
   constructor(
@@ -68,6 +75,19 @@ export class AddFoodComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      var id = params["id"];
+      if (id) {
+        this.isLoading = true;
+        this.foodService.get(id).subscribe(food => {
+          this.food = food;
+          this.imageUrl = ContentUrl + this.food.picture;
+          this.isEditMode = true;
+          this.isLoading = false;
+        });
+      }
+    });
+
     this.categoryService.getAll().subscribe(cat => {
       this.categories = cat;
     })
@@ -83,17 +103,37 @@ export class AddFoodComponent implements OnInit {
   }
 
   onSubmit(form: NgForm, file: HTMLInputElement) {
-    this.isLoading = true;
-    this.food.id = Guid.NewGuid();
+    this.isSaving = true;
+
+    this.food.id = this.NewGuid()
     this.foodService.uploadImage(this.file, this.food.id).then(uploaded => {
       if (uploaded) {
         this.foodService.create(this.food).subscribe(x => {
-          this.isLoading = false;
+          this.isSaving = false;
           form.reset();
           file.value = "";
           this.imageUrl = null;
         });
       }
+      else {
+        this.isSaving = false;
+      }
+    });
+  }
+
+  onCancel() {
+    this.router.navigate(['/foods'])
+  }
+
+  NewGuid(): string {
+    let d = new Date().getTime();
+    if (window.performance && typeof window.performance.now === "function") {
+      d += performance.now();
+    }
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      let r = (d + Math.random() * 16) % 16 | 0;
+      d = Math.floor(d / 16);
+      return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
   }
 }

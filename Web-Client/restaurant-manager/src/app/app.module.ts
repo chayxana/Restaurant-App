@@ -13,6 +13,7 @@ import { CategoryService } from "app/services/category.service";
 import { FoodService } from "app/services/food.service";
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ListCategoriesComponent } from "app/components/categories/list.component";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MenuComponent,
     FoodListComponent,
     AddFoodComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    ListCategoriesComponent
   ],
   imports: [
     routes,

@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper.Configuration;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Restaurant.Server.Api.Abstractions.Providers;
 using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Providers
 {
     [UsedImplicitly]
-    public class UserAndRoleBootstrapper : IUserAndRoleBootstrapper
+    public class UserBootstrapper : IUserBootstrapper
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<User> _userManager;
         private readonly IConfigurationRoot _configuration;
 
-        public UserAndRoleBootstrapper(
+        public UserBootstrapper(
             RoleManager<IdentityRole> roleManager,
             UserManager<User> userManager,
             IConfigurationRoot configuration)
@@ -38,7 +34,7 @@ namespace Restaurant.Server.Api.Providers
 
         private async Task CreateRoles()
         {
-            var roleNames = _configuration.GetSection("AppSettings:DefaultRoles").Get<List<string>>();
+            var roleNames = _configuration.GetSection("UserSettings:DefaultRoles").Get<List<string>>();
             foreach (var roleName in roleNames)
             {
                 var roleExist = await _roleManager.RoleExistsAsync(roleName);
@@ -51,7 +47,7 @@ namespace Restaurant.Server.Api.Providers
 
         private async Task CreateAdmin()
         {
-            var user = await _userManager.FindByEmailAsync(_configuration["AppSettings:AdminEmail"]);
+            var user = await _userManager.FindByEmailAsync(_configuration["UserSettings:AdminEmail"]);
 
             if (user == null)
             {

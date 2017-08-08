@@ -1,17 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Restaurant.DataTransferObjects;
 using Restaurant.Server.Api.Abstractions.Facades;
 using Restaurant.Server.Api.Abstractions.Repositories;
-using Restaurant.Server.Api.Constants;
 using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Controllers
@@ -54,8 +51,7 @@ namespace Restaurant.Server.Api.Controllers
             try
             {
                 if (receipt != null)
-                {
-                    
+                {   
                     dailyEatingDto.Reciept = receipt.FileName;
                 }
 

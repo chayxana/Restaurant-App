@@ -40,7 +40,7 @@ import { ContentUrl } from "app/shared/constants";
       <div class="ui basic segment" *ngIf="imageUrl">
         <img [src]="imageUrl" class="ui centered medium rounded image" />        
       </div>
-      <button class="ui button blue" [ngClass]="{ loading : isSaving }" [disabled]="foodForm.invalid" type="submit">Save</button>
+      <button class="ui button blue" [ngClass]="{ loading : isSaving }" [disabled]="foodForm.invalid" type="submit">{{isEditMode ? "Update" : }}</button>
       <button class="ui button" (click)="onCancel()">Cancel</button>
     </form>
    </div>`

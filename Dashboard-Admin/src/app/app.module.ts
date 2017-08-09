@@ -14,6 +14,7 @@ import { FoodService } from "app/services/food.service";
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListCategoriesComponent } from "app/components/categories/list.component";
+import { GuidService } from "app/services/guid.service";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { ListCategoriesComponent } from "app/components/categories/list.componen
     CommonModule,
     BrowserAnimationsModule
   ],
-  providers: [FoodService, CategoryService],
+  providers: [FoodService, CategoryService, GuidService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -14,5 +14,7 @@ namespace Restaurant.Server.Api.Abstractions.Providers
         string GetUploadedFileByUniqId(string uniqId);
 
         void RemoveUploadedFileByUniqId(string uniqId);
+
+        bool HasFile(string uniqId);
     }
 }

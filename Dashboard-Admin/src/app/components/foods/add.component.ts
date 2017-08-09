@@ -7,6 +7,7 @@ import { Food } from "app/models/food";
 import { Http } from "@angular/http";
 import { NgForm } from '@angular/forms';
 import { ContentUrl } from "app/shared/constants";
+import { GuidService } from "app/services/guid.service";
 
 @Component({
   selector: 'app-add-food',
@@ -40,7 +41,7 @@ import { ContentUrl } from "app/shared/constants";
       <div class="ui basic segment" *ngIf="imageUrl">
         <img [src]="imageUrl" class="ui centered medium rounded image" />        
       </div>
-      <button class="ui button blue" [ngClass]="{ loading : isSaving }" [disabled]="foodForm.invalid" type="submit">{{isEditMode ? "Update" : }}</button>
+      <button class="ui button blue" [ngClass]="{ loading : isSaving }" [disabled]="foodForm.invalid" type="submit">Save</button>
       <button class="ui button" (click)="onCancel()">Cancel</button>
     </form>
    </div>`
@@ -64,13 +65,15 @@ export class AddFoodComponent implements OnInit {
   isSaving: boolean;
   isEditMode: boolean;
   isLoading: boolean;
+  imageUpdated: boolean;
 
   constructor(
     private categoryService: CategoryService,
     private foodService: FoodService,
     private route: ActivatedRoute,
     private router: Router,
-    private http: Http) {
+    private http: Http,
+    private guidService: GuidService) {
 
   }
 
@@ -97,6 +100,9 @@ export class AddFoodComponent implements OnInit {
     let reader = new FileReader();
     this.file = e.target.files[0];
     reader.onloadend = () => {
+      if (this.isEditMode)
+        this.imageUpdated = true;
+
       this.imageUrl = reader.result;
     }
     reader.readAsDataURL(this.file);
@@ -104,36 +110,40 @@ export class AddFoodComponent implements OnInit {
 
   onSubmit(form: NgForm, file: HTMLInputElement) {
     this.isSaving = true;
-
-    this.food.id = this.NewGuid()
-    this.foodService.uploadImage(this.file, this.food.id).then(uploaded => {
-      if (uploaded) {
-        this.foodService.create(this.food).subscribe(x => {
+    if (this.isEditMode) {
+      this.foodService.update(this.food).subscribe(x => {
+        this.isSaving = false
+      })
+    }
+    else {
+      this.food.id = this.guidService.GetNewGuid();
+      this.uploadPicture(file).then(uploaded => {
+        if (uploaded) {
+          this.createFood().subscribe(x => this.reset(form, file));
+        }
+        else {
           this.isSaving = false;
-          form.reset();
-          file.value = "";
-          this.imageUrl = null;
-        });
-      }
-      else {
-        this.isSaving = false;
-      }
-    });
+        }
+      });
+    }
+  }
+
+  uploadPicture(file: HTMLInputElement) {
+    return this.foodService.uploadImage(this.file, this.food.id);
+  }
+
+  createFood() {
+    return this.foodService.create(this.food);
   }
 
   onCancel() {
     this.router.navigate(['/foods'])
   }
 
-  NewGuid(): string {
-    let d = new Date().getTime();
-    if (window.performance && typeof window.performance.now === "function") {
-      d += performance.now();
-    }
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-      let r = (d + Math.random() * 16) % 16 | 0;
-      d = Math.floor(d / 16);
-      return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
+  reset(form: NgForm, file: HTMLInputElement) {
+    form.reset();
+    file.value = "";
+    this.imageUrl = null;
+    this.isSaving = false;
   }
 }

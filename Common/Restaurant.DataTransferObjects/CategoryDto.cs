@@ -7,7 +7,7 @@ namespace Restaurant.DataTransferObjects
     public class CategoryDto
     {
 		[JsonProperty("id")]
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
 		[JsonProperty("name")]
         public string Name { get; set; }

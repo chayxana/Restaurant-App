@@ -5,7 +5,9 @@ namespace Restaurant.DataTransferObjects
 {
     public class DailyEatingDto
     {
-        public DateTime DateTime { get; set; }
+	    public Guid Id { get; set; }
+
+	    public DateTime DateTime { get; set; }
 
         public decimal AdditionalAmount { get; set; }
 

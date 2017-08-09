@@ -29,7 +29,7 @@ export abstract class BaseService<T extends IBaseModel> implements IBaseService<
     }
 
     update(model: T): Observable<boolean> {
-        return this.http.put(this.baseUrl(model.id), { model }, this.options)
+        return this.http.put(this.baseUrl(model.id), model, this.options)
             .map(r => r.ok)
             .catch(this.handleError);
     }

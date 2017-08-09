@@ -60,12 +60,12 @@ namespace Restaurant.Server.Api.Controllers
                     _fileUploadProvider.Reset();
                     return Ok();
                 }
-                _fileUploadProvider.RemoveUploadedFileByUniqId(foodDto.Id);
+                _fileUploadProvider.RemoveUploadedFileByUniqId(foodDto.Id.ToString());
                 return BadRequest();
             }
             catch (Exception)
             {
-                _fileUploadProvider.RemoveUploadedFileByUniqId(foodDto.Id);
+                _fileUploadProvider.RemoveUploadedFileByUniqId(foodDto.Id.ToString());
                 return BadRequest();
             }
         }
@@ -82,7 +82,7 @@ namespace Restaurant.Server.Api.Controllers
         {
             try
             {
-                if (id != Guid.Parse(foodDto.Id))
+                if (id != foodDto.Id)
                     return BadRequest();
                 
                 var food = _mapperFacade.Map<Food>(foodDto);

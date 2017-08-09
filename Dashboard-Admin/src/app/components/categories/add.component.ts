@@ -43,6 +43,7 @@ export class AddCategoryComponent implements OnInit {
     this.route.queryParams.subscribe(route => {
       var id = route["id"];
       if (id) {
+        this.isEditMode = true;
         this.isLoading = true;
         this.categoryService.get(id).subscribe(cat => {
           this.category = cat;
@@ -54,11 +55,18 @@ export class AddCategoryComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.saving = true;
+    if (this.isEditMode) {
+      this.categoryService.update(this.category).subscribe(x => {
+        this.saving = false;
+      });
+    }
+    else {
+      this.categoryService.create(this.category).subscribe(x => {
+        form.reset();
+        this.saving = false;
+      });
+    }
 
-    this.categoryService.create(this.category).subscribe(x => {
-      form.reset();
-      this.saving = false;
-    });
   }
 
 

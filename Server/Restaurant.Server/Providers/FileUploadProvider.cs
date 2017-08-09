@@ -55,10 +55,16 @@ namespace Restaurant.Server.Api.Providers
             _uploadedFiles.Remove(uniqId);
         }
 
+        public bool HasFile(string uniqId)
+        {
+            return _uploadedFiles.ContainsKey(uniqId);
+        }
+
         private string GetFullPath(string fileName)
         {
             var filePath = Folders.UploadFilesPath + fileName;
             return _appEnvironment.WebRootPath + filePath;
         }
+
     }
 }

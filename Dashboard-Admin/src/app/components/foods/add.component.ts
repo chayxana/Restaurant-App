@@ -115,13 +115,22 @@ export class AddFoodComponent implements OnInit {
   onSubmit(form: NgForm, file: HTMLInputElement) {
     this.isSaving = true;
     if (this.isEditMode) {
-      this.foodService.update(this.food).subscribe(x => {
-        this.isSaving = false
-      })
+      if (this.imageUpdated) {
+        this.uploadPicture().then(uploaded => {
+          this.foodService.update(this.food).subscribe(x => {
+            this.isSaving = false
+          });
+        });
+      }
+      else {
+        this.foodService.update(this.food).subscribe(x => {
+          this.isSaving = false
+        });
+      }
     }
     else {
       this.food.id = this.guidService.GetNewGuid();
-      this.uploadPicture(file).then(uploaded => {
+      this.uploadPicture().then(uploaded => {
         if (uploaded) {
           this.createFood().subscribe(x => this.reset(form, file));
         }
@@ -132,7 +141,7 @@ export class AddFoodComponent implements OnInit {
     }
   }
 
-  uploadPicture(file: HTMLInputElement) {
+  uploadPicture() {
     return this.foodService.uploadImage(this.file, this.food.id);
   }
 

@@ -52,5 +52,25 @@ namespace Restaurant.Server.Api.Controllers
 		        return BadRequest();
 		    }
 		}
+
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(Guid id, [FromBody]CategoryDto categoryDto)
+        {
+            try
+            {
+                if (id != categoryDto.Id)
+                    return BadRequest();
+
+                var category = _mapperFacade.Map<Category>(categoryDto);
+               
+                _repository.Update(id, category);
+                return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
     }
 }

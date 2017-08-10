@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from "app/services/category.service";
 import { FoodService } from "app/services/food.service";
@@ -8,6 +8,7 @@ import { Http } from "@angular/http";
 import { NgForm } from '@angular/forms';
 import { ContentUrl } from "app/shared/constants";
 import { GuidService } from "app/services/guid.service";
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'app-add-food',
@@ -43,6 +44,7 @@ import { GuidService } from "app/services/guid.service";
       </div>
       <button class="ui button blue" [ngClass]="{ loading : isSaving }" [disabled]="foodForm.invalid" type="submit">Save</button>
       <button class="ui button" (click)="onCancel()">Cancel</button>
+      <button class="ui button" (click)="onShow()">Show</button>
     </form>
    </div>`
 })
@@ -73,8 +75,10 @@ export class AddFoodComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: Http,
-    private guidService: GuidService) {
-
+    private guidService: GuidService,
+    public toastr: ToastsManager,
+    vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -145,5 +149,8 @@ export class AddFoodComponent implements OnInit {
     file.value = "";
     this.imageUrl = null;
     this.isSaving = false;
+  }
+  onShow() {
+    this.toastr.success('You are awesome!', 'Success!', { toastLife: 1000 });
   }
 }

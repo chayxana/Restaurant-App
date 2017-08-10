@@ -10,6 +10,7 @@ using Restaurant.Server.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Expressions;
+using Microsoft.AspNetCore.Authorization;
 using Restaurant.Server.Api.Abstractions.Providers;
 
 namespace Restaurant.Server.Api.Controllers
@@ -101,6 +102,7 @@ namespace Restaurant.Server.Api.Controllers
             try
             {
                 var food = _repository.Get(id);
+				_fileUploadProvider.Remove(food.Picture);
                 _repository.Delete(food);
                 return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
             }

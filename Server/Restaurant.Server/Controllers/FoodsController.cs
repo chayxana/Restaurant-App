@@ -9,8 +9,6 @@ using Restaurant.Server.Api.Abstractions.Repositories;
 using Restaurant.Server.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Linq.Expressions;
-using Microsoft.AspNetCore.Authorization;
 using Restaurant.Server.Api.Abstractions.Providers;
 
 namespace Restaurant.Server.Api.Controllers
@@ -84,9 +82,16 @@ namespace Restaurant.Server.Api.Controllers
             try
             {
                 if (id != foodDto.Id)
+                {
                     return BadRequest();
-                
+                }
                 var food = _mapperFacade.Map<Food>(foodDto);
+                if (_fileUploadProvider.HasFile(id.ToString()))
+                {
+                    _fileUploadProvider.Remove(food.Picture);
+                    food.Picture = _fileUploadProvider.GetUploadedFileByUniqId(id.ToString());
+                }
+
                 _repository.Update(id, food);
                 return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
             }

@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { FoodService } from "app/services/food.service";
 import { Food } from "app/models/food";
 import { ContentUrl } from "app/shared/constants";
+
+declare var $: any;
+
 
 @Component({
   selector: 'app-foods-list',
@@ -38,8 +41,10 @@ import { ContentUrl } from "app/shared/constants";
           <td class="collapsing">{{food.price}}</td>
 
           <td class="right aligned collapsing">
-            <a [routerLink]="['/foods/create']" [queryParams]="{ id : food.id}">Edit</a> /
-            <a href="#">Delete</a>
+           <div class="ui small basic icon buttons">
+            <a [routerLink]="['/foods/create']" [queryParams]="{ id : food.id}" class="ui button"><i class="edit icon"></i></a>
+            <button class="ui button"><i class="remove icon" (click)="onDelete(food.id)"></i></button>
+          </div>
           </td>
         </tr>
       </tbody>
@@ -53,14 +58,37 @@ import { ContentUrl } from "app/shared/constants";
         </tr>
       </tfoot>
     </table>
-  </div>`
+  </div>
+   <div class="ui modal" #modal>
+      <i class="close icon"></i>
+      <div class="header">
+        Delete category
+      </div>
+      <div class="image content">
+        <div class="description">
+          Do you want to delete?
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui button" (click)="confirmDelete()">Yes</div>
+        <div class="ui button" (click)="cancelDelete()">No</div>
+      </div>
+    </div>
+  `
 })
-export class FoodListComponent implements OnInit {
+export class FoodListComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('modal') deleteModal: ElementRef;
+
   contentUrl = ContentUrl;
   foods: Food[]
   isLoading: boolean;
 
   constructor(private foodService: FoodService) { }
+
+  ngAfterViewInit(): void {
+
+  }
 
   ngOnInit() {
     this.isLoading = true;
@@ -71,5 +99,18 @@ export class FoodListComponent implements OnInit {
       this.foods = foods;
       this.isLoading = false;
     });
+  }
+
+  onDelete(id: string) {
+    $(this.deleteModal.nativeElement).modal('show');
+  }
+
+  confirmDelete() {
+    console.log("Confirm");
+    $(this.deleteModal.nativeElement).modal('hide');
+  }
+
+  cancelDelete() {
+    $(this.deleteModal.nativeElement).modal('hide');
   }
 }

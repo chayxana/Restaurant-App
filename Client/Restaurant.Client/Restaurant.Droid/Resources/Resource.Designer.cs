@@ -26,7 +26,6 @@ namespace Restaurant.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::ModernHttpClient.Resource.String.library_name = global::Restaurant.Droid.Resource.String.library_name;
 			global::Splat.Resource.String.library_name = global::Restaurant.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::Restaurant.Droid.Resource.Attribute.actionBarSize;
 			global::XFGloss.Droid.Resource.Animation.abc_fade_in = global::Restaurant.Droid.Resource.Animation.abc_fade_in;

@@ -72,5 +72,21 @@ namespace Restaurant.Server.Api.Controllers
                 return BadRequest();
             }
         }
+
+		[HttpDelete]
+	    public async Task<IActionResult> Delete(Guid id)
+	    {
+		    try
+		    {
+			    var category = _repository.Get(id);
+				_repository.Delete(category);
+
+			    return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
+		    }
+		    catch (Exception)
+		    {
+			    return BadRequest();
+		    }
+	    }
     }
 }

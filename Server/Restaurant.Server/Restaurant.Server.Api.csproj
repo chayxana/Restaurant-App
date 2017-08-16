@@ -49,4 +49,8 @@
     <ProjectReference Include="..\..\Common\Restaurant.DataTransferObjects\Restaurant.DataTransferObjects.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.1" />
+  </ItemGroup>
+
 </Project>

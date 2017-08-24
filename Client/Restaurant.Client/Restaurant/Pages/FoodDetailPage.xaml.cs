@@ -23,12 +23,7 @@ namespace Restaurant.Pages
             BindingContext = ViewModel;
             MainScroll.Parallax();
         }
-
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-        }
-
+        
         protected override void OnSizeAllocated(double width, double height)
         {
             base.OnSizeAllocated(width, height);

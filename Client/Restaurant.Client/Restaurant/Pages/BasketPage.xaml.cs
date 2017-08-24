@@ -25,6 +25,11 @@ namespace Restaurant.Pages
         protected override void OnLoaded()
         {
         }
+
+        protected override void UnLoad()
+        {
+            orders.ItemSelected -= Orders_ItemSelected;
+        }
     }
 
     public abstract class BasketPageXaml : BaseContentPage<OrderViewModel>

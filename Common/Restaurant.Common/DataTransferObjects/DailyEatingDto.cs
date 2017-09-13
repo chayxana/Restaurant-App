@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Restaurant.DataTransferObjects
+namespace Restaurant.Common.DataTransferObjects
 {
     public class DailyEatingDto
     {

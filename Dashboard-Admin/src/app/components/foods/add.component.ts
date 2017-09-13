@@ -42,9 +42,8 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
       <div class="ui basic segment" *ngIf="imageUrl">
         <img [src]="imageUrl" class="ui centered medium rounded image" />        
       </div>
-      <button class="ui button blue" [ngClass]="{ loading : isSaving }" [disabled]="foodForm.invalid" type="submit">Save</button>
-      <button class="ui button" (click)="onCancel()">Cancel</button>
-      <button class="ui button" (click)="onShow()">Show</button>
+      <button class="ui button blue" type="submit" [ngClass]="{ loading : isSaving }" [disabled]="foodForm.invalid" type="submit">Save</button>
+      <button class="ui button" type="button" (click)="onCancel()">Cancel</button>
     </form>
    </div>`
 })
@@ -119,12 +118,14 @@ export class AddFoodComponent implements OnInit {
         this.uploadPicture().then(uploaded => {
           this.foodService.update(this.food).subscribe(x => {
             this.isSaving = false
+            this.toastr.success('Food updated successfully!', 'Updated!', { toastLife: 2000 });
           });
         });
       }
       else {
         this.foodService.update(this.food).subscribe(x => {
           this.isSaving = false
+          this.toastr.success('Food updated successfully!', 'Updated!', { toastLife: 2000 });
         });
       }
     }
@@ -132,11 +133,14 @@ export class AddFoodComponent implements OnInit {
       this.food.id = this.guidService.GetNewGuid();
       this.uploadPicture().then(uploaded => {
         if (uploaded) {
-          this.createFood().subscribe(x => this.reset(form, file));
+          this.createFood().subscribe(x => {
+            this.reset(form, file);
+          });
         }
         else {
           this.isSaving = false;
         }
+        this.toastr.success('Food created successfully!', 'Created!', { toastLife: 2000 });
       });
     }
   }
@@ -158,8 +162,5 @@ export class AddFoodComponent implements OnInit {
     file.value = "";
     this.imageUrl = null;
     this.isSaving = false;
-  }
-  onShow() {
-    this.toastr.success('You are awesome!', 'Success!', { toastLife: 1000 });
   }
 }

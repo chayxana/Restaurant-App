@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Restaurant.DataTransferObjects
+namespace Restaurant.Common.DataTransferObjects
 {
     public class NotificationDto
     {

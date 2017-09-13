@@ -12,7 +12,8 @@ using Restaurant.Abstractions.Managers;
 using Restaurant.Abstractions.Repositories;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.DataTransferObjects;
+using Restaurant.Common.Constants;
+using Restaurant.Common.DataTransferObjects;
 using Restaurant.Facades;
 using Restaurant.Managers;
 using Restaurant.Model;
@@ -61,7 +62,8 @@ namespace Restaurant
 
             builder.RegisterType<UserRepository>().As<IUserRepository>();
             builder.RegisterType<FoodRepository>().As<IFoodRepository>();
-            builder.RegisterType<RestaurantApiTest>().As<IRestaurantApi>();
+	        var api = RestService.For<IRestaurantApi>(ApiConstants.ApiClientUrl);
+	        builder.RegisterInstance(api).As<IRestaurantApi>();
 
             builder.RegisterType<AutoMapperFacade>().As<IAutoMapperFacade>();
             builder.RegisterType<MainViewModel>().As<IMainViewModel>();
@@ -97,12 +99,13 @@ namespace Restaurant
 
         }
 
-        public Task<IEnumerable<FoodDto>> GetFoods(string accessToken)
+        public Task<IEnumerable<FoodDto>> GetFoods()
         {
             return Task.FromResult<IEnumerable<FoodDto>>(new List<FoodDto>
             {
                 new FoodDto
                 {
+					Id = Guid.NewGuid(),
                     Picture =  "https://images.pexels.com/photos/115095/pexels-photo-115095.jpeg?w=320&h=200&auto=compress&cs=tinysrgb",
                     Name = "Bread Dish",
                     Description = "Bread Dish With Potato Fries and Vegetable Dish",
@@ -110,49 +113,56 @@ namespace Restaurant
                 },
                 new FoodDto
                 {
-                    Picture = "https://images.pexels.com/photos/254884/pexels-photo-254884.jpeg?w=320&h=200&auto=compress&cs=tinysrgb",
+	                Id = Guid.NewGuid(),
+					Picture = "https://images.pexels.com/photos/254884/pexels-photo-254884.jpeg?w=320&h=200&auto=compress&cs=tinysrgb",
                     Name = "Directly",
                     Description = "Above Shot of Food Served on Table",
                     Price = 10
                 },
                 new FoodDto
                 {
-                    Picture = "https://images.pexels.com/photos/132716/pexels-photo-132716.jpeg?w=320&h=200&auto=compress&cs=tinysrgb",
+					Id = Guid.NewGuid(),
+					Picture = "https://images.pexels.com/photos/132716/pexels-photo-132716.jpeg?w=320&h=200&auto=compress&cs=tinysrgb",
                     Name = "Frying Pan",
                     Description = "Vegetable Food Cooked on Frying Pan",
                     Price = 9
                 },
                 new FoodDto()
                 {
-                    Picture = "https://static.pexels.com/photos/76093/pexels-photo-76093.jpegw=320&h=200&auto=compress&cs=tinysrgb",
+	                Id = Guid.NewGuid(),
+					Picture = "https://static.pexels.com/photos/76093/pexels-photo-76093.jpegw=320&h=200&auto=compress&cs=tinysrgb",
                     Name = "Some food",
                     Price = 20,
                     Description = "Some food description"
                 },
                 new FoodDto
                 {
-                    Picture =  "https://images.pexels.com/photos/115095/pexels-photo-115095.jpeg?w=320&h=200&auto=compress&cs=tinysrgb",
+	                Id = Guid.NewGuid(),
+					Picture =  "https://images.pexels.com/photos/115095/pexels-photo-115095.jpeg?w=320&h=200&auto=compress&cs=tinysrgb",
                     Name = "Bread Dish",
                     Description = "Bread Dish With Potato Fries and Vegetable Dish",
                     Price = 3.5m
                 },
                 new FoodDto
                 {
-                    Picture = "https://images.pexels.com/photos/254884/pexels-photo-254884.jpeg?w=320&h=200&auto=compress&cs=tinysrgb",
+	                Id = Guid.NewGuid(),
+					Picture = "https://images.pexels.com/photos/254884/pexels-photo-254884.jpeg?w=320&h=200&auto=compress&cs=tinysrgb",
                     Name = "Directly",
                     Description = "Above Shot of Food Served on Table",
                     Price = 10
                 },
                 new FoodDto
                 {
-                    Picture = "https://images.pexels.com/photos/132716/pexels-photo-132716.jpeg?w=320&h=200&auto=compress&cs=tinysrgb",
+	                Id = Guid.NewGuid(),
+					Picture = "https://images.pexels.com/photos/132716/pexels-photo-132716.jpeg?w=320&h=200&auto=compress&cs=tinysrgb",
                     Name = "Frying Pan",
                     Description = "Vegetable Food Cooked on Frying Pan",
                     Price = 9
                 },
                 new FoodDto()
                 {
-                    Picture = "https://static.pexels.com/photos/76093/pexels-photo-76093.jpegw=320&h=200&auto=compress&cs=tinysrgb",
+	                Id = Guid.NewGuid(),
+					Picture = "https://static.pexels.com/photos/76093/pexels-photo-76093.jpegw=320&h=200&auto=compress&cs=tinysrgb",
                     Name = "Some food",
                     Price = 20,
                     Description = "Some food description"

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Restaurant.Abstractions.Repositories;
-using Restaurant.DataTransferObjects;
+using Restaurant.Common.DataTransferObjects;
 using Restaurant.Model;
 
 namespace Restaurant.Repositories
@@ -20,7 +20,7 @@ namespace Restaurant.Repositories
 
         public Task<IEnumerable<FoodDto>> GetAllAsync(int? page = null, int? max = null)
         {
-            return _api.GetFoods("");
+            return _api.GetFoods();
         }
 
         public Task<FoodDto> Get(Guid id)

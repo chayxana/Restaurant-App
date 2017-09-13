@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Restaurant.DataTransferObjects;
 using Restaurant.Server.Api.Abstractions.Facades;
 using Restaurant.Server.Api.Abstractions.Repositories;
 using Restaurant.Server.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Restaurant.Common.DataTransferObjects;
 using Restaurant.Server.Api.Abstractions.Providers;
 
 namespace Restaurant.Server.Api.Controllers

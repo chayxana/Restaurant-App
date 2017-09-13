@@ -58,10 +58,8 @@ namespace Restaurant.Services
         {
             var viewType = typeof(IViewFor<>).MakeGenericType(vm.GetType());
             var view = _container.Resolve(viewType) as Page;
-            
-            var ret = view as IViewFor;
 
-            if (ret == null)
+	        if (!(view is IViewFor ret))
                 throw new Exception($"Resolve service type '{viewType.FullName}' does not implement '{typeof(IViewFor).FullName}'.");
 
             view.Title = vm.Title;

@@ -5,7 +5,7 @@ using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Managers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.DataTransferObjects;
+using Restaurant.Common.DataTransferObjects;
 using Restaurant.Pages;
 
 namespace Restaurant.ViewModels

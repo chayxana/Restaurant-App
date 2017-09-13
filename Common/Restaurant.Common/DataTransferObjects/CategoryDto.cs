@@ -1,8 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using Newtonsoft.Json;
 
-namespace Restaurant.DataTransferObjects
+namespace Restaurant.Common.DataTransferObjects
 {
     public class CategoryDto
     {

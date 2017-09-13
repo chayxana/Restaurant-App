@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Restaurant.UnitTests</RootNamespace>
     <AssemblyName>Restaurant.UnitTests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
@@ -19,6 +19,7 @@
     <TestProjectType>UnitTest</TestProjectType>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -99,9 +100,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\Restaurant.DataTransferObjects\Restaurant.DataTransferObjects.csproj">
-      <Project>{d0a345d9-b756-4978-bcdb-0648c883f8bd}</Project>
-      <Name>Restaurant.DataTransferObjects</Name>
+    <ProjectReference Include="..\..\..\Common\Restaurant.Common\Restaurant.Common.csproj">
+      <Project>{dc26d36a-28ce-410a-b810-1502c0fcb266}</Project>
+      <Name>Restaurant.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Restaurant.Client\Restaurant\Restaurant.csproj">
       <Project>{d79c8f36-ece8-45ce-99c0-c5af383814b7}</Project>

@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Refit;
-using Restaurant.DataTransferObjects;
+using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Model
 {
@@ -24,8 +24,8 @@ namespace Restaurant.Model
         [Get("/api/Account/UserInfo")]
         Task<UserInfoDto> GetUserInfoRaw([Header("Authorization: bearer")] string accessToken);
 
-        [Get("/api/Foods")]
-        Task<IEnumerable<FoodDto>> GetFoods([Header("Authorization: bearer")] string accessToken);
+        [Get("/api/foods")]
+        Task<IEnumerable<FoodDto>> GetFoods();
 
     }
 

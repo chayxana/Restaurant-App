@@ -40,6 +40,12 @@ export abstract class BaseService<T extends IBaseModel> implements IBaseService<
             .catch(this.handleError);
     }
 
+    delete(model: T): Observable<boolean> {
+        return this.http.delete(this.baseUrl(model.id), this.options)
+            .map(x => x.ok)
+            .catch(this.handleError);
+    }
+
     protected extractData(res: Response) {
         let body = res.json();
         return body || {};

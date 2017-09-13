@@ -2,7 +2,7 @@
 using System.Reactive.Linq;
 using ReactiveUI;
 using ReactiveUI.Legacy;
-using Restaurant.DataTransferObjects;
+using Restaurant.Common.DataTransferObjects;
 using Restaurant.ViewModels;
 using Splat;
 

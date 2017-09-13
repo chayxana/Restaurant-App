@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Restaurant.DataTransferObjects;
+using Restaurant.Common.DataTransferObjects;
 using Restaurant.Server.Api.Abstractions.Facades;
 using Restaurant.Server.Api.Abstractions.Repositories;
 using Restaurant.Server.Api.Models;
@@ -73,7 +73,7 @@ namespace Restaurant.Server.Api.Controllers
             }
         }
 
-		[HttpDelete]
+		[HttpDelete("{id}")]
 	    public async Task<IActionResult> Delete(Guid id)
 	    {
 		    try

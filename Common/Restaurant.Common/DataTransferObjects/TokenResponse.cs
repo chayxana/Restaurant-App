@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Restaurant.DataTransferObjects
+namespace Restaurant.Common.DataTransferObjects
 {
     public class TokenResponse
     {

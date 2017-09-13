@@ -29,8 +29,7 @@ namespace Restaurant.Pages
             var nav = Parent as NavigationPage;
             if (nav != null)
             {
-                nav.BarBackgroundColor = ActionBarBackgroundColor;
-                nav.BarTextColor = ActionBarTextColor;
+                ApplyTheme(nav);
             }
 
             base.OnAppearing();
@@ -43,18 +42,20 @@ namespace Restaurant.Pages
 
         protected abstract void OnLoaded();
 
-
-        public NavigationPage WithinNavigationPage()
-        {
-            var nav = new NavigationPage(this);
-            ApplyTheme(nav);
-            return nav;
+        protected virtual void UnLoad()
+        {   
         }
 
         protected void ApplyTheme(NavigationPage nav)
         {
             nav.BarBackgroundColor = ActionBarBackgroundColor;
             nav.BarTextColor = ActionBarTextColor;
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            UnLoad();
         }
     }
 

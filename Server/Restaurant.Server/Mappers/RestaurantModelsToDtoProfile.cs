@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using Restaurant.DataTransferObjects;
+using Restaurant.Common.DataTransferObjects;
 using Restaurant.Server.Api.Models;
 using Restaurant.Server.Api.Constants;
 

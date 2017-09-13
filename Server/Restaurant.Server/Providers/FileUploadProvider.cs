@@ -9,62 +9,63 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Server.Api.Providers
 {
-    public class FileUploadProvider : IFileUploadProvider
-    {
-        private readonly IHostingEnvironment _appEnvironment;
-        private readonly IDictionary<string, string> _uploadedFiles;
+	public class FileUploadProvider : IFileUploadProvider
+	{
+		private readonly IHostingEnvironment _appEnvironment;
+		private readonly IDictionary<string, string> _uploadedFiles;
 
-        public FileUploadProvider(IHostingEnvironment appEnvironment)
-        {
-            _appEnvironment = appEnvironment;
-            _uploadedFiles = new Dictionary<string, string>();
-        }
+		public FileUploadProvider(IHostingEnvironment appEnvironment)
+		{
+			_appEnvironment = appEnvironment;
+			_uploadedFiles = new Dictionary<string, string>();
+		}
 
 
-        public async Task Upload(IFormFile file, string uniqId)
-        {
-            var uploadedFileName = $"{DateTime.Now:dd_mm_yyyy_H_mm_ss}_{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
-            
-            using (var fileStream = new FileStream(GetFullPath(uploadedFileName), FileMode.Create))
-            {
-                await file.CopyToAsync(fileStream);
-                _uploadedFiles.Add(uniqId, uploadedFileName);
-            }
-        }
+		public async Task Upload(IFormFile file, string uniqId)
+		{
+			var uploadedFileName = $"{DateTime.Now:dd_mm_yyyy_H_mm_ss}_{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
 
-        public void Remove(string fileName)
-        {
-            FileInfo fileInfo = new FileInfo(GetFullPath(fileName));
-            fileInfo.Delete();
-        }
+			using (var fileStream = new FileStream(GetFullPath(uploadedFileName), FileMode.Create))
+			{
+				await file.CopyToAsync(fileStream);
+				_uploadedFiles.Add(uniqId, uploadedFileName);
+			}
+		}
 
-        public void Reset()
-        {
-            _uploadedFiles.Clear();
-        }
+		public void Remove(string fileName)
+		{
+			FileInfo fileInfo = new FileInfo(GetFullPath(fileName));
+			if (fileInfo.Exists)
+				fileInfo.Delete();
+		}
 
-        public string GetUploadedFileByUniqId(string uniqId)
-        {
-            return _uploadedFiles[uniqId];
-        }
+		public void Reset()
+		{
+			_uploadedFiles.Clear();
+		}
 
-        public void RemoveUploadedFileByUniqId(string uniqId)
-        {
-            var fileName = GetUploadedFileByUniqId(uniqId);
-            Remove(fileName);
-            _uploadedFiles.Remove(uniqId);
-        }
+		public string GetUploadedFileByUniqId(string uniqId)
+		{
+			return _uploadedFiles[uniqId];
+		}
 
-        public bool HasFile(string uniqId)
-        {
-            return _uploadedFiles.ContainsKey(uniqId);
-        }
+		public void RemoveUploadedFileByUniqId(string uniqId)
+		{
+			var fileName = GetUploadedFileByUniqId(uniqId);
+			Remove(fileName);
+			_uploadedFiles.Remove(uniqId);
+		}
 
-        private string GetFullPath(string fileName)
-        {
-            var filePath = Folders.UploadFilesPath + fileName;
-            return _appEnvironment.WebRootPath + filePath;
-        }
+		public bool HasFile(string uniqId)
+		{
+			return _uploadedFiles.ContainsKey(uniqId);
+		}
 
-    }
+		private string GetFullPath(string fileName)
+		{
+			var filePath = Folders.UploadFilesPath + fileName;
+			return _appEnvironment.WebRootPath + filePath;
+		}
+
+	}
 }

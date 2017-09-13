@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Restaurant.DataTransferObjects;
+using Restaurant.Common.DataTransferObjects;
 using Restaurant.ViewModels;
 
 namespace Restaurant.Mappers

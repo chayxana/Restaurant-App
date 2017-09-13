@@ -19,11 +19,8 @@ namespace Restaurant.Facades
                     {
                         return navigationPage.Navigation;
                     }
-                    else
-                    {
-                        var detailNavigationPage = new NavigationPage(masterDetailPage);
-                        return detailNavigationPage.Navigation;
-                    }
+	                var detailNavigationPage = new NavigationPage(masterDetailPage);
+	                return detailNavigationPage.Navigation;
                 }
                 return App.Current.MainPage.Navigation;
             }

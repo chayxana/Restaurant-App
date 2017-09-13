@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using IdentityServer4;
 using IdentityServer4.Models;
+using Restaurant.Common.Constants;
 
 namespace Restaurant.Server.Api.Constants
 {
@@ -20,7 +21,7 @@ namespace Restaurant.Server.Api.Constants
         {
             return new List<ApiResource>
             {
-                new ApiResource("api1", "Restaurant Manager Api")
+                new ApiResource(ApiConstants.ApiName, "Restaurant Manager Api")
                 {
                     UserClaims = { "role" }
                 }
@@ -36,20 +37,20 @@ namespace Restaurant.Server.Api.Constants
                 // resource owner password grant client
                 new Client
                 {
-                    ClientId = "user_password.client",
+                    ClientId = ApiConstants.ResourceClientId,
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
 
                     ClientSecrets =
                     {
                         new Secret("secret".Sha256())
                     },
-                    AllowedScopes = { "api1"}
+                    AllowedScopes = { ApiConstants.ApiName }
                 },
 
                 // OpenID Connect hybrid flow and client credentials client (MVC)
                 new Client
                 {
-                    ClientId = "mvc",
+                    ClientId = ApiConstants.MvcClientId,
                     ClientName = "MVC Client",
                     AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
 
@@ -67,7 +68,7 @@ namespace Restaurant.Server.Api.Constants
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "api1"
+                        ApiConstants.ApiName
                     },
                     AllowOfflineAccess = true
                 }

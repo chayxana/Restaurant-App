@@ -66,9 +66,7 @@ export class AddCategoryComponent implements OnInit {
         this.saving = false;
       });
     }
-
   }
-
 
   onCancel() {
     this.router.navigate(['/categories'])

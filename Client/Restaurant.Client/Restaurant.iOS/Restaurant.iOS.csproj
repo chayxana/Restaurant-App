@@ -211,6 +211,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Restaurant.Common\Restaurant.Common.csproj">
+      <Project>{dc26d36a-28ce-410a-b810-1502c0fcb266}</Project>
+      <Name>Restaurant.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Restaurant\Restaurant.csproj">
       <Project>{d79c8f36-ece8-45ce-99c0-c5af383814b7}</Project>
       <Name>Restaurant</Name>

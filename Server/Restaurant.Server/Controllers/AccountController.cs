@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Restaurant.DataTransferObjects;
+using Restaurant.Common.DataTransferObjects;
 using Restaurant.Server.Api.Abstractions.Facades;
 using Restaurant.Server.Api.Models;
 

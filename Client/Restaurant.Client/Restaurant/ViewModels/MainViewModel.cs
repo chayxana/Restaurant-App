@@ -8,7 +8,7 @@ using Restaurant.Abstractions.Services;
 using Restaurant.Model;
 using Restaurant.Models;
 using Restaurant.Pages;
-using Restaurant.DataTransferObjects;
+using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.ViewModels
 {

@@ -325,9 +325,9 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\add_basket.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\Restaurant.DataTransferObjects\Restaurant.DataTransferObjects.csproj">
-      <Project>{d0a345d9-b756-4978-bcdb-0648c883f8bd}</Project>
-      <Name>Restaurant.DataTransferObjects</Name>
+    <ProjectReference Include="..\..\..\Common\Restaurant.Common\Restaurant.Common.csproj">
+      <Project>{dc26d36a-28ce-410a-b810-1502c0fcb266}</Project>
+      <Name>Restaurant.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Restaurant\Restaurant.csproj">
       <Name>Restaurant</Name>

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using IdentityModel.Client;
 using Restaurant.Abstractions.Providers;
-using TokenResponse = Restaurant.DataTransferObjects.TokenResponse;
+using TokenResponse = Restaurant.Common.DataTransferObjects.TokenResponse;
 
 namespace Restaurant.Droid.Providers
 {

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Restaurant.DataTransferObjects;
+using Restaurant.Common.DataTransferObjects;
 using Restaurant.Server.Api.Abstractions.Facades;
 using Restaurant.Server.Api.Abstractions.Repositories;
 using Restaurant.Server.Api.Models;

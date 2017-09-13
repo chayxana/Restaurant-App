@@ -9,6 +9,8 @@ namespace Restaurant.Pages
 {
     public partial class FoodsPage : FoodsXamlPage
     {
+        private readonly IDisposable _itemSelectedSubscriber;
+
         public FoodsPage(IThemeManager themeManager)
         {
             InitializeComponent();
@@ -20,7 +22,7 @@ namespace Restaurant.Pages
             ActionBarTextColor = Color.White;
             Title = "Foods";
 
-            Observable.FromEventPattern<SelectedItemChangedEventArgs>(FoodsList, "ItemSelected")
+            _itemSelectedSubscriber = Observable.FromEventPattern<SelectedItemChangedEventArgs>(FoodsList, "ItemSelected")
                 .Select(x => x.Sender)
                 .Cast<ListView>()
                 .Subscribe(l =>
@@ -35,9 +37,10 @@ namespace Restaurant.Pages
             await ViewModel.LoadFoods();
         }
 
-        protected override void OnAppearing()
+        protected override void UnLoad()
         {
-            base.OnAppearing();
+            base.UnLoad();
+            _itemSelectedSubscriber.Dispose();
         }
     }
     public abstract class FoodsXamlPage : BaseContentPage<FoodsViewModel>

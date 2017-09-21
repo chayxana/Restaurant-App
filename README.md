@@ -1,8 +1,8 @@
 # Restaurant Manager
 
-Xamarin Client: [![Xamarin AppVeyor build status](https://ci.appveyor.com/api/projects/status/bgxbx3mym9n7egtj?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant)
+Xamarin Client AppVeyor: [![Xamarin AppVeyor build status](https://ci.appveyor.com/api/projects/status/bgxbx3mym9n7egtj?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant)
 
-Web Api:  [![.NET Core VSTS build status](https://jurabek.visualstudio.com/_apis/public/build/definitions/bf47c073-be06-46c9-b0cc-3f7e76de67ac/7/badge)](https://jurabek.visualstudio.com/Restaurant%20Service/_build/index?context=mine&path=%5C&definitionId=7&_a=completed)
+Web API AppVeyor: [![Build status](https://ci.appveyor.com/api/projects/status/4uh90c7u42d8aleo/branch/master?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant-manager/branch/master)
 
 Angular 4 - Admin Dashboard : cooming soon
 

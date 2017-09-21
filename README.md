@@ -2,7 +2,7 @@
 
 Xamarin Client: [![Xamarin AppVeyor build status](https://ci.appveyor.com/api/projects/status/bgxbx3mym9n7egtj?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant)
 
-.Net Core Web Api:  [![.NET Core VSTS build status](https://jurabek.visualstudio.com/_apis/public/build/definitions/bf47c073-be06-46c9-b0cc-3f7e76de67ac/7/badge)]
+.Net Core Web Api:  [![.NET Core VSTS build status](https://jurabek.visualstudio.com/_apis/public/build/definitions/bf47c073-be06-46c9-b0cc-3f7e76de67ac/7/badge)](https://ci.appveyor.com/project/Jurabek/restaurant)
 
 ## Information
 The Restaurant Manager is open source application and it provides how to build beatiful and testable mobile apps using Xamarin.Forms

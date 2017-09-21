@@ -18,7 +18,8 @@ namespace Restaurant.Server.Api.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
+		[Route("Register")]
+		[AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] UserDto userDto)
         {
             var user = new User { Email = userDto.Email, UserName = userDto.UserName };

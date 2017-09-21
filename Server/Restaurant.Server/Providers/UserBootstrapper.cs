@@ -9,17 +9,16 @@ using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Providers
 {
-    [UsedImplicitly]
     public class UserBootstrapper : IUserBootstrapper
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<User> _userManager;
-        private readonly IConfigurationRoot _configuration;
+        private readonly IConfiguration _configuration;
 
         public UserBootstrapper(
             RoleManager<IdentityRole> roleManager,
             UserManager<User> userManager,
-            IConfigurationRoot configuration)
+            IConfiguration configuration)
         {
             _roleManager = roleManager;
             _userManager = userManager;

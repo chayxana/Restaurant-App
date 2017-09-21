@@ -3,6 +3,7 @@ import { Category } from "app/models/category";
 import { CategoryService } from "app/services/category.service";
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
+import { GuidService } from "app/services/guid.service";
 
 @Component({
   selector: 'app-add-categories',
@@ -37,7 +38,8 @@ export class AddCategoryComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private guidService: GuidService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(route => {
@@ -61,6 +63,7 @@ export class AddCategoryComponent implements OnInit {
       });
     }
     else {
+      this.category.id = this.guidService.GetNewGuid();
       this.categoryService.create(this.category).subscribe(x => {
         form.reset();
         this.saving = false;

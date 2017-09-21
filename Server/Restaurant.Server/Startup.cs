@@ -1,9 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,42 +17,37 @@ using Restaurant.Server.Api.Repositories;
 
 namespace Restaurant.Server.Api
 {
-    public class Startup
-    {
-        private readonly IConfigurationRoot _configuration;
+	public class Startup
+	{
+		private readonly IConfiguration _configuration;
 
-        public Startup(IHostingEnvironment env)
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
-            _configuration = builder.Build();
-        }
+		public Startup(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
 
-        
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddDbContext<DatabaseContext>(options =>
-                options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
+		public void ConfigureServices(IServiceCollection services)
+		{
+			var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
+			services.AddDbContext<DatabaseContext>(options =>
+				options.UseSqlServer(connectionString));
 
-            services.AddIdentity<User, IdentityRole>(options =>
-            {
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-            }).AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
+			services.AddIdentity<User, IdentityRole>(options =>
+			{
+				options.Password.RequireNonAlphanumeric = false;
+				options.Password.RequireUppercase = false;
+			}).AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
 
-            services.AddScoped<IRepository<DailyEating>, DailyEatingRepository>();
-            services.AddScoped<IRepository<Food>, FoodRepository>();
-            services.AddScoped<IRepository<Category>, CategoryRepository>();
+
+			services.AddScoped<IRepository<DailyEating>, DailyEatingRepository>();
+			services.AddScoped<IRepository<Food>, FoodRepository>();
+			services.AddScoped<IRepository<Category>, CategoryRepository>();
 			services.AddScoped<IMapperFacade, MapperFacade>();
-	        services.AddSingleton<IFileUploadProvider, FileUploadProvider>();
-            services.AddScoped<IUserBootstrapper, UserBootstrapper>();
-            services.AddSingleton(_ => _configuration);
-            
-            services.AddLogging();
+			services.AddScoped<IUserBootstrapper, UserBootstrapper>();
+			services.AddScoped<IUserManagerFacade, UserManagerFacade>();
+			services.AddSingleton<IFileUploadProvider, FileUploadProvider>();
 
+			services.AddLogging();
 
 			services.AddCors(o => o.AddPolicy("ServerPolicy", builder =>
 			{
@@ -66,41 +58,38 @@ namespace Restaurant.Server.Api
 
 			services.AddMvc();
 
-            services.AddIdentityServer()
-                .AddTemporarySigningCredential()
-                .AddInMemoryPersistedGrants()
-                .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients())
-                .AddAspNetIdentity<User>();
-        }
+			services.AddIdentityServer()
+				.AddInMemoryPersistedGrants()
+				.AddInMemoryIdentityResources(Config.GetIdentityResources())
+				.AddInMemoryApiResources(Config.GetApiResources())
+				.AddInMemoryClients(Config.GetClients())
+				.AddAspNetIdentity<User>();
+		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {
-            loggerFactory.AddConsole(_configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public async void Configure(IApplicationBuilder app,
+			IHostingEnvironment env,
+			ILoggerFactory loggerFactory,
+			IConfiguration configuration)
+		{
+			loggerFactory.AddConsole(configuration.GetSection("Logging"));
+			loggerFactory.AddDebug();
+
 			app.UseCors("ServerPolicy");
 
-			app.UseIdentity()
-               .UseIdentityServer()
-               .UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
-               {
-                   Authority = "http://localhost:62798",
-                   RequireHttpsMetadata = false,
-                   ApiName = "api1",
-                   RoleClaimType = "role",
-                   NameClaimType = "name",
-               });
+			//if (env.IsDevelopment())
+			//{
+			app.UseDeveloperExceptionPage();
+			//}
+
+			app.UseAuthentication();
+			app.UseIdentityServer();
+
 
 			app.UseMvc();
 			app.UseStaticFiles();
 
-            AutoMapperConfiguration.Configure();
-	        var userBootsrapper = app.ApplicationServices.GetService<IUserBootstrapper>();
-
-			await userBootsrapper.CreateDefaultUsersAndRoles();
-        }
-      
-    }
+			AutoMapperConfiguration.Configure();
+		}
+	}
 }

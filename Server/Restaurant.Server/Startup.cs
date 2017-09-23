@@ -77,10 +77,7 @@ namespace Restaurant.Server.Api
 
 			app.UseCors("ServerPolicy");
 
-			//if (env.IsDevelopment())
-			//{
 			app.UseDeveloperExceptionPage();
-			//}
 
 			app.UseAuthentication();
 			app.UseIdentityServer();

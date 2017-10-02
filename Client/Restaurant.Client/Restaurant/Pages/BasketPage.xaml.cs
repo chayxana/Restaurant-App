@@ -12,7 +12,6 @@ namespace Restaurant.Pages
 
             var theme = themeManager.GetThemeFromColor("green");
             ActionBarBackgroundColor = theme.Primary;
-            NavigationBarColor = theme.Dark;
             StatusBarColor = theme.Dark;
             orders.ItemSelected += Orders_ItemSelected;
         }

@@ -7,6 +7,7 @@
   <local:BasketPage.ToolbarItems>
     <ToolbarItem Text="Edit"/>
   </local:BasketPage.ToolbarItems>
+  
   <local:BasketPageXaml.Content>
     <Grid>
       <Grid.RowDefinitions>

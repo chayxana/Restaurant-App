@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Restaurant.Controls.Divider">
+    <ContentView.Content>
+        <BoxView HorizontalOptions="FillAndExpand" VerticalOptions="Center" BackgroundColor="{DynamicResource Divider}" HeightRequest="1">
+        </BoxView>
+    </ContentView.Content>
+</ContentView>

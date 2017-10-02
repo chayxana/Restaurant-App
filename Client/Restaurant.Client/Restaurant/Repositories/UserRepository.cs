@@ -13,9 +13,9 @@ namespace Restaurant.Repositories
         {
             _api = api;
         }
-        public Task<UserInfoDto> GetUserInfo()
-        {
-            return _api.GetUserInfoRaw("");
-        }
+        //public Task<UserInfoDto> GetUserInfo()
+        //{
+        //    return _api.GetUserInfoRaw("");
+        //}
     }
 }

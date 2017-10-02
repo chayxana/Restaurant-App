@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using ReactiveUI;
 using Restaurant.Abstractions.Managers;
+using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Mappers;
 using Restaurant.Pages;
@@ -16,15 +17,18 @@ namespace Restaurant
     {
         public static IContainer Container { get; private set; }
 
-	    public App(BootstrapperBase bootstrapper)
+	    public App()
 	    {
 		    InitializeComponent();
-		    AnimationSpeed = 200;
+		    var boot = new BootstrapperBase();
 
-		    Container = bootstrapper.Build();
+			Container = boot.Build();
 		    AutoMapperConfiguration.Configure();
 
-		    MainPage = new MainPage(); // Container.Resolve<IViewFor<WelcomeViewModel>>() as Page;
+		    var navigationService = Container.Resolve<INavigationService>();
+		    var welcomePage = navigationService.ResolveView(Container.Resolve<IWelcomeViewModel>());
+
+			MainPage =  new NavigationPage(welcomePage as Page);
 	    }
 
 	    protected override void OnStart()
@@ -44,8 +48,6 @@ namespace Restaurant
         }
 
         public new static App Current => (App)Application.Current;
-
-        public static uint AnimationSpeed { get; internal set; }
 
     }
 }

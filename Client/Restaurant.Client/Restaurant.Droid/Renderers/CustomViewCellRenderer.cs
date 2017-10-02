@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Support.Design.Widget;
+﻿using Android.Content;
 using Android.Views;
-using Android.Widget;
 using Restaurant.Controls;
 using Restaurant.Droid.Renderers;
 using Xamarin.Forms;
@@ -24,7 +14,7 @@ namespace Restaurant.Droid.Renderers
         protected override View GetCellCore(Cell item, View convertView, ViewGroup parent, Context context)
         {
             var cell =  base.GetCellCore(item, convertView, parent, context);
-            //cell.SetBackgroundResource(Resource.Drawable.ViewCellBackground);
+            cell.SetBackgroundResource(Resource.Drawable.ViewCellBackground);
             return cell;
         }
     }

@@ -21,8 +21,8 @@ namespace Restaurant.Model
         [Get("/api/Values")]
         Task<object> GetValues([Header("Authorization: bearer")] string accessToken);
 
-        [Get("/api/Account/UserInfo")]
-        Task<UserInfoDto> GetUserInfoRaw([Header("Authorization: bearer")] string accessToken);
+        //[Get("/api/Account/UserInfo")]
+        //Task<UserInfoDto> GetUserInfoRaw([Header("Authorization: bearer")] string accessToken);
 
         [Get("/api/foods")]
         Task<IEnumerable<FoodDto>> GetFoods();

@@ -8,10 +8,10 @@ using UIKit;
 
 namespace Restaurant.iOS
 {
-    public class Bootstrapper : BootstrapperBase
-    {
-        protected override void RegisterTypes(ContainerBuilder builder)
-        {
-        }
-    }
+    //public class Bootstrapper : BootstrapperBase
+    //{
+    //    protected override void RegisterTypes(ContainerBuilder builder)
+    //    {
+    //    }
+    //}
 }

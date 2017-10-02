@@ -1,31 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<local:SignInPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
+<welcome:SignInPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
 						 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-						 xmlns:local="clr-namespace:Restaurant.Pages;assembly=Restaurant"
 						 xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
-						 x:Class="Restaurant.Pages.SignInPage">
-	<local:SignInPageXaml.Resources>
+						 xmlns:welcome="clr-namespace:Restaurant.Pages.Welcome;assembly=Restaurant"
+						 xmlns:xfGloss="clr-namespace:XFGloss;assembly=XFGloss"
+						 x:Class="Restaurant.Pages.Welcome.SignInPage">
+
+	<welcome:SignInPageXaml.Resources>
 		<ResourceDictionary>
 			<Style TargetType="Label" BasedOn="{StaticResource whiteLabelStyle}" />
 		</ResourceDictionary>
-	</local:SignInPageXaml.Resources>
-	<local:SignInPageXaml.Content>
+	</welcome:SignInPageXaml.Resources>
+  
+	<welcome:SignInPageXaml.Content>
 		<StackLayout Orientation="Vertical" VerticalOptions="Center" x:Name="uiMain">
 			<StackLayout.Padding>
 				<OnPlatform x:TypeArguments="Thickness">
-					<OnPlatform.iOS>
-						25, 25, 25, 25
-					</OnPlatform.iOS>
-					<OnPlatform.Android>
-						25, 25, 25, 25
-					</OnPlatform.Android>
-					<OnPlatform.WinPhone>
-						10, 10, 10, 10
-					</OnPlatform.WinPhone>
+					<On Platform="iOS" Value="25, 25, 25, 25"/>
+					<On Platform="Android" Value="15, 15, 15, 15"/>
+					<On Platform="Uwp" Value="10, 10, 10, 10"/>
 				</OnPlatform>
 			</StackLayout.Padding>
 
-			<StackLayout Orientation="Vertical" Padding="20" x:Name="emailStack" Scale="0">
+			<StackLayout Orientation="Vertical" Padding="10" x:Name="emailStack" Scale="0">
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto"/>
@@ -40,14 +37,15 @@
 
 				<ContentView BackgroundColor="{StaticResource redPrimary}" HorizontalOptions="Fill" >
 					<ContentView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double" iOS="1"  Android="0"/>
+						<OnPlatform x:TypeArguments="x:Double">
+						    <On Platform="iOS">1</On>
+						    <On Platform="Android">0</On>
+						</OnPlatform>
 					</ContentView.HeightRequest>
 				</ContentView>
 			</StackLayout>
 
-
-
-			<StackLayout Orientation="Vertical" Padding="20" x:Name="passwordStack" Scale="0">
+			<StackLayout Orientation="Vertical" Padding="10" x:Name="passwordStack" Scale="0">
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto"/>
@@ -60,15 +58,34 @@
 				</Grid>
 				<ContentView BackgroundColor="{StaticResource redPrimary}" HorizontalOptions="Fill" >
 					<ContentView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double" iOS="1"  Android="0"/>
+						<OnPlatform x:TypeArguments="x:Double">
+						    <On Platform="Android">0</On>
+						    <On Platform="iOS">1</On>
+						</OnPlatform>
 					</ContentView.HeightRequest>
 				</ContentView>
 
 			</StackLayout>
 			
-			<StackLayout Orientation="Vertical" Padding="20" x:Name="loginStack" Scale="0">
+			<StackLayout Orientation="Vertical" Padding="10" x:Name="loginStack" Scale="0">
 				<controls:AnimateButton x:Name="Login" Text="Log In" Command="{Binding Login}" BackgroundColor="{StaticResource redLight}"/>
 			</StackLayout>
+      
+      <Grid Padding="10">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+          <controls:Divider Grid.Column="0"/>
+          <Label Text="Or" FontSize="14" TextColor="Black" Grid.Column="1"/>
+          <controls:Divider Grid.Column="2"/>
+      </Grid>
+      
+      <StackLayout Padding="10">
+        <controls:AnimateButton Text="Sign in with Google" TextColor="White" Image="ic_account.png" BackgroundColor="{StaticResource redDark}"></controls:AnimateButton>
+        <controls:AnimateButton Text="Connect with Facebook" TextColor="White" Image="facebook.png" BackgroundColor="{StaticResource indigoDark}"></controls:AnimateButton>
+      </StackLayout>
 
 			<StackLayout IsVisible="{Binding IsBusy}">
 				<ActivityIndicator  IsRunning="{Binding IsBusy}" Color="{StaticResource grayDark}" HorizontalOptions="Center"
@@ -80,6 +97,6 @@
 			</StackLayout>
 
 		</StackLayout>
-	</local:SignInPageXaml.Content>
+	</welcome:SignInPageXaml.Content>
 
-</local:SignInPageXaml>
+</welcome:SignInPageXaml>

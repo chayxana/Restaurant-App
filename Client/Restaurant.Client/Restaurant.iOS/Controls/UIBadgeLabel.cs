@@ -10,23 +10,23 @@ namespace Restaurant.iOS.Controls
         private UIColor badgeColor;
         public UIColor BadgeColor
         {
-            get { return badgeColor; }
-            set { badgeColor = value; InvalidateIntrinsicContentSize(); }
+            get => badgeColor;
+	        set { badgeColor = value; InvalidateIntrinsicContentSize(); }
         }
 
         private double borderWidth;
         public double BorderWidth
         {
-            get { return borderWidth; }
-            set { borderWidth = value; InvalidateIntrinsicContentSize(); }
+            get => borderWidth;
+	        set { borderWidth = value; InvalidateIntrinsicContentSize(); }
         }
 
         private UIColor borderColor;
 
         public UIColor BorderColor
         {
-            get { return borderColor; }
-            set { borderColor = value; InvalidateIntrinsicContentSize(); }
+            get => borderColor;
+	        set { borderColor = value; InvalidateIntrinsicContentSize(); }
         }
 
 
@@ -34,40 +34,40 @@ namespace Restaurant.iOS.Controls
 
         public CGSize Insets
         {
-            get { return insets; }
-            set { insets = value; InvalidateIntrinsicContentSize(); }
+            get => insets;
+	        set { insets = value; InvalidateIntrinsicContentSize(); }
         }
 
         private double shadowOpacityBadge;
 
         public double ShadowOpacityBadge
         {
-            get { return shadowOpacityBadge; }
-            set { shadowOpacityBadge = value; Layer.ShadowOpacity = (float)value; SetNeedsDisplay(); }
+            get => shadowOpacityBadge;
+	        set { shadowOpacityBadge = value; Layer.ShadowOpacity = (float)value; SetNeedsDisplay(); }
         }
 
         private double shadowRadiusBadge;
 
         public double ShadowRadiusBadge
         {
-            get { return shadowRadiusBadge; }
-            set { shadowRadiusBadge = value; Layer.ShadowRadius = new nfloat(value); SetNeedsDisplay(); }
+            get => shadowRadiusBadge;
+	        set { shadowRadiusBadge = value; Layer.ShadowRadius = new nfloat(value); SetNeedsDisplay(); }
         }
 
         private UIColor shadowColorBadge;
 
         public UIColor ShadowColorBadge
         {
-            get { return shadowColorBadge; }
-            set { shadowColorBadge = value; Layer.ShadowColor = value.CGColor; SetNeedsDisplay(); }
+            get => shadowColorBadge;
+	        set { shadowColorBadge = value; Layer.ShadowColor = value.CGColor; SetNeedsDisplay(); }
         }
 
         private CGSize shadowOffsetBadge;
 
         public CGSize ShadowOffsetBadge
         {
-            get { return shadowOffsetBadge; }
-            set { shadowOffsetBadge = value; Layer.ShadowOffset = value; SetNeedsDisplay(); }
+            get => shadowOffsetBadge;
+	        set { shadowOffsetBadge = value; Layer.ShadowOffset = value; SetNeedsDisplay(); }
         }
 
         private void Initialize()
@@ -83,12 +83,9 @@ namespace Restaurant.iOS.Controls
 
         public override string Text
         {
-            get
-            {
-                return base.Text;
-            }
+            get => base.Text;
 
-            set
+	        set
             {
                 base.Text = value;
                 if (Text.Length >= 2)
@@ -183,12 +180,6 @@ namespace Restaurant.iOS.Controls
             Setup();
             SetNeedsDisplay();
         }
-        public override CGSize IntrinsicContentSize
-        {
-            get
-            {
-                return base.IntrinsicContentSize;
-            }
-        }
+        public override CGSize IntrinsicContentSize => base.IntrinsicContentSize;
     }
 }

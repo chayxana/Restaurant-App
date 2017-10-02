@@ -19,15 +19,14 @@ namespace Restaurant.Pages
         public Color ActionBarBackgroundColor { get; set; }
 
         public Color ActionBarTextColor { get; set; }
-
-        public Color NavigationBarColor { get; set; }
-
+		
         public Color StatusBarColor { get; set; }
 
-        protected override void OnAppearing()
+	    public bool IsTransparentToolbar { get; set; }
+
+	    protected override void OnAppearing()
         {
-            var nav = Parent as NavigationPage;
-            if (nav != null)
+	        if (Parent is NavigationPage nav)
             {
                 ApplyTheme(nav);
             }
@@ -46,7 +45,7 @@ namespace Restaurant.Pages
         {   
         }
 
-        protected void ApplyTheme(NavigationPage nav)
+	    private void ApplyTheme(NavigationPage nav)
         {
             nav.BarBackgroundColor = ActionBarBackgroundColor;
             nav.BarTextColor = ActionBarTextColor;
@@ -65,8 +64,8 @@ namespace Restaurant.Pages
 
         Color ActionBarBackgroundColor { get; set; }
 
-        Color NavigationBarColor { get; set; }
-
         Color StatusBarColor { get; set; }
+
+		bool IsTransparentToolbar { get; set; }
     }
 }

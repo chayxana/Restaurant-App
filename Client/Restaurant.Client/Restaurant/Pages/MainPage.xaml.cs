@@ -54,6 +54,7 @@ namespace Restaurant.Pages
 
         public Color StatusBarColor { get; set; }
 
-        public Color NavigationBarColor { get; set; }
+	    public bool IsTransparentToolbar { get; set; }
+		
     }
 }

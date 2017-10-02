@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Restaurant.Common.Constants;
 using Restaurant.Server.Api.Abstractions.Facades;
 using Restaurant.Server.Api.Abstractions.Providers;
 using Restaurant.Server.Api.Abstractions.Repositories;
@@ -53,17 +55,31 @@ namespace Restaurant.Server.Api
 			{
 				builder.AllowAnyOrigin()
 					   .AllowAnyMethod()
-					   .AllowAnyHeader();
+					   .AllowAnyHeader()
+					   .WithExposedHeaders("WWW-Authenticate");
 			}));
 
 			services.AddMvc();
 
 			services.AddIdentityServer()
-				.AddInMemoryPersistedGrants()
+				.AddDeveloperSigningCredential()
 				.AddInMemoryIdentityResources(Config.GetIdentityResources())
 				.AddInMemoryApiResources(Config.GetApiResources())
 				.AddInMemoryClients(Config.GetClients())
 				.AddAspNetIdentity<User>();
+
+
+			services.AddAuthentication(o =>
+			{
+				o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+				o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+
+			}).AddJwtBearer(o =>
+			{
+				o.Authority = "http://localhost:6200";
+				o.Audience = ApiConstants.ApiName;
+				o.RequireHttpsMetadata = false;
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,13 +92,8 @@ namespace Restaurant.Server.Api
 			loggerFactory.AddDebug();
 
 			app.UseCors("ServerPolicy");
-
 			app.UseDeveloperExceptionPage();
-
-			app.UseAuthentication();
 			app.UseIdentityServer();
-
-
 			app.UseMvc();
 			app.UseStaticFiles();
 

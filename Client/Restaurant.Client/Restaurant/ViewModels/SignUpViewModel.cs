@@ -68,17 +68,17 @@ namespace Restaurant.ViewModels
             Regester = ReactiveCommand
                 .CreateFromTask(async _ =>
                 {
-                    var result = await authenticationManager.Register(autoMapperFacade.Map<RegisterDto>(this));
-                    if (result != null)
-                    {
-                        var loginResult = await authenticationManager.Login(
-                            new LoginDto() { Login = this.Email, Password = this.Password });
+                    //var result = await authenticationManager.Register(autoMapperFacade.Map<RegisterDto>(this));
+                    //if (result != null)
+                    //{
+                    //    var loginResult = await authenticationManager.Login(
+                    //        new LoginDto() { Login = this.Email, Password = this.Password });
 
-                        if (!loginResult.IsError)
-                        {
-                            await _navigationService.NavigateAsync(typeof(IMainViewModel));
-                        }
-                    }
+                    //    if (!loginResult.IsError)
+                    //    {
+                    //        await _navigationService.NavigateAsync(typeof(IMainViewModel));
+                    //    }
+                    //}
                 }, canRegester);
         }
     }

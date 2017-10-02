@@ -17,6 +17,7 @@ import { ListCategoriesComponent } from "app/components/categories/list.componen
 import { GuidService } from "app/services/guid.service";
 import { AddDailyEatingComponent } from './components/dailyeatings/add.component';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { RegisterComponent } from './components/users/register.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
     AddCategoryComponent,
     ListCategoriesComponent,
     AddDailyEatingComponent,
-    AddDailyEatingComponent
+    AddDailyEatingComponent,
+    RegisterComponent
   ],
   imports: [
     routes,

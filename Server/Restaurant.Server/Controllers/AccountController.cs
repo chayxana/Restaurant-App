@@ -11,21 +11,34 @@ namespace Restaurant.Server.Api.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IUserManagerFacade _userManagerFacade;
+	    private readonly IMapperFacade _mapper;
 
-        public AccountController(IUserManagerFacade userManagerFacade)
-        {
-            _userManagerFacade = userManagerFacade;
-        }
+	    public AccountController(
+			IUserManagerFacade userManagerFacade,
+			IMapperFacade mapper)
+	    {
+		    _userManagerFacade = userManagerFacade;
+		    _mapper = mapper;
+	    }
 
         [HttpPost]
 		[Route("Register")]
 		[AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody] UserDto userDto)
+        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
-            var user = new User { Email = userDto.Email, UserName = userDto.UserName };
-            var result = await _userManagerFacade.Create(user, userDto.Password);
+            var user = new User { Email = registerDto.Email, UserName = registerDto.UserName };
+            var result = await _userManagerFacade.Create(user, registerDto.Password);
 
             return result.Succeeded ? Ok() : Error(result);
         }
+
+		[HttpGet]
+		[Authorize]
+		[Route("GetUser")]
+	    public async Task<UserDto> GetUser()
+	    {
+		    var user = await _userManagerFacade.GetAsync(User);
+		    return _mapper.Map<UserDto>(user);
+	    }
     }
 }

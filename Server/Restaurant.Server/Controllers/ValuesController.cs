@@ -10,7 +10,7 @@ using Restaurant.Server.Api.Models;
 namespace Restaurant.Server.Api.Controllers
 {
 	[Route("api/[controller]")]
-	[AllowAnonymous]
+	[Authorize]
 	public class ValuesController : Controller
 	{
 		private readonly UserManager<User> _userManager;
@@ -28,14 +28,13 @@ namespace Restaurant.Server.Api.Controllers
 		}
 		// GET api/values
 		[HttpGet]
-		[Authorize(Roles = "Member")]
-		public IEnumerable<string> Get()
+		public User Get()
 		{
-			//var user = _userManager.GetUserAsync(User).Result;
+			var user = _userManager.GetUserAsync(User).Result;
 
-			//var result =_userManager.IsInRoleAsync(user, "Admin").Result;
+			var result = _userManager.IsInRoleAsync(user, "Admin").Result;
 
-			return new string[] { "value1", "value2" };
+			return user;
 		}
 
 

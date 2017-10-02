@@ -28,10 +28,7 @@ namespace Restaurant.ViewModels
 
             OnLoad();
         }
-
-        [UsedImplicitly]
-        public UserInfoDto User { get; set; }
-
+		
         [UsedImplicitly]
         public IMasterViewModel MasterViewModel { get; }
 
@@ -39,7 +36,7 @@ namespace Restaurant.ViewModels
 
         private async void OnLoad()
         {
-            User = await _userRepository.GetUserInfo();
+            //User = await _userRepository.GetUserInfo();
             MasterViewModel
                 .SelectedMasterItem
                 .Where(x => x != null)

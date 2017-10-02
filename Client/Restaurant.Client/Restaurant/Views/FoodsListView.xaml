@@ -3,6 +3,8 @@
 			xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
 			xmlns:converters="clr-namespace:Restaurant.Converters;assembly=Restaurant"
+			xmlns:system="clr-namespace:System;assembly=System.Runtime"
+			xmlns:dataTransferObjects="clr-namespace:Restaurant.Common.DataTransferObjects;assembly=Restaurant.Common"
 			x:Class="Restaurant.Views.FoodsListView"
 			x:Name="list"
 			IsRefreshing="{Binding IsBusy, Mode=OneWay}"

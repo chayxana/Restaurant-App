@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,29 +11,23 @@ using Xamarin.Forms.Xaml;
 
 namespace Restaurant.Pages
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class FoodDetailPage : FoodDetailPageXaml
-    {
-        public FoodDetailPage()
-        {
-            InitializeComponent();
-            MainScroll.ParallaxView = HeaderView;
-        }
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class FoodDetailPage : FoodDetailPageXaml
+	{
+		public FoodDetailPage()
+		{
+			InitializeComponent();
+			IsTransparentToolbar = true;
+		}
 
-        protected override void OnLoaded()
-        {
-            BindingContext = ViewModel;
-            MainScroll.Parallax();
-        }
-        
-        protected override void OnSizeAllocated(double width, double height)
-        {
-            base.OnSizeAllocated(width, height);
-            MainScroll.Parallax();
-        }
-    }
+		protected override void OnLoaded()
+		{
+			BindingContext = ViewModel;
+		}
+		
+	}
 
-    public abstract class FoodDetailPageXaml : BaseContentPage<FoodDetailViewModel>
-    {
-    }
+	public abstract class FoodDetailPageXaml : BaseContentPage<FoodDetailViewModel>
+	{
+	}
 }

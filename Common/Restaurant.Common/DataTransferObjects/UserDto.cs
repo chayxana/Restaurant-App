@@ -1,9 +1,13 @@
-﻿namespace Restaurant.Common.DataTransferObjects
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Restaurant.Common.DataTransferObjects
 {
     public class UserDto
     {
-        public string Email { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
+	    public UserProfileDto Profile { get; set; }
+
+	    public IEnumerable<OrderDto> Orders { get; set; }
     }
 }

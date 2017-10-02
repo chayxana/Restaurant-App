@@ -7,6 +7,7 @@ using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
 using Restaurant.Pages;
+using Xamarin.Forms;
 
 namespace Restaurant.ViewModels
 {
@@ -52,11 +53,12 @@ namespace Restaurant.ViewModels
 
             Login = ReactiveCommand.CreateFromTask(async _ =>
             {
-                var result = await authenticationManager.Login(autoMapperFacade.Map<LoginDto>(this));
-                if (!result.IsError)
-                {
-                   App.Current.MainPage = new MainPage();
-                }
+	            App.Current.MainPage = new MainPage();
+				//var result = await authenticationManager.Login(autoMapperFacade.Map<LoginDto>(this));
+    //            if (!result.IsError)
+    //            {
+                  
+    //            }
             }, canLogin);
         }
 

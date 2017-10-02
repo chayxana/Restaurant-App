@@ -5,8 +5,7 @@
     x:Class="Restaurant.Controls.HeaderDivider">
     <ContentView.Content>
         <BoxView 
-            HorizontalOptions="FillAndExpand" 
-            BackgroundColor="{DynamicResource Divider}">
+            HorizontalOptions="FillAndExpand" BackgroundColor="{DynamicResource Divider}">
             <BoxView.HeightRequest>
                 <OnPlatform x:TypeArguments="x:Double" iOS="0" Android="1" WinPhone="1"/>
             </BoxView.HeightRequest>

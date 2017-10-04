@@ -1,134 +1,120 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Description;
-using Restaurant.Server.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Restaurant.Server.Api.Abstractions.Facades;
+using Restaurant.Server.Api.Abstractions.Repositories;
+using Restaurant.Server.Api.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using Restaurant.Common.DataTransferObjects;
+using Restaurant.Server.Api.Abstractions.Providers;
 
-namespace Restaurant.Server.Controllers
+namespace Restaurant.Server.Api.Controllers
 {
-    public class FoodsController : ApiController
+    [Produces("application/json")]
+    [Route("api/[controller]")]
+    public class FoodsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly IMapperFacade _mapperFacade;
+        private readonly IRepository<Food> _repository;
+        private readonly IFileUploadProvider _fileUploadProvider;
 
-        // GET: api/Foods
-        public IQueryable<Food> GetFoods()
+        public FoodsController(
+            IMapperFacade mapperFacade,
+            IRepository<Food> repository,
+            IFileUploadProvider fileUploadProvider)
         {
-            return db.Foods;
+            _mapperFacade = mapperFacade;
+            _repository = repository;
+            _fileUploadProvider = fileUploadProvider;
         }
 
-        // GET: api/Foods/5
-        [ResponseType(typeof(Food))]
-        public async Task<IHttpActionResult> GetFood(Guid id)
+        [HttpGet]
+        public IEnumerable<FoodDto> Get()
         {
-            Food food = await db.Foods.FindAsync(id);
-            if (food == null)
-            {
-                return NotFound();
-            }
+            var entities = _repository.GetAll().Include(x => x.Category).ToList();
 
-            return Ok(food);
+            return _mapperFacade.Map<IEnumerable<FoodDto>>(entities);
         }
 
-        // PUT: api/Foods/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutFood(Guid id, Food food)
+        [HttpGet("{id}", Name = "Get")]
+        public FoodDto Get(Guid id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            return _mapperFacade.Map<FoodDto>(_repository.Get(id));
+        }
 
-            if (id != food.Id)
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]FoodDto foodDto)
+        {
+            try
+            {
+                var food = _mapperFacade.Map<Food>(foodDto);
+                food.Picture = _fileUploadProvider.GetUploadedFileByUniqId(food.Id.ToString());
+                _repository.Create(food);
+                var result = await _repository.Commit();
+                if (result)
+                {
+                    _fileUploadProvider.Reset();
+                    return Ok();
+                }
+                _fileUploadProvider.RemoveUploadedFileByUniqId(foodDto.Id.ToString());
+                return BadRequest();
+            }
+            catch (Exception)
+            {
+                _fileUploadProvider.RemoveUploadedFileByUniqId(foodDto.Id.ToString());
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        [Route("UploadFile")]
+        public async Task Post([Bind]IFormFile file, [Bind]string foodId)
+        {
+            await _fileUploadProvider.Upload(file, foodId);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(Guid id, [FromBody]FoodDto foodDto)
+        {
+            try
+            {
+                if (id != foodDto.Id)
+                {
+                    return BadRequest();
+                }
+                var food = _mapperFacade.Map<Food>(foodDto);
+                if (_fileUploadProvider.HasFile(id.ToString()))
+                {
+                    _fileUploadProvider.Remove(food.Picture);
+                    food.Picture = _fileUploadProvider.GetUploadedFileByUniqId(id.ToString());
+                }
+
+                _repository.Update(id, food);
+                return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
+            }
+            catch (Exception)
             {
                 return BadRequest();
             }
+        }
 
-            db.Entry(food).State = EntityState.Modified;
-
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
             try
             {
-                await db.SaveChangesAsync();
+                var food = _repository.Get(id);
+				_fileUploadProvider.Remove(food.Picture);
+                _repository.Delete(food);
+                return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception)
             {
-                if (!FoodExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest();
             }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Foods
-        [ResponseType(typeof(Food))]
-        public async Task<IHttpActionResult> PostFood(Food food)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Foods.Add(food);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (FoodExists(food.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = food.Id }, food);
-        }
-
-        // DELETE: api/Foods/5
-        [ResponseType(typeof(Food))]
-        public async Task<IHttpActionResult> DeleteFood(Guid id)
-        {
-            Food food = await db.Foods.FindAsync(id);
-            if (food == null)
-            {
-                return NotFound();
-            }
-
-            db.Foods.Remove(food);
-            await db.SaveChangesAsync();
-
-            return Ok(food);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool FoodExists(Guid id)
-        {
-            return db.Foods.Count(e => e.Id == id) > 0;
         }
     }
 }

@@ -3,7 +3,7 @@ using Moq;
 using NUnit.Framework;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Managers;
-using Restaurant.DataTransferObjects;
+using Restaurant.Common.DataTransferObjects;
 using Restaurant.Model;
 using Restaurant.ViewModels;
 
@@ -21,7 +21,7 @@ namespace Restaurant.UnitTests.ViewModels
         {
             _authenticationManager = new Mock<IAuthenticationManager>();
             _autoMapperFacade = new Mock<IAutoMapperFacade>();
-            _signInViewModel = new SignInViewModel(_authenticationManager.Object, _autoMapperFacade.Object, null, null);
+            _signInViewModel = new SignInViewModel(_authenticationManager.Object, _autoMapperFacade.Object, null);
         }
 
         [Test]
@@ -36,10 +36,10 @@ namespace Restaurant.UnitTests.ViewModels
             _autoMapperFacade.Setup(x => x.Map<LoginDto>(It.IsAny<SignInViewModel>()))
                 .Returns(loginDto);
 
-            _authenticationManager.Setup(x => x.Login(It.IsAny<LoginDto>())).Returns(Task.FromResult(new AuthenticationResult
-            {
-                ok = true
-            }));
+            //_authenticationManager.Setup(x => x.Login(It.IsAny<LoginDto>())).Returns(Task.FromResult(new AuthenticationResult
+            //{
+            //    ok = true
+            //}));
 
             _signInViewModel.Login.Execute(null);
         }

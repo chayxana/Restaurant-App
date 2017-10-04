@@ -2,10 +2,9 @@
 using System.Reactive.Linq;
 using ReactiveUI;
 using ReactiveUI.Legacy;
-using Restaurant.DataTransferObjects;
+using Restaurant.Common.DataTransferObjects;
 using Restaurant.ViewModels;
 using Splat;
-using ReactiveCommand = ReactiveUI.Legacy.ReactiveCommand;
 
 namespace Restaurant.Models
 {
@@ -39,24 +38,8 @@ namespace Restaurant.Models
         }
 
         public decimal TotalPrice => Quantity * Food.Price;
-
-        public ReactiveCommand<object> BeginOrder { get; set; }
-
-        public ReactiveCommand<object> ApplyOrder { get; set; }
-
-
         public Order()
         {
-            var mainViewModel = Locator.Current.GetService<MainViewModel>();
-            BeginOrder = ReactiveCommand.Create();
-            ApplyOrder = ReactiveCommand.Create();
-
-            BeginOrder.Subscribe(_ => { IsOrdered = true; });
-            ApplyOrder.Do(_ => 
-            {
-                IsOrdered = false;
-                mainViewModel.OrderViewModel.Orders.Add(this);
-            }).Subscribe();
         }
     }
 }

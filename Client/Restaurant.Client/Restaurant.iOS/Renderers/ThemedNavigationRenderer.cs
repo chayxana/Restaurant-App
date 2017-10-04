@@ -9,12 +9,12 @@ using ReactiveUI;
 using Restaurant;
 using Restaurant.iOS.Controls;
 using Restaurant.iOS.Renderers;
+using Restaurant.Pages;
 using Restaurant.ViewModels;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRenderer(typeof(ThemedNavigationPage), typeof(ThemedNavigationRenderer))]
 namespace Restaurant.iOS.Renderers
 {
     /// <summary>
@@ -54,23 +54,23 @@ namespace Restaurant.iOS.Renderers
         {
             if (toolBarItem != null)
             {
-                MainViewModel viewModel = (toolBarItem.BindingContext as FoodsViewModel)?.MainViewModel;
-                UIButton button = UIButton.FromType(UIButtonType.Custom);
-                button.Frame = new CGRect(0, -5, 25, 25);
-                button.SetImage(UIImage.FromFile("ic_shopping_cart_white_2x.png"), UIControlState.Normal);
-                button.TouchUpInside += (s, e) =>
-                {
-                    var tool = s as UIButton;
-                    var command = buttonCommands[tool];
-                    command.Execute(null);
-                };
-                buttonCommands.Add(button, toolBarItem.Command);
-                BadgeBarButtonItem barButtonItem = new BadgeBarButtonItem(button);
-                NavigationBar.Items[0].RightBarButtonItem = barButtonItem;
-                viewModel.OrderViewModel.WhenAnyValue(x => x.OrdersCount).Subscribe(x =>
-                {
-                    barButtonItem.BadgeValue = x.ToString();
-                });
+                //MainViewModel viewModel = (toolBarItem.BindingContext as FoodsViewModel)?.MainViewModel;
+                //UIButton button = UIButton.FromType(UIButtonType.Custom);
+                //button.Frame = new CGRect(0, -5, 25, 25);
+                //button.SetImage(UIImage.FromFile("ic_shopping_cart_white_2x.png"), UIControlState.Normal);
+                //button.TouchUpInside += (s, e) =>
+                //{
+                //    var tool = s as UIButton;
+                //    var command = buttonCommands[tool];
+                //    command.Execute(null);
+                //};
+                //buttonCommands.Add(button, toolBarItem.Command);
+                //BadgeBarButtonItem barButtonItem = new BadgeBarButtonItem(button);
+                //NavigationBar.Items[0].RightBarButtonItem = barButtonItem;
+                //viewModel.OrderViewModel.WhenAnyValue(x => x.OrdersCount).Subscribe(x =>
+                //{
+                //    barButtonItem.BadgeValue = x.ToString();
+                //});
             }
             base.ViewWillAppear(animated);
         }

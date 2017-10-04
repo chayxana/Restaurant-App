@@ -10,9 +10,9 @@ namespace Restaurant.Managers
         {
             return new MaterialTheme
             {
-                Primary = (Color)App.Current.Resources["{0}Primary".Fmt(color)],
-                Light = (Color)App.Current.Resources["{0}Light".Fmt(color)],
-                Dark = (Color)App.Current.Resources["{0}Dark".Fmt(color)]
+                Primary = (Color)App.Current.Resources[$"{color}Primary"],
+                Light = (Color)App.Current.Resources[$"{color}Light"],
+                Dark = (Color)App.Current.Resources[$"{color}Dark"]
             };
         }
     }

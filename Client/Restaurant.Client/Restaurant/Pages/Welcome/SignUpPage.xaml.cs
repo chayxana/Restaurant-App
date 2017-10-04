@@ -1,45 +1,32 @@
 ﻿using Restaurant.Abstractions.Managers;
 using Restaurant.ViewModels;
-using Xamarin.Forms;
 
-namespace Restaurant.Pages
+namespace Restaurant.Pages.Welcome
 {
     public partial class SignUpPage : SignUpPageXaml
     {
         private readonly IThemeManager _themeManager;
 
         public SignUpPage(IThemeManager themeManager)
-        {
-            _themeManager = themeManager;
-            InitializeComponent();
-            Initialize();
-            
-            // Example: Using WhenAny instead of Value Converters 
-            //SignInViewModel.WhenAnyValue(x => x.IsLoading).Subscribe(isLoading => 
-            //{
-            //    if (isLoading)
-            //    {
-            //        loadingLayout.IsVisible = true;
-            //        regesterStack.IsVisible = false;
-            //    }
-            //    else
-            //    {
-            //        loadingLayout.IsVisible = false;
-            //        regesterStack.IsVisible = true;
-            //    }
-            //});
-        }
+		{
+			_themeManager = themeManager;
+			SetColors();
 
-        protected override void Initialize()
+			InitializeComponent();
+		}
+
+		private void SetColors()
+		{
+			var color = _themeManager.GetThemeFromColor("indigo");
+			StatusBarColor = color.Dark;
+			ActionBarBackgroundColor = color.Primary;
+		}
+
+		protected override void OnLoaded()
         {
-            var color = _themeManager.GetThemeFromColor("indigo");
-            StatusBarColor = color.Dark;
-            ActionBarBackgroundColor = color.Primary;
-            NavigationBarColor = Color.Black;
-            base.Initialize();
         }
     }
-    public class SignUpPageXaml : BaseContentPage<SignUpViewModel>
+    public abstract class SignUpPageXaml : BaseContentPage<SignUpViewModel>
     {
 
     }

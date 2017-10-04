@@ -1,44 +1,33 @@
-using System.Threading.Tasks;
 using Restaurant.Abstractions.Managers;
+using Restaurant.Constants;
 using Restaurant.ViewModels;
 using Xamarin.Forms;
 
-namespace Restaurant.Pages
+namespace Restaurant.Pages.Welcome
 {
     public partial class WelcomeStartPage : WelcomeStartPageXaml
-    {
-        private readonly IThemeManager _themeManager;
-
+    {  
         public WelcomeStartPage(IThemeManager themeManager)
         {
-            _themeManager = themeManager;
             NavigationPage.SetHasNavigationBar(this, false);
-
             InitializeComponent();
-            Initialize();
-        }
+
+	        var theme = themeManager.GetThemeFromColor("blue");
+	        StatusBarColor = theme.Dark;
+	        BackgroundColor = theme.Primary;
+		}
         protected override async void OnLoaded()
         {
-            base.OnLoaded();
-            await Task.Delay(300);
-            await label1.ScaleTo(1, App.AnimationSpeed, Easing.SinIn);
-            await label2.ScaleTo(1, App.AnimationSpeed, Easing.SinIn);
-            await buttonStack.ScaleTo(1, App.AnimationSpeed, Easing.SinIn);
-            BindingContext = ViewModel;
-        }
+            await label1.ScaleTo(1, AppConstants.AnimationSpeed, Easing.SinIn);
+            await label2.ScaleTo(1, AppConstants.AnimationSpeed, Easing.SinIn);
+            await buttonStack.ScaleTo(1, AppConstants.AnimationSpeed, Easing.SinIn);
+	        await signUpStack.ScaleTo(1, AppConstants.AnimationSpeed, Easing.SinIn);
 
-        protected sealed override void Initialize()
-        {
-            base.Initialize();
-            var theme = _themeManager.GetThemeFromColor("blue");
-            StatusBarColor = theme.Dark;
-            NavigationBarColor = theme.Primary;
-            BackgroundColor = theme.Primary;
+			BindingContext = ViewModel;
         }
     }
 
-    public class WelcomeStartPageXaml : BaseContentPage<WelcomeViewModel>
+    public abstract class WelcomeStartPageXaml : BaseContentPage<WelcomeViewModel>
     {
-
     }
 }

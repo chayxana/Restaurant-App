@@ -1,28 +1,31 @@
-﻿using ReactiveUI;
+﻿using Autofac;
+using ReactiveUI;
 using Restaurant.ViewModels;
-using Splat;
 using Xamarin.Forms;
 
 namespace Restaurant.Pages
 {
+    // ReSharper disable once RedundantExtendsListEntry
     public partial class MainPage : MainPageXaml
     {
         public MainPage()
         {
             InitializeComponent();
-            //Master = new MasterPage(SignInViewModel);
-            //Detail = new FoodsPage().WithinNavigationPage();
+            BindingContext = App.Container.Resolve<IMainViewModel>();
+            Master = new MasterPage();
+            var view = App.Container.Resolve<IViewFor<FoodsViewModel>>();
+            view.ViewModel = App.Container.Resolve<FoodsViewModel>();
+            var page = view as Page;
 
+            Detail = new NavigationPage(page);
         }
     }
 
-    public class MainPageXaml : BaseMasterDetailPage<MainViewModel>, IDetailedScreen
+    public class MainPageXaml : BaseMasterDetailPage<MainViewModel>
     {
-        public DetailState DetailState { get; set; }
 
         protected MainPageXaml()
         {
-
         }
     }
 
@@ -40,8 +43,6 @@ namespace Restaurant.Pages
 
         protected BaseMasterDetailPage()
         {
-            ViewModel = Locator.Current.GetService<T>();
-            BindingContext = ViewModel;            
         }
     }
 
@@ -53,17 +54,7 @@ namespace Restaurant.Pages
 
         public Color StatusBarColor { get; set; }
 
-        public Color NavigationBarColor { get; set; }
-
-
-        public void AddDoneButton(string text = "Done")
-        {
-    
-            var btnMore = new ToolbarItem
-            {
-                Icon = "ic_more_vert_white"
-            };
-            ToolbarItems.Add(btnMore);
-        }
+	    public bool IsTransparentToolbar { get; set; }
+		
     }
 }

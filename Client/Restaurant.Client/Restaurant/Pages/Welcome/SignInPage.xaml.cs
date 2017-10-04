@@ -1,42 +1,52 @@
 using System.Threading.Tasks;
 using Restaurant.Abstractions.Managers;
+using Restaurant.Constants;
 using Restaurant.ViewModels;
 using Xamarin.Forms;
 
-namespace Restaurant.Pages
+namespace Restaurant.Pages.Welcome
 {
-    public partial class SignInPage : SignInPageXaml
-    {
-        public SignInPage(IThemeManager themeManager)
-        {
-            InitializeComponent();
-            var theme = themeManager.GetThemeFromColor("red");
-            StatusBarColor = theme.Dark;
-            ActionBarBackgroundColor = theme.Primary;
-            //SignInViewModel.Login.Subscribe(async x =>
-            //{
-            //    await AnimateControls(0, Easing.SinOut);
-            //    SignInViewModel.NavigateToMainPage(x);
-            //    SignInViewModel.IsBusy = false;
-            //});                 
-        }
+	public partial class SignInPage : SignInPageXaml
+	{
+		private readonly IThemeManager _themeManager;
 
-        private async Task AnimateControls(int scale, Easing easing)
-        {
-            await emailStack.ScaleTo(scale, App.AnimationSpeed, easing);
-            await passwordStack.ScaleTo(scale, App.AnimationSpeed, easing);
-            await loginStack.ScaleTo(scale, App.AnimationSpeed, easing);
-        }
+		public SignInPage(IThemeManager themeManager)
+		{
+			_themeManager = themeManager;
+			InitializeComponent();
+			SetColors();
 
-        protected override async void OnLoaded()
-        {
-            await AnimateControls(1, Easing.SinIn);
-            base.OnLoaded();
-        }
-    }
+			//SignInViewModel.Login.Subscribe(async x =>
+			//{
+			//    await AnimateControls(0, Easing.SinOut);
+			//    SignInViewModel.NavigateToMainPage(x);
+			//    SignInViewModel.IsBusy = false;
+			//});                 
+		}
 
-    public class SignInPageXaml : BaseContentPage<SignInViewModel>
-    {
+		private void SetColors()
+		{
+			var theme = _themeManager.GetThemeFromColor("red");
+			StatusBarColor = theme.Dark;
+			ActionBarBackgroundColor = theme.Primary;
+		}
 
-    }
+		private async Task AnimateControls(int scale, Easing easing)
+		{
+			await emailStack.ScaleTo(scale, AppConstants.AnimationSpeed, easing);
+			await passwordStack.ScaleTo(scale, AppConstants.AnimationSpeed, easing);
+			await loginStack.ScaleTo(scale, AppConstants.AnimationSpeed, easing);
+		}
+
+		protected override async void OnLoaded()
+		{
+			BindingContext = ViewModel;
+			await AnimateControls(1, Easing.SinIn);
+		}
+	}
+
+	public abstract class SignInPageXaml : BaseContentPage<SignInViewModel>
+	{
+
+	}
 }

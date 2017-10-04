@@ -3,12 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Restaurant.Pages.FoodsPage"
              xmlns:local="clr-namespace:Restaurant.Pages;assembly=Restaurant"
-             xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
-             xmlns:views="clr-namespace:Restaurant.Views;assembly=Restaurant">
+             xmlns:views="clr-namespace:Restaurant.Views;assembly=Restaurant"
+             xmlns:converters="clr-namespace:Restaurant.Converters;assembly=Restaurant"
+             BackgroundColor="{StaticResource WindowBackgroundTable}">
+  
+  <local:FoodsPage.Resources>
+    <ResourceDictionary>
+      <converters:InverseBoolConverter x:Key="InverseBoolConverter"/> 
+    </ResourceDictionary>
+  </local:FoodsPage.Resources>
   <local:FoodsXamlPage.ToolbarItems>
     <ToolbarItem Text="{Binding MainViewModel.BasketViewModel.OrdersCount, StringFormat='Basket(\{0\})'}" ClassId="basket" Command="{Binding OpenOrder}" x:Name="orderToolbar"/>
   </local:FoodsXamlPage.ToolbarItems>
   <local:FoodsXamlPage.Content>
-    <views:FoodsListView ItemsSource="{Binding OrderableFoods}" x:Name="list"/>
+    <Grid>
+      <views:FoodsListView ItemsSource="{Binding Foods}" IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
+                           SelectedItem="{Binding SelectedFood}"
+                           x:Name="FoodsList" />
+      
+      <StackLayout IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center">
+        <ActivityIndicator  IsRunning="{Binding IsLoading}" Color="{StaticResource grayDark}" HorizontalOptions="Center"
+                            VerticalOptions="EndAndExpand" />
+      </StackLayout>
+    </Grid>
   </local:FoodsXamlPage.Content>
 </local:FoodsXamlPage>

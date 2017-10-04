@@ -1,7 +1,10 @@
-﻿using Akavache;
-using Autofac;
+﻿using Autofac;
 using ReactiveUI;
+using Restaurant.Abstractions.Managers;
+using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
+using Restaurant.Mappers;
+using Restaurant.Pages;
 using Restaurant.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,23 +17,21 @@ namespace Restaurant
     {
         public static IContainer Container { get; private set; }
 
-        public App()
-        {
-            InitializeComponent();
-            AnimationSpeed = 200;
+	    public App()
+	    {
+		    InitializeComponent();
+		    var boot = new BootstrapperBase();
 
+			Container = boot.Build();
+		    AutoMapperConfiguration.Configure();
 
-            var bootstrapper = new Bootstrapper();
-            Container = bootstrapper.Build();
+		    var navigationService = Container.Resolve<INavigationService>();
+		    var welcomePage = navigationService.ResolveView(Container.Resolve<IWelcomeViewModel>());
 
-            var welcomePage = Container.Resolve<IViewFor<WelcomeViewModel>>();
-            welcomePage.ViewModel = Container.Resolve<IWelcomeViewModel>() as WelcomeViewModel;
+			MainPage =  new NavigationPage(welcomePage as Page);
+	    }
 
-
-            MainPage = new NavigationPage(welcomePage as Page);
-        }
-
-        protected override void OnStart()
+	    protected override void OnStart()
         {
             base.OnStart();
         }
@@ -47,45 +48,6 @@ namespace Restaurant
         }
 
         public new static App Current => (App)Application.Current;
-
-        public static uint AnimationSpeed { get; internal set; }
-
-    }
-
-    public class AppBotstrapper : ReactiveObject// INavigatableScreen
-    {
-        // The Router holds the ViewModels for the back stack. Because it's
-        // in this object, it will be serialized automatically.
-        //public NavigationState Navigation { get; protected set; }
-
-        public AppBotstrapper()
-        {
-            //Navigation = new NavigationState();
-
-            //Locator.CurrentMutable.RegisterConstant(this, typeof(INavigatableScreen));
-
-            // Set up Akavache
-            // 
-            // Akavache is a portable data serialization library that we'll use to
-            // cache data that we've downloaded
-            BlobCache.ApplicationName = "Restaurant";
-
-            // Set up Fusillade
-            //
-            // Fusillade is a super cool library that will make it so that whenever
-            // we issue web requests, we'll only issue 4 concurrently, and if we
-            // end up issuing multiple requests to the same resource, it will
-            // de-dupe them. We're saying here, that we want our *backing*
-            // HttpMessageHandler to be ModernHttpClient.
-            //Locator.CurrentMutable.RegisterConstant(new NativeMessageHandler(), typeof(HttpMessageHandler));
-
-            //Locator.CurrentMutable.Register(() => new SignInPage(), typeof(IViewFor<SignInViewModel>));
-
-            //Locator.CurrentMutable.Register(() => new SignUpPage(), typeof(IViewFor<SignUpViewModel>));
-
-            //Locator.CurrentMutable.Register(() => new MainPage(), typeof(IViewFor<MainViewModel>)); 
-
-        }
 
     }
 }

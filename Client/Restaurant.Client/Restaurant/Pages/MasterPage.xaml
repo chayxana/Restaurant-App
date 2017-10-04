@@ -1,68 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Restaurant.Pages.MasterPage"
-             xmlns:local="clr-namespace:Restaurant.Pages;assembly=Restaurant"
-             xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
              xmlns:views="clr-namespace:Restaurant.Views;assembly=Restaurant"
-             xmlns:image="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
+             x:Class="Restaurant.Pages.MasterPage"
              Icon="ic_menu_white.png"
-             Title="Master"
-             BackgroundColor="{StaticResource grayLight}">
-  <ContentPage.Padding>
-    <OnPlatform x:TypeArguments="Thickness">
-      <OnPlatform.iOS>
-        0, 0, 0, 0
-      </OnPlatform.iOS>
-      <OnPlatform.Android>
-        0, 0, 0, 0
-      </OnPlatform.Android>
-      <OnPlatform.WinPhone>
-        0, 0, 0, 0
-      </OnPlatform.WinPhone>
-    </OnPlatform>
-  </ContentPage.Padding>
-  <ContentPage.Content>
-    <Grid>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="*"/>
-      </Grid.RowDefinitions>
-      <views:ProfileStripView Grid.Row="0"/>
-      <StackLayout Grid.Row="1">
-        <ListView x:Name="listView" BackgroundColor="{StaticResource grayLight}">
-         <ListView.SeparatorColor>
-           <OnPlatform x:TypeArguments="Color" iOS="White"/>
-         </ListView.SeparatorColor>
-          <ListView.ItemTemplate>
-            <DataTemplate>
-              <ViewCell Tapped="Cell_Tapped">
-                <ViewCell.View>
-                  <StackLayout StyleId="test">
-                    <Grid>
-                      <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                      </Grid.ColumnDefinitions>
-                      <StackLayout Padding="10">
-                        <Image HorizontalOptions="End" Opacity=".3"
+             Title="Master" BackgroundColor="Red">
+
+    <xfg:ContentPageGloss.BackgroundGradient>
+        <xfg:Gradient Rotation="150">
+            <xfg:GradientStep StepColor="#ef5350" StepPercentage="0" />
+            <xfg:GradientStep StepColor="#EC407A" StepPercentage="1" />
+        </xfg:Gradient>
+    </xfg:ContentPageGloss.BackgroundGradient>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <views:ProfileStripView Grid.Row="0"/>
+            <StackLayout Grid.Row="1"  Padding="0, 20" BackgroundColor="{StaticResource grayLight}">
+                <ListView x:Name="listView" ItemsSource="{Binding MasterViewModel.Items}" SelectedItem="{Binding MasterViewModel.SelectedItem}">
+                    <ListView.SeparatorColor>
+                        <OnPlatform x:TypeArguments="Color" iOS="White"/>
+                    </ListView.SeparatorColor>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <StackLayout StyleId="test">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout Padding="10">
+                                                <Image HorizontalOptions="End" Opacity=".3"
                                           VerticalOptions="Center"                                         
                                           WidthRequest="25"
                                           HeightRequest="25"
                                           Source="{Binding IconSource}"/>
-                      </StackLayout>                      
-                      
-                      <StackLayout Grid.Column="1" VerticalOptions="Center">
-                        <Label Text="{Binding Title}" TextColor="{StaticResource grayDark}" FontSize="Medium"/>
-                      </StackLayout>
-                    </Grid>
-                  </StackLayout>
-                </ViewCell.View>
-              </ViewCell>
-            </DataTemplate>
-          </ListView.ItemTemplate>
-        </ListView>
-      </StackLayout>
-    </Grid>
-  </ContentPage.Content>
+                                            </StackLayout>
+
+                                            <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                                <Label Text="{Binding Title}" TextColor="{StaticResource grayDark}" FontSize="Medium"/>
+                                            </StackLayout>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>

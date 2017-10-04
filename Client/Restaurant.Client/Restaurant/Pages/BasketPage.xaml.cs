@@ -12,7 +12,6 @@ namespace Restaurant.Pages
 
             var theme = themeManager.GetThemeFromColor("green");
             ActionBarBackgroundColor = theme.Primary;
-            NavigationBarColor = theme.Dark;
             StatusBarColor = theme.Dark;
             orders.ItemSelected += Orders_ItemSelected;
         }
@@ -21,9 +20,18 @@ namespace Restaurant.Pages
         {
             orders.SelectedItem = null;
         }
+
+        protected override void OnLoaded()
+        {
+        }
+
+        protected override void UnLoad()
+        {
+            orders.ItemSelected -= Orders_ItemSelected;
+        }
     }
 
-    public class BasketPageXaml : BaseContentPage<OrderViewModel>
+    public abstract class BasketPageXaml : BaseContentPage<OrderViewModel>
     {
     }
 }

@@ -15,7 +15,7 @@ namespace Restaurant.Pages
         {
             InitializeComponent();
 
-            var theme = themeManager.GetThemeFromColor("bluePink");
+            var theme = themeManager.GetThemeFromColor("red");
             ActionBarBackgroundColor = theme.Primary;
             StatusBarColor = theme.Dark;
             ActionBarTextColor = Color.White;

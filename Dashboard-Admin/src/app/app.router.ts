@@ -12,7 +12,7 @@ export const appRoutes: Routes = [
     { path: 'categories', component: ListCategoriesComponent },
     { path: 'categories/create', component: AddCategoryComponent },
     { path: 'categories/create/:id', component: AddCategoryComponent },
-    { path: 'dailyeatings', component: AddDailyEatingComponent }
+    { path: 'dailyeatings', component: AddDailyEatingComponent },
 ];
 
 export const routes: any = RouterModule.forRoot(appRoutes);

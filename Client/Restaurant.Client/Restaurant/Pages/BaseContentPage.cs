@@ -1,9 +1,9 @@
 ﻿using ReactiveUI;
 using Xamarin.Forms;
 
-namespace Restaurant
+namespace Restaurant.Pages
 {
-    public class BaseContentPage<T> : MainBaseContentPage, IViewFor<T> where T : class
+    public abstract class BaseContentPage<T> : MainBaseContentPage, IViewFor<T> where T : class
     {
         public T ViewModel { get; set; }
 
@@ -14,111 +14,47 @@ namespace Restaurant
         }
     }
 
-    public class MainBaseContentPage : ContentPage, IColoredPage
+    public abstract class MainBaseContentPage : ContentPage, IColoredPage
     {
         public Color ActionBarBackgroundColor { get; set; }
 
         public Color ActionBarTextColor { get; set; }
-
-        public Color NavigationBarColor { get; set; }
-
+		
         public Color StatusBarColor { get; set; }
 
-        bool _hasSubscribed;
+	    public bool IsTransparentToolbar { get; set; }
 
-        public bool HasInitialized
+	    protected override void OnAppearing()
         {
-            get;
-            private set;
-        }
-
-        public MainBaseContentPage()
-        {
-            //ActionBarTextColor = Color.White;
-            //NavigationBarColor = Color.Black;
-            SubscribeToAuthentication();
-            SubscribeToIncomingPayload();
-        }
-
-        private void SubscribeToAuthentication()
-        {
-            //SubscribeToAuthenTication
-        }
-
-        protected override void OnAppearing()
-        {
-            if (!_hasSubscribed)
+	        if (Parent is NavigationPage nav)
             {
-                SubscribeToAuthentication();
-                SubscribeToIncomingPayload();
-                _hasSubscribed = true;
+                ApplyTheme(nav);
             }
 
-            var nav = Parent as NavigationPage;
-            if (nav != null)
-            {
-                nav.BarBackgroundColor = ActionBarBackgroundColor;
-                nav.BarTextColor = ActionBarTextColor;
-            }
-
-            if (!HasInitialized)
-            {
-                HasInitialized = true;
-                OnLoaded();
-            }
             base.OnAppearing();
-        }
-
-        private void SubscribeToIncomingPayload()
-        {
-            // TODO: Notification
+            OnLoaded();
         }
 
         protected virtual void Initialize()
         {
         }
 
-        protected virtual void OnLoaded()
-        {
+        protected abstract void OnLoaded();
+
+        protected virtual void UnLoad()
+        {   
         }
 
-        /// <summary>
-        /// Wraps the ContentPage within a NavigationPage
-        /// </summary>
-        /// <returns>The navigation page.</returns>
-        public NavigationPage WithinNavigationPage()
-        {
-            var nav = new ThemedNavigationPage(this);
-            ApplyTheme(nav);
-            return nav;
-        }
-
-        public NavigationPage ToThemedNavigationPage()
-        {
-            var nav = new NavigationPage(this);
-            ApplyTheme(nav);
-            return nav;
-        }
-
-
-        protected void ApplyTheme(NavigationPage nav)
+	    private void ApplyTheme(NavigationPage nav)
         {
             nav.BarBackgroundColor = ActionBarBackgroundColor;
             nav.BarTextColor = ActionBarTextColor;
         }
 
-        public void AddDoneButton(string text = "Done", ContentPage page = null)
+        protected override void OnDisappearing()
         {
-            var btnDone = new ToolbarItem
-            {
-                Text = text
-            };
-
-            btnDone.Clicked += async (sender, e) =>
-            await Navigation.PopModalAsync();
-
-            page = page ?? this;
-            page.ToolbarItems.Add(btnDone);
+            base.OnDisappearing();
+            UnLoad();
         }
     }
 
@@ -128,20 +64,8 @@ namespace Restaurant
 
         Color ActionBarBackgroundColor { get; set; }
 
-        Color NavigationBarColor { get; set; }
-
         Color StatusBarColor { get; set; }
+
+		bool IsTransparentToolbar { get; set; }
     }
-
-    public class ThemedNavigationPage : NavigationPage
-    {
-        public ThemedNavigationPage()
-        {
-        }
-
-        public ThemedNavigationPage(ContentPage root) : base(root)
-        {
-        }
-    }
-
 }

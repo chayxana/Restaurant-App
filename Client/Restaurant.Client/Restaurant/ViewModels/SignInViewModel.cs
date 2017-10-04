@@ -5,7 +5,9 @@ using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Managers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.DataTransferObjects;
+using Restaurant.Common.DataTransferObjects;
+using Restaurant.Pages;
+using Xamarin.Forms;
 
 namespace Restaurant.ViewModels
 {
@@ -41,21 +43,22 @@ namespace Restaurant.ViewModels
 
         public override string Title => "Login";
 
-        public SignInViewModel(IAuthenticationManager authenticationManager, 
+        public SignInViewModel(
+            IAuthenticationManager authenticationManager, 
             IAutoMapperFacade autoMapperFacade,
-            INavigationService navigationService,
-            IMainViewModel mainViewModel)
+            INavigationService navigationService)
         {
             var canLogin = this.WhenAny(x => x.Email, x => x.Password,
                 (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
 
             Login = ReactiveCommand.CreateFromTask(async _ =>
             {
-                var result = await authenticationManager.Login(autoMapperFacade.Map<LoginDto>(this));
-                if (result.ok)
-                {
-                   await navigationService.NavigateAsync(mainViewModel);
-                }
+	            App.Current.MainPage = new MainPage();
+				//var result = await authenticationManager.Login(autoMapperFacade.Map<LoginDto>(this));
+    //            if (!result.IsError)
+    //            {
+                  
+    //            }
             }, canLogin);
         }
 

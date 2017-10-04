@@ -2,5 +2,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="Restaurant.Restaurant" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="19" />
 	<uses-permission android:name="android.permission.INTERNET" />
-	<application android:theme="@style/MyTheme"></application>
+	<application android:theme="@style/MainTheme"></application>
 </manifest>

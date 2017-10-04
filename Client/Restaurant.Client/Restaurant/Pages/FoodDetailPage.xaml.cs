@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Restaurant.ViewModels;
-using Xamarin.Forms;
+﻿using Restaurant.ViewModels;
 using Xamarin.Forms.Xaml;
 
 namespace Restaurant.Pages
@@ -24,7 +16,6 @@ namespace Restaurant.Pages
 		{
 			BindingContext = ViewModel;
 		}
-		
 	}
 
 	public abstract class FoodDetailPageXaml : BaseContentPage<FoodDetailViewModel>

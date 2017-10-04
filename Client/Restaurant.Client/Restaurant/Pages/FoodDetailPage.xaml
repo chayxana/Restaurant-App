@@ -14,14 +14,12 @@
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
 
-      <Grid RowSpacing="0" ColumnSpacing="0"  x:Name="HeaderView">
+      <Grid RowSpacing="0" ColumnSpacing="0">
         <Image HorizontalOptions="FillAndExpand"
                VerticalOptions="FillAndExpand"
                Source="{Binding SelectedFood.Picture}"
                Aspect="AspectFill"/>
-        
         <Grid Opacity=".3" BackgroundColor="Black"></Grid>
-
       </Grid>
 
       <StackLayout Grid.Row="1">
@@ -60,7 +58,7 @@
     <controls:FloatingActionButton WidthRequest="50" HeightRequest="50" x:Name="AddButton"
                                    AbsoluteLayout.LayoutBounds=".9, .5, 50, 50"
                                    AbsoluteLayout.LayoutFlags="PositionProportional"
-                                   ButtonColor="Red" Image="ic_favorite_white_24dp.png">
+                                   ButtonColor="{StaticResource grayLight}" Image="ic_favorite_white_24dp.png">
       <controls:FloatingActionButton.IsVisible>
         <OnPlatform x:TypeArguments="x:Boolean">
           <On Platform="Android" Value="True"/>

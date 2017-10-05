@@ -1,16 +1,11 @@
 ﻿using Autofac;
-using ReactiveUI;
-using Restaurant.Abstractions.Managers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Mappers;
-using Restaurant.Pages;
-using Restaurant.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-
 namespace Restaurant
 {
     public partial class App : Application

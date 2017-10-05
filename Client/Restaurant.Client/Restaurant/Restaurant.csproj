@@ -76,7 +76,6 @@
     <Compile Include="Mappers\AutoMapperConfiguration.cs" />
     <Compile Include="Mappers\ViewModelToDataTransferObjectsProfile.cs" />
     <Compile Include="Pages\BaseContentPage.cs" />
-    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Abstractions\InjectableAttribute.cs" />
     <Compile Include="Pages\FoodDetailPage.xaml.cs">
       <DependentUpon>FoodDetailPage.xaml</DependentUpon>

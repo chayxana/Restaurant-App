@@ -34,8 +34,8 @@ namespace Restaurant.Server.Api.Controllers
 
 		[HttpGet]
 		[Authorize]
-		[Route("GetUser")]
-	    public async Task<UserDto> GetUser()
+		[Route("GetUserInfo")]
+	    public async Task<UserDto> GetUserInfo()
 	    {
 		    var user = await _userManagerFacade.GetAsync(User);
 		    return _mapper.Map<UserDto>(user);

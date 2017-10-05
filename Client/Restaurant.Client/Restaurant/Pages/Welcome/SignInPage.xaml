@@ -43,7 +43,8 @@
 						</OnPlatform>
 					</ContentView.HeightRequest>
 				</ContentView>
-			</StackLayout>
+			
+      </StackLayout>
 
 			<StackLayout Orientation="Vertical" Padding="10" x:Name="passwordStack" Scale="0">
 				<Grid>
@@ -68,7 +69,7 @@
 			</StackLayout>
 			
 			<StackLayout Orientation="Vertical" Padding="10" x:Name="loginStack" Scale="0">
-				<controls:AnimateButton x:Name="Login" Text="Log In" Command="{Binding Login}" BackgroundColor="{StaticResource redLight}"/>
+				<controls:AnimateButton x:Name="Login" Text="Log In" HeightRequest="45" Command="{Binding Login}" BackgroundColor="{StaticResource redLight}"/>
 			</StackLayout>
       
       <Grid Padding="10">
@@ -77,14 +78,14 @@
           <ColumnDefinition Width="Auto"/>
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-          <controls:Divider Grid.Column="0"/>
+          <controls:Divider Grid.Column="0" Padding="10, 0"/>
           <Label Text="Or" FontSize="14" TextColor="Black" Grid.Column="1"/>
-          <controls:Divider Grid.Column="2"/>
+          <controls:Divider Grid.Column="2" Padding="10, 0"/>
       </Grid>
       
       <StackLayout Padding="10">
-        <controls:AnimateButton Text="Sign in with Google" TextColor="White" Image="ic_account.png" BackgroundColor="{StaticResource redDark}"></controls:AnimateButton>
-        <controls:AnimateButton Text="Connect with Facebook" TextColor="White" Image="facebook.png" BackgroundColor="{StaticResource indigoDark}"></controls:AnimateButton>
+        <controls:AnimateButton Margin="5" Text="Sign in with Google" HeightRequest="45" TextColor="{StaticResource grayDark}" BackgroundColor="White" Image="google.png"></controls:AnimateButton>
+        <controls:AnimateButton Margin="5" BorderColor="{StaticResource grayPrimary}" Text="Connect with Facebook" HeightRequest="45" TextColor="White" Image="facebook.png" BackgroundColor="#3B5998"></controls:AnimateButton>
       </StackLayout>
 
 			<StackLayout IsVisible="{Binding IsBusy}">

@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Restaurant.Server.Api.Abstractions.Facades;
 using Restaurant.Server.Api.Abstractions.Repositories;
 using Restaurant.Server.Api.Models;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Restaurant.Common.DataTransferObjects;
 using Restaurant.Server.Api.Abstractions.Providers;
@@ -34,7 +33,7 @@ namespace Restaurant.Server.Api.Controllers
         [HttpGet]
         public IEnumerable<FoodDto> Get()
         {
-            var entities = _repository.GetAll().Include(x => x.Category).ToList();
+            var entities = _repository.GetAll().ToList();
 
             return _mapperFacade.Map<IEnumerable<FoodDto>>(entities);
         }

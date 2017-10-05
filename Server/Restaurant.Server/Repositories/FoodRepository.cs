@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Repositories
@@ -9,5 +11,10 @@ namespace Restaurant.Server.Api.Repositories
 			: base(context, logger)
 		{
 		}
+
+	    public override IQueryable<Food> GetAll()
+	    {
+		    return base.GetAll().Include(x => x.Category);
+	    }
     }
 }

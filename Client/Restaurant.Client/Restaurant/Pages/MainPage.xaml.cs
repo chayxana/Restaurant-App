@@ -23,13 +23,12 @@ namespace Restaurant.Pages
 
     public class MainPageXaml : BaseMasterDetailPage<MainViewModel>
     {
-
         protected MainPageXaml()
         {
         }
     }
 
-    public class BaseMasterDetailPage<T> : MainBaseMasterDetailPage, IViewFor<T> where T : class
+    public class BaseMasterDetailPage<T> : MasterDetailPage, IViewFor<T> where T : class
     {
 
         public T ViewModel { get; set; }
@@ -44,17 +43,5 @@ namespace Restaurant.Pages
         protected BaseMasterDetailPage()
         {
         }
-    }
-
-    public class MainBaseMasterDetailPage : MasterDetailPage, IColoredPage
-    {
-        public Color ActionBarTextColor { get; set; }
-
-        public Color ActionBarBackgroundColor { get; set; }
-
-        public Color StatusBarColor { get; set; }
-
-	    public bool IsTransparentToolbar { get; set; }
-		
     }
 }

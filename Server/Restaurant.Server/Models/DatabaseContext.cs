@@ -58,5 +58,8 @@ namespace Restaurant.Server.Api.Models
         public virtual DbSet<Order> Orders { get; set; }
         
         public virtual DbSet<DailyEating> DailyEatings { get; set; }
+
+		public virtual DbSet<User> Users { get; set; }
+
     }
 }

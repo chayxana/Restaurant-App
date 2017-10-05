@@ -7,7 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac.Extras.Moq" Version="4.2.0" />
+    <PackageReference Include="FluentAssertions" Version="4.19.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170628-02" />
+    <PackageReference Include="Moq" Version="4.7.137" />
     <PackageReference Include="xunit" Version="2.2.0" />
     <PackageReference Include="xunit.runner.console" Version="2.2.0" />
     <PackageReference Include="xunit.runner.reporters" Version="2.2.0" />
@@ -15,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\..\Restaurant.Server\Restaurant.Server.Api.csproj" />
   </ItemGroup>
 
 </Project>

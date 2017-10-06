@@ -7,6 +7,9 @@
         <ResourceDictionary>
 
             <OnPlatform x:TypeArguments="Thickness" Android="12,10" iOS="0,0,0,16" WinPhone="0,0,0,16" x:Key="CardPadding"/>
+            
+            <OnPlatform x:TypeArguments="Thickness" Android="20" iOS="15" WinPhone="20" x:Key="FoodDetailtPadding"/>
+            
             <OnPlatform x:TypeArguments="x:Double" Android="16" iOS="0" WinPhone="0" x:Key="CardSpacing"/>
 
             <OnPlatform x:TypeArguments="Color" Android="#F5F5F5" iOS="#EFEFF4" WinPhone="#EFEFF4" x:Key="WindowBackgroundTable"/>
@@ -16,7 +19,11 @@
             <Color x:Key="asphaltPrimary">#365271</Color>
             <Color x:Key="asphaltLight">#889DB5</Color>
             <Color x:Key="asphaltDark">#1C2B39</Color>
-            
+
+            <Color x:Key="orangePrimary">#FF9800</Color>
+            <Color x:Key="orangeDark">#F57C00</Color>
+            <Color x:Key="orangeLight">#FFE0B2</Color>
+
             <Color x:Key="icon">#848687</Color>
 
             <Color x:Key="indigoPrimary">#3F51B5</Color>

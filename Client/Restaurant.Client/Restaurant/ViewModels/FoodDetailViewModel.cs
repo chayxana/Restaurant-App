@@ -1,24 +1,51 @@
-﻿using ReactiveUI;
+﻿using System.Windows.Input;
+using ReactiveUI;
+using Restaurant.Abstractions.Services;
 using Restaurant.Common.DataTransferObjects;
+using Restaurant.Models;
 
 namespace Restaurant.ViewModels
 {
 	public class FoodDetailViewModel : ViewModelBase
 	{
-		public FoodDto SelectedFood { get; }
-
-		public FoodDetailViewModel(FoodDto selectedFood)
+		public FoodDetailViewModel(
+            FoodDto selectedFood, 
+            IBasketViewModel basketViewModel,
+            INavigationService navigationService)
 		{
 			SelectedFood = selectedFood;
+            CurrentOrder = new OrderViewModel(SelectedFood);
+
+		    CheckOrder = ReactiveCommand.Create(() =>
+		    {
+                basketViewModel.Orders.Add(CurrentOrder);
+		    });
+
+		    GoToBasket = ReactiveCommand.Create(() =>
+		    {
+		        navigationService.NavigateAsync(basketViewModel);
+		    });
 		}
 
 		public override string Title => SelectedFood.Name;
 
-		private double _quantity;
-		public double Quantity
-		{
-			get => _quantity;
-			set => this.RaiseAndSetIfChanged(ref _quantity, value);
-		}
+	    public FoodDto SelectedFood { get; }
+
+	    private OrderViewModel _currentOrderViewModel;
+	    public OrderViewModel CurrentOrder
+	    {
+	        get => _currentOrderViewModel;
+	        private set => this.RaiseAndSetIfChanged(ref _currentOrderViewModel, value);
+	    }
+
+        /// <summary>
+        /// Adds current order to BasketViewModel Orders list
+        /// </summary>
+	    public ICommand CheckOrder { get; }
+
+        /// <summary>
+        /// Navigates to Basket ViewModel
+        /// </summary>
+	    public ICommand GoToBasket { get;  } 
 	}
 }

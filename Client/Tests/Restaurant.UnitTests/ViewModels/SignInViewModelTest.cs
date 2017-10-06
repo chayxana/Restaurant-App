@@ -4,7 +4,6 @@ using NUnit.Framework;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Managers;
 using Restaurant.Common.DataTransferObjects;
-using Restaurant.Model;
 using Restaurant.ViewModels;
 
 namespace Restaurant.UnitTests.ViewModels

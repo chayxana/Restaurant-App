@@ -1,37 +1,32 @@
-﻿using System;
-using ReactiveUI;
-using Restaurant.Abstractions;
-using Restaurant.Abstractions.Services;
-using Restaurant.Models;
+﻿using ReactiveUI;
+using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.ViewModels
 {
-    public class OrderViewModel : ReactiveObject, INavigatableViewModel
+    public class OrderViewModel : ReactiveObject
     {
-        private ReactiveList<Order> _orders;
-        public ReactiveList<Order> Orders
+        public FoodDto Food { get;  }
+
+        public OrderViewModel(FoodDto food)
         {
-            get => _orders;
-            set => this.RaiseAndSetIfChanged(ref _orders, value);
+            Food = food;
         }
 
-        private int _ordersCount;
-        public int OrdersCount
+        private decimal _quntity = .5M;
+        public decimal Quantity
         {
-            get => _ordersCount;
-            set => this.RaiseAndSetIfChanged(ref _ordersCount, value);
-        }
-
-
-        public string Title => "Your basket";
-
-        public OrderViewModel(INavigationService navigationService = null)
-        {
-            Orders = new ReactiveList<Order>();
-            this.WhenAnyValue(x => x.Orders.Count).Subscribe(x =>
+            get => _quntity;
+            set
             {
-                OrdersCount = x;
-            });
+                if (value > 0.5M)
+                {
+                    value = (int)value;
+                }
+                this.RaiseAndSetIfChanged(ref _quntity, value);
+                this.RaisePropertyChanged(nameof(TotalPrice));
+            }
         }
+
+        public decimal TotalPrice => Quantity * Food.Price;
     }
 }

@@ -3,14 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Restaurant.Pages;assembly=Restaurant"
 			       xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
-             x:Class="Restaurant.Pages.FoodDetailPage" BackgroundColor="{StaticResource WindowBackground}">
+			       xmlns:abstractions="clr-namespace:RoundedBoxView.Forms.Plugin.Abstractions;assembly=RoundedBoxView.Forms.Plugin.Abstractions"
+			       xmlns:views="clr-namespace:Restaurant.Views;assembly=Restaurant"
+			       x:Class="Restaurant.Pages.FoodDetailPage" BackgroundColor="{StaticResource WindowBackground}">
   <pages:FoodDetailPage.ToolbarItems>
     <!--<ToolbarItem Icon="ic_favorite_white_24dp.png"></ToolbarItem>-->
   </pages:FoodDetailPage.ToolbarItems>
   <AbsoluteLayout>
     <Grid BackgroundColor="White">
       <Grid.RowDefinitions>
-        <RowDefinition Height="300" />
+        <RowDefinition>
+          <RowDefinition.Height>
+            <OnPlatform x:TypeArguments="GridLength">
+              <On Platform="Android" Value="300"/>
+              <On Platform="iOS" Value="250"/>
+              <On Platform="Uwp" Value="300"/>
+            </OnPlatform>
+          </RowDefinition.Height>
+        </RowDefinition>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
 
@@ -19,51 +29,62 @@
                VerticalOptions="FillAndExpand"
                Source="{Binding SelectedFood.Picture}"
                Aspect="AspectFill"/>
-        <Grid Opacity=".3" BackgroundColor="Black"></Grid>
-      </Grid>
-
-      <StackLayout Grid.Row="1">
-        <StackLayout Padding="10">
-          <Grid>
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            
-            <StackLayout Spacing="0" Padding="10"> 
+        <Grid Opacity=".5" BackgroundColor="Black"></Grid>
+        <StackLayout Padding="10, 10, 10, 35" VerticalOptions="EndAndExpand">
+          <StackLayout Spacing="0" Padding="10">
+            <StackLayout Orientation="Horizontal">
               <Label Text="{Binding SelectedFood.Name}"
                      FontSize="18"
-                     TextColor="Black">
+                     TextColor="White">
                 <Label.FontFamily>
                   <OnPlatform x:TypeArguments="x:String" Android="sans-serif-light" iOS="HelveticaNeue-Light"/>
                 </Label.FontFamily>
               </Label>
+              <Label Text="{Binding SelectedFood.Price, StringFormat='\{0\} $'}" FontSize="18" TextColor="{StaticResource  grayLight}" VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+
+            <StackLayout Padding="0, 8">
               <Label Text="{Binding SelectedFood.Description}"
                      FontSize="12"
-                     TextColor="{StaticResource grayDark}"/>
+                     TextColor="{StaticResource grayLight}"/>
+            </StackLayout>
 
-            </StackLayout>
-            
-            <StackLayout Grid.Column="1" Padding="10">
-              <Label Text="{Binding SelectedFood.Price, StringFormat='\{0\} $'}" FontSize="16" TextColor="{StaticResource  bluePrimary}" VerticalOptions="CenterAndExpand"/>
-            </StackLayout>
-          </Grid>
+          </StackLayout>
+        </StackLayout>
+      </Grid>
+
+      <StackLayout Grid.Row="1" VerticalOptions="CenterAndExpand">
+
+        <StackLayout HorizontalOptions="Center" Orientation="Horizontal" Margin="{StaticResource FoodDetailtPadding}">
+          <Label TextColor="{StaticResource grayDark}" VerticalOptions="Center" HorizontalOptions="Center"  FontSize="16" Text="Total price: "></Label>
+          <Label TextColor="{StaticResource grayDark}" VerticalOptions="Center" HorizontalOptions="Center" x:Name="TotalPrice" FontSize="16"></Label>
         </StackLayout>
 
+        <controls:FooterDivider />
         <controls:HeaderDivider />
 
+        <views:StepperView Margin="{StaticResource FoodDetailtPadding}" HorizontalOptions="Center" Value="{Binding Quantity}"/>
+
+        <controls:FooterDivider />
+
       </StackLayout>
+
     </Grid>
 
+    <Button AbsoluteLayout.LayoutBounds=".5, .9, AutoSize, AutoSize" WidthRequest="300"
+            AbsoluteLayout.LayoutFlags="PositionProportional" HorizontalOptions="Center"
+            VerticalOptions="EndAndExpand" Text="Add to card" TextColor="White" BackgroundColor="{StaticResource orangePrimary}">
+    </Button>
+
     <controls:FloatingActionButton WidthRequest="50" HeightRequest="50" x:Name="AddButton"
-                                   AbsoluteLayout.LayoutBounds=".9, .5, 50, 50"
-                                   AbsoluteLayout.LayoutFlags="PositionProportional"
-                                   ButtonColor="{StaticResource grayLight}" Image="ic_favorite_white_24dp.png">
+                                 AbsoluteLayout.LayoutBounds=".9, .5, 50, 50"
+                                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                                 ButtonColor="{StaticResource grayLight}" Image="ic_favorite_white_24dp.png">
       <controls:FloatingActionButton.IsVisible>
         <OnPlatform x:TypeArguments="x:Boolean">
           <On Platform="Android" Value="True"/>
           <On Platform="iOS" Value="False"/>
-          <On Platform="UWP" Value="False"/>
+          <On Platform="Uwp" Value="False"/>
         </OnPlatform>
       </controls:FloatingActionButton.IsVisible>
 

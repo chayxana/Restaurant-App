@@ -1,6 +1,7 @@
 ﻿using System;
 using Foundation;
 using ImageCircle.Forms.Plugin.iOS;
+using RoundedBoxView.Forms.Plugin.iOSUnified;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -22,8 +23,8 @@ namespace Restaurant.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            //UINavigationBar.Appearance.BarTintColor = FromHexString("#2196F3"); //bar background
-            //UINavigationBar.Appearance.TintColor = UIColor.White; //Tint color of button items
+            UINavigationBar.Appearance.BarTintColor = FromHexString("#2196F3"); //bar background
+            UINavigationBar.Appearance.TintColor = UIColor.White; //Tint color of button items
             UINavigationBar.Appearance.SetTitleTextAttributes(new UITextAttributes
             {
                 Font = UIFont.FromName("HelveticaNeue-Light", 20f),
@@ -32,7 +33,10 @@ namespace Restaurant.iOS
 
             Forms.Init();
             ImageCircleRenderer.Init();
-            LoadApplication(new App());
+	        RoundedBoxViewRenderer.Init();
+
+			LoadApplication(new App());
+
             return base.FinishedLaunching(app, options);
         }
 

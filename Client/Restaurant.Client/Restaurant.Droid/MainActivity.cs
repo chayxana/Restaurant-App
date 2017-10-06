@@ -4,6 +4,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using ImageCircle.Forms.Plugin.Droid;
+using RoundedBoxView.Forms.Plugin.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using ARelativeLayout = Android.Widget.RelativeLayout;
@@ -38,6 +39,7 @@ namespace Restaurant.Droid
             ImageCircleRenderer.Init();
             LoadApplication(new App());
             XFGloss.Droid.Library.Init(this, bundle);
+	        RoundedBoxViewRenderer.Init();
 		}
 	}
 }

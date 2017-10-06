@@ -83,6 +83,12 @@
     <Reference Include="Refit, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\refit.2.4.1\lib\MonoAndroid\Refit.dll</HintPath>
     </Reference>
+    <Reference Include="RoundedBoxView.Forms.Plugin.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Xam.Plugins.Forms.RoundedBoxView.1.0.0.7\lib\MonoAndroid10\RoundedBoxView.Forms.Plugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="RoundedBoxView.Forms.Plugin.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Xam.Plugins.Forms.RoundedBoxView.1.0.0.7\lib\MonoAndroid10\RoundedBoxView.Forms.Plugin.Android.dll</HintPath>
+    </Reference>
     <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Splat.1.6.2\lib\monoandroid\Splat.dll</HintPath>
     </Reference>
@@ -254,7 +260,6 @@
     <AndroidResource Include="Resources\drawable-mdpi\ic_plus.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_plus.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_plus.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_plus.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_more_vert_white.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_more_vert_white.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_more_vert_white.png" />
@@ -334,6 +339,31 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_favorite_white_24dp.png" />
     <AndroidResource Include="Resources\drawable\facebook.png" />
     <AndroidResource Include="Resources\drawable\google.png" />
+    <AndroidResource Include="Resources\drawable\minus.xml" />
+    <AndroidResource Include="Resources\drawable\plus.xml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_minus_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_plus_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_minus_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_plus_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_minus_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_minus_grey600_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_minus_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_plus_grey600_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_plus_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_minus_grey600_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_plus_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_plus_grey600_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_plus_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_minus_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_minus_grey600_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_minus_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_plus_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_plus_grey600_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_plus_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_minus_grey600_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_minus_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_plus_grey600_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_plus_white_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Restaurant.Common\Restaurant.Common.csproj">

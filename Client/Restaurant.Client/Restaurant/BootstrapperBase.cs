@@ -61,8 +61,6 @@ namespace Restaurant
 
 			builder.RegisterType<UserRepository>().As<IUserRepository>();
 			builder.RegisterType<FoodRepository>().As<IFoodRepository>();
-			var api = RestService.For<IRestaurantApi>(ApiConstants.ApiClientUrl);
-			builder.RegisterInstance(api).As<IRestaurantApi>();
 
 			builder.RegisterType<AutoMapperFacade>().As<IAutoMapperFacade>();
 			builder.RegisterType<MainViewModel>().As<IMainViewModel>();

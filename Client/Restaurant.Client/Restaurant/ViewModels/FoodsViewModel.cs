@@ -10,7 +10,6 @@ using Autofac.Core;
 using ReactiveUI;
 using Restaurant.Abstractions;
 using Restaurant.Abstractions.Api;
-using Restaurant.Abstractions.Repositories;
 using Restaurant.Common.DataTransferObjects;
 using Restaurant.Models;
 using Splat;

@@ -3,9 +3,7 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using JetBrains.Annotations;
 using ReactiveUI;
-using Restaurant.Abstractions.Repositories;
 using Restaurant.Abstractions.Services;
-using Restaurant.Model;
 using Restaurant.Models;
 using Restaurant.Pages;
 using Restaurant.Common.DataTransferObjects;
@@ -14,15 +12,12 @@ namespace Restaurant.ViewModels
 {
     public class MainViewModel : ReactiveObject, IMainViewModel, IDetailedViewModel
     {
-        private readonly IUserRepository _userRepository;
         private readonly INavigationService _navigationService;
 
         public MainViewModel(
-            IUserRepository userRepository,
             IMasterViewModel masterViewModel,
             INavigationService navigationService)
         {
-            _userRepository = userRepository;
             _navigationService = navigationService;
             MasterViewModel = masterViewModel;
 

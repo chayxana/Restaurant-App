@@ -31,7 +31,7 @@ namespace Restaurant.Pages
         }
     }
 
-    public abstract class BasketPageXaml : BaseContentPage<OrderViewModel>
+    public abstract class BasketPageXaml : BaseContentPage<BasketViewModel>
     {
     }
 }

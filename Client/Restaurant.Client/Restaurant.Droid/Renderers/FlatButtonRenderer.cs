@@ -24,7 +24,7 @@ namespace Restaurant.Droid.Renderers
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
             {
                 Control.StateListAnimator = null;
-	            //Control.TransformationMethod = null;
+                //Control.TransformationMethod = null;
             }
         }
     }

@@ -43,9 +43,6 @@
     <Compile Include="Abstractions\INavigatableViewModel.cs" />
     <Compile Include="Abstractions\Managers\IAuthenticationManager.cs" />
     <Compile Include="Abstractions\Managers\IThemeManager.cs" />
-    <Compile Include="Abstractions\Repositories\IFoodRepository.cs" />
-    <Compile Include="Abstractions\Repositories\IOrderRepository.cs" />
-    <Compile Include="Abstractions\Repositories\IUserRepository.cs" />
     <Compile Include="Abstractions\Services\IDialogService.cs" />
     <Compile Include="Abstractions\Services\INavigationService.cs" />
     <Compile Include="Abstractions\Providers\ITokenProvider.cs" />
@@ -69,6 +66,7 @@
       <DependentUpon>HeaderDivider.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ParallaxScrollView.cs" />
+    <Compile Include="ViewModels\IBasketViewModel.cs" />
     <Compile Include="Views\StepperView.xaml.cs">
       <DependentUpon>StepperView.xaml</DependentUpon>
     </Compile>
@@ -84,16 +82,13 @@
       <DependentUpon>FoodDetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\MasterItem.cs" />
-    <Compile Include="Repositories\FoodRepository.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Themes\MaterialTheme.cs" />
     <Compile Include="Controls\AnimateButton.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="BootstrapperBase.cs" />
     <Compile Include="Managers\ThemeManager.cs" />
     <Compile Include="Models\ClientUser.cs" />
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\RestaurantApi.cs" />
+    <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="Pages\BasketPage.xaml.cs">
       <DependentUpon>BasketPage.xaml</DependentUpon>
     </Compile>
@@ -131,7 +126,7 @@
     <Compile Include="ViewModels\SignInViewModel.cs" />
     <Compile Include="ViewModels\FoodsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\BasketViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WelcomeViewModel.cs" />

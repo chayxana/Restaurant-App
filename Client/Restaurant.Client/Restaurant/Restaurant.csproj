@@ -54,6 +54,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Constants\AppConstants.cs" />
+    <Compile Include="Controls\BadgeToolbarItem.cs" />
     <Compile Include="Controls\CardView.cs" />
     <Compile Include="Controls\AnimatedImage.cs" />
     <Compile Include="Controls\Divider.xaml.cs">

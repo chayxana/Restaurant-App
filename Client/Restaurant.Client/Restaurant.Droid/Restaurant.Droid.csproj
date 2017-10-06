@@ -374,6 +374,14 @@
       <Name>Restaurant</Name>
       <Project>{D79C8F36-ECE8-45CE-99C0-C5AF383814B7}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Xamarin.Android.Badge\ActionItemBadge\ActionItemBadge.csproj">
+      <Project>{5c908a97-73f3-49cb-9f96-bd61f2d7f4ef}</Project>
+      <Name>ActionItemBadge</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xamarin.Android.Badge\Iconics.Core\Iconics.Core.csproj">
+      <Project>{5cd4e60d-6382-4297-a8f4-863710f303ec}</Project>
+      <Name>Iconics.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />

@@ -3,36 +3,39 @@ using Restaurant.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 namespace Restaurant.Pages
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FoodDetailPage : FoodDetailPageXaml
-	{
-		public FoodDetailPage()
-		{
-			InitializeComponent();
-			IsTransparentToolbar = true;
-		}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class FoodDetailPage : FoodDetailPageXaml
+    {
+        public FoodDetailPage()
+        {
+            InitializeComponent();
+            IsTransparentToolbar = true;
+        }
 
-		protected override void OnLoaded()
-		{
-			BindingContext = ViewModel;
+        protected override void OnLoaded()
+        {
+            BindingContext = ViewModel;
 
-			this.WhenAnyValue(x => x.ViewModel.Quantity).Subscribe(async x =>
-			{
-				var totalPrice = ViewModel.SelectedFood.Price * (decimal)x;
-				for (decimal i = totalPrice - 15; i <= totalPrice; i++)
-				{
-					await Task.Delay(5);
-					TotalPrice.Text = $"${i}.00";
-				}
-			});
-		}
-	}
+            this.WhenAnyValue(x => x.ViewModel.CurrentOrder.TotalPrice)
+                .Subscribe(async totalPrice =>
+                {
+                    var j = totalPrice - 15;
+                    j = j <= 0 ? 0 : j;
+                    for (decimal i = j; i <= totalPrice; i++)
+                    {
+                        await Task.Delay(5);
+                        TotalPrice.Text = $"{i:C}";
+                    }
+                });
+        }
+    }
 
-	public abstract class FoodDetailPageXaml : BaseContentPage<FoodDetailViewModel>
-	{
-	}
+    public abstract class FoodDetailPageXaml : BaseContentPage<FoodDetailViewModel>
+    {
+    }
 }

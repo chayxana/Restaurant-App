@@ -165,9 +165,6 @@
     <Reference Include="ModernHttpClient, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\modernhttpclient.2.4.2\lib\Xamarin.iOS10\ModernHttpClient.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.2\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="ReactiveUI, Version=7.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\reactiveui-core.7.4.0\lib\Xamarin.iOS10\ReactiveUI.dll</HintPath>
     </Reference>
@@ -221,10 +218,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\Restaurant.Common\Restaurant.Common.csproj">
-      <Project>{dc26d36a-28ce-410a-b810-1502c0fcb266}</Project>
-      <Name>Restaurant.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Restaurant\Restaurant.csproj">
       <Project>{d79c8f36-ece8-45ce-99c0-c5af383814b7}</Project>
       <Name>Restaurant</Name>

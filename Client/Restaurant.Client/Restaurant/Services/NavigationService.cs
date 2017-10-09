@@ -54,6 +54,11 @@ namespace Restaurant.Services
 			return _navigationFacade.PushModalAsync(CurrentPage);
 		}
 
+		public Task PopModalAsync(bool animated)
+		{
+			return _navigationFacade.PopModalAsync(animated);
+		}
+
 		public IViewFor ResolveView(INavigatableViewModel vm)
 		{
 			var viewType = typeof(IViewFor<>).MakeGenericType(vm.GetType());

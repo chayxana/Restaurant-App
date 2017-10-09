@@ -8,6 +8,7 @@
 			       x:Class="Restaurant.Pages.FoodDetailPage">
     <pages:FoodDetailPage.ToolbarItems>
         <!--<ToolbarItem Icon="ic_favorite_white_24dp.png"></ToolbarItem>-->
+      <controls:BadgeToolbarItem Icon="ic_shopping_cart_white" Command="{Binding GoToBasket}" BadgeText="{Binding BasketViewModel.OrdersCount}"></controls:BadgeToolbarItem>
     </pages:FoodDetailPage.ToolbarItems>
     <AbsoluteLayout>
         <Grid BackgroundColor="White">
@@ -74,6 +75,7 @@
 
         <Button AbsoluteLayout.LayoutBounds=".5, .9, AutoSize, AutoSize" WidthRequest="300"
             AbsoluteLayout.LayoutFlags="PositionProportional" HorizontalOptions="Center"
+            Command="{Binding CheckOrder}"
             VerticalOptions="EndAndExpand" Text="Add to card" TextColor="White" BackgroundColor="{StaticResource orangePrimary}">
         </Button>
 

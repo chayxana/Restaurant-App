@@ -35,5 +35,10 @@ namespace Restaurant.Facades
 		{
 			return Navigation.PushModalAsync(page as Page, true);
 		}
+
+		public Task PopModalAsync(bool animated)
+		{
+			return Navigation.PopModalAsync(animated);
+		}
 	}
 }

@@ -1,5 +1,4 @@
-﻿using ReactiveUI;
-using Restaurant.Abstractions.Managers;
+﻿using Restaurant.Abstractions.Managers;
 using Restaurant.ViewModels;
 using Xamarin.Forms;
 using System;
@@ -15,7 +14,7 @@ namespace Restaurant.Pages
         {
             InitializeComponent();
 
-            var theme = themeManager.GetThemeFromColor("red");
+            var theme = themeManager.GetThemeFromColor("purple");
             ActionBarBackgroundColor = theme.Primary;
             StatusBarColor = theme.Dark;
             ActionBarTextColor = Color.White;

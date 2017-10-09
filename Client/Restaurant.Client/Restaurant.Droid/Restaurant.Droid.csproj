@@ -358,6 +358,9 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_minus_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_plus_grey600_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_plus_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_close_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_close_black_24dp.png" />
+    <TransformFile Include="Resources\drawable\close.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Restaurant\Restaurant.csproj">

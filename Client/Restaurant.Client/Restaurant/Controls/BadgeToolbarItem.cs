@@ -43,8 +43,8 @@ namespace Restaurant.Controls
 		// ReSharper disable once VirtualMemberCallInConstructor
 		public BadgeToolbarItem() => UniqId = GetHashCode();
 
-		internal int UniqId { get; }
+		public int UniqId { get; }
 
-		internal bool HasInitialized { get; set; }
+		public bool HasInitialized { get; set; }
 	}
 }

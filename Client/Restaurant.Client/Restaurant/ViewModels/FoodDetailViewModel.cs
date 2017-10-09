@@ -14,7 +14,8 @@ namespace Restaurant.ViewModels
             INavigationService navigationService)
 		{
 			SelectedFood = selectedFood;
-            CurrentOrder = new OrderViewModel(SelectedFood);
+			BasketViewModel = basketViewModel;
+			CurrentOrder = new OrderViewModel(SelectedFood);
 
 		    CheckOrder = ReactiveCommand.Create(() =>
 		    {
@@ -23,7 +24,7 @@ namespace Restaurant.ViewModels
 
 		    GoToBasket = ReactiveCommand.Create(() =>
 		    {
-		        navigationService.NavigateAsync(basketViewModel);
+		        navigationService.NavigateModalAsync(basketViewModel);
 		    });
 		}
 
@@ -31,7 +32,14 @@ namespace Restaurant.ViewModels
 
 	    public FoodDto SelectedFood { get; }
 
-	    private OrderViewModel _currentOrderViewModel;
+		private IBasketViewModel _basketViewModel;
+		public IBasketViewModel BasketViewModel
+		{
+			get => _basketViewModel;
+			set => this.RaiseAndSetIfChanged(ref _basketViewModel, value);
+		}
+
+		private OrderViewModel _currentOrderViewModel;
 	    public OrderViewModel CurrentOrder
 	    {
 	        get => _currentOrderViewModel;

@@ -8,6 +8,6 @@ namespace Restaurant.ViewModels
     {
         ReactiveList<OrderViewModel> Orders { get; set; }
 
-        int OrdersCount { get; set; }
+        string OrdersCount { get; set; }
     }
 }

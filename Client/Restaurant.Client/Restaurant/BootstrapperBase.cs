@@ -49,6 +49,7 @@ namespace Restaurant
 			builder.RegisterType<FoodsPage>().As<IViewFor<FoodsViewModel>>();
 			builder.RegisterType<MasterViewModel>().As<IMasterViewModel>();
 			builder.RegisterType<FoodDetailPage>().As<IViewFor<FoodDetailViewModel>>();
+			builder.RegisterType<BasketPage>().As<IViewFor<BasketViewModel>>();
 
 			builder.RegisterType<WelcomeViewModel>().As<IWelcomeViewModel>();
 			builder.RegisterType<SignInViewModel>().As<ISignInViewModel>();

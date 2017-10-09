@@ -3,11 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Restaurant.Pages.BasketPage"
              xmlns:local="clr-namespace:Restaurant.Pages;assembly=Restaurant"
-             xmlns:imagecontrol="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions">
-  <local:BasketPage.ToolbarItems>
-    <ToolbarItem Text="Edit"/>
-  </local:BasketPage.ToolbarItems>
-  
+             xmlns:imagecontrol="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             BackgroundColor="{StaticResource WindowBackground}">
+
   <local:BasketPageXaml.Content>
     <Grid>
       <Grid.RowDefinitions>
@@ -15,24 +13,17 @@
         <RowDefinition Height="*"/>
         <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
-      <StackLayout Grid.Row="0" BackgroundColor="{StaticResource greenPrimary}" HeightRequest="80">
-        <AbsoluteLayout VerticalOptions="FillAndExpand"
-                        HorizontalOptions="FillAndExpand">
-          <StackLayout AbsoluteLayout.LayoutFlags="All" Padding="20" AbsoluteLayout.LayoutBounds="1,0,.5,1">
-            <StackLayout HorizontalOptions="End">
-              <Label Text="Total"/>
-              <Label Text="Rs. 1200" FontSize="Large"/>
-            </StackLayout>
-          </StackLayout>
-          <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,.5,1" Padding="20, 30">
-            <imagecontrol:CircleImage Aspect="Fill" BorderThickness="1" BorderColor="{StaticResource grayPrimary}"
-                                      WidthRequest="70"
-                                      HeightRequest="70" Source="noavatar.png"
-                                      HorizontalOptions="Start" VerticalOptions="Start"/>
-          </StackLayout>
+      <Grid Grid.Row="0">
+        <StackLayout HorizontalOptions="Start" Padding="10, 25" Orientation="Horizontal">
+          <Button  TextColor="White" BackgroundColor="Transparent" WidthRequest="30" Command="{Binding DoneCommand}" Image="ic_close_black_24dp.png"/>
+        </StackLayout>
 
-        </AbsoluteLayout>
-      </StackLayout>
+        <!--<StackLayout HorizontalOptions="Start" Margin="15, 25">
+          <Label Text="Total"/>
+          <Label Text="Rs. 1200" FontSize="Large"/>
+        </StackLayout>-->
+
+      </Grid>
       <StackLayout Grid.Row="1" Padding="0,18,0,0">
         <StackLayout Padding="10">
           <Label Text="Your orders:" Style="{StaticResource header}"></Label>
@@ -47,7 +38,7 @@
 
                       <StackLayout Spacing="20" Orientation="Horizontal">
                         <AbsoluteLayout HorizontalOptions="Start" VerticalOptions="Center">
-                          <imagecontrol:CircleImage WidthRequest="50" HeightRequest="50" Source="{Binding Food.ImageUrl}"
+                          <imagecontrol:CircleImage WidthRequest="50" HeightRequest="50" Source="{Binding Food.Picture}"
                             HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFill"
                             AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".5,.5,-1,-1" />
                         </AbsoluteLayout>
@@ -59,7 +50,7 @@
                       </StackLayout>
 
                       <StackLayout HorizontalOptions="EndAndExpand" Spacing="20">
-                        <Label Text="{Binding TotalPrice, StringFormat='Rs. \{0\}'}" FontSize="Medium"  VerticalOptions="Center" TextColor="{StaticResource grayDark}" />
+                        <!--<Label Text="{Binding TotalPrice, StringFormat='Rs. \{0\}'}" FontSize="Medium"  VerticalOptions="Center" TextColor="{StaticResource grayDark}" />-->
                       </StackLayout>
                     </StackLayout>
                   </Grid>

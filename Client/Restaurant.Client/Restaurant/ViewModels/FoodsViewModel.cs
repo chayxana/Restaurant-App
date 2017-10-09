@@ -19,12 +19,15 @@ namespace Restaurant.ViewModels
 {
 	public class FoodsViewModel : BaseViewModel, INavigatableViewModel
 	{
+		public IBasketViewModel BasketViewModel { get; }
 		private readonly IFoodsApi _foodsApi;
 		private readonly INavigationService _navigationService;
 		public FoodsViewModel(
+			IBasketViewModel basketViewModel,
 			IFoodsApi foodsApi,
 			INavigationService navigationService)
 		{
+			BasketViewModel = basketViewModel;
 			_foodsApi = foodsApi;
 			_navigationService = navigationService;
 			this.WhenAnyValue(x => x.SelectedFood)
@@ -35,6 +38,13 @@ namespace Restaurant.ViewModels
 					var viewModel = App.Container.Resolve<FoodDetailViewModel>(new NamedParameter("selectedFood", selectedFood));
 					await _navigationService.NavigateAsync(viewModel);
 				});
+
+			AddToBasket = ReactiveCommand.Create<object, object>(x =>
+			{
+				//basketViewModel.Orders.Add();
+
+				return null;
+			});
 		}
 
 		private ObservableCollection<FoodDto> _foods;
@@ -66,5 +76,8 @@ namespace Restaurant.ViewModels
 			IsLoading = false;
 		}
 
+		public ICommand Favorite { get; set; }
+
+		public ICommand AddToBasket { get; set; }
 	}
 }

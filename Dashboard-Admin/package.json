@@ -24,7 +24,7 @@
     "core-js": "^2.4.1",
     "ng2-toastr": "^4.1.2",
     "rxjs": "^5.1.0",
-    "semantic-ui": "^2.2.11",
+    "semantic-ui": "^2.2.13",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {

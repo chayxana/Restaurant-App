@@ -76,7 +76,12 @@ namespace Restaurant.Server.Api
 
 			}).AddJwtBearer(o =>
 			{
+#if DEBUG
 				o.Authority = "http://localhost:6200";
+#elif RELEASE
+				o.Authority = "http://restaurantserverapi.azurewebsites.net";
+#endif
+
 				o.Audience = ApiConstants.ApiName;
 				o.RequireHttpsMetadata = false;
 			});

@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Restaurant.Controls
@@ -7,13 +9,20 @@ namespace Restaurant.Controls
     {
         public AnimateButton()
         {
-            const int animationTime = 100;
+            const int animationTime = 75;
             Clicked += async (sender, e) =>
             {
-                var btn = (AnimateButton)sender;
-                await btn.ScaleTo(1.2, animationTime);
-                await btn.ScaleTo(1, animationTime);
-                await Task.Delay(400);
+	            try
+	            {
+		            var btn = (AnimateButton)sender;
+		            await btn.ScaleTo(1.2, animationTime);
+		            await btn.ScaleTo(1, animationTime);
+		            //await Task.Delay(400);
+				}
+				catch (Exception exception)
+	            {
+		            Debug.WriteLine(exception);
+	            }
             };
         }
     }

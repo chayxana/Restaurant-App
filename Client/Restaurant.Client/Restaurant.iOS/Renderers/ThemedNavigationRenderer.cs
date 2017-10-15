@@ -15,6 +15,7 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
+[assembly: ExportRenderer(typeof(NavigationRenderer), typeof(ThemedNavigationRenderer))]
 namespace Restaurant.iOS.Renderers
 {
     /// <summary>
@@ -26,25 +27,25 @@ namespace Restaurant.iOS.Renderers
     {
         protected override Task<bool> OnPushAsync(Page page, bool animated)
         {
-            ChangeTheme(page);
+            //ChangeTheme(page);
             return base.OnPushAsync(page, animated);
         }
 
         public override UIViewController PopViewController(bool animated)
         {
-            var obj = Element.GetType().InvokeMember("StackCopy", BindingFlags.GetProperty | BindingFlags.NonPublic | BindingFlags.Instance, Type.DefaultBinder, Element, null);
-            if (obj != null)
-            {
-                var pages = obj as Stack<Page>;
-                if (pages != null && pages.Count >= 2)
-                {
-                    var copy = new Page[pages.Count];
-                    pages.CopyTo(copy, 0);
+            //var obj = Element.GetType().InvokeMember("StackCopy", BindingFlags.GetProperty | BindingFlags.NonPublic | BindingFlags.Instance, Type.DefaultBinder, Element, null);
+            //if (obj != null)
+            //{
+            //    var pages = obj as Stack<Page>;
+            //    if (pages != null && pages.Count >= 2)
+            //    {
+            //        var copy = new Page[pages.Count];
+            //        pages.CopyTo(copy, 0);
 
-                    var prev = copy[1];
-                    ChangeTheme(prev);
-                }
-            }
+            //        var prev = copy[1];
+            //        ChangeTheme(prev);
+            //    }
+            //}
             return base.PopViewController(animated);
         }
 

@@ -17,7 +17,7 @@ The Restaurant Manager is open source application and it provides how to build b
 * SOLID
 * UnitTesting
 * Moq
-* [Angualar 4](https://github.com/Jurabek/Restaurant-Manager/tree/develop/Dashboard-Admin) 
+* [Angualar 4 - Dashboard Admin](https://github.com/Jurabek/Restaurant-Manager/tree/develop/Dashboard-Admin) 
 * WPF - coming soon
 
 **Development:**

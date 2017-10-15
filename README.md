@@ -7,6 +7,7 @@ Web API: [![Build status](https://ci.appveyor.com/api/projects/status/4uh90c7u42
 ## Information
 The Restaurant Manager is open source application and it provides to build beatiful and testable mobile apps using Xamarin.Forms
 
+## Using technologies
 * ASP.Net Core Web API + Identity Server4
 * Xamarin.Forms + Material Design
 * Custom Renderers

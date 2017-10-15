@@ -2,7 +2,7 @@
 
 Xamarin Client: [![Xamarin AppVeyor build status](https://ci.appveyor.com/api/projects/status/bgxbx3mym9n7egtj?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant)
 
-Web API: [![Web API Build status](https://ci.appveyor.com/api/projects/status/4uh90c7u42d8aleo/branch/master?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant-manager/branch/master)
+Web API: [![Build status](https://ci.appveyor.com/api/projects/status/4uh90c7u42d8aleo?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant-manager)
 
 Angular 4 - Admin Dashboard : cooming soon
 

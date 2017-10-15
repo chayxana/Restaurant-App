@@ -88,7 +88,7 @@ namespace Restaurant.Server.Api
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public async void Configure(IApplicationBuilder app,
+		public void Configure(IApplicationBuilder app,
 			IHostingEnvironment env,
 			ILoggerFactory loggerFactory,
 			IConfiguration configuration)

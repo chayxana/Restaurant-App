@@ -24,7 +24,7 @@ namespace Restaurant.ViewModels
 
 		    GoToBasket = ReactiveCommand.Create(() =>
 		    {
-		        navigationService.NavigateModalAsync(basketViewModel);
+		        navigationService.NavigateAsync(basketViewModel);
 		    });
 		}
 

@@ -24,10 +24,6 @@ namespace Restaurant.Pages
         protected override void OnLoaded()
         {
 	        this.BindingContext = ViewModel;
-			ToolbarItems.Add(new ToolbarItem()
-			{
-				Text = "Done"
-			});
         }
 
         protected override void UnLoad()

@@ -37,7 +37,7 @@ namespace Restaurant.Server.Api.Constants
                 // resource owner password grant client
                 new Client
                 {
-                    ClientId = ApiConstants.ResourceClientId,
+                    ClientId = ApiConstants.ClientId,
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
 
                     ClientSecrets =
@@ -50,7 +50,7 @@ namespace Restaurant.Server.Api.Constants
                 // OpenID Connect hybrid flow and client credentials client (MVC)
                 new Client
                 {
-                    ClientId = ApiConstants.MvcClientId,
+                    ClientId = "mvc_client",
                     ClientName = "MVC Client",
                     AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
 

@@ -23,21 +23,22 @@ namespace Restaurant.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            UINavigationBar.Appearance.BarTintColor = FromHexString("#2196F3"); //bar background
+			UINavigationBar.Appearance.BarTintColor = FromHexString("#2196F3"); //bar background
             UINavigationBar.Appearance.TintColor = UIColor.White; //Tint color of button items
-            UINavigationBar.Appearance.SetTitleTextAttributes(new UITextAttributes
-            {
-                Font = UIFont.FromName("HelveticaNeue-Light", 20f),
-                TextColor = UIColor.White
-            });
-
-            Forms.Init();
+			UINavigationBar.Appearance.SetTitleTextAttributes(new UITextAttributes
+			{
+				//Font = UIFont.FromName("HelveticaNeue-Light", 20f),
+				TextColor = UIColor.White
+			});
+	        UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
+			Forms.Init();
             ImageCircleRenderer.Init();
 	        RoundedBoxViewRenderer.Init();
 
 			LoadApplication(new App());
+	        
 
-            return base.FinishedLaunching(app, options);
+			return base.FinishedLaunching(app, options);
         }
 
         private static UIColor FromHexString(string hexValue)

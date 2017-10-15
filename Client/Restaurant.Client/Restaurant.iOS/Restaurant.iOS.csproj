@@ -144,6 +144,10 @@
     <BundleResource Include="Resources\minus%402x.png" />
     <BundleResource Include="Resources\plus.png" />
     <BundleResource Include="Resources\plus%402x.png" />
+    <BundleResource Include="Resources\arrow-down.png" />
+    <BundleResource Include="Resources\arrow-down%402x.png" />
+    <BundleResource Include="Resources\up-arrow.png" />
+    <BundleResource Include="Resources\up-arrow%402x.png" />
     <None Include="app.config" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />

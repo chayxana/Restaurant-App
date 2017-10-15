@@ -4,10 +4,8 @@ Xamarin Client: [![Xamarin AppVeyor build status](https://ci.appveyor.com/api/pr
 
 Web API: [![Build status](https://ci.appveyor.com/api/projects/status/4uh90c7u42d8aleo?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant-manager)
 
-Angular 4 - Admin Dashboard : cooming soon
-
 ## Information
-The Restaurant Manager is open source application and it provides how to build beatiful and testable mobile apps using Xamarin.Forms
+The Restaurant Manager is open source application and it provides to build beatiful and testable mobile apps using Xamarin.Forms
 
 * ASP.Net Core Web API + Identity Server4
 * Xamarin.Forms + Material Design

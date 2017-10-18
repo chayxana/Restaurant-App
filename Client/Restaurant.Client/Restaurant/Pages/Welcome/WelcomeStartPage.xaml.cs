@@ -12,9 +12,9 @@ namespace Restaurant.Pages.Welcome
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
 
-	        var theme = themeManager.GetThemeFromColor("blue");
-	        StatusBarColor = theme.Dark;
-	        BackgroundColor = theme.Primary;
+	        //var theme = themeManager.GetThemeFromColor("blue");
+	        //StatusBarColor = theme.Dark;
+	        //BackgroundColor = theme.Primary;
 		}
         protected override async void OnLoaded()
         {

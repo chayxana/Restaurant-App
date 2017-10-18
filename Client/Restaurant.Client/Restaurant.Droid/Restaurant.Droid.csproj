@@ -55,11 +55,17 @@
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ActionItemBadge">
+      <HintPath>..\..\Libs\ActionItemBadge.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="FormsViewGroup, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Xamarin.Forms.2.4.0.282\lib\MonoAndroid10\FormsViewGroup.dll</HintPath>
+    </Reference>
+    <Reference Include="Iconics.Core">
+      <HintPath>..\..\Libs\Iconics.Core.dll</HintPath>
     </Reference>
     <Reference Include="ImageCircle.Forms.Plugin.Abstractions, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Xam.Plugins.Forms.ImageCircle.1.8.1\lib\MonoAndroid10\ImageCircle.Forms.Plugin.Abstractions.dll</HintPath>
@@ -360,20 +366,14 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_plus_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_close_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_close_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable\arrow-down.png" />
+    <AndroidResource Include="Resources\drawable\up- arrow.png" />
     <TransformFile Include="Resources\drawable\close.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Restaurant\Restaurant.csproj">
       <Name>Restaurant</Name>
       <Project>{D79C8F36-ECE8-45CE-99C0-C5AF383814B7}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Xamarin.Android.Badge\ActionItemBadge\ActionItemBadge.csproj">
-      <Project>{5c908a97-73f3-49cb-9f96-bd61f2d7f4ef}</Project>
-      <Name>ActionItemBadge</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Xamarin.Android.Badge\Iconics.Core\Iconics.Core.csproj">
-      <Project>{5cd4e60d-6382-4297-a8f4-863710f303ec}</Project>
-      <Name>Iconics.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

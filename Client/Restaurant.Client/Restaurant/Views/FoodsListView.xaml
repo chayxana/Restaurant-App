@@ -19,64 +19,66 @@
                     <StackLayout Spacing="{DynamicResource CardSpacing}" 
                                  Padding="{DynamicResource CardPadding}">
                         <controls:CardView>
-                            <StackLayout >
-                                <StackLayout StyleId="leagueRow" Orientation="Vertical" Spacing="0" VerticalOptions="FillAndExpand">
-                                    <AbsoluteLayout HeightRequest="150">
-                                        <Image x:Name="photoImage" Source="{Binding Picture}" Aspect="AspectFill"	AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
-                                    </AbsoluteLayout>
-                                    <Grid BackgroundColor="White">
+
+                            <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
+
+                                <Image x:Name="photoImage" Source="{Binding Picture}" Aspect="AspectFill" HeightRequest="120"/>
+
+                                <Grid BackgroundColor="White" Padding="10, 10, 10, 3">
+                                    <StackLayout>
                                         <StackLayout>
-                                            <StackLayout Padding="10, 0">
-                                                <StackLayout Orientation="Horizontal">
-                                                    <Label Text="{Binding Name}" FontSize="16" TextColor="{StaticResource grayDark}" VerticalOptions="CenterAndExpand" />
-                                                    <Label Text="{Binding Price, StringFormat='\{0\} $'}" FontSize="16" TextColor="{StaticResource  bluePrimary}" VerticalOptions="CenterAndExpand"/>
-                                                </StackLayout>
-                                                <Label Text="{Binding Description}" VerticalOptions="CenterAndExpand" TextColor="{StaticResource grayPrimary}"/>
+                                            <Label Text="{Binding Name}" FontSize="Medium" TextColor="{StaticResource asphaltDark}" VerticalOptions="CenterAndExpand" />
+
+                                            <Label Text="{Binding Description}"
+                                                   FontSize="Micro"
+                                                   TextColor="{StaticResource grayPrimary}"/>
+                                        </StackLayout>
+
+                                        <controls:HeaderDivider />
+
+                                        <AbsoluteLayout>
+                                            <StackLayout AbsoluteLayout.LayoutFlags="All" 
+                                                         AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                                                         Orientation="Horizontal">
+                                                <Label Text="Rs. " 
+                                                       FontSize="Small" 
+                                                       TextColor="{StaticResource  asphaltPrimary}" 
+                                                       VerticalOptions="CenterAndExpand"/>
+
+                                                <Label Text="{Binding Price, StringFormat='{0:C}'}" 
+                                                       FontSize="Small" 
+                                                       TextColor="{StaticResource  asphaltPrimary}" 
+                                                       VerticalOptions="CenterAndExpand"/>
                                             </StackLayout>
 
-                                            <controls:HeaderDivider />
+                                            <StackLayout AbsoluteLayout.LayoutFlags="All" Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,0,1,1">
 
-                                            <AbsoluteLayout Padding="5">
-                                                <StackLayout Padding="5" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                                                    <Label Text="View details" HorizontalOptions="Start" TextColor="{StaticResource bluePrimary}">
-                                                        <Label.GestureRecognizers>
-                                                            <TapGestureRecognizer></TapGestureRecognizer>
-                                                        </Label.GestureRecognizers>
-                                                    </Label>
-                                                </StackLayout>
-
-
-                                                <StackLayout AbsoluteLayout.LayoutFlags="All" Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,0,1,1">
-
-                                                    <StackLayout Padding="5" HorizontalOptions="EndAndExpand"
+                                                <StackLayout Padding="5" HorizontalOptions="EndAndExpand"
                                                                      VerticalOptions="Center">
-                                                        <controls:AnimatedImage Aspect="AspectFit" 
+                                                    <controls:AnimatedImage Aspect="AspectFit" 
                                                                                     Source="add_basket.png">
-                                                            <controls:AnimatedImage.GestureRecognizers>
-                                                                <TapGestureRecognizer />
-                                                            </controls:AnimatedImage.GestureRecognizers>
-                                                        </controls:AnimatedImage>
-                                                    </StackLayout>
-
-                                                    <StackLayout Padding="5" HorizontalOptions="End"
-                                                                     VerticalOptions="Center">
-                                                        <controls:AnimatedImage Aspect="AspectFit"
-                                                                                    Source="like.png">
-                                                            <controls:AnimatedImage.GestureRecognizers>
-                                                                <TapGestureRecognizer />
-                                                            </controls:AnimatedImage.GestureRecognizers>
-                                                        </controls:AnimatedImage>
-                                                    </StackLayout>
+                                                        <controls:AnimatedImage.GestureRecognizers>
+                                                            <TapGestureRecognizer />
+                                                        </controls:AnimatedImage.GestureRecognizers>
+                                                    </controls:AnimatedImage>
                                                 </StackLayout>
-                                            </AbsoluteLayout>
 
-                                            <controls:FooterDivider />
+                                                <StackLayout Padding="5" HorizontalOptions="End"
+                                                                     VerticalOptions="Center">
+                                                    <controls:AnimatedImage Aspect="AspectFit"
+                                                                                    Source="like.png">
+                                                        <controls:AnimatedImage.GestureRecognizers>
+                                                            <TapGestureRecognizer />
+                                                        </controls:AnimatedImage.GestureRecognizers>
+                                                    </controls:AnimatedImage>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </AbsoluteLayout>
 
-                                        </StackLayout>
-                                    </Grid>
-                                </StackLayout>
+                                        <controls:FooterDivider VerticalOptions="Center"/>
+                                    </StackLayout>
+                                </Grid>
                             </StackLayout>
-
                         </controls:CardView>
                     </StackLayout>
                 </ViewCell.View>

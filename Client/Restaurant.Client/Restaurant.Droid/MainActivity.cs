@@ -3,11 +3,8 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Views;
-using ImageCircle.Forms.Plugin.Droid;
-using RoundedBoxView.Forms.Plugin.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using ARelativeLayout = Android.Widget.RelativeLayout;
 
 
 namespace Restaurant.Droid
@@ -36,10 +33,12 @@ namespace Restaurant.Droid
             base.OnCreate(bundle);
             
             Forms.Init(this, bundle);
-            ImageCircleRenderer.Init();
+	        ImageCircle.Forms.Plugin.Droid.ImageCircleRenderer.Init();
             LoadApplication(new App());
+
+
             XFGloss.Droid.Library.Init(this, bundle);
-	        RoundedBoxViewRenderer.Init();
+	        RoundedBoxView.Forms.Plugin.Droid.RoundedBoxViewRenderer.Init();
 		}
 	}
 }

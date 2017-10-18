@@ -14,7 +14,7 @@ namespace Restaurant.ViewModels
 		}
 
 		private string _title;
-		public string Title
+		public virtual string Title
 		{
 			get => _title;
 			protected set => this.RaiseAndSetIfChanged(ref _title, value);

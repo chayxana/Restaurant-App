@@ -47,6 +47,8 @@
     <Compile Include="Abstractions\Services\INavigationService.cs" />
     <Compile Include="Abstractions\Providers\ITokenProvider.cs" />
     <Compile Include="Abstractions\Api\IAccountApi.cs" />
+    <Compile Include="Adapters\FoodDetailViewModelAdapter.cs" />
+    <Compile Include="Abstractions\Adapters\IFoodDetailViewModelAdapter.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>

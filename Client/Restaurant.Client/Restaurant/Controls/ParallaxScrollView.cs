@@ -22,7 +22,7 @@ namespace Restaurant.Controls
         double height;
         public void Parallax()
         {
-            if (ParallaxView == null || Device.OS == TargetPlatform.Windows || Device.OS == TargetPlatform.WinPhone)
+            if (ParallaxView == null || Device.RuntimePlatform == Device.WinRT || Device.RuntimePlatform == Device.WinPhone)
                 return;
 
             if (height <= 0)
@@ -35,7 +35,7 @@ namespace Restaurant.Controls
                 ParallaxView.Scale = 1;
                 ParallaxView.TranslationY = y;
             }
-            else if (Device.OS == TargetPlatform.iOS)
+            else if (Device.RuntimePlatform == Device.iOS)
             {
                 //Calculate a scale that equalizes the height vs scroll
                 double newHeight = height + (ScrollY * -1);

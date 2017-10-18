@@ -45,7 +45,7 @@
                   <OnPlatform x:TypeArguments="x:String" Android="sans-serif-light" iOS="HelveticaNeue-Light"/>
                 </Label.FontFamily>
               </Label>
-              <Label Text="{Binding SelectedFood.Price, StringFormat='\{0\} $'}" FontSize="18" TextColor="{StaticResource  grayLight}" VerticalOptions="CenterAndExpand"/>
+              <Label Text="{Binding SelectedFood.Price, StringFormat='{0:C}'}" FontSize="18" TextColor="{StaticResource  grayLight}" VerticalOptions="CenterAndExpand"/>
             </StackLayout>
 
             <StackLayout Padding="0, 8">
@@ -78,7 +78,7 @@
 
     <Button AbsoluteLayout.LayoutBounds=".5, .9, AutoSize, AutoSize" WidthRequest="300"
         AbsoluteLayout.LayoutFlags="PositionProportional" HorizontalOptions="Center"
-        Command="{Binding CheckOrder}"
+        Command="{Binding AddToBasket}"
         VerticalOptions="EndAndExpand" Text="Add to card" TextColor="White" BackgroundColor="{StaticResource orangePrimary}">
     </Button>
 

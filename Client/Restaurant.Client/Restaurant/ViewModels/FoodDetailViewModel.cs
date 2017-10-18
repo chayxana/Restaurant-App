@@ -1,8 +1,8 @@
 ﻿using System.Windows.Input;
+using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.Services;
 using Restaurant.Common.DataTransferObjects;
-using Restaurant.Models;
 
 namespace Restaurant.ViewModels
 {
@@ -17,7 +17,7 @@ namespace Restaurant.ViewModels
 			BasketViewModel = basketViewModel;
 			CurrentOrder = new OrderViewModel(SelectedFood);
 
-		    CheckOrder = ReactiveCommand.Create(() =>
+		    AddToBasket = ReactiveCommand.Create(() =>
 		    {
                 basketViewModel.Orders.Add(CurrentOrder);
 		    });
@@ -49,11 +49,11 @@ namespace Restaurant.ViewModels
         /// <summary>
         /// Adds current order to BasketViewModel Orders list
         /// </summary>
-	    public ICommand CheckOrder { get; }
+	    public ICommand AddToBasket { [UsedImplicitly] get; }
 
         /// <summary>
         /// Navigates to Basket ViewModel
         /// </summary>
-	    public ICommand GoToBasket { get;  } 
+	    public ICommand GoToBasket { [UsedImplicitly] get;  } 
 	}
 }

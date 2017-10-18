@@ -48,8 +48,8 @@ namespace Restaurant.ViewModels
             IAutoMapperFacade autoMapperFacade,
             INavigationService navigationService)
         {
-            var canLogin = this.WhenAny(x => x.Email, x => x.Password,
-                (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
+            //var canLogin = this.WhenAny(x => x.Email, x => x.Password,
+            //    (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
 
             Login = ReactiveCommand.CreateFromTask(async _ =>
             {
@@ -59,7 +59,7 @@ namespace Restaurant.ViewModels
     //            {
                   
     //            }
-            }, canLogin);
+            });
         }
 
 

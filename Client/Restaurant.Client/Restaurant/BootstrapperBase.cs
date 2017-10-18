@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Autofac;
 using ReactiveUI;
 using Refit;
+using Restaurant.Abstractions.Adapters;
 using Restaurant.Abstractions.Api;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Managers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
+using Restaurant.Adapters;
 using Restaurant.Common.Constants;
 using Restaurant.Common.DataTransferObjects;
 using Restaurant.Facades;
@@ -27,6 +29,8 @@ namespace Restaurant
 
 		public IContainer Build()
 		{
+			var builder = new ContainerBuilder();
+
 			foreach (var type in typeof(App).GetTypeInfo().Assembly.ExportedTypes)
 			{
 				if (type.IsAssignableTo<IViewFor>() && !type.GetTypeInfo().IsAbstract)
@@ -34,7 +38,6 @@ namespace Restaurant
 				}
 			}
 
-			var builder = new ContainerBuilder();
 			//RegisterTypes(builder);
 
 			builder.RegisterType<NavigationFacade>().As<INavigationFacade>();
@@ -60,6 +63,7 @@ namespace Restaurant
 			builder.RegisterType<AutoMapperFacade>().As<IAutoMapperFacade>();
 			builder.RegisterType<MainViewModel>().As<IMainViewModel>();
 		    builder.RegisterType<BasketViewModel>().As<IBasketViewModel>().SingleInstance();
+			builder.RegisterType<FoodDetailViewModelAdapter>().As<IFoodDetailViewModelAdapter>();
 
 			var foodApi = RestService.For<IFoodsApi>("http://restaurantserverapi.azurewebsites.net/");
 

@@ -37,14 +37,13 @@
 
 
                     <StackLayout Grid.Column="1" VerticalOptions="Center">
-                      <StackLayout Spacing="0" VerticalOptions="Center">
-                        <Label Text="{Binding Food.Name}" Margin="0, 5" FontSize="Medium" LineBreakMode="TailTruncation" TextColor="{StaticResource grayDark}"/>
-                        <Label Text="{Binding Food.Description}" Margin="0, 3" FontSize="Micro" TextColor="{StaticResource grayPrimary}"  LineBreakMode="TailTruncation" />
-                      </StackLayout>
+                      <Label Text="{Binding Food.Name}" FontSize="Small" LineBreakMode="TailTruncation" TextColor="{StaticResource asphaltPrimary}"/>
+                      <Label Text="{Binding Food.Description}" FontSize="Micro" TextColor="{StaticResource grayPrimary}"  LineBreakMode="TailTruncation" />
+                      <Label Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}" FontSize="Micro" TextColor="{StaticResource grayPrimary}"  LineBreakMode="TailTruncation" />
                     </StackLayout>
 
                     <views:VerticalStepperView Grid.Column="2" Margin="10" MinValue="0" Value="{Binding Quantity}"/>
-                   
+
                   </Grid>
                 </ViewCell.View>
               </ViewCell>

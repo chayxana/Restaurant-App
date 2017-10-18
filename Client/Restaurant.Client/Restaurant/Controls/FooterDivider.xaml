@@ -8,7 +8,7 @@
             HorizontalOptions="FillAndExpand" 
             BackgroundColor="{DynamicResource Divider}">
             <BoxView.HeightRequest>
-                <OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0" WinPhone="1"/>
+                <OnPlatform x:TypeArguments="x:Double" iOS="0.3" Android="0" WinPhone="1"/>
             </BoxView.HeightRequest>
         </BoxView>
     </ContentView.Content>

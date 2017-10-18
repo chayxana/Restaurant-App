@@ -162,6 +162,7 @@
     <Compile Include="Providers\TokenProvider.cs" />
     <Compile Include="Renderers\CustomViewCellRenderer.cs" />
     <Compile Include="Renderers\FlatButtonRenderer.cs" />
+    <Compile Include="Renderers\MenuClickListener.cs" />
     <Compile Include="Renderers\RestaurantEntryRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
   </ItemGroup>
@@ -366,8 +367,8 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_plus_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_close_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_close_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable\arrow-down.png" />
-    <AndroidResource Include="Resources\drawable\up- arrow.png" />
+    <AndroidResource Include="Resources\drawable\arrow_down.png" />
+    <AndroidResource Include="Resources\drawable\up_arrow.png" />
     <TransformFile Include="Resources\drawable\close.xml" />
   </ItemGroup>
   <ItemGroup>

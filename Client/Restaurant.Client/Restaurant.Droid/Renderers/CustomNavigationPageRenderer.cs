@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Android.App;
 using Android.Content.Res;
 using Android.Graphics;
@@ -47,7 +45,8 @@ namespace Restaurant.Droid.Renderers
 
 				_toolbar = field?.GetValue(this) as AToolbar;
 				_toolbarTracker = toolBarTrackerField?.GetValue(this) as ToolbarTracker;
-				_toolbarTracker.CollectionChanged += _toolbarTracker_CollectionChanged;
+				if (_toolbarTracker != null)
+					_toolbarTracker.CollectionChanged += _toolbarTracker_CollectionChanged;
 			}
 
 			UpdateMenu(true);
@@ -92,7 +91,19 @@ namespace Restaurant.Droid.Renderers
 				}
 				else
 				{
-					//context.Window.SetStatusBarColor(page.StatusBarColor.ToAndroid());
+					int colorPrimaryDarkAttr = context.Resources.GetIdentifier("colorPrimaryDark", "attr", context.PackageName);
+					int colorPrimaryAttr = context.Resources.GetIdentifier("colorPrimary", "attr", context.PackageName);
+
+					var primaryDarkOutValue = new TypedValue();
+					context.Theme.ResolveAttribute(colorPrimaryDarkAttr, primaryDarkOutValue, true);
+					var primaryDark = primaryDarkOutValue.Data;
+
+					var primaryOutValue = new TypedValue();
+					context.Theme.ResolveAttribute(colorPrimaryAttr, primaryOutValue, true);
+					var primary = primaryOutValue.Data;
+
+					context.Window.SetStatusBarColor(new AColor(primaryDark));
+					_toolbar.SetBackgroundColor(new AColor(primary));
 					context.Window.DecorView.SystemUiVisibility = StatusBarVisibility.Visible;
 				}
 			}
@@ -270,11 +281,6 @@ namespace Restaurant.Droid.Renderers
 			}
 		}
 
-		public bool IsApplicationOrNull(Element element)
-		{
-			return element == null || element is Xamarin.Forms.Application;
-		}
-
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing && !_disposed)
@@ -300,22 +306,6 @@ namespace Restaurant.Droid.Renderers
 			//	return Device.Info.CurrentOrientation.IsPortrait() ? (int)Context.ToPixels(56) : (int)Context.ToPixels(48);
 
 			return actionBarHeight;
-		}
-	}
-
-	public class MenuClickListener : Java.Lang.Object, IMenuItemOnMenuItemClickListener
-	{
-		readonly Action _callback;
-
-		public MenuClickListener(Action callback)
-		{
-			_callback = callback;
-		}
-
-		public bool OnMenuItemClick(IMenuItem item)
-		{
-			_callback();
-			return true;
 		}
 	}
 }

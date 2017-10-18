@@ -2,11 +2,13 @@
 using ReactiveUI;
 using Restaurant.ViewModels;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Restaurant.Pages
 {
-    // ReSharper disable once RedundantExtendsListEntry
-    public partial class MainPage : MainPageXaml
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	// ReSharper disable once RedundantExtendsListEntry
+	public partial class MainPage : MainPageXaml
     {
         public MainPage()
         {

@@ -1,10 +1,12 @@
 ﻿using Restaurant.Abstractions.Managers;
 using Restaurant.ViewModels;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Restaurant.Pages
 {
-    public partial class BasketPage : BasketPageXaml
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class BasketPage : BasketPageXaml
     {
         public BasketPage(IThemeManager themeManager)
         {

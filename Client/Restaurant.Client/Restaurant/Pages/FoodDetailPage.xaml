@@ -8,7 +8,11 @@
 			       x:Class="Restaurant.Pages.FoodDetailPage">
   <pages:FoodDetailPage.ToolbarItems>
     <!--<ToolbarItem Icon="ic_favorite_white_24dp.png"></ToolbarItem>-->
-    <controls:BadgeToolbarItem Icon="ic_shopping_cart_white" Command="{Binding GoToBasket}" BadgeText="{Binding BasketViewModel.OrdersCount}"></controls:BadgeToolbarItem>
+    <controls:BadgeToolbarItem Icon="ic_shopping_cart_white" Command="{Binding GoToBasket}" BadgeText="{Binding BasketViewModel.OrdersCount}">
+      <controls:BadgeToolbarItem.Effects>
+        
+      </controls:BadgeToolbarItem.Effects>
+    </controls:BadgeToolbarItem>
   </pages:FoodDetailPage.ToolbarItems>
   <AbsoluteLayout>
     <Grid BackgroundColor="White">

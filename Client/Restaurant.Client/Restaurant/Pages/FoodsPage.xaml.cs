@@ -3,10 +3,12 @@ using Restaurant.ViewModels;
 using Xamarin.Forms;
 using System;
 using System.Reactive.Linq;
+using Xamarin.Forms.Xaml;
 
 namespace Restaurant.Pages
 {
-    public partial class FoodsPage : FoodsXamlPage
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class FoodsPage : FoodsXamlPage
     {
         private readonly IDisposable _itemSelectedSubscriber;
 

@@ -34,16 +34,6 @@ namespace Restaurant.Droid.Renderers
 		ToolbarTracker _toolbarTracker;
 		private bool _disposed;
 
-		protected override Task<bool> OnPopViewAsync(Page page, bool animated)
-		{
-			return base.OnPopViewAsync(page, animated);
-		}
-
-		protected override Task<bool> OnPopToRootAsync(Page page, bool animated)
-		{
-			return base.OnPopToRootAsync(page, animated);
-		}
-
 		protected override void OnElementChanged(ElementChangedEventArgs<NavigationPage> e)
 		{
 			base.OnElementChanged(e);
@@ -73,10 +63,6 @@ namespace Restaurant.Droid.Renderers
 				_toolbarTracker.AdditionalTargets = parents;
 				UpdateMenu(true);
 
-				var navController = (INavigationPageController)e.NewElement;
-				
-				navController.PopRequested += OnPopped;
-				navController.RemovePageRequested += OnRemovePageRequested;
 			}
 
 			if ((int)Build.VERSION.SdkInt >= 21)
@@ -85,15 +71,6 @@ namespace Restaurant.Droid.Renderers
 				if (navPage.CurrentPage is IColoredPage page)
 					SetThemeColors(page);
 			}
-		}
-
-		private void OnRemovePageRequested(object sender, NavigationRequestedEventArgs e)
-		{
-
-		}
-
-		private void OnPopped(object sender, NavigationRequestedEventArgs e)
-		{
 		}
 
 		private void _toolbarTracker_CollectionChanged(object sender, EventArgs e)
@@ -138,7 +115,7 @@ namespace Restaurant.Droid.Renderers
 		{
 			base.OnLayout(changed, l, t, r, b);
 
-			if(_disposed)
+			if (_disposed)
 				return;
 
 			var navPage = Element;
@@ -156,7 +133,7 @@ namespace Restaurant.Droid.Renderers
 
 			AToolbar bar = _toolbar;
 			int barHeight = ActionBarHeight();
-			
+
 			int containerHeight = b - t;
 
 			PageController.ContainerArea = new Rectangle(0, 0, Context.FromPixels(r - l), Context.FromPixels(containerHeight));

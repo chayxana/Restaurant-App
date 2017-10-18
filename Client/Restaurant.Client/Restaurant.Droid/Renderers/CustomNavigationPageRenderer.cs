@@ -42,28 +42,15 @@ namespace Restaurant.Droid.Renderers
 			if (memberInfo != null)
 			{
 				var field = memberInfo.GetField(nameof(_toolbar), BindingFlags.Instance | BindingFlags.NonPublic);
+				var toolBarTrackerField =
+					memberInfo.GetField(nameof(_toolbarTracker), BindingFlags.Instance | BindingFlags.NonPublic);
+
 				_toolbar = field?.GetValue(this) as AToolbar;
+				_toolbarTracker = toolBarTrackerField?.GetValue(this) as ToolbarTracker;
+				_toolbarTracker.CollectionChanged += _toolbarTracker_CollectionChanged;
 			}
-			if (e.NewElement != null)
-			{
-				if (_toolbarTracker == null)
-				{
-					_toolbarTracker = new ToolbarTracker();
-					_toolbarTracker.CollectionChanged += _toolbarTracker_CollectionChanged;
-				}
 
-				var parents = new List<Page>();
-				Page root = Element;
-				while (!IsApplicationOrNull(root.Parent))
-				{
-					root = (Page)root.Parent;
-					parents.Add(root);
-				}
-				_toolbarTracker.Target = e.NewElement;
-				_toolbarTracker.AdditionalTargets = parents;
-				UpdateMenu(true);
-
-			}
+			UpdateMenu(true);
 
 			if ((int)Build.VERSION.SdkInt >= 21)
 			{
@@ -105,7 +92,7 @@ namespace Restaurant.Droid.Renderers
 				}
 				else
 				{
-					context.Window.SetStatusBarColor(page.StatusBarColor.ToAndroid());
+					//context.Window.SetStatusBarColor(page.StatusBarColor.ToAndroid());
 					context.Window.DecorView.SystemUiVisibility = StatusBarVisibility.Visible;
 				}
 			}

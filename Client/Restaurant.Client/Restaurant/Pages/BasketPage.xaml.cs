@@ -12,9 +12,9 @@ namespace Restaurant.Pages
         {
             InitializeComponent();
 
-            var theme = themeManager.GetThemeFromColor("green");
-            ActionBarBackgroundColor = theme.Primary;
-            StatusBarColor = theme.Dark;
+            //var theme = themeManager.GetThemeFromColor("green");
+            //ActionBarBackgroundColor = theme.Primary;
+            //StatusBarColor = theme.Dark;
             orders.ItemSelected += Orders_ItemSelected;
         }
 

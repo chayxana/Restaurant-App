@@ -26,9 +26,9 @@ namespace Restaurant.Pages.Welcome
 
 		private void SetColors()
 		{
-			var theme = _themeManager.GetThemeFromColor("red");
-			StatusBarColor = theme.Dark;
-			ActionBarBackgroundColor = theme.Primary;
+			//var theme = _themeManager.GetThemeFromColor("red");
+			//StatusBarColor = theme.Dark;
+			//ActionBarBackgroundColor = theme.Primary;
 		}
 
 		private async Task AnimateControls(int scale, Easing easing)

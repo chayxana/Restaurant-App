@@ -17,9 +17,9 @@ namespace Restaurant.Pages.Welcome
 
 		private void SetColors()
 		{
-			var color = _themeManager.GetThemeFromColor("indigo");
-			StatusBarColor = color.Dark;
-			ActionBarBackgroundColor = color.Primary;
+			//var color = _themeManager.GetThemeFromColor("indigo");
+			//StatusBarColor = color.Dark;
+			//ActionBarBackgroundColor = color.Primary;
 		}
 
 		protected override void OnLoaded()

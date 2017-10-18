@@ -6,7 +6,7 @@
              x:Class="Restaurant.Views.VerticalStepperView" x:Name="rootView">
     <ContentView.Content>
         <StackLayout>
-            <controls:AnimateButton Image="up-arrow" Clicked="ButtonUp_OnClicked" BackgroundColor="Transparent" WidthRequest="30" HeightRequest="20"></controls:AnimateButton>
+            <controls:AnimateButton Image="up-arrow.png" Clicked="ButtonUp_OnClicked" BackgroundColor="Transparent" WidthRequest="30" HeightRequest="20"></controls:AnimateButton>
             <StackLayout>
                 <AbsoluteLayout HorizontalOptions="Center">
                     <abstractions:RoundedBoxView BackgroundColor="White" 
@@ -22,7 +22,7 @@
 
             </StackLayout>
 
-            <controls:AnimateButton Image="arrow-down" Clicked="ButtonDown_OnClicked" BackgroundColor="Transparent" WidthRequest="30" HeightRequest="20"></controls:AnimateButton>
+            <controls:AnimateButton Image="arrow-down.png" Clicked="ButtonDown_OnClicked" BackgroundColor="Transparent" WidthRequest="30" HeightRequest="20"></controls:AnimateButton>
         </StackLayout>
     </ContentView.Content>
 </ContentView>

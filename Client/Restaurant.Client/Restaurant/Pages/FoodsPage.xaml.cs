@@ -16,10 +16,10 @@ namespace Restaurant.Pages
         {
             InitializeComponent();
 
-            var theme = themeManager.GetThemeFromColor("purple");
-            ActionBarBackgroundColor = theme.Primary;
-            StatusBarColor = theme.Dark;
-            ActionBarTextColor = Color.White;
+            //var theme = themeManager.GetThemeFromColor("purple");
+            //ActionBarBackgroundColor = theme.Primary;
+            //StatusBarColor = theme.Dark;
+            //ActionBarTextColor = Color.White;
             Title = "Foods";
 
             _itemSelectedSubscriber = Observable.FromEventPattern<SelectedItemChangedEventArgs>(FoodsList, "ItemSelected")

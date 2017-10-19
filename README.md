@@ -22,3 +22,6 @@ The Restaurant Manager is open source application and it provides to build beati
 **Development:**
 * [Jurabek Azizkhujaev](https://github.com/jurabek)
 
+**Feature implementation:**
+* Ordering foods using AI with neural network
+* Creating chatbot for this neural network

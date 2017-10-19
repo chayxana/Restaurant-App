@@ -1,4 +1,3 @@
-using System;
 using Restaurant.Abstractions.Managers;
 using Restaurant.Constants;
 using Restaurant.ViewModels;
@@ -17,6 +16,7 @@ namespace Restaurant.Pages.Welcome
 			StatusBarColor = theme.Dark;
 			BackgroundColor = theme.Primary;
 		}
+
 		protected override async void OnLoaded()
 		{
 			await label1.ScaleTo(1, AppConstants.AnimationSpeed, Easing.SinIn);

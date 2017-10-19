@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using ReactiveUI;
-using Restaurant.ViewModels;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Restaurant.Pages
 {

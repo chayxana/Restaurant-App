@@ -1,6 +1,4 @@
-﻿using System;
-using Restaurant.Models;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Restaurant.Views
 {

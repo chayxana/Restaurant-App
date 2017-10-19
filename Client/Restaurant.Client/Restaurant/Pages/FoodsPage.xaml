@@ -6,16 +6,23 @@
              xmlns:views="clr-namespace:Restaurant.Views;assembly=Restaurant"
              xmlns:converters="clr-namespace:Restaurant.Converters;assembly=Restaurant"
              xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
-             BackgroundColor="{StaticResource WindowBackgroundTable}">
+             xmlns:viewModels="clr-namespace:Restaurant.ViewModels;assembly=Restaurant"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor="{StaticResource WindowBackgroundTable}"
+             d:DataContext="{d:DesignInstance viewModels:FoodsViewModel}">
+  
   <local:FoodsPage.Resources>
     <ResourceDictionary>
       <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
     </ResourceDictionary>
   </local:FoodsPage.Resources>
+  
   <local:FoodsXamlPage.ToolbarItems>
-    <controls:BadgeToolbarItem Icon="ic_shopping_cart_white" BadgeText="{Binding BasketViewModel.OrdersCount}"></controls:BadgeToolbarItem>
-    <!--<ToolbarItem Text="{Binding MainViewModel.BasketViewModel.OrdersCount, StringFormat='Basket(\{0\})'}" ClassId="basket" Command="{Binding OpenOrder}" x:Name="orderToolbar"/>-->
+    <controls:BadgeToolbarItem Icon="ic_shopping_cart_white" BadgeText="{Binding BasketViewModel.OrdersCount}"/>
   </local:FoodsXamlPage.ToolbarItems>
+  
   <local:FoodsXamlPage.Content>
     <Grid>
       <views:FoodsListView ItemsSource="{Binding Foods}" IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"

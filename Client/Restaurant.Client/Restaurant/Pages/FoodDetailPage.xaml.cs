@@ -1,9 +1,7 @@
 ﻿using ReactiveUI;
 using Restaurant.ViewModels;
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 namespace Restaurant.Pages

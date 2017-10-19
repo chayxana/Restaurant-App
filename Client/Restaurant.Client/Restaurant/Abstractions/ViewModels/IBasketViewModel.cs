@@ -1,8 +1,7 @@
 ﻿using ReactiveUI;
-using Restaurant.Abstractions;
-using Restaurant.Models;
+using Restaurant.ViewModels;
 
-namespace Restaurant.ViewModels
+namespace Restaurant.Abstractions.ViewModels
 {
     public interface IBasketViewModel : INavigatableViewModel
     {

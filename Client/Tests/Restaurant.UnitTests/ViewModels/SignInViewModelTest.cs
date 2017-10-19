@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Managers;

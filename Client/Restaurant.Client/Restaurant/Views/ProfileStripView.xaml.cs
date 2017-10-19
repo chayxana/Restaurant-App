@@ -1,6 +1,4 @@
-﻿using Restaurant.ViewModels;
-using Splat;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Restaurant.Views
 {

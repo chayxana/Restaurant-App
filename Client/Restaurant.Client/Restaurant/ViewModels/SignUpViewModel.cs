@@ -1,15 +1,10 @@
-﻿using System;
-using System.Net.Http;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using JetBrains.Annotations;
 using ReactiveUI;
-using Refit;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Managers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Common.DataTransferObjects;
-using Restaurant.Models;
 
 namespace Restaurant.ViewModels
 {

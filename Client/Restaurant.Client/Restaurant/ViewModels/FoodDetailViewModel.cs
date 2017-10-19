@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.Services;
+using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.ViewModels
@@ -17,15 +18,11 @@ namespace Restaurant.ViewModels
 			BasketViewModel = basketViewModel;
 			CurrentOrder = new OrderViewModel(SelectedFood);
 
-		    AddToBasket = ReactiveCommand.Create(() =>
-		    {
-                basketViewModel.Orders.Add(CurrentOrder);
-		    });
+		    AddToBasket = ReactiveCommand.Create(() => 
+                                        basketViewModel.Orders.Add(CurrentOrder));
 
-		    GoToBasket = ReactiveCommand.Create(() =>
-		    {
-		        navigationService.NavigateAsync(basketViewModel);
-		    });
+		    GoToBasket = ReactiveCommand.CreateFromTask(async () => 
+                                        await navigationService.NavigateAsync(basketViewModel));
 		}
 
 		public override string Title => SelectedFood.Name;

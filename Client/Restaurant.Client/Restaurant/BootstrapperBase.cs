@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using Autofac;
 using ReactiveUI;
 using Refit;
@@ -12,8 +9,6 @@ using Restaurant.Abstractions.Managers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Adapters;
-using Restaurant.Common.Constants;
-using Restaurant.Common.DataTransferObjects;
 using Restaurant.Facades;
 using Restaurant.Managers;
 using Restaurant.Pages;

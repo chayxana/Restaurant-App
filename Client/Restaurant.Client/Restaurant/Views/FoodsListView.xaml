@@ -2,8 +2,9 @@
 <ListView xmlns="http://xamarin.com/schemas/2014/forms"
 			xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
-			xmlns:converters="clr-namespace:Restaurant.Converters;assembly=Restaurant"
-			xmlns:system="clr-namespace:System;assembly=System.Runtime"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            mc:Ignorable="d"
 			xmlns:dataTransferObjects="clr-namespace:Restaurant.Common.DataTransferObjects;assembly=Restaurant.Common"
 			x:Class="Restaurant.Views.FoodsListView"
 			x:Name="list"
@@ -12,14 +13,14 @@
 			SeparatorVisibility="None"
 			HasUnevenRows="True"
 			StyleId="foodsList">
+    
     <ListView.ItemTemplate>
         <DataTemplate>
             <controls:CustomViewCell IsTransparentBackgroundWhenSelectedCell="True">
                 <ViewCell.View>
                     <StackLayout Spacing="{DynamicResource CardSpacing}" 
                                  Padding="{DynamicResource CardPadding}">
-                        <controls:CardView>
-
+                        <controls:CardView d:DataContext="{d:DesignInstance dataTransferObjects:FoodDto}">
                             <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
 
                                 <Image x:Name="photoImage" Source="{Binding Picture}" Aspect="AspectFill" HeightRequest="120"/>

@@ -4,9 +4,9 @@ using System.Reactive.Linq;
 using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.Services;
+using Restaurant.Abstractions.ViewModels;
 using Restaurant.Models;
 using Restaurant.Pages;
-using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.ViewModels
 {

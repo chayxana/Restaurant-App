@@ -87,7 +87,6 @@
     <CodesignKey>iPhone Distribution</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controls\BadgeBarButtonItem.cs" />
     <Compile Include="Controls\UIBadgeLabel.cs" />
     <Compile Include="Controls\UIBarButtonItem.cs" />

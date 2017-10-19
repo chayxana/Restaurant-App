@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Windows.Input;
 using ReactiveUI;
-using Restaurant.Abstractions.Services;
+using Restaurant.Abstractions.ViewModels;
 
 namespace Restaurant.ViewModels
 {
-	public class BasketViewModel : ReactiveObject, IBasketViewModel
+	public class BasketViewModel : BaseViewModel, IBasketViewModel
 	{
-		private ReactiveList<OrderViewModel> _orders;
+	    private ReactiveList<OrderViewModel> _orders;
 		public ReactiveList<OrderViewModel> Orders
 		{
 			get => _orders;
@@ -21,22 +20,17 @@ namespace Restaurant.ViewModels
 			set => this.RaiseAndSetIfChanged(ref _ordersCount, value);
 		}
 
-		public string Title => "Your basket";
+		public override string Title => "Your basket";
 
-		public BasketViewModel(INavigationService navigationService)
+		public BasketViewModel()
 		{
-			Orders = new ReactiveList<OrderViewModel>();
+		    Orders = new ReactiveList<OrderViewModel>();
+
 			this.WhenAnyValue(x => x.Orders.Count).Subscribe(x =>
 			{
 				OrdersCount = x == 0 ? null : x.ToString();
 			});
-
-			DoneCommand = ReactiveCommand.Create(() =>
-			{
-				navigationService.PopModalAsync(true);
-			});
 		}
-
-		public ICommand DoneCommand { get; set; }
+        
 	}
 }

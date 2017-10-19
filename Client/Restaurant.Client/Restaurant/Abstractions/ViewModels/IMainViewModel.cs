@@ -1,6 +1,4 @@
-﻿using Restaurant.Abstractions;
-
-namespace Restaurant.ViewModels
+﻿namespace Restaurant.Abstractions.ViewModels
 {
     public interface IMainViewModel : INavigatableViewModel
     {

@@ -69,7 +69,7 @@
       <DependentUpon>HeaderDivider.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ParallaxScrollView.cs" />
-    <Compile Include="ViewModels\IBasketViewModel.cs" />
+    <Compile Include="Abstractions\ViewModels\IBasketViewModel.cs" />
     <Compile Include="Views\StepperView.xaml.cs">
       <DependentUpon>StepperView.xaml</DependentUpon>
     </Compile>

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using Restaurant.Abstractions.Adapters;
 using Restaurant.Common.DataTransferObjects;
 using Restaurant.ViewModels;

@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using CoreGraphics;
-using ReactiveUI;
-using Restaurant;
-using Restaurant.iOS.Controls;
 using Restaurant.iOS.Renderers;
 using Restaurant.Pages;
-using Restaurant.ViewModels;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;

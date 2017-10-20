@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Android.TwitterLikeButton", "Client\Xamarin.Android.TwitterLikeButton\Xamarin.Android.TwitterLikeButton.csproj", "{543CB950-B31A-4D83-93CB-29242E720A78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{543CB950-B31A-4D83-93CB-29242E720A78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{543CB950-B31A-4D83-93CB-29242E720A78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{543CB950-B31A-4D83-93CB-29242E720A78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{543CB950-B31A-4D83-93CB-29242E720A78}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A38D3D1-51C8-4370-81ED-0F9469ED93C2}
+	EndGlobalSection
+EndGlobal

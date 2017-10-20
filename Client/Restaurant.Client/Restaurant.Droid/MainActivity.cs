@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Com.Like;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -16,7 +17,7 @@ namespace Restaurant.Droid
 		    if (_statusBarHeight >= 0)
 			    return _statusBarHeight;
 
-		    var result = 0;
+			var result = 0;
 		    int resourceId = Resources.GetIdentifier("status_bar_height", "dimen", "android");
 		    if (resourceId > 0)
 			    result = Resources.GetDimensionPixelSize(resourceId);
@@ -28,7 +29,7 @@ namespace Restaurant.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.toolbar;
 
-            base.OnCreate(bundle);
+			base.OnCreate(bundle);
             
             Forms.Init(this, bundle);
 	        ImageCircle.Forms.Plugin.Droid.ImageCircleRenderer.Init();

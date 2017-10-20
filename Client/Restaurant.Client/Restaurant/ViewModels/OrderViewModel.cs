@@ -12,7 +12,13 @@ namespace Restaurant.ViewModels
             Food = food;
         }
 
-        private decimal _quntity = .5M;
+	    public OrderViewModel(FoodDto food, decimal quntity)
+	    {
+		    Food = food;
+		    Quantity = quntity;
+	    }
+
+		private decimal _quntity = .5M;
         public decimal Quantity
         {
             get => _quntity;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using ReactiveUI;
 using Restaurant.Abstractions.ViewModels;
 
@@ -6,7 +7,7 @@ namespace Restaurant.ViewModels
 {
 	public class BasketViewModel : BaseViewModel, IBasketViewModel
 	{
-	    private ReactiveList<OrderViewModel> _orders;
+		private ReactiveList<OrderViewModel> _orders = new ReactiveList<OrderViewModel>();
 		public ReactiveList<OrderViewModel> Orders
 		{
 			get => _orders;
@@ -20,17 +21,25 @@ namespace Restaurant.ViewModels
 			set => this.RaiseAndSetIfChanged(ref _ordersCount, value);
 		}
 
+		public void AddOrder(OrderViewModel order)
+		{
+			_orders.Add(order);
+
+			var groupedOrders = _orders
+				.GroupBy(x => x.Food)
+				.Select(orders => new OrderViewModel(orders.Key, orders.Sum(s => s.Quantity)));
+
+			Orders = new ReactiveList<OrderViewModel>(groupedOrders);
+		}
+
 		public override string Title => "Your basket";
 
 		public BasketViewModel()
 		{
-		    Orders = new ReactiveList<OrderViewModel>();
-
 			this.WhenAnyValue(x => x.Orders.Count).Subscribe(x =>
 			{
 				OrdersCount = x == 0 ? null : x.ToString();
 			});
 		}
-        
 	}
 }

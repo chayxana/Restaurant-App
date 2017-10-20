@@ -19,7 +19,7 @@ namespace Restaurant.ViewModels
 			CurrentOrder = new OrderViewModel(SelectedFood);
 
 		    AddToBasket = ReactiveCommand.Create(() => 
-                                        basketViewModel.Orders.Add(CurrentOrder));
+                                        basketViewModel.AddOrder(CurrentOrder));
 
 		    GoToBasket = ReactiveCommand.CreateFromTask(async () => 
                                         await navigationService.NavigateAsync(basketViewModel));

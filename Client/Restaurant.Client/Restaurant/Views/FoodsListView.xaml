@@ -37,10 +37,12 @@
 
                                         <controls:HeaderDivider />
 
-                                        <AbsoluteLayout>
-                                            <StackLayout AbsoluteLayout.LayoutFlags="All" 
-                                                         AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                                                         Orientation="Horizontal">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout Orientation="Horizontal">
                                                 <Label Text="Rs. " 
                                                        FontSize="Small" 
                                                        TextColor="{StaticResource  asphaltPrimary}" 
@@ -52,29 +54,11 @@
                                                        VerticalOptions="CenterAndExpand"/>
                                             </StackLayout>
 
-                                            <StackLayout AbsoluteLayout.LayoutFlags="All" Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,0,1,1">
-
-                                                <StackLayout Padding="5" HorizontalOptions="EndAndExpand"
-                                                                     VerticalOptions="Center">
-                                                    <controls:AnimatedImage Aspect="AspectFit" 
-                                                                                    Source="add_basket.png">
-                                                        <controls:AnimatedImage.GestureRecognizers>
-                                                            <TapGestureRecognizer />
-                                                        </controls:AnimatedImage.GestureRecognizers>
-                                                    </controls:AnimatedImage>
-                                                </StackLayout>
-
-                                                <StackLayout Padding="5" HorizontalOptions="End"
-                                                                     VerticalOptions="Center">
-                                                    <controls:AnimatedImage Aspect="AspectFit"
-                                                                                    Source="like.png">
-                                                        <controls:AnimatedImage.GestureRecognizers>
-                                                            <TapGestureRecognizer />
-                                                        </controls:AnimatedImage.GestureRecognizers>
-                                                    </controls:AnimatedImage>
-                                                </StackLayout>
+                                            <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="End">
+                                                <controls:TwitterLikeButton IconType="Thumb"/>
+                                                <controls:TwitterLikeButton/>
                                             </StackLayout>
-                                        </AbsoluteLayout>
+                                        </Grid>
 
                                         <controls:FooterDivider VerticalOptions="Center"/>
                                     </StackLayout>

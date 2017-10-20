@@ -7,17 +7,15 @@ namespace Restaurant.Controls
         public static BindableProperty ButtonColorProperty = BindableProperty.Create(nameof(ButtonColor), typeof(Color), typeof(FloatingActionButton), Color.Accent);
         public Color ButtonColor
         {
-            get
-            {
-                return (Color)GetValue(ButtonColorProperty);
-            }
-            set
-            {
-                SetValue(ButtonColorProperty, value);
-            }
+            get => (Color)GetValue(ButtonColorProperty);
+	        set => SetValue(ButtonColorProperty, value);
         }
-        public FloatingActionButton()
-        {
-        }
+
+	    public static BindableProperty RippleColorProperty = BindableProperty.Create(nameof(RippleColor), typeof(Color), typeof(FloatingActionButton), Color.Default);
+	    public Color RippleColor
+	    {
+		    get => (Color)GetValue(RippleColorProperty);
+		    set => SetValue(RippleColorProperty, value);
+	    }
     }
 }

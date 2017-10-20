@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{4C43174E-916C-4B9C-82BC-ACAA67AF790C}"
 EndProject
@@ -25,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{2EA0A2A6-1
 	ProjectSection(SolutionItems) = preProject
 		Client\Libs\ActionItemBadge.dll = Client\Libs\ActionItemBadge.dll
 		Client\Libs\Iconics.Core.dll = Client\Libs\Iconics.Core.dll
+		Client\Libs\Xamarin.Android.TwitterLikeButton.dll = Client\Libs\Xamarin.Android.TwitterLikeButton.dll
 	EndProjectSection
 EndProject
 Global

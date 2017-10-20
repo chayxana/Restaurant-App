@@ -4,10 +4,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:pages="clr-namespace:Restaurant.Pages;assembly=Restaurant"
-			       xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
-			       xmlns:views="clr-namespace:Restaurant.Views;assembly=Restaurant"
-			       xmlns:viewModels="clr-namespace:Restaurant.ViewModels;assembly=Restaurant"
-			       x:Class="Restaurant.Pages.FoodDetailPage"
+			 xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
+			 xmlns:views="clr-namespace:Restaurant.Views;assembly=Restaurant"
+			 xmlns:viewModels="clr-namespace:Restaurant.ViewModels;assembly=Restaurant"
+			 x:Class="Restaurant.Pages.FoodDetailPage"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:FoodDetailViewModel}">
 
@@ -36,7 +36,7 @@
                Source="{Binding SelectedFood.Picture}"
                Aspect="AspectFill"/>
 
-        <Grid Opacity=".5" BackgroundColor="{StaticResource asphaltPrimary}"/>
+        <Grid Opacity=".5" BackgroundColor="{StaticResource asphaltDark}"/>
 
         <StackLayout Padding="10, 10, 10, 35" VerticalOptions="EndAndExpand">
           <StackLayout Spacing="0" Padding="10">

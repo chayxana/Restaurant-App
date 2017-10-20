@@ -9,7 +9,10 @@ namespace Restaurant.ViewModels
 {
 	public class FoodDetailViewModel : ViewModelBase
 	{
-		public FoodDetailViewModel(
+	    private OrderViewModel _currentOrderViewModel;
+	    private IBasketViewModel _basketViewModel;
+
+        public FoodDetailViewModel(
             FoodDto selectedFood, 
             IBasketViewModel basketViewModel,
             INavigationService navigationService)
@@ -29,14 +32,12 @@ namespace Restaurant.ViewModels
 
 	    public FoodDto SelectedFood { get; }
 
-		private IBasketViewModel _basketViewModel;
 		public IBasketViewModel BasketViewModel
 		{
 			get => _basketViewModel;
 			set => this.RaiseAndSetIfChanged(ref _basketViewModel, value);
 		}
 
-		private OrderViewModel _currentOrderViewModel;
 	    public OrderViewModel CurrentOrder
 	    {
 	        get => _currentOrderViewModel;

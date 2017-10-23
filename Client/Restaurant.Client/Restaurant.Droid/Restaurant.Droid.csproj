@@ -157,7 +157,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Renderers\CustomNavigationPageRenderer.cs" />
     <Compile Include="Renderers\FloatingActionButtonRenderer.cs" />
     <Compile Include="MainActivity.cs" />

@@ -202,6 +202,9 @@
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
+    <Reference Include="TwitterLikeButton.Xamarin.iOS">
+      <HintPath>..\..\Libs\TwitterLikeButton.Xamarin.iOS.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Xamarin.Forms.2.4.0.282\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
     </Reference>

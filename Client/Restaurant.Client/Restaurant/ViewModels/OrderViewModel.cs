@@ -5,8 +5,8 @@ namespace Restaurant.ViewModels
 {
     public class OrderViewModel : ReactiveObject
     {
-        public FoodDto Food { get;  }
-
+        private decimal _quntity = .5M;
+        
         public OrderViewModel(FoodDto food)
         {
             Food = food;
@@ -18,7 +18,8 @@ namespace Restaurant.ViewModels
 		    Quantity = quntity;
 	    }
 
-		private decimal _quntity = .5M;
+        public FoodDto Food { get; }
+
         public decimal Quantity
         {
             get => _quntity;

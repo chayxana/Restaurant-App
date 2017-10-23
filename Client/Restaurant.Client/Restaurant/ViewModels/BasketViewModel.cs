@@ -7,14 +7,23 @@ namespace Restaurant.ViewModels
 {
 	public class BasketViewModel : BaseViewModel, IBasketViewModel
 	{
-		private ReactiveList<OrderViewModel> _orders = new ReactiveList<OrderViewModel>();
-		public ReactiveList<OrderViewModel> Orders
+	    private ReactiveList<OrderViewModel> _orders = new ReactiveList<OrderViewModel>();
+        private string _ordersCount;
+
+	    public BasketViewModel()
+	    {
+	        this.WhenAnyValue(x => x.Orders.Count).Subscribe(x =>
+	        {
+	            OrdersCount = x == 0 ? null : x.ToString();
+	        });
+	    }
+
+        public ReactiveList<OrderViewModel> Orders
 		{
 			get => _orders;
 			set => this.RaiseAndSetIfChanged(ref _orders, value);
 		}
 
-		private string _ordersCount;
 		public string OrdersCount
 		{
 			get => _ordersCount;
@@ -33,13 +42,5 @@ namespace Restaurant.ViewModels
 		}
 
 		public override string Title => "Your basket";
-
-		public BasketViewModel()
-		{
-			this.WhenAnyValue(x => x.Orders.Count).Subscribe(x =>
-			{
-				OrdersCount = x == 0 ? null : x.ToString();
-			});
-		}
 	}
 }

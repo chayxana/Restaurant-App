@@ -26,15 +26,17 @@ namespace Restaurant
 		{
 			var builder = new ContainerBuilder();
 
-			foreach (var type in typeof(App).GetTypeInfo().Assembly.ExportedTypes)
-			{
-				if (type.IsAssignableTo<IViewFor>() && !type.GetTypeInfo().IsAbstract)
-				{
-				}
-			}
+			//foreach (var type in typeof(App).GetTypeInfo().Assembly.ExportedTypes)
+			//{
+			//	if (type.IsAssignableTo<IViewFor>() && !type.GetTypeInfo().IsAbstract)
+			//	{
+			//	}
+			//}
 
-			//RegisterTypes(builder);
-
+			//builder.RegisterAssemblyTypes().AsImplementedInterfaces()
+			//	.Except<IViewFor>()
+			//	.Except<IFoodsApi>();
+			
 			builder.RegisterType<NavigationFacade>().As<INavigationFacade>();
 			builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
 			builder.RegisterType<AuthenticationManager>().As<IAuthenticationManager>();

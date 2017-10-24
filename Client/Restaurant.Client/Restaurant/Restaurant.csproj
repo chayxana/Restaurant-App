@@ -71,6 +71,7 @@
     <Compile Include="Controls\ParallaxScrollView.cs" />
     <Compile Include="Abstractions\ViewModels\IBasketViewModel.cs" />
     <Compile Include="Controls\TwitterLikeButton.cs" />
+    <Compile Include="Converters\ZeroToNullConverter.cs" />
     <Compile Include="Views\StepperView.xaml.cs">
       <DependentUpon>StepperView.xaml</DependentUpon>
     </Compile>

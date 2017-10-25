@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Core;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Mappers;
@@ -10,18 +11,15 @@ namespace Restaurant
 {
     public partial class App : Application
     {
-        public static IContainer Container { get; private set; }
-
 	    public App()
 	    {
 		    InitializeComponent();
-		    var boot = new BootstrapperBase();
-
-			Container = boot.Build();
+		    var boot = new Bootstrapper();
+	        boot.Build();
 		    AutoMapperConfiguration.Configure();
 
-		    var navigationService = Container.Resolve<INavigationService>();
-		    var welcomePage = navigationService.ResolveView(Container.Resolve<IWelcomeViewModel>());
+		    var navigationService = Bootstrapper.Container.Resolve<INavigationService>();
+		    var welcomePage = navigationService.ResolveView(Bootstrapper.Container.Resolve<IWelcomeViewModel>());
 
 			MainPage =  new NavigationPage(welcomePage as Page);
 	    }

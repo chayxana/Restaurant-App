@@ -18,9 +18,10 @@ using Restaurant.Pages.Welcome;
 
 namespace Restaurant
 {
-	public class BootstrapperBase
+	public class Bootstrapper
 	{
 		//protected abstract void RegisterTypes(ContainerBuilder builder);
+	    public static IContainer Container { get; private set; }
 
 		public IContainer Build()
 		{
@@ -66,7 +67,9 @@ namespace Restaurant
 
 			builder.RegisterInstance(foodApi).As<IFoodsApi>().SingleInstance();
 
-			return builder.Build();
+            Container = builder.Build();
+
+		    return Container;
 		}
 	}
 

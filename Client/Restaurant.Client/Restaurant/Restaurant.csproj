@@ -90,7 +90,7 @@
     <Compile Include="Themes\MaterialTheme.cs" />
     <Compile Include="Controls\AnimateButton.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />
-    <Compile Include="BootstrapperBase.cs" />
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Managers\ThemeManager.cs" />
     <Compile Include="Models\ClientUser.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />

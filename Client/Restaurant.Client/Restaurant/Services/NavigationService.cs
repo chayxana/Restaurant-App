@@ -19,7 +19,8 @@ namespace Restaurant.Services
 
 		public IViewFor CurrentPage { get; private set; }
 
-		public NavigationService(INavigationFacade navigationFacade) : this(App.Container, navigationFacade)
+		public NavigationService(INavigationFacade navigationFacade) 
+            : this(Bootstrapper.Container, navigationFacade)
 		{ }
 
 		public NavigationService(IContainer container, INavigationFacade navigationFacade)

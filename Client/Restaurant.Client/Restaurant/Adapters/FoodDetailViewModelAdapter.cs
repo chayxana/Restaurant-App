@@ -9,7 +9,7 @@ namespace Restaurant.Adapters
 	{
 		public FoodDetailViewModel GetFoodDetailViewModel(FoodDto selectedFood)
 		{
-			return App.Container.Resolve<FoodDetailViewModel>(new NamedParameter("selectedFood", selectedFood));
+			return Bootstrapper.Container.Resolve<FoodDetailViewModel>(new NamedParameter("selectedFood", selectedFood));
 		}
 	}
 }

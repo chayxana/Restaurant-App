@@ -14,10 +14,10 @@ namespace Restaurant.Pages
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = App.Container.Resolve<IMainViewModel>();
+            BindingContext = Bootstrapper.Container.Resolve<IMainViewModel>();
             Master = new MasterPage();
-            var view = App.Container.Resolve<IViewFor<FoodsViewModel>>();
-            view.ViewModel = App.Container.Resolve<FoodsViewModel>();
+            var view = Bootstrapper.Container.Resolve<IViewFor<FoodsViewModel>>();
+            view.ViewModel = Bootstrapper.Container.Resolve<FoodsViewModel>();
             var page = view as Page;
 
             Detail = new NavigationPage(page);

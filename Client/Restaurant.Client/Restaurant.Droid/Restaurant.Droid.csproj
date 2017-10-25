@@ -157,6 +157,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Effects\ListViewScrollEffect.cs" />
     <Compile Include="Renderers\CustomNavigationPageRenderer.cs" />
     <Compile Include="Renderers\FloatingActionButtonRenderer.cs" />
     <Compile Include="MainActivity.cs" />

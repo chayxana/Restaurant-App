@@ -40,15 +40,15 @@ namespace Restaurant.Droid.Effects
 			if (scrolly > 20)
 			{
 				toolbar.Animate().TranslationY(-toolbar.Bottom).SetInterpolator(new AccelerateInterpolator()).Start();
-				var view1 = toolbar.Parent as View;
-				view1.Layout(view1.Left, -toolbar.Bottom, view1.Right, view1.Bottom + toolbar.Bottom);
+				//var view1 = toolbar.Parent as View;
+				//view1.Layout(view1.Left, -toolbar.Bottom, view1.Right, view1.Bottom + toolbar.Bottom);
 				//view.Measure(MeasureSpecFactory.MakeMeasureSpec(view.Right - view.Left, MeasureSpecMode.Exactly), MeasureSpecFactory.MakeMeasureSpec(view.Top - view.Bottom, MeasureSpecMode.Exactly));
 				//view.Layout(view.Left, -toolbar.Bottom, view.Right, view.Bottom + toolbar.Bottom);
 
 			}
 			else
 			{
-				//toolbar.Animate().TranslationY(0).SetInterpolator(new AccelerateInterpolator()).Start();
+				toolbar.Animate().TranslationY(0).SetInterpolator(new AccelerateInterpolator()).Start();
 				//var view1 = toolbar.Parent as View;
 				//view1.Layout(view1.Left, toolbar.Bottom, view1.Right, view1.Bottom - toolbar.Bottom);
 			}

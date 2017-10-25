@@ -69,7 +69,7 @@
 			</StackLayout>
 			
 			<StackLayout Orientation="Vertical" Padding="10" x:Name="loginStack" Scale="0">
-				<controls:AnimateButton x:Name="Login" Text="Log In" HeightRequest="45" Command="{Binding Login}" BackgroundColor="{StaticResource redLight}"/>
+				<controls:AnimateButton x:Name="Login" Text="Log In" HeightRequest="45" Command="{Binding Login}" BackgroundColor="{StaticResource primaryColor}"/>
 			</StackLayout>
       
       <Grid Padding="10">

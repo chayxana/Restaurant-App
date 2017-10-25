@@ -90,26 +90,39 @@ namespace Restaurant.Droid.Renderers
 					_toolbar.SetBackgroundColor(Color.Transparent.ToAndroid());
 				}
 				else
-				{
-					int colorPrimaryDarkAttr = context.Resources.GetIdentifier("colorPrimaryDark", "attr", context.PackageName);
-					int colorPrimaryAttr = context.Resources.GetIdentifier("colorPrimary", "attr", context.PackageName);
-
-					var primaryDarkOutValue = new TypedValue();
-					context.Theme.ResolveAttribute(colorPrimaryDarkAttr, primaryDarkOutValue, true);
-					var primaryDark = primaryDarkOutValue.Data;
-
-					var primaryOutValue = new TypedValue();
-					context.Theme.ResolveAttribute(colorPrimaryAttr, primaryOutValue, true);
-					var primary = primaryOutValue.Data;
-
-					context.Window.SetStatusBarColor(new AColor(primaryDark));
-					_toolbar.SetBackgroundColor(new AColor(primary));
-					context.Window.DecorView.SystemUiVisibility = StatusBarVisibility.Visible;
-				}
-			}
+                {
+                    context.Window.SetStatusBarColor(GetPrimaryDarkColor(context));
+                    _toolbar.SetBackgroundColor(GetPimaryColor(context));
+                    context.Window.DecorView.SystemUiVisibility = StatusBarVisibility.Visible;
+                }
+            }
 		}
 
-		protected override void OnLayout(bool changed, int l, int t, int r, int b)
+        private AColor GetPimaryColor(Activity context)
+        {
+            int colorPrimaryAttr = context.Resources.GetIdentifier("colorPrimary", "attr", context.PackageName);
+
+          
+
+            var primaryOutValue = new TypedValue();
+            context.Theme.ResolveAttribute(colorPrimaryAttr, primaryOutValue, true);
+            var primary = primaryOutValue.Data;
+
+            return new AColor(primary);
+        }
+
+	    private AColor GetPrimaryDarkColor(Activity context)
+	    {
+	        int colorPrimaryDarkAttr = context.Resources.GetIdentifier("colorPrimaryDark", "attr", context.PackageName);
+
+            var primaryDarkOutValue = new TypedValue();
+	        context.Theme.ResolveAttribute(colorPrimaryDarkAttr, primaryDarkOutValue, true);
+	        var primaryDark = primaryDarkOutValue.Data;
+	        return new AColor(primaryDark);
+
+	    }
+
+        protected override void OnLayout(bool changed, int l, int t, int r, int b)
 		{
 			base.OnLayout(changed, l, t, r, b);
 
@@ -133,8 +146,8 @@ namespace Restaurant.Droid.Renderers
 
 			int containerHeight = b - t;
 
-			PageController.ContainerArea = new Rectangle(0, 0, Context.FromPixels(r - l), Context.FromPixels(containerHeight));
-			Element.ForceLayout();
+			//PageController.ContainerArea = new Rectangle(0, 0, Context.FromPixels(r - l), Context.FromPixels(containerHeight));
+			//Element.ForceLayout();
 
 			for (var i = 0; i < ChildCount; i++)
 			{

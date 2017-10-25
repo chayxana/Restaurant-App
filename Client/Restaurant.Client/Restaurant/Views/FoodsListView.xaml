@@ -6,6 +6,7 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             mc:Ignorable="d"
 			xmlns:dataTransferObjects="clr-namespace:Restaurant.Common.DataTransferObjects;assembly=Restaurant.Common"
+			xmlns:effects="clr-namespace:Restaurant.Effects;assembly=Restaurant"
 			x:Class="Restaurant.Views.FoodsListView"
 			x:Name="list"
 			IsRefreshing="{Binding IsBusy, Mode=OneWay}"
@@ -13,6 +14,9 @@
 			SeparatorVisibility="None"
 			HasUnevenRows="True"
 			StyleId="foodsList">
+    <ListView.Effects>
+        <effects:ListViewScrollEffect />
+    </ListView.Effects>
     
     <ListView.ItemTemplate>
         <DataTemplate>

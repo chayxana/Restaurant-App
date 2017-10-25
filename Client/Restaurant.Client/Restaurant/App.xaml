@@ -20,6 +20,10 @@
             <Color x:Key="asphaltLight">#889DB5</Color>
             <Color x:Key="asphaltDark">#1C2B39</Color>
 
+            <Color x:Key="primaryColor">#4db6ac</Color>
+            <Color x:Key="primaryDarkColor">#26a69a</Color>
+            <Color x:Key="accentColor">#f44336</Color>
+
             <Color x:Key="orangePrimary">#FF9800</Color>
             <Color x:Key="orangeDark">#F57C00</Color>
             <Color x:Key="orangeLight">#FFE0B2</Color>

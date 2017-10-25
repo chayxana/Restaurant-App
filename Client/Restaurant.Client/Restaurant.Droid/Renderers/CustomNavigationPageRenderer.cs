@@ -124,7 +124,6 @@ namespace Restaurant.Droid.Renderers
 			if (!page.IsTransparentToolbar)
 				return;
 
-
 			if (!(Context is MainActivity context)) return;
 
 			var statusBarHeight = context.GetStatusBarHeight();

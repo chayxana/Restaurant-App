@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +8,7 @@ using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Providers
 {
+	[ExcludeFromCodeCoverage]
 	public class UserBootstrapper : IUserBootstrapper
 	{
 		private readonly IConfiguration _configuration;

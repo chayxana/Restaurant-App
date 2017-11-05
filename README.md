@@ -1,8 +1,10 @@
 # Restaurant Manager
-
-Xamarin Client: [![Build status](https://ci.appveyor.com/api/projects/status/p29atu2ty3ih7thm/branch/develop?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant-manager-vwadp/branch/develop)
-
-Web API: [![Build status](https://ci.appveyor.com/api/projects/status/4uh90c7u42d8aleo?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant-manager) [![codecov](https://codecov.io/gh/Jurabek/Restaurant-Manager/branch/master/graph/badge.svg)](https://codecov.io/gh/Jurabek/Restaurant-Manager)
+Front-end Xamarin Client 
+[![Build status](https://ci.appveyor.com/api/projects/status/p29atu2ty3ih7thm/branch/develop?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant-manager-vwadp/branch/develop)
+##
+Back-end Web API 
+[![Build status](https://ci.appveyor.com/api/projects/status/4uh90c7u42d8aleo?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant-manager)
+##
 
 ## Information
 The Restaurant Manager is open source application and it provides to build beatiful and testable mobile apps using Xamarin.Forms

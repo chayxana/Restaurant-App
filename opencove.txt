@@ -6,4 +6,6 @@
   -oldStyle \
   -filter:"+[Restaurant.Server.Api*]* -[Restaurant.Server.Api.UnitTests*]*" \
   -searchdirs:server/Tests/Restaurant.Server.Api.UnitTests/Restaurant.Server.Api.UnitTests/bin/Debug/netcoreapp2.0 \
-  -register:user
+  -register:user \
+  -excludebyattribute:*.ExcludeFromCodeCoverage*
+  

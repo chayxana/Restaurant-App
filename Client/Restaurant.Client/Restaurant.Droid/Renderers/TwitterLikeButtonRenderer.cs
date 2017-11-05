@@ -19,9 +19,8 @@ namespace Restaurant.Droid.Renderers
 			var twitterLikeButton = new LikeButton(Context);
 			twitterLikeButton.SetIconSizeDp(14);
 			twitterLikeButton.SetAnimationScaleFactor(3);
-			twitterLikeButton.SetIcon(GetIconType(Element.IconType));
-
-
+			twitterLikeButton.SetUnlikeDrawableRes(Resource.Drawable.like);
+			twitterLikeButton.SetLikeDrawableRes(Resource.Drawable.like_fill);
 			SetNativeControl(twitterLikeButton);
 		}
 
@@ -43,6 +42,7 @@ namespace Restaurant.Droid.Renderers
 		protected override void OnLayout(bool changed, int l, int t, int r, int b)
 		{
 			base.OnLayout(changed, l, t, r, b);
+			Control.BringToFront();
 		}
 	}
 }

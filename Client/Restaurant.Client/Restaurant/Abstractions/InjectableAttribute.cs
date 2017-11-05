@@ -2,7 +2,7 @@
 
 namespace Restaurant.Abstractions
 {
-    public class InjectableAttribute : Attribute
-    {
-    }
+	public class InjectableAttribute : Attribute
+	{
+	}
 }

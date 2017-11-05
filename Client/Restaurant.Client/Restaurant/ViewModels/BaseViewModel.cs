@@ -7,13 +7,14 @@ namespace Restaurant.ViewModels
 	{
 		private bool _isLoading;
 
+		private string _title;
+
 		public bool IsLoading
 		{
 			get => _isLoading;
 			set => this.RaiseAndSetIfChanged(ref _isLoading, value);
 		}
 
-		private string _title;
 		public virtual string Title
 		{
 			get => _title;

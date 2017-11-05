@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using AutoMapper;
 using Restaurant.Common.DataTransferObjects;
-using Restaurant.Server.Api.Models;
 using Restaurant.Server.Api.Constants;
+using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Mappers
 {
+	[ExcludeFromCodeCoverage]
 	public class RestaurantModelsToDtoProfile : Profile
 	{
 		public RestaurantModelsToDtoProfile()
@@ -24,9 +26,9 @@ namespace Restaurant.Server.Api.Mappers
 				.ForMember(x => x.Category,
 					map => map.MapFrom(x => Mapper.Map<Category>(x.CategoryDto)))
 				.ForMember(x => x.Picture,
-					map => map.MapFrom(x => x.Picture.Contains(Folders.UploadFilesPath) 
-											? x.Picture.Replace(Folders.UploadFilesPath, "")
-										    : x.Picture));
+					map => map.MapFrom(x => x.Picture.Contains(Folders.UploadFilesPath)
+						? x.Picture.Replace(Folders.UploadFilesPath, "")
+						: x.Picture));
 
 			CreateMap<Category, CategoryDto>();
 
@@ -44,7 +46,7 @@ namespace Restaurant.Server.Api.Mappers
 			CreateMap<OrderItemDto, OrderItem>();
 
 			CreateMap<UserProfile, UserProfileDto>();
-				
+
 
 			CreateMap<User, UserDto>()
 				.ForMember(x => x.Profile, map => map.MapFrom(x => Mapper.Map<UserProfileDto>(x.UserProfile)))

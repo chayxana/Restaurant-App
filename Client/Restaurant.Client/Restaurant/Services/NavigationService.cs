@@ -16,18 +16,19 @@ namespace Restaurant.Services
 		private readonly IContainer _container;
 		private readonly INavigationFacade _navigationFacade;
 
-
-		public IViewFor CurrentPage { get; private set; }
-
-		public NavigationService(INavigationFacade navigationFacade) 
-            : this(Bootstrapper.Container, navigationFacade)
-		{ }
+		public NavigationService(INavigationFacade navigationFacade)
+			: this(Bootstrapper.Container, navigationFacade)
+		{
+		}
 
 		public NavigationService(IContainer container, INavigationFacade navigationFacade)
 		{
 			_container = container;
 			_navigationFacade = navigationFacade;
 		}
+
+
+		public IViewFor CurrentPage { get; private set; }
 
 		public Task NavigateAsync(INavigatableViewModel viewModel)
 		{
@@ -66,7 +67,8 @@ namespace Restaurant.Services
 			var view = _container.Resolve(viewType) as Page;
 
 			if (!(view is IViewFor ret))
-				throw new Exception($"Resolve service type '{viewType.FullName}' does not implement '{typeof(IViewFor).FullName}'.");
+				throw new Exception(
+					$"Resolve service type '{viewType.FullName}' does not implement '{typeof(IViewFor).FullName}'.");
 
 			view.Title = vm.Title;
 			ret.ViewModel = vm;

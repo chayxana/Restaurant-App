@@ -16,7 +16,7 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
     <JavaMaximumHeapSize>
@@ -158,6 +158,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Effects\ListViewScrollEffect.cs" />
+    <Compile Include="Providers\ColorProvider.cs" />
+    <Compile Include="Providers\DrawableProvider.cs" />
     <Compile Include="Renderers\CustomNavigationPageRenderer.cs" />
     <Compile Include="Renderers\FloatingActionButtonRenderer.cs" />
     <Compile Include="MainActivity.cs" />
@@ -200,9 +202,6 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_key_variant.png" />
     <AndroidResource Include="Resources\layout\Tabbar.axml" />
     <AndroidResource Include="Resources\layout\toolbar.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\values\Colors.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\values\Strings.xml">
@@ -373,6 +372,16 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_close_black_24dp.png" />
     <AndroidResource Include="Resources\drawable\arrow_down.png" />
     <AndroidResource Include="Resources\drawable\up_arrow.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_heart_outline_grey600_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_heart_outline_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_heart_outline_grey600_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_heart_outline_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_heart_outline_grey600_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_heart_outline_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_heart_outline_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_heart_outline_grey600_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_heart_outline_grey600_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_heart_outline_white_24dp.png" />
     <TransformFile Include="Resources\drawable\close.xml" />
   </ItemGroup>
   <ItemGroup>

@@ -3,15 +3,20 @@ using Restaurant.ViewModels;
 
 namespace Restaurant.Pages.Welcome
 {
-    public partial class SignUpPage : SignUpPageXaml
-    {
-        private readonly IThemeManager _themeManager;
+	public partial class SignUpPage : SignUpPageXaml
+	{
+		private readonly IThemeManager _themeManager;
 
-        public SignUpPage(IThemeManager themeManager)
+		public SignUpPage(IThemeManager themeManager)
 		{
 			_themeManager = themeManager;
 			SetColors();
 
+			InitializeComponent();
+		}
+
+		public SignUpPage()
+		{
 			InitializeComponent();
 		}
 
@@ -23,11 +28,11 @@ namespace Restaurant.Pages.Welcome
 		}
 
 		protected override void OnLoaded()
-        {
-        }
-    }
-    public abstract class SignUpPageXaml : BaseContentPage<SignUpViewModel>
-    {
+		{
+		}
+	}
 
-    }
+	public abstract class SignUpPageXaml : BaseContentPage<SignUpViewModel>
+	{
+	}
 }

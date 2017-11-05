@@ -17,6 +17,11 @@ namespace Restaurant.Pages.Welcome
 			BackgroundColor = theme.Primary;
 		}
 
+		public WelcomeStartPage()
+		{
+			InitializeComponent();
+		}
+
 		protected override async void OnLoaded()
 		{
 			await label1.ScaleTo(1, AppConstants.AnimationSpeed, Easing.SinIn);
@@ -25,7 +30,6 @@ namespace Restaurant.Pages.Welcome
 			await signUpStack.ScaleTo(1, AppConstants.AnimationSpeed, Easing.SinIn);
 
 			BindingContext = ViewModel;
-			
 		}
 	}
 

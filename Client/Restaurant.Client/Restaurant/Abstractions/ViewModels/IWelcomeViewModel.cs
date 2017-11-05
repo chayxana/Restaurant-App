@@ -2,9 +2,9 @@
 
 namespace Restaurant.Abstractions.ViewModels
 {
-    public interface IWelcomeViewModel : INavigatableViewModel
-    {
-        ICommand GoLogin { get; }
-        ICommand GoRegister { get; }
-    }
+	public interface IWelcomeViewModel : INavigatableViewModel
+	{
+		ICommand GoLogin { get; }
+		ICommand GoRegister { get; }
+	}
 }

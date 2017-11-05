@@ -7,34 +7,30 @@ namespace Restaurant.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class BasketPage : BasketPageXaml
-    {
-        public BasketPage(IThemeManager themeManager)
-        {
-            InitializeComponent();
+	{
+		public BasketPage(IThemeManager themeManager)
+		{
+			InitializeComponent();
+			orders.ItemSelected += Orders_ItemSelected;
+		}
 
-            //var theme = themeManager.GetThemeFromColor("green");
-            //ActionBarBackgroundColor = theme.Primary;
-            //StatusBarColor = theme.Dark;
-            orders.ItemSelected += Orders_ItemSelected;
-        }
+		private void Orders_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+		{
+			orders.SelectedItem = null;
+		}
 
-        private void Orders_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            orders.SelectedItem = null;
-        }
+		protected override void OnLoaded()
+		{
+			BindingContext = ViewModel;
+		}
 
-        protected override void OnLoaded()
-        {
-	        this.BindingContext = ViewModel;
-        }
+		protected override void UnLoad()
+		{
+			orders.ItemSelected -= Orders_ItemSelected;
+		}
+	}
 
-        protected override void UnLoad()
-        {
-            orders.ItemSelected -= Orders_ItemSelected;
-        }
-    }
-
-    public abstract class BasketPageXaml : BaseContentPage<BasketViewModel>
-    {
-    }
+	public abstract class BasketPageXaml : BaseContentPage<BasketViewModel>
+	{
+	}
 }

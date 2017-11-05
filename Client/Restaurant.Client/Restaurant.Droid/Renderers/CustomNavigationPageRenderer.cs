@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content.Res;
 using Android.Graphics;
@@ -9,9 +10,11 @@ using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Util;
 using Android.Views;
+using Android.Views.Animations;
 using Com.Mikepenz.Actionitembadge.Library;
 using Com.Mikepenz.Actionitembadge.Library.Utils;
 using Restaurant.Controls;
+using Restaurant.Droid.Providers;
 using Restaurant.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -31,6 +34,14 @@ namespace Restaurant.Droid.Renderers
 		IPageController PageController => Element;
 		ToolbarTracker _toolbarTracker;
 		private bool _disposed;
+		private readonly ColorProvider _colorProvider;
+		private readonly DrawableProvider _drawableProvider;
+
+		public CustomNavigationPageRenderer()
+		{
+			_colorProvider = new ColorProvider();
+			_drawableProvider = new DrawableProvider();
+		}
 
 		protected override void OnElementChanged(ElementChangedEventArgs<NavigationPage> e)
 		{
@@ -46,7 +57,7 @@ namespace Restaurant.Droid.Renderers
 				_toolbar = field?.GetValue(this) as AToolbar;
 				_toolbarTracker = toolBarTrackerField?.GetValue(this) as ToolbarTracker;
 				if (_toolbarTracker != null)
-					_toolbarTracker.CollectionChanged += _toolbarTracker_CollectionChanged;
+					_toolbarTracker.CollectionChanged += ToolbarTracker_CollectionChanged;
 			}
 
 			UpdateMenu(true);
@@ -59,7 +70,7 @@ namespace Restaurant.Droid.Renderers
 			}
 		}
 
-		private void _toolbarTracker_CollectionChanged(object sender, EventArgs e)
+		private void ToolbarTracker_CollectionChanged(object sender, EventArgs e)
 		{
 			UpdateMenu(true);
 		}
@@ -69,7 +80,6 @@ namespace Restaurant.Droid.Renderers
 			base.OnElementPropertyChanged(sender, e);
 			if (e.PropertyName == NavigationPage.CurrentPageProperty.PropertyName)
 			{
-
 				if ((int)Build.VERSION.SdkInt >= 21)
 				{
 					var navPage = Element;
@@ -90,64 +100,36 @@ namespace Restaurant.Droid.Renderers
 					_toolbar.SetBackgroundColor(Color.Transparent.ToAndroid());
 				}
 				else
-                {
-                    context.Window.SetStatusBarColor(GetPrimaryDarkColor(context));
-                    _toolbar.SetBackgroundColor(GetPimaryColor(context));
-                    context.Window.DecorView.SystemUiVisibility = StatusBarVisibility.Visible;
-                }
-            }
+				{
+					context.Window.SetStatusBarColor(_colorProvider.GetPrimaryDarkColor(context));
+					_toolbar.SetBackgroundColor(_colorProvider.GetPimaryColor(context));
+					context.Window.DecorView.SystemUiVisibility = StatusBarVisibility.Visible;
+				}
+			}
 		}
 
-        private AColor GetPimaryColor(Activity context)
-        {
-            int colorPrimaryAttr = context.Resources.GetIdentifier("colorPrimary", "attr", context.PackageName);
-
-          
-
-            var primaryOutValue = new TypedValue();
-            context.Theme.ResolveAttribute(colorPrimaryAttr, primaryOutValue, true);
-            var primary = primaryOutValue.Data;
-
-            return new AColor(primary);
-        }
-
-	    private AColor GetPrimaryDarkColor(Activity context)
-	    {
-	        int colorPrimaryDarkAttr = context.Resources.GetIdentifier("colorPrimaryDark", "attr", context.PackageName);
-
-            var primaryDarkOutValue = new TypedValue();
-	        context.Theme.ResolveAttribute(colorPrimaryDarkAttr, primaryDarkOutValue, true);
-	        var primaryDark = primaryDarkOutValue.Data;
-	        return new AColor(primaryDark);
-
-	    }
-
-        protected override void OnLayout(bool changed, int l, int t, int r, int b)
+		protected override void OnLayout(bool changed, int l, int t, int r, int b)
 		{
 			base.OnLayout(changed, l, t, r, b);
 
-			if (_disposed)
+			if (!(Element.CurrentPage is IColoredPage page))
 				return;
 
-			var navPage = Element;
+			if (page.IsTransparentToolbar)
+			{
+				LayoutBehindTheToolbar(l, t, r, b);
+			}
+		}
 
-			if (!(navPage.CurrentPage is IColoredPage page))
-				return;
-
-			if (!page.IsTransparentToolbar)
-				return;
-
-			if (!(Context is MainActivity context)) return;
-
-			var statusBarHeight = context.GetStatusBarHeight();
-
+		private void LayoutBehindTheToolbar(int l, int t, int r, int b)
+		{
 			AToolbar bar = _toolbar;
 			int barHeight = ActionBarHeight();
-
+			var statusBarHeight = GetStatusBarHeight();
 			int containerHeight = b - t;
 
-			//PageController.ContainerArea = new Rectangle(0, 0, Context.FromPixels(r - l), Context.FromPixels(containerHeight));
-			//Element.ForceLayout();
+			PageController.ContainerArea = new Rectangle(0, 0, Context.FromPixels(r - l), Context.FromPixels(containerHeight));
+			Element.ForceLayout();
 
 			for (var i = 0; i < ChildCount; i++)
 			{
@@ -176,27 +158,27 @@ namespace Restaurant.Droid.Renderers
 			if (_disposed)
 				return;
 
-			var activity = (FormsAppCompatActivity)Context;
+
 			AToolbar bar = _toolbar;
 			IMenu menu = bar.Menu;
 
 			if (init)
 				UpdateToolbarItems(menu);
 
-			UpdateBadgeToolbarItem(activity, menu, propertyName);
+			UpdateBadgeToolbarItem(menu, propertyName);
 		}
 
 		private void UpdateToolbarItems(IMenu menu)
 		{
 			foreach (ToolbarItem item in _toolbarTracker.ToolbarItems)
-				item.PropertyChanged -= HandleToolbarItemPropertyChanged;
+				item.PropertyChanged -= ToolbarItemPropertyChanged;
 
 			menu.Clear();
 
 			foreach (ToolbarItem item in _toolbarTracker.ToolbarItems)
 			{
 				IMenuItemController controller = item;
-				item.PropertyChanged += HandleToolbarItemPropertyChanged;
+				item.PropertyChanged += ToolbarItemPropertyChanged;
 				if (item.Order == ToolbarItemOrder.Secondary)
 				{
 					IMenuItem menuItem = menu.Add(item.Text);
@@ -214,7 +196,7 @@ namespace Restaurant.Droid.Renderers
 					FileImageSource icon = item.Icon;
 					if (!string.IsNullOrEmpty(icon))
 					{
-						Drawable iconDrawable = GetFormsDrawable(Context.Resources, icon);
+						Drawable iconDrawable = _drawableProvider.GetFormsDrawable(Context.Resources, icon);
 						if (iconDrawable != null)
 							menuItem.SetIcon(iconDrawable);
 					}
@@ -225,13 +207,13 @@ namespace Restaurant.Droid.Renderers
 			}
 		}
 
-		private void UpdateBadgeToolbarItem(FormsAppCompatActivity activity, IMenu menu, string propertyName)
+		private void UpdateBadgeToolbarItem(IMenu menu, string propertyName)
 		{
 			foreach (BadgeToolbarItem item in _toolbarTracker.ToolbarItems.OfType<BadgeToolbarItem>())
 			{
 				IMenuItemController controller = item;
-				item.PropertyChanged -= HandleToolbarItemPropertyChanged;
-				item.PropertyChanged += HandleToolbarItemPropertyChanged;
+				item.PropertyChanged -= ToolbarItemPropertyChanged;
+				item.PropertyChanged += ToolbarItemPropertyChanged;
 
 				if (item.HasInitialized && propertyName == BadgeToolbarItem.BadgeTextProperty.PropertyName)
 				{
@@ -245,12 +227,12 @@ namespace Restaurant.Droid.Renderers
 					FileImageSource icon = item.Icon;
 					if (!string.IsNullOrEmpty(icon))
 					{
-						Drawable iconDrawable = GetFormsDrawable(Context.Resources, icon);
+						Drawable iconDrawable = _drawableProvider.GetFormsDrawable(Context.Resources, icon);
 						if (iconDrawable != null)
 							menuItem.SetIcon(iconDrawable);
 
 						var color = item.BadgeColor.ToAndroid();
-						var colorPressed = AColor.ParseColor("#CC0000");
+						var colorPressed = item.BadgePressedColor.ToAndroid();
 						var textColor = item.BadgeTextColor.ToAndroid();
 
 						var badgeStyle = new BadgeStyle(BadgeStyle.Style.Default,
@@ -259,7 +241,7 @@ namespace Restaurant.Droid.Renderers
 							colorPressed,
 							textColor);
 
-
+						var activity = (FormsAppCompatActivity)Context;
 						ActionItemBadge.Update(activity, menuItem, iconDrawable, badgeStyle, item.BadgeText);
 						menuItem.ActionView.Click += (_, __) => controller.Activate();
 						menuItem.SetEnabled(controller.IsEnabled);
@@ -270,20 +252,7 @@ namespace Restaurant.Droid.Renderers
 			}
 		}
 
-		internal Drawable GetFormsDrawable(Resources resource, FileImageSource fileImageSource)
-		{
-			var file = fileImageSource.File;
-			Drawable drawable = resource.GetDrawable(fileImageSource);
-			if (drawable == null)
-			{
-				var bitmap = resource.GetBitmap(file) ?? BitmapFactory.DecodeFile(file);
-				if (bitmap != null)
-					drawable = new BitmapDrawable(resource, bitmap);
-			}
-			return drawable;
-		}
-
-		private void HandleToolbarItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+		private void ToolbarItemPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == BadgeToolbarItem.BadgeTextProperty.PropertyName
 				|| e.PropertyName == BadgeToolbarItem.BadgeTextColorProperty.PropertyName
@@ -318,6 +287,19 @@ namespace Restaurant.Droid.Renderers
 			//	return Device.Info.CurrentOrientation.IsPortrait() ? (int)Context.ToPixels(56) : (int)Context.ToPixels(48);
 
 			return actionBarHeight;
+		}
+
+		int _statusBarHeight = -1;
+		private int GetStatusBarHeight()
+		{
+			if (_statusBarHeight >= 0)
+				return _statusBarHeight;
+
+			var result = 0;
+			int resourceId = Resources.GetIdentifier("status_bar_height", "dimen", "android");
+			if (resourceId > 0)
+				result = Resources.GetDimensionPixelSize(resourceId);
+			return _statusBarHeight = result;
 		}
 	}
 }

@@ -8,69 +8,69 @@ using Restaurant.Abstractions.ViewModels;
 
 namespace Restaurant.ViewModels
 {
-    [UsedImplicitly]
-    public class SignUpViewModel : ViewModelBase, ISignUpViewModel
-    {
-        private readonly INavigationService _navigationService;
-        private string _name;
-        private string _password;
-        private string _confirmPassword;
+	[UsedImplicitly]
+	public class SignUpViewModel : ViewModelBase, ISignUpViewModel
+	{
+		private readonly INavigationService _navigationService;
+		private string _confirmPassword;
 
-        public string Name
-        {
-            get => _name;
-            set => this.RaiseAndSetIfChanged(ref _name, value);
-        }
+		private string _email;
+		private string _name;
+		private string _password;
 
-        private string _email;
+		public SignUpViewModel(
+			IAutoMapperFacade autoMapperFacade,
+			IAuthenticationManager authenticationManager,
+			INavigationService navigationService)
+		{
+			_navigationService = navigationService;
 
-        public string Email
-        {
-            get => _email;
-            set => this.RaiseAndSetIfChanged(ref _email, value);
-        }
-        
-        public string Password
-        {
-            get => _password;
-            set => this.RaiseAndSetIfChanged(ref _password, value);
-        }
-        
-        public string ConfirmPassword
-        {
-            get => _confirmPassword;
-            set => this.RaiseAndSetIfChanged(ref _confirmPassword, value);
-        }
+			var canRegester = this.WhenAny(x => x.Name, x => x.Email, x => x.Password,
+				x => x.ConfirmPassword, (n, e, p, cp) => !string.IsNullOrEmpty(n.Value));
 
-        public ICommand Regester { get; }
-        
-        public override string Title => "Sign Up";
+			Regester = ReactiveCommand
+				.CreateFromTask(async _ =>
+				{
+					//var result = await authenticationManager.Register(autoMapperFacade.Map<RegisterDto>(this));
+					//if (result != null)
+					//{
+					//    var loginResult = await authenticationManager.Login(
+					//        new LoginDto() { Login = this.Email, Password = this.Password });
 
-        public SignUpViewModel(
-            IAutoMapperFacade autoMapperFacade,
-            IAuthenticationManager authenticationManager,
-            INavigationService navigationService)
-        {
-            _navigationService = navigationService;
+					//    if (!loginResult.IsError)
+					//    {
+					//        await _navigationService.NavigateAsync(typeof(IMainViewModel));
+					//    }
+					//}
+				}, canRegester);
+		}
 
-            var canRegester = this.WhenAny(x => x.Name, x => x.Email, x => x.Password,
-                x => x.ConfirmPassword, (n, e, p, cp) => !string.IsNullOrEmpty(n.Value));
+		public string Name
+		{
+			get => _name;
+			set => this.RaiseAndSetIfChanged(ref _name, value);
+		}
 
-            Regester = ReactiveCommand
-                .CreateFromTask(async _ =>
-                {
-                    //var result = await authenticationManager.Register(autoMapperFacade.Map<RegisterDto>(this));
-                    //if (result != null)
-                    //{
-                    //    var loginResult = await authenticationManager.Login(
-                    //        new LoginDto() { Login = this.Email, Password = this.Password });
+		public string Email
+		{
+			get => _email;
+			set => this.RaiseAndSetIfChanged(ref _email, value);
+		}
 
-                    //    if (!loginResult.IsError)
-                    //    {
-                    //        await _navigationService.NavigateAsync(typeof(IMainViewModel));
-                    //    }
-                    //}
-                }, canRegester);
-        }
-    }
+		public string Password
+		{
+			get => _password;
+			set => this.RaiseAndSetIfChanged(ref _password, value);
+		}
+
+		public string ConfirmPassword
+		{
+			get => _confirmPassword;
+			set => this.RaiseAndSetIfChanged(ref _confirmPassword, value);
+		}
+
+		public ICommand Regester { get; }
+
+		public override string Title => "Sign Up";
+	}
 }

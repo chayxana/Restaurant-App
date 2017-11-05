@@ -1,38 +1,41 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<local:FoodsXamlPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Restaurant.Pages.FoodsPage"
-             xmlns:local="clr-namespace:Restaurant.Pages;assembly=Restaurant"
-             xmlns:views="clr-namespace:Restaurant.Views;assembly=Restaurant"
-             xmlns:converters="clr-namespace:Restaurant.Converters;assembly=Restaurant"
-             xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
-             xmlns:viewModels="clr-namespace:Restaurant.ViewModels;assembly=Restaurant"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             BackgroundColor="{StaticResource WindowBackgroundTable}"
-             d:DataContext="{d:DesignInstance viewModels:FoodsViewModel}">
-  
-  <local:FoodsPage.Resources>
-    <ResourceDictionary>
-      <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
-    </ResourceDictionary>
-  </local:FoodsPage.Resources>
-  
-  <local:FoodsXamlPage.ToolbarItems>
-    <controls:BadgeToolbarItem Icon="ic_shopping_cart_white" BadgeText="{Binding BasketViewModel.OrdersCount}"/>
-  </local:FoodsXamlPage.ToolbarItems>
-  
-  <local:FoodsXamlPage.Content>
-    <Grid>
-      <views:FoodsListView ItemsSource="{Binding Foods}" IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
-                           SelectedItem="{Binding SelectedFood}"
-                           x:Name="FoodsList" />
+﻿<?xml version="1.0" encoding="utf-8"?>
 
-      <StackLayout IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center">
-        <ActivityIndicator  IsRunning="{Binding IsLoading}" Color="{StaticResource grayDark}" HorizontalOptions="Center"
-                            VerticalOptions="EndAndExpand" />
-      </StackLayout>
-    </Grid>
-  </local:FoodsXamlPage.Content>
+<local:FoodsXamlPage xmlns="http://xamarin.com/schemas/2014/forms"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                     x:Class="Restaurant.Pages.FoodsPage"
+                     xmlns:local="clr-namespace:Restaurant.Pages;assembly=Restaurant"
+                     xmlns:views="clr-namespace:Restaurant.Views;assembly=Restaurant"
+                     xmlns:converters="clr-namespace:Restaurant.Converters;assembly=Restaurant"
+                     xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
+                     xmlns:viewModels="clr-namespace:Restaurant.ViewModels;assembly=Restaurant"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     mc:Ignorable="d"
+                     BackgroundColor="{StaticResource WindowBackgroundTable}"
+                     d:DataContext="{d:DesignInstance viewModels:FoodsViewModel}">
+
+    <local:FoodsPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+        </ResourceDictionary>
+    </local:FoodsPage.Resources>
+
+    <local:FoodsXamlPage.ToolbarItems>
+        <controls:BadgeToolbarItem Icon="ic_shopping_cart_white" BadgeText="{Binding BasketViewModel.OrdersCount}" BadgeColor="{StaticResource badgeColor}" BadgePressedColor="{StaticResource badgeColor}"/>
+    </local:FoodsXamlPage.ToolbarItems>
+
+    <local:FoodsXamlPage.Content>
+        <Grid>
+            <views:FoodsListView ItemsSource="{Binding Foods}"
+                                 IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
+                                 SelectedItem="{Binding SelectedFood}"
+                                 x:Name="FoodsList" />
+
+            <StackLayout IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center">
+                <ActivityIndicator IsRunning="{Binding IsLoading}" Color="{StaticResource grayDark}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="EndAndExpand" />
+            </StackLayout>
+        </Grid>
+    </local:FoodsXamlPage.Content>
 </local:FoodsXamlPage>

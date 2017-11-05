@@ -7,18 +7,18 @@ namespace Restaurant.ViewModels
 {
 	public class BasketViewModel : BaseViewModel, IBasketViewModel
 	{
-	    private ReactiveList<OrderViewModel> _orders = new ReactiveList<OrderViewModel>();
-        private string _ordersCount;
+		private ReactiveList<OrderViewModel> _orders = new ReactiveList<OrderViewModel>();
+		private string _ordersCount;
 
-	    public BasketViewModel()
-	    {
-	        this.WhenAnyValue(x => x.Orders.Count).Subscribe(x =>
-	        {
-	            OrdersCount = x == 0 ? null : x.ToString();
-	        });
-	    }
+		public BasketViewModel()
+		{
+			this.WhenAnyValue(x => x.Orders.Count).Subscribe(x =>
+			{
+				OrdersCount = x == 0 ? null : x.ToString();
+			});
+		}
 
-        public ReactiveList<OrderViewModel> Orders
+		public ReactiveList<OrderViewModel> Orders
 		{
 			get => _orders;
 			set => this.RaiseAndSetIfChanged(ref _orders, value);

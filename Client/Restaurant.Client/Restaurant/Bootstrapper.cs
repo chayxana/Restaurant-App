@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Autofac;
+﻿using Autofac;
 using ReactiveUI;
 using Refit;
 using Restaurant.Abstractions.Adapters;
@@ -12,16 +11,16 @@ using Restaurant.Adapters;
 using Restaurant.Facades;
 using Restaurant.Managers;
 using Restaurant.Pages;
+using Restaurant.Pages.Welcome;
 using Restaurant.Services;
 using Restaurant.ViewModels;
-using Restaurant.Pages.Welcome;
 
 namespace Restaurant
 {
 	public class Bootstrapper
 	{
 		//protected abstract void RegisterTypes(ContainerBuilder builder);
-	    public static IContainer Container { get; private set; }
+		public static IContainer Container { get; private set; }
 
 		public IContainer Build()
 		{
@@ -37,7 +36,7 @@ namespace Restaurant
 			//builder.RegisterAssemblyTypes().AsImplementedInterfaces()
 			//	.Except<IViewFor>()
 			//	.Except<IFoodsApi>();
-			
+
 			builder.RegisterType<NavigationFacade>().As<INavigationFacade>();
 			builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
 			builder.RegisterType<AuthenticationManager>().As<IAuthenticationManager>();
@@ -57,21 +56,19 @@ namespace Restaurant
 			builder.RegisterType<SignUpViewModel>().As<ISignUpViewModel>();
 			builder.RegisterType<FoodsViewModel>().AsSelf();
 			builder.RegisterType<FoodDetailViewModel>().AsSelf();
-            
+
 			builder.RegisterType<AutoMapperFacade>().As<IAutoMapperFacade>();
 			builder.RegisterType<MainViewModel>().As<IMainViewModel>();
-		    builder.RegisterType<BasketViewModel>().As<IBasketViewModel>().SingleInstance();
+			builder.RegisterType<BasketViewModel>().As<IBasketViewModel>().SingleInstance();
 			builder.RegisterType<FoodDetailViewModelAdapter>().As<IFoodDetailViewModelAdapter>();
 
 			var foodApi = RestService.For<IFoodsApi>("http://restaurantserverapi.azurewebsites.net/");
 
 			builder.RegisterInstance(foodApi).As<IFoodsApi>().SingleInstance();
 
-            Container = builder.Build();
+			Container = builder.Build();
 
-		    return Container;
+			return Container;
 		}
 	}
-
-	
 }

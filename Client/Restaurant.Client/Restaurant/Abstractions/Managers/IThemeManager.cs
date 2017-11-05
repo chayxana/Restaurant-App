@@ -2,8 +2,8 @@
 
 namespace Restaurant.Abstractions.Managers
 {
-    public interface IThemeManager
-    {
-        MaterialTheme GetThemeFromColor(string color);
-    }
+	public interface IThemeManager
+	{
+		MaterialTheme GetThemeFromColor(string color);
+	}
 }

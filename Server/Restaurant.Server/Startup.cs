@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +20,7 @@ using Restaurant.Server.Api.Repositories;
 
 namespace Restaurant.Server.Api
 {
+	[ExcludeFromCodeCoverage]
 	public class Startup
 	{
 		private readonly IConfiguration _configuration;
@@ -54,9 +56,9 @@ namespace Restaurant.Server.Api
 			services.AddCors(o => o.AddPolicy("ServerPolicy", builder =>
 			{
 				builder.AllowAnyOrigin()
-					   .AllowAnyMethod()
-					   .AllowAnyHeader()
-					   .WithExposedHeaders("WWW-Authenticate");
+					.AllowAnyMethod()
+					.AllowAnyHeader()
+					.WithExposedHeaders("WWW-Authenticate");
 			}));
 
 			services.AddMvc();
@@ -73,7 +75,6 @@ namespace Restaurant.Server.Api
 			{
 				o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 				o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-
 			}).AddJwtBearer(o =>
 			{
 #if DEBUG

@@ -2,8 +2,8 @@
 
 namespace Restaurant.Server.Api.Controllers
 {
-    [Route("api/[controller]")]
-    public class ImageController : Controller
-    {
-    }
+	[Route("api/[controller]")]
+	public class ImageController : Controller
+	{
+	}
 }

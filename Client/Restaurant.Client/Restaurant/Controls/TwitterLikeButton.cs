@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Restaurant.Controls
 {
@@ -22,7 +17,7 @@ namespace Restaurant.Controls
 
 		public LikeButtonIconType IconType
 		{
-			get => (LikeButtonIconType)GetValue(IconTypeProperty);
+			get => (LikeButtonIconType) GetValue(IconTypeProperty);
 			set => SetValue(IconTypeProperty, value);
 		}
 	}

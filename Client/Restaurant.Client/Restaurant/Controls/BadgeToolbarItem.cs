@@ -14,30 +14,46 @@ namespace Restaurant.Controls
 		public static readonly BindableProperty BadgeTextColorProperty =
 			BindableProperty.Create("BadgeTextColor", typeof(Color), typeof(BadgeToolbarItem), Color.White);
 
+		public static readonly BindableProperty BadgePressedColorProperty = 
+			BindableProperty.Create("BadgePressedColor", typeof(Color), typeof(BadgeToolbarItem), Color.Red);
+
+		public BadgeToolbarItem(string name, string icon, Action activated, ToolbarItemOrder order = ToolbarItemOrder.Default,
+				int priority = 0)
+			// ReSharper disable once VirtualMemberCallInConstructor
+			: base(name, icon, activated, order, priority)
+		{
+			UniqId = GetHashCode();
+		}
+
+		// ReSharper disable once VirtualMemberCallInConstructor
+		public BadgeToolbarItem()
+		{
+			UniqId = GetHashCode();
+		}
+
 		public string BadgeText
 		{
-			get => (string)GetValue(BadgeTextProperty);
+			get => (string) GetValue(BadgeTextProperty);
 			set => SetValue(BadgeTextProperty, value);
 		}
 
 		public Color BadgeColor
 		{
-			get => (Color)GetValue(BadgeColorProperty);
+			get => (Color) GetValue(BadgeColorProperty);
 			set => SetValue(BadgeColorProperty, value);
+		}
+
+		public Color BadgePressedColor
+		{
+			get => (Color) GetValue(BadgePressedColorProperty);
+			set => SetValue(BadgePressedColorProperty, value);
 		}
 
 		public Color BadgeTextColor
 		{
-			get => (Color)GetValue(BadgeTextColorProperty);
+			get => (Color) GetValue(BadgeTextColorProperty);
 			set => SetValue(BadgeTextColorProperty, value);
 		}
-
-		public BadgeToolbarItem(string name, string icon, Action activated, ToolbarItemOrder order = ToolbarItemOrder.Default, int priority = 0)
-			// ReSharper disable once VirtualMemberCallInConstructor
-			: base(name, icon, activated, order, priority) => UniqId = GetHashCode();
-
-		// ReSharper disable once VirtualMemberCallInConstructor
-		public BadgeToolbarItem() => UniqId = GetHashCode();
 
 		public int UniqId { get; }
 

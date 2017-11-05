@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,21 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 
 			// Then
 		    result.Should().BeOfType<BadRequestObjectResult>();
+	    }
+
+		[Fact]
+	    public async Task Given_authorized_user_GetUserInfo_should_return_user_info()
+	    {
+		    // Given
+			var userDto = new UserDto();
+		    GetMock<IUserManagerFacade>().Setup(x => x.GetAsync(It.IsAny<ClaimsPrincipal>())).Returns(Task.FromResult(new User()));
+		    GetMock<IMapperFacade>().Setup(x => x.Map<UserDto>(It.IsAny<User>())).Returns(userDto);
+
+			// when
+		    var result = await ClassUnderTest.GetUserInfo();
+
+			// then
+		    result.Should().Be(userDto);
 	    }
     }
 }

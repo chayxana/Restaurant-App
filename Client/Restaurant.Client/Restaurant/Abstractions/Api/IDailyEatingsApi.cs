@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Abstractions.Api
 {
-	interface IDailyEatingsApi
+	internal interface IDailyEatingsApi
 	{
 	}
 }

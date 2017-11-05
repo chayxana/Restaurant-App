@@ -2,8 +2,8 @@
 
 namespace Restaurant.Server.Api.Abstractions.Providers
 {
-    public interface IUserBootstrapper
-    {
-        Task CreateDefaultUsersAndRoles();
-    }
+	public interface IUserBootstrapper
+	{
+		Task CreateDefaultUsersAndRoles();
+	}
 }

@@ -16,9 +16,7 @@ namespace Restaurant.Facades
 				if (App.Current.MainPage is MasterDetailPage masterDetailPage)
 				{
 					if (masterDetailPage.Detail is NavigationPage navigationPage)
-					{
 						return navigationPage.Navigation;
-					}
 					var detailNavigationPage = new NavigationPage(masterDetailPage);
 					return detailNavigationPage.Navigation;
 				}

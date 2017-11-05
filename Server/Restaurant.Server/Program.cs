@@ -1,9 +1,10 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Restaurant.Server.Api
 {
+	[ExcludeFromCodeCoverage]
 	public class Program
 	{
 		public static void Main(string[] args)
@@ -11,9 +12,11 @@ namespace Restaurant.Server.Api
 			BuildWebHost(args).Run();
 		}
 
-		public static IWebHost BuildWebHost(string[] args) =>
-			WebHost.CreateDefaultBuilder(args)
+		public static IWebHost BuildWebHost(string[] args)
+		{
+			return WebHost.CreateDefaultBuilder(args)
 				.UseStartup<Startup>()
 				.Build();
+		}
 	}
 }

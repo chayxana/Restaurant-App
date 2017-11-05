@@ -1,49 +1,47 @@
-﻿using System.Reactive.Linq;
+﻿using System;
+using System.Diagnostics;
+using System.Reactive.Linq;
 using ReactiveUI;
 using Xamarin.Forms;
-using System;
-using System.Diagnostics;
 
 namespace Restaurant.Controls
 {
-    public class AnimatedImage : Image
-    {
-        public AnimatedImage()
-        {
-            WidthRequest = 20;
-            HeightRequest = 20;
-        }
+	public class AnimatedImage : Image
+	{
+		private bool _addedAnimation;
 
-        bool _addedAnimation;
+		public AnimatedImage()
+		{
+			WidthRequest = 20;
+			HeightRequest = 20;
+		}
 
-        protected override void OnBindingContextChanged()
-        {
-            if (_addedAnimation || GestureRecognizers.Count == 0)
-                return;
+		protected override void OnBindingContextChanged()
+		{
+			if (_addedAnimation || GestureRecognizers.Count == 0)
+				return;
 
-            _addedAnimation = true;
+			_addedAnimation = true;
 
-            var tapGesture = GestureRecognizers[0] as TapGestureRecognizer;
-            if (tapGesture == null)
-                return;
+			var tapGesture = GestureRecognizers[0] as TapGestureRecognizer;
+			if (tapGesture == null)
+				return;
 
 
-            Observable.FromEventPattern(tapGesture, "Tapped")
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(async x =>
-                {
-                    try
-                    {
-                        await this.ScaleTo(1.4, 75);
-                        await this.ScaleTo(1.0, 75);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e);
-                    }
-                });
-
-        }
-    }
+			Observable.FromEventPattern(tapGesture, "Tapped")
+				.ObserveOn(RxApp.MainThreadScheduler)
+				.Subscribe(async x =>
+				{
+					try
+					{
+						await this.ScaleTo(1.4, 75);
+						await this.ScaleTo(1.0, 75);
+					}
+					catch (Exception e)
+					{
+						Debug.WriteLine(e);
+					}
+				});
+		}
+	}
 }
-

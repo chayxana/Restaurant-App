@@ -3,69 +3,63 @@ using Xamarin.Forms;
 
 namespace Restaurant.Pages
 {
-    public abstract class BaseContentPage<T> : MainBaseContentPage, IViewFor<T> where T : class
-    {
-        public T ViewModel { get; set; }
+	public abstract class BaseContentPage<T> : MainBaseContentPage, IViewFor<T> where T : class
+	{
+		public T ViewModel { get; set; }
 
-        object IViewFor.ViewModel
-        {
-            get => ViewModel;
-            set => ViewModel = (T)value;
-        }
-    }
+		object IViewFor.ViewModel
+		{
+			get => ViewModel;
+			set => ViewModel = (T) value;
+		}
+	}
 
-    public abstract class MainBaseContentPage : ContentPage, IColoredPage
-    {
-        public Color ActionBarBackgroundColor { get; set; }
+	public abstract class MainBaseContentPage : ContentPage, IColoredPage
+	{
+		public Color ActionBarBackgroundColor { get; set; }
 
-        public Color ActionBarTextColor { get; set; }
+		public Color ActionBarTextColor { get; set; }
+
+		public Color StatusBarColor { get; set; }
+
+		public bool IsTransparentToolbar { get; set; }
+
+		protected override void OnAppearing()
+		{
+			if (Parent is NavigationPage nav)
+				ApplyTheme(nav);
+
+			base.OnAppearing();
+			OnLoaded();
+		}
 		
-        public Color StatusBarColor { get; set; }
+		protected abstract void OnLoaded();
 
-	    public bool IsTransparentToolbar { get; set; }
+		protected virtual void UnLoad()
+		{
+		}
 
-	    protected override void OnAppearing()
-        {
-	        if (Parent is NavigationPage nav)
-            {
-                ApplyTheme(nav);
-            }
+		private void ApplyTheme(NavigationPage nav)
+		{
+			nav.BarBackgroundColor = ActionBarBackgroundColor;
+			nav.BarTextColor = ActionBarTextColor;
+		}
 
-            base.OnAppearing();
-            OnLoaded();
-        }
+		protected override void OnDisappearing()
+		{
+			base.OnDisappearing();
+			UnLoad();
+		}
+	}
 
-        protected virtual void Initialize()
-        {
-        }
+	public interface IColoredPage
+	{
+		Color ActionBarTextColor { get; set; }
 
-        protected abstract void OnLoaded();
+		Color ActionBarBackgroundColor { get; set; }
 
-        protected virtual void UnLoad()
-        {   
-        }
-
-	    private void ApplyTheme(NavigationPage nav)
-        {
-            nav.BarBackgroundColor = ActionBarBackgroundColor;
-            nav.BarTextColor = ActionBarTextColor;
-        }
-
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-            UnLoad();
-        }
-    }
-
-    public interface IColoredPage
-    {
-        Color ActionBarTextColor { get; set; }
-
-        Color ActionBarBackgroundColor { get; set; }
-
-        Color StatusBarColor { get; set; }
+		Color StatusBarColor { get; set; }
 
 		bool IsTransparentToolbar { get; set; }
-    }
+	}
 }

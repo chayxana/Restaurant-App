@@ -24,6 +24,11 @@ namespace Restaurant.Pages.Welcome
 			//});                 
 		}
 
+		public SignInPage()
+		{
+			InitializeComponent();
+		}
+
 		private void SetColors()
 		{
 			//var theme = _themeManager.GetThemeFromColor("red");
@@ -47,6 +52,5 @@ namespace Restaurant.Pages.Welcome
 
 	public abstract class SignInPageXaml : BaseContentPage<SignInViewModel>
 	{
-
 	}
 }

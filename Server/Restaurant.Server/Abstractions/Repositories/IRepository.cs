@@ -5,19 +5,19 @@ using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Abstractions.Repositories
 {
-    public interface IRepository<T> 
-        where T : BaseEntity
-    {
-        void Create(T entity);
+	public interface IRepository<T>
+		where T : BaseEntity
+	{
+		void Create(T entity);
 
-        void Update(Guid id, T entity);
+		void Update(Guid id, T entity);
 
-        void Delete(T entity);
+		void Delete(T entity);
 
-        T Get(Guid id);
+		T Get(Guid id);
 
-        IQueryable<T> GetAll();
+		IQueryable<T> GetAll();
 
-        Task<bool> Commit();
-    }
+		Task<bool> Commit();
+	}
 }

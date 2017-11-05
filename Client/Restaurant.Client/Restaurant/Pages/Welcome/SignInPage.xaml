@@ -1,103 +1,113 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <welcome:SignInPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
-						 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-						 xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
-						 xmlns:welcome="clr-namespace:Restaurant.Pages.Welcome;assembly=Restaurant"
-						 xmlns:xfGloss="clr-namespace:XFGloss;assembly=XFGloss"
-						 x:Class="Restaurant.Pages.Welcome.SignInPage">
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
+                        xmlns:welcome="clr-namespace:Restaurant.Pages.Welcome;assembly=Restaurant"
+                        x:Class="Restaurant.Pages.Welcome.SignInPage">
 
-	<welcome:SignInPageXaml.Resources>
-		<ResourceDictionary>
-			<Style TargetType="Label" BasedOn="{StaticResource whiteLabelStyle}" />
-		</ResourceDictionary>
-	</welcome:SignInPageXaml.Resources>
-  
-	<welcome:SignInPageXaml.Content>
-		<StackLayout Orientation="Vertical" VerticalOptions="Center" x:Name="uiMain">
-			<StackLayout.Padding>
-				<OnPlatform x:TypeArguments="Thickness">
-					<On Platform="iOS" Value="25, 25, 25, 25"/>
-					<On Platform="Android" Value="15, 15, 15, 15"/>
-					<On Platform="Uwp" Value="10, 10, 10, 10"/>
-				</OnPlatform>
-			</StackLayout.Padding>
+    <welcome:SignInPageXaml.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" BasedOn="{StaticResource whiteLabelStyle}" />
+        </ResourceDictionary>
+    </welcome:SignInPageXaml.Resources>
 
-			<StackLayout Orientation="Vertical" Padding="10" x:Name="emailStack" Scale="0">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto"/>
-						<ColumnDefinition Width="*"/>
-					</Grid.ColumnDefinitions>
-					<Image Source="ic_email.png" HeightRequest="25" x:Name="EmailImage" Grid.Column="0" WidthRequest="25"
-								 VerticalOptions="Center"></Image>
+    <welcome:SignInPageXaml.Content>
+        <StackLayout Orientation="Vertical" VerticalOptions="Center" x:Name="uiMain">
+            <StackLayout.Padding>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="25, 25, 25, 25" />
+                    <On Platform="Android" Value="15, 15, 15, 15" />
+                    <On Platform="Uwp" Value="10, 10, 10, 10" />
+                </OnPlatform>
+            </StackLayout.Padding>
 
-					<controls:RestaurantEntry x:Name="Email" Placeholder="Enter your email" Text="{Binding Email}"
-																		Grid.Column="1" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HasBorder="False"/>
-				</Grid>
+            <StackLayout Orientation="Vertical" Padding="10" x:Name="emailStack" Scale="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="ic_email.png" HeightRequest="25" x:Name="EmailImage" Grid.Column="0"
+                           WidthRequest="25"
+                           VerticalOptions="Center" />
 
-				<ContentView BackgroundColor="{StaticResource redPrimary}" HorizontalOptions="Fill" >
-					<ContentView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double">
-						    <On Platform="iOS">1</On>
-						    <On Platform="Android">0</On>
-						</OnPlatform>
-					</ContentView.HeightRequest>
-				</ContentView>
-			
-      </StackLayout>
+                    <controls:RestaurantEntry x:Name="Email" Placeholder="Enter your email" Text="{Binding Email}"
+                                              Grid.Column="1" VerticalOptions="Center"
+                                              HorizontalOptions="FillAndExpand" HasBorder="False" />
+                </Grid>
 
-			<StackLayout Orientation="Vertical" Padding="10" x:Name="passwordStack" Scale="0">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto"/>
-						<ColumnDefinition Width="*"/>
-					</Grid.ColumnDefinitions>
-					<Image Source="ic_key_variant.png" Grid.Column="0" x:Name="PasswordImage" WidthRequest="25" HeightRequest="25" VerticalOptions="Center"></Image>
-					<controls:RestaurantEntry HasBorder="False" x:Name="Password" Text="{Binding Password}"
-																		Placeholder="Enter password" Grid.Column="1"
-																		HorizontalOptions="FillAndExpand" IsPassword="true"/>
-				</Grid>
-				<ContentView BackgroundColor="{StaticResource redPrimary}" HorizontalOptions="Fill" >
-					<ContentView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double">
-						    <On Platform="Android">0</On>
-						    <On Platform="iOS">1</On>
-						</OnPlatform>
-					</ContentView.HeightRequest>
-				</ContentView>
+                <ContentView BackgroundColor="{StaticResource redPrimary}" HorizontalOptions="Fill">
+                    <ContentView.HeightRequest>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS">1</On>
+                            <On Platform="Android">0</On>
+                        </OnPlatform>
+                    </ContentView.HeightRequest>
+                </ContentView>
 
-			</StackLayout>
-			
-			<StackLayout Orientation="Vertical" Padding="10" x:Name="loginStack" Scale="0">
-				<controls:AnimateButton x:Name="Login" Text="Log In" HeightRequest="45" Command="{Binding Login}" BackgroundColor="{StaticResource primaryColor}"/>
-			</StackLayout>
-      
-      <Grid Padding="10">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*"/>
-          <ColumnDefinition Width="Auto"/>
-          <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-          <controls:Divider Grid.Column="0" Padding="10, 0"/>
-          <Label Text="Or" FontSize="14" TextColor="Black" Grid.Column="1"/>
-          <controls:Divider Grid.Column="2" Padding="10, 0"/>
-      </Grid>
-      
-      <StackLayout Padding="10">
-        <controls:AnimateButton Margin="5" Text="Sign in with Google" HeightRequest="45" TextColor="{StaticResource grayDark}" BackgroundColor="White" Image="google.png"></controls:AnimateButton>
-        <controls:AnimateButton Margin="5" BorderColor="{StaticResource grayPrimary}" Text="Connect with Facebook" HeightRequest="45" TextColor="White" Image="facebook.png" BackgroundColor="#3B5998"></controls:AnimateButton>
-      </StackLayout>
+            </StackLayout>
 
-			<StackLayout IsVisible="{Binding IsBusy}">
-				<ActivityIndicator  IsRunning="{Binding IsBusy}" Color="{StaticResource grayDark}" HorizontalOptions="Center"
-					VerticalOptions="EndAndExpand" />
+            <StackLayout Orientation="Vertical" Padding="10" x:Name="passwordStack" Scale="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="ic_key_variant.png" Grid.Column="0" x:Name="PasswordImage" WidthRequest="25"
+                           HeightRequest="25" VerticalOptions="Center" />
+                    <controls:RestaurantEntry HasBorder="False" x:Name="Password" Text="{Binding Password}"
+                                              Placeholder="Enter password" Grid.Column="1"
+                                              HorizontalOptions="FillAndExpand" IsPassword="true" />
+                </Grid>
+                <ContentView BackgroundColor="{StaticResource redPrimary}" HorizontalOptions="Fill">
+                    <ContentView.HeightRequest>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android">0</On>
+                            <On Platform="iOS">1</On>
+                        </OnPlatform>
+                    </ContentView.HeightRequest>
+                </ContentView>
 
-				<Label Text="{Binding AuthenticationStatus, StringFormat='Please wait \{0\}'}" FontSize="14"
-					 VerticalOptions="EndAndExpand" Style="{StaticResource whiteLabelStyle}" TextColor="{StaticResource grayPrimary}"/>
+            </StackLayout>
 
-			</StackLayout>
+            <StackLayout Orientation="Vertical" Padding="10" x:Name="loginStack" Scale="0">
+                <controls:AnimateButton x:Name="Login" Text="Log In" HeightRequest="45" Command="{Binding Login}"
+                                        BackgroundColor="{StaticResource primaryColorLight}" />
+            </StackLayout>
 
-		</StackLayout>
-	</welcome:SignInPageXaml.Content>
+            <Grid Padding="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <controls:Divider Grid.Column="0" Padding="10, 0" />
+                <Label Text="Or" FontSize="14" TextColor="Black" Grid.Column="1" />
+                <controls:Divider Grid.Column="2" Padding="10, 0" />
+            </Grid>
+
+            <StackLayout Padding="10">
+                <controls:AnimateButton Margin="5" Text="Sign in with Google" HeightRequest="45"
+                                        TextColor="{StaticResource grayDark}" BackgroundColor="White"
+                                        Image="google.png" />
+                <controls:AnimateButton Margin="5" BorderColor="{StaticResource grayPrimary}"
+                                        Text="Connect with Facebook" HeightRequest="45" TextColor="White"
+                                        Image="facebook.png" BackgroundColor="#3B5998" />
+            </StackLayout>
+
+            <StackLayout IsVisible="{Binding IsBusy}">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color="{StaticResource grayDark}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="EndAndExpand" />
+
+                <Label Text="{Binding AuthenticationStatus, StringFormat='Please wait \{0\}'}" FontSize="14"
+                       VerticalOptions="EndAndExpand" Style="{StaticResource whiteLabelStyle}"
+                       TextColor="{StaticResource grayPrimary}" />
+
+            </StackLayout>
+
+        </StackLayout>
+    </welcome:SignInPageXaml.Content>
 
 </welcome:SignInPageXaml>

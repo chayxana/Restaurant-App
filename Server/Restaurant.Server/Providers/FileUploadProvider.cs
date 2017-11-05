@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Restaurant.Server.Api.Abstractions.Providers;
-using Restaurant.Server.Api.Constants;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Restaurant.Server.Api.Abstractions.Providers;
+using Restaurant.Server.Api.Constants;
 
 namespace Restaurant.Server.Api.Providers
 {
@@ -34,7 +34,7 @@ namespace Restaurant.Server.Api.Providers
 
 		public void Remove(string fileName)
 		{
-			FileInfo fileInfo = new FileInfo(GetFullPath(fileName));
+			var fileInfo = new FileInfo(GetFullPath(fileName));
 			if (fileInfo.Exists)
 				fileInfo.Delete();
 		}
@@ -66,6 +66,5 @@ namespace Restaurant.Server.Api.Providers
 			var filePath = Folders.UploadFilesPath + fileName;
 			return _appEnvironment.WebRootPath + filePath;
 		}
-
 	}
 }

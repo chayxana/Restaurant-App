@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
@@ -6,23 +7,27 @@
     <Application.Resources>
         <ResourceDictionary>
 
-            <OnPlatform x:TypeArguments="Thickness" Android="12,8" iOS="10" WinPhone="0,0,0,16" x:Key="CardPadding"/>
-            
-            <OnPlatform x:TypeArguments="Thickness" Android="20" iOS="15" WinPhone="20" x:Key="FoodDetailtPadding"/>
-            
-            <OnPlatform x:TypeArguments="x:Double" Android="14" iOS="0" WinPhone="0" x:Key="CardSpacing"/>
+            <OnPlatform x:TypeArguments="Thickness" Android="12,8" iOS="10" WinPhone="0,0,0,16" x:Key="CardPadding" />
 
-            <OnPlatform x:TypeArguments="Color" Android="#F5F5F5" iOS="#EFEFF4" WinPhone="#EFEFF4" x:Key="WindowBackgroundTable"/>
-            <OnPlatform x:TypeArguments="Color" Android="#F5F5F5" iOS="White" WinPhone="White" x:Key="WindowBackground"/>
-            <OnPlatform x:TypeArguments="Color" Android="#ECECEC" iOS="#C8C7CC" WinPhone="#C8C7CC" x:Key="Divider"/>
+            <OnPlatform x:TypeArguments="Thickness" Android="15" iOS="15" WinPhone="20" x:Key="FoodDetailtPadding" />
+
+            <OnPlatform x:TypeArguments="x:Double" Android="14" iOS="0" WinPhone="0" x:Key="CardSpacing" />
+
+            <OnPlatform x:TypeArguments="Color" Android="#F5F5F5" iOS="#EFEFF4" WinPhone="#EFEFF4"
+                        x:Key="WindowBackgroundTable" />
+            <OnPlatform x:TypeArguments="Color" Android="#F5F5F5" iOS="White" WinPhone="White" x:Key="WindowBackground" />
+            <OnPlatform x:TypeArguments="Color" Android="#ECECEC" iOS="#C8C7CC" WinPhone="#C8C7CC" x:Key="Divider" />
 
             <Color x:Key="asphaltPrimary">#365271</Color>
             <Color x:Key="asphaltLight">#889DB5</Color>
             <Color x:Key="asphaltDark">#1C2B39</Color>
 
-            <Color x:Key="primaryColor">#4db6ac</Color>
-            <Color x:Key="primaryDarkColor">#26a69a</Color>
-            <Color x:Key="accentColor">#f44336</Color>
+            <Color x:Key="primaryColorLight">#FF8A65</Color>
+            <Color x:Key="primaryColor">#f44336</Color>
+            <Color x:Key="primaryDarkColor">#e53935</Color>
+            <Color x:Key="accentColor">#FF5722</Color>
+            <Color x:Key="badgeColor">#4CAF50</Color>
+            
 
             <Color x:Key="orangePrimary">#FF9800</Color>
             <Color x:Key="orangeDark">#F57C00</Color>
@@ -95,7 +100,7 @@
                 <Style.Triggers>
                     <Trigger TargetType="Button" Property="IsEnabled" Value="False">
                         <Setter Property="TextColor" Value="#BBDEFB" />
-                        <Setter Property="BackgroundColor" Value="#B6B6B6"></Setter>
+                        <Setter Property="BackgroundColor" Value="#B6B6B6" />
                     </Trigger>
                 </Style.Triggers>
             </Style>

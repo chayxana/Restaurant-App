@@ -92,9 +92,6 @@
     <Compile Include="Controls\UIBarButtonItem.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Renderers\CustomViewCellRenderer.cs" />
-    <Compile Include="Renderers\RestaurantEntryRenderer.cs" />
-    <Compile Include="Renderers\ThemedNavigationRenderer.cs" />
     <BundleResource Include="Resources\Default-568h%402x.png" />
     <BundleResource Include="Resources\Default-Portrait.png" />
     <BundleResource Include="Resources\Default-Portrait%402x.png" />
@@ -149,8 +146,15 @@
     <BundleResource Include="Resources\up-arrow%402x.png" />
     <BundleResource Include="Resources\arrow_down.png" />
     <BundleResource Include="Resources\up_arrow.png" />
+    <Compile Include="Renderers\AnimatedIconButton.cs" />
+    <Compile Include="Renderers\CustomViewCellRenderer.cs" />
+    <Compile Include="Renderers\RestaurantEntryRenderer.cs" />
+    <Compile Include="Renderers\ThemedNavigationRenderer.cs" />
+    <Compile Include="Renderers\TwitterLikeButtonRenderer.cs" />
     <None Include="app.config" />
-    <None Include="Info.plist" />
+    <None Include="Info.plist">
+      <SubType>Designer</SubType>
+    </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
     <None Include="packages.config" />
@@ -231,6 +235,7 @@
       <Name>Restaurant</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\..\packages\refit.2.4.1\build\portable-net45+netcore45+wp8+wpa81+monoandroid+xamarin.ios10\refit.targets" Condition="Exists('..\..\..\packages\refit.2.4.1\build\portable-net45+netcore45+wp8+wpa81+monoandroid+xamarin.ios10\refit.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

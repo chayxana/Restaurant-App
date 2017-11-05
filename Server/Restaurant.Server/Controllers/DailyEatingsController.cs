@@ -36,23 +36,20 @@ namespace Restaurant.Server.Api.Controllers
 		public IEnumerable<DailyEatingDto> Get()
 		{
 			var dailyEatings = _repository.GetAll();
-			return _mapperFacade.Map<IEnumerable<DailyEatingDto>, IQueryable<DailyEating>>(dailyEatings);
+			return _mapperFacade.Map<IEnumerable<DailyEatingDto>>(dailyEatings);
 		}
 
 		[HttpGet("{id}")]
 		public DailyEatingDto Get(Guid id)
 		{
-			return _mapperFacade.Map<DailyEatingDto, DailyEating>(_repository.Get(id));
+			return _mapperFacade.Map<DailyEatingDto>(_repository.Get(id));
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Post([FromBody] DailyEatingDto dailyEatingDto, IFormFile receipt = null)
+		public async Task<IActionResult> Post([FromBody] DailyEatingDto dailyEatingDto)
 		{
 			try
 			{
-				if (receipt != null)
-					dailyEatingDto.Reciept = receipt.FileName;
-
 				var dailyEating = _mapperFacade.Map<DailyEating, DailyEatingDto>(dailyEatingDto);
 				_repository.Create(dailyEating);
 				return await _repository.Commit() ? Ok() : (IActionResult) BadRequest();

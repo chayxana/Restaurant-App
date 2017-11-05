@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -7,6 +8,7 @@ using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Repositories
 {
+	[ExcludeFromCodeCoverage]
 	public abstract class RepositoryBase<T> : IRepository<T> where T : BaseEntity
 	{
 		private readonly DatabaseContext _context;

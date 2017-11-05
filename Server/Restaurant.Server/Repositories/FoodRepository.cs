@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Repositories
 {
+	[ExcludeFromCodeCoverage]
 	public class FoodRepository : RepositoryBase<Food>
 	{
 		public FoodRepository(DatabaseContext context, ILogger<FoodRepository> logger)

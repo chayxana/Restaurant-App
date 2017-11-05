@@ -1,0 +1,9 @@
+-target:"c:\Program Files\dotnet\dotnet.exe" \
+  -targetargs:"test -f netcoreapp2.0 -c Debug server/Tests/Restaurant.Server.Api.UnitTests/Restaurant.Server.Api.UnitTests.csproj" \
+  -mergeoutput \
+  -hideskipped:File \
+  -output:coverage/coverage.xml \
+  -oldStyle \
+  -filter:"+[Restaurant.Server.Api*]* -[Restaurant.Server.Api.UnitTests*]*" \
+  -searchdirs:server/Tests/Restaurant.Server.Api.UnitTests/Restaurant.Server.Api.UnitTests/bin/Debug/netcoreapp2.0 \
+  -register:user

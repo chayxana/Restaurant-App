@@ -5,6 +5,7 @@ namespace Restaurant.UITests
 {
     [TestFixture(Platform.Android)]
     [TestFixture(Platform.iOS)]
+	[Category("UITests")]
     public class Tests
     {
         IApp app;

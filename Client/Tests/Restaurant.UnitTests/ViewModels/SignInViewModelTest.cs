@@ -23,6 +23,7 @@ namespace Restaurant.UnitTests.ViewModels
         }
 
         [Test]
+		[Ignore("Beta version")]
         public void Login_with_valid_data_should_be_ok()
         {
             _signInViewModel.Email = "12@123.com";

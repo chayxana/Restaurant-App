@@ -17,7 +17,7 @@ namespace Restaurant.Abstractions.Api
 
 		[Post("/api/Foods")]
 		Task Create([Body] FoodDto food);
-		
+
 		[Post("/api/Foods/UploadFile")]
 		[Multipart]
 		Task UploadFile(Stream file, string foodId);

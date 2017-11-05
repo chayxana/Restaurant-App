@@ -11,18 +11,7 @@ namespace Restaurant.Droid
     [Activity(Label = "Restaurant", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity
     {
-	    int _statusBarHeight = -1;
-		internal int GetStatusBarHeight()
-	    {
-		    if (_statusBarHeight >= 0)
-			    return _statusBarHeight;
-
-			var result = 0;
-		    int resourceId = Resources.GetIdentifier("status_bar_height", "dimen", "android");
-		    if (resourceId > 0)
-			    result = Resources.GetDimensionPixelSize(resourceId);
-		    return _statusBarHeight = result;
-	    }
+	    
 		
 		protected override void OnCreate(Bundle bundle)
         {

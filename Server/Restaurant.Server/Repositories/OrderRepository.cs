@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using Restaurant.Server.Api.Abstractions.Repositories;
 using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Repositories

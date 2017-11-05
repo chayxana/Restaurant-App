@@ -2,7 +2,7 @@
 
 namespace Restaurant.Controls
 {
-    public class FlatButton : Button
-    {
-    }
+	public class FlatButton : Button
+	{
+	}
 }

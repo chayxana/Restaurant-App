@@ -4,20 +4,20 @@ using ReactiveUI;
 
 namespace Restaurant.Abstractions.Services
 {
-    public interface INavigationService
-    {
-        IViewFor CurrentPage { get; }
+	public interface INavigationService
+	{
+		IViewFor CurrentPage { get; }
 
-        Task NavigateAsync(INavigatableViewModel viewModel);
+		Task NavigateAsync(INavigatableViewModel viewModel);
 
-        Task NavigateAsync(Type viewModelType);
+		Task NavigateAsync(Type viewModelType);
 
-        Task NavigateModalAsync(INavigatableViewModel viewModel);
-		
-        Task NavigateModalAsync(Type viewModelType);
+		Task NavigateModalAsync(INavigatableViewModel viewModel);
 
-	    Task PopModalAsync(bool animated);
-		
+		Task NavigateModalAsync(Type viewModelType);
+
+		Task PopModalAsync(bool animated);
+
 		IViewFor ResolveView(INavigatableViewModel vm);
-    }
+	}
 }

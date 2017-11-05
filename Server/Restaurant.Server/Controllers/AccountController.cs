@@ -7,38 +7,38 @@ using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Controllers
 {
-    [Route("api/[controller]")]
-    public class AccountController : ControllerBase
-    {
-        private readonly IUserManagerFacade _userManagerFacade;
-	    private readonly IMapperFacade _mapper;
+	[Route("api/[controller]")]
+	public class AccountController : ControllerBase
+	{
+		private readonly IMapperFacade _mapper;
+		private readonly IUserManagerFacade _userManagerFacade;
 
-	    public AccountController(
+		public AccountController(
 			IUserManagerFacade userManagerFacade,
 			IMapperFacade mapper)
-	    {
-		    _userManagerFacade = userManagerFacade;
-		    _mapper = mapper;
-	    }
+		{
+			_userManagerFacade = userManagerFacade;
+			_mapper = mapper;
+		}
 
-        [HttpPost]
+		[HttpPost]
 		[Route("Register")]
 		[AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
-        {
-            var user = new User { Email = registerDto.Email, UserName = registerDto.UserName };
-            var result = await _userManagerFacade.Create(user, registerDto.Password);
+		public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+		{
+			var user = new User {Email = registerDto.Email, UserName = registerDto.UserName};
+			var result = await _userManagerFacade.Create(user, registerDto.Password);
 
-            return result.Succeeded ? Ok() : Error(result);
-        }
+			return result.Succeeded ? Ok() : Error(result);
+		}
 
 		[HttpGet]
 		[Authorize]
 		[Route("GetUserInfo")]
-	    public async Task<UserDto> GetUserInfo()
-	    {
-		    var user = await _userManagerFacade.GetAsync(User);
-		    return _mapper.Map<UserDto>(user);
-	    }
-    }
+		public async Task<UserDto> GetUserInfo()
+		{
+			var user = await _userManagerFacade.GetAsync(User);
+			return _mapper.Map<UserDto>(user);
+		}
+	}
 }

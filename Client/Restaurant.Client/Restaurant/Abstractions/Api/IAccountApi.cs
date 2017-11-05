@@ -10,6 +10,6 @@ namespace Restaurant.Abstractions.Api
 		Task<UserDto> GetUser([Header("Authorization: bearer")] string accessToken);
 
 		[Post("/api/Account/Register")]
-		Task<object> Register([Body]RegisterDto registerDto);
+		Task<object> Register([Body] RegisterDto registerDto);
 	}
 }

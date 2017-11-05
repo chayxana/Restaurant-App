@@ -3,37 +3,35 @@ using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.ViewModels
 {
-    public class OrderViewModel : ReactiveObject
-    {
-        private decimal _quntity = .5M;
-        
-        public OrderViewModel(FoodDto food)
-        {
-            Food = food;
-        }
+	public class OrderViewModel : ReactiveObject
+	{
+		private decimal _quntity = .5M;
 
-	    public OrderViewModel(FoodDto food, decimal quntity)
-	    {
-		    Food = food;
-		    Quantity = quntity;
-	    }
+		public OrderViewModel(FoodDto food)
+		{
+			Food = food;
+		}
 
-        public FoodDto Food { get; }
+		public OrderViewModel(FoodDto food, decimal quntity)
+		{
+			Food = food;
+			Quantity = quntity;
+		}
 
-        public decimal Quantity
-        {
-            get => _quntity;
-            set
-            {
-                if (value > 0.5M)
-                {
-                    value = (int)value;
-                }
-                this.RaiseAndSetIfChanged(ref _quntity, value);
-                this.RaisePropertyChanged(nameof(TotalPrice));
-            }
-        }
+		public FoodDto Food { get; }
 
-        public decimal TotalPrice => Quantity * Food.Price;
-    }
+		public decimal Quantity
+		{
+			get => _quntity;
+			set
+			{
+				if (value > 0.5M)
+					value = (int) value;
+				this.RaiseAndSetIfChanged(ref _quntity, value);
+				this.RaisePropertyChanged(nameof(TotalPrice));
+			}
+		}
+
+		public decimal TotalPrice => Quantity * Food.Price;
+	}
 }

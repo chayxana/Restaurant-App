@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:Restaurant.Views;assembly=Restaurant"
@@ -17,14 +18,15 @@
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <views:ProfileStripView Grid.Row="0"/>
-            <StackLayout Grid.Row="1"  Padding="0, 20" BackgroundColor="{StaticResource grayLight}">
-                <ListView x:Name="listView" ItemsSource="{Binding MasterViewModel.Items}" SelectedItem="{Binding MasterViewModel.SelectedItem}">
+            <views:ProfileStripView Grid.Row="0" />
+            <StackLayout Grid.Row="1" Padding="0, 20" BackgroundColor="{StaticResource grayLight}">
+                <ListView x:Name="listView" ItemsSource="{Binding MasterViewModel.Items}"
+                          SelectedItem="{Binding MasterViewModel.SelectedItem}">
                     <ListView.SeparatorColor>
-                        <OnPlatform x:TypeArguments="Color" iOS="White"/>
+                        <OnPlatform x:TypeArguments="Color" iOS="White" />
                     </ListView.SeparatorColor>
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -33,19 +35,20 @@
                                     <StackLayout StyleId="test">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
                                             <StackLayout Padding="10">
                                                 <Image HorizontalOptions="End" Opacity=".3"
-                                          VerticalOptions="Center"                                         
-                                          WidthRequest="25"
-                                          HeightRequest="25"
-                                          Source="{Binding IconSource}"/>
+                                                       VerticalOptions="Center"
+                                                       WidthRequest="25"
+                                                       HeightRequest="25"
+                                                       Source="{Binding IconSource}" />
                                             </StackLayout>
 
                                             <StackLayout Grid.Column="1" VerticalOptions="Center">
-                                                <Label Text="{Binding Title}" TextColor="{StaticResource grayDark}" FontSize="Medium"/>
+                                                <Label Text="{Binding Title}" TextColor="{StaticResource grayDark}"
+                                                       FontSize="Medium" />
                                             </StackLayout>
                                         </Grid>
                                     </StackLayout>

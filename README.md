@@ -1,6 +1,6 @@
 # Restaurant Manager
 
-Xamarin Client: [![Xamarin AppVeyor build status](https://ci.appveyor.com/api/projects/status/bgxbx3mym9n7egtj?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant)
+Xamarin Client: [![Build status](https://ci.appveyor.com/api/projects/status/p29atu2ty3ih7thm/branch/develop?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant-manager-vwadp/branch/develop)
 
 Web API: [![Build status](https://ci.appveyor.com/api/projects/status/4uh90c7u42d8aleo?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant-manager)
 

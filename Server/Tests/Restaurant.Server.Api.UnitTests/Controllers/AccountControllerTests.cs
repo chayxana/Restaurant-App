@@ -37,7 +37,7 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 		    var dto = new RegisterDto();
 			GetMock<IUserManagerFacade>()
 			    .Setup(x => x.Create(It.IsAny<User>(), It.IsAny<string>()))
-			    .Returns(Task.FromResult(IdentityResult.Failed()));
+			    .Returns(Task.FromResult(IdentityResult.Failed(new IdentityError{ Code = "404", Description = "Error"})));
 
 			// When
 		    var result = await ClassUnderTest.Register(dto);

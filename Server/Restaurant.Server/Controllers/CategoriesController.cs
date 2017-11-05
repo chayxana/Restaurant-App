@@ -45,7 +45,9 @@ namespace Restaurant.Server.Api.Controllers
 			{
 				var entity = _mapperFacade.Map<Category>(category);
 				_repository.Create(entity);
-				return await _repository.Commit() ? Ok() : (IActionResult) BadRequest();
+				return await _repository.Commit() 
+					? Ok() 
+					: (IActionResult) BadRequest();
 			}
 			catch (Exception)
 			{

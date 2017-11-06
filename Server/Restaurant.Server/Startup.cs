@@ -50,6 +50,7 @@ namespace Restaurant.Server.Api
 			services.AddScoped<IUserBootstrapper, UserBootstrapper>();
 			services.AddScoped<IUserManagerFacade, UserManagerFacade>();
 			services.AddSingleton<IFileUploadProvider, FileUploadProvider>();
+			services.AddScoped<IFileInfoFacade, FileInfoFacade>();
 
 			services.AddLogging();
 

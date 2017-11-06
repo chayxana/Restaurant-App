@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoFixture;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -16,23 +17,9 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 {
 	public class CategoryControllerTests : BaseAutoMockedTest<CategoriesController>
 	{
-		[Fact]
-		public void Get_should_return_category_dtos()
+		[Theory, AutoDomainData]
+		public void Get_should_return_category_dtos(List<Category> categories, List<CategoryDto> categoryDtos)
 		{
-			var categories = new List<Category>()
-			{
-				new Category {Color = "#123", Name = "Category 1"},
-				new Category {Color = "#124", Name = "Category 2"},
-				new Category {Color = "#125", Name = "Category 3"},
-			};
-
-			var categoryDtos = new List<CategoryDto>
-			{
-				new CategoryDto {Color = "#123", Name = "Category 1"},
-				new CategoryDto {Color = "#124", Name = "Category 2"},
-				new CategoryDto {Color = "#125", Name = "Category 3"},
-			};
-
 			GetMock<IRepository<Category>>().Setup(x => x.GetAll()).Returns(categories.AsQueryable());
 			GetMock<IMapperFacade>().Setup(x => x.Map<IEnumerable<CategoryDto>>(categories)).Returns(categoryDtos);
 
@@ -41,12 +28,18 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 			result.Should().Equal(categoryDtos);
 		}
 
-		[Fact]
-		public void Given_valid_id_Get_should_return_some_specific_Category_Dto()
+		[Theory, AutoDomainData]
+		public void Given_valid_id_Get_should_return_some_specific_Category_Dto(Fixture fixture)
 		{
 			var id = Guid.NewGuid();
-			var category = new Category { Id = id, Color = "#123", Name = "Category 1" };
-			var categoryDto = new CategoryDto { Id = id, Color = "#123", Name = "Category 1" };
+
+			var category = fixture.Build<Category>()
+				.With(x => x.Id, id)
+				.Create();
+
+			var categoryDto = fixture.Build<CategoryDto>()
+				.With(x => x.Id, id)
+				.Create();
 
 			GetMock<IRepository<Category>>().Setup(x => x.Get(id)).Returns(category);
 			GetMock<IMapperFacade>().Setup(x => x.Map<CategoryDto>(category)).Returns(categoryDto);
@@ -54,16 +47,13 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 			var result = ClassUnderTest.Get(id);
 
 			result.Id.Should().Be(id);
-			result.Color.Should().Be(category.Color);
-			result.Name.Should().Be(category.Name);
+			result.Color.Should().Be(categoryDto.Color);
+			result.Name.Should().Be(categoryDto.Name);
 		}
 
-		[Fact]
-		public async Task Given_valid_dto_Post_should_create_category_and_should_return_OkResult()
+		[Theory, AutoDomainData]
+		public async Task Given_valid_dto_Post_should_create_category_and_should_return_OkResult(Category category, CategoryDto categoryDto)
 		{
-			var category = new Category { Color = "#123", Name = "Category 1" };
-			var categoryDto = new CategoryDto { Color = "#123", Name = "Category 1" };
-
 			GetMock<IMapperFacade>().Setup(x => x.Map<Category>(categoryDto)).Returns(category);
 			GetMock<IRepository<Category>>().Setup(x => x.Commit()).Returns(Task.FromResult(true));
 
@@ -73,12 +63,9 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 			GetMock<IRepository<Category>>().Verify(x => x.Create(category), Times.Once);
 		}
 
-		[Fact]
-		public async Task Given_invalid_dto_Post_should_not_create_category_and_should_return_BadResult()
+		[Theory, AutoDomainData]
+		public async Task Given_invalid_dto_Post_should_not_create_category_and_should_return_BadResult(CategoryDto categoryDto, Category category)
 		{
-			var category = new Category { Color = "#123", Name = "Category 1" };
-			var categoryDto = new CategoryDto { Color = "#123", Name = "Category 1" };
-
 			GetMock<IMapperFacade>().Setup(x => x.Map<Category>(categoryDto)).Returns(category);
 			GetMock<IRepository<Category>>().Setup(x => x.Commit()).Returns(Task.FromResult(false));
 
@@ -88,12 +75,9 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 			GetMock<IRepository<Category>>().Verify(x => x.Create(category), Times.Once);
 		}
 
-		[Fact]
-		public async Task Given_invalid_dto_Post_should_should_throw()
+		[Theory, AutoDomainData]
+		public async Task Given_invalid_dto_Post_should_should_throw(Category category, CategoryDto categoryDto)
 		{
-			var category = new Category { Color = "#123", Name = "Category 1" };
-			var categoryDto = new CategoryDto { Color = "#123", Name = "Category 1" };
-
 			GetMock<IMapperFacade>().Setup(x => x.Map<Category>(categoryDto)).Returns(category);
 			GetMock<IRepository<Category>>().Setup(x => x.Create(category)).Throws<Exception>();
 
@@ -102,12 +86,18 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 			result.Should().BeOfType<BadRequestResult>();
 		}
 
-		[Fact]
-		public async Task Given_valid_dto_Put_should_update_category_and_should_return_OkResult()
+		[Theory, AutoDomainData]
+		public async Task Given_valid_dto_Put_should_update_category_and_should_return_OkResult(Fixture fixture)
 		{
 			var id = Guid.NewGuid();
-			var category = new Category { Id = id, Color = "#123", Name = "Category 1" };
-			var categoryDto = new CategoryDto { Id = id, Color = "#123", Name = "Category 1" };
+
+			var category = fixture.Build<Category>()
+				.With(x => x.Id, id)
+				.Create();
+
+			var categoryDto = fixture.Build<CategoryDto>()
+				.With(x => x.Id, id)
+				.Create();
 
 			GetMock<IMapperFacade>().Setup(x => x.Map<Category>(categoryDto)).Returns(category);
 			GetMock<IRepository<Category>>().Setup(x => x.Commit()).Returns(Task.FromResult(true));
@@ -119,12 +109,18 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 		}
 
 
-		[Fact]
-		public async Task Given_invalid_dto_Put_should_not_update_category_and_should_return_BadResult()
+		[Theory, AutoDomainData]
+		public async Task Given_invalid_dto_Put_should_not_update_category_and_should_return_BadResult(Fixture fixture)
 		{
 			var id = Guid.NewGuid();
-			var category = new Category { Id = id, Color = "#123", Name = "Category 1" };
-			var categoryDto = new CategoryDto { Id = id, Color = "#123", Name = "Category 1" };
+
+			var category = fixture.Build<Category>()
+				.With(x => x.Id, id)
+				.Create();
+
+			var categoryDto = fixture.Build<CategoryDto>()
+				.With(x => x.Id, id)
+				.Create();
 
 			GetMock<IMapperFacade>().Setup(x => x.Map<Category>(categoryDto)).Returns(category);
 			GetMock<IRepository<Category>>().Setup(x => x.Commit()).Returns(Task.FromResult(false));
@@ -135,12 +131,18 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 			GetMock<IRepository<Category>>().Verify(x => x.Update(id, category), Times.Once);
 		}
 
-		[Fact]
-		public async Task Given_invalid_dto_Put_should_should_throw()
+		[Theory, AutoDomainData]
+		public async Task Given_invalid_dto_Put_should_should_throw(Fixture fixture)
 		{
 			var id = Guid.NewGuid();
-			var category = new Category { Id = id, Color = "#123", Name = "Category 1" };
-			var categoryDto = new CategoryDto { Id = id, Color = "#123", Name = "Category 1" };
+
+			var category = fixture.Build<Category>()
+				.With(x => x.Id, id)
+				.Create();
+
+			var categoryDto = fixture.Build<CategoryDto>()
+				.With(x => x.Id, id)
+				.Create();
 
 			GetMock<IMapperFacade>().Setup(x => x.Map<Category>(categoryDto)).Returns(category);
 			GetMock<IRepository<Category>>().Setup(x => x.Update(id, category)).Throws<Exception>();
@@ -150,23 +152,29 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 			result.Should().BeOfType<BadRequestResult>();
 		}
 
-		[Fact]
-		public async Task Given_id_not_equal_dto_id_Put_should_should_return_bad_request()
+		[Theory, AutoDomainData]
+		public async Task Given_id_not_equal_dto_id_Put_should_should_return_bad_request(Fixture fixture)
 		{
 			var id = Guid.NewGuid();
-			var categoryDto = new CategoryDto { Id = Guid.Empty, Color = "#123", Name = "Category 1" };
+			
+			var categoryDto = fixture.Build<CategoryDto>()
+				.With(x => x.Id, id)
+				.Create();
 
 			var result = await ClassUnderTest.Put(id, categoryDto);
 
 			result.Should().BeOfType<BadRequestResult>();
 		}
 
-		[Fact]
-		public async Task Given_valid_id_Delete_should_remove_category_and_should_return_OkResult()
+		[Theory, AutoDomainData]
+		public async Task Given_valid_id_Delete_should_remove_category_and_should_return_OkResult(Fixture fixture)
 		{
 			var id = Guid.NewGuid();
-			var category = new Category { Id = id, Color = "#123", Name = "Category 1" };
-			
+
+			var category = fixture.Build<Category>()
+				.With(x => x.Id, id)
+				.Create();
+
 			GetMock<IRepository<Category>>().Setup(x => x.Get(id)).Returns(category);
 			GetMock<IRepository<Category>>().Setup(x => x.Commit()).Returns(Task.FromResult(true));
 
@@ -176,12 +184,15 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 			GetMock<IRepository<Category>>().Verify(x => x.Delete(category), Times.Once);
 		}
 
-		[Fact]
-		public async Task Given_invalid_id_Delete_should_not_remove_category_and_should_return_BadResult()
+		[Theory, AutoDomainData]
+		public async Task Given_invalid_id_Delete_should_not_remove_category_and_should_return_BadResult(Fixture fixture)
 		{
 			var id = Guid.NewGuid();
-			var category = new Category { Id = id, Color = "#123", Name = "Category 1" };
 
+			var category = fixture.Build<Category>()
+				.With(x => x.Id, id)
+				.Create();
+			
 			GetMock<IRepository<Category>>().Setup(x => x.Get(id)).Returns(category);
 			GetMock<IRepository<Category>>().Setup(x => x.Commit()).Returns(Task.FromResult(false));
 
@@ -191,12 +202,15 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 			GetMock<IRepository<Category>>().Verify(x => x.Delete(category), Times.Once);
 		}
 
-		[Fact]
-		public async Task Given_invalid_id_Delete_should_throw()
+		[Theory, AutoDomainData]
+		public async Task Given_invalid_id_Delete_should_throw(Fixture fixture)
 		{
 			var id = Guid.NewGuid();
-			var category = new Category { Id = id, Color = "#123", Name = "Category 1" };
 
+			var category = fixture.Build<Category>()
+				.With(x => x.Id, id)
+				.Create();
+			
 			GetMock<IRepository<Category>>().Setup(x => x.Get(id)).Returns(category);
 			GetMock<IRepository<Category>>().Setup(x => x.Commit()).Returns(Task.FromResult(false));
 			GetMock<IRepository<Category>>().Setup(x => x.Delete(category)).Throws<Exception>();

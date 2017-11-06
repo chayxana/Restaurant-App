@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoFixture.Xunit2;
 using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +15,10 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 {
     public class AccountControllerTests : BaseAutoMockedTest<AccountController>
     {
-		[Fact]
-	    public async Task Given_valid_parameters_Register_should_return_Ok()
+		[Theory, AutoDomainData]
+	    public async Task Given_valid_parameters_Register_should_return_Ok(RegisterDto dto)
 		{
 			// Given
-			var dto = new RegisterDto();
 			GetMock<IUserManagerFacade>()
 				.Setup(x => x.Create(It.IsAny<User>(), It.IsAny<string>()))
 				.Returns(Task.FromResult(IdentityResult.Success));
@@ -30,14 +30,13 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 			result.Should().BeOfType<OkResult>();
 		}
 
-		[Fact]
-	    public async Task Given_invalid_parameters_Register_should_return_BadRequest()
+		[Theory, AutoDomainData]
+	    public async Task Given_invalid_parameters_Register_should_return_BadRequest(RegisterDto dto, IdentityError identityError)
 	    {
 			// Gevin 
-		    var dto = new RegisterDto();
 			GetMock<IUserManagerFacade>()
 			    .Setup(x => x.Create(It.IsAny<User>(), It.IsAny<string>()))
-			    .Returns(Task.FromResult(IdentityResult.Failed(new IdentityError{ Code = "404", Description = "Error"})));
+			    .Returns(Task.FromResult(IdentityResult.Failed(identityError)));
 
 			// When
 		    var result = await ClassUnderTest.Register(dto);
@@ -46,11 +45,10 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 		    result.Should().BeOfType<BadRequestObjectResult>();
 	    }
 
-		[Fact]
-	    public async Task Given_authorized_user_GetUserInfo_should_return_user_info()
+		[Theory, AutoDomainData]
+	    public async Task Given_authorized_user_GetUserInfo_should_return_user_info(UserDto userDto)
 	    {
 		    // Given
-			var userDto = new UserDto();
 		    GetMock<IUserManagerFacade>().Setup(x => x.GetAsync(It.IsAny<ClaimsPrincipal>())).Returns(Task.FromResult(new User()));
 		    GetMock<IMapperFacade>().Setup(x => x.Map<UserDto>(It.IsAny<User>())).Returns(userDto);
 

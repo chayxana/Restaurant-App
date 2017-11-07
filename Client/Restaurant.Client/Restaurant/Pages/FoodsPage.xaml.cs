@@ -37,7 +37,6 @@ namespace Restaurant.Pages
 		protected override void UnLoad()
 		{
 			base.UnLoad();
-			_itemSelectedSubscriber.Dispose();
 		}
 	}
 

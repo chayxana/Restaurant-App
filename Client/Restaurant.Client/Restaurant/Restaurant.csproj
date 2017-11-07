@@ -73,6 +73,8 @@
     <Compile Include="Controls\TwitterLikeButton.cs" />
     <Compile Include="Converters\ZeroToNullConverter.cs" />
     <Compile Include="Effects\ListViewScrollEffect.cs" />
+    <Compile Include="MockData\MockAuthenticationManager.cs" />
+    <Compile Include="MockData\MockFoodsApi.cs" />
     <Compile Include="Views\StepperView.xaml.cs">
       <DependentUpon>StepperView.xaml</DependentUpon>
     </Compile>

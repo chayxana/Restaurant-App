@@ -63,12 +63,14 @@ namespace Restaurant.ViewModels
 			IsLoading = true;
 			var foods = await _foodsApi.GetFoods();
 			var foodDtos = foods.ToList();
-			foreach (var food in foodDtos)
-				food.Picture = "http://restaurantserverapi.azurewebsites.net" + food.Picture;
-			foodDtos.AddRange(foodDtos);
+			if (!Bootstrapper.MockData)
+			{
+				foreach (var food in foodDtos)
+					food.Picture = "http://restaurantserverapi.azurewebsites.net" + food.Picture;
+			}
+			
 			foodDtos.AddRange(foodDtos);
 			Foods = new ObservableCollection<FoodDto>(foodDtos);
-
 			IsLoading = false;
 		}
 

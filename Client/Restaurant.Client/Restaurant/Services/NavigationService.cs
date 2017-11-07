@@ -61,7 +61,20 @@ namespace Restaurant.Services
 			return _navigationFacade.PopModalAsync(animated);
 		}
 
-		public IViewFor ResolveView(INavigatableViewModel vm)
+	    public Task NavigateToMainPage(INavigatableViewModel viewModel)
+	    {
+	        CurrentPage = ResolveView(viewModel);
+	        return _navigationFacade.NavigateToMainPage(CurrentPage);
+	    }
+
+	    public Task NavigateToMainPage(Type viewModelType)
+	    {
+	        var vm = _container.Resolve(viewModelType);
+	        CurrentPage = ResolveView(vm as INavigatableViewModel);
+	        return _navigationFacade.NavigateToMainPage(CurrentPage);
+        }
+
+	    public IViewFor ResolveView(INavigatableViewModel vm)
 		{
 			var viewType = typeof(IViewFor<>).MakeGenericType(vm.GetType());
 			var view = _container.Resolve(viewType) as Page;

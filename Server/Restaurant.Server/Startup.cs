@@ -49,8 +49,9 @@ namespace Restaurant.Server.Api
 			services.AddScoped<IMapperFacade, MapperFacade>();
 			services.AddScoped<IUserBootstrapper, UserBootstrapper>();
 			services.AddScoped<IUserManagerFacade, UserManagerFacade>();
+
+			services.AddSingleton<IFileInfoFacade, FileInfoFacade>();
 			services.AddSingleton<IFileUploadProvider, FileUploadProvider>();
-			services.AddScoped<IFileInfoFacade, FileInfoFacade>();
 
 			services.AddLogging();
 

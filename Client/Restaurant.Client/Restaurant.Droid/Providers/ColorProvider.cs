@@ -25,7 +25,6 @@ namespace Restaurant.Droid.Providers
 			context.Theme.ResolveAttribute(colorPrimaryDarkAttr, primaryDarkOutValue, true);
 			var primaryDark = primaryDarkOutValue.Data;
 			return new Color(primaryDark);
-
 		}
 	}
 }

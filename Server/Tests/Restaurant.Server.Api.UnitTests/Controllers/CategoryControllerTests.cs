@@ -158,7 +158,6 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 			var id = Guid.NewGuid();
 			
 			var categoryDto = fixture.Build<CategoryDto>()
-				.With(x => x.Id, id)
 				.Create();
 
 			var result = await ClassUnderTest.Put(id, categoryDto);

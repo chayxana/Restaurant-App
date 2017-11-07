@@ -18,6 +18,10 @@ namespace Restaurant.Abstractions.Services
 
 		Task PopModalAsync(bool animated);
 
-		IViewFor ResolveView(INavigatableViewModel vm);
+	    Task NavigateToMainPage(INavigatableViewModel viewModel);
+
+	    Task NavigateToMainPage(Type viewModelType);
+
+        IViewFor ResolveView(INavigatableViewModel vm);
 	}
 }

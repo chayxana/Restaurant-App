@@ -38,5 +38,12 @@ namespace Restaurant.Facades
 		{
 			return Navigation.PopModalAsync(animated);
 		}
+
+	    public Task NavigateToMainPage(IViewFor page)
+	    {
+	        App.Current.MainPage = page as Page;
+
+	        return Task.FromResult(0);
+	    }
 	}
 }

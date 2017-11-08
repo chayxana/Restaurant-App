@@ -21,14 +21,14 @@ namespace Restaurant.ViewModels
 		public string Title => "Welcome page";
 
 		/// <summary>
-		///     Gets and sets Open regester,
-		///     Command that opens regester page
+		/// Gets and sets Open regester,
+		/// Command that opens regester page
 		/// </summary>
 		public ICommand GoRegister { get; }
 
 		/// <summary>
-		///     Gets and sets OpenLogin
-		///     Command thats opens login page
+		/// Gets and sets OpenLogin
+		/// Command thats opens login page
 		/// </summary>
 		public ICommand GoLogin { get; }
 	}

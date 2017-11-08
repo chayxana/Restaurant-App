@@ -21,22 +21,16 @@ namespace Restaurant.ViewModels
 			_navigationService = navigationService;
 			MasterViewModel = masterViewModel;
 
-			OnLoad();
+			MasterViewModel
+				.SelectedMasterItem
+				.Where(x => x != null)
+				.Subscribe(async masterItem => await _navigationService.NavigateAsync(masterItem.NavigationType));
 		}
 
 		[UsedImplicitly]
 		public IMasterViewModel MasterViewModel { get; }
 
 		public string Title => "Main";
-
-		private async void OnLoad()
-		{
-			//User = await _userRepository.GetUserInfo();
-			MasterViewModel
-				.SelectedMasterItem
-				.Where(x => x != null)
-				.Subscribe(async masterItem => await _navigationService.NavigateAsync(masterItem.NavigationType));
-		}
 	}
 
 	public class MasterViewModel : ReactiveObject, IMasterViewModel

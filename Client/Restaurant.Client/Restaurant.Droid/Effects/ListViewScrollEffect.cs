@@ -36,8 +36,9 @@ namespace Restaurant.Droid.Effects
 			int scrolly = -c.Top + _control.FirstVisiblePosition * c.Height;
 			if (scrolly < 20)
 				await Task.Delay(250);
-
-			NavigationPage.SetHasNavigationBar(page.CurrentPage, !(scrolly > 20));
+			
+			// TODO: When scrolls to down we should animate toolbar to top together with layout 
+			// NavigationPage.SetHasNavigationBar(page.CurrentPage, !(scrolly > 20));
 		}
 
 		protected override void OnDetached()

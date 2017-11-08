@@ -1,10 +1,12 @@
-﻿using System.Windows.Input;
+﻿using System.Net;
+using System.Windows.Input;
 using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Managers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
+using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.ViewModels
 {
@@ -12,8 +14,8 @@ namespace Restaurant.ViewModels
 	public class SignUpViewModel : ViewModelBase, ISignUpViewModel
 	{
 		private readonly INavigationService _navigationService;
-		private string _confirmPassword;
 
+		private string _confirmPassword;
 		private string _email;
 		private string _name;
 		private string _password;
@@ -31,17 +33,20 @@ namespace Restaurant.ViewModels
 			Regester = ReactiveCommand
 				.CreateFromTask(async _ =>
 				{
-					//var result = await authenticationManager.Register(autoMapperFacade.Map<RegisterDto>(this));
-					//if (result != null)
-					//{
-					//    var loginResult = await authenticationManager.Login(
-					//        new LoginDto() { Login = this.Email, Password = this.Password });
+					var registerDto = autoMapperFacade.Map<RegisterDto>(this);
+					var result = await authenticationManager.Register(registerDto);
 
-					//    if (!loginResult.IsError)
-					//    {
-					//        await _navigationService.NavigateAsync(typeof(IMainViewModel));
-					//    }
-					//}
+					if (result != null)
+					{
+						var loginResult = await authenticationManager.Login(
+							new LoginDto() { Login = this.Email, Password = this.Password });
+
+						if (!loginResult.IsError && loginResult.HttpStatusCode == HttpStatusCode.OK)
+						{
+							await _navigationService.NavigateAsync(typeof(IMainViewModel));
+						}
+					}
+
 				}, canRegester);
 		}
 

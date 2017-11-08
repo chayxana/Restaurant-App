@@ -27,10 +27,18 @@ namespace Restaurant.ViewModels
 
 			Login = ReactiveCommand.CreateFromTask(async () =>
 			{
-				var result = await authenticationManager.Login(new LoginDto { Login = Email, Password = Password });
-				if (result.IsError && result.HttpStatusCode != HttpStatusCode.OK)
+				var loginDto = autoMapperFacade.Map<LoginDto>(this);
+				var result = await authenticationManager.Login(loginDto);
+
+				if (result.HttpStatusCode != HttpStatusCode.OK)
 				{
-					Error = "Invalid login or password";
+					Error = "Internal server error!";
+					return;
+				}
+
+				if (result.IsError)
+				{
+					Error = "Invalid login or password!";
 				}
 				else
 				{

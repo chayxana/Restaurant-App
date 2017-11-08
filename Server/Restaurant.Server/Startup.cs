@@ -17,7 +17,6 @@ using Restaurant.Server.Api.Mappers;
 using Restaurant.Server.Api.Models;
 using Restaurant.Server.Api.Providers;
 using Restaurant.Server.Api.Repositories;
-
 namespace Restaurant.Server.Api
 {
 	[ExcludeFromCodeCoverage]
@@ -32,9 +31,9 @@ namespace Restaurant.Server.Api
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
-			services.AddDbContext<DatabaseContext>(options =>
-				options.UseSqlServer(connectionString));
+			var connectionString = _configuration["ConnectionStrings:PostgreSqlConnection"];
+			//services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connectionString));
+			services.AddDbContext<DatabaseContext>(opt => opt.UseNpgsql(connectionString));
 
 			services.AddIdentity<User, IdentityRole>(options =>
 			{

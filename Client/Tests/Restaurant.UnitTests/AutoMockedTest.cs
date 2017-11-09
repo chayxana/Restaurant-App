@@ -16,7 +16,7 @@ namespace Restaurant.UnitTests
 	    [SetUp]
 	    public virtual void Init()
 	    {
-	        Mocker = AutoMock.GetStrict();
+	        Mocker = AutoMock.GetLoose();
 		    Bootstrapper.MockData = false;
 	    }
 

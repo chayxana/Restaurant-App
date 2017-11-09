@@ -3,6 +3,7 @@ using Autofac.Extras.Moq;
 using Moq;
 using NUnit.Framework;
 
+
 namespace Restaurant.UnitTests
 {
     public abstract class BaseAutoMockedTest<T> 
@@ -15,7 +16,7 @@ namespace Restaurant.UnitTests
 	    [SetUp]
 	    public virtual void Init()
 	    {
-		    Mocker = AutoMock.GetLoose();
+	        Mocker = AutoMock.GetStrict();
 		    Bootstrapper.MockData = false;
 	    }
 

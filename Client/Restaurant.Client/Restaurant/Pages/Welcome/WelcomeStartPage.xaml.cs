@@ -7,19 +7,10 @@ namespace Restaurant.Pages.Welcome
 {
 	public partial class WelcomeStartPage : WelcomeStartPageXaml
 	{
-		public WelcomeStartPage(IThemeManager themeManager)
-		{
-			NavigationPage.SetHasNavigationBar(this, false);
-			InitializeComponent();
-
-			var theme = themeManager.GetThemeFromColor("blue");
-			StatusBarColor = theme.Dark;
-			BackgroundColor = theme.Primary;
-		}
-
 		public WelcomeStartPage()
 		{
-			InitializeComponent();
+		    NavigationPage.SetHasNavigationBar(this, false);
+            InitializeComponent();
 		}
 
 		protected override async void OnLoaded()

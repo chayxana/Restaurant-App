@@ -14,16 +14,14 @@ namespace Restaurant.Pages
 		}
 	}
 
-	public abstract class MainBaseContentPage : ContentPage, IColoredPage
+	public abstract class MainBaseContentPage : ContentPage
 	{
 		public Color ActionBarBackgroundColor { get; set; }
 
 		public Color ActionBarTextColor { get; set; }
 
 		public Color StatusBarColor { get; set; }
-
-		public bool IsTransparentToolbar { get; set; }
-
+        
 		protected override void OnAppearing()
 		{
 			if (Parent is NavigationPage nav)
@@ -52,14 +50,8 @@ namespace Restaurant.Pages
 		}
 	}
 
-	public interface IColoredPage
+	public interface ITransparentActionBarPage
 	{
-		Color ActionBarTextColor { get; set; }
-
-		Color ActionBarBackgroundColor { get; set; }
-
-		Color StatusBarColor { get; set; }
-
-		bool IsTransparentToolbar { get; set; }
+		bool IsTransparentActionBar { get; }
 	}
 }

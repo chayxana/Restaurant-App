@@ -40,6 +40,8 @@
     <Compile Include="Abstractions\Api\IFoodsApi.cs" />
     <Compile Include="Abstractions\Facades\IAutoMapperFacade.cs" />
     <Compile Include="Abstractions\Facades\INavigationFacade.cs" />
+    <Compile Include="Abstractions\Factories\IMainPageFactory.cs" />
+    <Compile Include="Abstractions\Factories\IViewModelFactory.cs" />
     <Compile Include="Abstractions\INavigatableViewModel.cs" />
     <Compile Include="Abstractions\Managers\IAuthenticationManager.cs" />
     <Compile Include="Abstractions\Managers\IThemeManager.cs" />
@@ -47,6 +49,7 @@
     <Compile Include="Abstractions\Services\INavigationService.cs" />
     <Compile Include="Abstractions\Providers\ITokenProvider.cs" />
     <Compile Include="Abstractions\Api\IAccountApi.cs" />
+    <Compile Include="Abstractions\Services\IViewResolverService.cs" />
     <Compile Include="Adapters\FoodDetailViewModelAdapter.cs" />
     <Compile Include="Abstractions\Adapters\IFoodDetailViewModelAdapter.cs" />
     <Compile Include="App.xaml.cs">
@@ -68,19 +71,27 @@
     <Compile Include="Controls\HeaderDivider.xaml.cs">
       <DependentUpon>HeaderDivider.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NavigationView.cs" />
     <Compile Include="Controls\ParallaxScrollView.cs" />
     <Compile Include="Abstractions\ViewModels\IBasketViewModel.cs" />
     <Compile Include="Controls\TwitterLikeButton.cs" />
     <Compile Include="Converters\ZeroToNullConverter.cs" />
     <Compile Include="Effects\ListViewScrollEffect.cs" />
+    <Compile Include="Factories\MainPageFactory.cs" />
+    <Compile Include="Factories\ViewModelFactory.cs" />
     <Compile Include="MockData\MockAuthenticationManager.cs" />
     <Compile Include="MockData\MockFoodsApi.cs" />
+    <Compile Include="Pages\Android\MainPageAndroid.cs" />
+    <Compile Include="Pages\Android\MenuPage.xaml.cs">
+      <DependentUpon>MenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\iOS\MainPageiOS.cs" />
+    <Compile Include="Services\ViewResolverService.cs" />
     <Compile Include="Views\StepperView.xaml.cs">
       <DependentUpon>StepperView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Facades\AutoMapperFacade.cs" />
     <Compile Include="Facades\NavigationFacade.cs" />
-    <Compile Include="Factories\ApiFactory.cs" />
     <Compile Include="Managers\AuthenticationManager.cs" />
     <Compile Include="Mappers\AutoMapperConfiguration.cs" />
     <Compile Include="Mappers\ViewModelToDataTransferObjectsProfile.cs" />
@@ -311,8 +322,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pages\Android\" />
-    <Folder Include="Pages\iOS\" />
+    <EmbeddedResource Include="Pages\Android\MenuPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\StepperView.xaml">

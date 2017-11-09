@@ -18,10 +18,10 @@ namespace Restaurant
 			boot.Build();
 			AutoMapperConfiguration.Configure();
 
-			var navigationService = Bootstrapper.Container.Resolve<INavigationService>();
-			var welcomePage = navigationService.ResolveView(Bootstrapper.Container.Resolve<IWelcomeViewModel>());
+			//var navigationService = Bootstrapper.Container.Resolve<INavigationService>();
+			//var welcomePage = navigationService.ResolveView(Bootstrapper.Container.Resolve<IWelcomeViewModel>());
 
-			MainPage = new NavigationPage(welcomePage as Page);
+			//MainPage = new NavigationPage(welcomePage as Page);
 		}
 
 		public new static App Current => (App) Application.Current;

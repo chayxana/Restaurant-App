@@ -7,12 +7,12 @@ using Xamarin.Forms.Xaml;
 namespace Restaurant.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FoodDetailPage : FoodDetailPageXaml
-	{
+	public partial class FoodDetailPage : FoodDetailPageXaml, ITransparentActionBarPage
+    {
 		public FoodDetailPage()
 		{
 			InitializeComponent();
-			IsTransparentToolbar = true;
+			IsTransparentActionBar = true;
 		}
 
 		protected override void OnLoaded()
@@ -31,9 +31,11 @@ namespace Restaurant.Pages
 					}
 				});
 		}
-	}
+
+        public bool IsTransparentActionBar { get;  }
+    }
 
 	public abstract class FoodDetailPageXaml : BaseContentPage<FoodDetailViewModel>
-	{
+    {
 	}
 }

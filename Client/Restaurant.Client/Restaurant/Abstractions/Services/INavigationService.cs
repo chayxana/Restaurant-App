@@ -6,7 +6,7 @@ namespace Restaurant.Abstractions.Services
 {
 	public interface INavigationService
 	{
-		IViewFor CurrentPage { get; }
+		IViewFor CurrentView { get; }
 
 		Task NavigateAsync(INavigatableViewModel viewModel);
 
@@ -16,12 +16,10 @@ namespace Restaurant.Abstractions.Services
 
 		Task NavigateModalAsync(Type viewModelType);
 
-		Task PopModalAsync(bool animated);
+		Task CloseModalAsync(bool animated);
 
 	    Task NavigateToMainPage(INavigatableViewModel viewModel);
 
 	    Task NavigateToMainPage(Type viewModelType);
-
-        IViewFor ResolveView(INavigatableViewModel vm);
 	}
 }

@@ -65,7 +65,7 @@ namespace Restaurant.Droid.Renderers
 			if ((int)Build.VERSION.SdkInt >= 21)
 			{
 				var navPage = Element;
-				if (navPage.CurrentPage is IColoredPage page)
+				if (navPage.CurrentPage is ITransparentActionBarPage page)
 					SetThemeColors(page);
 			}
 		}
@@ -83,17 +83,17 @@ namespace Restaurant.Droid.Renderers
 				if ((int)Build.VERSION.SdkInt >= 21)
 				{
 					var navPage = Element;
-					if (navPage.CurrentPage is IColoredPage page)
+					if (navPage.CurrentPage is ITransparentActionBarPage page)
 						SetThemeColors(page);
 				}
 			}
 		}
 
-		private void SetThemeColors(IColoredPage page)
+		private void SetThemeColors(ITransparentActionBarPage page)
 		{
 			if (Context is Activity context)
 			{
-				if (page.IsTransparentToolbar)
+				if (page.IsTransparentActionBar)
 				{
 					context.Window.DecorView.SystemUiVisibility = (StatusBarVisibility)(SystemUiFlags.LayoutFullscreen | SystemUiFlags.LayoutStable);
 					context.Window.SetStatusBarColor(Color.Transparent.ToAndroid());
@@ -112,10 +112,10 @@ namespace Restaurant.Droid.Renderers
 		{
 			base.OnLayout(changed, l, t, r, b);
 
-			if (!(Element.CurrentPage is IColoredPage page))
+			if (!(Element.CurrentPage is ITransparentActionBarPage page))
 				return;
 
-			if (page.IsTransparentToolbar)
+			if (page.IsTransparentActionBar)
 			{
 				LayoutBehindTheToolbar(l, t, r, b);
 			}

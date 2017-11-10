@@ -1,9 +1,7 @@
 # Restaurant Manager
 
-[![Xamarin client build status](https://ci.appveyor.com/api/projects/status/p29atu2ty3ih7thm/branch/develop.svg?label=xamarin-client)](https://ci.appveyor.com/project/Jurabek/restaurant-manager-vwadp/branch/develop?svg=true&retina=true&pendingText=xamarin-client%20pending&passingText=xamarin-client%20-%20ok&failingText=xamarin-client%20-%20fails)
-
-[![Backend build status](https://ci.appveyor.com/api/projects/status/4uh90c7u42d8aleo/branch/develop?svg=true&retina=true&pendingText=backend%20pending&passingText=backend%20-%20ok&failingText=backend%20-%20fails)](https://ci.appveyor.com/project/Jurabek/restaurant-manager) 
-
+[![Xamarin client build status](https://ci.appveyor.com/api/projects/status/p29atu2ty3ih7thm/branch/develop?svg=true&retina=true&pendingText=xamarin-client%20pending&passingText=xamarin-client%20-%20ok&failingText=xamarin-client%20-%20fails)](https://ci.appveyor.com/project/Jurabek/restaurant-manager-vwadp)
+[![Backend build status](https://ci.appveyor.com/api/projects/status/4uh90c7u42d8aleo/branch/develop?svg=true&retina=true&pendingText=backend%20pending&passingText=backend%20-%20ok&failingText=backend%20-%20fails)](https://ci.appveyor.com/project/Jurabek/restaurant-manager)
 [![Backend code coverage status](https://codecov.io/gh/Jurabek/Restaurant-Manager/branch/develop/graph/badge.svg?label=bakend-coverage)](https://codecov.io/gh/Jurabek/Restaurant-Manager)
 
 

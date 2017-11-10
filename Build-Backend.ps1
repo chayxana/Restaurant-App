@@ -2,34 +2,85 @@ param(
     [string]$Config = "Release",  
     [string]$Framework = "netcoreapp2.0",  
     [string]$SolutionName = "Restaurant.Server.sln",
-    [string]$TestProjectFile = "Server/Tests/Restaurant.Server.Api.UnitTests/Restaurant.Server.Api.UnitTests.csproj",
-    [string]$OpenCover = "packages/OpenCover.4.6.519/tools/OpenCover.Console.exe",
-    [string]$CodeCov = "packages/Codecov.1.0.3/tools/codecov.exe",
-    [string]$CodeCovToken = "077aea61-7f42-49aa-b825-56c1e7c7095b"
+    [string]$TestProjectFile = "Server/Tests/Restaurant.Server.Api.UnitTests/Restaurant.Server.Api.UnitTests.csproj"
 )
 
+function CheckLastExitCode {
+    param ([int[]]$SuccessCodes = @(0), [scriptblock]$CleanupScript = $null)
+
+    if ($SuccessCodes -notcontains $LastExitCode) {
+        if ($CleanupScript) {
+            "Executing cleanup script: $CleanupScript"
+            &$CleanupScript
+        }
+        $msg = @"
+                EXE RETURNED EXIT CODE $LastExitCode
+                CALLSTACK:$(Get-PSCallStack | Out-String)
+"@
+        throw $msg
+    }
+}
+
 $CoverageFolder = "coverage/"
+$OpenCover = "packages/OpenCover.4.6.519/tools/OpenCover.Console.exe"
+$CodeCov = "packages/Codecov.1.0.3/tools/codecov.exe"
+$CodeCovToken = "077aea61-7f42-49aa-b825-56c1e7c7095b"
 
-Write-Host "Installing OpenCover and Codecov via nuget"
-./.nuget/nuget.exe install -Verbosity quiet -OutputDirectory packages -Version 4.6.519 OpenCover
-./.nuget/nuget.exe install -Verbosity quiet -OutputDirectory packages -Version 1.0.3 Codecov
+function Invoke-InstallOpenCover () {
+    Write-Host "Installing OpenCover and Codecov via nuget"
+    ./.nuget/nuget.exe install -Verbosity quiet -OutputDirectory packages -Version 4.6.519 OpenCover
+    ./.nuget/nuget.exe install -Verbosity quiet -OutputDirectory packages -Version 1.0.3 Codecov
 
-Write-Host "Restoring $SolutionName"
-dotnet restore $SolutionName --no-cache
+    CheckLastExitCode
+}
 
-Write-Host "Building $SolutionName"
-dotnet build $SolutionName -c $Config
+function Invoke-Restore ([string]$SolutionName) {
+    Write-Host "Restoring $SolutionName" -ForegroundColor Green
+    dotnet restore $SolutionName --no-cache
 
-Write-Host "Testing $SolutionName"
-dotnet test -f $Framework -c $Config $TestProjectFile
+    CheckLastExitCode    
+}
 
-Write-Host "Removing coverage folder"
-Remove-Item -Recurse -Force $CoverageFolder
-New-Item -ItemType Directory -Path $CoverageFolder
+function Invoke-Build ([string]$SolutionName, [string]$Config) {
+    Write-Host "Building $SolutionName" -ForegroundColor Green
+    dotnet build $SolutionName -c $Config
 
-Write-Host "Calculating coverage with OpenCover"
+    CheckLastExitCode    
+}
 
-& $OpenCover -target:"c:\Program Files\dotnet\dotnet.exe" -targetargs:"test -f $Framework -c $Config $TestProjectFile" -mergeoutput -hideskipped:File -output:"$CoverageFolder/coverage.xml" -oldStyle -filter:"+[Restaurant.Server.Api*]* -[Restaurant.Server.Api.UnitTests*]*" -searchdirs:"Server/Tests/Restaurant.Server.Api.UnitTests/bin/$Config/$Framework" -register:user -excludebyattribute:*.ExcludeFromCodeCoverage*
+function Invoke-Test ($Framework, $Config, $TestProjectFile) {
+    Write-Host "Testing $SolutionName" -ForegroundColor Green
+    dotnet test -f $Framework -c $Config $TestProjectFile
+    
+    CheckLastExitCode
+}
 
-Write-Host "Uploading coverage results to CodeCov"
-& $CodeCov -f "$CoverageFolder/coverage.xml" -t $CodeCovToken
+function Invoke-RemoveCoverageFolder ($CoverageFolder) {   
+    Write-Host "Removing coverage folder" -ForegroundColor Green
+    Remove-Item -Recurse -Force $CoverageFolder -ErrorAction SilentlyContinue
+    New-Item -ItemType Directory -Path $CoverageFolder 
+
+    CheckLastExitCode
+}
+
+function Invoke-CalculateCodeCoverage ($OpenCover, $Framework, $Config, $TestProjectFile, $CoverageFolder) {
+    Write-Host "Calculating code coverage with OpenCover" -ForegroundColor Green
+    & $OpenCover -target:"c:\Program Files\dotnet\dotnet.exe" -targetargs:"test -f $Framework -c $Config $TestProjectFile" -mergeoutput -hideskipped:File -output:"$CoverageFolder/coverage.xml" -oldStyle -filter:"+[Restaurant.Server.Api*]* -[Restaurant.Server.Api.UnitTests*]*" -searchdirs:"Server/Tests/Restaurant.Server.Api.UnitTests/bin/$Config/$Framework" -register:user -excludebyattribute:*.ExcludeFromCodeCoverage*
+    
+    CheckLastExitCode
+}
+
+function Invoke-UploadCodeCoverage ($CodeCov, $CoverageFolder, $CodeCovToken) {
+    Write-Host "Uploading coverage results to CodeCov" -ForegroundColor Green
+    & $CodeCov -f "$CoverageFolder/coverage.xml" -t $CodeCovToken
+    
+    CheckLastExitCode
+}
+
+Invoke-InstallOpenCover
+Invoke-Restore -SolutionName $SolutionName
+Invoke-Build -SolutionName $SolutionName -Config $Config
+Invoke-Test -Framework $Framework -Config $Config -TestProjectFile $TestProjectFile
+Invoke-RemoveCoverageFolder -CoverageFolder $CoverageFolder
+Invoke-CalculateCodeCoverage -OpenCover $OpenCover -Framework $Framework -Config $Config -TestProjectFile $TestProjectFile -CoverageFolder $CoverageFolder
+Invoke-UploadCodeCoverage -CodeCov $CodeCov -CoverageFolder $CoverageFolder -CodeCovToken $CodeCovToken

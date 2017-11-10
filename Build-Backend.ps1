@@ -24,7 +24,7 @@ Write-Host "Testing $SolutionName"
 dotnet test -f $Framework -c $Config $TestProjectFile
 
 Write-Host "Removing coverage folder"
-Remove-Item -Recurse -Force $CoverageFolder
+Remove-Item $CoverageFolder -Recurse -ErrorAction Ignore
 New-Item -ItemType Directory -Path $CoverageFolder
 
 Write-Host "Calculating coverage with OpenCover"

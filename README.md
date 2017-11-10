@@ -1,12 +1,8 @@
 # Restaurant Manager
 
-Front-end Xamarin Client 
+[![Xamarin client build status](https://ci.appveyor.com/api/projects/status/p29atu2ty3ih7thm/branch/develop?svg=true&label=xamarin-client)](https://ci.appveyor.com/project/Jurabek/restaurant-manager-vwadp/branch/develop)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/p29atu2ty3ih7thm/branch/develop?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant-manager-vwadp/branch/develop)
-
-Back-end Web API 
-
-[![Build status](https://ci.appveyor.com/api/projects/status/4uh90c7u42d8aleo?svg=true)](https://ci.appveyor.com/project/Jurabek/restaurant-manager) [![codecov](https://codecov.io/gh/Jurabek/Restaurant-Manager/branch/develop/graph/badge.svg)](https://codecov.io/gh/Jurabek/Restaurant-Manager)
+[![Backend build status](https://ci.appveyor.com/api/projects/status/4uh90c7u42d8aleo?svg=true&label=backend)](https://ci.appveyor.com/project/Jurabek/restaurant-manager) [![Backend code coverage status](https://codecov.io/gh/Jurabek/Restaurant-Manager/branch/develop/graph/badge.svg?label=bakend-coverage)](https://codecov.io/gh/Jurabek/Restaurant-Manager)
 
 
 ## Information

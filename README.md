@@ -7,7 +7,7 @@ The Restaurant Manager is open source application written by C# and Xamarin.Form
 
 ## Using technologies
 * ASP.Net Core Web API + Identity Server4
-* Entity Framework Core + PostgreSQl + SQLServer
+* Entity Framework Core + PostgreSql + SqlServer
 * Xamarin.Forms + Material Design
 * Custom Renderers
 * Reactive UI

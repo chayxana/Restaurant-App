@@ -20,6 +20,11 @@ namespace Restaurant.Facades
 					var detailNavigationPage = new NavigationPage(masterDetailPage);
 					return detailNavigationPage.Navigation;
 				}
+				if (App.Current.MainPage is TabbedPage tabbedPage)
+				{
+					if (tabbedPage.CurrentPage is NavigationPage navigationPage)
+						return navigationPage.Navigation;
+				}
 				return App.Current.MainPage.Navigation;
 			}
 		}

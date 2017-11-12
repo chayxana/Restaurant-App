@@ -2,15 +2,11 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Android.App;
-using Android.Content.Res;
-using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Util;
 using Android.Views;
-using Android.Views.Animations;
 using Com.Mikepenz.Actionitembadge.Library;
 using Com.Mikepenz.Actionitembadge.Library.Utils;
 using Restaurant.Controls;
@@ -65,8 +61,7 @@ namespace Restaurant.Droid.Renderers
 			if ((int)Build.VERSION.SdkInt >= 21)
 			{
 				var navPage = Element;
-				if (navPage.CurrentPage is ITransparentActionBarPage page)
-					SetThemeColors(page);
+				SetThemeColors(navPage.CurrentPage);
 			}
 		}
 
@@ -83,17 +78,16 @@ namespace Restaurant.Droid.Renderers
 				if ((int)Build.VERSION.SdkInt >= 21)
 				{
 					var navPage = Element;
-					if (navPage.CurrentPage is ITransparentActionBarPage page)
-						SetThemeColors(page);
+					SetThemeColors(navPage.CurrentPage);
 				}
 			}
 		}
 
-		private void SetThemeColors(ITransparentActionBarPage page)
+		private void SetThemeColors(Page page)
 		{
 			if (Context is Activity context)
 			{
-				if (page.IsTransparentActionBar)
+				if (page is ITransparentActionBarPage transparentPage && transparentPage.IsTransparentActionBar)
 				{
 					context.Window.DecorView.SystemUiVisibility = (StatusBarVisibility)(SystemUiFlags.LayoutFullscreen | SystemUiFlags.LayoutStable);
 					context.Window.SetStatusBarColor(Color.Transparent.ToAndroid());
@@ -101,23 +95,25 @@ namespace Restaurant.Droid.Renderers
 				}
 				else
 				{
+					context.Window.DecorView.SystemUiVisibility = StatusBarVisibility.Visible;
 					context.Window.SetStatusBarColor(_colorProvider.GetPrimaryDarkColor(context));
 					_toolbar.SetBackgroundColor(_colorProvider.GetPimaryColor(context));
-					context.Window.DecorView.SystemUiVisibility = StatusBarVisibility.Visible;
 				}
 			}
 		}
 
+		private bool _layouTransparented;
 		protected override void OnLayout(bool changed, int l, int t, int r, int b)
 		{
 			base.OnLayout(changed, l, t, r, b);
-
+			
 			if (!(Element.CurrentPage is ITransparentActionBarPage page))
 				return;
 
 			if (page.IsTransparentActionBar)
 			{
 				LayoutBehindTheToolbar(l, t, r, b);
+				_layouTransparented = true;
 			}
 		}
 

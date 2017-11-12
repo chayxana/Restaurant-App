@@ -7,7 +7,7 @@ using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Abstractions.Api
 {
-	public interface IFoodsApi
+	public interface IFoodsApi : IApi
 	{
 		[Get("/api/Foods")]
 		Task<IEnumerable<FoodDto>> GetFoods();

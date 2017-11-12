@@ -3,6 +3,7 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Restaurant.Controls;assembly=Restaurant"
+             xmlns:effects="clr-namespace:Restaurant.Effects;assembly=Restaurant"
              x:Class="Restaurant.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -22,11 +23,11 @@
             <Color x:Key="asphaltLight">#889DB5</Color>
             <Color x:Key="asphaltDark">#1C2B39</Color>
 
-            <Color x:Key="primaryColorLight">#FF8A65</Color>
-            <Color x:Key="primaryColor">#f44336</Color>
-            <Color x:Key="primaryDarkColor">#e53935</Color>
-            <Color x:Key="accentColor">#FF5722</Color>
-            <Color x:Key="badgeColor">#4CAF50</Color>
+            <Color x:Key="primaryColorLight">#FFE0B2</Color>
+            <Color x:Key="primaryColor">#FF9800</Color>
+            <Color x:Key="primaryDarkColor">#F57C00</Color>
+            <Color x:Key="accentColor">#FF5252</Color>
+            <Color x:Key="badgeColor">#4caf50</Color>
             
 
             <Color x:Key="orangePrimary">#FF9800</Color>
@@ -113,6 +114,20 @@
             <Style x:Key="flatButtonStyle" TargetType="Button">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="FontSize" Value="Medium" />
+            </Style>
+
+            <Style x:Key="FoodsListDescriptionLabelStyle" TargetType="{x:Type Label}">
+                <Setter Property="effects:NumberOfLinesEffect.ApplyNumberOfLines"
+                        Value="True" />
+                <Setter Property="effects:NumberOfLinesEffect.NumberOfLines"
+                        Value="4" />
+            </Style>
+
+            <Style x:Key="BasketFoodsDescriptionLabelStyle" TargetType="{x:Type Label}">
+                <Setter Property="effects:NumberOfLinesEffect.ApplyNumberOfLines"
+                        Value="True" />
+                <Setter Property="effects:NumberOfLinesEffect.NumberOfLines"
+                        Value="2" />
             </Style>
 
         </ResourceDictionary>

@@ -8,6 +8,7 @@
           mc:Ignorable="d"
           xmlns:dataTransferObjects="clr-namespace:Restaurant.Common.DataTransferObjects;assembly=Restaurant.Common"
           xmlns:effects="clr-namespace:Restaurant.Effects;assembly=Restaurant"
+          xmlns:views="clr-namespace:Restaurant.Views;assembly=Restaurant"
           x:Class="Restaurant.Views.FoodsListView"
           x:Name="list"
           IsRefreshing="{Binding IsBusy, Mode=OneWay}"
@@ -18,6 +19,10 @@
     <ListView.Effects>
         <effects:ListViewScrollEffect />
     </ListView.Effects>
+
+    <ListView.Header>
+        <views:FoodsSearchView />
+    </ListView.Header>
 
     <ListView.ItemTemplate>
         <DataTemplate>
@@ -38,7 +43,7 @@
                                                    TextColor="{StaticResource asphaltDark}"
                                                    VerticalOptions="CenterAndExpand" />
 
-                                            <Label Text="{Binding Description}"
+                                            <Label Text="{Binding Description}" Style="{StaticResource FoodsListDescriptionLabelStyle}"
                                                    FontSize="Micro"
                                                    TextColor="{StaticResource grayPrimary}" />
                                         </StackLayout>

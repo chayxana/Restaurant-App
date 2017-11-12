@@ -7,18 +7,23 @@ using Refit;
 using Restaurant.Abstractions.Adapters;
 using Restaurant.Abstractions.Api;
 using Restaurant.Abstractions.Facades;
+using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.Managers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Adapters;
 using Restaurant.Common.DataTransferObjects;
 using Restaurant.Facades;
+using Restaurant.Factories;
 using Restaurant.Managers;
 using Restaurant.MockData;
 using Restaurant.Pages;
+using Restaurant.Pages.Android;
+using Restaurant.Pages.iOS;
 using Restaurant.Pages.Welcome;
 using Restaurant.Services;
 using Restaurant.ViewModels;
+using Xamarin.Forms;
 
 namespace Restaurant
 {
@@ -51,11 +56,13 @@ namespace Restaurant
 			builder.RegisterType<WelcomeStartPage>().As<IViewFor<WelcomeViewModel>>();
 			builder.RegisterType<SignInPage>().As<IViewFor<SignInViewModel>>();
 			builder.RegisterType<SignUpPage>().As<IViewFor<SignUpViewModel>>();
-			builder.RegisterType<MainPage>().As<IViewFor<MainViewModel>>();
+			//builder.RegisterType<MainPage>().As<IViewFor<MainViewModel>>();
 			builder.RegisterType<FoodsPage>().As<IViewFor<FoodsViewModel>>();
 			builder.RegisterType<MasterViewModel>().As<IMasterViewModel>();
 			builder.RegisterType<FoodDetailPage>().As<IViewFor<FoodDetailViewModel>>();
 			builder.RegisterType<BasketPage>().As<IViewFor<BasketViewModel>>();
+			builder.RegisterType<MainPageAndroid>().Named<IViewFor<MainViewModel>>(Device.Android);
+			builder.RegisterType<MainPageiOS>().Named<IViewFor<MainViewModel>>(Device.iOS);
 
 			builder.RegisterType<WelcomeViewModel>().As<IWelcomeViewModel>();
 			builder.RegisterType<SignInViewModel>().As<ISignInViewModel>();
@@ -67,6 +74,9 @@ namespace Restaurant
 			builder.RegisterType<MainViewModel>().As<IMainViewModel>();
 			builder.RegisterType<BasketViewModel>().As<IBasketViewModel>().SingleInstance();
 			builder.RegisterType<FoodDetailViewModelAdapter>().As<IFoodDetailViewModelAdapter>();
+			builder.RegisterType<ViewResolverService>().As<IViewResolverService>();
+			builder.RegisterType<MainPageFactory>().As<IMainPageFactory>();
+			builder.RegisterType<ViewModelFactory>().As<IViewModelFactory>();
 
 			IFoodsApi foodApi;
 			if (MockData)

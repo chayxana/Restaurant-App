@@ -2,8 +2,8 @@
 [![Backend build status](https://ci.appveyor.com/api/projects/status/4uh90c7u42d8aleo/branch/develop?svg=true&pendingText=backend%20pending&passingText=backend&failingText=backend)](https://ci.appveyor.com/project/Jurabek/restaurant-manager)
 [![Backend code coverage status](https://codecov.io/gh/Jurabek/Restaurant-Manager/branch/develop/graph/badge.svg)](https://codecov.io/gh/Jurabek/Restaurant-Manager)
 
-## Restaurant Manager
-The Restaurant Manager is open source application written by C# and Xamarin.Forms and it uses SOLID Principles, Clean code, Clean Architecture, Testable Code, Beautiful UX design and fully MVVM implementation. 
+## Restaurant App
+The Restaurant App is open source application written by C# and Xamarin.Forms and it uses SOLID Principles, Clean code, Clean Architecture, Testable Code, Beautiful UX design and fully MVVM implementation. 
 
 ## Using technologies
 * ASP.Net Core Web API + Identity Server4

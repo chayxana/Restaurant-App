@@ -6,27 +6,27 @@ using Xamarin.Forms.Xaml;
 
 namespace Restaurant.Pages
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class FoodsPage : FoodsXamlPage
-    {
-        public FoodsPage()
-        {
-            InitializeComponent();
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class FoodsPage : FoodsXamlPage
+	{
+		public FoodsPage()
+		{
+			InitializeComponent();
 
-            Observable.FromEventPattern<SelectedItemChangedEventArgs>(FoodsList, "ItemSelected")
-                .Select(x => x.Sender)
-                .Cast<ListView>()
-                .Subscribe(l => { l.SelectedItem = null; });
-        }
+			Observable.FromEventPattern<SelectedItemChangedEventArgs>(FoodsList, "ItemSelected")
+				.Select(x => x.Sender)
+				.Cast<ListView>()
+				.Subscribe(l => { l.SelectedItem = null; });
+		}
 
-        protected override async void OnLoaded()
-        {
-            BindingContext = ViewModel;
-            await ViewModel.LoadFoods();
-        }
-    }
+		protected override async void OnLoaded()
+		{
+			BindingContext = ViewModel;
+			await ViewModel.LoadFoods();
+		}
+	}
 
-    public abstract class FoodsXamlPage : BaseContentPage<FoodsViewModel>
-    {
-    }
+	public abstract class FoodsXamlPage : BaseContentPage<FoodsViewModel>
+	{
+	}
 }

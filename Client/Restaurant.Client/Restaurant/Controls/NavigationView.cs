@@ -13,8 +13,7 @@ namespace Restaurant.Controls
 
         public event EventHandler<NavigationItemSelectedEventArgs> NavigationItemSelected;
     }
-
-    [UsedImplicitly]
+	
     public class NavigationItemSelectedEventArgs : EventArgs
     {
         public Type SelectedViewModel { get; set; }

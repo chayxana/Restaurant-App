@@ -91,9 +91,7 @@
                 HorizontalOptions="Center"
                 Command="{Binding AddToBasket}"
                 VerticalOptions="EndAndExpand"
-                Text="Add to card"
-                TextColor="White"
-                BackgroundColor="{StaticResource accentColor}" />
+                Text="Add to card" />
 
         <controls:FloatingActionButton AbsoluteLayout.LayoutBounds=".9, .5, 50, 50"
                                        AbsoluteLayout.LayoutFlags="PositionProportional"

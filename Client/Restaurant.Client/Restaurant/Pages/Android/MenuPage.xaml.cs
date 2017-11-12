@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace Restaurant.Pages.Android
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MenuPage : ContentView
+    public partial class MenuPage : ContentPage
     {
         public MenuPage()
         {

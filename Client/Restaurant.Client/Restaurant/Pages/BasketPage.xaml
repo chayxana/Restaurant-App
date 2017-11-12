@@ -46,9 +46,10 @@
                                             <Label Text="{Binding Food.Name}" FontSize="Small"
                                                    LineBreakMode="TailTruncation"
                                                    TextColor="{StaticResource asphaltPrimary}" />
+                                          
                                             <Label Text="{Binding Food.Description}" FontSize="Micro"
-                                                   TextColor="{StaticResource grayPrimary}"
-                                                   LineBreakMode="TailTruncation" />
+                                                   TextColor="{StaticResource grayPrimary}" Style="{StaticResource BasketFoodsDescriptionLabelStyle}" />
+                                          
                                             <Label Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}"
                                                    FontSize="Micro" TextColor="{StaticResource grayPrimary}"
                                                    LineBreakMode="TailTruncation" />

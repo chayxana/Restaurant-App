@@ -57,5 +57,18 @@ namespace Restaurant.UnitTests.ViewModels
 			// then
 			GetMock<INavigationService>().Verify(x => x.NavigateAsync(foodDetailViewModel), Times.Once);
 		}
+
+		[Test]
+		public void GoToBasket_should_navigate_to_basket_view_model()
+		{
+			// Given
+			var basketViewModel = GetMock<IBasketViewModel>();
+
+			// when
+			ClassUnderTest.GoToBasket.Execute(null);
+
+			// then
+			GetMock<INavigationService>().Verify(x => x.NavigateAsync(basketViewModel.Object), Times.Once);
+		}
 	}
 }

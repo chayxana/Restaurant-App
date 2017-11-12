@@ -35,9 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Abstractions\Api\IApi.cs" />
     <Compile Include="Abstractions\Api\ICategoriesApi.cs" />
     <Compile Include="Abstractions\Api\IDailyEatingsApi.cs" />
     <Compile Include="Abstractions\Api\IFoodsApi.cs" />
+    <Compile Include="Abstractions\Api\IOrdersApi.cs" />
     <Compile Include="Abstractions\Facades\IAutoMapperFacade.cs" />
     <Compile Include="Abstractions\Facades\INavigationFacade.cs" />
     <Compile Include="Abstractions\Factories\IMainPageFactory.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="Controls\TwitterLikeButton.cs" />
     <Compile Include="Converters\ZeroToNullConverter.cs" />
     <Compile Include="Effects\ListViewScrollEffect.cs" />
+    <Compile Include="Effects\MaxLinesEffect.cs" />
     <Compile Include="Factories\MainPageFactory.cs" />
     <Compile Include="Factories\ViewModelFactory.cs" />
     <Compile Include="MockData\MockAuthenticationManager.cs" />
@@ -85,8 +88,17 @@
     <Compile Include="Pages\Android\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ChatPage.xaml.cs">
+      <DependentUpon>ChatPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\iOS\MainPageiOS.cs" />
+    <Compile Include="Pages\OrdersPage.xaml.cs">
+      <DependentUpon>OrdersPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\ViewResolverService.cs" />
+    <Compile Include="Views\FoodsSearchView.xaml.cs">
+      <DependentUpon>FoodsSearchView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StepperView.xaml.cs">
       <DependentUpon>StepperView.xaml</DependentUpon>
     </Compile>
@@ -335,6 +347,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\VerticalStepperView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\ChatPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\OrdersPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\FoodsSearchView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

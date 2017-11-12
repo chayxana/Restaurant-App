@@ -83,6 +83,9 @@
     <Reference Include="Refit, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\refit.2.4.1\lib\MonoAndroid\Refit.dll</HintPath>
     </Reference>
+    <Reference Include="Refractored.Controls.CircleImageView, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Refractored.Controls.CircleImageView.1.0.1\lib\MonoAndroid10\Refractored.Controls.CircleImageView.dll</HintPath>
+    </Reference>
     <Reference Include="RoundedBoxView.Forms.Plugin.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Xam.Plugins.Forms.RoundedBoxView.1.0.0.7\lib\MonoAndroid10\RoundedBoxView.Forms.Plugin.Abstractions.dll</HintPath>
     </Reference>
@@ -158,9 +161,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Effects\ListViewScrollEffect.cs" />
+    <Compile Include="Effects\MaxLinesEffect.cs" />
     <Compile Include="Providers\ColorProvider.cs" />
     <Compile Include="Providers\DrawableProvider.cs" />
     <Compile Include="Renderers\CustomNavigationPageRenderer.cs" />
+    <Compile Include="Renderers\CustomSearchBarRenderer.cs" />
+    <Compile Include="Renderers\DrawerNavigationViewRenderer.cs" />
     <Compile Include="Renderers\FloatingActionButtonRenderer.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -177,6 +183,12 @@
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\layout\nav_drawer.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\nav_drawer_header.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -368,8 +380,6 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_minus_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_plus_grey600_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_plus_white_24dp.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_close_white_24dp.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_close_black_24dp.png" />
     <AndroidResource Include="Resources\drawable\arrow_down.png" />
     <AndroidResource Include="Resources\drawable\up_arrow.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_heart_outline_grey600_24dp.png" />
@@ -382,6 +392,9 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_heart_outline_grey600_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_heart_outline_grey600_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_heart_outline_white_24dp.png" />
+    <AndroidResource Include="Resources\menu\nav_menu.xml" />
+    <AndroidResource Include="Resources\drawable\drawer_header_background.png" />
+    <AndroidResource Include="Resources\drawable\search.xml" />
     <TransformFile Include="Resources\drawable\close.xml" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -35,6 +34,8 @@ namespace Restaurant.ViewModels
 				.Where(x => x != null)
 				.Subscribe(async food => await NavigateToFoodDetail(food));
 
+			GoToBasket = ReactiveCommand.CreateFromTask(async () => await _navigationService.NavigateAsync(BasketViewModel));
+
 			BasketViewModel = basketViewModel;
 		}
 
@@ -52,9 +53,7 @@ namespace Restaurant.ViewModels
 
 		public IBasketViewModel BasketViewModel { get; }
 
-		public ICommand Favorite { get; set; }
-
-		public ICommand AddToBasket { get; set; }
+		public ICommand GoToBasket { get; set; }
 
 		public override string Title => "Foods";
 

@@ -4,7 +4,7 @@ using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Abstractions.Api
 {
-	public interface IAccountApi
+	public interface IAccountApi : IApi
 	{
 		[Get("/api/Account/GetUser")]
 		Task<UserDto> GetUser([Header("Authorization: bearer")] string accessToken);

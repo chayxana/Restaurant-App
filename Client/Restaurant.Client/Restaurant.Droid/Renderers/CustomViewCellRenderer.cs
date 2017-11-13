@@ -1,7 +1,7 @@
 ﻿using Android.Content;
 using Android.Views;
-using Restaurant.Controls;
 using Restaurant.Droid.Renderers;
+using Restaurant.Mobile.UI.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using View = Android.Views.View;

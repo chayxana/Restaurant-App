@@ -20,13 +20,13 @@ namespace Restaurant.Droid.Effects
 			if (_control != null)
 				_control.Scroll += _control_Scroll;
 
-			if (App.Current.MainPage is MasterDetailPage master)
+			if (Mobile.UI.App.Current.MainPage is MasterDetailPage master)
 			{
 				page = master.Detail as NavigationPage;
 			}
 			else
 			{
-				page = App.Current.MainPage as NavigationPage;
+				page = Mobile.UI.App.Current.MainPage as NavigationPage;
 			}
 		}
 

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="AutoMapper" Version="6.2.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="10.2.1" />
+    <PackageReference Include="ReactiveUI" Version="8.0.0-alpha0113" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Restaurant.Common\Restaurant.Common.csproj" />
+    <ProjectReference Include="..\Restaurant.Abstractions\Restaurant.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

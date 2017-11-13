@@ -2,16 +2,19 @@
 using System.ComponentModel;
 using Android.Content.Res;
 using Restaurant.Droid.Renderers;
+using Restaurant.Mobile.UI.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using FAB = Android.Support.Design.Widget.FloatingActionButton;
+using Forms = Xamarin.Forms;
 
-[assembly: ExportRenderer(typeof(Restaurant.Controls.FloatingActionButton), typeof(FloatingActionButtonRenderer))]
+
+[assembly: ExportRenderer(typeof(FloatingActionButton), typeof(FloatingActionButtonRenderer))]
 namespace Restaurant.Droid.Renderers
 {
-    public class FloatingActionButtonRenderer : Xamarin.Forms.Platform.Android.AppCompat.ViewRenderer<Controls.FloatingActionButton, FAB>
+    public class FloatingActionButtonRenderer : Forms.Platform.Android.AppCompat.ViewRenderer<FloatingActionButton, FAB>
     {
-        protected override void OnElementChanged(ElementChangedEventArgs<Controls.FloatingActionButton> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<FloatingActionButton> e)
         {
             base.OnElementChanged(e);
 

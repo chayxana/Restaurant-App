@@ -6,7 +6,7 @@ using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
 using Restaurant.Core.ViewModels;
 
-namespace Restaurant.UnitTests.ViewModels
+namespace Restaurant.Client.UnitTests.ViewModels
 {
 	[TestFixture]
 	public class FoodDetailViewModelTest : BaseAutoMockedTest<FoodDetailViewModel>

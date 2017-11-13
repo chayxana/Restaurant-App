@@ -3,8 +3,7 @@ using Moq;
 using NUnit.Framework;
 using Restaurant.Mobile.UI;
 
-
-namespace Restaurant.UnitTests
+namespace Restaurant.Client.UnitTests
 {
     public abstract class BaseAutoMockedTest<T> 
 		where T : class

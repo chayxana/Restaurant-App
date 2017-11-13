@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.NUnit3;
+using AutoFixture;
+using AutoFixture.NUnit3;
 
-namespace Restaurant.UnitTests
+namespace Restaurant.Client.UnitTests
 {
 	public class AutoDomainDataAttribute : AutoDataAttribute
 	{

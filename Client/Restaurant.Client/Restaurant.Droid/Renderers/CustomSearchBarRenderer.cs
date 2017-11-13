@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.Graphics;
-using Android.OS;
-using Android.Runtime;
+﻿using Android.Graphics;
 using Android.Support.V4.Content;
 using Android.Support.V4.Graphics.Drawable;
-using Android.Views;
 using Android.Widget;
 using Restaurant.Droid.Renderers;
 using Xamarin.Forms;

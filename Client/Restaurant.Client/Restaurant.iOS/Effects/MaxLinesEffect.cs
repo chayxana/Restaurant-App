@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
-using Restaurant.Effects;
 using Restaurant.iOS.Effects;
+using Restaurant.Mobile.UI.Effects;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;

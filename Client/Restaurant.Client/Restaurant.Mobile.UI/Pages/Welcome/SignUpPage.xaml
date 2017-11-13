@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<welcome1:SignUpPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:welcome="clr-namespace:Restaurant.Xamarin.UI.Pages.Welcome"
+                        xmlns:controls="clr-namespace:Restaurant.Xamarin.UI.Controls"
+                        xmlns:welcome1="clr-namespace:Restaurant.Mobile.UI.Pages.Welcome;assembly=Restaurant.Mobile.UI"
+                        xmlns:controls1="clr-namespace:Restaurant.Mobile.UI.Controls;assembly=Restaurant.Mobile.UI"
+                        x:Class="Restaurant.Mobile.UI.Pages.Welcome.SignUpPage">
+    <welcome1:SignUpPageXaml.Content>
+        <StackLayout VerticalOptions="Center" Padding="25">
+            <StackLayout Orientation="Vertical" x:Name="regesterStack">
+
+                <StackLayout Orientation="Vertical" Padding="15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Source="ic_account.png" HeightRequest="25" Grid.Column="0" WidthRequest="25"
+                               VerticalOptions="Center" />
+
+                        <controls1:RestaurantEntry x:Name="RegesterName" Text="{Binding UserName}"
+                                                  Placeholder="User name"
+                                                  Grid.Column="1" VerticalOptions="Center"
+                                                  HorizontalOptions="FillAndExpand" HasBorder="False" />
+                    </Grid>
+                    <ContentView BackgroundColor="{StaticResource indigoPrimary}" HorizontalOptions="Fill">
+                        <!--<ContentView.HeightRequest>
+                            <OnPlatform x:TypeArguments="x:Double">
+                                <On Platform="Android">0</On>
+                                <On Platform="iOS">1</On>
+                            </OnPlatform>
+                        </ContentView.HeightRequest>-->
+                    </ContentView>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical" Padding="15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Source="ic_email.png" HeightRequest="25" Grid.Column="0" WidthRequest="25"
+                               VerticalOptions="Center" />
+
+                        <controls1:RestaurantEntry x:Name="RegesterEmail" Text="{Binding Email}" Placeholder="Email"
+                                                  Grid.Column="1" VerticalOptions="Center"
+                                                  HorizontalOptions="FillAndExpand" HasBorder="False" />
+                    </Grid>
+                    <ContentView BackgroundColor="{StaticResource indigoPrimary}" HorizontalOptions="Fill">
+                        <!--<ContentView.HeightRequest>
+                            <OnPlatform x:TypeArguments="x:Double">
+                                <On Platform="Android">0</On>
+                                <On Platform="iOS">1</On>
+                            </OnPlatform>
+                        </ContentView.HeightRequest>-->
+                    </ContentView>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical" Padding="15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Source="ic_key_variant.png" Grid.Column="0" WidthRequest="25" HeightRequest="25"
+                               VerticalOptions="Center" />
+                        <controls1:RestaurantEntry HasBorder="False" x:Name="RegesterPassword" Placeholder="Password"
+                                                  Grid.Column="1"
+                                                  HorizontalOptions="FillAndExpand" IsPassword="true"
+                                                  Text="{Binding Password}" />
+                    </Grid>
+                    <ContentView BackgroundColor="{StaticResource indigoPrimary}" HorizontalOptions="Fill">
+                        <!--<ContentView.HeightRequest>
+                            <OnPlatform x:TypeArguments="x:Double">
+                                <On Platform="Android">0</On>
+                                <On Platform="iOS">1</On>
+                            </OnPlatform>
+                        </ContentView.HeightRequest>-->
+                    </ContentView>
+                </StackLayout>
+
+                <StackLayout Padding="15">
+                    <controls1:AnimateButton x:Name="Regester" Text="Sign Up" Command="{Binding Regester}"
+                                            WidthRequest="300" HorizontalOptions="Center" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout x:Name="loadingLayout" Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="End"
+                         IsVisible="False">
+                <Label VerticalOptions="Center" TextColor="{StaticResource asphaltPrimary}">Please wait...</Label>
+                <ActivityIndicator VerticalOptions="Center" IsRunning="{Binding IsLoading}" />
+            </StackLayout>
+        </StackLayout>
+    </welcome1:SignUpPageXaml.Content>
+</welcome1:SignUpPageXaml>

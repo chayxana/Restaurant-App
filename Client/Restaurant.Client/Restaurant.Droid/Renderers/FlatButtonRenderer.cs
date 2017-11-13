@@ -1,9 +1,10 @@
 ﻿using Android.OS;
+using Restaurant.Mobile.UI.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Button = Xamarin.Forms.Button;
 
-[assembly: ExportRenderer(typeof(Restaurant.Controls.FlatButton), typeof(Restaurant.Droid.Renderers.FlatButtonRenderer))]
+[assembly: ExportRenderer(typeof(FlatButton), typeof(Restaurant.Droid.Renderers.FlatButtonRenderer))]
 namespace Restaurant.Droid.Renderers
 {
     public class FlatButtonRenderer : ButtonRenderer

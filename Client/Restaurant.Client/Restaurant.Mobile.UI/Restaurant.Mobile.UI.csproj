@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Restaurant.Mobile.UI</AssemblyName>
+    <RootNamespace>Restaurant.Mobile.UI</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ReactiveUI" Version="8.0.0-alpha0113" />
+    <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="2.0.0.31-beta" />
+    <PackageReference Include="Xamarin.Forms" Version="2.4.0.74863" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Restaurant.Common\Restaurant.Common.csproj" />
+    <ProjectReference Include="..\Restaurant.Abstractions\Restaurant.Abstractions.csproj" />
+    <ProjectReference Include="..\Restaurant.Core\Restaurant.Core.csproj" />
+  </ItemGroup>
+
+</Project>

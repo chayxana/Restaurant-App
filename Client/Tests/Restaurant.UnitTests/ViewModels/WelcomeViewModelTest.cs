@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.ViewModels;
+using Restaurant.Core.ViewModels;
 
 namespace Restaurant.UnitTests.ViewModels
 {

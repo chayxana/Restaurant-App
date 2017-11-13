@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<pages:FoodsXamlPage xmlns="http://xamarin.com/schemas/2014/forms"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     x:Class="Restaurant.Mobile.UI.Pages.FoodsPage"
+                     xmlns:viewModels="clr-namespace:Restaurant.Core.ViewModels;assembly=Restaurant.Core"
+                     xmlns:pages="clr-namespace:Restaurant.Mobile.UI.Pages;assembly=Restaurant.Mobile.UI"
+                     xmlns:converters="clr-namespace:Restaurant.Mobile.UI.Converters;assembly=Restaurant.Mobile.UI"
+                     xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls;assembly=Restaurant.Mobile.UI"
+                     xmlns:views="clr-namespace:Restaurant.Mobile.UI.Views;assembly=Restaurant.Mobile.UI"
+                     BackgroundColor="{StaticResource WindowBackgroundTable}"
+                     mc:Ignorable="d"
+                     d:DataContext="{d:DesignInstance viewModels:FoodsViewModel}"
+                     Icon="ic_restaurant_menu_black.png"
+                     Title="Foods">
+
+    <pages:FoodsPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+        </ResourceDictionary>
+    </pages:FoodsPage.Resources>
+
+    <pages:FoodsXamlPage.ToolbarItems>
+        <controls:BadgeToolbarItem Icon="ic_shopping_cart_white" 
+                                   Command="{Binding GoToBasket}"
+                                   BadgeText="{Binding BasketViewModel.OrdersCount}" 
+                                   BadgeColor="{StaticResource badgeColor}" 
+                                   BadgePressedColor="{StaticResource badgeColor}"/>
+    </pages:FoodsXamlPage.ToolbarItems>
+
+    <pages:FoodsXamlPage.Content>
+        <Grid>
+            <views:FoodsListView ItemsSource="{Binding Foods}"
+                                 IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
+                                 SelectedItem="{Binding SelectedFood}"
+                                 x:Name="FoodsList" />
+
+            <StackLayout IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center">
+                <ActivityIndicator IsRunning="{Binding IsLoading}" Color="{StaticResource grayDark}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="EndAndExpand" />
+            </StackLayout>
+        </Grid>
+    </pages:FoodsXamlPage.Content>
+</pages:FoodsXamlPage>

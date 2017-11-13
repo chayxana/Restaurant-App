@@ -1,7 +1,7 @@
-﻿using System;
-using Autofac.Extras.Moq;
+﻿using Autofac.Extras.Moq;
 using Moq;
 using NUnit.Framework;
+using Restaurant.Mobile.UI;
 
 
 namespace Restaurant.UnitTests

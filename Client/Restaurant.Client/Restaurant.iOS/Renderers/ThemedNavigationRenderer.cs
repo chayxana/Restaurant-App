@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Restaurant.iOS.Renderers;
-using Restaurant.Pages;
+using Restaurant.Mobile.UI.Pages;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;

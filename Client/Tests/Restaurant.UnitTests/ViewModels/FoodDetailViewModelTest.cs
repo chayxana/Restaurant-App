@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
-using Restaurant.ViewModels;
+using Restaurant.Core.ViewModels;
 
 namespace Restaurant.UnitTests.ViewModels
 {

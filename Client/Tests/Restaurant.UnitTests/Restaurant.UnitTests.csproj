@@ -121,9 +121,17 @@
       <Project>{dc26d36a-28ce-410a-b810-1502c0fcb266}</Project>
       <Name>Restaurant.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Restaurant.Client\Restaurant\Restaurant.csproj">
-      <Project>{d79c8f36-ece8-45ce-99c0-c5af383814b7}</Project>
-      <Name>Restaurant</Name>
+    <ProjectReference Include="..\..\Restaurant.Client\Restaurant.Abstractions\Restaurant.Abstractions.csproj">
+      <Project>{147b8d2d-e0c0-415a-8380-7739cc0f581a}</Project>
+      <Name>Restaurant.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Restaurant.Client\Restaurant.Core\Restaurant.Core.csproj">
+      <Project>{a0547077-0cf6-461d-8a2d-514c4ed89c94}</Project>
+      <Name>Restaurant.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Restaurant.Client\Restaurant.Mobile.UI\Restaurant.Mobile.UI.csproj">
+      <Project>{af5c0ef6-3675-4a5e-a2f3-daff4dde228d}</Project>
+      <Name>Restaurant.Mobile.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

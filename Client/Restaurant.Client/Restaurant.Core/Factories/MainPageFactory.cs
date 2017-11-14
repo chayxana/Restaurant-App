@@ -1,33 +1,37 @@
 ﻿using System;
 using ReactiveUI;
 using Restaurant.Abstractions;
+using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.Services;
-using Xamarin.Forms;
 
-namespace Restaurant.Mobile.UI.Factories
+namespace Restaurant.Core.Factories
 {
     public class MainPageFactory : IMainPageFactory
     {
         private readonly IViewResolverService _viewResolverService;
+        private readonly IPlatformFacade _platformFacade;
 
-        public MainPageFactory(IViewResolverService viewResolverService)
+        public MainPageFactory(
+            IViewResolverService viewResolverService,
+            IPlatformFacade platformFacade)
         {
             _viewResolverService = viewResolverService;
+            _platformFacade = platformFacade;
         }
 
         public IViewFor GetMainPage(INavigatableViewModel vm)
         {
             try
             {
-                if (Device.RuntimePlatform == Device.Android)
+                if (_platformFacade.RuntimePlatform == _platformFacade.Android)
                 {
-                    return _viewResolverService.ResolveView(vm, Device.Android);
+                    return _viewResolverService.ResolveView(vm, _platformFacade.Android);
                 }
 
-                if (Device.RuntimePlatform == Device.iOS)
+                if (_platformFacade.RuntimePlatform == _platformFacade.iOS)
                 {
-                    return _viewResolverService.ResolveView(vm, Device.iOS);
+                    return _viewResolverService.ResolveView(vm, _platformFacade.iOS);
                 }
 
                 return _viewResolverService.ResolveView(vm);
@@ -36,7 +40,7 @@ namespace Restaurant.Mobile.UI.Factories
             {
                 return null;
             }
-           
+
         }
     }
 }

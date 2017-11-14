@@ -69,9 +69,9 @@ namespace Restaurant.Core.Services
             return _navigationFacade.NavigateToMainPage(CurrentView);
 	    }
 
-	    public Task NavigateToMainPage(Type viewModelType)
+	    public Task NavigateToMainPage(Type viewModelType, string platform)
 	    {
-	        var vm = _viewModelFactory.GetViewModel(viewModelType);
+	        var vm = _viewModelFactory.GetMainViewModel(viewModelType, platform);
 	        CurrentView = _mainPageFactory.GetMainPage(vm);
 	        return _navigationFacade.NavigateToMainPage(CurrentView);
         }

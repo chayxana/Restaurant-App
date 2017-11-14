@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using Android.Widget;
 using Restaurant.Droid.Effects;
-using Restaurant.Effects;
+using Restaurant.Mobile.UI.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 

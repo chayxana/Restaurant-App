@@ -1,5 +1,5 @@
-﻿using Restaurant.Controls;
-using Restaurant.iOS.Renderers;
+﻿using Restaurant.iOS.Renderers;
+using Restaurant.Mobile.UI.Controls;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;

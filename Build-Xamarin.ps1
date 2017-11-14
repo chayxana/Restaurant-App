@@ -1,11 +1,8 @@
 param(
     [string]$SolutionName = "Restaurant.Client.sln",
-    [string]$Configuration = "Release"
+    [string]$Configuration = "Release",
+    [string]$TestProjectFile = "Client/Tests/Restaurant.Client.UnitTests/Restaurant.Client.UnitTests.csproj"
 )
-
-$NUnitConsole = "packages/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe"
-
-& ./.nuget/nuget.exe install -Verbosity quiet -OutputDirectory packages -Version 3.7.0 NUnit.ConsoleRunner
 
 function CheckLastExitCode {
     param ([int[]]$SuccessCodes = @(0), [scriptblock]$CleanupScript = $null)
@@ -55,14 +52,14 @@ function Invoke-Build([string]$SolutionName, $Configuration) {
     
 }
 
-function Invoke-Test() {
-    & $NUnitConsole "Client/Tests/Restaurant.UnitTests/bin/Release/Restaurant.UnitTests.dll"
+function Invoke-Test([string]$Configuration, $TestProjectFile) {
+    & dotnet test -f "netcoreapp2.0" -c $Configuration $TestProjectFile
 
     CheckLastExitCode    
 }
 
-Invoke-Restore -solutionName $SolutionName
+Invoke-Restore -SolutionName $SolutionName
 
-Invoke-Build -solutionName $SolutionName -Configuration $Configuration
+Invoke-Build -SolutionName $SolutionName -Configuration $Configuration
 
-Invoke-Test
+Invoke-Test -TestProjectFile $TestProjectFile -Configuration $Configuration

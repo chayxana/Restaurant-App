@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using System;
+using ReactiveUI;
 using Restaurant.Abstractions;
 using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.Services;
@@ -17,17 +18,25 @@ namespace Restaurant.Mobile.UI.Factories
 
         public IViewFor GetMainPage(INavigatableViewModel vm)
         {
-            if (Device.RuntimePlatform == Device.Android)
+            try
             {
-                return _viewResolverService.ResolveView(vm, Device.Android);
-            }
+                if (Device.RuntimePlatform == Device.Android)
+                {
+                    return _viewResolverService.ResolveView(vm, Device.Android);
+                }
 
-            if (Device.RuntimePlatform == Device.iOS)
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    return _viewResolverService.ResolveView(vm, Device.iOS);
+                }
+
+                return _viewResolverService.ResolveView(vm);
+            }
+            catch (Exception e)
             {
-                return _viewResolverService.ResolveView(vm, Device.iOS);
+                return null;
             }
-
-            return _viewResolverService.ResolveView(vm);
+           
         }
     }
 }

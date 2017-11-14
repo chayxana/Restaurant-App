@@ -1,7 +1,7 @@
 param(
     [string]$SolutionName = "Restaurant.Client.sln",
     [string]$Configuration = "Release",
-    [string]$TestProjectFile = "Client/Tests/Restaurant.Client.UnitTests/Restaurant.Client.UnitTests.csproj"
+    [string]$TestProjectFile = "Client/Tests/Restaurant.Core.UnitTests/Restaurant.Core.UnitTests.csproj"
 )
 
 function CheckLastExitCode {

@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Restaurant.Client.UnitTests.Services
+namespace Restaurant.Core.UnitTests.Services
 {
     [TestFixture]
     public class NavigationServiceTest

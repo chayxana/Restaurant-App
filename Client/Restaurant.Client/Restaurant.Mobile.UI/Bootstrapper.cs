@@ -31,11 +31,6 @@ namespace Restaurant.Mobile.UI
 {
 	public class Bootstrapper : BootstrapperBase
 	{
-		//protected abstract void RegisterTypes(ContainerBuilder builder);
-		public static IContainer Container { get; private set; }
-
-		public static bool MockData = true;
-        
 
 	    protected override void RegisterTypes(ContainerBuilder builder)
 	    {

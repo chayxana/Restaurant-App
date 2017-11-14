@@ -1,9 +1,8 @@
 ﻿using Autofac.Extras.Moq;
 using Moq;
 using NUnit.Framework;
-using Restaurant.Mobile.UI;
 
-namespace Restaurant.Client.UnitTests
+namespace Restaurant.Core.UnitTests
 {
     public abstract class BaseAutoMockedTest<T> 
 		where T : class
@@ -16,7 +15,7 @@ namespace Restaurant.Client.UnitTests
 	    public virtual void Init()
 	    {
 	        Mocker = AutoMock.GetLoose();
-		    Bootstrapper.MockData = false;
+		    BootstrapperBase.MockData = false;
 	    }
 
 		[TearDown]

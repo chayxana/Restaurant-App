@@ -8,7 +8,7 @@ namespace Restaurant.Core
 {
 	public abstract class BootstrapperBase
 	{
-		public static IContainer Container { get; private set; }
+        public static IContainer Container { get; private set; }
 
 		public static bool MockData = true;
 

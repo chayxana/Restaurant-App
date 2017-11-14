@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.Facades;

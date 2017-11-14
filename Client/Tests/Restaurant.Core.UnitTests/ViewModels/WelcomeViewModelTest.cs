@@ -4,7 +4,7 @@ using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Core.ViewModels;
 
-namespace Restaurant.Client.UnitTests.ViewModels
+namespace Restaurant.Core.UnitTests.ViewModels
 {
 	[TestFixture]
 	public class WelcomeViewModelTest : BaseAutoMockedTest<WelcomeViewModel>

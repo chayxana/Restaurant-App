@@ -21,7 +21,6 @@
     <ProjectReference Include="..\..\..\Common\Restaurant.Common\Restaurant.Common.csproj" />
     <ProjectReference Include="..\..\Restaurant.Client\Restaurant.Abstractions\Restaurant.Abstractions.csproj" />
     <ProjectReference Include="..\..\Restaurant.Client\Restaurant.Core\Restaurant.Core.csproj" />
-    <ProjectReference Include="..\..\Restaurant.Client\Restaurant.Mobile.UI\Restaurant.Mobile.UI.csproj" />
   </ItemGroup>
 
 </Project>

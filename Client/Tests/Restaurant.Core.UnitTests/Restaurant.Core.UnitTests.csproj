@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extras.Moq" Version="4.2.0" />
+    <PackageReference Include="AutoFixture" Version="4.0.0-rc1" />
+    <PackageReference Include="AutoFixture.NUnit3" Version="4.0.0-rc1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.1.18" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.1.18" />
+    <PackageReference Include="NUnit" Version="3.9.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Restaurant.Common\Restaurant.Common.csproj" />
+    <ProjectReference Include="..\..\Restaurant.Client\Restaurant.Abstractions\Restaurant.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Restaurant.Client\Restaurant.Core\Restaurant.Core.csproj" />
+  </ItemGroup>
+
+</Project>

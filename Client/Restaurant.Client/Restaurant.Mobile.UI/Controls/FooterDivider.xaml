@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Restaurant.Mobile.UI.Controls.FooterDivider">
+    <ContentView.Content>
+        <BoxView HorizontalOptions="FillAndExpand"
+            BackgroundColor="{DynamicResource Divider}">
+            <!--<BoxView.HeightRequest>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="Android">0</On>
+                    <On Platform="iOS">0.3</On>
+                </OnPlatform>
+            </BoxView.HeightRequest>-->
+        </BoxView>
+    </ContentView.Content>
+</ContentView>

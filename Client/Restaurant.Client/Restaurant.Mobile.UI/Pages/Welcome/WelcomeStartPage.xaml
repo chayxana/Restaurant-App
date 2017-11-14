@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<welcome1:WelcomeStartPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                              xmlns:welcome1="clr-namespace:Restaurant.Mobile.UI.Pages.Welcome;assembly=Restaurant.Mobile.UI"
+                              xmlns:controls1="clr-namespace:Restaurant.Mobile.UI.Controls;assembly=Restaurant.Mobile.UI"
+                              x:Class="Restaurant.Mobile.UI.Pages.Welcome.WelcomeStartPage"
+                              BackgroundColor="{StaticResource primaryColor}">
+
+  <!--<xfg:ContentPageGloss.BackgroundGradient>
+    <xfg:Gradient Rotation="150">
+      <xfg:GradientStep StepColor="#ffb74d" StepPercentage="0" />
+      <xfg:GradientStep StepColor="#ef6c00" StepPercentage="1" />
+    </xfg:Gradient>
+  </xfg:ContentPageGloss.BackgroundGradient>-->
+
+  <welcome1:WelcomeStartPageXaml.Content>
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+
+      <Grid VerticalOptions="Fill" HorizontalOptions="Fill" Padding="24">
+        <Grid.RowDefinitions>
+          <RowDefinition />
+          <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackLayout x:Name="label1" Padding="24,0" Scale="0" VerticalOptions="Center">
+          <Label StyleId="label1" Style="{StaticResource whiteLabelStyle}"
+                 Text="It looks like this is your first time challenging our restaurant service. Let's get you registered, guest!"
+                 FontSize="Medium" HorizontalTextAlignment="Center" />
+        </StackLayout>
+
+        <StackLayout x:Name="label2" Grid.Row="1" Padding="24,0" Scale="0" VerticalOptions="Center">
+          <Label StyleId="label2" Text="First thing's first, you must log into the our service."
+                 Style="{StaticResource whiteLabelStyle}" FontSize="Medium" HorizontalTextAlignment="Center" />
+        </StackLayout>
+
+      </Grid>
+      <Grid Grid.Row="1" VerticalOptions="End">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackLayout x:Name="buttonStack" Spacing="0" Grid.Column="0" Scale="0">
+          <controls1:FlatButton StyleId="authButton" Text="Sign In"
+                               Command="{Binding GoLogin}" BackgroundColor="Transparent" TextColor="White" />
+        </StackLayout>
+
+        <StackLayout Grid.Column="1" x:Name="signUpStack" Scale="0">
+          <controls1:FlatButton x:Name="SignUpButton" Text="Sign Up" Command="{Binding GoRegister}"
+                               TextColor="White" BackgroundColor="Transparent" />
+        </StackLayout>
+      </Grid>
+    </Grid>
+
+  </welcome1:WelcomeStartPageXaml.Content>
+</welcome1:WelcomeStartPageXaml>

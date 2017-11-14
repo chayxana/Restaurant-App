@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             x:Class="Restaurant.Mobile.UI.Views.ProfileStripView">
+
+    <Grid x:Name="root">
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Start" Spacing="20" Padding="10, 70,10,10">
+            <controls:CircleImage Source="{Binding User.Picture}"
+                                  HorizontalOptions="Start" VerticalOptions="Start" Aspect="AspectFill"
+                                  WidthRequest="70" HeightRequest="70" />
+
+            <StackLayout Padding="0,15,0,0" HorizontalOptions="Start" VerticalOptions="Start">
+                <Label Text="{Binding User.Email}" FontSize="14" HorizontalOptions="StartAndExpand"
+                       Style="{StaticResource header}" />
+                <Label Text="{Binding User.Name}" FontSize="12" HorizontalOptions="StartAndExpand" />
+            </StackLayout>
+        </StackLayout>
+    </Grid>
+</ContentView>

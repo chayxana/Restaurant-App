@@ -1,7 +1,6 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Com.Like;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -20,7 +19,7 @@ namespace Restaurant.Droid
             
             Forms.Init(this, bundle);
 	        ImageCircle.Forms.Plugin.Droid.ImageCircleRenderer.Init();
-            LoadApplication(new App());
+            LoadApplication(new Mobile.UI.App());
 
 
             XFGloss.Droid.Library.Init(this, bundle);

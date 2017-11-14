@@ -6,16 +6,16 @@ using Restaurant.Droid.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-[assembly: ExportRenderer(typeof(Restaurant.Controls.NavigationView), typeof(DrawerNavigationViewRenderer))]
+[assembly: ExportRenderer(typeof(Restaurant.Mobile.UI.Controls.NavigationView), typeof(DrawerNavigationViewRenderer))]
 namespace Restaurant.Droid.Renderers
 {
-	public class DrawerNavigationViewRenderer : ViewRenderer<Controls.NavigationView, NavigationView>
+	public class DrawerNavigationViewRenderer : ViewRenderer<Mobile.UI.Controls.NavigationView, NavigationView>
 	{
 		NavigationView navView;
 		ImageView profileImage;
 		TextView profileName;
 
-		protected override void OnElementChanged(ElementChangedEventArgs<Restaurant.Controls.NavigationView> e)
+		protected override void OnElementChanged(ElementChangedEventArgs<Mobile.UI.Controls.NavigationView> e)
 		{
 
 			base.OnElementChanged(e);

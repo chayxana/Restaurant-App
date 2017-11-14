@@ -38,7 +38,7 @@ namespace Restaurant.iOS
 
 			RoundedBoxViewRenderer.Init();
 
-			LoadApplication(new App());
+			LoadApplication(new Mobile.UI.App());
 	        
 
 			return base.FinishedLaunching(app, options);

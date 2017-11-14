@@ -1,10 +1,11 @@
 using System.ComponentModel;
 using Android.Text;
 using Android.Views;
-using Restaurant.Controls;
 using Restaurant.Droid.Renderers;
+using Restaurant.Mobile.UI.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Forms = Xamarin.Forms;
 
 [assembly: ExportRenderer(typeof(RestaurantEntry), typeof(RestaurantEntryRenderer))]
 namespace Restaurant.Droid.Renderers
@@ -46,13 +47,13 @@ namespace Restaurant.Droid.Renderers
         {
             switch (view.XAlign)
             {
-                case Xamarin.Forms.TextAlignment.Center:
+                case Forms.TextAlignment.Center:
                     Control.Gravity = GravityFlags.CenterHorizontal;
                     break;
-                case Xamarin.Forms.TextAlignment.End:
+                case Forms.TextAlignment.End:
                     Control.Gravity = GravityFlags.End;
                     break;
-                case Xamarin.Forms.TextAlignment.Start:
+                case Forms.TextAlignment.Start:
                     Control.Gravity = GravityFlags.Start;
                     break;
             }

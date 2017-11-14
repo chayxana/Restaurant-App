@@ -10,77 +10,77 @@ using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Core.ViewModels
 {
-	[UsedImplicitly]
-	public class SignInViewModel : ViewModelBase, ISignInViewModel
-	{
-		private string _email;
-		private string _password;
-		private string _error;
+    [UsedImplicitly]
+    public class SignInViewModel : ViewModelBase, ISignInViewModel
+    {
+        private string _email;
+        private string _password;
+        private string _error;
 
-		public SignInViewModel(
-			IAuthenticationManager authenticationManager,
-			IAutoMapperFacade autoMapperFacade,
-			INavigationService navigationService)
-		{
-			var canLogin = this.WhenAny(x => x.Email, x => x.Password,
-				(e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
+        public SignInViewModel(
+            IAuthenticationManager authenticationManager,
+            IAutoMapperFacade autoMapperFacade,
+            INavigationService navigationService,
+            IPlatformFacade platformFacade)
+        {
+            var canLogin = this.WhenAny(x => x.Email, x => x.Password,
+                (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
 
-			Login = ReactiveCommand.CreateFromTask(async () =>
-			{
-				var loginDto = autoMapperFacade.Map<LoginDto>(this);
-				var result = await authenticationManager.Login(loginDto);
+            Login = ReactiveCommand.CreateFromTask(async () =>
+            {
+                var loginDto = autoMapperFacade.Map<LoginDto>(this);
+                var result = await authenticationManager.Login(loginDto);
 
-				if (result.HttpStatusCode != HttpStatusCode.OK)
-				{
-					Error = "Internal server error!";
-					return;
-				}
+                if (result.HttpStatusCode != HttpStatusCode.OK)
+                {
+                    Error = "Internal server error!";
+                    return;
+                }
 
-				if (result.IsError)
-				{
-					Error = "Invalid login or password!";
-				}
-				else
-				{
-					await navigationService.NavigateToMainPage(typeof(IMainViewModel));
-				}
+                if (result.IsError)
+                {
+                    Error = "Invalid login or password!";
+                    return;
+                }
 
-			}, canLogin);
-		}
+                await navigationService.NavigateToMainPage(typeof(IMainViewModel), platformFacade.RuntimePlatform);
 
-		/// <summary>
-		/// Gets and sets login command
-		/// Command that logins to service
-		/// </summary>
-		public ICommand Login { get; }
+            }, canLogin);
+        }
 
-		/// <summary>
-		/// Gets and sets user Email
-		/// </summary>
-		public string Email
-		{
-			get => _email;
-			set => this.RaiseAndSetIfChanged(ref _email, value);
-		}
+        /// <summary>
+        /// Gets and sets login command
+        /// Command that logins to service
+        /// </summary>
+        public ICommand Login { get; }
 
-		/// <summary>
-		/// Gets and sets non encrypted user passwords
-		/// </summary>
-		public string Password
-		{
-			get => _password;
-			set => this.RaiseAndSetIfChanged(ref _password, value);
-		}
+        /// <summary>
+        /// Gets and sets user Email
+        /// </summary>
+        public string Email
+        {
+            get => _email;
+            set => this.RaiseAndSetIfChanged(ref _email, value);
+        }
 
-		/// <summary>
-		/// Gets and sets error message when login fails
-		/// </summary>
-		public string Error
-		{
-			get => _error;
-			set => this.RaiseAndSetIfChanged(ref _error, value);
-		}
+        /// <summary>
+        /// Gets and sets non encrypted user passwords
+        /// </summary>
+        public string Password
+        {
+            get => _password;
+            set => this.RaiseAndSetIfChanged(ref _password, value);
+        }
 
-		public override string Title => "Login";
-	}
+        /// <summary>
+        /// Gets and sets error message when login fails
+        /// </summary>
+        public string Error
+        {
+            get => _error;
+            set => this.RaiseAndSetIfChanged(ref _error, value);
+        }
+
+        public override string Title => "Login";
+    }
 }

@@ -16,8 +16,9 @@ using Restaurant.Core.Managers;
 using Restaurant.Core.MockData;
 using Restaurant.Core.Services;
 using Restaurant.Core.ViewModels;
+using Restaurant.Core.ViewModels.Android;
+using Restaurant.Core.ViewModels.iOS;
 using Restaurant.Mobile.UI.Facades;
-using Restaurant.Mobile.UI.Factories;
 using Restaurant.Mobile.UI.Pages;
 using Restaurant.Mobile.UI.Pages.Android;
 using Restaurant.Mobile.UI.Pages.iOS;
@@ -45,32 +46,33 @@ namespace Restaurant.Mobile.UI
             //	.Except<IViewFor>()
             //	.Except<IFoodsApi>();
 
-            builder.RegisterType<NavigationFacade>().As<INavigationFacade>();
-            builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
+          
 
             builder.RegisterType<WelcomeStartPage>().As<IViewFor<WelcomeViewModel>>();
             builder.RegisterType<SignInPage>().As<IViewFor<SignInViewModel>>();
             builder.RegisterType<SignUpPage>().As<IViewFor<SignUpViewModel>>();
-            //builder.RegisterType<MainPage>().As<IViewFor<MainViewModel>>();
             builder.RegisterType<FoodsPage>().As<IViewFor<FoodsViewModel>>();
             builder.RegisterType<FoodDetailPage>().As<IViewFor<FoodDetailViewModel>>();
             builder.RegisterType<BasketPage>().As<IViewFor<BasketViewModel>>();
-            builder.RegisterType<MainPageAndroid>().Named<IViewFor<MainViewModel>>(Device.Android);
-            builder.RegisterType<MainPageiOS>().Named<IViewFor<MainViewModel>>(Device.iOS);
+            builder.RegisterType<MainPageAndroid>().Named<IViewFor<MasterDetailedMainViewModel>>(Device.Android);
+            builder.RegisterType<MainPageiOS>().Named<IViewFor<TabbedMainViewModel>>(Device.iOS);
 
+	        builder.RegisterType<MasterDetailedMainViewModel>().Named<IMainViewModel>(Device.Android);
+	        builder.RegisterType<TabbedMainViewModel>().Named<IMainViewModel>(Device.iOS);
             builder.RegisterType<WelcomeViewModel>().As<IWelcomeViewModel>();
             builder.RegisterType<SignInViewModel>().As<ISignInViewModel>();
             builder.RegisterType<SignUpViewModel>().As<ISignUpViewModel>();
             builder.RegisterType<FoodsViewModel>().AsSelf();
             builder.RegisterType<FoodDetailViewModel>().AsSelf();
+	        builder.RegisterType<BasketViewModel>().As<IBasketViewModel>().SingleInstance();
 
             builder.RegisterType<AutoMapperFacade>().As<IAutoMapperFacade>();
-            builder.RegisterType<MainViewModel>().As<IMainViewModel>();
-            builder.RegisterType<BasketViewModel>().As<IBasketViewModel>().SingleInstance();
             builder.RegisterType<FoodDetailViewModelAdapter>().As<IFoodDetailViewModelAdapter>();
             builder.RegisterType<ViewResolverService>().As<IViewResolverService>();
             builder.RegisterType<MainPageFactory>().As<IMainPageFactory>();
             builder.RegisterType<ViewModelFactory>().As<IViewModelFactory>();
+	        builder.RegisterType<NavigationFacade>().As<INavigationFacade>();
+	        builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
 
             IFoodsApi foodApi;
             if (MockData)

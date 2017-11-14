@@ -20,7 +20,14 @@ namespace Restaurant.Core.Factories
 
         public INavigatableViewModel GetViewModel(Type viewModelType)
         {
-            return _container.Resolve(viewModelType) as INavigatableViewModel;
+            try
+            {
+                return _container.Resolve(viewModelType) as INavigatableViewModel;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
     }
 }

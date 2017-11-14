@@ -13,17 +13,14 @@ namespace Restaurant.Core.ViewModels
 	{
 		private readonly INavigationService _navigationService;
 
-		public MainViewModel(
-			IMasterViewModel masterViewModel,
-			INavigationService navigationService)
+		public MainViewModel(INavigationService navigationService)
 		{
 			_navigationService = navigationService;
-			MasterViewModel = masterViewModel;
 
-			MasterViewModel
-				.SelectedMasterItem
-				.Where(x => x != null)
-				.Subscribe(async masterItem => await _navigationService.NavigateAsync(masterItem.NavigationType));
+			//MasterViewModel
+			//	.SelectedMasterItem
+			//	.Where(x => x != null)
+			//	.Subscribe(async masterItem => await _navigationService.NavigateAsync(masterItem.NavigationType));
 		}
 
 		[UsedImplicitly]

@@ -2,8 +2,6 @@
 
 <welcome1:WelcomeStartPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
                               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                              xmlns:welcome="clr-namespace:Restaurant.Xamarin.UI.Pages.Welcome"
-                              xmlns:controls="clr-namespace:Restaurant.Xamarin.UI.Controls"
                               xmlns:welcome1="clr-namespace:Restaurant.Mobile.UI.Pages.Welcome;assembly=Restaurant.Mobile.UI"
                               xmlns:controls1="clr-namespace:Restaurant.Mobile.UI.Controls;assembly=Restaurant.Mobile.UI"
                               x:Class="Restaurant.Mobile.UI.Pages.Welcome.WelcomeStartPage"

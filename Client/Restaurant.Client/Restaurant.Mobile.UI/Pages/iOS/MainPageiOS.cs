@@ -1,19 +1,20 @@
 ﻿using Autofac;
 using ReactiveUI;
+using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.Services;
 using Restaurant.Core;
 using Restaurant.Core.ViewModels;
+using Restaurant.Core.ViewModels.iOS;
 using Xamarin.Forms;
 
 namespace Restaurant.Mobile.UI.Pages.iOS
 {
-    // ReSharper disable once InconsistentNaming
-    public class MainPageiOS : TabbedPage, IViewFor<MainViewModel>
+    public class MainPageiOS : TabbedPage, IViewFor<TabbedMainViewModel>
     {
         public MainPageiOS()
         {
 	        var foodsViewModel = BootstrapperBase.Container.Resolve<FoodsViewModel>();
-	        var foodsPage = BootstrapperBase.Container.Resolve<IViewResolverService>().ResolveView(foodsViewModel);
+	        var foodsPage = BootstrapperBase.Container.Resolve<IViewFactory>().ResolveView(foodsViewModel);
 
 
 			Children.Add(new NavigationPage(foodsPage as Page) { Title = "Foods", Icon = "ic_restaurant_menu_black.png" });
@@ -23,10 +24,10 @@ namespace Restaurant.Mobile.UI.Pages.iOS
 
 		object IViewFor.ViewModel
 	    {
-		    get { return ViewModel; }
-		    set { ViewModel = (MainViewModel)value; }
-	    }
+		    get => ViewModel;
+		    set => ViewModel = (TabbedMainViewModel)value;
+		}
 
-	    public MainViewModel ViewModel { get; set; }
+	    public TabbedMainViewModel ViewModel { get; set; }
 	}
 }

@@ -1,28 +1,38 @@
 ﻿using Autofac;
 using ReactiveUI;
+using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.Services;
+using Restaurant.Abstractions.ViewModels;
 using Restaurant.Core;
 using Restaurant.Core.ViewModels;
+using Restaurant.Core.ViewModels.Android;
 using Xamarin.Forms;
 
 namespace Restaurant.Mobile.UI.Pages.Android
 {
-    public class MainPageAndroid : MasterDetailPage, IViewFor<MainViewModel>
+    public class MainPageAndroid : MasterDetailPage, IViewFor<MasterDetailedMainViewModel>
     {
-	    public MainPageAndroid()
-	    {
-		    Master = new MenuPage();
-		    var foodsViewModel = BootstrapperBase.Container.Resolve<FoodsViewModel>();
-			var foodsPage = BootstrapperBase.Container.Resolve<IViewResolverService>().ResolveView(foodsViewModel);
-			Detail = new NavigationPage(foodsPage as Page);
-	    }
+        public MainPageAndroid()
+        {
+            var container = BootstrapperBase.Container;
+            var viewFactory = container.Resolve<IViewFactory>();
 
-	    object IViewFor.ViewModel
-	    {
-		    get { return ViewModel; }
-		    set { ViewModel = (MainViewModel)value; }
-	    }
+            var masterViewModel = container.Resolve<IMasterViewModel>();
+            var masterPage = viewFactory.ResolveView(masterViewModel);
 
-	    public MainViewModel ViewModel { get; set; }
+            var foodsViewModel = container.Resolve<FoodsViewModel>();
+            var foodsPage = viewFactory.ResolveView(foodsViewModel);
+
+            Master = masterPage as Page;
+            Detail = new NavigationPage(foodsPage as Page);
+        }
+
+        object IViewFor.ViewModel
+        {
+            get => ViewModel;
+            set => ViewModel = (MasterDetailedMainViewModel)value;
+        }
+
+        public MasterDetailedMainViewModel ViewModel { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using ReactiveUI;
 
-namespace Restaurant.Abstractions.Services
+namespace Restaurant.Abstractions.Factories
 {
-    public interface IViewResolverService
+    public interface IViewFactory
     {
         IViewFor ResolveView(INavigatableViewModel vm);
 

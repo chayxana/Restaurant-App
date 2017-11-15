@@ -2,21 +2,22 @@
 using Autofac;
 using ReactiveUI;
 using Restaurant.Abstractions;
+using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.Services;
 using Restaurant.Core;
 using Xamarin.Forms;
 
-namespace Restaurant.Mobile.UI.Services
+namespace Restaurant.Mobile.UI.Factories
 {
-    public class ViewResolverService : IViewResolverService
+    public class ViewFactory : IViewFactory
     {
         private readonly IContainer _container;
 
-        public ViewResolverService() : this(BootstrapperBase.Container)
+        public ViewFactory() : this(BootstrapperBase.Container)
         {
         }
 
-        public ViewResolverService(IContainer container)
+        public ViewFactory(IContainer container)
         {
             _container = container;
         }
@@ -40,13 +41,13 @@ namespace Restaurant.Mobile.UI.Services
             var viewType = typeof(IViewFor<>).MakeGenericType(vm.GetType());
             var view = _container.ResolveNamed(name, viewType) as Page;
 
-            if (!(view is IViewFor ret))
+            if (!(view is IViewFor viewFor))
                 throw new Exception(
                     $"Resolve service type '{viewType.FullName}' does not implement '{typeof(IViewFor).FullName}'.");
 
             view.Title = vm.Title;
-            ret.ViewModel = vm;
-            return ret;
+            viewFor.ViewModel = vm;
+            return viewFor;
         }
     }
 }

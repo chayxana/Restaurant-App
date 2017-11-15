@@ -421,10 +421,12 @@
     <AndroidResource Include="Resources\drawable\search.xml" />
     <TransformFile Include="Resources\drawable\close.xml" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Controls\" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\Restaurant.Abstractions\Restaurant.Abstractions.csproj">
+      <Project>{147B8D2D-E0C0-415A-8380-7739CC0F581A}</Project>
+      <Name>Restaurant.Abstractions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Restaurant.Core\Restaurant.Core.csproj">
       <Project>{a0547077-0cf6-461d-8a2d-514c4ed89c94}</Project>
       <Name>Restaurant.Core</Name>

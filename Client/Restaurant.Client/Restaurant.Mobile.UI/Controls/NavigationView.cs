@@ -1,4 +1,5 @@
 ﻿using System;
+using Restaurant.Abstractions.Enums;
 using Xamarin.Forms;
 
 namespace Restaurant.Mobile.UI.Controls
@@ -15,6 +16,6 @@ namespace Restaurant.Mobile.UI.Controls
 	
     public class NavigationItemSelectedEventArgs : EventArgs
     {
-        public Type SelectedViewModel { get; set; }
+        public NavigationItem SelectedViewModel { get; set; }
     }
 }

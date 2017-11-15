@@ -49,7 +49,24 @@ namespace Restaurant.Mobile.UI.Facades
         {
             App.Current.MainPage = page as Page;
 
-            return Task.FromResult(0);
+            return Task.CompletedTask;
+        }
+
+        public Task NavigateToMainPageContent(IViewFor page)
+        {
+            if (App.Current.MainPage is MasterDetailPage masterDetailPage)
+            {
+                masterDetailPage.Detail = page as Page;
+                return Task.CompletedTask;
+            }
+
+            if (App.Current.MainPage is TabbedPage tabbedPage)
+            {
+                tabbedPage.CurrentPage = page as Page;
+                return Task.CompletedTask;
+            }
+
+            return Task.CompletedTask;
         }
     }
 }

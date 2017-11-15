@@ -12,5 +12,7 @@ namespace Restaurant.Abstractions.Facades
 		Task PopModalAsync(bool animated);
 
 	    Task NavigateToMainPage(IViewFor page);
+
+	    Task NavigateToMainPageContent(IViewFor page);
 	}
 }

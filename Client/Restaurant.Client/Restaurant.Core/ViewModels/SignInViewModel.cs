@@ -20,8 +20,7 @@ namespace Restaurant.Core.ViewModels
         public SignInViewModel(
             IAuthenticationManager authenticationManager,
             IAutoMapperFacade autoMapperFacade,
-            INavigationService navigationService,
-            IPlatformFacade platformFacade)
+            INavigationService navigationService)
         {
             var canLogin = this.WhenAny(x => x.Email, x => x.Password,
                 (e, p) => !string.IsNullOrEmpty(e.Value) && !string.IsNullOrEmpty(p.Value));
@@ -43,7 +42,7 @@ namespace Restaurant.Core.ViewModels
                     return;
                 }
 
-                await navigationService.NavigateToMainPage(typeof(IMainViewModel), platformFacade.RuntimePlatform);
+                await navigationService.NavigateToMainPage(typeof(IMainViewModel));
 
             }, canLogin);
         }

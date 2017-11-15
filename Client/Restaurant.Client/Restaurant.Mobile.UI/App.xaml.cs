@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Core;
@@ -19,7 +20,7 @@ namespace Restaurant.Mobile.UI
             boot.Build();
             AutoMapperConfiguration.Configure();
 
-            var viewResolverService = BootstrapperBase.Container.Resolve<IViewResolverService>();
+            var viewResolverService = BootstrapperBase.Container.Resolve<IViewFactory>();
 			var welcomePage = viewResolverService.ResolveView(BootstrapperBase.Container.Resolve<IWelcomeViewModel>());
 
 			MainPage = new NavigationPage(welcomePage as Page);

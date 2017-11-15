@@ -1,5 +1,5 @@
 ﻿using System;
-using Restaurant.Core.Enums;
+using Restaurant.Abstractions.Enums;
 using Xamarin.Forms;
 
 namespace Restaurant.Mobile.UI.Controls

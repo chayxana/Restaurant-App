@@ -4,7 +4,7 @@
              x:Class="Restaurant.Mobile.UI.Views.FoodsSearchView">
   <ContentView.Content>
       <StackLayout BackgroundColor="{StaticResource primaryColor}">
-          <SearchBar x:Name="SearchBar" Margin="0,10, 10, 10" TextColor="White" CancelButtonColor="White"></SearchBar>
+          <SearchBar x:Name="SearchBar" TextColor="White" CancelButtonColor="White"></SearchBar>
       </StackLayout>
   </ContentView.Content>
 </ContentView>

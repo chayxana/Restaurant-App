@@ -16,9 +16,10 @@ namespace Restaurant.Core.ViewModels.Android
         {
             MasterViewModel = masterViewModel;
 
-            this.WhenAnyObservable(x => x.MasterViewModel.SelectedNavigationItem)
+            this.WhenAnyValue(x => x.MasterViewModel.SelectedNavigationItem)
+                .Where(x => x != 0)
                 .Select(navigationItemAdapter.GetViewModelFromNavigationItem)
-            	.Subscribe(async viewModel => await navigationService.NavigateToMainPageContent(viewModel));
+                .Subscribe(async viewModel => await navigationService.NavigateToMainPageContent(viewModel));
         }
 
         public IMasterViewModel MasterViewModel { get; }

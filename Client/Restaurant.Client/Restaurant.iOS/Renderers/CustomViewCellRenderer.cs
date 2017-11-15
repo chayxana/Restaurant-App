@@ -14,7 +14,7 @@ namespace Restaurant.iOS.Renderers
             var cell =  base.GetCell(item, reusableCell, tv);
 
             cell.SelectionStyle = UITableViewCellSelectionStyle.None;
-
+            
             return cell;
         }
     }

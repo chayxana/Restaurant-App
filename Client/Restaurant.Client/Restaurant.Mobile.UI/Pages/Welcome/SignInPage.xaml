@@ -26,13 +26,12 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Image Source="ic_email.png" HeightRequest="25" x:Name="EmailImage" Grid.Column="0"
-               WidthRequest="25"
-               VerticalOptions="Center" />
+                <Image Source="ic_email.png" HeightRequest="25" x:Name="EmailImage" Grid.Column="0" WidthRequest="25" 
+                       VerticalOptions="Center" />
                 <StackLayout HorizontalOptions="Fill" Grid.Column="1">
                     <controls1:RestaurantEntry x:Name="Email" Placeholder="Enter your email" Text="{Binding Email}"
                                     VerticalOptions="Center"
-                                    HorizontalOptions="FillAndExpand" HasBorder="False" />
+                                    HorizontalOptions="FillAndExpand" HasBorder="True" />
                 </StackLayout>
             </Grid>
 
@@ -45,7 +44,7 @@
                HeightRequest="25" VerticalOptions="Center" />
 
                 <StackLayout  HorizontalOptions="Fill" Grid.Column="1">
-                    <controls1:RestaurantEntry HasBorder="False" x:Name="Password" Text="{Binding Password}"
+                    <controls1:RestaurantEntry HasBorder="True" x:Name="Password" Text="{Binding Password}"
                                     Placeholder="Enter password"
                                     HorizontalOptions="FillAndExpand" IsPassword="true" />
 

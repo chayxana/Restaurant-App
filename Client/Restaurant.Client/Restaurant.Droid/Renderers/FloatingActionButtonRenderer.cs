@@ -35,7 +35,7 @@ namespace Restaurant.Droid.Renderers
             {
                 fab.SetImageDrawable(Context.Resources.GetDrawable(imageFile));
             }
-			fab.SetRippleColor(Element.RippleColor.ToAndroid());
+			//fab.SetRippleColor(Element.RippleColor.ToAndroid());
 		
             fab.Click += Fab_Click;
             SetNativeControl(fab);
@@ -66,7 +66,7 @@ namespace Restaurant.Droid.Renderers
             }
 	        if (e.PropertyName == nameof(Element.RippleColor))
 	        {
-		        fab.SetRippleColor(Element.RippleColor.ToAndroid());
+		        //fab.SetRippleColor(Element.RippleColor.ToAndroid());
 	        }
             base.OnElementPropertyChanged(sender, e);
 

@@ -37,6 +37,7 @@ namespace Restaurant.iOS.Effects
             if (_control != null)
             {
                 _control.Lines = maxLines;
+                _control.LineBreakMode = UILineBreakMode.TailTruncation;
             }
         }
     }

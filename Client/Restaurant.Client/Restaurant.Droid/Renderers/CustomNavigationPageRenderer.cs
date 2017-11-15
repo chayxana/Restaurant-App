@@ -102,7 +102,6 @@ namespace Restaurant.Droid.Renderers
 			}
 		}
 
-		private bool _layouTransparented;
 		protected override void OnLayout(bool changed, int l, int t, int r, int b)
 		{
 			base.OnLayout(changed, l, t, r, b);
@@ -113,7 +112,6 @@ namespace Restaurant.Droid.Renderers
 			if (page.IsTransparentActionBar)
 			{
 				LayoutBehindTheToolbar(l, t, r, b);
-				_layouTransparented = true;
 			}
 		}
 

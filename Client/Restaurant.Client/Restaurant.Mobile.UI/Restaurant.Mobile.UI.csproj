@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="ReactiveUI" Version="8.0.0-alpha0113" />
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="2.0.0.31-beta" />
-    <PackageReference Include="Xamarin.Forms" Version="2.4.0.74863" />
+    <PackageReference Include="Xamarin.Forms" Version="2.5.0.77107" />
   </ItemGroup>
 
   <ItemGroup>

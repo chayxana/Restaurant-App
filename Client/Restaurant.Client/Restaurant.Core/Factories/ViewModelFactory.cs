@@ -29,5 +29,17 @@ namespace Restaurant.Core.Factories
                 throw;
             }
         }
+
+        public INavigatableViewModel GetMainViewModel(Type viewModelType, string platform)
+        {
+            try
+            {
+                return _container.ResolveNamed(platform, viewModelType) as INavigatableViewModel;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -1,123 +1,131 @@
 ﻿using Android.Runtime;
-using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
+using Restaurant.Abstractions.Enums;
 using Restaurant.Droid.Renderers;
+using Restaurant.Mobile.UI.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using NavigationView = Android.Support.Design.Widget.NavigationView;
 
 [assembly: ExportRenderer(typeof(Restaurant.Mobile.UI.Controls.NavigationView), typeof(DrawerNavigationViewRenderer))]
 namespace Restaurant.Droid.Renderers
 {
-	public class DrawerNavigationViewRenderer : ViewRenderer<Mobile.UI.Controls.NavigationView, NavigationView>
-	{
-		NavigationView navView;
-		ImageView profileImage;
-		TextView profileName;
+    public class DrawerNavigationViewRenderer : ViewRenderer<Mobile.UI.Controls.NavigationView, NavigationView>
+    {
+        NavigationView _navView;
+        ImageView _profileImage;
+        TextView _profileName;
 
-		protected override void OnElementChanged(ElementChangedEventArgs<Mobile.UI.Controls.NavigationView> e)
-		{
+        protected override void OnElementChanged(ElementChangedEventArgs<Mobile.UI.Controls.NavigationView> e)
+        {
 
-			base.OnElementChanged(e);
-			if (e.OldElement != null || Element == null)
-				return;
-
-
-			var view = Inflate(Forms.Context, Resource.Layout.nav_drawer, null);
-			navView = view.JavaCast<NavigationView>();
+            base.OnElementChanged(e);
+            if (e.OldElement != null || Element == null)
+                return;
 
 
-			navView.NavigationItemSelected += NavView_NavigationItemSelected;
+            var view = Inflate(Forms.Context, Resource.Layout.nav_drawer, null);
+            _navView = view.JavaCast<NavigationView>();
 
-			SetNativeControl(navView);
 
-			var header = navView.GetHeaderView(0);
-			profileImage = header.FindViewById<ImageView>(Resource.Id.profile_image);
-			profileName = header.FindViewById<TextView>(Resource.Id.profile_name);
+            _navView.NavigationItemSelected += NavView_NavigationItemSelected;
 
-			profileImage.Click += (sender, e2) => NavigateToLogin();
-			profileName.Click += (sender, e2) => NavigateToLogin();
+            SetNativeControl(_navView);
 
-			UpdateName();
-			UpdateImage();
+            var header = _navView.GetHeaderView(0);
+            _profileImage = header.FindViewById<ImageView>(Resource.Id.profile_image);
+            _profileName = header.FindViewById<TextView>(Resource.Id.profile_name);
 
-			navView.SetCheckedItem(Resource.Id.nav_foods);
-		}
+            _profileImage.Click += (sender, e2) => NavigateToLogin();
+            _profileName.Click += (sender, e2) => NavigateToLogin();
 
-		void NavigateToLogin()
-		{
-			//if (Settings.Current.IsLoggedIn)
-			//    return;
+            UpdateName();
+            UpdateImage();
 
-		}
+            _navView.SetCheckedItem(Resource.Id.nav_foods);
+        }
 
-		void SettingsPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-		{
-			//if (e.PropertyName == nameof(Settings.Current.Email))
-			//{
-			//    UpdateName();
-			//    UpdateImage();
-			//}
-		}
+        void NavigateToLogin()
+        {
+            //if (Settings.Current.IsLoggedIn)
+            //    return;
 
-		void UpdateName()
-		{
-			profileName.Text = "Jurabek";
-		}
+        }
 
-		void UpdateImage()
-		{
-			//Koush.UrlImageViewHelper.SetUrlDrawable(profileImage, Settings.Current.UserAvatar, Resource.Drawable.profile_generic);
-		}
+        void SettingsPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            //if (e.PropertyName == nameof(Settings.Current.Email))
+            //{
+            //    UpdateName();
+            //    UpdateImage();
+            //}
+        }
 
-		public override void OnViewRemoved(Android.Views.View child)
-		{
-			base.OnViewRemoved(child);
-			navView.NavigationItemSelected -= NavView_NavigationItemSelected;
-		}
+        void UpdateName()
+        {
+            _profileName.Text = "Jurabek";
+        }
 
-		IMenuItem previousItem;
+        void UpdateImage()
+        {
+            //Koush.UrlImageViewHelper.SetUrlDrawable(profileImage, Settings.Current.UserAvatar, Resource.Drawable.profile_generic);
+        }
 
-		void NavView_NavigationItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)
-		{
-			if (previousItem != null)
-				previousItem.SetChecked(false);
+        public override void OnViewRemoved(Android.Views.View child)
+        {
+            base.OnViewRemoved(child);
+            _navView.NavigationItemSelected -= NavView_NavigationItemSelected;
+        }
 
-			navView.SetCheckedItem(e.MenuItem.ItemId);
+        IMenuItem _previousItem;
+        private void NavView_NavigationItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)
+        {
+            _previousItem?.SetChecked(false);
 
-			previousItem = e.MenuItem;
+            _navView.SetCheckedItem(e.MenuItem.ItemId);
 
-			int id = 0;
-			switch (e.MenuItem.ItemId)
-			{
-				//break;
-			}
-			//this.Element.OnNavigationItemSelected(new XamarinEvolve.Clients.UI.NavigationItemSelectedEventArgs
-			//    {
+            _previousItem = e.MenuItem;
+            
+            switch (e.MenuItem.ItemId)
+            {
+                case Resource.Id.nav_foods:
+                    Element.OnNavigationItemSelected(new NavigationItemSelectedEventArgs { SelectedViewModel = NavigationItem.Foods });
+                    break;
+                case Resource.Id.nav_orders:
+                    Element.OnNavigationItemSelected(new NavigationItemSelectedEventArgs { SelectedViewModel = NavigationItem.Orders });
+                    break;
+                case Resource.Id.nav_chat:
+                    Element.OnNavigationItemSelected(new NavigationItemSelectedEventArgs { SelectedViewModel = NavigationItem.Chat });
+                    break;
+                case Resource.Id.nav_settings:
+                    Element.OnNavigationItemSelected(new NavigationItemSelectedEventArgs { SelectedViewModel = NavigationItem.Settings });
+                    break;
+                case Resource.Id.nav_about:
+                    Element.OnNavigationItemSelected(new NavigationItemSelectedEventArgs { SelectedViewModel = NavigationItem.About });
+                    break;
+            }
+        }
 
-			//        Index = id
-			//    });
-		}
+        protected override void OnLayout(bool changed, int l, int t, int r, int b)
+        {
+            base.OnLayout(changed, l, t, r, b);
 
-		protected override void OnLayout(bool changed, int l, int t, int r, int b)
-		{
-			base.OnLayout(changed, l, t, r, b);
-			
-			Control.Layout(l, t - GetStatusBarHeight(), r, b + GetStatusBarHeight());
-		}
+            Control.Layout(l, t - GetStatusBarHeight(), r, b + GetStatusBarHeight());
+        }
 
-		int _statusBarHeight = -1;
-		private int GetStatusBarHeight()
-		{
-			if (_statusBarHeight >= 0)
-				return _statusBarHeight;
+        int _statusBarHeight = -1;
+        private int GetStatusBarHeight()
+        {
+            if (_statusBarHeight >= 0)
+                return _statusBarHeight;
 
-			var result = 0;
-			int resourceId = Resources.GetIdentifier("status_bar_height", "dimen", "android");
-			if (resourceId > 0)
-				result = Resources.GetDimensionPixelSize(resourceId);
-			return _statusBarHeight = result;
-		}
-	}
+            var result = 0;
+            int resourceId = Resources.GetIdentifier("status_bar_height", "dimen", "android");
+            if (resourceId > 0)
+                result = Resources.GetDimensionPixelSize(resourceId);
+            return _statusBarHeight = result;
+        }
+    }
 }
 

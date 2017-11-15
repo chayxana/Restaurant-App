@@ -53,7 +53,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
 		}
 
 		[Test]
-		public void Given_invalid_login_password_Login_should_create_invalid_message()
+        public void Given_invalid_login_password_Login_should_create_invalid_message()
 		{
 			// Given
 			ViewModel.Email = "invalid";
@@ -76,7 +76,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
 		}
 
 		[Test]
-		public void Given_login_and_password_Login_with_valid_data_should_be_ok()
+        public void Given_login_and_password_Login_with_valid_data_should_be_ok()
 		{
 			// given
 			ViewModel.Email = "12@123.com";

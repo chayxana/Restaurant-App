@@ -1,18 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Reactive.Linq;
+using ReactiveUI;
+using Restaurant.Abstractions.Adapters;
 using Restaurant.Abstractions.Services;
+using Restaurant.Abstractions.ViewModels;
 
 namespace Restaurant.Core.ViewModels.Android
 {
     public class MasterDetailedMainViewModel : MainViewModel, IMasterDetailedViewModel
     {
-        public MasterDetailedMainViewModel(INavigationService navigationService)
+        public MasterDetailedMainViewModel(
+            INavigationService navigationService, 
+            IMasterViewModel masterViewModel,
+            INavigationItemAdapter navigationItemAdapter)
         {
-            //MasterViewModel
-            //	.SelectedNavigationItem
-            //	.Where(x => x != null)
-            //	.Subscribe(async masterItem => await _navigationService.NavigateAsync(masterItem.NavigationType));
+            MasterViewModel = masterViewModel;
+
+            this.WhenAnyObservable(x => x.MasterViewModel.SelectedNavigationItem)
+                .Select(navigationItemAdapter.GetViewModelFromNavigationItem)
+            	.Subscribe(async viewModel => await navigationService.NavigateToMainPageContent(viewModel));
         }
 
         public IMasterViewModel MasterViewModel { get; }

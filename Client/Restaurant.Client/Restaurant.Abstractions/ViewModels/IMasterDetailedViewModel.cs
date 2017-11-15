@@ -1,4 +1,4 @@
-﻿namespace Restaurant.Core.ViewModels.Android
+﻿namespace Restaurant.Abstractions.ViewModels
 {
     public interface IMasterDetailedViewModel
     {

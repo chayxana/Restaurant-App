@@ -13,8 +13,8 @@ namespace Restaurant.Core.ViewModels.Android
         {   
         }
 
-        private IObservable<NavigationItem> _selectedNavigationItem;
-        public IObservable<NavigationItem> SelectedNavigationItem
+        private NavigationItem _selectedNavigationItem;
+        public NavigationItem SelectedNavigationItem
         {
             get => _selectedNavigationItem;
             set => this.RaiseAndSetIfChanged(ref _selectedNavigationItem, value);

@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Android.Text;
 using Android.Widget;
 using Restaurant.Droid.Effects;
 using Restaurant.Mobile.UI.Effects;
@@ -34,6 +35,7 @@ namespace Restaurant.Droid.Effects
         {
             var maxLines = NumberOfLinesEffect.GetNumberOfLines(Element);
             _control?.SetMaxLines(maxLines);
+            _control.Ellipsize = TextUtils.TruncateAt.End;
         }
     }
 }

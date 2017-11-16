@@ -9,6 +9,7 @@ namespace Restaurant.Mobile.UI.Controls
 			Padding = 0;
 			if (Device.RuntimePlatform == "iOS")
 			{
+			    Margin = 0;
 				HasShadow = false;
 				OutlineColor = Color.Transparent;
 				BackgroundColor = Color.Transparent;

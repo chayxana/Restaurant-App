@@ -288,6 +288,21 @@
     <AndroidResource Include="Resources\drawable-ldpi\like_fill.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_heart_outline_grey600_24dp.png" />
     <AndroidResource Include="Resources\menu\nav_menu.xml" />
+    <AndroidResource Include="Resources\drawable\arrow_down.png" />
+    <AndroidResource Include="Resources\drawable\back_menu.jpg" />
+    <AndroidResource Include="Resources\drawable\close.xml" />
+    <AndroidResource Include="Resources\drawable\drawer_header_background.png" />
+    <AndroidResource Include="Resources\drawable\facebook.png" />
+    <AndroidResource Include="Resources\drawable\google.png" />
+    <AndroidResource Include="Resources\drawable\icon.png" />
+    <AndroidResource Include="Resources\drawable\like.png" />
+    <AndroidResource Include="Resources\drawable\like_fill.png" />
+    <AndroidResource Include="Resources\drawable\minus.xml" />
+    <AndroidResource Include="Resources\drawable\plus.xml" />
+    <AndroidResource Include="Resources\drawable\rounded_square.xml" />
+    <AndroidResource Include="Resources\drawable\search.xml" />
+    <AndroidResource Include="Resources\drawable\up_arrow.png" />
+    <AndroidResource Include="Resources\drawable\ViewCellBackground.xml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

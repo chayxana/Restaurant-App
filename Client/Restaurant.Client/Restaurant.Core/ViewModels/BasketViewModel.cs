@@ -36,8 +36,8 @@ namespace Restaurant.Core.ViewModels
 			_orders.Add(order);
 
 			var groupedOrders = _orders
-				.GroupBy(x => x.Food)
-				.Select(orders => new OrderViewModel(orders.Key, orders.Sum(s => s.Quantity)));
+				.GroupBy(x => x.Food.Id)
+				.Select(orders => new OrderViewModel(order.Food, orders.Sum(s => s.Quantity)));
 
 			Orders = new ReactiveList<IOrderViewModel>(groupedOrders);
 		}

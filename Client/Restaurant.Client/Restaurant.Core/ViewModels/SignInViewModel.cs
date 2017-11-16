@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using ReactiveUI;
@@ -27,24 +28,33 @@ namespace Restaurant.Core.ViewModels
 
             Login = ReactiveCommand.CreateFromTask(async () =>
             {
-                var loginDto = autoMapperFacade.Map<LoginDto>(this);
-                var result = await authenticationManager.Login(loginDto);
-
-                if (result.HttpStatusCode != HttpStatusCode.OK)
+                try
                 {
-                    Error = "Internal server error!";
-                    return;
-                }
+                    var loginDto = autoMapperFacade.Map<LoginDto>(this);
+                    var result = await authenticationManager.Login(loginDto);
 
-                if (result.IsError)
+                    if (result.HttpStatusCode != HttpStatusCode.OK)
+                    {
+                        Error = "Internal server error!";
+                        return;
+                    }
+
+                    if (result.IsError)
+                    {
+                        Error = "Invalid login or password!";
+                        return;
+                    }
+
+                    await navigationService.NavigateToMainPage(typeof(IMainViewModel));
+                }
+                catch (Exception e)
                 {
-                    Error = "Invalid login or password!";
-                    return;
+                    Console.WriteLine(e);
                 }
-
-                await navigationService.NavigateToMainPage(typeof(IMainViewModel));
+                
 
             }, canLogin);
+
         }
 
         /// <summary>

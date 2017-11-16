@@ -5,11 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="Restaurant.Mobile.UI.Controls.HeaderDivider">
     <ContentView.Content>
-        <!--<BoxView
+        <BoxView
             HorizontalOptions="FillAndExpand" BackgroundColor="{DynamicResource Divider}">
             <BoxView.HeightRequest>
                 <OnPlatform x:TypeArguments="x:Double" iOS="0" Android="1" WinPhone="1" />
             </BoxView.HeightRequest>
-        </BoxView>-->
+        </BoxView>
     </ContentView.Content>
 </ContentView>

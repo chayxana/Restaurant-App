@@ -1,35 +1,36 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
   <group android:id="@+id/nav_section_main" android:checkableBehavior="single">
     <item
-        android:id="@+id/nav_foods"
-        android:icon="@drawable/ic_food"
-        android:title="Foods"/>
+      android:id="@+id/nav_foods"
+      android:icon="@drawable/ic_food"
+      android:title="Foods" />
     <item
-        android:id="@+id/nav_orders"
-        android:icon="@drawable/ic_basket"
-        android:title="Orders"/>
+      android:id="@+id/nav_orders"
+      android:icon="@drawable/ic_basket"
+      android:title="Orders" />
     <item
-        android:id="@+id/nav_chat"
-        android:icon="@drawable/ic_wechat"
-        android:title="Chat" />
+      android:id="@+id/nav_chat"
+      android:icon="@drawable/ic_wechat"
+      android:title="Chat" />
   </group>
 
-  <item android:title="Information" >
+  <item android:title="Information">
     <menu>
 
       <item
-          android:id="@+id/nav_settings"
-          android:icon="@drawable/ic_settings"
-          android:title="Settings"
-          android:checkable="true" />
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings"
+        android:checkable="true" />
       <item
-          android:id="@+id/nav_about"
-          android:icon="@drawable/ic_alert_circle_outline"
-          android:title="About"
-          android:checkable="true" />
-      
+        android:id="@+id/nav_about"
+        android:icon="@drawable/ic_alert_circle_outline"
+        android:title="About"
+        android:checkable="true" />
+
     </menu>
   </item>
 </menu>

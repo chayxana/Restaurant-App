@@ -2,11 +2,11 @@
 
 namespace Restaurant.Mobile.UI.Pages
 {
-	public partial class AboutPage : ContentPage
-	{
-		public AboutPage()
-		{
-			InitializeComponent();
-		}
-	}
+    public partial class AboutPage : ContentPage
+    {
+        public AboutPage()
+        {
+            InitializeComponent();
+        }
+    }
 }

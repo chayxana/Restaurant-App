@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using ReactiveUI;
 using Restaurant.Abstractions.Factories;
-using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Core;
 using Restaurant.Core.ViewModels;
@@ -30,7 +29,7 @@ namespace Restaurant.Mobile.UI.Pages.Android
         object IViewFor.ViewModel
         {
             get => ViewModel;
-            set => ViewModel = (MasterDetailedMainViewModel)value;
+            set => ViewModel = (MasterDetailedMainViewModel) value;
         }
 
         public MasterDetailedMainViewModel ViewModel { get; set; }

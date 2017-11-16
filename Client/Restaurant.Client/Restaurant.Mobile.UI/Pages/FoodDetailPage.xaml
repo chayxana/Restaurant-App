@@ -13,7 +13,9 @@
                           d:DataContext="{d:DesignInstance viewModels:FoodDetailViewModel}">
 
     <pages:FoodDetailPage.ToolbarItems>
-        <controls:BadgeToolbarItem Icon="ic_shopping_cart_white" Command="{Binding GoToBasket}" BadgeColor="{StaticResource badgeColor}" BadgePressedColor="{StaticResource badgeColor}"
+        <controls:BadgeToolbarItem Icon="ic_shopping_cart_white" Command="{Binding GoToBasket}"
+                                   BadgeColor="{StaticResource badgeColor}"
+                                   BadgePressedColor="{StaticResource badgeColor}"
                                    BadgeText="{Binding BasketViewModel.OrdersCount}" />
     </pages:FoodDetailPage.ToolbarItems>
 

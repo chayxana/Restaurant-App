@@ -15,8 +15,8 @@ namespace Restaurant.Core.ViewModels
     public class SignInViewModel : ViewModelBase, ISignInViewModel
     {
         private string _email;
-        private string _password;
         private string _error;
+        private string _password;
 
         public SignInViewModel(
             IAuthenticationManager authenticationManager,
@@ -51,20 +51,26 @@ namespace Restaurant.Core.ViewModels
                 {
                     Console.WriteLine(e);
                 }
-                
-
             }, canLogin);
-
         }
 
         /// <summary>
-        /// Gets and sets login command
-        /// Command that logins to service
+        ///     Gets and sets error message when login fails
+        /// </summary>
+        public string Error
+        {
+            get => _error;
+            set => this.RaiseAndSetIfChanged(ref _error, value);
+        }
+
+        /// <summary>
+        ///     Gets and sets login command
+        ///     Command that logins to service
         /// </summary>
         public ICommand Login { get; }
 
         /// <summary>
-        /// Gets and sets user Email
+        ///     Gets and sets user Email
         /// </summary>
         public string Email
         {
@@ -73,21 +79,12 @@ namespace Restaurant.Core.ViewModels
         }
 
         /// <summary>
-        /// Gets and sets non encrypted user passwords
+        ///     Gets and sets non encrypted user passwords
         /// </summary>
         public string Password
         {
             get => _password;
             set => this.RaiseAndSetIfChanged(ref _password, value);
-        }
-
-        /// <summary>
-        /// Gets and sets error message when login fails
-        /// </summary>
-        public string Error
-        {
-            get => _error;
-            set => this.RaiseAndSetIfChanged(ref _error, value);
         }
 
         public override string Title => "Login";

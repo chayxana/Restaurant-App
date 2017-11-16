@@ -3,7 +3,6 @@ using Autofac;
 using ReactiveUI;
 using Restaurant.Abstractions;
 using Restaurant.Abstractions.Factories;
-using Restaurant.Abstractions.Services;
 using Restaurant.Core;
 using Xamarin.Forms;
 

@@ -5,9 +5,9 @@ using Restaurant.Droid.Renderers;
 using Restaurant.Mobile.UI.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using Forms = Xamarin.Forms;
 
 [assembly: ExportRenderer(typeof(RestaurantEntry), typeof(RestaurantEntryRenderer))]
+
 namespace Restaurant.Droid.Renderers
 {
     public class RestaurantEntryRenderer : EntryRenderer
@@ -16,7 +16,7 @@ namespace Restaurant.Droid.Renderers
         {
             base.OnElementChanged(e);
 
-            var view = (RestaurantEntry)Element;
+            var view = (RestaurantEntry) Element;
 
             SetFont(view);
             SetPlaceholderTextColor(view);
@@ -28,7 +28,7 @@ namespace Restaurant.Droid.Renderers
         {
             base.OnElementPropertyChanged(sender, e);
 
-            var view = (RestaurantEntry)Element;
+            var view = (RestaurantEntry) Element;
 
             if (e.PropertyName == RestaurantEntry.FontProperty.PropertyName)
                 SetFont(view);
@@ -37,53 +37,48 @@ namespace Restaurant.Droid.Renderers
                 SetTextAlignment(view);
 
             if (e.PropertyName == RestaurantEntry.PlaceholderTextColorProperty.PropertyName)
-            {
                 SetPlaceholderTextColor(view);
-            }
         }
-        
 
-        void SetTextAlignment(RestaurantEntry view)
+
+        private void SetTextAlignment(RestaurantEntry view)
         {
             switch (view.XAlign)
             {
-                case Forms.TextAlignment.Center:
+                case Xamarin.Forms.TextAlignment.Center:
                     Control.Gravity = GravityFlags.CenterHorizontal;
                     break;
-                case Forms.TextAlignment.End:
+                case Xamarin.Forms.TextAlignment.End:
                     Control.Gravity = GravityFlags.End;
                     break;
-                case Forms.TextAlignment.Start:
+                case Xamarin.Forms.TextAlignment.Start:
                     Control.Gravity = GravityFlags.Start;
                     break;
             }
         }
 
-        void SetFont(RestaurantEntry view)
+        private void SetFont(RestaurantEntry view)
         {
             if (view.Font != Font.Default)
-            {
                 Control.TextSize = view.Font.ToScaledPixel();
-            }
         }
 
-        void SetMaxLength(RestaurantEntry view)
+        private void SetMaxLength(RestaurantEntry view)
         {
-            Control.SetFilters(new IInputFilter[] {
+            Control.SetFilters(new IInputFilter[]
+            {
                 new InputFilterLengthFilter(view.MaxLength)
             });
         }
 
         /// <summary>
-        /// Sets the color of the placeholder text.
+        ///     Sets the color of the placeholder text.
         /// </summary>
         /// <param name="view">The view.</param>
         private void SetPlaceholderTextColor(RestaurantEntry view)
         {
             if (view.PlaceholderTextColor != Color.Default)
-            {
                 Control.SetHintTextColor(view.PlaceholderTextColor.ToAndroid());
-            }
         }
     }
 }

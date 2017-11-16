@@ -8,84 +8,129 @@ namespace Restaurant.iOS.Controls
     public class UIBadgeLabel : UILabel
     {
         private UIColor badgeColor;
-        public UIColor BadgeColor
-        {
-            get => badgeColor;
-	        set { badgeColor = value; InvalidateIntrinsicContentSize(); }
-        }
-
-        private double borderWidth;
-        public double BorderWidth
-        {
-            get => borderWidth;
-	        set { borderWidth = value; InvalidateIntrinsicContentSize(); }
-        }
 
         private UIColor borderColor;
 
-        public UIColor BorderColor
-        {
-            get => borderColor;
-	        set { borderColor = value; InvalidateIntrinsicContentSize(); }
-        }
+        private double borderWidth;
 
 
         private CGSize insets;
 
+        private UIColor shadowColorBadge;
+
+        private CGSize shadowOffsetBadge;
+
+        private double shadowOpacityBadge;
+
+        private double shadowRadiusBadge;
+
+        public UIBadgeLabel()
+        {
+            Initialize();
+            Setup();
+        }
+
+        public UIBadgeLabel(NSCoder coder) : base(coder)
+        {
+            Initialize();
+            Setup();
+        }
+
+        public UIBadgeLabel(CGRect rect) : base(rect)
+        {
+            Initialize();
+            Setup();
+        }
+
+        public UIColor BadgeColor
+        {
+            get => badgeColor;
+            set
+            {
+                badgeColor = value;
+                InvalidateIntrinsicContentSize();
+            }
+        }
+
+        public double BorderWidth
+        {
+            get => borderWidth;
+            set
+            {
+                borderWidth = value;
+                InvalidateIntrinsicContentSize();
+            }
+        }
+
+        public UIColor BorderColor
+        {
+            get => borderColor;
+            set
+            {
+                borderColor = value;
+                InvalidateIntrinsicContentSize();
+            }
+        }
+
         public CGSize Insets
         {
             get => insets;
-	        set { insets = value; InvalidateIntrinsicContentSize(); }
+            set
+            {
+                insets = value;
+                InvalidateIntrinsicContentSize();
+            }
         }
-
-        private double shadowOpacityBadge;
 
         public double ShadowOpacityBadge
         {
             get => shadowOpacityBadge;
-	        set { shadowOpacityBadge = value; Layer.ShadowOpacity = (float)value; SetNeedsDisplay(); }
+            set
+            {
+                shadowOpacityBadge = value;
+                Layer.ShadowOpacity = (float) value;
+                SetNeedsDisplay();
+            }
         }
-
-        private double shadowRadiusBadge;
 
         public double ShadowRadiusBadge
         {
             get => shadowRadiusBadge;
-	        set { shadowRadiusBadge = value; Layer.ShadowRadius = new nfloat(value); SetNeedsDisplay(); }
+            set
+            {
+                shadowRadiusBadge = value;
+                Layer.ShadowRadius = new nfloat(value);
+                SetNeedsDisplay();
+            }
         }
-
-        private UIColor shadowColorBadge;
 
         public UIColor ShadowColorBadge
         {
             get => shadowColorBadge;
-	        set { shadowColorBadge = value; Layer.ShadowColor = value.CGColor; SetNeedsDisplay(); }
+            set
+            {
+                shadowColorBadge = value;
+                Layer.ShadowColor = value.CGColor;
+                SetNeedsDisplay();
+            }
         }
-
-        private CGSize shadowOffsetBadge;
 
         public CGSize ShadowOffsetBadge
         {
             get => shadowOffsetBadge;
-	        set { shadowOffsetBadge = value; Layer.ShadowOffset = value; SetNeedsDisplay(); }
-        }
-
-        private void Initialize()
-        {
-            BadgeColor = UIColor.Red;
-            BorderWidth = 0;
-            BorderColor = UIColor.White;
-            Insets = new CGSize(width: 5, height: 2);
-            ShadowOpacityBadge = .5;
-            ShadowColorBadge = UIColor.Black;
-            ShadowOffsetBadge = new CGSize(0, 0);
+            set
+            {
+                shadowOffsetBadge = value;
+                Layer.ShadowOffset = value;
+                SetNeedsDisplay();
+            }
         }
 
         public override string Text
         {
             get => base.Text;
 
-	        set
+            set
             {
                 base.Text = value;
                 if (Text.Length >= 2)
@@ -98,20 +143,17 @@ namespace Restaurant.iOS.Controls
             }
         }
 
-        public UIBadgeLabel()
+        public override CGSize IntrinsicContentSize => base.IntrinsicContentSize;
+
+        private void Initialize()
         {
-            Initialize();
-            Setup();
-        }
-        public UIBadgeLabel(NSCoder coder) : base(coder)
-        {
-            Initialize();
-            Setup();
-        }
-        public UIBadgeLabel(CGRect rect) : base(rect)
-        {
-            Initialize();
-            Setup();
+            BadgeColor = UIColor.Red;
+            BorderWidth = 0;
+            BorderColor = UIColor.White;
+            Insets = new CGSize(5, 2);
+            ShadowOpacityBadge = .5;
+            ShadowColorBadge = UIColor.Black;
+            ShadowOffsetBadge = new CGSize(0, 0);
         }
 
         public override CGRect TextRectForBounds(CGRect bounds, nint numberOfLines)
@@ -123,9 +165,7 @@ namespace Restaurant.iOS.Controls
             // If width is less than height
             // Adjust the width insets to make it look round
             if (rectWithDefaultInsets.Width < rectWithDefaultInsets.Height)
-            {
                 insetsWithBorder.Width = (rectWithDefaultInsets.Height - rect.Width) / 2;
-            }
             var result = CGRect.Inflate(rect, -insetsWithBorder.Width, -insetsWithBorder.Height);
             return result;
         }
@@ -135,10 +175,10 @@ namespace Restaurant.iOS.Controls
             Layer.CornerRadius = rect.Height / 2;
             var insetsWithBorder = ActualInsetsWithBorder();
             var insets = new UIEdgeInsets(
-                top: insetsWithBorder.Height,
-                left: insetsWithBorder.Width,
-                bottom: insetsWithBorder.Height,
-                right: insetsWithBorder.Width);
+                insetsWithBorder.Height,
+                insetsWithBorder.Width,
+                insetsWithBorder.Height,
+                insetsWithBorder.Width);
 
             var rectWithoutInsets = insets.InsetRect(rect);
             base.DrawText(rectWithoutInsets);
@@ -180,6 +220,5 @@ namespace Restaurant.iOS.Controls
             Setup();
             SetNeedsDisplay();
         }
-        public override CGSize IntrinsicContentSize => base.IntrinsicContentSize;
     }
 }

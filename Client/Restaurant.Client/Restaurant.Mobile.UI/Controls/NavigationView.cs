@@ -13,7 +13,7 @@ namespace Restaurant.Mobile.UI.Controls
 
         public event EventHandler<NavigationItemSelectedEventArgs> NavigationItemSelected;
     }
-	
+
     public class NavigationItemSelectedEventArgs : EventArgs
     {
         public NavigationItem SelectedViewModel { get; set; }

@@ -47,7 +47,7 @@ namespace Restaurant.Mobile.UI.Facades
 
         public Task NavigateToMainPage(IViewFor page)
         {
-            App.Current.MainPage = page as Page;
+            App.Current.MainPage = new NavigationPage(page as Page);
 
             return Task.CompletedTask;
         }

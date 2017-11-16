@@ -12,6 +12,21 @@
     <AssemblyName>Restaurant.iOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -102,23 +117,10 @@
     <BundleResource Include="Resources\ic_alert_circle_outline.png" />
     <BundleResource Include="Resources\ic_basket.png" />
     <BundleResource Include="Resources\ic_email.png" />
-    <BundleResource Include="Resources\ic_email%402x.png" />
-    <BundleResource Include="Resources\ic_email%403x.png" />
     <BundleResource Include="Resources\ic_key_variant.png" />
-    <BundleResource Include="Resources\ic_key_variant%402x.png" />
-    <BundleResource Include="Resources\ic_key_variant%403x.png" />
-    <BundleResource Include="Resources\ic_menu_white.png" />
-    <BundleResource Include="Resources\ic_menu_white_2x.png" />
-    <BundleResource Include="Resources\ic_menu_white_3x.png" />
-    <BundleResource Include="Resources\ic_plus.png" />
-    <BundleResource Include="Resources\ic_plus%402x.png" />
     <BundleResource Include="Resources\ic_restaurant_menu_black.png" />
-    <BundleResource Include="Resources\ic_restaurant_menu_black_2x.png" />
-    <BundleResource Include="Resources\ic_restaurant_menu_black_3x.png" />
     <BundleResource Include="Resources\ic_settings.png" />
     <BundleResource Include="Resources\ic_shopping_cart_white.png" />
-    <BundleResource Include="Resources\ic_shopping_cart_white_2x.png" />
-    <BundleResource Include="Resources\ic_shopping_cart_white_3x.png" />
     <BundleResource Include="Resources\ic_wechat.png" />
     <BundleResource Include="Resources\Icon-60%402x.png" />
     <BundleResource Include="Resources\Icon-60%403x.png" />
@@ -130,21 +132,8 @@
     <BundleResource Include="Resources\Icon-Small.png" />
     <BundleResource Include="Resources\Icon-Small%402x.png" />
     <BundleResource Include="Resources\Icon-Small%403x.png" />
-    <BundleResource Include="Resources\noavatar.png" />
-    <BundleResource Include="Resources\rassolnik.jpg" />
-    <BundleResource Include="Resources\shashlik.jpg" />
-    <BundleResource Include="Resources\yogurt.jpg" />
-    <BundleResource Include="Resources\add_basket.png" />
     <BundleResource Include="Resources\like.png" />
     <BundleResource Include="Resources\like_fill.png" />
-    <BundleResource Include="Resources\minus.png" />
-    <BundleResource Include="Resources\minus%402x.png" />
-    <BundleResource Include="Resources\plus.png" />
-    <BundleResource Include="Resources\plus%402x.png" />
-    <BundleResource Include="Resources\arrow-down.png" />
-    <BundleResource Include="Resources\arrow-down%402x.png" />
-    <BundleResource Include="Resources\up-arrow.png" />
-    <BundleResource Include="Resources\up-arrow%402x.png" />
     <BundleResource Include="Resources\arrow_down.png" />
     <BundleResource Include="Resources\up_arrow.png" />
     <Compile Include="Renderers\AnimatedIconButton.cs" />
@@ -260,6 +249,13 @@
       <Project>{af5c0ef6-3675-4a5e-a2f3-daff4dde228d}</Project>
       <Name>Restaurant.Mobile.UI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

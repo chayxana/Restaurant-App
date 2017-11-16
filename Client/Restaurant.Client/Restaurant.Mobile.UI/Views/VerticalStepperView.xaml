@@ -3,7 +3,6 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls;assembly=Restaurant.Mobile.UI"
-             xmlns:abstractions="clr-namespace:RoundedBoxView.Forms.Plugin.Abstractions;assembly=Restaurant.Mobile.UI"
              x:Class="Restaurant.Mobile.UI.Views.VerticalStepperView" x:Name="rootView">
     <ContentView.Content>
         <StackLayout>
@@ -11,10 +10,6 @@
                                     WidthRequest="30" HeightRequest="20" />
             <StackLayout>
                 <AbsoluteLayout HorizontalOptions="Center">
-                    <abstractions:RoundedBoxView BackgroundColor="White"
-                                                 BorderColor="{StaticResource grayDark}" BorderThickness="1"
-                                                 HeightRequest="30" WidthRequest="25"
-                                                 CornerRadius="10" />
                     <Label TextColor="{StaticResource grayDark}"
                            AbsoluteLayout.LayoutBounds=".5, .5, AutoSize, AutoSize"
                            AbsoluteLayout.LayoutFlags="PositionProportional"

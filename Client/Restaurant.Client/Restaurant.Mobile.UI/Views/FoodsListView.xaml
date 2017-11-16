@@ -30,52 +30,51 @@
                 <ViewCell.View>
                     <StackLayout Spacing="{DynamicResource CardSpacing}"
                                  Padding="{DynamicResource CardPadding}">
-                        <controls:CardView d:DataContext="{d:DesignInstance dataTransferObjects:FoodDto}">
+                        <controls:CardView>
                             <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
 
                                 <Image x:Name="photoImage" Source="{Binding Picture}" Aspect="AspectFill"
                                        HeightRequest="120" />
 
-                                <Grid BackgroundColor="White" Padding="10, 10, 10, 3">
+                                <StackLayout Padding="10, 10, 10, 3">
                                     <StackLayout>
-                                        <StackLayout>
-                                            <Label Text="{Binding Name}" FontSize="Medium"
+                                        <Label Text="{Binding Name}" FontSize="Medium"
                                                    TextColor="{StaticResource asphaltDark}"
                                                    VerticalOptions="CenterAndExpand" />
 
-                                            <Label Text="{Binding Description}" Style="{StaticResource FoodsListDescriptionLabelStyle}"
+                                        <Label Text="{Binding Description}" Style="{StaticResource FoodsListDescriptionLabelStyle}"
                                                    FontSize="Micro"
                                                    TextColor="{StaticResource grayPrimary}" />
+                                    </StackLayout>
+
+                                    <controls:HeaderDivider />
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Rs. "
+                                                       FontSize="Small"
+                                                       TextColor="{StaticResource  asphaltPrimary}"
+                                                       VerticalOptions="CenterAndExpand" />
+
+                                            <Label Text="{Binding Price, StringFormat='{0:C}'}"
+                                                       FontSize="Small"
+                                                       TextColor="{StaticResource  asphaltPrimary}"
+                                                       VerticalOptions="CenterAndExpand" />
                                         </StackLayout>
 
-                                        <controls:HeaderDivider />
-
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <StackLayout Orientation="Horizontal">
-                                                <Label Text="Rs. "
-                                                       FontSize="Small"
-                                                       TextColor="{StaticResource  asphaltPrimary}"
-                                                       VerticalOptions="CenterAndExpand" />
-
-                                                <Label Text="{Binding Price, StringFormat='{0:C}'}"
-                                                       FontSize="Small"
-                                                       TextColor="{StaticResource  asphaltPrimary}"
-                                                       VerticalOptions="CenterAndExpand" />
-                                            </StackLayout>
-
-                                            <StackLayout Grid.Column="1" Orientation="Horizontal"
+                                        <StackLayout Grid.Column="1" Orientation="Horizontal"
                                                          HorizontalOptions="End">
-                                                <controls:TwitterLikeButton />
-                                            </StackLayout>
-                                        </Grid>
+                                            <controls:TwitterLikeButton />
+                                        </StackLayout>
+                                    </Grid>
 
-                                        <controls:FooterDivider VerticalOptions="Center" />
-                                    </StackLayout>
-                                </Grid>
+                                </StackLayout>
+                                <controls:FooterDivider VerticalOptions="Center" />
+
                             </StackLayout>
                         </controls:CardView>
                     </StackLayout>

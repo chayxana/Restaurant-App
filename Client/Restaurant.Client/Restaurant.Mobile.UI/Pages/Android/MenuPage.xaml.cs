@@ -18,9 +18,14 @@ namespace Restaurant.Mobile.UI.Pages.Android
 
         protected override void OnAppearing()
         {
-            ViewModel.SelectedNavigationItem = Observable.FromEventPattern<EventHandler<NavigationItemSelectedEventArgs>, NavigationItemSelectedEventArgs>(
-                e => NavigationView.NavigationItemSelected += e,
-                e => NavigationView.NavigationItemSelected -= e).Select(x => x.EventArgs.SelectedViewModel);
+            Observable.FromEventPattern<EventHandler<NavigationItemSelectedEventArgs>, NavigationItemSelectedEventArgs>(e => NavigationView.NavigationItemSelected += e, e => NavigationView.NavigationItemSelected -= e)
+                .Select(x => x.EventArgs.SelectedViewModel)
+                .SubscribeOn(RxApp.MainThreadScheduler)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(item =>
+                {
+                    ViewModel.SelectedNavigationItem = item;
+                });
         }
 
         object IViewFor.ViewModel

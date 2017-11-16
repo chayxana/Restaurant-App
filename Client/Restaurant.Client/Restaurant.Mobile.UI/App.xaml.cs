@@ -7,11 +7,10 @@ using Restaurant.Core.Mappers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-
 namespace Restaurant.Mobile.UI
 {
-	public partial class App : Application
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class App : Application
 	{
 		public App()
 		{

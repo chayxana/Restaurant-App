@@ -13,11 +13,12 @@ namespace Restaurant.Mobile.UI.Pages.iOS
     {
         public MainPageiOS()
         {
+            NavigationPage.SetHasNavigationBar(this, false);
 	        var foodsViewModel = BootstrapperBase.Container.Resolve<FoodsViewModel>();
 	        var foodsPage = BootstrapperBase.Container.Resolve<IViewFactory>().ResolveView(foodsViewModel);
 
 
-			Children.Add(new NavigationPage(foodsPage as Page) { Title = "Foods", Icon = "ic_restaurant_menu_black.png" });
+			Children.Add(new NavigationPage(foodsPage as Page) { Title = "Foods", Icon = "restaurant" });
 	        Children.Add(new ChatPage());
 			Children.Add(new OrdersPage());
 		}

@@ -20,10 +20,6 @@ namespace Restaurant.Droid
             Forms.Init(this, bundle);
 	        ImageCircle.Forms.Plugin.Droid.ImageCircleRenderer.Init();
             LoadApplication(new Mobile.UI.App());
-
-
-            XFGloss.Droid.Library.Init(this, bundle);
-	        RoundedBoxView.Forms.Plugin.Droid.RoundedBoxViewRenderer.Init();
 		}
 	}
 }

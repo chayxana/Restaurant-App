@@ -21,11 +21,6 @@ namespace Restaurant.Mobile.UI.Facades
                     var detailNavigationPage = new NavigationPage(masterDetailPage);
                     return detailNavigationPage.Navigation;
                 }
-                if (App.Current.MainPage is TabbedPage tabbedPage)
-                {
-                    if (tabbedPage.CurrentPage is NavigationPage navigationPage)
-                        return navigationPage.Navigation;
-                }
                 return App.Current.MainPage.Navigation;
             }
         }
@@ -47,7 +42,14 @@ namespace Restaurant.Mobile.UI.Facades
 
         public Task NavigateToMainPage(IViewFor page)
         {
-            App.Current.MainPage = page as Page;
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                App.Current.MainPage = page as Page;
+            }
+            else if (Device.RuntimePlatform == Device.iOS)
+            {
+                App.Current.MainPage = new NavigationPage(page as Page);
+            }
 
             return Task.CompletedTask;
         }

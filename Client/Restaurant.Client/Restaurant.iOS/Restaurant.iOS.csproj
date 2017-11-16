@@ -141,6 +141,9 @@
     <Compile Include="Renderers\RestaurantEntryRenderer.cs" />
     <Compile Include="Renderers\ThemedNavigationRenderer.cs" />
     <Compile Include="Renderers\TwitterLikeButtonRenderer.cs" />
+    <BundleResource Include="Resources\chat.png" />
+    <BundleResource Include="Resources\restaurant.png" />
+    <BundleResource Include="Resources\shopping_basket.png" />
     <None Include="app.config" />
     <None Include="Info.plist">
       <SubType>Designer</SubType>
@@ -181,12 +184,6 @@
     </Reference>
     <Reference Include="Refit, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Refit.4.0.1\lib\netstandard1.4\Refit.dll</HintPath>
-    </Reference>
-    <Reference Include="RoundedBoxView.Forms.Plugin.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Xam.Plugins.Forms.RoundedBoxView.1.0.0.7\lib\Xamarin.iOS10\RoundedBoxView.Forms.Plugin.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="RoundedBoxView.Forms.Plugin.iOSUnified, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Xam.Plugins.Forms.RoundedBoxView.1.0.0.7\lib\Xamarin.iOS10\RoundedBoxView.Forms.Plugin.iOSUnified.dll</HintPath>
     </Reference>
     <Reference Include="Splat, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Splat.1.4.0\lib\Portable-net45+win+wpa81+wp80\Splat.dll</HintPath>
@@ -233,12 +230,6 @@
       <HintPath>..\..\..\packages\Xamarin.Forms.2.5.0.77107\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="XFGloss, Version=1.0.6.59, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Ansuria.XFGloss.1.0.6.59\lib\Xamarin.iOS10\XFGloss.dll</HintPath>
-    </Reference>
-    <Reference Include="XFGloss.iOS, Version=1.0.6.59, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Ansuria.XFGloss.1.0.6.59\lib\Xamarin.iOS10\XFGloss.iOS.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Restaurant.Core\Restaurant.Core.csproj">

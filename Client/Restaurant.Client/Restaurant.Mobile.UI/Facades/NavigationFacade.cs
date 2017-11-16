@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.Facades;
@@ -43,13 +42,9 @@ namespace Restaurant.Mobile.UI.Facades
         public Task NavigateToMainPage(IViewFor page)
         {
             if (Device.RuntimePlatform == Device.Android)
-            {
                 App.Current.MainPage = page as Page;
-            }
             else if (Device.RuntimePlatform == Device.iOS)
-            {
                 App.Current.MainPage = new NavigationPage(page as Page);
-            }
 
             return Task.CompletedTask;
         }

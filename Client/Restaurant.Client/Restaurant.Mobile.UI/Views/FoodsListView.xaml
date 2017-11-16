@@ -39,12 +39,13 @@
                                 <StackLayout Padding="10, 10, 10, 3">
                                     <StackLayout>
                                         <Label Text="{Binding Name}" FontSize="Medium"
-                                                   TextColor="{StaticResource asphaltDark}"
-                                                   VerticalOptions="CenterAndExpand" />
+                                               TextColor="{StaticResource asphaltDark}"
+                                               VerticalOptions="CenterAndExpand" />
 
-                                        <Label Text="{Binding Description}" Style="{StaticResource FoodsListDescriptionLabelStyle}"
-                                                   FontSize="Micro"
-                                                   TextColor="{StaticResource grayPrimary}" />
+                                        <Label Text="{Binding Description}"
+                                               Style="{StaticResource FoodsListDescriptionLabelStyle}"
+                                               FontSize="Micro"
+                                               TextColor="{StaticResource grayPrimary}" />
                                     </StackLayout>
 
                                     <controls:HeaderDivider />
@@ -56,18 +57,18 @@
                                         </Grid.ColumnDefinitions>
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="Rs. "
-                                                       FontSize="Small"
-                                                       TextColor="{StaticResource  asphaltPrimary}"
-                                                       VerticalOptions="CenterAndExpand" />
+                                                   FontSize="Small"
+                                                   TextColor="{StaticResource  asphaltPrimary}"
+                                                   VerticalOptions="CenterAndExpand" />
 
                                             <Label Text="{Binding Price, StringFormat='{0:C}'}"
-                                                       FontSize="Small"
-                                                       TextColor="{StaticResource  asphaltPrimary}"
-                                                       VerticalOptions="CenterAndExpand" />
+                                                   FontSize="Small"
+                                                   TextColor="{StaticResource  asphaltPrimary}"
+                                                   VerticalOptions="CenterAndExpand" />
                                         </StackLayout>
 
                                         <StackLayout Grid.Column="1" Orientation="Horizontal"
-                                                         HorizontalOptions="End">
+                                                     HorizontalOptions="End">
                                             <controls:TwitterLikeButton />
                                         </StackLayout>
                                     </Grid>

@@ -12,63 +12,66 @@ using Restaurant.Core.ViewModels;
 
 namespace Restaurant.Core.UnitTests.ViewModels
 {
-	[TestFixture]
-	public class FoodsViewModelTests : BaseAutoMockedTest<FoodsViewModel>
-	{
-		[Test]
-		public void Title_should_be_Foods()
-		{
-			Assert.That(ClassUnderTest.Title, Is.EqualTo("Foods"));
-		}
+    [TestFixture]
+    public class FoodsViewModelTests : BaseAutoMockedTest<FoodsViewModel>
+    {
+        [Test]
+        public void GoToBasket_should_navigate_to_basket_view_model()
+        {
+            // Given
+            var basketViewModel = GetMock<IBasketViewModel>();
 
-		[Test, AutoDomainData]
-		public async Task LoadFoods_should_load_foods_and_set_to_Foods(IEnumerable<FoodDto> foods)
-		{
-			// given
-			var viewModel = ClassUnderTest;
-			GetMock<IFoodsApi>().Setup(x => x.GetFoods()).Returns(Task.FromResult(foods));
+            // when
+            ClassUnderTest.GoToBasket.Execute(null);
 
-			// when
-			await viewModel.LoadFoods();
+            // then
+            GetMock<INavigationService>().Verify(x => x.NavigateAsync(basketViewModel.Object), Times.Once);
+        }
 
-			// then
-			Assert.That(viewModel.Foods, Is.Not.Null);
-			Assert.That(viewModel.Foods.Count, Is.EqualTo(foods.Count()));
-		}
+        [Test]
+        [AutoDomainData]
+        public async Task LoadFoods_should_load_foods_and_set_to_Foods(IEnumerable<FoodDto> foods)
+        {
+            // given
+            var viewModel = ClassUnderTest;
+            GetMock<IFoodsApi>().Setup(x => x.GetFoods()).Returns(Task.FromResult(foods));
 
-		[Test, AutoDomainData]
-		public async Task When_food_selects_should_navigate_to_FoodDetailPage(IEnumerable<FoodDto> foods)
-		{
-			// given
-			var viewModel = ClassUnderTest;
-			var selectedFood = foods.FirstOrDefault();
-			var basketViewModel = GetMock<IBasketViewModel>();
-			var navigationService = GetMock<INavigationService>();
-			var foodDetailViewModel = new FoodDetailViewModel(selectedFood, basketViewModel.Object, navigationService.Object);
+            // when
+            await viewModel.LoadFoods();
 
-			GetMock<IFoodsApi>().Setup(x => x.GetFoods()).Returns(Task.FromResult(foods));
-			GetMock<IFoodDetailViewModelAdapter>().Setup(x => x.GetFoodDetailViewModel(selectedFood))
-				.Returns(foodDetailViewModel);
-			
-			// when
-			await viewModel.LoadFoods();
-			viewModel.SelectedFood = selectedFood;
+            // then
+            Assert.That(viewModel.Foods, Is.Not.Null);
+            Assert.That(viewModel.Foods.Count, Is.EqualTo(foods.Count()));
+        }
 
-			// then
-			GetMock<INavigationService>().Verify(x => x.NavigateAsync(foodDetailViewModel), Times.Once);
-		}
+        [Test]
+        public void Title_should_be_Foods()
+        {
+            Assert.That(ClassUnderTest.Title, Is.EqualTo("Foods"));
+        }
 
-		[Test]
-		public void GoToBasket_should_navigate_to_basket_view_model()
-		{
-			// Given
-			var basketViewModel = GetMock<IBasketViewModel>();
+        [Test]
+        [AutoDomainData]
+        public async Task When_food_selects_should_navigate_to_FoodDetailPage(IEnumerable<FoodDto> foods)
+        {
+            // given
+            var viewModel = ClassUnderTest;
+            var selectedFood = foods.FirstOrDefault();
+            var basketViewModel = GetMock<IBasketViewModel>();
+            var navigationService = GetMock<INavigationService>();
+            var foodDetailViewModel =
+                new FoodDetailViewModel(selectedFood, basketViewModel.Object, navigationService.Object);
 
-			// when
-			ClassUnderTest.GoToBasket.Execute(null);
+            GetMock<IFoodsApi>().Setup(x => x.GetFoods()).Returns(Task.FromResult(foods));
+            GetMock<IFoodDetailViewModelAdapter>().Setup(x => x.GetFoodDetailViewModel(selectedFood))
+                .Returns(foodDetailViewModel);
 
-			// then
-			GetMock<INavigationService>().Verify(x => x.NavigateAsync(basketViewModel.Object), Times.Once);
-		}
-	}
+            // when
+            await viewModel.LoadFoods();
+            viewModel.SelectedFood = selectedFood;
+
+            // then
+            GetMock<INavigationService>().Verify(x => x.NavigateAsync(foodDetailViewModel), Times.Once);
+        }
+    }
 }

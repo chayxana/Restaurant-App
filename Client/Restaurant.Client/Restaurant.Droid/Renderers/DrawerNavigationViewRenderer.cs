@@ -1,4 +1,5 @@
-﻿using Android.Runtime;
+﻿using System.ComponentModel;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Restaurant.Abstractions.Enums;
@@ -6,27 +7,32 @@ using Restaurant.Droid.Renderers;
 using Restaurant.Mobile.UI.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using NavigationView = Android.Support.Design.Widget.NavigationView;
+using View = Android.Views.View;
 
-[assembly: ExportRenderer(typeof(Restaurant.Mobile.UI.Controls.NavigationView), typeof(DrawerNavigationViewRenderer))]
+[assembly: ExportRenderer(typeof(NavigationView), typeof(DrawerNavigationViewRenderer))]
+
 namespace Restaurant.Droid.Renderers
 {
-    public class DrawerNavigationViewRenderer : ViewRenderer<Mobile.UI.Controls.NavigationView, NavigationView>
+    public class
+        DrawerNavigationViewRenderer : ViewRenderer<NavigationView, Android.Support.Design.Widget.NavigationView>
     {
-        NavigationView _navView;
-        ImageView _profileImage;
-        TextView _profileName;
+        private Android.Support.Design.Widget.NavigationView _navView;
 
-        protected override void OnElementChanged(ElementChangedEventArgs<Mobile.UI.Controls.NavigationView> e)
+        private IMenuItem _previousItem;
+        private ImageView _profileImage;
+        private TextView _profileName;
+
+        private int _statusBarHeight = -1;
+
+        protected override void OnElementChanged(ElementChangedEventArgs<NavigationView> e)
         {
-
             base.OnElementChanged(e);
             if (e.OldElement != null || Element == null)
                 return;
 
 
             var view = Inflate(Forms.Context, Resource.Layout.nav_drawer, null);
-            _navView = view.JavaCast<NavigationView>();
+            _navView = view.JavaCast<Android.Support.Design.Widget.NavigationView>();
 
 
             _navView.NavigationItemSelected += NavView_NavigationItemSelected;
@@ -46,14 +52,13 @@ namespace Restaurant.Droid.Renderers
             _navView.SetCheckedItem(Resource.Id.nav_foods);
         }
 
-        void NavigateToLogin()
+        private void NavigateToLogin()
         {
             //if (Settings.Current.IsLoggedIn)
             //    return;
-
         }
 
-        void SettingsPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void SettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             //if (e.PropertyName == nameof(Settings.Current.Email))
             //{
@@ -62,47 +67,52 @@ namespace Restaurant.Droid.Renderers
             //}
         }
 
-        void UpdateName()
+        private void UpdateName()
         {
             _profileName.Text = "Jurabek";
         }
 
-        void UpdateImage()
+        private void UpdateImage()
         {
             //Koush.UrlImageViewHelper.SetUrlDrawable(profileImage, Settings.Current.UserAvatar, Resource.Drawable.profile_generic);
         }
 
-        public override void OnViewRemoved(Android.Views.View child)
+        public override void OnViewRemoved(View child)
         {
             base.OnViewRemoved(child);
             _navView.NavigationItemSelected -= NavView_NavigationItemSelected;
         }
 
-        IMenuItem _previousItem;
-        private void NavView_NavigationItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)
+        private void NavView_NavigationItemSelected(object sender,
+            Android.Support.Design.Widget.NavigationView.NavigationItemSelectedEventArgs e)
         {
             _previousItem?.SetChecked(false);
 
             _navView.SetCheckedItem(e.MenuItem.ItemId);
 
             _previousItem = e.MenuItem;
-            
+
             switch (e.MenuItem.ItemId)
             {
                 case Resource.Id.nav_foods:
-                    Element.OnNavigationItemSelected(new NavigationItemSelectedEventArgs { SelectedViewModel = NavigationItem.Foods });
+                    Element.OnNavigationItemSelected(
+                        new NavigationItemSelectedEventArgs {SelectedViewModel = NavigationItem.Foods});
                     break;
                 case Resource.Id.nav_orders:
-                    Element.OnNavigationItemSelected(new NavigationItemSelectedEventArgs { SelectedViewModel = NavigationItem.Orders });
+                    Element.OnNavigationItemSelected(
+                        new NavigationItemSelectedEventArgs {SelectedViewModel = NavigationItem.Orders});
                     break;
                 case Resource.Id.nav_chat:
-                    Element.OnNavigationItemSelected(new NavigationItemSelectedEventArgs { SelectedViewModel = NavigationItem.Chat });
+                    Element.OnNavigationItemSelected(
+                        new NavigationItemSelectedEventArgs {SelectedViewModel = NavigationItem.Chat});
                     break;
                 case Resource.Id.nav_settings:
-                    Element.OnNavigationItemSelected(new NavigationItemSelectedEventArgs { SelectedViewModel = NavigationItem.Settings });
+                    Element.OnNavigationItemSelected(
+                        new NavigationItemSelectedEventArgs {SelectedViewModel = NavigationItem.Settings});
                     break;
                 case Resource.Id.nav_about:
-                    Element.OnNavigationItemSelected(new NavigationItemSelectedEventArgs { SelectedViewModel = NavigationItem.About });
+                    Element.OnNavigationItemSelected(
+                        new NavigationItemSelectedEventArgs {SelectedViewModel = NavigationItem.About});
                     break;
             }
         }
@@ -114,18 +124,16 @@ namespace Restaurant.Droid.Renderers
             Control.Layout(l, t - GetStatusBarHeight(), r, b + GetStatusBarHeight());
         }
 
-        int _statusBarHeight = -1;
         private int GetStatusBarHeight()
         {
             if (_statusBarHeight >= 0)
                 return _statusBarHeight;
 
             var result = 0;
-            int resourceId = Resources.GetIdentifier("status_bar_height", "dimen", "android");
+            var resourceId = Resources.GetIdentifier("status_bar_height", "dimen", "android");
             if (resourceId > 0)
                 result = Resources.GetDimensionPixelSize(resourceId);
             return _statusBarHeight = result;
         }
     }
 }
-

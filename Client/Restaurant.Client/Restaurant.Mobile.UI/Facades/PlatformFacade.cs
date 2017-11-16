@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Restaurant.Abstractions.Facades;
+﻿using Restaurant.Abstractions.Facades;
 using Xamarin.Forms;
 
 namespace Restaurant.Mobile.UI.Facades

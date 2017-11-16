@@ -7,5 +7,5 @@
         Chat = 4,
         About = 8,
         Settings = 16
-    } 
+    }
 }

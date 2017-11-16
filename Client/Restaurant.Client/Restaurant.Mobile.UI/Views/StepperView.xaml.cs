@@ -26,25 +26,25 @@ namespace Restaurant.Mobile.UI.Views
 
         public int MaxValue
         {
-            get => (int)GetValue(MaxValueProperty);
+            get => (int) GetValue(MaxValueProperty);
             set => SetValue(MaxValueProperty, value);
         }
 
         public int MinValue
         {
-            get => (int)GetValue(MinValueProperty);
+            get => (int) GetValue(MinValueProperty);
             set => SetValue(MinValueProperty, value);
         }
 
         public double Value
         {
-            get => (double)GetValue(ValueProperty);
+            get => (double) GetValue(ValueProperty);
             set => SetValue(ValueProperty, value);
         }
 
         public double Step
         {
-            get => (double)GetValue(StepProperty);
+            get => (double) GetValue(StepProperty);
             set => SetValue(StepProperty, value);
         }
 
@@ -58,7 +58,6 @@ namespace Restaurant.Mobile.UI.Views
         private async void PlusButton_OnClicked(object sender, EventArgs e)
         {
             if (MaxValue > Value)
-            {
                 try
                 {
                     await StepLabel.ScaleTo(1.3, 100);
@@ -66,15 +65,14 @@ namespace Restaurant.Mobile.UI.Views
                     await StepLabel.ScaleTo(1, 100);
                 }
                 catch (Exception)
-                {// ignored
+                {
+// ignored
                 }
-            }
         }
 
         private async void MinusButton_OnClicked(object sender, EventArgs e)
         {
             if (MinValue < Value)
-            {
                 try
                 {
                     await StepLabel.ScaleTo(1.3, 100);
@@ -82,9 +80,9 @@ namespace Restaurant.Mobile.UI.Views
                     await StepLabel.ScaleTo(1, 100);
                 }
                 catch (Exception)
-                {// ignored
+                {
+// ignored
                 }
-            }
         }
     }
 }

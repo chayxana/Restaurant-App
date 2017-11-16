@@ -1,20 +1,9 @@
 ﻿using Autofac;
 using ReactiveUI;
-using Refit;
-using Restaurant.Abstractions.Adapters;
-using Restaurant.Abstractions.Api;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Factories;
-using Restaurant.Abstractions.Managers;
-using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Core;
-using Restaurant.Core.Adapters;
-using Restaurant.Core.Facades;
-using Restaurant.Core.Factories;
-using Restaurant.Core.Managers;
-using Restaurant.Core.MockData;
-using Restaurant.Core.Services;
 using Restaurant.Core.ViewModels;
 using Restaurant.Core.ViewModels.Android;
 using Restaurant.Core.ViewModels.iOS;
@@ -24,17 +13,14 @@ using Restaurant.Mobile.UI.Pages;
 using Restaurant.Mobile.UI.Pages.Android;
 using Restaurant.Mobile.UI.Pages.iOS;
 using Restaurant.Mobile.UI.Pages.Welcome;
-using Restaurant.MockData;
-using Restaurant.ViewModels;
 using Xamarin.Forms;
 
 namespace Restaurant.Mobile.UI
 {
-	public class Bootstrapper : BootstrapperBase
-	{
-
-	    protected override void RegisterTypes(ContainerBuilder builder)
-	    {
+    public class Bootstrapper : BootstrapperBase
+    {
+        protected override void RegisterTypes(ContainerBuilder builder)
+        {
             builder.RegisterType<WelcomeStartPage>().As<IViewFor<WelcomeViewModel>>();
             builder.RegisterType<SignInPage>().As<IViewFor<SignInViewModel>>();
             builder.RegisterType<SignUpPage>().As<IViewFor<SignUpViewModel>>();
@@ -43,13 +29,13 @@ namespace Restaurant.Mobile.UI
             builder.RegisterType<BasketPage>().As<IViewFor<BasketViewModel>>();
             builder.RegisterType<MainPageAndroid>().As<IViewFor<MasterDetailedMainViewModel>>();
             builder.RegisterType<MainPageiOS>().As<IViewFor<TabbedMainViewModel>>();
-	        builder.RegisterType<MenuPage>().As<IViewFor<MasterViewModel>>();
+            builder.RegisterType<MenuPage>().As<IViewFor<MasterViewModel>>();
 
-	        builder.RegisterType<MasterDetailedMainViewModel>().Named<IMainViewModel>(Device.Android);
-	        builder.RegisterType<TabbedMainViewModel>().Named<IMainViewModel>(Device.iOS);
-		    builder.RegisterType<NavigationFacade>().As<INavigationFacade>();
-	        builder.RegisterType<PlatformFacade>().As<IPlatformFacade>();
-	        builder.RegisterType<ViewFactory>().As<IViewFactory>();
+            builder.RegisterType<MasterDetailedMainViewModel>().Named<IMainViewModel>(Device.Android);
+            builder.RegisterType<TabbedMainViewModel>().Named<IMainViewModel>(Device.iOS);
+            builder.RegisterType<NavigationFacade>().As<INavigationFacade>();
+            builder.RegisterType<PlatformFacade>().As<IPlatformFacade>();
+            builder.RegisterType<ViewFactory>().As<IViewFactory>();
         }
-	}
+    }
 }

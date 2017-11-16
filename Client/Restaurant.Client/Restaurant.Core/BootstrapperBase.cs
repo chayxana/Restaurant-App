@@ -19,52 +19,50 @@ using Restaurant.MockData;
 
 namespace Restaurant.Core
 {
-	public abstract class BootstrapperBase
-	{
+    public abstract class BootstrapperBase
+    {
+        public static bool MockData = true;
         public static IContainer Container { get; private set; }
 
-		public static bool MockData = true;
-
         public IContainer Build()
-		{
-		    var builder = new ContainerBuilder();
+        {
+            var builder = new ContainerBuilder();
 
-		    builder.RegisterType<WelcomeViewModel>().As<IWelcomeViewModel>();
-		    builder.RegisterType<SignInViewModel>().As<ISignInViewModel>();
-		    builder.RegisterType<SignUpViewModel>().As<ISignUpViewModel>();
-		    builder.RegisterType<FoodsViewModel>().AsSelf();
-		    builder.RegisterType<FoodDetailViewModel>().AsSelf();
-		    builder.RegisterType<BasketViewModel>().As<IBasketViewModel>().SingleInstance();
-		    builder.RegisterType<MasterViewModel>().As<IMasterViewModel>().SingleInstance();
+            builder.RegisterType<WelcomeViewModel>().As<IWelcomeViewModel>();
+            builder.RegisterType<SignInViewModel>().As<ISignInViewModel>();
+            builder.RegisterType<SignUpViewModel>().As<ISignUpViewModel>();
+            builder.RegisterType<FoodsViewModel>().AsSelf();
+            builder.RegisterType<FoodDetailViewModel>().AsSelf();
+            builder.RegisterType<BasketViewModel>().As<IBasketViewModel>().SingleInstance();
+            builder.RegisterType<MasterViewModel>().As<IMasterViewModel>().SingleInstance();
 
-		    builder.RegisterType<AutoMapperFacade>().As<IAutoMapperFacade>();
-		    builder.RegisterType<FoodDetailViewModelAdapter>().As<IFoodDetailViewModelAdapter>();
-		    builder.RegisterType<ViewModelFactory>().As<IViewModelFactory>();
-		    builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
-		    builder.RegisterType<NavigationItemAdapter>().As<INavigationItemAdapter>();
+            builder.RegisterType<AutoMapperFacade>().As<IAutoMapperFacade>();
+            builder.RegisterType<FoodDetailViewModelAdapter>().As<IFoodDetailViewModelAdapter>();
+            builder.RegisterType<ViewModelFactory>().As<IViewModelFactory>();
+            builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
+            builder.RegisterType<NavigationItemAdapter>().As<INavigationItemAdapter>();
 
-		    IFoodsApi foodApi;
-		    if (MockData)
-		    {
-		        foodApi = new MockFoodsApi();
-		        builder.RegisterType<MockAuthenticationManager>().As<IAuthenticationManager>();
+            IFoodsApi foodApi;
+            if (MockData)
+            {
+                foodApi = new MockFoodsApi();
+                builder.RegisterType<MockAuthenticationManager>().As<IAuthenticationManager>();
+            }
+            else
+            {
+                foodApi = RestService.For<IFoodsApi>("http://restaurantserverapi.azurewebsites.net/");
+                builder.RegisterType<AuthenticationManager>().As<IAuthenticationManager>();
+            }
 
-		    }
-		    else
-		    {
-		        foodApi = RestService.For<IFoodsApi>("http://restaurantserverapi.azurewebsites.net/");
-		        builder.RegisterType<AuthenticationManager>().As<IAuthenticationManager>();
-		    }
-
-		    builder.RegisterInstance(foodApi).As<IFoodsApi>().SingleInstance();
+            builder.RegisterInstance(foodApi).As<IFoodsApi>().SingleInstance();
 
             RegisterTypes(builder);
 
             Container = builder.Build();
 
             return Container;
-		}
+        }
 
-	    protected abstract void RegisterTypes(ContainerBuilder builder);
-	}
+        protected abstract void RegisterTypes(ContainerBuilder builder);
+    }
 }

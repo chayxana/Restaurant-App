@@ -2,20 +2,16 @@
 
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:abstractions="clr-namespace:RoundedBoxView.Forms.Plugin.Abstractions;assembly=Restaurant.Mobile.UI"
              x:Class="Restaurant.Mobile.UI.Views.StepperView">
     <ContentView.Content>
         <StackLayout Orientation="Horizontal">
             <Button Image="minus" WidthRequest="30" HeightRequest="15" Clicked="MinusButton_OnClicked"
                     BackgroundColor="Transparent" />
             <Grid VerticalOptions="Center">
-                <abstractions:RoundedBoxView BackgroundColor="White"
-                                             BorderColor="{StaticResource grayDark}" BorderThickness="1"
-                                             HeightRequest="30" WidthRequest="60"
-                                             CornerRadius="8" />
-                <Label TextColor="Black" x:Name="StepLabel" HorizontalOptions="Center" FontSize="16"
-                       VerticalOptions="Center" />
-
+                <Frame CornerRadius="8" BackgroundColor="{StaticResource grayLight}" HasShadow="False" OutlineColor="Transparent" WidthRequest="30"/>
+                <StackLayout VerticalOptions="Center"  HorizontalOptions="Center">
+                    <Label TextColor="Black" x:Name="StepLabel" FontSize="15"/>
+                </StackLayout>
             </Grid>
             <Button Image="plus" WidthRequest="30" HeightRequest="15" BackgroundColor="Transparent"
                     Clicked="PlusButton_OnClicked" />

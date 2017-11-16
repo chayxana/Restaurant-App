@@ -13,7 +13,7 @@
                      BackgroundColor="{StaticResource WindowBackgroundTable}"
                      mc:Ignorable="d"
                      d:DataContext="{d:DesignInstance viewModels:FoodsViewModel}"
-                     Icon="ic_restaurant_menu_black.png"
+                     Icon="restaurant"
                      Title="Foods">
 
     <pages:FoodsPage.Resources>

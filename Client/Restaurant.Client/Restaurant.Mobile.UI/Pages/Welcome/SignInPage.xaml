@@ -2,7 +2,7 @@
 <welcome1:SignInPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                         xmlns:welcome1="clr-namespace:Restaurant.Mobile.UI.Pages.Welcome"
-                        xmlns:controls1="clr-namespace:Restaurant.Mobile.UI.Controls"
+                        xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls"
                         x:Class="Restaurant.Mobile.UI.Pages.Welcome.SignInPage">
 
     <welcome1:SignInPageXaml.Resources>
@@ -21,39 +21,23 @@
                 </OnPlatform>
             </StackLayout.Padding>
 
-            <Grid Padding="10" x:Name="emailStack" Scale="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Image Source="ic_email.png" HeightRequest="25" x:Name="EmailImage" Grid.Column="0" WidthRequest="25" 
-                       VerticalOptions="Center" />
-                <StackLayout HorizontalOptions="Fill" Grid.Column="1">
-                    <controls1:RestaurantEntry x:Name="Email" Placeholder="Enter your email" Text="{Binding Email}"
+            <StackLayout Padding="10" x:Name="emailStack" Scale="0">
+                <Label Text="Email" Style="{StaticResource header}"/>
+                <controls:RestaurantEntry x:Name="Email" Placeholder="Enter your email" Text="{Binding Email}"
                                     VerticalOptions="Center"
                                     HorizontalOptions="FillAndExpand" HasBorder="True" />
-                </StackLayout>
-            </Grid>
+            </StackLayout>
 
-            <Grid Padding="10" x:Name="passwordStack" Scale="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Image Source="ic_key_variant.png" Grid.Column="0" x:Name="PasswordImage" WidthRequest="25"
-               HeightRequest="25" VerticalOptions="Center" />
-
-                <StackLayout  HorizontalOptions="Fill" Grid.Column="1">
-                    <controls1:RestaurantEntry HasBorder="True" x:Name="Password" Text="{Binding Password}"
+            <StackLayout Padding="10" x:Name="passwordStack" Scale="0">
+                <Label Text="Password" Style="{StaticResource header}"/>
+                <controls:RestaurantEntry HasBorder="True" x:Name="Password" Text="{Binding Password}"
                                     Placeholder="Enter password"
                                     HorizontalOptions="FillAndExpand" IsPassword="true" />
 
-                    
-                </StackLayout>
-            </Grid>
+            </StackLayout>
 
             <StackLayout Orientation="Vertical" Padding="10" x:Name="loginStack" Scale="0">
-                <controls1:AnimateButton x:Name="Login" BackgroundColor="{StaticResource primaryColor}" Text="Log In" HeightRequest="45" Command="{Binding Login}" />
+                <controls:AnimateButton x:Name="Login" BackgroundColor="{StaticResource primaryColor}" Text="Log In" HeightRequest="45" Command="{Binding Login}" />
             </StackLayout>
 
             <Grid Padding="10">
@@ -62,16 +46,16 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <controls1:Divider Grid.Column="0" Padding="10, 0" />
+                <controls:Divider Grid.Column="0" Padding="10, 0" />
                 <Label Text="Or" FontSize="14" TextColor="Black" Grid.Column="1" />
-                <controls1:Divider Grid.Column="2" Padding="10, 0" />
+                <controls:Divider Grid.Column="2" Padding="10, 0" />
             </Grid>
 
             <StackLayout Padding="10">
-                <controls1:AnimateButton Margin="5" Text="Sign in with Google" HeightRequest="45"
+                <controls:AnimateButton Margin="5" Text="Sign in with Google" HeightRequest="45"
                                 TextColor="{StaticResource grayDark}" BackgroundColor="White"
                                 Image="google.png" />
-                <controls1:AnimateButton Margin="5" BorderColor="{StaticResource grayPrimary}"
+                <controls:AnimateButton Margin="5" BorderColor="{StaticResource grayPrimary}"
                                 Text="Connect with Facebook" HeightRequest="45" TextColor="White"
                                 Image="facebook.png" BackgroundColor="#3B5998" />
             </StackLayout>

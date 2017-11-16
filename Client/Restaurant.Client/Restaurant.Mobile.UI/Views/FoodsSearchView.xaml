@@ -4,7 +4,14 @@
              x:Class="Restaurant.Mobile.UI.Views.FoodsSearchView">
   <ContentView.Content>
       <StackLayout BackgroundColor="{StaticResource primaryColor}">
-          <SearchBar x:Name="SearchBar" TextColor="White" CancelButtonColor="White"></SearchBar>
+          <SearchBar x:Name="SearchBar">
+              <SearchBar.TextColor>
+                    <OnPlatform x:TypeArguments="Color">
+                        <On Platform="iOS" Value="{StaticResource asphaltDark}"/>
+                        <On Platform="Android" Value="White"/>
+                    </OnPlatform>
+              </SearchBar.TextColor>
+          </SearchBar>
       </StackLayout>
   </ContentView.Content>
 </ContentView>

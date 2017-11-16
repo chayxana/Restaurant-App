@@ -7,11 +7,12 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportEffect(typeof(MaxLinesEffect), "MaxLinesEffect")]
+
 namespace Restaurant.Droid.Effects
 {
     public class MaxLinesEffect : PlatformEffect
     {
-        TextView _control;
+        private TextView _control;
 
         protected override void OnAttached()
         {
@@ -26,9 +27,7 @@ namespace Restaurant.Droid.Effects
         protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
         {
             if (args.PropertyName == NumberOfLinesEffect.NumberOfLinesProperty.PropertyName)
-            {
                 SetMaxLines();
-            }
         }
 
         private void SetMaxLines()

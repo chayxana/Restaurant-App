@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <welcome1:SignInPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
-                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                        xmlns:welcome1="clr-namespace:Restaurant.Mobile.UI.Pages.Welcome"
-                        xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls"
-                        x:Class="Restaurant.Mobile.UI.Pages.Welcome.SignInPage">
+                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                         xmlns:welcome1="clr-namespace:Restaurant.Mobile.UI.Pages.Welcome"
+                         xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls"
+                         x:Class="Restaurant.Mobile.UI.Pages.Welcome.SignInPage">
 
     <welcome1:SignInPageXaml.Resources>
         <ResourceDictionary>
@@ -22,22 +23,23 @@
             </StackLayout.Padding>
 
             <StackLayout Padding="10" x:Name="emailStack" Scale="0">
-                <Label Text="Email" Style="{StaticResource header}"/>
+                <Label Text="Email" Style="{StaticResource header}" />
                 <controls:RestaurantEntry x:Name="Email" Placeholder="Enter your email" Text="{Binding Email}"
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="FillAndExpand" HasBorder="True" />
+                                          VerticalOptions="Center"
+                                          HorizontalOptions="FillAndExpand" HasBorder="True" />
             </StackLayout>
 
             <StackLayout Padding="10" x:Name="passwordStack" Scale="0">
-                <Label Text="Password" Style="{StaticResource header}"/>
+                <Label Text="Password" Style="{StaticResource header}" />
                 <controls:RestaurantEntry HasBorder="True" x:Name="Password" Text="{Binding Password}"
-                                    Placeholder="Enter password"
-                                    HorizontalOptions="FillAndExpand" IsPassword="true" />
+                                          Placeholder="Enter password"
+                                          HorizontalOptions="FillAndExpand" IsPassword="true" />
 
             </StackLayout>
 
             <StackLayout Orientation="Vertical" Padding="10" x:Name="loginStack" Scale="0">
-                <controls:AnimateButton x:Name="Login" BackgroundColor="{StaticResource primaryColor}" Text="Log In" HeightRequest="45" Command="{Binding Login}" />
+                <controls:AnimateButton x:Name="Login" BackgroundColor="{StaticResource primaryColor}" Text="Log In"
+                                        HeightRequest="45" Command="{Binding Login}" />
             </StackLayout>
 
             <Grid Padding="10">
@@ -53,21 +55,21 @@
 
             <StackLayout Padding="10">
                 <controls:AnimateButton Margin="5" Text="Sign in with Google" HeightRequest="45"
-                                TextColor="{StaticResource grayDark}" BackgroundColor="White"
-                                Image="google.png" />
+                                        TextColor="{StaticResource grayDark}" BackgroundColor="White"
+                                        Image="google.png" />
                 <controls:AnimateButton Margin="5" BorderColor="{StaticResource grayPrimary}"
-                                Text="Connect with Facebook" HeightRequest="45" TextColor="White"
-                                Image="facebook.png" BackgroundColor="#3B5998" />
+                                        Text="Connect with Facebook" HeightRequest="45" TextColor="White"
+                                        Image="facebook.png" BackgroundColor="#3B5998" />
             </StackLayout>
 
             <StackLayout IsVisible="{Binding IsBusy}">
                 <ActivityIndicator IsRunning="{Binding IsBusy}" Color="{StaticResource grayDark}"
-                           HorizontalOptions="Center"
-                           VerticalOptions="EndAndExpand" />
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="EndAndExpand" />
 
                 <Label Text="{Binding AuthenticationStatus, StringFormat='Please wait \{0\}'}" FontSize="14"
-               VerticalOptions="EndAndExpand" Style="{StaticResource whiteLabelStyle}"
-               TextColor="{StaticResource grayPrimary}" />
+                       VerticalOptions="EndAndExpand" Style="{StaticResource whiteLabelStyle}"
+                       TextColor="{StaticResource grayPrimary}" />
 
             </StackLayout>
 

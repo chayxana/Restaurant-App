@@ -10,7 +10,7 @@ namespace Restaurant.Core.ViewModels.Android
     public class MasterDetailedMainViewModel : MainViewModel, IMasterDetailedViewModel
     {
         public MasterDetailedMainViewModel(
-            INavigationService navigationService, 
+            INavigationService navigationService,
             IMasterViewModel masterViewModel,
             INavigationItemAdapter navigationItemAdapter)
         {

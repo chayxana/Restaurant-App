@@ -5,28 +5,28 @@ namespace Restaurant.Common.DataTransferObjects
 {
     public class FoodDto
     {
-		[JsonProperty("id")]
+        [JsonProperty("id")]
         public Guid Id { get; set; }
 
-		[JsonProperty("name")]
+        [JsonProperty("name")]
         public string Name { get; set; }
 
-		[JsonProperty("description")]
+        [JsonProperty("description")]
         public string Description { get; set; }
 
-		[JsonProperty("picture")]
+        [JsonProperty("picture")]
         public string Picture { get; set; }
 
-		[JsonProperty("price")]
+        [JsonProperty("price")]
         public decimal Price { get; set; }
 
-		[JsonProperty("category")]
+        [JsonProperty("category")]
         public CategoryDto CategoryDto { get; set; }
 
-		[JsonProperty("categoryId")]
-		public Guid CategoryId { get; set; }
+        [JsonProperty("categoryId")]
+        public Guid CategoryId { get; set; }
 
-		[JsonProperty("currency")]
-	    public string Currency { get; set; }
+        [JsonProperty("currency")]
+        public string Currency { get; set; }
     }
 }

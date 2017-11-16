@@ -6,19 +6,19 @@ using Xamarin.Forms.Platform.Android;
 
 namespace Restaurant.Droid.Providers
 {
-	internal class DrawableProvider
-	{
-		internal Drawable GetFormsDrawable(Resources resource, FileImageSource fileImageSource)
-		{
-			var file = fileImageSource.File;
-			Drawable drawable = resource.GetDrawable(fileImageSource);
-			if (drawable == null)
-			{
-				var bitmap = resource.GetBitmap(file) ?? BitmapFactory.DecodeFile(file);
-				if (bitmap != null)
-					drawable = new BitmapDrawable(resource, bitmap);
-			}
-			return drawable;
-		}
-	}
+    internal class DrawableProvider
+    {
+        internal Drawable GetFormsDrawable(Resources resource, FileImageSource fileImageSource)
+        {
+            var file = fileImageSource.File;
+            var drawable = resource.GetDrawable(fileImageSource);
+            if (drawable == null)
+            {
+                var bitmap = resource.GetBitmap(file) ?? BitmapFactory.DecodeFile(file);
+                if (bitmap != null)
+                    drawable = new BitmapDrawable(resource, bitmap);
+            }
+            return drawable;
+        }
+    }
 }

@@ -6,11 +6,12 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportEffect(typeof(MaxLinesEffect), "MaxLinesEffect")]
+
 namespace Restaurant.iOS.Effects
 {
     public class MaxLinesEffect : PlatformEffect
     {
-        UILabel _control;
+        private UILabel _control;
 
         protected override void OnAttached()
         {
@@ -25,9 +26,7 @@ namespace Restaurant.iOS.Effects
         protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
         {
             if (args.PropertyName == NumberOfLinesEffect.NumberOfLinesProperty.PropertyName)
-            {
                 SetMaxLines();
-            }
         }
 
         private void SetMaxLines()

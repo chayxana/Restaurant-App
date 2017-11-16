@@ -3,16 +3,16 @@ using ReactiveUI;
 
 namespace Restaurant.Abstractions.Facades
 {
-	public interface INavigationFacade
-	{
-		Task PushAsync(IViewFor page);
+    public interface INavigationFacade
+    {
+        Task PushAsync(IViewFor page);
 
-		Task PushModalAsync(IViewFor page);
+        Task PushModalAsync(IViewFor page);
 
-		Task PopModalAsync(bool animated);
+        Task PopModalAsync(bool animated);
 
-	    Task NavigateToMainPage(IViewFor page);
+        Task NavigateToMainPage(IViewFor page);
 
-	    Task NavigateToMainPageContent(IViewFor page);
-	}
+        Task NavigateToMainPageContent(IViewFor page);
+    }
 }

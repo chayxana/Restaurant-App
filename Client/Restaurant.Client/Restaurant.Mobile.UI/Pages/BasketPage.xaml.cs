@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reactive.Linq;
-using Restaurant.Abstractions.ViewModels;
 using Restaurant.Core.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

@@ -11,96 +11,96 @@ using Restaurant.Core.ViewModels;
 
 namespace Restaurant.Core.UnitTests.ViewModels
 {
-	[TestFixture]
-	public class SignInViewModelTest : BaseAutoMockedTest<SignInViewModel>
-	{
-		private SignInViewModel ViewModel;
+    [TestFixture]
+    public class SignInViewModelTest : BaseAutoMockedTest<SignInViewModel>
+    {
+        public override void Init()
+        {
+            base.Init();
+            ViewModel = ClassUnderTest;
+        }
 
-		public override void Init()
-		{
-			base.Init();
-			ViewModel = ClassUnderTest;
-		}
+        private SignInViewModel ViewModel;
 
-		[Test]
-		public void Given_empty_login_and_password_Login_should_not_be_executable()
-		{
-			ViewModel.Email = "";
-			ViewModel.Password = "";
+        [Test]
+        public void Given_empty_login_and_password_Login_should_not_be_executable()
+        {
+            ViewModel.Email = "";
+            ViewModel.Password = "";
 
-			Assert.That(ViewModel.Login.CanExecute(null), Is.False);
-		}
+            Assert.That(ViewModel.Login.CanExecute(null), Is.False);
+        }
 
-		[Test]
-		public void Given_invalid_data_Login_should_create_internal_server_error_message()
-		{
-			// Given
-			ViewModel.Email = "invalid";
-			ViewModel.Password = "invalid";
-			var tokenResponse = new TokenResponse { IsError = true, HttpStatusCode = HttpStatusCode.BadRequest };
+        [Test]
+        public void Given_invalid_data_Login_should_create_internal_server_error_message()
+        {
+            // Given
+            ViewModel.Email = "invalid";
+            ViewModel.Password = "invalid";
+            var tokenResponse = new TokenResponse {IsError = true, HttpStatusCode = HttpStatusCode.BadRequest};
 
-			GetMock<IAutoMapperFacade>().Setup(x => x.Map<LoginDto>(ViewModel))
-				.Returns<LoginDto>(null);
+            GetMock<IAutoMapperFacade>().Setup(x => x.Map<LoginDto>(ViewModel))
+                .Returns<LoginDto>(null);
 
-			GetMock<IAuthenticationManager>().Setup(x => x.Login(null)).Returns(Task.FromResult(tokenResponse));
-			
-			// when
-			ViewModel.Login.Execute(null);
+            GetMock<IAuthenticationManager>().Setup(x => x.Login(null)).Returns(Task.FromResult(tokenResponse));
 
-			// then
-			Assert.That(ViewModel.Error, Is.EqualTo("Internal server error!"));
-			GetMock<INavigationService>().Verify(x => x.NavigateToMainPage(typeof(IMainViewModel)), Times.Never);
-		}
+            // when
+            ViewModel.Login.Execute(null);
 
-		[Test]
+            // then
+            Assert.That(ViewModel.Error, Is.EqualTo("Internal server error!"));
+            GetMock<INavigationService>().Verify(x => x.NavigateToMainPage(typeof(IMainViewModel)), Times.Never);
+        }
+
+        [Test]
         public void Given_invalid_login_password_Login_should_create_invalid_message()
-		{
-			// Given
-			ViewModel.Email = "invalid";
-			ViewModel.Password = "invalid";
-			var tokenResponse = new TokenResponse { IsError = true, HttpStatusCode = HttpStatusCode.OK };
+        {
+            // Given
+            ViewModel.Email = "invalid";
+            ViewModel.Password = "invalid";
+            var tokenResponse = new TokenResponse {IsError = true, HttpStatusCode = HttpStatusCode.OK};
 
-			var loginDto = new LoginDto { Login = ViewModel.Email, Password = ViewModel.Password };
+            var loginDto = new LoginDto {Login = ViewModel.Email, Password = ViewModel.Password};
 
-			GetMock<IAutoMapperFacade>().Setup(x => x.Map<LoginDto>(ViewModel))
-				.Returns(loginDto);
+            GetMock<IAutoMapperFacade>().Setup(x => x.Map<LoginDto>(ViewModel))
+                .Returns(loginDto);
 
-			GetMock<IAuthenticationManager>().Setup(x => x.Login(loginDto)).Returns(Task.FromResult(tokenResponse));
+            GetMock<IAuthenticationManager>().Setup(x => x.Login(loginDto)).Returns(Task.FromResult(tokenResponse));
 
-			// when
-			ViewModel.Login.Execute(null);
+            // when
+            ViewModel.Login.Execute(null);
 
-			// then
-			Assert.That(ViewModel.Error, Is.EqualTo("Invalid login or password!"));
-			GetMock<INavigationService>().Verify(x => x.NavigateToMainPage(typeof(IMainViewModel)), Times.Never);
-		}
+            // then
+            Assert.That(ViewModel.Error, Is.EqualTo("Invalid login or password!"));
+            GetMock<INavigationService>().Verify(x => x.NavigateToMainPage(typeof(IMainViewModel)), Times.Never);
+        }
 
-		[Test]
+        [Test]
         public void Given_login_and_password_Login_with_valid_data_should_be_ok()
-		{
-			// given
-			ViewModel.Email = "12@123.com";
-			ViewModel.Password = "test123";
-			var tokenResponse = new TokenResponse { IsError = false, HttpStatusCode = HttpStatusCode.OK };
+        {
+            // given
+            ViewModel.Email = "12@123.com";
+            ViewModel.Password = "test123";
+            var tokenResponse = new TokenResponse {IsError = false, HttpStatusCode = HttpStatusCode.OK};
 
-			var loginDto = new LoginDto { Login = ViewModel.Email, Password = ViewModel.Password };
+            var loginDto = new LoginDto {Login = ViewModel.Email, Password = ViewModel.Password};
 
-			GetMock<IAutoMapperFacade>().Setup(x => x.Map<LoginDto>(ViewModel))
-				.Returns(loginDto);
+            GetMock<IAutoMapperFacade>().Setup(x => x.Map<LoginDto>(ViewModel))
+                .Returns(loginDto);
 
-			GetMock<IAuthenticationManager>().Setup(x => x.Login(loginDto)).Returns(Task.FromResult(tokenResponse));
+            GetMock<IAuthenticationManager>().Setup(x => x.Login(loginDto)).Returns(Task.FromResult(tokenResponse));
 
-			// when
-			ViewModel.Login.Execute(null);
+            // when
+            ViewModel.Login.Execute(null);
 
-			// then
-			GetMock<INavigationService>().Verify(x => x.NavigateToMainPage(typeof(IMainViewModel)), Times.Once);
-		}
+            // then
+            GetMock<INavigationService>().Verify(x => x.NavigateToMainPage(typeof(IMainViewModel)), Times.Once);
+        }
 
-		[Test]
-		public void Title_should_be_Login()
-		{
-			Assert.That(ViewModel.Title, Is.EqualTo("Login"));
-		}
-	}
+        [Test]
+        public void Title_should_be_Login()
+        {
+            Assert.That(ViewModel.Title, Is.EqualTo("Login"));
+        }
+    }
 }

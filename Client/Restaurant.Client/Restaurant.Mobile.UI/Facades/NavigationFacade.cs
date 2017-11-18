@@ -65,5 +65,10 @@ namespace Restaurant.Mobile.UI.Facades
 
             return Task.CompletedTask;
         }
+
+        public Task NavigateToRoot()
+        {
+            return Navigation.PopToRootAsync();
+        }
     }
 }

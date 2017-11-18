@@ -30,6 +30,7 @@ namespace Restaurant.Mobile.UI
             builder.RegisterType<MainPageAndroid>().As<IViewFor<MasterDetailedMainViewModel>>();
             builder.RegisterType<MainPageiOS>().As<IViewFor<TabbedMainViewModel>>();
             builder.RegisterType<MenuPage>().As<IViewFor<MasterViewModel>>();
+            builder.RegisterType<OrdersPage>().As<IViewFor<OrdersViewModel>>();
 
             builder.RegisterType<MasterDetailedMainViewModel>().Named<IMainViewModel>(Device.Android);
             builder.RegisterType<TabbedMainViewModel>().Named<IMainViewModel>(Device.iOS);

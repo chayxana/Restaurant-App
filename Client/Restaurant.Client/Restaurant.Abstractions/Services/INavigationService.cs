@@ -23,5 +23,7 @@ namespace Restaurant.Abstractions.Services
         Task NavigateToMainPage(Type viewModelType);
 
         Task NavigateToMainPageContent(INavigatableViewModel viewModel);
+
+        Task NavigateToRoot();
     }
 }

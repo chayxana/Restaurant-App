@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
 using Restaurant.Core.ViewModels;
+using Restaurant.ViewModels;
 
 namespace Restaurant.Core.Mappers
 {
@@ -17,6 +19,10 @@ namespace Restaurant.Core.Mappers
             CreateMap<SignInViewModel, LoginDto>()
                 .ForMember(x => x.Login, map => map.MapFrom(vm => vm.Email))
                 .ForMember(x => x.Password, map => map.MapFrom(vm => vm.Password));
+
+            CreateMap<IOrderViewModel, OrderItemDto>()
+                .ForMember(x => x.Quantity, map => map.MapFrom(x => x.Quantity))
+                .ForMember(x => x.FoodId, map => map.MapFrom(x => x.Food.Id));
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using Android.Content;
 using Android.Content.Res;
+using Android.OS;
 using Restaurant.Droid.Renderers;
 using Restaurant.Mobile.UI.Controls;
 using Xamarin.Forms;
@@ -15,8 +17,13 @@ namespace Restaurant.Droid.Renderers
     public class
         FloatingActionButtonRenderer : Xamarin.Forms.Platform.Android.AppCompat.ViewRenderer<FloatingActionButton, FAB>
     {
+        
+
         protected override void OnElementChanged(ElementChangedEventArgs<FloatingActionButton> e)
         {
+            if(Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+                return;
+
             base.OnElementChanged(e);
 
             if (e.NewElement == null)
@@ -42,12 +49,17 @@ namespace Restaurant.Droid.Renderers
 
         protected override void OnLayout(bool changed, int l, int t, int r, int b)
         {
+            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+                return;
+
             base.OnLayout(changed, l, t, r, b);
             Control.BringToFront();
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+                return;
             var fab = Control;
             if (e.PropertyName == nameof(Element.ButtonColor))
                 fab.BackgroundTintList = ColorStateList.ValueOf(Element.ButtonColor.ToAndroid());

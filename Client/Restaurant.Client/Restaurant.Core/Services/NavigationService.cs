@@ -81,5 +81,10 @@ namespace Restaurant.Core.Services
             CurrentView = _viewFactory.ResolveView(viewModel);
             return _navigationFacade.NavigateToMainPageContent(CurrentView);
         }
+
+        public Task NavigateToRoot()
+        {
+            return _navigationFacade.NavigateToRoot();
+        }
     }
 }

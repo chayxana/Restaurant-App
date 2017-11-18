@@ -98,15 +98,6 @@
         <controls:FloatingActionButton AbsoluteLayout.LayoutBounds=".9, .5, 50, 50"
                                        AbsoluteLayout.LayoutFlags="PositionProportional"
                                        RippleColor="{StaticResource primaryColorLight}"
-                                       Image="ic_heart_outline_white_24dp.png">
-
-            <!--<controls:FloatingActionButton.IsVisible>
-                <OnPlatform x:TypeArguments="x:Boolean">
-                    <On Platform="Android" Value="True" />
-                    <On Platform="iOS" Value="False" />
-                    <On Platform="Uwp" Value="False" />
-                </OnPlatform>
-            </controls:FloatingActionButton.IsVisible>-->
-        </controls:FloatingActionButton>
+                                       Image="ic_heart_outline_white_24dp.png"/>
     </AbsoluteLayout>
 </pages:FoodDetailPageXaml>

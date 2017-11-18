@@ -33,13 +33,13 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
 
-                                        <!--<imagecontrol:CircleImage WidthRequest="60" Margin="10"
+                                        <imagecontrol:CircleImage WidthRequest="60" Margin="10"
                                                                   BorderColor="{StaticResource grayPrimary}"
                                                                   BorderThickness="1"
                                                                   HeightRequest="60" Source="{Binding Food.Picture}"
                                                                   HorizontalOptions="Center"
                                                                   VerticalOptions="Center"
-                                                                  Aspect="AspectFill" />-->
+                                                                  Aspect="AspectFill" />
 
 
                                         <StackLayout Grid.Column="1" VerticalOptions="Center">
@@ -67,7 +67,7 @@
                 </ListView>
             </StackLayout>
             <StackLayout Grid.Row="1" Padding="10, 5,10,10">
-                <Button Text="Complete your orders" />
+                <Button Text="Complete your orders" Command="{Binding CompleteOrder}" />
             </StackLayout>
         </Grid>
     </pages:BasketPageXaml.Content>

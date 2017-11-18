@@ -3897,12 +3897,6 @@ namespace Restaurant.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f070058
-			public const int ApplicationName = 2131165272;
-			
-			// aapt resource value: 0x7f070059
-			public const int Hello = 2131165273;
-			
 			// aapt resource value: 0x7f070016
 			public const int abc_action_bar_home_description = 2131165206;
 			

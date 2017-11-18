@@ -53,7 +53,7 @@ namespace Restaurant.Mobile.UI.Facades
         {
             if (App.Current.MainPage is MasterDetailPage masterDetailPage)
             {
-                masterDetailPage.Detail = page as Page;
+                masterDetailPage.Detail = new NavigationPage(page as Page);
                 return Task.CompletedTask;
             }
 

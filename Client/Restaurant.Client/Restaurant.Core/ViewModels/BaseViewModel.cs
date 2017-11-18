@@ -1,9 +1,11 @@
-﻿using ReactiveUI;
+﻿using System.Diagnostics.CodeAnalysis;
+using ReactiveUI;
 using Restaurant.Abstractions;
 
 namespace Restaurant.Core.ViewModels
 {
-    public class BaseViewModel : ReactiveObject, INavigatableViewModel
+    [ExcludeFromCodeCoverage]
+    public abstract class BaseViewModel : ReactiveObject, INavigatableViewModel
     {
         private bool _isLoading;
 

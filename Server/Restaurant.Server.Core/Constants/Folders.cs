@@ -1,6 +1,9 @@
-﻿namespace Restaurant.Server.Core.Constants
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Restaurant.Server.Core.Constants
 {
-	public class Folders
+    [ExcludeFromCodeCoverage]
+    public class Folders
 	{
 		public const string UploadFilesPath = "/Images/";
 	}

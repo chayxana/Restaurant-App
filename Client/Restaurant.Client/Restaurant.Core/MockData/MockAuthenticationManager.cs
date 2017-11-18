@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Threading.Tasks;
 using Restaurant.Abstractions.Managers;
 using Restaurant.Common.DataTransferObjects;
 
-namespace Restaurant.MockData
+namespace Restaurant.Core.MockData
 {
+    [ExcludeFromCodeCoverage]
     public class MockAuthenticationManager : IAuthenticationManager
     {
         public Task<TokenResponse> Login(LoginDto loginDto)

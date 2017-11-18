@@ -166,7 +166,29 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 			GetMock<IFileUploadProvider>().Verify(x => x.Remove("old_picture"), Times.Once);
 		}
 
-		[Fact]
+	    [Fact]
+	    public async Task Given_valid_food_dto_and_has_file_should_not_remove_file_and_should_and_food_picture_should_be_empty_create_food()
+	    {
+	        var id = Guid.NewGuid();
+	        var foodDto = new FoodDto { Id = id };
+	        var food = new Food { Id = id, Picture = "old_picture" };
+
+	        GetMock<IMapperFacade>().Setup(x => x.Map<Food>(foodDto)).Returns(food);
+	        GetMock<IRepository<Food>>().Setup(x => x.Commit()).Returns(Task.FromResult(true));
+
+	        var fileUploader = GetMock<IFileUploadProvider>();
+	        fileUploader.Setup(x => x.HasFile(id.ToString())).Returns(false);
+	        fileUploader.Setup(x => x.GetUploadedFileByUniqId(id.ToString())).Returns("picture");
+
+	        var result = await ClassUnderTest.Put(id, foodDto);
+
+	        result.Should().BeOfType<OkResult>();
+
+	        GetMock<IRepository<Food>>().Verify(x => x.Update(id, food), Times.Once);
+	        GetMock<IFileUploadProvider>().Verify(x => x.Remove("old_picture"), Times.Never);
+	    }
+
+        [Fact]
 		public async Task Given_invalid_params_repository_Update_should_throw_exception_Put_should_catch_this_exception_and_should_return_bad_request()
 		{
 			var id = Guid.NewGuid();

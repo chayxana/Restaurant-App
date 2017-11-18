@@ -4,7 +4,14 @@ using System.Collections.Generic;
 namespace Restaurant.Common.DataTransferObjects
 {
     public class OrderDto
-    {
+    {   
+        public OrderDto()
+        {
+            Id = Guid.NewGuid();
+        }
+
+        public Guid Id { get; set; }
+
         public DateTime DateTime { get; set; }
 
         public Guid EatingId { get; set; }

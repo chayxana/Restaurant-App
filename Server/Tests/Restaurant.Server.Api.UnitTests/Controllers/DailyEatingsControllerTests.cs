@@ -7,10 +7,10 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Restaurant.Common.DataTransferObjects;
-using Restaurant.Server.Api.Abstractions.Facades;
-using Restaurant.Server.Api.Abstractions.Repositories;
+using Restaurant.Server.Abstraction.Facades;
+using Restaurant.Server.Abstraction.Repositories;
 using Restaurant.Server.Api.Controllers;
-using Restaurant.Server.Api.Models;
+using Restaurant.Server.Models;
 using Xunit;
 
 namespace Restaurant.Server.Api.UnitTests.Controllers

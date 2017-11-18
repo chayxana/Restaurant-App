@@ -109,7 +109,7 @@ namespace Restaurant.Droid.Renderers
             if (!(Element.CurrentPage is ITransparentActionBarPage page))
                 return;
 
-            if (page.IsTransparentActionBar)
+            if (page.IsTransparentActionBar && Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
                 LayoutBehindTheToolbar(l, t, r, b);
         }
 

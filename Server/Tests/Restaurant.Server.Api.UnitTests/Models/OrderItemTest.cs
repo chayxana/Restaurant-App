@@ -1,6 +1,6 @@
 ﻿using Albedo;
 using AutoFixture.Idioms;
-using Restaurant.Server.Api.Models;
+using Restaurant.Server.Models;
 using Xunit;
 
 namespace Restaurant.Server.Api.UnitTests.Models

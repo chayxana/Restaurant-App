@@ -14,5 +14,7 @@ namespace Restaurant.Abstractions.Facades
         Task NavigateToMainPage(IViewFor page);
 
         Task NavigateToMainPageContent(IViewFor page);
+
+        Task NavigateToRoot();
     }
 }

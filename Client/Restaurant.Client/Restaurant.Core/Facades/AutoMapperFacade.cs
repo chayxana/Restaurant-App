@@ -1,8 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Diagnostics.CodeAnalysis;
+using AutoMapper;
 using Restaurant.Abstractions.Facades;
 
 namespace Restaurant.Core.Facades
 {
+    [ExcludeFromCodeCoverage]
     public class AutoMapperFacade : IAutoMapperFacade
     {
         public TDestination Map<TDestination>(object source)

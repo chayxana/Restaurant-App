@@ -6,7 +6,7 @@ namespace Restaurant.Abstractions.ViewModels
     {
         string ConfirmPassword { get; set; }
         string Name { get; set; }
-        ICommand Regester { get; }
+        ICommand Register { get; }
         string Email { get; set; }
         string Password { get; set; }
     }

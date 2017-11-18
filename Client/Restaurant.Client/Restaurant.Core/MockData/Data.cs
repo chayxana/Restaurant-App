@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Core.MockData
 {
+    [ExcludeFromCodeCoverage]
     public static class Data
     {
         public static IEnumerable<CategoryDto> Categories = new List<CategoryDto>

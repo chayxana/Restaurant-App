@@ -19,9 +19,20 @@ namespace Restaurant.Core.ViewModels.Android
             this.WhenAnyValue(x => x.MasterViewModel.SelectedNavigationItem)
                 .Where(x => x != 0)
                 .Select(navigationItemAdapter.GetViewModelFromNavigationItem)
-                .Subscribe(async viewModel => await navigationService.NavigateToMainPageContent(viewModel));
+                .Subscribe(async viewModel =>
+                {
+                    await navigationService.NavigateToMainPageContent(viewModel);
+                    IsNavigated = true;
+                });
         }
 
         public IMasterViewModel MasterViewModel { get; }
+
+        private bool _isNavigated;
+        public bool IsNavigated
+        {
+            get => _isNavigated;
+            set => this.RaiseAndSetIfChanged(ref _isNavigated, value);
+        }
     }
 }

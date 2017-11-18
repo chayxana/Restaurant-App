@@ -30,7 +30,7 @@ namespace Restaurant.Core.ViewModels
             var canRegester = this.WhenAny(x => x.Name, x => x.Email, x => x.Password,
                 x => x.ConfirmPassword, (n, e, p, cp) => !string.IsNullOrEmpty(n.Value));
 
-            Regester = ReactiveCommand
+            Register = ReactiveCommand
                 .CreateFromTask(async _ =>
                 {
                     var registerDto = autoMapperFacade.Map<RegisterDto>(this);
@@ -39,7 +39,7 @@ namespace Restaurant.Core.ViewModels
                     if (result != null)
                     {
                         var loginResult = await authenticationManager.Login(
-                            new LoginDto {Login = Email, Password = Password});
+                            new LoginDto { Login = Email, Password = Password });
 
                         if (!loginResult.IsError && loginResult.HttpStatusCode == HttpStatusCode.OK)
                             await _navigationService.NavigateAsync(typeof(IMainViewModel));
@@ -71,7 +71,7 @@ namespace Restaurant.Core.ViewModels
             set => this.RaiseAndSetIfChanged(ref _confirmPassword, value);
         }
 
-        public ICommand Regester { get; }
+        public ICommand Register { get; }
 
         public override string Title => "Sign Up";
     }

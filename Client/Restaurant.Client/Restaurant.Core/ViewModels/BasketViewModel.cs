@@ -26,6 +26,7 @@ namespace Restaurant.Core.ViewModels
         {
             _navigationService = navigationService;
             this.WhenAnyValue(x => x.Orders.Count).Subscribe(x => { OrdersCount = x == 0 ? null : x.ToString(); });
+
             CompleteOrder = ReactiveCommand.Create(() =>
             {
                 var orderItems = mapperFacade.Map<IEnumerable<OrderItemDto>>(Orders);

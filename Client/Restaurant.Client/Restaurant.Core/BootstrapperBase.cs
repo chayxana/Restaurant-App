@@ -33,6 +33,7 @@ namespace Restaurant.Core
             builder.RegisterType<SignUpViewModel>().As<ISignUpViewModel>();
             builder.RegisterType<FoodsViewModel>().AsSelf();
             builder.RegisterType<FoodDetailViewModel>().AsSelf();
+            builder.RegisterType<OrdersViewModel>().AsSelf();
             builder.RegisterType<BasketViewModel>().As<IBasketViewModel>().SingleInstance();
             builder.RegisterType<MasterViewModel>().As<IMasterViewModel>().SingleInstance();
 
@@ -43,18 +44,23 @@ namespace Restaurant.Core
             builder.RegisterType<NavigationItemAdapter>().As<INavigationItemAdapter>();
 
             IFoodsApi foodApi;
+            IOrdersApi ordersApi;
             if (MockData)
             {
                 foodApi = new MockFoodsApi();
+                ordersApi = new MockOrdersApi();
                 builder.RegisterType<MockAuthenticationManager>().As<IAuthenticationManager>();
             }
             else
             {
                 foodApi = RestService.For<IFoodsApi>("http://restaurantserverapi.azurewebsites.net/");
+                ordersApi = RestService.For<IOrdersApi>("http://restaurantserverapi.azurewebsites.net/");
                 builder.RegisterType<AuthenticationManager>().As<IAuthenticationManager>();
             }
 
             builder.RegisterInstance(foodApi).As<IFoodsApi>().SingleInstance();
+            builder.RegisterInstance(ordersApi).As<IOrdersApi>().SingleInstance();
+
 
             RegisterTypes(builder);
 

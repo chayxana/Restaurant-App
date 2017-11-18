@@ -6,6 +6,12 @@
     <ContentView.Content>
         <StackLayout BackgroundColor="{StaticResource primaryColor}">
             <SearchBar x:Name="SearchBar">
+                <SearchBar.Margin>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="Android" Value="0, 6 , 6, 6"/>
+                        <On Platform="iOS" Value="0"/>
+                    </OnPlatform>
+                </SearchBar.Margin>
                 <SearchBar.TextColor>
                     <OnPlatform x:TypeArguments="Color">
                         <On Platform="iOS" Value="{StaticResource asphaltDark}" />

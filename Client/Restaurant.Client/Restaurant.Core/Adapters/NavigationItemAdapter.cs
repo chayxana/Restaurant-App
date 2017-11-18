@@ -23,7 +23,7 @@ namespace Restaurant.Core.Adapters
                 case NavigationItem.Foods:
                     return _viewModelFactory.GetViewModel(typeof(FoodsViewModel));
                 case NavigationItem.Orders:
-                    return _viewModelFactory.GetViewModel(typeof(OrderViewModel)); // TODO:
+                    return _viewModelFactory.GetViewModel(typeof(OrdersViewModel)); // TODO:
                 case NavigationItem.Chat:
                     return _viewModelFactory.GetViewModel(typeof(object)); // TODO:
                 case NavigationItem.Settings:

@@ -8,7 +8,7 @@
             <Button Image="minus" WidthRequest="30" HeightRequest="15" Clicked="MinusButton_OnClicked"
                     BackgroundColor="Transparent" />
             <Grid VerticalOptions="Center">
-                <Frame CornerRadius="8" BackgroundColor="{StaticResource grayLight}" HasShadow="False"
+                <Frame CornerRadius="8" BackgroundColor="{StaticResource grayLight}"  HasShadow="False"
                        OutlineColor="Transparent" WidthRequest="30" />
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
                     <Label TextColor="Black" x:Name="StepLabel" FontSize="15" />

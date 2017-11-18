@@ -1,9 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions;
 
 namespace Restaurant.Core.ViewModels
 {
+    [ExcludeFromCodeCoverage]
     public abstract class ViewModelBase : ReactiveObject, INavigatableViewModel
     {
         private bool _isBusy;

@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace Restaurant.Mobile.UI.Controls
 {
-    public class AnimateButton : Button
+    public class AnimateButton : FlatButton
     {
         public AnimateButton()
         {

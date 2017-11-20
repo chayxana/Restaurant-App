@@ -15,7 +15,6 @@ namespace Restaurant.Server.Api.UnitTests.Models
 			assertion.Verify(new Properties<DailyEating>().Select(d => d.Amount));
 			assertion.Verify(new Properties<DailyEating>().Select(d => d.Decsription));
 			assertion.Verify(new Properties<DailyEating>().Select(d => d.Reciept));
-			assertion.Verify(new Properties<DailyEating>().Select(d => d.Orders));
 		}
     }
 }

@@ -33,9 +33,13 @@ namespace Restaurant.Server.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = _configuration["ConnectionStrings:PostgreSqlConnection"];
-            //services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connectionString));
-            services.AddDbContext<DatabaseContext>(opt => opt.UseNpgsql(connectionString));
+            var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
+
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connectionString,
+                b => b.MigrationsAssembly("Restaurant.Server.Api")));
+
+            //services.AddDbContext<DatabaseContext>(opt => opt.UseNpgsql(connectionString, 
+            //    b => b.MigrationsAssembly("Restaurant.Server.Api")));
 
             services.AddIdentity<User, IdentityRole>(options =>
             {
@@ -47,6 +51,7 @@ namespace Restaurant.Server.Api
             services.AddScoped<IRepository<DailyEating>, DailyEatingRepository>();
             services.AddScoped<IRepository<Food>, FoodRepository>();
             services.AddScoped<IRepository<Category>, CategoryRepository>();
+            services.AddScoped<IRepository<Order>, OrderRepository>();
             services.AddScoped<IMapperFacade, MapperFacade>();
             services.AddScoped<IUserBootstrapper, UserBootstrapper>();
             services.AddScoped<IUserManagerFacade, UserManagerFacade>();

@@ -38,7 +38,7 @@ namespace Restaurant.Server.Api.Controllers
 			return _mapperFacade.Map<IEnumerable<FoodDto>>(entities);
 		}
 
-		[HttpGet("{id}", Name = "Get")]
+		[HttpGet("{id}")]
 		public FoodDto Get(Guid id)
 		{
 			return _mapperFacade.Map<FoodDto>(_repository.Get(id));

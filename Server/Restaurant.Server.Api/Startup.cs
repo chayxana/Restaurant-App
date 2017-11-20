@@ -21,92 +21,94 @@ using Restaurant.Server.Models;
 
 namespace Restaurant.Server.Api
 {
-	[ExcludeFromCodeCoverage]
-	public class Startup
-	{
-		private readonly IConfiguration _configuration;
+    [ExcludeFromCodeCoverage]
+    public class Startup
+    {
+        private readonly IConfiguration _configuration;
 
-		public Startup(IConfiguration configuration)
-		{
-			_configuration = configuration;
-		}
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
-		public void ConfigureServices(IServiceCollection services)
-		{
-			var connectionString = _configuration["ConnectionStrings:PostgreSqlConnection"];
-			//services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connectionString));
-			services.AddDbContext<DatabaseContext>(opt => opt.UseNpgsql(connectionString));
+        public void ConfigureServices(IServiceCollection services)
+        {
+            var connectionString = _configuration["ConnectionStrings:PostgreSqlConnection"];
+            //services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<DatabaseContext>(opt => opt.UseNpgsql(connectionString));
 
-			services.AddIdentity<User, IdentityRole>(options =>
-			{
-				options.Password.RequireNonAlphanumeric = false;
-				options.Password.RequireUppercase = false;
-			}).AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
-
-
-			services.AddScoped<IRepository<DailyEating>, DailyEatingRepository>();
-			services.AddScoped<IRepository<Food>, FoodRepository>();
-			services.AddScoped<IRepository<Category>, CategoryRepository>();
-			services.AddScoped<IMapperFacade, MapperFacade>();
-			services.AddScoped<IUserBootstrapper, UserBootstrapper>();
-			services.AddScoped<IUserManagerFacade, UserManagerFacade>();
-
-			services.AddSingleton<IFileInfoFacade, FileInfoFacade>();
-			services.AddSingleton<IFileUploadProvider, FileUploadProvider>();
-
-			services.AddLogging();
-
-			services.AddCors(o => o.AddPolicy("ServerPolicy", builder =>
-			{
-				builder.AllowAnyOrigin()
-					.AllowAnyMethod()
-					.AllowAnyHeader()
-					.WithExposedHeaders("WWW-Authenticate");
-			}));
-
-			services.AddMvc();
-
-			services.AddIdentityServer()
-				.AddDeveloperSigningCredential()
-				.AddInMemoryIdentityResources(Config.GetIdentityResources())
-				.AddInMemoryApiResources(Config.GetApiResources())
-				.AddInMemoryClients(Config.GetClients())
-				.AddAspNetIdentity<User>();
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            }).AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
 
 
-			services.AddAuthentication(o =>
-			{
-				o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-				o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-			}).AddJwtBearer(o =>
-			{
+            services.AddScoped<IRepository<DailyEating>, DailyEatingRepository>();
+            services.AddScoped<IRepository<Food>, FoodRepository>();
+            services.AddScoped<IRepository<Category>, CategoryRepository>();
+            services.AddScoped<IMapperFacade, MapperFacade>();
+            services.AddScoped<IUserBootstrapper, UserBootstrapper>();
+            services.AddScoped<IUserManagerFacade, UserManagerFacade>();
+
+            services.AddSingleton<IFileInfoFacade, FileInfoFacade>();
+            services.AddSingleton<IFileUploadProvider, FileUploadProvider>();
+
+            services.AddLogging();
+
+            services.AddCors(o => o.AddPolicy("ServerPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithExposedHeaders("WWW-Authenticate");
+            }));
+
+            services.AddMvc();
+
+            services.AddIdentityServer()
+                .AddDeveloperSigningCredential()
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddInMemoryClients(Config.GetClients())
+                .AddAspNetIdentity<User>();
+
+
+            services.AddAuthentication(o =>
+            {
+                o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(o =>
+            {
 #if DEBUG
-				o.Authority = "http://localhost:6200";
+                o.Authority = "http://localhost:6200";
 #elif RELEASE
-				o.Authority = "http://restaurantserverapi.azurewebsites.net";
+				o.Authority = "https://restaurantserverapi.azurewebsites.net";
 #endif
 
-				o.Audience = ApiConstants.ApiName;
-				o.RequireHttpsMetadata = false;
-			});
-		}
+                o.Audience = ApiConstants.ApiName;
+                o.RequireHttpsMetadata = false;
+            });
+        }
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app,
-			IHostingEnvironment env,
-			ILoggerFactory loggerFactory,
-			IConfiguration configuration)
-		{
-			loggerFactory.AddConsole(configuration.GetSection("Logging"));
-			loggerFactory.AddDebug();
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app,
+            IHostingEnvironment env,
+            ILoggerFactory loggerFactory,
+            IConfiguration configuration,
+            IUserBootstrapper userBootstrapper)
+        {
+            loggerFactory.AddConsole(configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
 
-			app.UseCors("ServerPolicy");
-			app.UseDeveloperExceptionPage();
-			app.UseIdentityServer();
-			app.UseMvc();
-			app.UseStaticFiles();
+            app.UseCors("ServerPolicy");
+            app.UseDeveloperExceptionPage();
+            app.UseIdentityServer();
+            app.UseMvc();
+            app.UseStaticFiles();
 
-			AutoMapperConfiguration.Configure();
-		}
-	}
+            AutoMapperConfiguration.Configure();
+            userBootstrapper.CreateDefaultUsersAndRoles().Wait();
+        }
+    }
 }

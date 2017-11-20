@@ -1,7 +1,5 @@
 # Restaurant App
-<img src="art/1.png" width="210">
-<img src="art/2.png" width="210">
-<img src="art/3.png" width="210">
+<img src="art/1.png" width="210"/> <img src="art/2.png" width="210"/> <img src="art/3.png" width="210"/>
 
 [![Xamarin client build status](https://ci.appveyor.com/api/projects/status/p29atu2ty3ih7thm/branch/develop?svg=true&pendingText=xamarin%20pending&passingText=xamarin&failingText=xamarin)](https://ci.appveyor.com/project/Jurabek/restaurant-manager-vwadp)
 [![Backend build status](https://ci.appveyor.com/api/projects/status/4uh90c7u42d8aleo/branch/develop?svg=true&pendingText=backend%20pending&passingText=backend&failingText=backend)](https://ci.appveyor.com/project/Jurabek/restaurant-manager)

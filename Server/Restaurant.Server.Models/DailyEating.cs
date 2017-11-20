@@ -16,9 +16,7 @@ namespace Restaurant.Server.Models
 		public string Decsription { get; set; }
 
 		public string Reciept { get; set; }
-
-		public virtual ICollection<Order> Orders { get; set; }
-
+        
 		[NotMapped]
 		public virtual decimal TotalAmount => AdditionalAmount + Amount;
 	}

@@ -43,8 +43,6 @@ namespace Restaurant.Server.DataProvider
 
 			builder.Entity<Order>(b =>
 			{
-				b.HasOne<DailyEating>().WithMany(x => x.Orders).HasForeignKey(x => x.EatingId).OnDelete(DeleteBehavior.Cascade)
-					.IsRequired();
 				b.HasOne<User>().WithMany(x => x.Orders).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade).IsRequired();
 				b.HasMany(x => x.OrderItems).WithOne().HasForeignKey(x => x.OderId).OnDelete(DeleteBehavior.Cascade);
 			});

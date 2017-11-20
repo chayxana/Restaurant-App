@@ -11,10 +11,9 @@ namespace Restaurant.Server.Core.Mappers
 	public class RestaurantModelsToDtoProfile : Profile
 	{
         public RestaurantModelsToDtoProfile()
-		{
-			CreateMap<DailyEatingDto, DailyEating>()
-				.ForMember(x => x.TotalAmount, map => map.Ignore())
-				.ForMember(x => x.Orders, map => map.MapFrom(x => Mapper.Map<ICollection<Order>>(x.Orders)));
+        {
+            CreateMap<DailyEatingDto, DailyEating>()
+                .ForMember(x => x.TotalAmount, map => map.Ignore());
 
 			CreateMap<Food, FoodDto>()
 				.ForMember(x => x.CategoryDto,

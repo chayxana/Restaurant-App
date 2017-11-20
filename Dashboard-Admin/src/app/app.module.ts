@@ -20,7 +20,6 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { RegisterComponent } from './components/users/register.component';
 import { ListUsersComponent } from './components/users/list.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -2,21 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using AutoMapper;
 using ReactiveUI;
 using Restaurant.Abstractions.Api;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
-using Restaurant.ViewModels;
 
 namespace Restaurant.Core.ViewModels
 {
     public class BasketViewModel : BaseViewModel, IBasketViewModel
     {
-        private readonly INavigationService _navigationService;
-        private ReactiveList<IOrderViewModel> _orders = new ReactiveList<IOrderViewModel>();
+        private ReactiveList<IOrderViewModel> _orders = new ReactiveList<IOrderViewModel> { ChangeTrackingEnabled = true };
         private string _ordersCount;
 
         public BasketViewModel(
@@ -24,9 +21,8 @@ namespace Restaurant.Core.ViewModels
             IAutoMapperFacade mapperFacade,
             INavigationService navigationService)
         {
-            _navigationService = navigationService;
             this.WhenAnyValue(x => x.Orders.Count).Subscribe(x => { OrdersCount = x == 0 ? null : x.ToString(); });
-
+            
             CompleteOrder = ReactiveCommand.Create(() =>
             {
                 var orderItems = mapperFacade.Map<IEnumerable<OrderItemDto>>(Orders);
@@ -36,7 +32,7 @@ namespace Restaurant.Core.ViewModels
                     OrderItems = new List<OrderItemDto>(orderItems)
                 });
                 Orders.Clear();
-                _navigationService.NavigateToRoot();
+                navigationService.NavigateToRoot();
             });
         }
 

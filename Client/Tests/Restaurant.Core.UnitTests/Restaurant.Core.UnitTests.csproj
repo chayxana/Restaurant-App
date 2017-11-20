@@ -13,6 +13,7 @@
     <PackageReference Include="AutoFixture" Version="4.0.0-rc1" />
     <PackageReference Include="AutoFixture.NUnit3" Version="4.0.0-rc1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="Mono.Cecil" Version="0.10.0-beta7" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
     <PackageReference Include="NUnit" Version="3.9.0" />

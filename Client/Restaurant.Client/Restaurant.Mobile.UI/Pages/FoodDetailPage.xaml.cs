@@ -29,7 +29,7 @@ namespace Restaurant.Mobile.UI.Pages
                     for (var i = j; i <= totalPrice; i++)
                     {
                         await Task.Delay(5);
-                        //TotalPrice.Text = $"{i:C}";
+                        TotalPrice.Text = $"{i:C}";
                     }
                 });
         }

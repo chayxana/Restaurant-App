@@ -42,6 +42,7 @@ namespace Restaurant.Core
             builder.RegisterType<ViewModelFactory>().As<IViewModelFactory>();
             builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             builder.RegisterType<NavigationItemAdapter>().As<INavigationItemAdapter>();
+            builder.RegisterType<OrderDtoAdapter>().As<IOrderDtoAdapter>();
 
             IFoodsApi foodApi;
             IOrdersApi ordersApi;

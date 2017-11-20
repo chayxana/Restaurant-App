@@ -7,7 +7,7 @@ namespace Restaurant.Abstractions.ViewModels
     {
         ReactiveList<IOrderViewModel> Orders { get; }
 
-        string OrdersCount { get; set; }
+        string OrdersCount { get; }
 
         void AddOrder(IOrderViewModel order);
     }

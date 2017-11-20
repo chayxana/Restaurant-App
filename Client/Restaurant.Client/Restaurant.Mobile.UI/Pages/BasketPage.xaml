@@ -16,12 +16,9 @@
 
     <pages:BasketPageXaml.Content>
         <AbsoluteLayout>
-          
-            
-          
-
             <StackLayout AbsoluteLayout.LayoutBounds="1, 1, 1, .8"
-                         AbsoluteLayout.LayoutFlags="All">
+                         AbsoluteLayout.LayoutFlags="All"
+                         Margin="0, 15, 0, 0">
                
                 <ListView x:Name="orders" ItemsSource="{Binding Orders}" SeparatorColor="{StaticResource grayPrimary}"
                           RowHeight="100">
@@ -72,16 +69,17 @@
 
             <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 0.2" 
                          AbsoluteLayout.LayoutFlags="All"
-                         BackgroundColor="{StaticResource primaryColor}">
-
+                         BackgroundColor="{StaticResource primaryColor}" Padding="20, 5, 20, 20">
+                <Label Text="Total Price:" FontSize="Large" TextColor="White"/>
+                <Label Text="{Binding TotalPrice, StringFormat='{0:C}'}" FontSize="Medium" TextColor="White"/>
             </StackLayout>
 
             <controls:FloatingActionButton AbsoluteLayout.LayoutBounds=".9, .16, 50, 50"
                                            Command="{Binding CompleteOrder}"
                                            AbsoluteLayout.LayoutFlags="PositionProportional"
                                            RippleColor="{StaticResource primaryColorLight}"
-                                           BackgroundColor="{StaticResource grayPrimary}"
-                                           Image="ic_heart_outline_white_24dp.png"/>
+                                           ButtonColor="{StaticResource badgeColor}"
+                                           Image="check"/>
         </AbsoluteLayout>
     </pages:BasketPageXaml.Content>
 </pages:BasketPageXaml>

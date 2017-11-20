@@ -75,6 +75,10 @@ function Invoke-Build([string]$SolutionName, $Configuration) {
 }
 
 function Invoke-Test([string]$Configuration, $TestProjectFile) {
+    Write-Host -ForegroundColor Green "Testing $TestProjectFile"
+    
+    & dotnet restore $TestProjectFile
+    & dotnet build -f "netcoreapp2.0" -c $Configuration $TestProjectFile
     & dotnet test -f "netcoreapp2.0" -c $Configuration $TestProjectFile
 
     CheckLastExitCode    
@@ -82,7 +86,16 @@ function Invoke-Test([string]$Configuration, $TestProjectFile) {
 
 function Invoke-CalculateCodeCoverage ($OpenCover, $Framework, $Config, $TestProjectFile, $CoverageFolder) {
     Write-Host "Calculating code coverage with OpenCover" -ForegroundColor Green
-    & $OpenCover -target:"c:\Program Files\dotnet\dotnet.exe" -targetargs:"test -f $Framework -c $Config $TestProjectFile" -mergeoutput -hideskipped:File -output:"$CoverageFolder/coverage.xml" -oldStyle -filter:"+[Restaurant.Core*]* -[Restaurant.Core.UnitTests*]*" -searchdirs:"Client/Tests/Restaurant.Core.UnitTests/bin/$Config/$Framework" -register:user -excludebyattribute:*.ExcludeFromCodeCoverage*
+    & $OpenCover -target:"c:\Program Files\dotnet\dotnet.exe" `
+     -targetargs:"test -f $Framework -c $Config $TestProjectFile" `
+     -mergeoutput `
+     -hideskipped:File `
+     -output:"$CoverageFolder/coverage.xml" `
+     -oldStyle `
+     -filter:"+[Restaurant.Core*]* -[Restaurant.Core.UnitTests*]*" `
+     -searchdirs:"Client/Tests/Restaurant.Core.UnitTests/bin/$Config/$Framework" `
+     -register:user `
+     -excludebyattribute:*.ExcludeFromCodeCoverage*
     
     CheckLastExitCode
 }

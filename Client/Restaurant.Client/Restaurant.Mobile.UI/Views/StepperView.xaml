@@ -2,10 +2,11 @@
 
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls;assembly=Restaurant.Mobile.UI"
              x:Class="Restaurant.Mobile.UI.Views.StepperView">
     <ContentView.Content>
         <StackLayout Orientation="Horizontal">
-            <Button Image="minus" WidthRequest="30" HeightRequest="15" Clicked="MinusButton_OnClicked"
+            <controls:FlatButton Image="minus" WidthRequest="30" HeightRequest="15" Clicked="MinusButton_OnClicked"
                     BackgroundColor="Transparent" />
             <Grid VerticalOptions="Center">
                 <Frame CornerRadius="8" BackgroundColor="{StaticResource grayLight}"  HasShadow="False"
@@ -14,7 +15,7 @@
                     <Label TextColor="Black" x:Name="StepLabel" FontSize="15" />
                 </StackLayout>
             </Grid>
-            <Button Image="plus" WidthRequest="30" HeightRequest="15" BackgroundColor="Transparent"
+            <controls:FlatButton Image="plus" WidthRequest="30" HeightRequest="15" BackgroundColor="Transparent"
                     Clicked="PlusButton_OnClicked" />
         </StackLayout>
     </ContentView.Content>

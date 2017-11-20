@@ -311,6 +311,9 @@
     <AndroidResource Include="Resources\drawable\search.xml" />
     <AndroidResource Include="Resources\drawable\up_arrow.png" />
     <AndroidResource Include="Resources\drawable\ViewCellBackground.xml" />
+    <AndroidResource Include="Resources\drawable\check.xml" />
+    <AndroidResource Include="Resources\drawable\heart.xml" />
+    <AndroidResource Include="Resources\drawable\heart_outline_white.xml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

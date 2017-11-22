@@ -40,7 +40,8 @@
                        Source="{Binding SelectedFood.Picture}"
                        Aspect="AspectFill" />
 
-                <Grid Opacity=".5" BackgroundColor="{StaticResource asphaltDark}" />
+                <Grid Opacity=".5" BackgroundColor="{StaticResource asphaltDark}" HorizontalOptions="FillAndExpand"
+                      VerticalOptions="FillAndExpand"/>
 
                 <StackLayout Padding="10, 10, 10, 35" VerticalOptions="EndAndExpand">
                     <StackLayout Spacing="0" Padding="10">

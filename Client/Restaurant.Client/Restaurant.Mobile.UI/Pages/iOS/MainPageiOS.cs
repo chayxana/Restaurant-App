@@ -17,9 +17,14 @@ namespace Restaurant.Mobile.UI.Pages.iOS
             var foodsPage = BootstrapperBase.Container.Resolve<IViewFactory>().ResolveView(foodsViewModel);
 
 
-            Children.Add(new NavigationPage(foodsPage as Page) {Title = "Foods", Icon = "restaurant"});
+            Children.Add(new NavigationPage(foodsPage as Page) {Title = "Foods", Icon = "foods"});
             Children.Add(new ChatPage());
             Children.Add(new OrdersPage());
+        }
+
+        protected override void OnCurrentPageChanged()
+        {
+            base.OnCurrentPageChanged();
         }
 
         object IViewFor.ViewModel

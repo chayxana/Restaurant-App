@@ -5,7 +5,7 @@
              x:Class="Restaurant.Mobile.UI.Views.FoodsSearchView">
     <ContentView.Content>
         <StackLayout BackgroundColor="{StaticResource primaryColor}">
-            <SearchBar x:Name="SearchBar">
+            <SearchBar x:Name="SearchBar" Placeholder="Search">
                 <SearchBar.Margin>
                     <OnPlatform x:TypeArguments="Thickness">
                         <On Platform="Android" Value="0, 6 , 6, 6"/>

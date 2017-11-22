@@ -121,7 +121,7 @@
                 <Setter Property="effects:NumberOfLinesEffect.ApplyNumberOfLines"
                         Value="True" />
                 <Setter Property="effects:NumberOfLinesEffect.NumberOfLines"
-                        Value="4" />
+                        Value="3" />
             </Style>
 
             <Style x:Key="BasketFoodsDescriptionLabelStyle" TargetType="{x:Type Label}">

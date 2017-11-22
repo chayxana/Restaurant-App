@@ -14,8 +14,8 @@ namespace Restaurant.Mobile.UI.Pages
 
         protected override async void OnLoaded()
         {
-            BindingContext = ViewModel;
-            await ViewModel.LoadOrders();
+            //BindingContext = ViewModel;
+            //await ViewModel.LoadOrders();
         }
     }
 

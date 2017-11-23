@@ -14,7 +14,6 @@ namespace Restaurant.Mobile.UI.Pages.Android
     {
         public MainPageAndroid()
         {
-            NavigationPage.SetHasNavigationBar(this, false);
             var container = BootstrapperBase.Container;
             var viewFactory = container.Resolve<IViewFactory>();
 

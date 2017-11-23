@@ -3,12 +3,12 @@ using Restaurant.ViewModels;
 
 namespace Restaurant.Abstractions.ViewModels
 {
-	public interface IBasketViewModel : INavigatableViewModel
-	{
-		ReactiveList<IOrderViewModel> Orders { get; }
+    public interface IBasketViewModel : INavigatableViewModel
+    {
+        ReactiveList<IOrderViewModel> Orders { get; }
 
-		string OrdersCount { get; set; }
+        string OrdersCount { get; }
 
-		void AddOrder(IOrderViewModel order);
-	}
+        void AddOrder(IOrderViewModel order);
+    }
 }

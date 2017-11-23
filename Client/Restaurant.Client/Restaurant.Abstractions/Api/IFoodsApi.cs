@@ -7,25 +7,25 @@ using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Abstractions.Api
 {
-	public interface IFoodsApi : IApi
-	{
-		[Get("/api/Foods")]
-		Task<IEnumerable<FoodDto>> GetFoods();
+    public interface IFoodsApi : IApi
+    {
+        [Get("/api/Foods")]
+        Task<IEnumerable<FoodDto>> GetFoods();
 
-		[Get("/api/Foods/{id}")]
-		Task<FoodDto> GetFood(Guid id);
+        [Get("/api/Foods/{id}")]
+        Task<FoodDto> GetFood(Guid id);
 
-		[Post("/api/Foods")]
-		Task Create([Body] FoodDto food);
+        [Post("/api/Foods")]
+        Task Create([Body] FoodDto food);
 
-		[Post("/api/Foods/UploadFile")]
-		[Multipart]
-		Task UploadFile(Stream file, string foodId);
+        [Post("/api/Foods/UploadFile")]
+        [Multipart]
+        Task UploadFile(Stream file, string foodId);
 
-		[Put("/api/Foods/{id}")]
-		Task Update(Guid id, [Body] FoodDto food);
+        [Put("/api/Foods/{id}")]
+        Task Update(Guid id, [Body] FoodDto food);
 
-		[Delete("/api/Foods/{id}")]
-		Task Remove(Guid id);
-	}
+        [Delete("/api/Foods/{id}")]
+        Task Remove(Guid id);
+    }
 }

@@ -1,30 +1,47 @@
-﻿using Android.App;
+﻿using System;
+using System.Threading.Tasks;
+using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Support.V7.App;
+using ImageCircle.Forms.Plugin.Droid;
+using Restaurant.Mobile.UI;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-
 namespace Restaurant.Droid
 {
-    [Activity(Label = "Restaurant", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Restaurant", Icon = "@drawable/icon", MainLauncher = true,
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity
-    {	
-		protected override void OnCreate(Bundle bundle)
+    {
+        static MainActivity()
+        {
+            AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
+        }
+        protected override void OnCreate(Bundle bundle)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.toolbar;
 
-			base.OnCreate(bundle);
-            
+            base.OnCreate(bundle);
+
             Forms.Init(this, bundle);
-	        ImageCircle.Forms.Plugin.Droid.ImageCircleRenderer.Init();
-            LoadApplication(new Mobile.UI.App());
+            ImageCircleRenderer.Init();
+            LoadApplication(new App());
 
 
-            XFGloss.Droid.Library.Init(this, bundle);
-	        RoundedBoxView.Forms.Plugin.Droid.RoundedBoxViewRenderer.Init();
-		}
-	}
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
+        }
+
+        private void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+        }
+
+        private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Console.WriteLine(e.ExceptionObject.ToString());
+        }
+    }
 }
-

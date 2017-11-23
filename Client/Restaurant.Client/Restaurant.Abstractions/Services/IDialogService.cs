@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Abstractions.Services
 {
-	public interface IDialogService
-	{
-	}
+    public interface IDialogService
+    {
+    }
 }

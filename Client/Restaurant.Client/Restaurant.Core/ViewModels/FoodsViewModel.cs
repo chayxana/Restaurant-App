@@ -12,68 +12,69 @@ using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Core.ViewModels
 {
-	public class FoodsViewModel : BaseViewModel
-	{
-		private readonly IFoodDetailViewModelAdapter _foodDetailViewModelAdapter;
-		private readonly IFoodsApi _foodsApi;
-		private readonly INavigationService _navigationService;
-		private ObservableCollection<FoodDto> _foods;
-		private FoodDto _selectedFood;
+    public class FoodsViewModel : BaseViewModel
+    {
+        private readonly IFoodDetailViewModelAdapter _foodDetailViewModelAdapter;
+        private readonly IFoodsApi _foodsApi;
+        private readonly INavigationService _navigationService;
+        private ObservableCollection<FoodDto> _foods;
+        private FoodDto _selectedFood;
 
-		public FoodsViewModel(
-			IBasketViewModel basketViewModel,
-			IFoodsApi foodsApi,
-			INavigationService navigationService,
-			IFoodDetailViewModelAdapter foodDetailViewModelAdapter)
-		{
-			_foodsApi = foodsApi;
-			_navigationService = navigationService;
-			_foodDetailViewModelAdapter = foodDetailViewModelAdapter;
+        public FoodsViewModel(
+            IBasketViewModel basketViewModel,
+            IFoodsApi foodsApi,
+            INavigationService navigationService,
+            IFoodDetailViewModelAdapter foodDetailViewModelAdapter)
+        {
+            _foodsApi = foodsApi;
+            _navigationService = navigationService;
+            _foodDetailViewModelAdapter = foodDetailViewModelAdapter;
 
-			this.WhenAnyValue(x => x.SelectedFood)
-				.Where(x => x != null)
-				.Subscribe(async food => await NavigateToFoodDetail(food));
+            this.WhenAnyValue(x => x.SelectedFood)
+                .Where(x => x != null)
+                .Subscribe(async food => await NavigateToFoodDetail(food));
 
-			GoToBasket = ReactiveCommand.CreateFromTask(async () => await _navigationService.NavigateAsync(BasketViewModel));
+            GoToBasket =
+                ReactiveCommand.CreateFromTask(async () => await _navigationService.NavigateAsync(BasketViewModel));
 
-			BasketViewModel = basketViewModel;
-		}
+            BasketViewModel = basketViewModel;
+        }
 
-		public ObservableCollection<FoodDto> Foods
-		{
-			get => _foods;
-			private set => this.RaiseAndSetIfChanged(ref _foods, value);
-		}
+        public ObservableCollection<FoodDto> Foods
+        {
+            get => _foods;
+            private set => this.RaiseAndSetIfChanged(ref _foods, value);
+        }
 
-		public FoodDto SelectedFood
-		{
-			get => _selectedFood;
-			set => this.RaiseAndSetIfChanged(ref _selectedFood, value);
-		}
+        public FoodDto SelectedFood
+        {
+            get => _selectedFood;
+            set => this.RaiseAndSetIfChanged(ref _selectedFood, value);
+        }
 
-		public IBasketViewModel BasketViewModel { get; }
+        public IBasketViewModel BasketViewModel { get; }
 
-		public ICommand GoToBasket { get; set; }
+        public ICommand GoToBasket { get; set; }
 
-		public override string Title => "Foods";
+        public override string Title => "Foods";
 
-		public async Task LoadFoods()
-		{
-			IsLoading = true;
-			var foods = await _foodsApi.GetFoods();
-			//if (!BootstrapperBase.MockData)
-			//{
-			//	foreach (var food in foods)
-			//		food.Picture = "http://restaurantserverapi.azurewebsites.net" + food.Picture;
-			//}
-			Foods = new ObservableCollection<FoodDto>(foods);
-			IsLoading = false;
-		}
+        public async Task LoadFoods()
+        {
+            IsLoading = true;
+            var foods = await _foodsApi.GetFoods();
+            //if (!BootstrapperBase.MockData)
+            //{
+            //	foreach (var food in foods)
+            //		food.Picture = "http://restaurantserverapi.azurewebsites.net" + food.Picture;
+            //}
+            Foods = new ObservableCollection<FoodDto>(foods);
+            IsLoading = false;
+        }
 
-		private async Task NavigateToFoodDetail(FoodDto food)
-		{
-			var viewModel = _foodDetailViewModelAdapter.GetFoodDetailViewModel(food);
-			await _navigationService.NavigateAsync(viewModel);
-		}
-	}
+        private async Task NavigateToFoodDetail(FoodDto food)
+        {
+            var viewModel = _foodDetailViewModelAdapter.GetFoodDetailViewModel(food);
+            await _navigationService.NavigateAsync(viewModel);
+        }
+    }
 }

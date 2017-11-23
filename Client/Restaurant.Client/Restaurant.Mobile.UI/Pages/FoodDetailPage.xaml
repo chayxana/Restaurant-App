@@ -13,7 +13,9 @@
                           d:DataContext="{d:DesignInstance viewModels:FoodDetailViewModel}">
 
     <pages:FoodDetailPage.ToolbarItems>
-        <controls:BadgeToolbarItem Icon="ic_shopping_cart_white" Command="{Binding GoToBasket}" BadgeColor="{StaticResource badgeColor}" BadgePressedColor="{StaticResource badgeColor}"
+        <controls:BadgeToolbarItem Icon="ic_shopping_cart_white" Command="{Binding GoToBasket}"
+                                   BadgeColor="{StaticResource badgeColor}"
+                                   BadgePressedColor="{StaticResource badgeColor}"
                                    BadgeText="{Binding BasketViewModel.OrdersCount}" />
     </pages:FoodDetailPage.ToolbarItems>
 
@@ -38,7 +40,8 @@
                        Source="{Binding SelectedFood.Picture}"
                        Aspect="AspectFill" />
 
-                <Grid Opacity=".5" BackgroundColor="{StaticResource asphaltDark}" />
+                <Grid Opacity=".5" BackgroundColor="{StaticResource asphaltDark}" HorizontalOptions="FillAndExpand"
+                      VerticalOptions="FillAndExpand"/>
 
                 <StackLayout Padding="10, 10, 10, 35" VerticalOptions="EndAndExpand">
                     <StackLayout Spacing="0" Padding="10">
@@ -96,15 +99,6 @@
         <controls:FloatingActionButton AbsoluteLayout.LayoutBounds=".9, .5, 50, 50"
                                        AbsoluteLayout.LayoutFlags="PositionProportional"
                                        RippleColor="{StaticResource primaryColorLight}"
-                                       Image="ic_heart_outline_white_24dp.png">
-
-            <!--<controls:FloatingActionButton.IsVisible>
-                <OnPlatform x:TypeArguments="x:Boolean">
-                    <On Platform="Android" Value="True" />
-                    <On Platform="iOS" Value="False" />
-                    <On Platform="Uwp" Value="False" />
-                </OnPlatform>
-            </controls:FloatingActionButton.IsVisible>-->
-        </controls:FloatingActionButton>
+                                       Image="heart_outline_white"/>
     </AbsoluteLayout>
 </pages:FoodDetailPageXaml>

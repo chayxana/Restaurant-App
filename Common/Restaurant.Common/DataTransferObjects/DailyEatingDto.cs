@@ -5,9 +5,9 @@ namespace Restaurant.Common.DataTransferObjects
 {
     public class DailyEatingDto
     {
-	    public Guid Id { get; set; }
+        public Guid Id { get; set; }
 
-	    public DateTime DateTime { get; set; }
+        public DateTime DateTime { get; set; }
 
         public decimal AdditionalAmount { get; set; }
 
@@ -18,7 +18,7 @@ namespace Restaurant.Common.DataTransferObjects
         public string Reciept { get; set; }
 
         public virtual ICollection<OrderDto> Orders { get; set; }
-        
+
         public decimal TotalAmount => AdditionalAmount + Amount;
     }
 }

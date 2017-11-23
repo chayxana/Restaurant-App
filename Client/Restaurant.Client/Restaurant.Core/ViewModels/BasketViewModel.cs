@@ -1,47 +1,65 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
+using System.Reactive.Linq;
+using System.Windows.Input;
 using ReactiveUI;
+using Restaurant.Abstractions.Adapters;
+using Restaurant.Abstractions.Api;
+using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.ViewModels;
 
 namespace Restaurant.Core.ViewModels
 {
-	public class BasketViewModel : BaseViewModel, IBasketViewModel
-	{
-		private ReactiveList<IOrderViewModel> _orders = new ReactiveList<IOrderViewModel>();
-		private string _ordersCount;
+    public class BasketViewModel : BaseViewModel, IBasketViewModel
+    {
+        private ReactiveList<IOrderViewModel> _orders = new ReactiveList<IOrderViewModel> { ChangeTrackingEnabled = true };
+        private readonly ObservableAsPropertyHelper<decimal> _totalPrice;
+        private readonly ObservableAsPropertyHelper<string> _ordersCount;
 
-		public BasketViewModel()
-		{
-			this.WhenAnyValue(x => x.Orders.Count).Subscribe(x =>
-			{
-				OrdersCount = x == 0 ? null : x.ToString();
-			});
-		}
+        public BasketViewModel(
+            IOrdersApi ordersApi,
+            INavigationService navigationService,
+            IOrderDtoAdapter orderDtoAdapter)
+        {
+           _ordersCount = this.WhenAnyValue(x => x.Orders.Count)
+                .Select(count => count == 0 ? null : count.ToString())
+                .ToProperty(this, x => x.OrdersCount);
 
-		public ReactiveList<IOrderViewModel> Orders
-		{
-			get => _orders;
-			set => this.RaiseAndSetIfChanged(ref _orders, value);
-		}
+            _totalPrice = this.WhenAnyObservable(vm => vm.Orders.ItemChanged)
+                .Select(x => Orders.Sum(o => o.TotalPrice))
+                .ToProperty(this, x => x.TotalPrice);
 
-		public string OrdersCount
-		{
-			get => _ordersCount;
-			set => this.RaiseAndSetIfChanged(ref _ordersCount, value);
-		}
+            CompleteOrder = ReactiveCommand.Create(() =>
+            {
+                var orderDto = orderDtoAdapter.GetOrderDto(Orders);
+                ordersApi.Create(orderDto);
+                Orders.Clear();
+                navigationService.NavigateToRoot();
+            });
+        }
 
-		public void AddOrder(IOrderViewModel order)
-		{
-			_orders.Add(order);
+        public decimal TotalPrice => _totalPrice.Value;
 
-			var groupedOrders = _orders
-				.GroupBy(x => x.Food)
-				.Select(orders => new OrderViewModel(orders.Key, orders.Sum(s => s.Quantity)));
+        public string OrdersCount => _ordersCount.Value;
 
-			Orders = new ReactiveList<IOrderViewModel>(groupedOrders);
-		}
+        public ReactiveList<IOrderViewModel> Orders
+        {
+            get => _orders;
+            set => this.RaiseAndSetIfChanged(ref _orders, value);
+        }
 
-		public override string Title => "Your basket";
-	}
+        public void AddOrder(IOrderViewModel order)
+        {
+            _orders.Add(order.Clone());
+
+            var groupedOrders = _orders
+                .GroupBy(x => x.Food.Id)
+                .Select(orders => new OrderViewModel(orders.Select(x => x.Food).FirstOrDefault(x => x.Id == orders.Key), orders.Sum(s => s.Quantity)));
+
+            Orders = new ReactiveList<IOrderViewModel>(groupedOrders) { ChangeTrackingEnabled = true };
+        }
+
+        public ICommand CompleteOrder { get; }
+
+        public override string Title => "Your basket";
+    }
 }

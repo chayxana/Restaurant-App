@@ -1,31 +1,33 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Threading.Tasks;
 using Restaurant.Abstractions.Managers;
 using Restaurant.Common.DataTransferObjects;
 
-namespace Restaurant.MockData
+namespace Restaurant.Core.MockData
 {
-	public class MockAuthenticationManager : IAuthenticationManager
-	{
-		public Task<TokenResponse> Login(LoginDto loginDto)
-		{
-			return Task.FromResult(new TokenResponse { HttpStatusCode = HttpStatusCode.OK, IsError = false });
-		}
+    [ExcludeFromCodeCoverage]
+    public class MockAuthenticationManager : IAuthenticationManager
+    {
+        public Task<TokenResponse> Login(LoginDto loginDto)
+        {
+            return Task.FromResult(new TokenResponse {HttpStatusCode = HttpStatusCode.OK, IsError = false});
+        }
 
-		public Task<object> Register(RegisterDto registerDto)
-		{
-			return Task.FromResult(new object());
-		}
+        public Task<object> Register(RegisterDto registerDto)
+        {
+            return Task.FromResult(new object());
+        }
 
-		public Task<bool> ValidateToken(string accessToken)
-		{
-			return Task.FromResult(true);
-		}
+        public Task<bool> ValidateToken(string accessToken)
+        {
+            return Task.FromResult(true);
+        }
 
-		public Task<bool> LogOut()
-		{
-			throw new NotImplementedException();
-		}
-	}
+        public Task<bool> LogOut()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

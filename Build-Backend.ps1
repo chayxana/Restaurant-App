@@ -65,7 +65,16 @@ function Invoke-RemoveCoverageFolder ($CoverageFolder) {
 
 function Invoke-CalculateCodeCoverage ($OpenCover, $Framework, $Config, $TestProjectFile, $CoverageFolder) {
     Write-Host "Calculating code coverage with OpenCover" -ForegroundColor Green
-    & $OpenCover -target:"c:\Program Files\dotnet\dotnet.exe" -targetargs:"test -f $Framework -c $Config $TestProjectFile" -mergeoutput -hideskipped:File -output:"$CoverageFolder/coverage.xml" -oldStyle -filter:"+[Restaurant.Server.Api*]* -[Restaurant.Server.Api.UnitTests*]*" -searchdirs:"Server/Tests/Restaurant.Server.Api.UnitTests/bin/$Config/$Framework" -register:user -excludebyattribute:*.ExcludeFromCodeCoverage*
+    & $OpenCover -target:"c:\Program Files\dotnet\dotnet.exe" `
+     -targetargs:"test -f $Framework -c $Config $TestProjectFile" `
+     -mergeoutput `
+     -hideskipped:File `
+     -output:"$CoverageFolder/coverage.xml" `
+     -oldStyle `
+     -filter:"+[Restaurant*]* -[Restaurant.Server.Api.UnitTests*]*" `
+     -searchdirs:"Server/Tests/Restaurant.Server.Api.UnitTests/bin/$Config/$Framework" `
+     -register:user `
+     -excludebyattribute:*.ExcludeFromCodeCoverage*
     
     CheckLastExitCode
 }
@@ -78,9 +87,15 @@ function Invoke-UploadCodeCoverage ($CodeCov, $CoverageFolder, $CodeCovToken) {
 }
 
 Invoke-InstallOpenCover
+
 Invoke-Restore -SolutionName $SolutionName
+
 Invoke-Build -SolutionName $SolutionName -Config $Config
+
 Invoke-Test -Framework $Framework -Config $Config -TestProjectFile $TestProjectFile
+
 Invoke-RemoveCoverageFolder -CoverageFolder $CoverageFolder
+
 Invoke-CalculateCodeCoverage -OpenCover $OpenCover -Framework $Framework -Config $Config -TestProjectFile $TestProjectFile -CoverageFolder $CoverageFolder
+
 Invoke-UploadCodeCoverage -CodeCov $CodeCov -CoverageFolder $CoverageFolder -CodeCovToken $CodeCovToken

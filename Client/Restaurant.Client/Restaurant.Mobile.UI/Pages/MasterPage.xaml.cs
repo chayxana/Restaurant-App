@@ -2,11 +2,11 @@
 
 namespace Restaurant.Mobile.UI.Pages
 {
-	public partial class MasterPage : ContentPage
-	{
-		public MasterPage()
-		{
-			InitializeComponent();
-		}
-	}
+    public partial class MasterPage : ContentPage
+    {
+        public MasterPage()
+        {
+            InitializeComponent();
+        }
+    }
 }

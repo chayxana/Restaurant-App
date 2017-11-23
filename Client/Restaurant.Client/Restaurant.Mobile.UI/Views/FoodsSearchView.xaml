@@ -1,10 +1,24 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Restaurant.Mobile.UI.Views.FoodsSearchView">
-  <ContentView.Content>
-      <StackLayout BackgroundColor="{StaticResource primaryColor}">
-          <SearchBar x:Name="SearchBar" TextColor="White" CancelButtonColor="White"></SearchBar>
-      </StackLayout>
-  </ContentView.Content>
+    <ContentView.Content>
+        <StackLayout BackgroundColor="{StaticResource primaryColor}">
+            <SearchBar x:Name="SearchBar" Placeholder="Search">
+                <SearchBar.Margin>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="Android" Value="0, 6 , 6, 6"/>
+                        <On Platform="iOS" Value="0"/>
+                    </OnPlatform>
+                </SearchBar.Margin>
+                <SearchBar.TextColor>
+                    <OnPlatform x:TypeArguments="Color">
+                        <On Platform="iOS" Value="{StaticResource asphaltDark}" />
+                        <On Platform="Android" Value="White" />
+                    </OnPlatform>
+                </SearchBar.TextColor>
+            </SearchBar>
+        </StackLayout>
+    </ContentView.Content>
 </ContentView>

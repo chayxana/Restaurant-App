@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(RestaurantEntry), typeof(RestaurantEntryRenderer))]
+
 namespace Restaurant.iOS.Renderers
 {
     public class RestaurantEntryRenderer : EntryRenderer
@@ -15,7 +16,7 @@ namespace Restaurant.iOS.Renderers
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
         {
             base.OnElementChanged(e);
-            var view = (RestaurantEntry)Element;
+            var view = (RestaurantEntry) Element;
 
             if (view != null)
             {
@@ -28,7 +29,7 @@ namespace Restaurant.iOS.Renderers
             }
         }
 
-        void SetFont(RestaurantEntry view)
+        private void SetFont(RestaurantEntry view)
         {
             UIFont uiFont;
             if (view.Font != Font.Default && (uiFont = view.Font.ToUIFont()) != null)
@@ -37,13 +38,13 @@ namespace Restaurant.iOS.Renderers
                 Control.Font = UIFont.SystemFontOfSize(17f);
         }
 
-        void SetFontFamily(RestaurantEntry view)
+        private void SetFontFamily(RestaurantEntry view)
         {
             UIFont uiFont;
 
             if (!string.IsNullOrWhiteSpace(view.FontFamily) && (uiFont = view.Font.ToUIFont()) != null)
             {
-                var ui = UIFont.FromName(view.FontFamily, (nfloat)(view.Font != null ? view.Font.FontSize : 17f));
+                var ui = UIFont.FromName(view.FontFamily, (nfloat) (view.Font != null ? view.Font.FontSize : 17f));
                 Control.Font = uiFont;
             }
         }
@@ -52,12 +53,12 @@ namespace Restaurant.iOS.Renderers
         {
             base.OnElementPropertyChanged(sender, e);
 
-            var view = (RestaurantEntry)Element;
+            var view = (RestaurantEntry) Element;
 
             if (e.PropertyName == RestaurantEntry.FontProperty.PropertyName)
                 SetFont(view);
 
-            if (e.PropertyName == RestaurantEntry.FontFamilyProperty.PropertyName)
+            if (e.PropertyName == Entry.FontFamilyProperty.PropertyName)
                 SetFontFamily(view);
 
             if (e.PropertyName == RestaurantEntry.HasBorderProperty.PropertyName)
@@ -73,7 +74,7 @@ namespace Restaurant.iOS.Renderers
                 SetPlaceholderTextColor(view);
         }
 
-        void SetMaxLength(RestaurantEntry view)
+        private void SetMaxLength(RestaurantEntry view)
         {
             Control.ShouldChangeCharacters = (textField, range, replacementString) =>
             {
@@ -82,12 +83,12 @@ namespace Restaurant.iOS.Renderers
             };
         }
 
-        void SetBorder(RestaurantEntry view)
+        private void SetBorder(RestaurantEntry view)
         {
             Control.BorderStyle = view.HasBorder ? UITextBorderStyle.RoundedRect : UITextBorderStyle.None;
         }
 
-        void SetTextAlignment(RestaurantEntry view)
+        private void SetTextAlignment(RestaurantEntry view)
         {
             switch (view.XAlign)
             {
@@ -104,10 +105,10 @@ namespace Restaurant.iOS.Renderers
         }
 
         /// <summary>
-        /// Sets the color of the placeholder text.
+        ///     Sets the color of the placeholder text.
         /// </summary>
         /// <param name="view">The view.</param>
-        void SetPlaceholderTextColor(RestaurantEntry view)
+        private void SetPlaceholderTextColor(RestaurantEntry view)
         {
             /*
 UIColor *color = [UIColor lightTextColor];
@@ -115,7 +116,8 @@ YOURTEXTFIELD.attributedPlaceholder = [[NSAttributedString alloc] initWithString
             */
             if (string.IsNullOrEmpty(view.Placeholder) == false && view.PlaceholderTextColor != Color.Default)
             {
-                NSAttributedString placeholderString = new NSAttributedString(view.Placeholder, new UIStringAttributes { ForegroundColor = view.PlaceholderTextColor.ToUIColor() });
+                var placeholderString = new NSAttributedString(view.Placeholder,
+                    new UIStringAttributes {ForegroundColor = view.PlaceholderTextColor.ToUIColor()});
                 Control.AttributedPlaceholder = placeholderString;
             }
         }

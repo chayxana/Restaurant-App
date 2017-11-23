@@ -6,11 +6,15 @@ namespace Restaurant.Mobile.UI.Effects
     public static class NumberOfLinesEffect
     {
         public static readonly BindableProperty ApplyNumberOfLinesProperty =
-            BindableProperty.CreateAttached("ApplyNumberOfLines", typeof(bool), typeof(NumberOfLinesEffect), false, propertyChanged: OnApplyNumberOfLinesChanged);
+            BindableProperty.CreateAttached("ApplyNumberOfLines", typeof(bool), typeof(NumberOfLinesEffect), false,
+                propertyChanged: OnApplyNumberOfLinesChanged);
+
+        public static readonly BindableProperty NumberOfLinesProperty =
+            BindableProperty.CreateAttached("NumberOfLines", typeof(int), typeof(NumberOfLinesEffect), 1);
 
         public static bool GetApplyNumberOfLines(BindableObject view)
         {
-            return (bool)view.GetValue(ApplyNumberOfLinesProperty);
+            return (bool) view.GetValue(ApplyNumberOfLinesProperty);
         }
 
         public static void SetApplyNumberOfLines(BindableObject view, bool value)
@@ -22,11 +26,9 @@ namespace Restaurant.Mobile.UI.Effects
         {
             var view = bindable as View;
             if (view == null)
-            {
                 return;
-            }
 
-            bool hasShadow = (bool)newValue;
+            var hasShadow = (bool) newValue;
             if (hasShadow)
             {
                 view.Effects.Add(new MaxLinesEffect());
@@ -35,18 +37,13 @@ namespace Restaurant.Mobile.UI.Effects
             {
                 var toRemove = view.Effects.FirstOrDefault(e => e is MaxLinesEffect);
                 if (toRemove != null)
-                {
                     view.Effects.Remove(toRemove);
-                }
             }
         }
 
-        public static readonly BindableProperty NumberOfLinesProperty =
-           BindableProperty.CreateAttached("NumberOfLines", typeof(int), typeof(NumberOfLinesEffect), 1);
-
         public static int GetNumberOfLines(BindableObject view)
         {
-            return (int)view.GetValue(NumberOfLinesProperty);
+            return (int) view.GetValue(NumberOfLinesProperty);
         }
 
         public static void SetNumberOfLines(BindableObject view, int value)
@@ -55,7 +52,7 @@ namespace Restaurant.Mobile.UI.Effects
         }
     }
 
-    class MaxLinesEffect : RoutingEffect
+    internal class MaxLinesEffect : RoutingEffect
     {
         public MaxLinesEffect() : base("Restaurant.MaxLinesEffect")
         {

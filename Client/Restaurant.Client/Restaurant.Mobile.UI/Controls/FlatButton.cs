@@ -2,7 +2,7 @@
 
 namespace Restaurant.Mobile.UI.Controls
 {
-	public class FlatButton : Button
-	{
-	}
+    public class FlatButton : Button
+    {
+    }
 }

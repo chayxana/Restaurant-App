@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Autofac;
 using Restaurant.Abstractions;
 using Restaurant.Abstractions.Factories;
 
 namespace Restaurant.Core.Factories
 {
+    [ExcludeFromCodeCoverage]
     public class ViewModelFactory : IViewModelFactory
     {
         private readonly IContainer _container;

@@ -1,10 +1,9 @@
-﻿using System;
-using Restaurant.Abstractions.Enums;
+﻿using Restaurant.Abstractions.Enums;
 
 namespace Restaurant.Abstractions.ViewModels
 {
     public interface IMasterViewModel : INavigatableViewModel
-	{
-		NavigationItem SelectedNavigationItem { get; set; }
-	}
+    {
+        NavigationItem SelectedNavigationItem { get; set; }
+    }
 }

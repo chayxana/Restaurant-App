@@ -10,16 +10,16 @@
                       xmlns:viewModels="clr-namespace:Restaurant.Core.ViewModels;assembly=Restaurant.Core"
                       xmlns:pages="clr-namespace:Restaurant.Mobile.UI.Pages;assembly=Restaurant.Mobile.UI"
                       xmlns:views="clr-namespace:Restaurant.Mobile.UI.Views;assembly=Restaurant.Mobile.UI"
+                      xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls;assembly=Restaurant.Mobile.UI"
                       BackgroundColor="{StaticResource WindowBackground}"
                       d:DataContext="{d:DesignInstance viewModels:BasketViewModel}">
 
     <pages:BasketPageXaml.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <StackLayout Grid.Row="0">
+        <AbsoluteLayout>
+            <StackLayout AbsoluteLayout.LayoutBounds="1, 1, 1, .8"
+                         AbsoluteLayout.LayoutFlags="All"
+                         Margin="0, 15, 0, 0">
+               
                 <ListView x:Name="orders" ItemsSource="{Binding Orders}" SeparatorColor="{StaticResource grayPrimary}"
                           RowHeight="100">
                     <ListView.ItemTemplate>
@@ -33,23 +33,24 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
 
-                                        <!--<imagecontrol:CircleImage WidthRequest="60" Margin="10"
+                                        <imagecontrol:CircleImage WidthRequest="60" Margin="10"
                                                                   BorderColor="{StaticResource grayPrimary}"
                                                                   BorderThickness="1"
                                                                   HeightRequest="60" Source="{Binding Food.Picture}"
                                                                   HorizontalOptions="Center"
                                                                   VerticalOptions="Center"
-                                                                  Aspect="AspectFill" />-->
+                                                                  Aspect="AspectFill" />
 
 
                                         <StackLayout Grid.Column="1" VerticalOptions="Center">
                                             <Label Text="{Binding Food.Name}" FontSize="Small"
                                                    LineBreakMode="TailTruncation"
                                                    TextColor="{StaticResource asphaltPrimary}" />
-                                          
+
                                             <Label Text="{Binding Food.Description}" FontSize="Micro"
-                                                   TextColor="{StaticResource grayPrimary}" Style="{StaticResource BasketFoodsDescriptionLabelStyle}" />
-                                          
+                                                   TextColor="{StaticResource grayPrimary}"
+                                                   Style="{StaticResource BasketFoodsDescriptionLabelStyle}" />
+
                                             <Label Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}"
                                                    FontSize="Micro" TextColor="{StaticResource grayPrimary}"
                                                    LineBreakMode="TailTruncation" />
@@ -65,9 +66,20 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </StackLayout>
-            <StackLayout Grid.Row="1" Padding="10, 5,10,10">
-                <Button Text="Complete your orders" />
+
+            <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 0.2" 
+                         AbsoluteLayout.LayoutFlags="All"
+                         BackgroundColor="{StaticResource primaryColor}" Padding="20, 5, 20, 20">
+                <Label Text="Total Price:" FontSize="Large" TextColor="White"/>
+                <Label Text="{Binding TotalPrice, StringFormat='{0:C}'}" FontSize="Medium" TextColor="White"/>
             </StackLayout>
-        </Grid>
+
+            <controls:FloatingActionButton AbsoluteLayout.LayoutBounds=".9, .16, 50, 50"
+                                           Command="{Binding CompleteOrder}"
+                                           AbsoluteLayout.LayoutFlags="PositionProportional"
+                                           RippleColor="{StaticResource primaryColorLight}"
+                                           ButtonColor="{StaticResource badgeColor}"
+                                           Image="check"/>
+        </AbsoluteLayout>
     </pages:BasketPageXaml.Content>
 </pages:BasketPageXaml>

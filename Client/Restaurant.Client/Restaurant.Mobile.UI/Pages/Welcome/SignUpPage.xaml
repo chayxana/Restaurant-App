@@ -61,7 +61,7 @@
                                                   HorizontalOptions="FillAndExpand" IsPassword="true"
                                                   Text="{Binding Password}" />
                     </Grid>
-                  
+
                 </StackLayout>
 
                 <StackLayout Padding="15">

@@ -1,7 +1,10 @@
-﻿namespace Restaurant.Core.Constants
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Restaurant.Core.Constants
 {
-	public static class AppConstants
-	{
-		public const uint AnimationSpeed = 200;
-	}
+    [ExcludeFromCodeCoverage]
+    public static class AppConstants
+    {
+        public const uint AnimationSpeed = 200;
+    }
 }

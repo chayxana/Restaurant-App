@@ -1,6 +1,12 @@
-<app-menu></app-menu>
-<div class="pusher" style="padding:20px 0 0 160px;">
-  <div class="ui container">
-    <router-outlet></router-outlet>
+<div class="pushable" id="example">
+  <div class="pusher">
+    <div class="full height">
+      <div class="toc">
+        <app-menu class="ui vertical inverted sticky menu" style="height: 100%"></app-menu>
+      </div>
+      <div class="article">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
   </div>
 </div>

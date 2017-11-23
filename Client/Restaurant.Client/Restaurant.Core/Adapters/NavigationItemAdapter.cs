@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Restaurant.Abstractions;
 using Restaurant.Abstractions.Adapters;
 using Restaurant.Abstractions.Enums;
@@ -25,11 +23,11 @@ namespace Restaurant.Core.Adapters
                 case NavigationItem.Foods:
                     return _viewModelFactory.GetViewModel(typeof(FoodsViewModel));
                 case NavigationItem.Orders:
-                    return _viewModelFactory.GetViewModel(typeof(OrderViewModel)); // TODO:
+                    return _viewModelFactory.GetViewModel(typeof(OrdersViewModel)); // TODO:
                 case NavigationItem.Chat:
                     return _viewModelFactory.GetViewModel(typeof(object)); // TODO:
                 case NavigationItem.Settings:
-                    return _viewModelFactory.GetViewModel(typeof(object));// TODO:
+                    return _viewModelFactory.GetViewModel(typeof(object)); // TODO:
                 default:
                     throw new ArgumentOutOfRangeException(nameof(navigationItem), navigationItem, null);
             }

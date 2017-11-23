@@ -13,7 +13,7 @@
                      BackgroundColor="{StaticResource WindowBackgroundTable}"
                      mc:Ignorable="d"
                      d:DataContext="{d:DesignInstance viewModels:FoodsViewModel}"
-                     Icon="ic_restaurant_menu_black.png"
+                     Icon="restaurant"
                      Title="Foods">
 
     <pages:FoodsPage.Resources>
@@ -23,11 +23,11 @@
     </pages:FoodsPage.Resources>
 
     <pages:FoodsXamlPage.ToolbarItems>
-        <controls:BadgeToolbarItem Icon="ic_shopping_cart_white" 
+        <controls:BadgeToolbarItem Icon="ic_shopping_cart_white"
                                    Command="{Binding GoToBasket}"
-                                   BadgeText="{Binding BasketViewModel.OrdersCount}" 
-                                   BadgeColor="{StaticResource badgeColor}" 
-                                   BadgePressedColor="{StaticResource badgeColor}"/>
+                                   BadgeText="{Binding BasketViewModel.OrdersCount}"
+                                   BadgeColor="{StaticResource badgeColor}"
+                                   BadgePressedColor="{StaticResource badgeColor}" />
     </pages:FoodsXamlPage.ToolbarItems>
 
     <pages:FoodsXamlPage.Content>

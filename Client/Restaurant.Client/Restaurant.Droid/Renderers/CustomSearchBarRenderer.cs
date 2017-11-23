@@ -9,32 +9,32 @@ using AView = Android.Views.View;
 using AColor = Android.Graphics.Color;
 
 [assembly: ExportRenderer(typeof(SearchBar), typeof(CustomSearchBarRenderer))]
+
 namespace Restaurant.Droid.Renderers
 {
-	public class CustomSearchBarRenderer : SearchBarRenderer
-	{
-		protected override void OnElementChanged(ElementChangedEventArgs<SearchBar> e)
-		{
-			base.OnElementChanged(e);
+    public class CustomSearchBarRenderer : SearchBarRenderer
+    {
+        protected override void OnElementChanged(ElementChangedEventArgs<SearchBar> e)
+        {
+            base.OnElementChanged(e);
 
-			int searchPlateId = Control.Resources.GetIdentifier("android:id/search_plate", null, null);
-			if (searchPlateId != 0)
-			{
-				var v = FindViewById<AView>(searchPlateId);
+            var searchPlateId = Control.Resources.GetIdentifier("android:id/search_plate", null, null);
+            if (searchPlateId != 0)
+            {
+                var v = FindViewById<AView>(searchPlateId);
 
-				v.Background.SetColorFilter(AColor.White, PorterDuff.Mode.Multiply);
-			}
+                v.Background.SetColorFilter(AColor.White, PorterDuff.Mode.Multiply);
+            }
 
-			int searchButtonId = Control.Resources.GetIdentifier("android:id/search_mag_icon", null, null);
-			if (searchButtonId != 0)
-			{
-				var image = FindViewById<ImageView>(searchButtonId);
+            var searchButtonId = Control.Resources.GetIdentifier("android:id/search_mag_icon", null, null);
+            if (searchButtonId != 0)
+            {
+                var image = FindViewById<ImageView>(searchButtonId);
 
-				if (image != null && image.Drawable != null)
-				{
-                    DrawableCompat.SetTint(image.Drawable, ContextCompat.GetColor(Context, Android.Resource.Color.White));
-				}
-			}
-		}
-	}
+                if (image != null && image.Drawable != null)
+                    DrawableCompat.SetTint(image.Drawable,
+                        ContextCompat.GetColor(Context, Android.Resource.Color.White));
+            }
+        }
+    }
 }

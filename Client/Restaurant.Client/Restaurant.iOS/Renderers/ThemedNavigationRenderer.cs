@@ -9,15 +9,20 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(NavigationRenderer), typeof(ThemedNavigationRenderer))]
+
 namespace Restaurant.iOS.Renderers
 {
     /// <summary>
-    /// This custom NavigationRender is only necessary on iOS so we can change the navigation bar color *prior* to navigating instead of after
-    /// Forms currently doesn't give us a lifecycle event before the navigation takes place
-    /// This isn't an issue on Android
+    ///     This custom NavigationRender is only necessary on iOS so we can change the navigation bar color *prior* to
+    ///     navigating instead of after
+    ///     Forms currently doesn't give us a lifecycle event before the navigation takes place
+    ///     This isn't an issue on Android
     /// </summary>
     public class ThemedNavigationRenderer : NavigationRenderer
     {
+        private readonly Dictionary<UIButton, ICommand> buttonCommands = new Dictionary<UIButton, ICommand>();
+        private ToolbarItem toolBarItem;
+
         protected override Task<bool> OnPushAsync(Page page, bool animated)
         {
             //ChangeTheme(page);
@@ -42,8 +47,6 @@ namespace Restaurant.iOS.Renderers
             return base.PopViewController(animated);
         }
 
-        readonly Dictionary<UIButton, ICommand> buttonCommands = new Dictionary<UIButton, ICommand>();
-        ToolbarItem toolBarItem;
         public override void ViewWillAppear(bool animated)
         {
             if (toolBarItem != null)
@@ -69,7 +72,7 @@ namespace Restaurant.iOS.Renderers
             base.ViewWillAppear(animated);
         }
 
-        void ChangeTheme(Page page)
+        private void ChangeTheme(Page page)
         {
             var item = page.ToolbarItems.FirstOrDefault(t => t.ClassId == "basket");
             if (item != null)
@@ -79,7 +82,7 @@ namespace Restaurant.iOS.Renderers
             }
             var basePage = page as MainBaseContentPage;
             if (basePage != null)
-            {  
+            {
                 NavigationBar.BarTintColor = basePage.ActionBarBackgroundColor.ToUIColor();
                 NavigationBar.TintColor = basePage.ActionBarTextColor.ToUIColor();
                 UINavigationBar.Appearance.ShadowImage = new UIImage();
@@ -87,7 +90,9 @@ namespace Restaurant.iOS.Renderers
 
                 var titleAttributes = new UIStringAttributes();
                 titleAttributes.Font = UIFont.FromName("SegoeUI", 22);
-                titleAttributes.ForegroundColor = basePage.ActionBarTextColor == Color.Default ? titleAttributes.ForegroundColor ?? UINavigationBar.Appearance.TintColor : basePage.ActionBarTextColor.ToUIColor();
+                titleAttributes.ForegroundColor = basePage.ActionBarTextColor == Color.Default
+                    ? titleAttributes.ForegroundColor ?? UINavigationBar.Appearance.TintColor
+                    : basePage.ActionBarTextColor.ToUIColor();
                 NavigationBar.TitleTextAttributes = titleAttributes;
 
                 UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;

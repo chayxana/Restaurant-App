@@ -2,10 +2,10 @@
 
 namespace Restaurant.Mobile.UI.Effects
 {
-	public class ListViewScrollEffect : RoutingEffect
-	{
-		public ListViewScrollEffect() : base("Restaurant.ListViewScrollEffect")
-		{
-		}
-	}
+    public class ListViewScrollEffect : RoutingEffect
+    {
+        public ListViewScrollEffect() : base("Restaurant.ListViewScrollEffect")
+        {
+        }
+    }
 }

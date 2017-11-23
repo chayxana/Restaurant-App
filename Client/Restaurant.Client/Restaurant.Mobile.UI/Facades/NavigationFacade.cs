@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.Facades;
@@ -20,11 +19,6 @@ namespace Restaurant.Mobile.UI.Facades
                         return navigationPage.Navigation;
                     var detailNavigationPage = new NavigationPage(masterDetailPage);
                     return detailNavigationPage.Navigation;
-                }
-                if (App.Current.MainPage is TabbedPage tabbedPage)
-                {
-                    if (tabbedPage.CurrentPage is NavigationPage navigationPage)
-                        return navigationPage.Navigation;
                 }
                 return App.Current.MainPage.Navigation;
             }
@@ -47,7 +41,10 @@ namespace Restaurant.Mobile.UI.Facades
 
         public Task NavigateToMainPage(IViewFor page)
         {
-            App.Current.MainPage = page as Page;
+            if (Device.RuntimePlatform == Device.Android)
+                App.Current.MainPage = page as Page;
+            else if (Device.RuntimePlatform == Device.iOS)
+                App.Current.MainPage = new NavigationPage(page as Page);
 
             return Task.CompletedTask;
         }
@@ -56,7 +53,7 @@ namespace Restaurant.Mobile.UI.Facades
         {
             if (App.Current.MainPage is MasterDetailPage masterDetailPage)
             {
-                masterDetailPage.Detail = page as Page;
+                masterDetailPage.Detail = new NavigationPage(page as Page);
                 return Task.CompletedTask;
             }
 
@@ -67,6 +64,11 @@ namespace Restaurant.Mobile.UI.Facades
             }
 
             return Task.CompletedTask;
+        }
+
+        public Task NavigateToRoot()
+        {
+            return Navigation.PopToRootAsync();
         }
     }
 }

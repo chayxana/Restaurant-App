@@ -8,17 +8,10 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRenderer(typeof(NavigationRenderer), typeof(ThemedNavigationRenderer))]
-
+[assembly: ExportRenderer(typeof(NavigationPage), typeof(CustomNavigationRenderer))]
 namespace Restaurant.iOS.Renderers
 {
-    /// <summary>
-    ///     This custom NavigationRender is only necessary on iOS so we can change the navigation bar color *prior* to
-    ///     navigating instead of after
-    ///     Forms currently doesn't give us a lifecycle event before the navigation takes place
-    ///     This isn't an issue on Android
-    /// </summary>
-    public class ThemedNavigationRenderer : NavigationRenderer
+    public class CustomNavigationRenderer : NavigationRenderer
     {
         private readonly Dictionary<UIButton, ICommand> buttonCommands = new Dictionary<UIButton, ICommand>();
         private ToolbarItem toolBarItem;

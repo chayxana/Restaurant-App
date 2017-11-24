@@ -32,13 +32,20 @@
                                  Padding="{DynamicResource CardPadding}">
                         <controls:CardView>
                             <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
+                                <Grid HeightRequest="120">
+                                    <Image x:Name="photoImage" Source="{Binding Picture}" Aspect="AspectFill" />
 
-                                <Image x:Name="photoImage" Source="{Binding Picture}" Aspect="AspectFill"
-                                       HeightRequest="120" />
-                                 <ActivityIndicator IsRunning="{Binding Source={x:Reference photoImage}, Path=IsLoading}" 
-                                                    IsVisible="{Binding Source={x:Reference photoImage}, Path=IsLoading}">
-                                     
-                                 </ActivityIndicator>
+                                    <ActivityIndicator VerticalOptions="Center" 
+                                                       IsRunning="{Binding Source={x:Reference photoImage}, Path=IsLoading}" 
+                                                       IsVisible="{Binding Source={x:Reference photoImage}, Path=IsLoading}">
+                                        <ActivityIndicator.Color>
+                                            <OnPlatform x:TypeArguments="Color">
+                                                <On Platform="Android" Value="{StaticResource primaryColor}"/>
+                                            </OnPlatform>
+                                        </ActivityIndicator.Color>
+                                    </ActivityIndicator>
+                                </Grid>
+
                                 <StackLayout Padding="10, 10, 10, 3">
                                     <StackLayout>
                                         <Label Text="{Binding Name}" FontSize="Medium"

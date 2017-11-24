@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="AutoMapper" Version="6.2.0" />
+    <PackageReference Include="IdentityModel" Version="2.16.0" />
     <PackageReference Include="JetBrains.Annotations" Version="10.2.1" />
     <PackageReference Include="ReactiveUI" Version="8.0.0-alpha0113" />
   </ItemGroup>

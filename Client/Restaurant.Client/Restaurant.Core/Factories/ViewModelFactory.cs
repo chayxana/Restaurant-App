@@ -11,10 +11,6 @@ namespace Restaurant.Core.Factories
     {
         private readonly IContainer _container;
 
-        public ViewModelFactory() : this(BootstrapperBase.Container)
-        {
-        }
-
         public ViewModelFactory(IContainer container)
         {
             _container = container;

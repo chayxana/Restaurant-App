@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using Restaurant.Abstractions.Facades;
-using Restaurant.Abstractions.Managers;
+using Restaurant.Abstractions.Providers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
@@ -42,7 +42,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
             GetMock<IAutoMapperFacade>().Setup(x => x.Map<LoginDto>(ViewModel))
                 .Returns<LoginDto>(null);
 
-            GetMock<IAuthenticationManager>().Setup(x => x.Login(null)).Returns(Task.FromResult(tokenResponse));
+            GetMock<IAuthenticationProvider>().Setup(x => x.Login(null)).Returns(Task.FromResult(tokenResponse));
 
             // when
             ViewModel.Login.Execute(null);
@@ -65,7 +65,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
             GetMock<IAutoMapperFacade>().Setup(x => x.Map<LoginDto>(ViewModel))
                 .Returns(loginDto);
 
-            GetMock<IAuthenticationManager>().Setup(x => x.Login(loginDto)).Returns(Task.FromResult(tokenResponse));
+            GetMock<IAuthenticationProvider>().Setup(x => x.Login(loginDto)).Returns(Task.FromResult(tokenResponse));
 
             // when
             ViewModel.Login.Execute(null);
@@ -88,7 +88,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
             GetMock<IAutoMapperFacade>().Setup(x => x.Map<LoginDto>(ViewModel))
                 .Returns(loginDto);
 
-            GetMock<IAuthenticationManager>().Setup(x => x.Login(loginDto)).Returns(Task.FromResult(tokenResponse));
+            GetMock<IAuthenticationProvider>().Setup(x => x.Login(loginDto)).Returns(Task.FromResult(tokenResponse));
 
             // when
             ViewModel.Login.Execute(null);

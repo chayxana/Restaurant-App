@@ -10,10 +10,6 @@ namespace Restaurant.Core.Adapters
     [ExcludeFromCodeCoverage]
     public class FoodDetailViewModelAdapter : IFoodDetailViewModelAdapter
     {
-        public FoodDetailViewModelAdapter() : this(BootstrapperBase.Container)
-        {
-        }
-
         private readonly IContainer _container;
         public FoodDetailViewModelAdapter(IContainer container)
         {

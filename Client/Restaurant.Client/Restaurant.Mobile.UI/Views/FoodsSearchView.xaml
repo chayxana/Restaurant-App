@@ -6,6 +6,11 @@
     <ContentView.Content>
         <StackLayout BackgroundColor="{StaticResource primaryColor}">
             <SearchBar x:Name="SearchBar" Placeholder="Search">
+                <SearchBar.PlaceholderColor>
+                    <OnPlatform x:TypeArguments="Color">
+                        <On Platform="Android" Value="White"/>
+                    </OnPlatform>
+                </SearchBar.PlaceholderColor>
                 <SearchBar.Margin>
                     <OnPlatform x:TypeArguments="Thickness">
                         <On Platform="Android" Value="0, 6 , 6, 6"/>

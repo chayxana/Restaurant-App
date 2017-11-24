@@ -2,13 +2,13 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Threading.Tasks;
-using Restaurant.Abstractions.Managers;
+using Restaurant.Abstractions.Providers;
 using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Core.MockData
 {
     [ExcludeFromCodeCoverage]
-    public class MockAuthenticationManager : IAuthenticationManager
+    public class MockAuthenticationProvider : IAuthenticationProvider
     {
         public Task<TokenResponse> Login(LoginDto loginDto)
         {
@@ -25,7 +25,7 @@ namespace Restaurant.Core.MockData
             return Task.FromResult(true);
         }
 
-        public Task<bool> LogOut()
+        public Task<object> LogOut()
         {
             throw new NotImplementedException();
         }

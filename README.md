@@ -18,7 +18,7 @@ The Restaurant App is open source application written by C# and Xamarin.Forms an
 * BDD Unit testing
 * Moq
 * PowerShell
-* [Angualar 4 - Dashboard Admin](https://github.com/Jurabek/Restaurant-Manager/tree/develop/Dashboard-Admin)
+* [Angualar 4 - Dashboard Admin](https://github.com/Jurabek/Restaurant-App-Dashboard)
 * WPF - coming soon
 * Docker Containers - coming Soon
 

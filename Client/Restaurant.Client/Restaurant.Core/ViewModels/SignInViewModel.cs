@@ -4,7 +4,7 @@ using System.Windows.Input;
 using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.Facades;
-using Restaurant.Abstractions.Managers;
+using Restaurant.Abstractions.Providers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
@@ -19,7 +19,7 @@ namespace Restaurant.Core.ViewModels
         private string _password;
 
         public SignInViewModel(
-            IAuthenticationManager authenticationManager,
+            IAuthenticationProvider authenticationProvider,
             IAutoMapperFacade autoMapperFacade,
             INavigationService navigationService)
         {
@@ -29,7 +29,7 @@ namespace Restaurant.Core.ViewModels
             Login = ReactiveCommand.CreateFromTask(async () =>
             {
                 var loginDto = autoMapperFacade.Map<LoginDto>(this);
-                var result = await authenticationManager.Login(loginDto);
+                var result = await authenticationProvider.Login(loginDto);
 
                 if (result.HttpStatusCode != HttpStatusCode.OK)
                 {

@@ -5,13 +5,15 @@ using Restaurant.Abstractions.Adapters;
 using Restaurant.Abstractions.Api;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Factories;
-using Restaurant.Abstractions.Managers;
+using Restaurant.Abstractions.Providers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
+using Restaurant.Common.Constants;
 using Restaurant.Core.Adapters;
 using Restaurant.Core.Facades;
 using Restaurant.Core.Factories;
 using Restaurant.Core.MockData;
+using Restaurant.Core.Providers;
 using Restaurant.Core.Services;
 using Restaurant.Core.ViewModels;
 using Restaurant.Core.ViewModels.Android;
@@ -43,24 +45,27 @@ namespace Restaurant.Core
             builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             builder.RegisterType<NavigationItemAdapter>().As<INavigationItemAdapter>();
             builder.RegisterType<OrderDtoAdapter>().As<IOrderDtoAdapter>();
-
-            IFoodsApi foodApi;
-            IOrdersApi ordersApi;
+            builder.RegisterType<IdentityModelTokenProvider>().As<ITokenProvider>();
+            
             if (MockData)
             {
-                foodApi = new MockFoodsApi();
-                ordersApi = new MockOrdersApi();
-                builder.RegisterType<MockAuthenticationManager>().As<IAuthenticationManager>();
+                builder.RegisterType<MockOrdersApi>().As<IOrdersApi>();
+                builder.RegisterType<MockFoodsApi>().As<IFoodsApi>();
+                builder.RegisterType<MockAuthenticationProvider>().As<IAuthenticationProvider>();
             }
             else
             {
-                foodApi = RestService.For<IFoodsApi>("http://restaurantserverapi.azurewebsites.net/");
-                ordersApi = RestService.For<IOrdersApi>("http://restaurantserverapi.azurewebsites.net/");
+                var foodApi = RestService.For<IFoodsApi>(ApiConstants.AzureClientUrl);
+                var ordersApi = RestService.For<IOrdersApi>(ApiConstants.AzureClientUrl);
+                var accountApi = RestService.For<IAccountApi>(ApiConstants.AzureClientUrl);
+
+                builder.RegisterInstance(accountApi).AsSelf().SingleInstance();
+                builder.RegisterInstance(foodApi).AsSelf().SingleInstance();
+                builder.RegisterInstance(ordersApi).AsSelf().SingleInstance();
+                builder.RegisterType<AuthenticationProvider>().As<IAuthenticationProvider>();
             }
 
-            builder.RegisterInstance(foodApi).As<IFoodsApi>().SingleInstance();
-            builder.RegisterInstance(ordersApi).As<IOrdersApi>().SingleInstance();
-
+            RegisterSelf(builder);
 
             RegisterTypes(builder);
 
@@ -70,5 +75,12 @@ namespace Restaurant.Core
         }
 
         protected abstract void RegisterTypes(ContainerBuilder builder);
+        
+        private static void RegisterSelf(ContainerBuilder builder)
+        {
+            IContainer container = null;
+            builder.Register(c => container).AsSelf();
+            builder.RegisterBuildCallback(c => container = c);
+        }
     }
 }

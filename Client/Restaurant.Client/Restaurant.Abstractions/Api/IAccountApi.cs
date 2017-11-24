@@ -11,5 +11,8 @@ namespace Restaurant.Abstractions.Api
 
         [Post("/api/Account/Register")]
         Task<object> Register([Body] RegisterDto registerDto);
+
+        [Post("/api/Account/LogOut")]
+        Task<object> LogOut();
     }
 }

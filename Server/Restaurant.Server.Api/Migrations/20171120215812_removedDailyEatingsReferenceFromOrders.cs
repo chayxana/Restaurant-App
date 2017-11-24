@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Restaurant.Server.Api.Migrations
 {
+    [ExcludeFromCodeCoverage]
     public partial class removedDailyEatingsReferenceFromOrders : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

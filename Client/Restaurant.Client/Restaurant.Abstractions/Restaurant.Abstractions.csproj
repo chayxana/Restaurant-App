@@ -13,4 +13,8 @@
     <ProjectReference Include="..\..\..\Common\Restaurant.Common\Restaurant.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Managers\" />
+  </ItemGroup>
+
 </Project>

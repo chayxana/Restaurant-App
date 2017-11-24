@@ -3,7 +3,7 @@ using System.Windows.Input;
 using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.Facades;
-using Restaurant.Abstractions.Managers;
+using Restaurant.Abstractions.Providers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
@@ -22,7 +22,7 @@ namespace Restaurant.Core.ViewModels
 
         public SignUpViewModel(
             IAutoMapperFacade autoMapperFacade,
-            IAuthenticationManager authenticationManager,
+            IAuthenticationProvider authenticationProvider,
             INavigationService navigationService)
         {
             _navigationService = navigationService;
@@ -34,11 +34,11 @@ namespace Restaurant.Core.ViewModels
                 .CreateFromTask(async _ =>
                 {
                     var registerDto = autoMapperFacade.Map<RegisterDto>(this);
-                    var result = await authenticationManager.Register(registerDto);
+                    var result = await authenticationProvider.Register(registerDto);
 
                     if (result != null)
                     {
-                        var loginResult = await authenticationManager.Login(
+                        var loginResult = await authenticationProvider.Login(
                             new LoginDto { Login = Email, Password = Password });
 
                         if (!loginResult.IsError && loginResult.HttpStatusCode == HttpStatusCode.OK)

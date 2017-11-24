@@ -6,5 +6,7 @@ namespace Restaurant.Abstractions.Providers
     public interface ITokenProvider
     {
         Task<TokenResponse> RequestResourceOwnerPasswordAsync(string userName, string password);
+
+        Task<bool> ValidateToken(string token);
     }
 }

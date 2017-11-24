@@ -78,7 +78,7 @@
                                            Command="{Binding CompleteOrder}"
                                            AbsoluteLayout.LayoutFlags="PositionProportional"
                                            RippleColor="{StaticResource primaryColorLight}"
-                                           ButtonColor="{StaticResource badgeColor}"
+                                           ButtonColor="{StaticResource accentColor}"
                                            Image="check"/>
         </AbsoluteLayout>
     </pages:BasketPageXaml.Content>

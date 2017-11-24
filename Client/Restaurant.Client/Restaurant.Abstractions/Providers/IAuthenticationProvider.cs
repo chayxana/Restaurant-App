@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Restaurant.Common.DataTransferObjects;
 
-namespace Restaurant.Abstractions.Managers
+namespace Restaurant.Abstractions.Providers
 {
-    public interface IAuthenticationManager
+    public interface IAuthenticationProvider
     {
         Task<TokenResponse> Login(LoginDto loginDto);
 
@@ -11,6 +11,6 @@ namespace Restaurant.Abstractions.Managers
 
         Task<bool> ValidateToken(string accessToken);
 
-        Task<bool> LogOut();
+        Task<object> LogOut();
     }
 }

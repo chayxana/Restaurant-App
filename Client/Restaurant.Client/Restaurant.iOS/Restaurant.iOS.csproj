@@ -133,7 +133,7 @@
     <Compile Include="Renderers\AnimatedIconButton.cs" />
     <Compile Include="Renderers\CustomViewCellRenderer.cs" />
     <Compile Include="Renderers\RestaurantEntryRenderer.cs" />
-    <Compile Include="Renderers\ThemedNavigationRenderer.cs" />
+    <Compile Include="Renderers\CustomNavigationRenderer.cs" />
     <Compile Include="Renderers\TwitterLikeButtonRenderer.cs" />
     <BundleResource Include="Resources\caht.png" />
     <BundleResource Include="Resources\chat%402x.png" />

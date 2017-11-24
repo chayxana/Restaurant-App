@@ -27,7 +27,7 @@ namespace Restaurant.Server.Api.Controllers
 		[AllowAnonymous]
 		public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
 		{
-			var user = new User {Email = registerDto.Email, UserName = registerDto.UserName};
+			var user = new User { Email = registerDto.Email, UserName = registerDto.UserName };
 			var result = await _userManagerFacade.Create(user, registerDto.Password);
 
 			return result.Succeeded ? Ok() : Error(result);
@@ -42,11 +42,11 @@ namespace Restaurant.Server.Api.Controllers
 			return _mapper.Map<UserDto>(user);
 		}
 
-	    private IActionResult Error(IdentityResult result)
-	    {
-	        foreach (var identityError in result.Errors)
-	            ModelState.AddModelError(identityError.Code, identityError.Description);
-	        return BadRequest(ModelState);
-	    }
-    }
+		private IActionResult Error(IdentityResult result)
+		{
+			foreach (var identityError in result.Errors)
+				ModelState.AddModelError(identityError.Code, identityError.Description);
+			return BadRequest(ModelState);
+		}
+	}
 }

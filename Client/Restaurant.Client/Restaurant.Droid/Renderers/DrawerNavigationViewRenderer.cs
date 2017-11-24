@@ -13,8 +13,7 @@ using View = Android.Views.View;
 
 namespace Restaurant.Droid.Renderers
 {
-    public class
-        DrawerNavigationViewRenderer : ViewRenderer<NavigationView, Android.Support.Design.Widget.NavigationView>
+    public class DrawerNavigationViewRenderer : ViewRenderer<NavigationView, Android.Support.Design.Widget.NavigationView>
     {
         private Android.Support.Design.Widget.NavigationView _navView;
 
@@ -96,23 +95,23 @@ namespace Restaurant.Droid.Renderers
             {
                 case Resource.Id.nav_foods:
                     Element.OnNavigationItemSelected(
-                        new NavigationItemSelectedEventArgs {SelectedViewModel = NavigationItem.Foods});
+                        new NavigationItemSelectedEventArgs { SelectedViewModel = NavigationItem.Foods });
                     break;
                 case Resource.Id.nav_orders:
                     Element.OnNavigationItemSelected(
-                        new NavigationItemSelectedEventArgs {SelectedViewModel = NavigationItem.Orders});
+                        new NavigationItemSelectedEventArgs { SelectedViewModel = NavigationItem.Orders });
                     break;
                 case Resource.Id.nav_chat:
                     Element.OnNavigationItemSelected(
-                        new NavigationItemSelectedEventArgs {SelectedViewModel = NavigationItem.Chat});
+                        new NavigationItemSelectedEventArgs { SelectedViewModel = NavigationItem.Chat });
                     break;
                 case Resource.Id.nav_settings:
                     Element.OnNavigationItemSelected(
-                        new NavigationItemSelectedEventArgs {SelectedViewModel = NavigationItem.Settings});
+                        new NavigationItemSelectedEventArgs { SelectedViewModel = NavigationItem.Settings });
                     break;
                 case Resource.Id.nav_about:
                     Element.OnNavigationItemSelected(
-                        new NavigationItemSelectedEventArgs {SelectedViewModel = NavigationItem.About});
+                        new NavigationItemSelectedEventArgs { SelectedViewModel = NavigationItem.About });
                     break;
             }
         }

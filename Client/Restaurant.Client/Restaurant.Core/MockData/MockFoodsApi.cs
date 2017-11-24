@@ -11,9 +11,10 @@ namespace Restaurant.Core.MockData
     [ExcludeFromCodeCoverage]
     public class MockFoodsApi : IFoodsApi
     {
-        public Task<IEnumerable<FoodDto>> GetFoods()
+        public async Task<IEnumerable<FoodDto>> GetFoods()
         {
-            return Task.FromResult(Data.Foods);
+            await Task.Delay(1000);
+            return Data.Foods;
         }
 
         public Task<FoodDto> GetFood(Guid id)

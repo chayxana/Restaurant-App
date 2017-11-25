@@ -1,13 +1,13 @@
 param(
-    [string]$SolutionName = "Restaurant.Client.sln",
+    [string]$SolutionName = "src/Restaurant.Client.sln",
     [string]$Framework = "netcoreapp2.0",      
     [string]$Configuration = "Release",
-    [string]$TestProjectFile = "Client/Tests/Restaurant.Core.UnitTests/Restaurant.Core.UnitTests.csproj"
+    [string]$TestProjectFile = "src/Client/Tests/Restaurant.Core.UnitTests/Restaurant.Core.UnitTests.csproj"
 )
 
 $CoverageFolder = "coveragexamarin/"
-$OpenCover = "packages/OpenCover.4.6.519/tools/OpenCover.Console.exe"
-$CodeCov = "packages/Codecov.1.0.3/tools/codecov.exe"
+$OpenCover = "src/packages/OpenCover.4.6.519/tools/OpenCover.Console.exe"
+$CodeCov = "src/packages/Codecov.1.0.3/tools/codecov.exe"
 $CodeCovToken = "077aea61-7f42-49aa-b825-56c1e7c7095b"
 
 function Invoke-InstallOpenCover () {
@@ -87,15 +87,15 @@ function Invoke-Test([string]$Configuration, $TestProjectFile) {
 function Invoke-CalculateCodeCoverage ($OpenCover, $Framework, $Config, $TestProjectFile, $CoverageFolder) {
     Write-Host "Calculating code coverage with OpenCover" -ForegroundColor Green
     & $OpenCover -target:"c:\Program Files\dotnet\dotnet.exe" `
-     -targetargs:"test -f $Framework -c $Config $TestProjectFile" `
-     -mergeoutput `
-     -hideskipped:File `
-     -output:"$CoverageFolder/coverage.xml" `
-     -oldStyle `
-     -filter:"+[Restaurant.Core*]* -[Restaurant.Core.UnitTests*]*" `
-     -searchdirs:"Client/Tests/Restaurant.Core.UnitTests/bin/$Config/$Framework" `
-     -register:user `
-     -excludebyattribute:*.ExcludeFromCodeCoverage*
+        -targetargs:"test -f $Framework -c $Config $TestProjectFile" `
+        -mergeoutput `
+        -hideskipped:File `
+        -output:"$CoverageFolder/coverage.xml" `
+        -oldStyle `
+        -filter:"+[Restaurant.Core*]* -[Restaurant.Core.UnitTests*]*" `
+        -searchdirs:"src/Client/Tests/Restaurant.Core.UnitTests/bin/$Config/$Framework" `
+        -register:user `
+        -excludebyattribute:*.ExcludeFromCodeCoverage*
     
     CheckLastExitCode
 }

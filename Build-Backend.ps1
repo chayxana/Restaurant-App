@@ -1,8 +1,8 @@
 param(
     [string]$Config = "Release",  
     [string]$Framework = "netcoreapp2.0",  
-    [string]$SolutionName = "Restaurant.Server.sln",
-    [string]$TestProjectFile = "Server/Tests/Restaurant.Server.Api.UnitTests/Restaurant.Server.Api.UnitTests.csproj"
+    [string]$SolutionName = "src/Restaurant.Server.sln",
+    [string]$TestProjectFile = "src/Server/Tests/Restaurant.Server.Api.UnitTests/Restaurant.Server.Api.UnitTests.csproj"
 )
 
 function CheckLastExitCode {
@@ -22,8 +22,8 @@ function CheckLastExitCode {
 }
 
 $CoverageFolder = "coverage/"
-$OpenCover = "packages/OpenCover.4.6.519/tools/OpenCover.Console.exe"
-$CodeCov = "packages/Codecov.1.0.3/tools/codecov.exe"
+$OpenCover = "src/packages/OpenCover.4.6.519/tools/OpenCover.Console.exe"
+$CodeCov = "src/packages/Codecov.1.0.3/tools/codecov.exe"
 $CodeCovToken = "077aea61-7f42-49aa-b825-56c1e7c7095b"
 
 function Invoke-InstallOpenCover () {
@@ -66,15 +66,15 @@ function Invoke-RemoveCoverageFolder ($CoverageFolder) {
 function Invoke-CalculateCodeCoverage ($OpenCover, $Framework, $Config, $TestProjectFile, $CoverageFolder) {
     Write-Host "Calculating code coverage with OpenCover" -ForegroundColor Green
     & $OpenCover -target:"c:\Program Files\dotnet\dotnet.exe" `
-     -targetargs:"test -f $Framework -c $Config $TestProjectFile" `
-     -mergeoutput `
-     -hideskipped:File `
-     -output:"$CoverageFolder/coverage.xml" `
-     -oldStyle `
-     -filter:"+[Restaurant*]* -[Restaurant.Server.Api.UnitTests*]*" `
-     -searchdirs:"Server/Tests/Restaurant.Server.Api.UnitTests/bin/$Config/$Framework" `
-     -register:user `
-     -excludebyattribute:*.ExcludeFromCodeCoverage*
+        -targetargs:"test -f $Framework -c $Config $TestProjectFile" `
+        -mergeoutput `
+        -hideskipped:File `
+        -output:"$CoverageFolder/coverage.xml" `
+        -oldStyle `
+        -filter:"+[Restaurant*]* -[Restaurant.Server.Api.UnitTests*]*" `
+        -searchdirs:"src/Server/Tests/Restaurant.Server.Api.UnitTests/bin/$Config/$Framework" `
+        -register:user `
+        -excludebyattribute:*.ExcludeFromCodeCoverage*
     
     CheckLastExitCode
 }

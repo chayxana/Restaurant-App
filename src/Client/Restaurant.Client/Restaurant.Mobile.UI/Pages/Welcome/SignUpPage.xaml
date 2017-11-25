@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<welcome:SignUpPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:welcome="clr-namespace:Restaurant.Mobile.UI.Pages.Welcome"
+                        xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls"
+                        xmlns:converters="clr-namespace:Restaurant.Mobile.UI.Converters;assembly=Restaurant.Mobile.UI"
+                        x:Class="Restaurant.Mobile.UI.Pages.Welcome.SignUpPage">
+    <welcome:SignUpPageXaml.Resources>
+        <converters:InverseBoolConverter x:Key="InverseBooleanConverter" />
+    </welcome:SignUpPageXaml.Resources>
+    <welcome:SignUpPageXaml.Content>
+        <StackLayout VerticalOptions="Center" Padding="25">
+            <StackLayout Orientation="Vertical" IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}">
+
+                <StackLayout Orientation="Vertical" Padding="15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Source="ic_email.png" HeightRequest="25" Grid.Column="0" WidthRequest="25"
+                               VerticalOptions="Center" />
+
+                        <controls:RestaurantEntry Text="{Binding Email}" Placeholder="Email"
+                                                  Grid.Column="1" VerticalOptions="Center"
+                                                  HorizontalOptions="FillAndExpand" HasBorder="False" />
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical" Padding="15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Source="ic_key_variant.png" Grid.Column="0" WidthRequest="25" HeightRequest="25"
+                               VerticalOptions="Center" />
+                        <controls:RestaurantEntry HasBorder="False" Placeholder="Password"
+                                                  Grid.Column="1"
+                                                  HorizontalOptions="FillAndExpand" IsPassword="true"
+                                                  Text="{Binding Password}" />
+                    </Grid>
+
+                </StackLayout>
+
+                <StackLayout Padding="15">
+                    <controls:AnimateButton Text="Sign Up" Command="{Binding Register}" 
+                                            BackgroundColor="{StaticResource primaryColor}"
+                                            WidthRequest="300" HorizontalOptions="Center" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="End"
+                         IsVisible="{Binding IsLoading}">
+                <Label VerticalOptions="Center" TextColor="{StaticResource asphaltPrimary}">Please wait...</Label>
+                <ActivityIndicator VerticalOptions="Center" IsRunning="{Binding IsLoading}" />
+            </StackLayout>
+        </StackLayout>
+    </welcome:SignUpPageXaml.Content>
+</welcome:SignUpPageXaml>

@@ -1,4 +1,5 @@
-﻿using Com.Like;
+﻿using Android.Content;
+using Com.Like;
 using Restaurant.Droid.Renderers;
 using Restaurant.Mobile.UI.Controls;
 using Xamarin.Forms;
@@ -11,6 +12,10 @@ namespace Restaurant.Droid.Renderers
     public class
         TwitterLikeButtonRenderer : Xamarin.Forms.Platform.Android.AppCompat.ViewRenderer<TwitterLikeButton, LikeButton>
     {
+	    public TwitterLikeButtonRenderer(Context context) : base(context)
+	    {   
+	    }
+
         protected override void OnElementChanged(ElementChangedEventArgs<TwitterLikeButton> e)
         {
             base.OnElementChanged(e);

@@ -7,42 +7,58 @@ using TokenResponse = Restaurant.Common.DataTransferObjects.TokenResponse;
 
 namespace Restaurant.Core.Providers
 {
-    public class IdentityModelTokenProvider : ITokenProvider
-    {
-        public async Task<TokenResponse> RequestResourceOwnerPasswordAsync(string userName, string password)
-        {
-	        try
-	        {
-		        var disco = await DiscoveryClient.GetAsync(ApiConstants.ApiClientUrl);
-		        var tokenClient = new TokenClient(disco.TokenEndpoint, ApiConstants.ClientId, ApiConstants.ClientSecret);
-		        var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync(userName, password, ApiConstants.ApiName);
+	public class IdentityModelTokenProvider : ITokenProvider
+	{
+		public async Task<TokenResponse> RequestResourceOwnerPasswordAsync(string userName, string password)
+		{
+			try
+			{
+				var disco = await DiscoveryClient.GetAsync(ApiConstants.ApiClientUrl);
+				var tokenClient = new TokenClient(disco.TokenEndpoint, ApiConstants.ClientId, ApiConstants.ClientSecret);
+				var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync(userName, password, $"{ApiConstants.ApiName} offline_access");
 
-		        return new TokenResponse()
-		        {
-			        AccessToken = tokenResponse.AccessToken,
-			        ExpiresIn = tokenResponse.ExpiresIn,
-			        RefreshToken = tokenResponse.RefreshToken,
-			        TokenType = tokenResponse.TokenType,
-			        IsError = tokenResponse.IsError,
-			        Error = tokenResponse.Error,
-			        HttpStatusCode = tokenResponse.HttpStatusCode
-		        };
+				return new TokenResponse()
+				{
+					AccessToken = tokenResponse.AccessToken,
+					ExpiresIn = tokenResponse.ExpiresIn,
+					RefreshToken = tokenResponse.RefreshToken,
+					TokenType = tokenResponse.TokenType,
+					IsError = tokenResponse.IsError,
+					Error = tokenResponse.Error,
+					HttpStatusCode = tokenResponse.HttpStatusCode
+				};
 			}
-	        catch (Exception e)
-	        {
-		        return null;
-	        }
-        }
+#pragma warning disable CS0168 // Variable is declared but never used
+			catch (Exception e)
+#pragma warning restore CS0168 // Variable is declared but never used
+			{
+				return null;
+			}
+		}
 
-        public async Task<bool> ValidateToken(string token)
-        {
-            var disco = await DiscoveryClient.GetAsync(ApiConstants.ApiClientUrl);
+		public async Task<bool> ValidateToken(string token)
+		{
+			try
+			{
+				var disco = await DiscoveryClient.GetAsync(ApiConstants.ApiClientUrl);
 
-            var introspectionClient = new IntrospectionClient(disco.IntrospectionEndpoint, ApiConstants.ClientId, ApiConstants.ClientSecret);
+				var introspectionClient = new IntrospectionClient(disco.IntrospectionEndpoint, ApiConstants.ClientId, ApiConstants.ClientSecret);
 
-            var response = await introspectionClient.SendAsync( new IntrospectionRequest { Token = token });
+				var response = await introspectionClient.SendAsync(new IntrospectionRequest
+				{
+					ClientId = ApiConstants.ClientId,
+					ClientSecret = ApiConstants.ClientSecret,
+					Token = token
+				});
 
-            return response.IsActive;
-        }
-    }
+				return response.IsActive;
+			}
+#pragma warning disable CS0168 // Variable is declared but never used
+			catch (Exception e)
+#pragma warning restore CS0168 // Variable is declared but never used
+			{
+				return false;
+			}
+		}
+	}
 }

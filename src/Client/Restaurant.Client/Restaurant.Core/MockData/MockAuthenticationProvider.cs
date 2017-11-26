@@ -21,12 +21,12 @@ namespace Restaurant.Core.MockData
             return Task.FromResult(new HttpResponseMessage());
         }
 
-        public Task<bool> ValidateToken(string accessToken)
-        {
-            return Task.FromResult(true);
-        }
+	    public Task<TokenResponse> RefreshToken(string refreshToken)
+	    {
+		    throw new NotImplementedException();
+	    }
 
-        public Task<object> LogOut()
+	    public Task<object> LogOut()
         {
             throw new NotImplementedException();
         }

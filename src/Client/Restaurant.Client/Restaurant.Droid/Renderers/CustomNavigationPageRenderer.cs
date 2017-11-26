@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Util;
 using Android.Views;
@@ -34,7 +35,7 @@ namespace Restaurant.Droid.Renderers
         private AToolbar _toolbar;
         private ToolbarTracker _toolbarTracker;
 
-        public CustomNavigationPageRenderer()
+        public CustomNavigationPageRenderer(Context context) : base(context)
         {
             _colorProvider = new ColorProvider();
             _drawableProvider = new DrawableProvider();
@@ -185,7 +186,7 @@ namespace Restaurant.Droid.Renderers
                     var icon = item.Icon;
                     if (!string.IsNullOrEmpty(icon))
                     {
-                        var iconDrawable = _drawableProvider.GetFormsDrawable(Context.Resources, icon);
+                        var iconDrawable = _drawableProvider.GetFormsDrawable(Context, icon);
                         if (iconDrawable != null)
                             menuItem.SetIcon(iconDrawable);
                     }
@@ -216,7 +217,7 @@ namespace Restaurant.Droid.Renderers
                     var icon = item.Icon;
                     if (!string.IsNullOrEmpty(icon))
                     {
-                        var iconDrawable = _drawableProvider.GetFormsDrawable(Context.Resources, icon);
+                        var iconDrawable = _drawableProvider.GetFormsDrawable(Context, icon);
                         if (iconDrawable != null)
                             menuItem.SetIcon(iconDrawable);
 

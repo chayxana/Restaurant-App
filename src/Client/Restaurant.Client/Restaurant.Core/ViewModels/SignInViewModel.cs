@@ -27,7 +27,6 @@ namespace Restaurant.Core.ViewModels
             Login = ReactiveCommand.CreateFromTask(async () =>
             {
 	            IsLoading = true;
-	            Status = "Please wait...";
                 var loginDto = autoMapperFacade.Map<LoginDto>(this);
                 var result = await authenticationProvider.Login(loginDto);
 	            IsLoading = false;

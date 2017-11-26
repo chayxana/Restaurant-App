@@ -1,4 +1,5 @@
-﻿using Android.Graphics;
+﻿using Android.Content;
+using Android.Graphics;
 using Android.Support.V4.Content;
 using Android.Support.V4.Graphics.Drawable;
 using Android.Widget;
@@ -14,6 +15,10 @@ namespace Restaurant.Droid.Renderers
 {
     public class CustomSearchBarRenderer : SearchBarRenderer
     {
+	    public CustomSearchBarRenderer(Context context) : base(context)
+	    {	
+	    }
+
         protected override void OnElementChanged(ElementChangedEventArgs<SearchBar> e)
         {
             base.OnElementChanged(e);

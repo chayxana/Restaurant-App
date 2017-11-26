@@ -6,6 +6,7 @@ using System.Windows.Input;
 using ReactiveUI;
 using Restaurant.Abstractions.Adapters;
 using Restaurant.Abstractions.Api;
+using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.Constants;
@@ -15,7 +16,7 @@ namespace Restaurant.Core.ViewModels
 {
     public class FoodsViewModel : BaseViewModel
     {
-        private readonly IFoodDetailViewModelAdapter _foodDetailViewModelAdapter;
+        private readonly IFoodDetailViewModelFactory _foodDetailViewModelFactory;
         private readonly IFoodsApi _foodsApi;
         private readonly INavigationService _navigationService;
         private ObservableCollection<FoodDto> _foods;
@@ -25,11 +26,11 @@ namespace Restaurant.Core.ViewModels
             IBasketViewModel basketViewModel,
             IFoodsApi foodsApi,
             INavigationService navigationService,
-            IFoodDetailViewModelAdapter foodDetailViewModelAdapter)
+            IFoodDetailViewModelFactory foodDetailViewModelFactory)
         {
             _foodsApi = foodsApi;
             _navigationService = navigationService;
-            _foodDetailViewModelAdapter = foodDetailViewModelAdapter;
+            _foodDetailViewModelFactory = foodDetailViewModelFactory;
 
             this.WhenAnyValue(x => x.SelectedFood)
                 .Where(x => x != null)
@@ -74,7 +75,7 @@ namespace Restaurant.Core.ViewModels
 
         private async Task NavigateToFoodDetail(FoodDto food)
         {
-            var viewModel = _foodDetailViewModelAdapter.GetFoodDetailViewModel(food);
+            var viewModel = _foodDetailViewModelFactory.GetFoodDetailViewModel(food);
             await _navigationService.NavigateAsync(viewModel);
         }
     }

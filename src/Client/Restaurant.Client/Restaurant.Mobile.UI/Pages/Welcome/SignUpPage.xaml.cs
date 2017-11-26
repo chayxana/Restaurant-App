@@ -1,8 +1,10 @@
 ﻿using Restaurant.Core.ViewModels;
+using Xamarin.Forms.Xaml;
 
 namespace Restaurant.Mobile.UI.Pages.Welcome
 {
-    public partial class SignUpPage : SignUpPageXaml
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class SignUpPage : SignUpPageXaml
     {
         public SignUpPage()
         {

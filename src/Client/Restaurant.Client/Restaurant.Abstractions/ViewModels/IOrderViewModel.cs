@@ -7,6 +7,7 @@ namespace Restaurant.Abstractions.ViewModels
         FoodDto Food { get; }
         decimal Quantity { get; set; }
         decimal TotalPrice { get; }
-        IOrderViewModel Clone();
+	    string TotalPriceAnimated { get; set; }
+		IOrderViewModel Clone();
     }
 }

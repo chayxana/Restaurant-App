@@ -18,16 +18,24 @@ namespace Restaurant.Mobile.UI.Factories
 
         public IViewFor ResolveView(INavigatableViewModel vm)
         {
-            var viewType = typeof(IViewFor<>).MakeGenericType(vm.GetType());
-            var view = _container.Resolve(viewType) as Page;
+	        try
+	        {
+		        var viewType = typeof(IViewFor<>).MakeGenericType(vm.GetType());
+		        var view = _container.Resolve(viewType) as Page;
 
-            if (!(view is IViewFor ret))
-                throw new Exception(
-                    $"Resolve service type '{viewType.FullName}' does not implement '{typeof(IViewFor).FullName}'.");
+		        if (!(view is IViewFor ret))
+			        throw new Exception(
+				        $"Resolve service type '{viewType.FullName}' does not implement '{typeof(IViewFor).FullName}'.");
 
-            view.Title = vm.Title;
-            ret.ViewModel = vm;
-            return ret;
+		        view.Title = vm.Title;
+		        ret.ViewModel = vm;
+		        return ret;
+			}
+	        catch (Exception e)
+	        {
+		        throw;
+	        }
+          
         }
 
         public IViewFor ResolveView(INavigatableViewModel vm, string name)

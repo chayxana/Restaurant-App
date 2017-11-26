@@ -4,7 +4,6 @@ using ReactiveUI;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
-using Restaurant.ViewModels;
 
 namespace Restaurant.Core.ViewModels
 {

@@ -5,6 +5,7 @@ using Moq;
 using NUnit.Framework;
 using Restaurant.Abstractions.Adapters;
 using Restaurant.Abstractions.Api;
+using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
@@ -63,7 +64,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
                 new FoodDetailViewModel(selectedFood, basketViewModel.Object, navigationService.Object);
 
             GetMock<IFoodsApi>().Setup(x => x.GetFoods()).Returns(Task.FromResult(foods));
-            GetMock<IFoodDetailViewModelAdapter>().Setup(x => x.GetFoodDetailViewModel(selectedFood))
+            GetMock<IFoodDetailViewModelFactory>().Setup(x => x.GetFoodDetailViewModel(selectedFood))
                 .Returns(foodDetailViewModel);
 
             // when

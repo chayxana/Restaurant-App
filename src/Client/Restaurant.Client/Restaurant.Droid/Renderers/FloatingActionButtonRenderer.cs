@@ -17,7 +17,9 @@ namespace Restaurant.Droid.Renderers
     public class
         FloatingActionButtonRenderer : Xamarin.Forms.Platform.Android.AppCompat.ViewRenderer<FloatingActionButton, FAB>
     {
-        
+	    public FloatingActionButtonRenderer(Context context) : base(context)
+	    {   
+	    }
 
         protected override void OnElementChanged(ElementChangedEventArgs<FloatingActionButton> e)
         {
@@ -40,7 +42,7 @@ namespace Restaurant.Droid.Renderers
             var imageFile = elementImage?.File;
 
             if (imageFile != null)
-                fab.SetImageDrawable(Context.Resources.GetDrawable(imageFile));
+                fab.SetImageDrawable(Context.GetDrawable(imageFile));
             //fab.SetRippleColor(Element.RippleColor.ToAndroid());
 
             fab.Click += Fab_Click;
@@ -69,7 +71,7 @@ namespace Restaurant.Droid.Renderers
                 var imageFile = elementImage?.File;
 
                 if (imageFile != null)
-                    fab.SetImageDrawable(Context.Resources.GetDrawable(imageFile));
+                    fab.SetImageDrawable(Context.GetDrawable(imageFile));
             }
             if (e.PropertyName == nameof(Element.RippleColor))
             {

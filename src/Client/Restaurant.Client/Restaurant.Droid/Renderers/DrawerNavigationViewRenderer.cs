@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Android.Content;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
@@ -15,6 +16,10 @@ namespace Restaurant.Droid.Renderers
 {
     public class DrawerNavigationViewRenderer : ViewRenderer<NavigationView, Android.Support.Design.Widget.NavigationView>
     {
+	    public DrawerNavigationViewRenderer(Context context) : base(context)
+	    {	
+	    }
+
         private Android.Support.Design.Widget.NavigationView _navView;
 
         private IMenuItem _previousItem;
@@ -30,7 +35,7 @@ namespace Restaurant.Droid.Renderers
                 return;
 
 
-            var view = Inflate(Forms.Context, Resource.Layout.nav_drawer, null);
+            var view = Inflate(Context, Resource.Layout.nav_drawer, null);
             _navView = view.JavaCast<Android.Support.Design.Widget.NavigationView>();
 
 

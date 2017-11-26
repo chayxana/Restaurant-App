@@ -23,11 +23,10 @@
     "Restaurant.Server": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/values",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:6200/"
+      "applicationUrl": "http://localhost:6200/"
     }
   }
 }

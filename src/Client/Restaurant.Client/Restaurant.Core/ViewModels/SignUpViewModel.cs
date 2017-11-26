@@ -26,8 +26,8 @@ namespace Restaurant.Core.ViewModels
         {
             _navigationService = navigationService;
 
-            var canRegester = this.WhenAny(x => x.Email, x => x.Password,
-                x => x.ConfirmPassword, (e, p, cp) => !string.IsNullOrEmpty(e.Value));
+            var canRegester = this.WhenAny(x => x.Password,
+                x => x.ConfirmPassword, (p, cp) => p.Value == cp.Value);
 
             Register = ReactiveCommand
                 .CreateFromTask(async _ =>

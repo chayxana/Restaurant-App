@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Android.Content;
 using Android.Text;
 using Android.Views;
 using Restaurant.Droid.Renderers;
@@ -12,6 +13,10 @@ namespace Restaurant.Droid.Renderers
 {
     public class RestaurantEntryRenderer : EntryRenderer
     {
+	    public RestaurantEntryRenderer(Context context) : base(context)
+	    {   
+	    }
+
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
         {
             base.OnElementChanged(e);

@@ -1,4 +1,5 @@
-﻿using Android.Content.Res;
+﻿using Android.Content;
+using Android.Content.Res;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Xamarin.Forms;
@@ -8,15 +9,15 @@ namespace Restaurant.Droid.Providers
 {
     internal class DrawableProvider
     {
-        internal Drawable GetFormsDrawable(Resources resource, FileImageSource fileImageSource)
+        internal Drawable GetFormsDrawable(Context context, FileImageSource fileImageSource)
         {
             var file = fileImageSource.File;
-            var drawable = resource.GetDrawable(fileImageSource);
+            var drawable = context.GetDrawable(fileImageSource);
             if (drawable == null)
             {
-                var bitmap = resource.GetBitmap(file) ?? BitmapFactory.DecodeFile(file);
+                var bitmap = context.Resources.GetBitmap(file) ?? BitmapFactory.DecodeFile(file);
                 if (bitmap != null)
-                    drawable = new BitmapDrawable(resource, bitmap);
+                    drawable = new BitmapDrawable(context.Resources, bitmap);
             }
             return drawable;
         }

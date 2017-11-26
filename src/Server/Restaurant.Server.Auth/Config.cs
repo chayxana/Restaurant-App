@@ -46,11 +46,17 @@ namespace Restaurant.Server.Auth
 					{
 						new Secret("secret".Sha256())
 					},
-					AllowedScopes = {ApiConstants.ApiName}
+
+					AllowedScopes =
+					{
+						ApiConstants.ApiName
+					},
+
+					AllowOfflineAccess = true
 				},
 
-				// OpenID Connect hybrid flow and client credentials client (MVC)
-				new Client
+			// OpenID Connect hybrid flow and client credentials client (MVC)
+			new Client
 				{
 					ClientId = "mvc_client",
 					ClientName = "MVC Client",

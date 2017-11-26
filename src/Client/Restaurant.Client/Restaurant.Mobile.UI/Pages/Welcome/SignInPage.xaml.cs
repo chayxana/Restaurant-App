@@ -2,10 +2,12 @@ using System.Threading.Tasks;
 using Restaurant.Core.ViewModels;
 using Restaurant.Mobile.UI.Constants;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Restaurant.Mobile.UI.Pages.Welcome
 {
-    public partial class SignInPage : SignInPageXaml
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class SignInPage : SignInPageXaml
     {
         public SignInPage()
         {

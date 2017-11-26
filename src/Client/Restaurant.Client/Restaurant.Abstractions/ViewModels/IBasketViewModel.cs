@@ -1,5 +1,4 @@
 ﻿using ReactiveUI;
-using Restaurant.ViewModels;
 
 namespace Restaurant.Abstractions.ViewModels
 {

@@ -9,6 +9,6 @@
         private const string AzureClientUrl = "https://restaurantserverapi.azurewebsites.net/";
 	    private const string ApiClientUrlForAndroidEmulator = "http://10.0.2.2:6200/";
 
-	    public static string ApiClientUrl => AzureClientUrl;
+	    public static string ApiClientUrl => ApiClientUrlForAndroidEmulator;
     }
 }

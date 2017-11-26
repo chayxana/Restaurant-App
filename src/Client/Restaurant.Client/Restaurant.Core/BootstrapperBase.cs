@@ -23,7 +23,7 @@ namespace Restaurant.Core
     [ExcludeFromCodeCoverage]
     public abstract class BootstrapperBase
     {
-        public static bool MockData = false;
+        public static bool MockData = true;
         public static IContainer Container { get; private set; }
 
         public IContainer Build()
@@ -40,7 +40,7 @@ namespace Restaurant.Core
             builder.RegisterType<MasterViewModel>().As<IMasterViewModel>().SingleInstance();
 
             builder.RegisterType<AutoMapperFacade>().As<IAutoMapperFacade>();
-            builder.RegisterType<FoodDetailViewModelAdapter>().As<IFoodDetailViewModelAdapter>();
+            builder.RegisterType<FoodDetailViewModelFactory>().As<IFoodDetailViewModelFactory>();
             builder.RegisterType<ViewModelFactory>().As<IViewModelFactory>();
             builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             builder.RegisterType<NavigationItemAdapter>().As<INavigationItemAdapter>();

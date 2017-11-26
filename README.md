@@ -14,8 +14,8 @@ The Restaurant App is a sample open source application powered by C# and Xamarin
   * ASP.NET Core Web API
   * Identity Server4
   * Entity Framework Core
-  * PostgreSql
-  * SqlServer
+  * PostgreSQL
+  * SQL Server
 * Xamarin
   * Xamarin.Forms + Material Design
   * Custom Renderers

@@ -30,12 +30,12 @@ namespace Restaurant.Core.Providers
             return _accountApi.Register(registerDto);
         }
 
-        public Task<bool> ValidateToken(string accessToken)
-        {
-            return _tokenProvider.ValidateToken(accessToken);
-        }
+	    public Task<TokenResponse> RefreshToken(string refreshToken)
+	    {
+		    throw new NotImplementedException();
+	    }
 
-        public Task<object> LogOut()
+	    public Task<object> LogOut()
         {
             return _accountApi.LogOut();
         }

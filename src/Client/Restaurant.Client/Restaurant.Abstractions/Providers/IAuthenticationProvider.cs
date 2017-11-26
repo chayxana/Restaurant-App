@@ -10,7 +10,7 @@ namespace Restaurant.Abstractions.Providers
 
         Task<HttpResponseMessage> Register(RegisterDto registerDto);
 
-        Task<bool> ValidateToken(string accessToken);
+	    Task<TokenResponse> RefreshToken(string refreshToken);
 
         Task<object> LogOut();
     }

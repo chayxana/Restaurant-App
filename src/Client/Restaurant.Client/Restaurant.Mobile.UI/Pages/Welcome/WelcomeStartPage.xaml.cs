@@ -1,10 +1,12 @@
 using Restaurant.Core.ViewModels;
 using Restaurant.Mobile.UI.Constants;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Restaurant.Mobile.UI.Pages.Welcome
 {
-    public partial class WelcomeStartPage : WelcomeStartPageXaml
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class WelcomeStartPage : WelcomeStartPageXaml
     {
         public WelcomeStartPage()
         {

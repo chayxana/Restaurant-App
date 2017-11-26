@@ -76,7 +76,7 @@
                     <Label TextColor="{StaticResource grayDark}" VerticalOptions="Center" HorizontalOptions="Center"
                            FontSize="16" Text="Total price: " />
                     <Label TextColor="{StaticResource grayDark}" VerticalOptions="Center" HorizontalOptions="Center"
-                           x:Name="TotalPrice" FontSize="16" />
+                           Text="{Binding CurrentOrder.TotalPriceAnimated}" FontSize="16" />
                 </StackLayout>
 
                 <controls:Divider />

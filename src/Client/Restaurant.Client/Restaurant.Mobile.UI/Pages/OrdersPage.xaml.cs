@@ -12,7 +12,7 @@ namespace Restaurant.Mobile.UI.Pages
             InitializeComponent();
         }
 
-        protected override async void OnLoaded()
+        protected override void OnLoaded()
         {
             //BindingContext = ViewModel;
             //await ViewModel.LoadOrders();

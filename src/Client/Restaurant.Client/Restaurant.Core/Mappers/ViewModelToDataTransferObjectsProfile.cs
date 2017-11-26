@@ -3,7 +3,6 @@ using AutoMapper;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
 using Restaurant.Core.ViewModels;
-using Restaurant.ViewModels;
 
 namespace Restaurant.Core.Mappers
 {

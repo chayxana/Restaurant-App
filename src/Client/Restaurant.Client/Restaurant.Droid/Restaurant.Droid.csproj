@@ -15,7 +15,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
+    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
@@ -228,9 +228,9 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\AndroidManifest.xml">
+    <None Include="Properties\AndroidManifest.xml">
       <SubType>Designer</SubType>
-    </Content>
+    </None>
     <AndroidResource Include="Resources\drawable-hdpi\ic_email.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_key_variant.png" />
     <AndroidResource Include="Resources\drawable-ldpi\ic_email.png" />

@@ -109,8 +109,13 @@ namespace Restaurant.Server.Api
             app.UseCors("ServerPolicy");
             app.UseDeveloperExceptionPage();
             app.UseIdentityServer();
-            app.UseMvc();
-            app.UseStaticFiles();
+            app.UseMvc(routes =>
+            {
+	            routes.MapRoute(
+		            name: "default",
+		            template: "{controller=Home}/{action=Index}");
+            });
+			app.UseStaticFiles();
 
             AutoMapperConfiguration.Configure();
             userBootstrapper.CreateDefaultUsersAndRoles().Wait();

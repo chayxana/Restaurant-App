@@ -22,8 +22,10 @@ namespace Restaurant.Core.Factories
             {
                 return _container.Resolve(viewModelType) as INavigatableViewModel;
             }
-            catch (Exception e)
-            {
+#pragma warning disable CS0168 // Variable is declared but never used
+			catch (Exception e)
+#pragma warning restore CS0168 // Variable is declared but never used
+			{
                 throw;
             }
         }
@@ -34,8 +36,10 @@ namespace Restaurant.Core.Factories
             {
                 return _container.ResolveNamed(platform, viewModelType) as INavigatableViewModel;
             }
-            catch (Exception e)
-            {
+#pragma warning disable CS0168 // Variable is declared but never used
+			catch (Exception e)
+#pragma warning restore CS0168 // Variable is declared but never used
+			{
                 throw;
             }
         }

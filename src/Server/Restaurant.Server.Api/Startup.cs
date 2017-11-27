@@ -72,7 +72,7 @@ namespace Restaurant.Server.Api
             services.AddMvc();
 
             services.AddIdentityServer()
-                .AddDeveloperSigningCredential()
+                .AddSigningCredential("CN=restaurantcert")
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())

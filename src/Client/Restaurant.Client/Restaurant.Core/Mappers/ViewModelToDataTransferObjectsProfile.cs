@@ -11,13 +11,11 @@ namespace Restaurant.Core.Mappers
     {
         public ViewModelToDataTransferObjectsProfile()
         {
-            //CreateMap<SignUpViewModel, RegisterDto>()
-            //    .ForMember(x => x.UserName, map => map.MapFrom(x => x.UserName))
-            //    .ForMember(x => x.Email, map => map.MapFrom(x => x.Email))
-            //    .ForMember(x => x.Password, map => map.MapFrom(vm => vm.Password))
-            //    .ForMember(x => x.ConfirmPassword, map => map.MapFrom(vm => vm.ConfirmPassword));
+	        CreateMap<SignUpViewModel, RegisterDto>()
+		        .ForMember(x => x.Email, map => map.MapFrom(x => x.Email))
+		        .ForMember(x => x.Password, map => map.MapFrom(vm => vm.Password));
 
-            CreateMap<SignInViewModel, LoginDto>()
+			CreateMap<SignInViewModel, LoginDto>()
                 .ForMember(x => x.Login, map => map.MapFrom(vm => vm.Email))
                 .ForMember(x => x.Password, map => map.MapFrom(vm => vm.Password));
 

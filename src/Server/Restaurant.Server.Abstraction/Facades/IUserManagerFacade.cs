@@ -10,8 +10,10 @@ namespace Restaurant.Server.Abstraction.Facades
 	{
 		Task<IdentityResult> Create(User user, string password);
 
-		Task<User> GetAsync(ClaimsPrincipal principal);
+		Task<IdentityResult> UpdateAsync(User user);
 
-		Task<List<User>> GetAllUsers();
+		Task<User> GetAsync(ClaimsPrincipal principal);
+		
+		IEnumerable<User> GetAllUsers();
 	}
 }

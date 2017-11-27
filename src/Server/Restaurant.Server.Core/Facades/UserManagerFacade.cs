@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -29,12 +30,25 @@ namespace Restaurant.Server.Core.Facades
 
 		public Task<User> GetAsync(ClaimsPrincipal principal)
 		{
-			return _userManager.GetUserAsync(principal);
+			var userId = _userManager.GetUserId(principal);
+			
+			return _context.Users
+				.Include(x => x.UserProfile)
+				.SingleOrDefaultAsync(x => x.Id == userId);
 		}
 
-		public Task<List<User>> GetAllUsers()
+		public IEnumerable<User> GetAllUsers()
 		{
-			return _context.Users.ToListAsync();
+			return _userManager.Users
+				.Include(x => x.UserProfile)
+				.Include(x => x.Orders)
+				.ToList();
+		}
+
+
+		public Task<IdentityResult> UpdateAsync(User user)
+		{
+			return _userManager.UpdateAsync(user);
 		}
 	}
 }

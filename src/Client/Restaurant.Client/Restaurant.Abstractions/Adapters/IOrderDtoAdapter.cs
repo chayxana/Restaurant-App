@@ -6,6 +6,6 @@ namespace Restaurant.Abstractions.Adapters
 {
     public interface IOrderDtoAdapter
     {
-        OrderDto GetOrderDto(ReactiveList<IOrderViewModel> orderViewModels);
+        OrderDto GetOrderFromOrderViewModels(ReactiveList<IOrderViewModel> orderViewModels);
     }
 }

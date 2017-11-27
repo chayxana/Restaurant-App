@@ -1,4 +1,4 @@
-﻿using Android.App;
+﻿using Android.Content;
 using Android.Graphics;
 using Android.Util;
 
@@ -6,23 +6,30 @@ namespace Restaurant.Droid.Providers
 {
     public class ColorProvider
     {
-        public Color GetPimaryColor(Activity context)
+	    private readonly Context _context;
+
+	    public ColorProvider(Context context)
+	    {
+		    _context = context;
+	    }
+
+        public Color GetPimaryColor()
         {
-            var colorPrimaryAttr = context.Resources.GetIdentifier("colorPrimary", "attr", context.PackageName);
+            var colorPrimaryAttr = _context.Resources.GetIdentifier("colorPrimary", "attr", _context.PackageName);
 
             var primaryOutValue = new TypedValue();
-            context.Theme.ResolveAttribute(colorPrimaryAttr, primaryOutValue, true);
+            _context.Theme.ResolveAttribute(colorPrimaryAttr, primaryOutValue, true);
             var primary = primaryOutValue.Data;
 
             return new Color(primary);
         }
 
-        public Color GetPrimaryDarkColor(Activity context)
+        public Color GetPrimaryDarkColor()
         {
-            var colorPrimaryDarkAttr = context.Resources.GetIdentifier("colorPrimaryDark", "attr", context.PackageName);
+            var colorPrimaryDarkAttr = _context.Resources.GetIdentifier("colorPrimaryDark", "attr", _context.PackageName);
 
             var primaryDarkOutValue = new TypedValue();
-            context.Theme.ResolveAttribute(colorPrimaryDarkAttr, primaryDarkOutValue, true);
+            _context.Theme.ResolveAttribute(colorPrimaryDarkAttr, primaryDarkOutValue, true);
             var primaryDark = primaryDarkOutValue.Data;
             return new Color(primaryDark);
         }

@@ -30,7 +30,7 @@ namespace Restaurant.Core.ViewModels
 
             CompleteOrder = ReactiveCommand.Create(() =>
             {
-                var orderDto = orderDtoAdapter.GetOrderDto(Orders);
+                var orderDto = orderDtoAdapter.GetOrderFromOrderViewModels(Orders);
                 ordersApi.Create(orderDto);
                 Orders.Clear();
                 navigationService.NavigateToRoot();

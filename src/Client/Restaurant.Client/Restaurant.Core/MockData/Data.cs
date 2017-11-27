@@ -33,7 +33,7 @@ namespace Restaurant.Core.MockData
         {
             new FoodDto
             {
-                Picture = "https://i.imgur.com/vAVUGtZ.jpg",
+                Picture = "https://i.imgur.com/vAVUGtZm.jpg",
                 CategoryDto = Categories.FirstOrDefault(x => x.Name == "Foods"),
                 Name = "Hamburger",
                 Description =
@@ -43,7 +43,7 @@ namespace Restaurant.Core.MockData
             },
             new FoodDto
             {
-                Picture = "https://i.imgur.com/IBqp2Bb.jpg",
+                Picture = "https://i.imgur.com/IBqp2Bbm.jpg",
                 CategoryDto = Categories.FirstOrDefault(x => x.Name == "Foods"),
                 Name = "Steak",
                 Description =

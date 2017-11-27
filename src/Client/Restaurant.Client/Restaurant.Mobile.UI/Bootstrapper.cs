@@ -1,7 +1,10 @@
 ﻿using Autofac;
+using Plugin.Settings;
+using Plugin.Settings.Abstractions;
 using ReactiveUI;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Factories;
+using Restaurant.Abstractions.Providers;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Core;
 using Restaurant.Core.ViewModels;
@@ -13,6 +16,7 @@ using Restaurant.Mobile.UI.Pages;
 using Restaurant.Mobile.UI.Pages.Android;
 using Restaurant.Mobile.UI.Pages.iOS;
 using Restaurant.Mobile.UI.Pages.Welcome;
+using Restaurant.Mobile.UI.Providers;
 using Xamarin.Forms;
 
 namespace Restaurant.Mobile.UI
@@ -37,6 +41,8 @@ namespace Restaurant.Mobile.UI
             builder.RegisterType<NavigationFacade>().As<INavigationFacade>();
             builder.RegisterType<PlatformFacade>().As<IPlatformFacade>();
             builder.RegisterType<ViewFactory>().As<IViewFactory>();
+	        builder.RegisterType<SettingsProvider>().As<ISettingsProvider>().SingleInstance();
+	        builder.RegisterInstance(CrossSettings.Current).As<ISettings>().SingleInstance();
         }
     }
 }

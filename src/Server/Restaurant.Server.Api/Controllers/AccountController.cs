@@ -1,9 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Common.DataTransferObjects;
 using Restaurant.Server.Abstraction.Facades;
+using Restaurant.Server.Abstraction.Providers;
 using Restaurant.Server.Models;
 
 namespace Restaurant.Server.Api.Controllers
@@ -13,12 +16,15 @@ namespace Restaurant.Server.Api.Controllers
 	{
 		private readonly IMapperFacade _mapper;
 		private readonly IUserManagerFacade _userManagerFacade;
+		private readonly IFileUploadProvider _fileUploadProvider;
 
 		public AccountController(
 			IUserManagerFacade userManagerFacade,
+			IFileUploadProvider fileUploadProvider,
 			IMapperFacade mapper)
 		{
 			_userManagerFacade = userManagerFacade;
+			_fileUploadProvider = fileUploadProvider;
 			_mapper = mapper;
 		}
 
@@ -27,7 +33,12 @@ namespace Restaurant.Server.Api.Controllers
 		[AllowAnonymous]
 		public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
 		{
-			var user = new User { Email = registerDto.Email, UserName = registerDto.Email };
+			var user = new User
+			{
+				Email = registerDto.Email,
+				UserName = registerDto.Email,
+				UserProfile = new UserProfile()
+			};
 			var result = await _userManagerFacade.Create(user, registerDto.Password);
 
 			return result.Succeeded ? Ok() : Error(result);
@@ -41,6 +52,33 @@ namespace Restaurant.Server.Api.Controllers
 			var user = await _userManagerFacade.GetAsync(User);
 			return _mapper.Map<UserDto>(user);
 		}
+
+		[HttpGet]
+		[Route("GetAllUsers")]
+		[Authorize(Roles = "Admin")]
+		public IEnumerable<UserDto> Users()
+		{
+			var users = _userManagerFacade.GetAllUsers();
+			var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
+			return userDtos;
+		}
+
+		[HttpPost]
+		[Route("UpdateUserProfilePicture")]
+		[Authorize]
+		public async Task<IActionResult> UpdatePicture([Bind] IFormFile file)
+		{
+			var user = await _userManagerFacade.GetAsync(User);
+
+			await _fileUploadProvider.Upload(file, user.Id);
+
+			user.UserProfile.Picture = _fileUploadProvider.GetUploadedFileByUniqId(user.Id);
+
+			var result = await _userManagerFacade.UpdateAsync(user);
+
+			return result.Succeeded ? Ok() : Error(result);
+		}
+
 
 		private IActionResult Error(IdentityResult result)
 		{

@@ -38,7 +38,7 @@ namespace Restaurant.Droid.Renderers
 
         public CustomNavigationPageRenderer(Context context) : base(context)
         {
-            _colorProvider = new ColorProvider();
+            _colorProvider = new ColorProvider(context);
             _drawableProvider = new DrawableProvider();
         }
 
@@ -99,8 +99,8 @@ namespace Restaurant.Droid.Renderers
                 else
                 {
                     context.Window.DecorView.SystemUiVisibility = StatusBarVisibility.Visible;
-                    context.Window.SetStatusBarColor(_colorProvider.GetPrimaryDarkColor(context));
-                    _toolbar.SetBackgroundColor(_colorProvider.GetPimaryColor(context));
+                    context.Window.SetStatusBarColor(_colorProvider.GetPrimaryDarkColor());
+                    _toolbar.SetBackgroundColor(_colorProvider.GetPimaryColor());
                 }
         }
 

@@ -47,6 +47,7 @@
                         </OnPlatform>
                     </ActivityIndicator.Color>
                 </ActivityIndicator>
+                <Label TextColor="{StaticResource asphaltDark}" HorizontalOptions="Center">Loading...</Label>
             </StackLayout>
         </Grid>
     </pages:FoodsXamlPage.Content>

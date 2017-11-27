@@ -20,4 +20,4 @@ $filePath = "src/Server/Restaurant.Server.Api/restaurantcert.pfx"
 
 Export-PfxCertificate -cert $certificatePath -FilePath $filePath  -Password $pwd
 
-Import-PfxCertificate -FilePath $filePath Cert:\LocalMachine\My -Password $pwd -Exportable
+Import-PfxCertificate -FilePath $filePath Cert:\CurrentUser\Root -Password $pwd -Exportable

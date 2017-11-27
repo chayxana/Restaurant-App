@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Android.App;
 using Android.Content;
+using Android.Content.Res;
 using Android.OS;
 using Android.Util;
 using Android.Views;
@@ -62,7 +63,7 @@ namespace Restaurant.Droid.Renderers
 
             UpdateMenu(true);
 
-            if ((int) Build.VERSION.SdkInt >= 21)
+            if ((int)Build.VERSION.SdkInt >= 21)
             {
                 var navPage = Element;
                 SetThemeColors(navPage.CurrentPage);
@@ -78,7 +79,7 @@ namespace Restaurant.Droid.Renderers
         {
             base.OnElementPropertyChanged(sender, e);
             if (e.PropertyName == NavigationPage.CurrentPageProperty.PropertyName)
-                if ((int) Build.VERSION.SdkInt >= 21)
+                if ((int)Build.VERSION.SdkInt >= 21)
                 {
                     var navPage = Element;
                     SetThemeColors(navPage.CurrentPage);
@@ -91,7 +92,7 @@ namespace Restaurant.Droid.Renderers
                 if (page is ITransparentActionBarPage transparentPage && transparentPage.IsTransparentActionBar)
                 {
                     context.Window.DecorView.SystemUiVisibility =
-                        (StatusBarVisibility) (SystemUiFlags.LayoutFullscreen | SystemUiFlags.LayoutStable);
+                        (StatusBarVisibility)(SystemUiFlags.LayoutFullscreen | SystemUiFlags.LayoutStable);
                     context.Window.SetStatusBarColor(Color.Transparent.ToAndroid());
                     _toolbar.SetBackgroundColor(Color.Transparent.ToAndroid());
                 }
@@ -231,7 +232,7 @@ namespace Restaurant.Droid.Renderers
                             colorPressed,
                             textColor);
 
-                        var activity = (FormsAppCompatActivity) Context;
+                        var activity = (FormsAppCompatActivity)Context;
                         ActionItemBadge.Update(activity, menuItem, iconDrawable, badgeStyle, item.BadgeText);
                         menuItem.ActionView.Click += (_, __) => controller.Activate();
                         menuItem.SetEnabled(controller.IsEnabled);
@@ -269,8 +270,8 @@ namespace Restaurant.Droid.Renderers
                     actionBarHeight = TypedValue.ComplexToDimensionPixelSize(tv.Data, Resources.DisplayMetrics);
             }
 
-            //if (actionBarHeight <= 0)
-            //	return Device.Info.CurrentOrientation.IsPortrait() ? (int)Context.ToPixels(56) : (int)Context.ToPixels(48);
+            if (actionBarHeight <= 0)
+                return IsPortrait() ? (int)Context.ToPixels(56) : (int)Context.ToPixels(48);
 
             return actionBarHeight;
         }
@@ -285,6 +286,11 @@ namespace Restaurant.Droid.Renderers
             if (resourceId > 0)
                 result = Resources.GetDimensionPixelSize(resourceId);
             return _statusBarHeight = result;
+        }
+
+        private bool IsPortrait()
+        {
+            return Context.Resources.Configuration.Orientation == Orientation.Portrait;
         }
     }
 }

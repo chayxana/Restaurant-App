@@ -1,70 +1,76 @@
 ﻿using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using IdentityModel.Client;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Restaurant.Common.Constants;
+using Restaurant.Server.Api.IntegrationTests.Config;
 
 namespace Restaurant.Server.Api.IntegrationTests
 {
-    public class IntegrationTestBase : IDisposable
-    {
-        private readonly string _apiName = ApiConstants.ApiName;
-        private const string TokenEndpoint = "http://localhost/connect/token";
-        private readonly TestServer _testServer;
-        protected readonly HttpClient HttpClient;
-        private HttpMessageHandler _handler;
+	public class IntegrationTestBase
+	{
+		protected HttpClient HttpClient;
+		private TestServer _testServer;
+		private IdentityServerSetup _identityServerSetup;
+		public HttpMessageHandler _handler;
 
-        protected IntegrationTestBase()
-        {
-            var projectDir = Directory.GetCurrentDirectory();
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(projectDir)
-                .AddJsonFile("appsettings.json").Build();
+		protected IntegrationTestBase()
+		{
+			InitializeIdentityServer();
+			InitializeClient();
+		}
 
-            var builder = new WebHostBuilder()
-                .UseEnvironment("Test")
-                .UseContentRoot(projectDir)
-                .UseConfiguration(configuration)
-                .UseStartup<Startup>();
 
-            _testServer = new TestServer(builder);
-            _handler = _testServer.CreateHandler();
-            HttpClient = _testServer.CreateClient();
-        }
+		private void InitializeClient()
+		{
+			var projectDir = Directory.GetCurrentDirectory();
+			var configuration = new ConfigurationBuilder()
+				.SetBasePath(projectDir)
+				.AddJsonFile("appsettings.json").Build();
 
-        protected Task SetUpTokenFor(string username, string password)
-        {
-            return SetAccessToken(HttpClient, username, password);
-        }
+			var builder = new WebHostBuilder()
+				.UseEnvironment("Test")
+				.UseContentRoot(projectDir)
+				.UseConfiguration(configuration)
+				.UseStartup<Startup>();
 
-   
-        private async Task<string> GetAccessTokenForUser(string userName, string password, string clientId = ApiConstants.ClientId, string clientSecret = ApiConstants.ClientSecret)
-        {
-            var handler = _testServer.CreateHandler();
-            var discoveryClient = new DiscoveryClient("http://localhost", handler);
-            var discoveryDocument = await discoveryClient.GetAsync();
+			_testServer = new TestServer(builder);
+			_handler = _testServer.CreateHandler();
+			HttpClient = _testServer.CreateClient();
+		}
 
-            var client = new TokenClient(discoveryDocument.TokenEndpoint, clientId, clientSecret, innerHttpMessageHandler : handler);
 
-            var response = await client.RequestResourceOwnerPasswordAsync(userName, password, _apiName);
-            return response.AccessToken;
-        }
+		private void InitializeIdentityServer()
+		{
+			_identityServerSetup = new IdentityServerSetup()
+				.Initialize();
+		}
 
-        private async Task SetAccessToken(HttpClient client, string username, string password, string clientId = ApiConstants.ClientId, string clientSecret = ApiConstants.ClientSecret)
-        {
-            var token = await GetAccessTokenForUser(username, password, clientId, clientSecret);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        }
+		protected Task SetUpTokenFor(string username, string password)
+		{
+			return _identityServerSetup.SetAccessToken(HttpClient, username, password);
+		}
 
-        public virtual void Dispose()
-        {
-            _testServer.Dispose();
-            HttpClient?.Dispose();
-        }
-    }
+		public async Task<string> GetAccessTokenForUser(string userName, string password, string clientId = ApiConstants.ClientId, string clientSecret = ApiConstants.ClientSecret)
+		{
+			var client = new TokenClient("https://localhost:6200/connect/token", clientId, clientSecret);
+
+			var response = await client.RequestResourceOwnerPasswordAsync(userName, password, ApiConstants.ApiName);
+			return response.AccessToken;
+		}
+
+		public async Task SetAccessToken(string username, string password, string clientId = ApiConstants.ClientId, string clientSecret = ApiConstants.ClientSecret)
+		{
+			var token = await GetAccessTokenForUser(username, password, clientId, clientSecret);
+			HttpClient.SetBearerToken(token);
+		}
+	}
 }

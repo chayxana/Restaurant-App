@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Restaurant.Common.Constants;
 using Restaurant.Server.Abstraction.Facades;
 using Restaurant.Server.Abstraction.Providers;
@@ -22,107 +21,90 @@ using Restaurant.Server.Models;
 
 namespace Restaurant.Server.Api
 {
-    [ExcludeFromCodeCoverage]
-    public class Startup
-    {
-        private readonly IConfiguration _configuration;
-        private readonly IHostingEnvironment _env;
+	[ExcludeFromCodeCoverage]
+	public class Startup
+	{
+		private readonly IConfiguration _configuration;
+		private readonly IHostingEnvironment _env;
 
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
-        {
-            _configuration = configuration;
-            _env = env;
-        }
+		public Startup(IConfiguration configuration, IHostingEnvironment env)
+		{
+			_configuration = configuration;
+			_env = env;
+		}
 
-        public void ConfigureServices(IServiceCollection services)
-        {
-            var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
+		public void ConfigureServices(IServiceCollection services)
+		{
+			var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
 
-            if (_env.IsEnvironment("Heroku") || _env.IsEnvironment("Docker"))
-            {
-                services.AddDbContext<DatabaseContext>(opt => opt.UseNpgsql(connectionString,
-                    b => b.MigrationsAssembly("Restaurant.Server.Api")));
-            }
-            else
-            {
-                services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connectionString,
-                    b => b.MigrationsAssembly("Restaurant.Server.Api")));
-            }
-            
-            services.AddIdentity<User, IdentityRole>(options =>
-            {
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-            }).AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
+			if (_env.IsEnvironment("Heroku") || _env.IsEnvironment("Docker"))
+			{
+				services.AddDbContext<DatabaseContext>(opt => opt.UseNpgsql(connectionString,
+					b => b.MigrationsAssembly("Restaurant.Server.Api")));
+			}
+			else
+			{
+				services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connectionString,
+					b => b.MigrationsAssembly("Restaurant.Server.Api")));
+			}
 
-
-            services.AddScoped<IRepository<DailyEating>, DailyEatingRepository>();
-            services.AddScoped<IRepository<Food>, FoodRepository>();
-            services.AddScoped<IRepository<Category>, CategoryRepository>();
-            services.AddScoped<IRepository<Order>, OrderRepository>();
-            services.AddScoped<IMapperFacade, MapperFacade>();
-            services.AddScoped<IUserBootstrapper, UserBootstrapper>();
-            services.AddScoped<IUserManagerFacade, UserManagerFacade>();
-            services.AddSingleton<IFileInfoFacade, FileInfoFacade>();
-            services.AddSingleton<IFileUploadProvider, FileUploadProvider>();
-
-            services.AddLogging();
-
-            services.AddCors(o => o.AddPolicy("ServerPolicy", builder =>
-            {
-                builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .WithExposedHeaders("WWW-Authenticate");
-            }));
-
-            services.AddMvc();
-
-            services.SetupIdentityServer(_env)
-                .AddAspNetIdentity<User>();
+			services.AddIdentity<User, IdentityRole>(options =>
+			{
+				options.Password.RequireNonAlphanumeric = false;
+				options.Password.RequireUppercase = false;
+			}).AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
 
 
-            services.AddAuthentication(o =>
-            {
-                o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(o =>
-            {
-//#if DEBUG
-                o.Authority = "http://localhost";
-//#elif RELEASE
-//				o.Authority = "https://restaurantserverapi.azurewebsites.net";
-//#endif
+			services.AddScoped<IRepository<DailyEating>, DailyEatingRepository>();
+			services.AddScoped<IRepository<Food>, FoodRepository>();
+			services.AddScoped<IRepository<Category>, CategoryRepository>();
+			services.AddScoped<IRepository<Order>, OrderRepository>();
+			services.AddScoped<IMapperFacade, MapperFacade>();
+			services.AddScoped<IUserBootstrapper, UserBootstrapper>();
+			services.AddScoped<IUserManagerFacade, UserManagerFacade>();
+			services.AddSingleton<IFileInfoFacade, FileInfoFacade>();
+			services.AddSingleton<IFileUploadProvider, FileUploadProvider>();
 
-                o.Audience = ApiConstants.ApiName;
-                o.RequireHttpsMetadata = false;
-            });
-        }
+			services.AddLogging();
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app,
-            ILoggerFactory loggerFactory,
-            IConfiguration configuration,
-            IUserBootstrapper userBootstrapper)
-        {
-            loggerFactory.AddConsole(configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+			services.AddCors(o => o.AddPolicy("ServerPolicy", builder =>
+			{
+				builder.AllowAnyOrigin()
+					.AllowAnyMethod()
+					.AllowAnyHeader()
+					.WithExposedHeaders("WWW-Authenticate");
+			}));
 
-            app.UseCors("ServerPolicy");
-            app.UseDeveloperExceptionPage();
-            app.UseIdentityServer();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}");
-            });
+			services.AddMvc();
 
-            app.UseStaticFiles();
-            new AutoMapperConfiguration().Configure();
+			services.SetupIdentityServer(_env)
+				.AddAspNetIdentity<User>();
 
-            if (!_env.IsEnvironment("Test"))
-                userBootstrapper.CreateDefaultUsersAndRoles().Wait();
-        }
-    }
+			services.SetupAuthentication();
+		}
+
+		public void Configure(IApplicationBuilder app,
+			ILoggerFactory loggerFactory,
+			IConfiguration configuration,
+			IUserBootstrapper userBootstrapper)
+		{
+			loggerFactory.AddConsole(configuration.GetSection("Logging"));
+			loggerFactory.AddDebug();
+
+			app.UseCors("ServerPolicy");
+			app.UseDeveloperExceptionPage();
+			app.UseIdentityServer();
+			app.UseAuthentication();
+			app.UseMvc(routes =>
+			{
+				routes.MapRoute(
+					name: "default",
+					template: "{controller=Home}/{action=Index}");
+			});
+
+			app.UseStaticFiles();
+			new AutoMapperConfiguration().Configure();
+			userBootstrapper.CreateDefaultUsersAndRoles().Wait();
+		}
+	}
 }

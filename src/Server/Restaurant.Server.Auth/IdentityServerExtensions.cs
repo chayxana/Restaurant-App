@@ -17,6 +17,7 @@ namespace Restaurant.Server.Auth
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients());
+	        
         }
     }
 }

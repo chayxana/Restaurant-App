@@ -4,10 +4,11 @@ using AutoMapper;
 namespace Restaurant.Server.Core.Mappers
 {
 	[ExcludeFromCodeCoverage]
-	public static class AutoMapperConfiguration
+	public class AutoMapperConfiguration
 	{
-		public static void Configure()
+		public void Configure()
 		{
+            Mapper.Reset();
 			Mapper.Initialize(x => { x.AddProfile<RestaurantModelsToDtoProfile>(); });
 		}
 	}

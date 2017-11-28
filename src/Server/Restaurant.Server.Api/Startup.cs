@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Restaurant.Common.Constants;
 using Restaurant.Server.Abstraction.Facades;
 using Restaurant.Server.Abstraction.Providers;
@@ -25,22 +26,29 @@ namespace Restaurant.Server.Api
     public class Startup
     {
         private readonly IConfiguration _configuration;
+        private readonly IHostingEnvironment _env;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             _configuration = configuration;
+            _env = env;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
 
-            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connectionString,
-                b => b.MigrationsAssembly("Restaurant.Server.Api")));
-
-            //services.AddDbContext<DatabaseContext>(opt => opt.UseNpgsql(connectionString, 
-            //    b => b.MigrationsAssembly("Restaurant.Server.Api")));
-
+            if (_env.IsEnvironment("Heroku") || _env.IsEnvironment("Docker"))
+            {
+                services.AddDbContext<DatabaseContext>(opt => opt.UseNpgsql(connectionString,
+                    b => b.MigrationsAssembly("Restaurant.Server.Api")));
+            }
+            else
+            {
+                services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connectionString,
+                    b => b.MigrationsAssembly("Restaurant.Server.Api")));
+            }
+            
             services.AddIdentity<User, IdentityRole>(options =>
             {
                 options.Password.RequireNonAlphanumeric = false;
@@ -55,7 +63,6 @@ namespace Restaurant.Server.Api
             services.AddScoped<IMapperFacade, MapperFacade>();
             services.AddScoped<IUserBootstrapper, UserBootstrapper>();
             services.AddScoped<IUserManagerFacade, UserManagerFacade>();
-
             services.AddSingleton<IFileInfoFacade, FileInfoFacade>();
             services.AddSingleton<IFileUploadProvider, FileUploadProvider>();
 
@@ -71,11 +78,7 @@ namespace Restaurant.Server.Api
 
             services.AddMvc();
 
-            services.AddIdentityServer()
-                .AddSigningCredential("CN=restaurantcert")
-                .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients())
+            services.SetupIdentityServer(_env)
                 .AddAspNetIdentity<User>();
 
 
@@ -85,11 +88,11 @@ namespace Restaurant.Server.Api
                 o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(o =>
             {
-#if DEBUG
-                o.Authority = "http://localhost:6200";
-#elif RELEASE
-				o.Authority = "https://restaurantserverapi.azurewebsites.net";
-#endif
+//#if DEBUG
+                o.Authority = "http://localhost";
+//#elif RELEASE
+//				o.Authority = "https://restaurantserverapi.azurewebsites.net";
+//#endif
 
                 o.Audience = ApiConstants.ApiName;
                 o.RequireHttpsMetadata = false;
@@ -98,7 +101,6 @@ namespace Restaurant.Server.Api
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app,
-            IHostingEnvironment env,
             ILoggerFactory loggerFactory,
             IConfiguration configuration,
             IUserBootstrapper userBootstrapper)
@@ -111,14 +113,16 @@ namespace Restaurant.Server.Api
             app.UseIdentityServer();
             app.UseMvc(routes =>
             {
-	            routes.MapRoute(
-		            name: "default",
-		            template: "{controller=Home}/{action=Index}");
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}");
             });
-			app.UseStaticFiles();
 
-            AutoMapperConfiguration.Configure();
-            userBootstrapper.CreateDefaultUsersAndRoles().Wait();
+            app.UseStaticFiles();
+            new AutoMapperConfiguration().Configure();
+
+            if (!_env.IsEnvironment("Test"))
+                userBootstrapper.CreateDefaultUsersAndRoles().Wait();
         }
     }
 }

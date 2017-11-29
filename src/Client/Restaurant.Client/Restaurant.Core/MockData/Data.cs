@@ -61,5 +61,16 @@ namespace Restaurant.Core.MockData
                     "Sushi (すし, 寿司, 鮨) is the Japanese preparation and serving of specially prepared vinegared rice (鮨飯 sushi-meshi) combined with varied ingredients (ネタ neta) such as chiefly seafood (often uncooked), vegetables, and occasionally tropical fruits. Styles of sushi and its presentation vary widely, but the key ingredient is sushi rice, also referred to as shari (しゃり), or sumeshi (酢飯)."
             }
         };
+
+        public static UserDto User = new UserDto
+        {
+            Profile = new UserProfileDto()
+            {
+                Name = "Test",
+                LastName = "Test Last Name",
+                BirthDate = new DateTime(1999, 12, 12),
+                Picture = "http://via.placeholder.com/200x200"
+            }
+        };
     }
 }

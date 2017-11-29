@@ -13,7 +13,7 @@ namespace Restaurant.Server.Auth
                 identityServerBuilder.AddTestUsers(DefaultUsers.Get());
 
             return identityServerBuilder
-                .AddSigningCredential("CN=restaurantcert")
+                .AddDeveloperSigningCredential()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients());

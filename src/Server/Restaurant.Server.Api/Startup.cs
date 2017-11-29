@@ -94,7 +94,6 @@ namespace Restaurant.Server.Api
 			app.UseCors("ServerPolicy");
 			app.UseDeveloperExceptionPage();
 			app.UseIdentityServer();
-			app.UseAuthentication();
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(

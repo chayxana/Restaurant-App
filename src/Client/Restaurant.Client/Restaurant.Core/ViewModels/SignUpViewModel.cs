@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using ReactiveUI;
@@ -34,19 +35,30 @@ namespace Restaurant.Core.ViewModels
 	            {
 		            IsLoading = true;
                     var registerDto = autoMapperFacade.Map<RegisterDto>(this);
-                    var result = await authenticationProvider.Register(registerDto);
+	                try
+	                {
+	                    var result = await authenticationProvider.Register(registerDto);
 
-                    if (result.IsSuccessStatusCode)
-                    {
-                        var loginResult = await authenticationProvider.Login(
-                            new LoginDto { Login = Email, Password = Password });
-
-	                    if (!loginResult.IsError && loginResult.HttpStatusCode == HttpStatusCode.OK)
+	                    if (result.IsSuccessStatusCode)
 	                    {
-		                    await _navigationService.NavigateToMainPage(typeof(IMainViewModel));
-						}
-                    }
-		            IsLoading = false;
+	                        var loginResult = await authenticationProvider.Login(
+	                            new LoginDto {Login = Email, Password = Password});
+
+	                        if (!loginResult.IsError && loginResult.HttpStatusCode == HttpStatusCode.OK)
+	                        {
+	                            await _navigationService.NavigateToMainPage(typeof(IMainViewModel));
+	                        }
+	                    }
+	                    IsLoading = false;
+	                }
+	                catch (Exception ex)
+	                {
+	                    // ignored
+	                }
+	                finally
+	                {
+	                    IsLoading = false;
+	                }
 
 				}, canRegester);
         }

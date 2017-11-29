@@ -6,8 +6,10 @@ using Android.Widget;
 using Restaurant.Abstractions.Enums;
 using Restaurant.Droid.Renderers;
 using Restaurant.Mobile.UI.Controls;
+using Square.Picasso;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Uri = Android.Net.Uri;
 using View = Android.Views.View;
 
 [assembly: ExportRenderer(typeof(NavigationView), typeof(DrawerNavigationViewRenderer))]
@@ -46,7 +48,7 @@ namespace Restaurant.Droid.Renderers
             var header = _navView.GetHeaderView(0);
             _profileImage = header.FindViewById<ImageView>(Resource.Id.profile_image);
             _profileName = header.FindViewById<TextView>(Resource.Id.profile_name);
-
+           
             _profileImage.Click += (sender, e2) => NavigateToLogin();
             _profileName.Click += (sender, e2) => NavigateToLogin();
 
@@ -78,6 +80,12 @@ namespace Restaurant.Droid.Renderers
 
         private void UpdateImage()
         {
+            Picasso.With(Context)
+                .Load(Uri.Parse("http://via.placeholder.com/200x200"))
+                .Into(_profileImage);
+
+            _profileImage.SetScaleType(ImageView.ScaleType.CenterCrop);
+
             //Koush.UrlImageViewHelper.SetUrlDrawable(profileImage, Settings.Current.UserAvatar, Resource.Drawable.profile_generic);
         }
 

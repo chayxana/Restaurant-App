@@ -16,11 +16,12 @@ namespace Restaurant.Server.Api
 		public static IWebHost BuildWebHost(string[] args)
 		{
             return WebHost.CreateDefaultBuilder(args)
-				.UseStartup<Startup>()
+                .UseUrls("http://*:6200")
+                .UseStartup<Startup>()
                 .UseKestrel(options =>
                 {
                     options.Listen(IPAddress.Loopback, 6000);
-                    options.Listen(IPAddress.Loopback, 6200, listenOptions =>
+                    options.Listen(IPAddress.Any, 6200, listenOptions =>
                     {
                         listenOptions.UseHttps("restaurantcert.pfx", "Test123");
                         listenOptions.UseConnectionLogging();

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Net;
 using Autofac;
 using Refit;
 using Restaurant.Abstractions.Adapters;

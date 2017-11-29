@@ -37,7 +37,10 @@ namespace Restaurant.Server.Api.Controllers
 			{
 				Email = registerDto.Email,
 				UserName = registerDto.Email,
-				UserProfile = new UserProfile()
+				UserProfile = new UserProfile
+				{
+				    Picture = "http://via.placeholder.com/200x200"
+                }
 			};
 			var result = await _userManagerFacade.Create(user, registerDto.Password);
 

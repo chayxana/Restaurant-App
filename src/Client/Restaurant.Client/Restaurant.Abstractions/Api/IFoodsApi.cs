@@ -9,8 +9,8 @@ namespace Restaurant.Abstractions.Api
 {
     public interface IFoodsApi : IApi
     {
-        [Get("/api/Foods")]
-        Task<IEnumerable<FoodDto>> GetFoods();
+        [Get("/api/Foods/GetAll/")]
+        Task<IEnumerable<FoodDto>> GetFoods(int count = 5, int skip = 0);
 
         [Get("/api/Foods/{id}")]
         Task<FoodDto> GetFood(Guid id);

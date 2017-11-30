@@ -35,7 +35,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
         {
             // given
             var viewModel = ClassUnderTest;
-            GetMock<IFoodsApi>().Setup(x => x.GetFoods()).Returns(Task.FromResult(foods));
+            GetMock<IFoodsApi>().Setup(x => x.GetFoods(10, 10)).Returns(Task.FromResult(foods));
 
             // when
             await viewModel.LoadFoods();
@@ -63,7 +63,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
             var foodDetailViewModel =
                 new FoodDetailViewModel(selectedFood, basketViewModel.Object, navigationService.Object);
 
-            GetMock<IFoodsApi>().Setup(x => x.GetFoods()).Returns(Task.FromResult(foods));
+            GetMock<IFoodsApi>().Setup(x => x.GetFoods(10, 10)).Returns(Task.FromResult(foods));
             GetMock<IFoodDetailViewModelFactory>().Setup(x => x.GetFoodDetailViewModel(selectedFood))
                 .Returns(foodDetailViewModel);
 

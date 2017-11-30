@@ -20,10 +20,12 @@ namespace Restaurant.Mobile.UI.Providers
 		    set => _settings.AddOrUpdateValue(Settings.RefreshTokenKey, value);
 	    }
 		
-	    public DateTime LastUpdatedRefreshTokenTime
+		public DateTime LastUpdatedRefreshTokenTime
 	    {
 		    get => _settings.GetValueOrDefault(Settings.LastUpdatedRefreshTokenTimeKey, DateTime.MinValue);
 		    set => _settings.AddOrUpdateValue(Settings.LastUpdatedRefreshTokenTimeKey, value);
 	    }
+
+		public string AccessToken { get; set; }
 	}
 }

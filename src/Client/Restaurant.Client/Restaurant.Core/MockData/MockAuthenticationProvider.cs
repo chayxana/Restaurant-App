@@ -30,5 +30,22 @@ namespace Restaurant.Core.MockData
         {
             throw new NotImplementedException();
         }
+
+	    public void SaveRefreshToken(string refreshToken)
+	    {
+		    throw new NotImplementedException();
+	    }
+
+	    public bool IsAccessTokenExpired()
+	    {
+		    throw new NotImplementedException();
+	    }
+
+	    public Task<string> GetAccessToken()
+	    {
+		    throw new NotImplementedException();
+	    }
+
+	    private TokenResponse LastAuthenticatedTokenResponse { get; set; }
     }
 }

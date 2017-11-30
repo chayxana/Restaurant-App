@@ -4,14 +4,16 @@ using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Abstractions.Providers
 {
-    public interface IAuthenticationProvider
-    {
-        Task<TokenResponse> Login(LoginDto loginDto);
+	public interface IAuthenticationProvider
+	{
+		Task<TokenResponse> Login(LoginDto loginDto);
 
-        Task<HttpResponseMessage> Register(RegisterDto registerDto);
+		Task<HttpResponseMessage> Register(RegisterDto registerDto);
 
-	    Task<TokenResponse> RefreshToken(string refreshToken);
+		Task<TokenResponse> RefreshToken(string refreshToken);
 
-        Task<object> LogOut();
-    }
+		Task<object> LogOut();
+
+		Task<string> GetAccessToken();
+	}
 }

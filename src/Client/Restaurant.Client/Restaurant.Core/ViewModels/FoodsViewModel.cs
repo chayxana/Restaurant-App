@@ -63,7 +63,7 @@ namespace Restaurant.Core.ViewModels
         public async Task LoadFoods()
         {
             IsLoading = true;
-            var foods = await _foodsApi.GetFoods();
+            var foods = await _foodsApi.GetFoods(5, 0);
             if (!BootstrapperBase.MockData)
             {
                 foreach (var food in foods)

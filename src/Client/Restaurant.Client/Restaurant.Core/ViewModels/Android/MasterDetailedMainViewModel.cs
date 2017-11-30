@@ -2,6 +2,7 @@
 using System.Reactive.Linq;
 using ReactiveUI;
 using Restaurant.Abstractions.Adapters;
+using Restaurant.Abstractions.Providers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 

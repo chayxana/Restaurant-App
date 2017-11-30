@@ -11,18 +11,30 @@ namespace Restaurant.Core.Providers
     {
         private readonly ITokenProvider _tokenProvider;
         private readonly IAccountApi _accountApi;
+	    private readonly ISettingsProvider _settingsProvider;
+	    private TokenResponse _lastAuthenticatedTokenResponse;
 
-        public AuthenticationProvider(
+		public AuthenticationProvider(
             ITokenProvider tokenProvider,
-            IAccountApi accountApi)
+            IAccountApi accountApi,
+			ISettingsProvider settingsProvider)
         {
             _tokenProvider = tokenProvider;
             _accountApi = accountApi;
+	        _settingsProvider = settingsProvider;
         }
 
-        public Task<TokenResponse> Login(LoginDto loginDto)
+        public async Task<TokenResponse> Login(LoginDto loginDto)
         {
-            return _tokenProvider.RequestResourceOwnerPasswordAsync(loginDto.Login, loginDto.Password);
+	        var result = await _tokenProvider.RequestResourceOwnerPasswordAsync(loginDto.Login, loginDto.Password);
+
+	        if (!result.IsError)
+	        {
+		        UpdateRefreshToken(result.RefreshToken);
+		        _lastAuthenticatedTokenResponse = result;
+	        }
+
+	        return result;
         }
 
         public Task<HttpResponseMessage> Register(RegisterDto registerDto)
@@ -30,14 +42,47 @@ namespace Restaurant.Core.Providers
             return _accountApi.Register(registerDto);
         }
 
-	    public Task<TokenResponse> RefreshToken(string refreshToken)
+	    public async Task<TokenResponse> RefreshToken(string refreshToken)
 	    {
-		    throw new NotImplementedException();
+		    var result = await _tokenProvider.RequestRefreshToken(refreshToken);
+
+		    if (!result.IsError)
+		    {
+			    UpdateRefreshToken(result.RefreshToken);
+			    _lastAuthenticatedTokenResponse = result;
+			}
+
+			return result;
 	    }
 
-	    public Task<object> LogOut()
+	    public async Task<string> GetAccessToken()
+	    {
+		    if (_lastAuthenticatedTokenResponse == null)
+			    return null;
+
+		    if (IsAccessTokenExpired())
+		    {
+			    await RefreshToken(_settingsProvider.RefreshToken);
+		    }
+
+		    return _lastAuthenticatedTokenResponse.AccessToken;
+	    }
+
+		public Task<object> LogOut()
         {
             return _accountApi.LogOut();
         }
-    }
+
+	    private void UpdateRefreshToken(string refreshToken)
+	    {
+		    _settingsProvider.RefreshToken = refreshToken;
+		    _settingsProvider.LastUpdatedRefreshTokenTime = DateTime.Now;
+	    }
+
+	    private bool IsAccessTokenExpired()
+	    {
+		    return (DateTime.Now - _settingsProvider.LastUpdatedRefreshTokenTime).TotalSeconds >
+		           _lastAuthenticatedTokenResponse.ExpiresIn;
+	    }
+	}
 }

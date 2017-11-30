@@ -28,17 +28,18 @@ namespace Restaurant.Core.ViewModels
             {
 	            IsLoading = true;
                 var loginDto = autoMapperFacade.Map<LoginDto>(this);
-                var result = await authenticationProvider.Login(loginDto);
-	            IsLoading = false;
+                var tokenResponse = await authenticationProvider.Login(loginDto);
 				
-                if (result.IsError)
+                if (tokenResponse.IsError)
                 {
                     Error = "Invalid login or password!";
-                    return;
+	                IsLoading = false;
+					return;
                 }
                 await navigationService.NavigateToMainPage(typeof(IMainViewModel));
+	            IsLoading = false;
 
-            }, canLogin);
+			}, canLogin);
         }
 
         /// <summary>

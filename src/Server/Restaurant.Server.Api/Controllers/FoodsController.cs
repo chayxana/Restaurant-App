@@ -30,10 +30,14 @@ namespace Restaurant.Server.Api.Controllers
 			_fileUploadProvider = fileUploadProvider;
 		}
 
-		[HttpGet]
-		public IEnumerable<FoodDto> Get()
+		[HttpGet("{count}/{skip}")]
+		[Route("GetAll")]
+		public IEnumerable<FoodDto> Get(int count = 6, int skip = 0)
 		{
-			var entities = _repository.GetAll().ToList();
+			var entities = _repository.GetAll()
+				.Skip(skip)
+				.Take(count)
+				.ToList();
 
 			return _mapperFacade.Map<IEnumerable<FoodDto>>(entities);
 		}
@@ -90,7 +94,7 @@ namespace Restaurant.Server.Api.Controllers
 				}
 
 				_repository.Update(id, food);
-				return await _repository.Commit() ? Ok() : (IActionResult) BadRequest();
+				return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
 			}
 			catch (Exception)
 			{
@@ -106,7 +110,7 @@ namespace Restaurant.Server.Api.Controllers
 				var food = _repository.Get(id);
 				_fileUploadProvider.Remove(food.Picture);
 				_repository.Delete(food);
-				return await _repository.Commit() ? Ok() : (IActionResult) BadRequest();
+				return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
 			}
 			catch (Exception)
 			{

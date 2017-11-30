@@ -7,6 +7,6 @@ namespace Restaurant.Abstractions.Providers
     {
         Task<TokenResponse> RequestResourceOwnerPasswordAsync(string userName, string password);
 
-        Task<bool> ValidateToken(string token);
+	    Task<TokenResponse> RequestRefreshToken(string refreshToken);
     }
 }

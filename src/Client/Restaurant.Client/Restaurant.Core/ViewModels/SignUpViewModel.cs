@@ -46,7 +46,7 @@ namespace Restaurant.Core.ViewModels
 
 	                        if (!loginResult.IsError && loginResult.HttpStatusCode == HttpStatusCode.OK)
 	                        {
-	                            await _navigationService.NavigateToMainPage(typeof(IMainViewModel));
+								await _navigationService.NavigateToMainPage(typeof(IMainViewModel));
 	                        }
 	                    }
 	                    IsLoading = false;

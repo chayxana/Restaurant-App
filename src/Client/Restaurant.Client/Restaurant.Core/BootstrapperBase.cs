@@ -24,7 +24,7 @@ namespace Restaurant.Core
     [ExcludeFromCodeCoverage]
     public abstract class BootstrapperBase
     {
-        public static bool MockData = true;
+        public static bool MockData = false;
         public static IContainer Container { get; private set; }
 
         public IContainer Build()

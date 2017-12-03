@@ -6,6 +6,8 @@
              x:Class="Restaurant.Mobile.UI.Pages.Android.MenuPage"
              Title="Restaurant">
     <ContentPage.Content>
-        <controls:NavigationView x:Name="NavigationView" />
+        <controls:NavigationView x:Name="NavigationView" 
+                                 UserEmail="{Binding UserViewModel.Email}" 
+                                 UserPicture="{Binding UserViewModel.UserInfoViewModel.Picture}"/>
     </ContentPage.Content>
 </ContentPage>

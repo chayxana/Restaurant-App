@@ -28,11 +28,11 @@ namespace Restaurant.Server.Core.Facades
 			return _userManager.CreateAsync(user, password);
 		}
 
-		public Task<User> GetAsync(ClaimsPrincipal principal)
+		public async Task<User> GetAsync(ClaimsPrincipal principal)
 		{
-			var userId = _userManager.GetUserId(principal);
-			
-			return _context.Users
+			var userId = principal.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+			return await _context.Users
 				.Include(x => x.UserProfile)
 				.SingleOrDefaultAsync(x => x.Id == userId);
 		}

@@ -60,12 +60,12 @@ namespace Restaurant.Core.Providers
 		    if (_lastAuthenticatedTokenResponse == null)
 			    return null;
 
-		    if (IsAccessTokenExpired())
-		    {
-			    await RefreshToken(_settingsProvider.RefreshToken);
-		    }
+			if (IsAccessTokenExpired())
+			{
+				await RefreshToken(_settingsProvider.RefreshToken);
+			}
 
-		    return _lastAuthenticatedTokenResponse.AccessToken;
+			return _lastAuthenticatedTokenResponse.AccessToken;
 	    }
 
 		public Task<object> LogOut()

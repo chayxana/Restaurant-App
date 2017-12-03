@@ -6,7 +6,7 @@ namespace Restaurant.Mobile.UI.Controls
     public class BadgeToolbarItem : ToolbarItem
     {
         public static readonly BindableProperty BadgeTextProperty =
-            BindableProperty.Create("BadgeText", typeof(string), typeof(BadgeToolbarItem), default(string));
+            BindableProperty.Create("UserPicture", typeof(string), typeof(BadgeToolbarItem), default(string));
 
         public static readonly BindableProperty BadgeColorProperty =
             BindableProperty.Create("BadgeColor", typeof(Color), typeof(BadgeToolbarItem), Color.Red);

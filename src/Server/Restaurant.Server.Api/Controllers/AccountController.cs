@@ -52,7 +52,7 @@ namespace Restaurant.Server.Api.Controllers
 		[Route("GetUserInfo")]
 		public async Task<UserDto> GetUserInfo()
 		{
-			var user = await _userManagerFacade.GetAsync(User);
+			var user = await _userManagerFacade.GetAsync(HttpContext.User);
 			return _mapper.Map<UserDto>(user);
 		}
 
@@ -82,6 +82,11 @@ namespace Restaurant.Server.Api.Controllers
 			return result.Succeeded ? Ok() : Error(result);
 		}
 
+		[Route("google-sign-in-callback")]
+		public IActionResult GoogleSignInCallback()
+		{
+			return Ok();
+		}
 
 		private IActionResult Error(IdentityResult result)
 		{

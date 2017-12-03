@@ -1,4 +1,7 @@
 ﻿using Autofac;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Core;
@@ -29,7 +32,11 @@ namespace Restaurant.Mobile.UI
         protected override void OnStart()
         {
             base.OnStart();
-        }
+
+	        AppCenter.Start("android=afb856fc-388d-4304-8f8e-4156155cc49f;" +
+							"ios=df01b975-ee7c-4006-8758-34926d7245e6;",
+		        typeof(Analytics), typeof(Crashes));
+		}
 
 
         protected override void OnResume()

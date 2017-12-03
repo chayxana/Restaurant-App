@@ -11,12 +11,14 @@ namespace Restaurant.Mobile.UI.Pages.Android
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPage : ContentPage, IViewFor<MasterViewModel>
     {
-        public MenuPage()
+
+		public MenuPage()
         {
             InitializeComponent();
         }
 
-        object IViewFor.ViewModel
+	   
+		object IViewFor.ViewModel
         {
             get => ViewModel;
             set => ViewModel = (MasterViewModel) value;
@@ -24,7 +26,7 @@ namespace Restaurant.Mobile.UI.Pages.Android
 
         public MasterViewModel ViewModel { get; set; }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             Observable.FromEventPattern<EventHandler<NavigationItemSelectedEventArgs>, NavigationItemSelectedEventArgs>(
                     e => NavigationView.NavigationItemSelected += e, e => NavigationView.NavigationItemSelected -= e)
@@ -32,6 +34,9 @@ namespace Restaurant.Mobile.UI.Pages.Android
                 .SubscribeOn(RxApp.MainThreadScheduler)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(item => { ViewModel.SelectedNavigationItem = item; });
+
+			this.BindingContext = ViewModel;
+	        await ViewModel.LoadUserInfo();
         }
     }
 }

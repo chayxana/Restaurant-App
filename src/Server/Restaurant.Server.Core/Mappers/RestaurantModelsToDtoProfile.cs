@@ -46,10 +46,9 @@ namespace Restaurant.Server.Core.Mappers
 
 			CreateMap<UserProfile, UserProfileDto>();
 
-
-			CreateMap<User, UserDto>()
-				.ForMember(x => x.Profile, map => map.MapFrom(x => Mapper.Map<UserProfileDto>(x.UserProfile)))
-				.ForMember(x => x.Orders, map => map.MapFrom(x => Mapper.Map<IEnumerable<OrderDto>>(x.Orders)));
+	        CreateMap<User, UserDto>()
+		        .ForMember(x => x.Email, map => map.MapFrom(x => x.Email))
+		        .ForMember(x => x.Profile, map => map.MapFrom(x => Mapper.Map<UserProfileDto>(x.UserProfile)));
         }
     }
 }

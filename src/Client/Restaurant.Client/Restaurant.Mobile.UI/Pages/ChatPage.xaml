@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Restaurant.Mobile.UI.Pages.ChatPage"
              Icon="chat"
-             Title="Foods">
+             Title="Chat">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Welcome to Xamarin.Forms!" TextColor="Black"

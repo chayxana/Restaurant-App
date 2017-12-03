@@ -1,27 +1,28 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using ReactiveUI;
 using Restaurant.Abstractions.Api;
 using Restaurant.Abstractions.Enums;
+using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Providers;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Core.ViewModels.Android
 {
     public class MasterViewModel : ReactiveObject, IMasterViewModel, IRequiredAuthenticationViewModel
     {
 	    private readonly IAuthenticationProvider _authenticationProvider;
-	    private readonly ISettingsProvider _settingsProvider;
 	    private readonly IAccountApi _accountApi;
+	    private readonly IAutoMapperFacade _autoMapperFacade;
 
 	    public MasterViewModel(
 			IAuthenticationProvider authenticationProvider,
-			ISettingsProvider settingsProvider,
-			IAccountApi accountApi)
+			IAccountApi accountApi,
+			IAutoMapperFacade autoMapperFacade)
 	    {
 		    _authenticationProvider = authenticationProvider;
-		    _settingsProvider = settingsProvider;
 		    _accountApi = accountApi;
+		    _autoMapperFacade = autoMapperFacade;
 	    }
 
         private NavigationItem _selectedNavigationItem;
@@ -32,11 +33,11 @@ namespace Restaurant.Core.ViewModels.Android
             set => this.RaiseAndSetIfChanged(ref _selectedNavigationItem, value);
         }
 
-	    private UserDto _userInfo;
-	    public UserDto UserInfo
+	    private IUserViewModel _userViewModel;
+	    public IUserViewModel UserViewModel
 	    {
-		    get => _userInfo;
-		    set => this.RaiseAndSetIfChanged(ref _userInfo, value);
+		    get => _userViewModel;
+		    set => this.RaiseAndSetIfChanged(ref _userViewModel, value);
 	    }
 
 	    public string Title => "Menu";
@@ -48,9 +49,20 @@ namespace Restaurant.Core.ViewModels.Android
 
 	    public async Task LoadUserInfo()
 	    {
-		    var accessToken = await GetAccessToken();
+		    try
+		    {
+			    var accessToken = await GetAccessToken();
 
-			UserInfo = await _accountApi.GetUser(accessToken);
+			    var userDto = await _accountApi.GetUserInfo($"Bearer {accessToken}");
+
+			    UserViewModel = _autoMapperFacade.Map<UserViewModel>(userDto);
+
+		    }
+		    catch (Exception e)
+		    {
+			    Console.WriteLine(e);
+			    throw;
+		    }
 	    }
 	}
 }

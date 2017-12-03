@@ -1,5 +1,4 @@
 ﻿using Restaurant.Abstractions.Enums;
-using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Abstractions.ViewModels
 {
@@ -7,6 +6,6 @@ namespace Restaurant.Abstractions.ViewModels
     {
         NavigationItem SelectedNavigationItem { get; set; }
 
-		UserDto UserInfo { get; set; }
+	    IUserViewModel UserViewModel { get; set; }
     }
 }

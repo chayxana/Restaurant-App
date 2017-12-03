@@ -7,8 +7,8 @@ namespace Restaurant.Abstractions.Api
 {
     public interface IAccountApi : IApi
     {
-        [Get("/api/Account/GetUser")]
-        Task<UserDto> GetUser([Header("Authorization: bearer")] string accessToken);
+        [Get("/api/Account/GetUserInfo")]
+        Task<UserDto> GetUserInfo([Header("Authorization")] string accessToken);
 
         [Post("/api/Account/Register")]
         Task<HttpResponseMessage> Register([Body] RegisterDto registerDto);

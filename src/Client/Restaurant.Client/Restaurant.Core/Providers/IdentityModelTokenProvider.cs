@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using IdentityModel.Client;
 using Restaurant.Abstractions.Providers;
 using Restaurant.Common.Constants;
@@ -16,10 +17,18 @@ namespace Restaurant.Core.Providers
 		}
 		public async Task<TokenResponse> RequestResourceOwnerPasswordAsync(string userName, string password)
 		{
-			var disco = await _client.GetAsync();
-			var tokenClient = new TokenClient(disco.TokenEndpoint, ApiConstants.ClientId, ApiConstants.ClientSecret);
-			var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync(userName, password, $"{ApiConstants.ApiName} offline_access");
-			return MapIdentityTokenResponseToTokenResponse(tokenResponse);
+			try
+			{
+				var disco = await _client.GetAsync();
+				var tokenClient = new TokenClient(disco.TokenEndpoint, ApiConstants.ClientId, ApiConstants.ClientSecret);
+				var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync(userName, password, $"{ApiConstants.ApiName} offline_access");
+				return MapIdentityTokenResponseToTokenResponse(tokenResponse);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
 		}
 
 		public async Task<TokenResponse> RequestRefreshToken(string refreshToken)

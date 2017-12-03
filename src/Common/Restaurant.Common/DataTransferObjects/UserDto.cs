@@ -4,8 +4,8 @@ namespace Restaurant.Common.DataTransferObjects
 {
     public class UserDto
     {
-        public UserProfileDto Profile { get; set; }
+		public string Email { get; set; }
 
-        public IEnumerable<OrderDto> Orders { get; set; }
+        public UserProfileDto Profile { get; set; }
     }
 }

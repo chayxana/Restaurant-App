@@ -24,7 +24,7 @@ namespace Restaurant.Core
     [ExcludeFromCodeCoverage]
     public abstract class BootstrapperBase
     {
-        public static bool MockData = false;
+        public static bool MockData = true;
         public static IContainer Container { get; private set; }
 
         public IContainer Build()
@@ -52,7 +52,8 @@ namespace Restaurant.Core
             {
                 builder.RegisterType<MockOrdersApi>().As<IOrdersApi>();
                 builder.RegisterType<MockFoodsApi>().As<IFoodsApi>();
-                builder.RegisterType<MockAuthenticationProvider>().As<IAuthenticationProvider>();
+                builder.RegisterType<MockAccountApi>().As<IAccountApi>();
+				builder.RegisterType<MockAuthenticationProvider>().As<IAuthenticationProvider>();
             }
             else
             {
@@ -63,7 +64,7 @@ namespace Restaurant.Core
                 builder.RegisterInstance(accountApi).As<IAccountApi>().SingleInstance();
                 builder.RegisterInstance(foodApi).As<IFoodsApi>().SingleInstance();
                 builder.RegisterInstance(ordersApi).As<IOrdersApi>().SingleInstance();
-                builder.RegisterType<AuthenticationProvider>().As<IAuthenticationProvider>();
+                builder.RegisterType<AuthenticationProvider>().As<IAuthenticationProvider>().SingleInstance();
             }
 
             RegisterSelf(builder);

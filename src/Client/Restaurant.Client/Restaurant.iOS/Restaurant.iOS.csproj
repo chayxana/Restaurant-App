@@ -106,6 +106,7 @@
     <Compile Include="Controls\UIBadgeLabel.cs" />
     <Compile Include="Controls\UIBarButtonItem.cs" />
     <Compile Include="Effects\MaxLinesEffect.cs" />
+    <Compile Include="Helpers\Animations.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -131,9 +132,11 @@
     <BundleResource Include="Resources\arrow_down.png" />
     <BundleResource Include="Resources\up_arrow.png" />
     <Compile Include="Renderers\AnimatedIconButton.cs" />
+    <Compile Include="Renderers\CustomTabbedPageRenderer.cs" />
     <Compile Include="Renderers\CustomViewCellRenderer.cs" />
     <Compile Include="Renderers\RestaurantEntryRenderer.cs" />
     <Compile Include="Renderers\CustomNavigationRenderer.cs" />
+    <Compile Include="Renderers\CustomSearchBarRenderer.cs" />
     <Compile Include="Renderers\TwitterLikeButtonRenderer.cs" />
     <BundleResource Include="Resources\caht.png" />
     <BundleResource Include="Resources\chat%402x.png" />
@@ -150,6 +153,14 @@
     <BundleResource Include="Resources\plus.png" />
     <BundleResource Include="Resources\plus%402x.png" />
     <BundleResource Include="Resources\plus%403x.png" />
+    <BundleResource Include="Resources\heart.png" />
+    <BundleResource Include="Resources\heart%402x.png" />
+    <BundleResource Include="Resources\heart%403x.png" />
+    <BundleResource Include="Resources\heart_fill%402x.png" />
+    <BundleResource Include="Resources\heart_fill.png" />
+    <BundleResource Include="Resources\heart_fill%403x.png" />
+    <BundleResource Include="Resources\ic_shopping_cart_white%402x.png" />
+    <BundleResource Include="Resources\ic_shopping_cart_white%403x.png" />
     <None Include="app.config" />
     <None Include="Info.plist">
       <SubType>Designer</SubType>

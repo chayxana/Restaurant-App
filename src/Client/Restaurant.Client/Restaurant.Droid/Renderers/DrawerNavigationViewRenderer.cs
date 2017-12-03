@@ -49,47 +49,45 @@ namespace Restaurant.Droid.Renderers
             _profileImage = header.FindViewById<ImageView>(Resource.Id.profile_image);
             _profileName = header.FindViewById<TextView>(Resource.Id.profile_name);
            
-            _profileImage.Click += (sender, e2) => NavigateToLogin();
-            _profileName.Click += (sender, e2) => NavigateToLogin();
-
-            UpdateName();
-            UpdateImage();
+            _profileImage.Click += (sender, e2) => NavigateToProfileDetail();
+            _profileName.Click += (sender, e2) => NavigateToProfileDetail();
 
             _navView.SetCheckedItem(Resource.Id.nav_foods);
         }
 
-        private void NavigateToLogin()
-        {
-            //if (Settings.Current.IsLoggedIn)
-            //    return;
-        }
+	    protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+	    {
+		    base.OnElementPropertyChanged(sender, e);
 
-        private void SettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            //if (e.PropertyName == nameof(Settings.Current.Email))
-            //{
-            //    UpdateName();
-            //    UpdateImage();
-            //}
-        }
+		    if (Element == null)
+			    return;
 
+			if (e.PropertyName == NavigationView.UserEmailProperty.PropertyName)
+				UpdateName();
+			if(e.PropertyName == NavigationView.UserPictureProperty.PropertyName)
+				UpdateImage();
+	    }
+
+	    private void NavigateToProfileDetail()
+        {
+			Element.OnNavigateUserProfileDetails();
+        }
+		
         private void UpdateName()
         {
-            _profileName.Text = "Jurabek";
+	        _profileName.Text = Element.UserEmail;
         }
 
         private void UpdateImage()
         {
-            Picasso.With(Context)
-                .Load(Uri.Parse("http://via.placeholder.com/200x200"))
-                .Into(_profileImage);
+			Picasso.With(Context)
+				.Load(Uri.Parse(Element.UserPicture))
+				.Into(_profileImage);
 
-            _profileImage.SetScaleType(ImageView.ScaleType.CenterCrop);
+			_profileImage.SetScaleType(ImageView.ScaleType.CenterCrop);
+		}
 
-            //Koush.UrlImageViewHelper.SetUrlDrawable(profileImage, Settings.Current.UserAvatar, Resource.Drawable.profile_generic);
-        }
-
-        public override void OnViewRemoved(View child)
+		public override void OnViewRemoved(View child)
         {
             base.OnViewRemoved(child);
             _navView.NavigationItemSelected -= NavView_NavigationItemSelected;

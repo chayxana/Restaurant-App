@@ -23,27 +23,28 @@ namespace Restaurant.Core.MockData
 
 	    public Task<TokenResponse> RefreshToken(string refreshToken)
 	    {
-		    throw new NotImplementedException();
+		    return Task.FromResult(new TokenResponse());
 	    }
 
 	    public Task<object> LogOut()
-        {
-            throw new NotImplementedException();
-        }
+	    {
+		    return Task.FromResult(new object());
+
+	    }
 
 	    public void SaveRefreshToken(string refreshToken)
 	    {
-		    throw new NotImplementedException();
+
 	    }
 
 	    public bool IsAccessTokenExpired()
 	    {
-		    throw new NotImplementedException();
+		    return false;
 	    }
 
 	    public Task<string> GetAccessToken()
 	    {
-		    throw new NotImplementedException();
+		    return Task.FromResult("xxxx");
 	    }
 
 	    private TokenResponse LastAuthenticatedTokenResponse { get; set; }

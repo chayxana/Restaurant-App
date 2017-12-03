@@ -4,8 +4,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Restaurant.Mobile.UI.Views.FoodsSearchView">
     <ContentView.Content>
-        <StackLayout BackgroundColor="{StaticResource primaryColor}">
+        <StackLayout>
+            <StackLayout.BackgroundColor>
+                <OnPlatform x:TypeArguments="Color">
+                    <On Platform="Android" Value="{StaticResource primaryColor}"/>
+                </OnPlatform>
+            </StackLayout.BackgroundColor>
             <SearchBar x:Name="SearchBar" Placeholder="Search">
+                <SearchBar.BackgroundColor>
+                    <OnPlatform x:TypeArguments="Color">
+                        <On Platform="iOS" Value="White"/>
+                    </OnPlatform>
+                </SearchBar.BackgroundColor>
+                <SearchBar.CancelButtonColor>
+                    <OnPlatform x:TypeArguments="Color">
+                        <On Platform="iOS" Value="Black"/>
+                        <On Platform="Android" Value="White"/>
+                    </OnPlatform>
+                </SearchBar.CancelButtonColor>
                 <SearchBar.PlaceholderColor>
                     <OnPlatform x:TypeArguments="Color">
                         <On Platform="Android" Value="White"/>
@@ -19,7 +35,6 @@
                 </SearchBar.Margin>
                 <SearchBar.TextColor>
                     <OnPlatform x:TypeArguments="Color">
-                        <On Platform="iOS" Value="{StaticResource asphaltDark}" />
                         <On Platform="Android" Value="White" />
                     </OnPlatform>
                 </SearchBar.TextColor>

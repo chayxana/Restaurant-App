@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,19 +11,19 @@ namespace Restaurant.Core.MockData
 {
     public class MockAccountApi : IAccountApi
     {
-        public Task<UserDto> GetUser(string accessToken)
+        public Task<UserDto> GetUserInfo(string accessToken)
         {
             return Task.FromResult(Data.User);
         }
         
         public Task<HttpResponseMessage> Register(RegisterDto registerDto)
         {
-            throw new NotImplementedException();
+	        return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK));
         }
 
         public Task<object> LogOut()
         {
-            throw new NotImplementedException();
+			return Task.FromResult<object>(new object());
         }
     }
 }

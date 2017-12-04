@@ -15,12 +15,11 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
-    <JavaMaximumHeapSize>
-    </JavaMaximumHeapSize>
+    <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
     <JavaOptions />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -33,10 +32,10 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>3</WarningLevel>
-    <AndroidLinkMode>Full</AndroidLinkMode>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <AndroidLinkSkip>
     </AndroidLinkSkip>
-    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
     <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <AndroidSupportedAbis>x86,x86_64</AndroidSupportedAbis>
     <Debugger>Xamarin</Debugger>
@@ -46,7 +45,7 @@
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
-    <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
+    <AndroidEnableMultiDex>false</AndroidEnableMultiDex>
     <EnableProguard>false</EnableProguard>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -85,30 +84,6 @@
       <HintPath>..\..\..\packages\Xam.Plugins.Forms.ImageCircle.1.8.1\lib\MonoAndroid10\ImageCircle.Forms.Plugin.Android.dll</HintPath>
     </Reference>
     <Reference Include="Java.Interop" />
-    <Reference Include="Microsoft.AppCenter, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.AppCenter.1.0.1\lib\MonoAndroid403\Microsoft.AppCenter.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AppCenter.Analytics, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.AppCenter.Analytics.1.0.1\lib\MonoAndroid403\Microsoft.AppCenter.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AppCenter.Analytics.Android.Bindings, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.AppCenter.Analytics.1.0.1\lib\MonoAndroid403\Microsoft.AppCenter.Analytics.Android.Bindings.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AppCenter.Android.Bindings, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.AppCenter.1.0.1\lib\MonoAndroid403\Microsoft.AppCenter.Android.Bindings.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AppCenter.Crashes, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.AppCenter.Crashes.1.0.1\lib\MonoAndroid403\Microsoft.AppCenter.Crashes.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AppCenter.Crashes.Android.Bindings, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.AppCenter.Crashes.1.0.1\lib\MonoAndroid403\Microsoft.AppCenter.Crashes.Android.Bindings.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AppCenter.Distribute, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.AppCenter.Distribute.1.0.1\lib\MonoAndroid403\Microsoft.AppCenter.Distribute.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AppCenter.Distribute.Android.Bindings, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.AppCenter.Distribute.1.0.1\lib\MonoAndroid403\Microsoft.AppCenter.Distribute.Android.Bindings.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.AspNetCore.WebUtilities.1.1.2\lib\netstandard1.3\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
     </Reference>

@@ -1,12 +1,12 @@
 # Restaurant App
 
-[![Xamarin client build status](https://ci.appveyor.com/api/projects/status/p29atu2ty3ih7thm/branch/develop?svg=true&pendingText=xamarin-unit-tests%20pending&passingText=xamarin-unit-tests&failingText=xamarin-unit-tests)](https://ci.appveyor.com/project/Jurabek/restaurant-manager-vwadp)
+[![Xamarin client build status](https://ci.appveyor.com/api/projects/status/p29atu2ty3ih7thm/branch/develop?svg=true&pendingText=client-core-unit-tests%20pending&passingText=client-core-unit-tests&failingText=client-core-unit-tests)](https://ci.appveyor.com/project/Jurabek/restaurant-manager-vwadp)
 [![Backend build status](https://ci.appveyor.com/api/projects/status/4uh90c7u42d8aleo/branch/develop?svg=true&pendingText=backend-unit-tests%20pending&passingText=backend-unit-tests&failingText=backend-unit-tests)](https://ci.appveyor.com/project/Jurabek/restaurant-manager)
 [![codecov](https://codecov.io/gh/Jurabek/Restaurant-App/branch/develop/graph/badge.svg)](https://codecov.io/gh/Jurabek/Restaurant-App)
 [![Android Build status](https://build.appcenter.ms/v0.1/apps/ae1793a8-cb35-40cc-a5db-583847244261/branches/develop/badge)](https://appcenter.ms)
 [![iOS Build status](https://build.appcenter.ms/v0.1/apps/9a0e12b9-f5cc-4a2c-8d54-f09e48cffd86/branches/develop/badge)](https://appcenter.ms)
 
-<img src="art/1.png" width="210"/> <img src="art/2.png" width="210"/> <img src="art/3.png" width="210"/> <img src="art/4.png" width="210"/>
+<img src="art/1.png" width="210"/> <img src="art/2.png" width="210"/> <img src="art/3.png" width="210"/> <img src="art/4.png" width="210"/> <img src="art/5.png" width="210"/>
 
 The Restaurant App is a sample open source application powered by C# and Xamarin, this sample provides us how to build mobile and web applications with a clean architecture and write testable and clean code.
 

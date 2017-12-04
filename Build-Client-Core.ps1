@@ -1,5 +1,5 @@
 param(
-    [string]$SolutionName = "src/Restaurant.Client.sln",
+    [string]$ProjectFile = "src/Client/Restaurant.Client/Restaurant.Core/Restaurant.Core.csproj",
     [string]$Framework = "netcoreapp2.0",      
     [string]$Configuration = "Release",
     [string]$TestProjectFile = "src/Client/Tests/Restaurant.Core.UnitTests/Restaurant.Core.UnitTests.csproj"
@@ -58,20 +58,18 @@ function Invoke-RemoveCoverageFolder ($CoverageFolder) {
     CheckLastExitCode
 }
 
-function Invoke-Restore([string]$SolutionName) {
-    Write-Host -ForegroundColor Green "Restoring nuget packages for $SolutionName"
-    & ./.nuget/nuget.exe restore $SolutionName
+function Invoke-Restore([string]$ProjectFile) {
+    Write-Host -ForegroundColor Green "Restoring nuget packages for $ProjectFile"
+    & dotnet restore $ProjectFile
 
     CheckLastExitCode
 }
 
-function Invoke-Build([string]$SolutionName, $Configuration) {
-    Write-Host -ForegroundColor Green "Building $SolutionName"
-    $msBuild = Resolve-MsBuild
-    & $msBuild $SolutionName /verbosity:minimal /p:Configuration=$Configuration /t:Rebuild
+function Invoke-Build([string]$ProjectFile, $Configuration, $Framework) {
+    Write-Host -ForegroundColor Green "Building $ProjectFile"
+    & dotnet build -c $Configuration $ProjectFile
     
     CheckLastExitCode
-    
 }
 
 function Invoke-Test([string]$Configuration, $TestProjectFile) {
@@ -81,7 +79,7 @@ function Invoke-Test([string]$Configuration, $TestProjectFile) {
     & dotnet build -f "netcoreapp2.0" -c $Configuration $TestProjectFile
     & dotnet test -f "netcoreapp2.0" -c $Configuration $TestProjectFile
 
-    CheckLastExitCode    
+    CheckLastExitCode
 }
 
 function Invoke-CalculateCodeCoverage ($OpenCover, $Framework, $Config, $TestProjectFile, $CoverageFolder) {
@@ -110,9 +108,9 @@ function Invoke-UploadCodeCoverage ($CodeCov, $CoverageFolder, $CodeCovToken) {
 
 Invoke-InstallOpenCover
 
-Invoke-Restore -SolutionName $SolutionName
+Invoke-Restore -ProjectFile $ProjectFile
 
-Invoke-Build -SolutionName $SolutionName -Configuration $Configuration
+Invoke-Build -ProjectFile $ProjectFile -Configuration $Configuration -Framework $Framework
 
 Invoke-Test -TestProjectFile $TestProjectFile -Configuration $Configuration
 

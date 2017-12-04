@@ -22,6 +22,10 @@ namespace Restaurant.Core.ViewModels
         private ObservableCollection<FoodDto> _foods;
         private FoodDto _selectedFood;
 
+	    internal FoodsViewModel()
+	    {   
+	    }
+
         public FoodsViewModel(
             IBasketViewModel basketViewModel,
             IFoodsApi foodsApi,

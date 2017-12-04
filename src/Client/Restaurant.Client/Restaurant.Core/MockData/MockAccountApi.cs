@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -9,6 +10,7 @@ using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Core.MockData
 {
+	[ExcludeFromCodeCoverage]
     public class MockAccountApi : IAccountApi
     {
         public Task<UserDto> GetUserInfo(string accessToken)

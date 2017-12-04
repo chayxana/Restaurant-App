@@ -10,11 +10,15 @@ namespace Restaurant.Core.Adapters
 {
     public class OrderDtoAdapter : IOrderDtoAdapter
     {
-        private readonly IAutoMapperFacade _autoMapperFacade;
+	    private readonly IDateTimeFacade _dateTimeFacade;
+	    private readonly IAutoMapperFacade _autoMapperFacade;
 
-        public OrderDtoAdapter(IAutoMapperFacade autoMapperFacade)
+        public OrderDtoAdapter(
+			IDateTimeFacade dateTimeFacade,
+			IAutoMapperFacade autoMapperFacade)
         {
-            _autoMapperFacade = autoMapperFacade;
+	        _dateTimeFacade = dateTimeFacade;
+	        _autoMapperFacade = autoMapperFacade;
         }
 
         public OrderDto GetOrderFromOrderViewModels(ReactiveList<IOrderViewModel> orderViewModels)
@@ -22,8 +26,8 @@ namespace Restaurant.Core.Adapters
             var orderItems = _autoMapperFacade.Map<IEnumerable<OrderItemDto>>(orderViewModels);
             return new OrderDto()
             {
-                DateTime = DateTime.Now,
-                OrderItems = new List<OrderItemDto>(orderItems)
+                DateTime = _dateTimeFacade.Now,
+                OrderItems = orderItems
             };
         }
     }

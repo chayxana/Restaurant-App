@@ -2,7 +2,6 @@
 using System.Reactive.Linq;
 using ReactiveUI;
 using Restaurant.Abstractions.Adapters;
-using Restaurant.Abstractions.Providers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 
@@ -18,7 +17,7 @@ namespace Restaurant.Core.ViewModels.Android
             MasterViewModel = masterViewModel;
 
             this.WhenAnyValue(x => x.MasterViewModel.SelectedNavigationItem)
-                .Where(x => x != 0)
+                .Where(navigationItem => navigationItem != 0)
                 .Select(navigationItemAdapter.GetViewModelFromNavigationItem)
                 .Subscribe(async viewModel =>
                 {

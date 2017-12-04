@@ -6,6 +6,7 @@
     <IsPackable>false</IsPackable>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <AssemblyName>Restaurant.Core.UnitTests</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

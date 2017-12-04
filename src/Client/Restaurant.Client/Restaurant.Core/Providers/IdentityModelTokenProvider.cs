@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using IdentityModel.Client;
 using Restaurant.Abstractions.Providers;
@@ -7,6 +8,7 @@ using TokenResponse = Restaurant.Common.DataTransferObjects.TokenResponse;
 
 namespace Restaurant.Core.Providers
 {
+    [ExcludeFromCodeCoverage]
 	public class IdentityModelTokenProvider : ITokenProvider
 	{
 		private readonly DiscoveryClient _client;
@@ -21,7 +23,7 @@ namespace Restaurant.Core.Providers
 			{
 				var disco = await _client.GetAsync();
 				var tokenClient = new TokenClient(disco.TokenEndpoint, ApiConstants.ClientId, ApiConstants.ClientSecret);
-				var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync(userName, password, $"{ApiConstants.ApiName} offline_access");
+				var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync(userName, password, $"{ApiConstants.ApiName} {ApiConstants.OfflineAccess}");
 				return MapIdentityTokenResponseToTokenResponse(tokenResponse);
 			}
 			catch (Exception e)

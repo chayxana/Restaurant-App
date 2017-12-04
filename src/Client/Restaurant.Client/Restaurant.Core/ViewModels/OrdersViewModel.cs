@@ -13,6 +13,10 @@ namespace Restaurant.Core.ViewModels
     {
         private readonly IOrdersApi _ordersApi;
 
+	    internal OrdersViewModel()
+	    {   
+	    }
+
         public OrdersViewModel(IOrdersApi ordersApi)
         {
             _ordersApi = ordersApi;

@@ -26,6 +26,24 @@ namespace Restaurant.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_dialog_actioned_on_disabled_toast = global::Restaurant.Droid.Resource.String.appcenter_distribute_dialog_actioned_on_disabled_toast;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_download_progress_number_format = global::Restaurant.Droid.Resource.String.appcenter_distribute_download_progress_number_format;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_downloading_mandatory_update = global::Restaurant.Droid.Resource.String.appcenter_distribute_downloading_mandatory_update;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_install = global::Restaurant.Droid.Resource.String.appcenter_distribute_install;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_install_ready_message = global::Restaurant.Droid.Resource.String.appcenter_distribute_install_ready_message;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_install_ready_title = global::Restaurant.Droid.Resource.String.appcenter_distribute_install_ready_title;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_notification_category = global::Restaurant.Droid.Resource.String.appcenter_distribute_notification_category;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_unknown_sources_dialog_message = global::Restaurant.Droid.Resource.String.appcenter_distribute_unknown_sources_dialog_message;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_unknown_sources_dialog_settings = global::Restaurant.Droid.Resource.String.appcenter_distribute_unknown_sources_dialog_settings;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_download = global::Restaurant.Droid.Resource.String.appcenter_distribute_update_dialog_download;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_message_mandatory = global::Restaurant.Droid.Resource.String.appcenter_distribute_update_dialog_message_mandatory;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_message_optional = global::Restaurant.Droid.Resource.String.appcenter_distribute_update_dialog_message_optional;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_postpone = global::Restaurant.Droid.Resource.String.appcenter_distribute_update_dialog_postpone;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_title = global::Restaurant.Droid.Resource.String.appcenter_distribute_update_dialog_title;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_view_release_notes = global::Restaurant.Droid.Resource.String.appcenter_distribute_update_dialog_view_release_notes;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_failed_dialog_ignore = global::Restaurant.Droid.Resource.String.appcenter_distribute_update_failed_dialog_ignore;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_failed_dialog_reinstall = global::Restaurant.Droid.Resource.String.appcenter_distribute_update_failed_dialog_reinstall;
+			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_failed_dialog_title = global::Restaurant.Droid.Resource.String.appcenter_distribute_update_failed_dialog_title;
 			global::Splat.Resource.String.library_name = global::Restaurant.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::Restaurant.Droid.Resource.Attribute.actionBarSize;
 		}
@@ -4005,83 +4023,137 @@ namespace Restaurant.Droid
 			// aapt resource value: 0x7f070037
 			public const int appbar_scrolling_view_behavior = 2131165239;
 			
+			// aapt resource value: 0x7f070040
+			public const int appcenter_distribute_dialog_actioned_on_disabled_toast = 2131165248;
+			
+			// aapt resource value: 0x7f070041
+			public const int appcenter_distribute_download_progress_number_format = 2131165249;
+			
+			// aapt resource value: 0x7f070042
+			public const int appcenter_distribute_downloading_mandatory_update = 2131165250;
+			
+			// aapt resource value: 0x7f070043
+			public const int appcenter_distribute_install = 2131165251;
+			
+			// aapt resource value: 0x7f070044
+			public const int appcenter_distribute_install_ready_message = 2131165252;
+			
+			// aapt resource value: 0x7f070045
+			public const int appcenter_distribute_install_ready_title = 2131165253;
+			
+			// aapt resource value: 0x7f070046
+			public const int appcenter_distribute_notification_category = 2131165254;
+			
+			// aapt resource value: 0x7f070047
+			public const int appcenter_distribute_unknown_sources_dialog_message = 2131165255;
+			
+			// aapt resource value: 0x7f070048
+			public const int appcenter_distribute_unknown_sources_dialog_settings = 2131165256;
+			
+			// aapt resource value: 0x7f070049
+			public const int appcenter_distribute_update_dialog_download = 2131165257;
+			
+			// aapt resource value: 0x7f07004a
+			public const int appcenter_distribute_update_dialog_message_mandatory = 2131165258;
+			
+			// aapt resource value: 0x7f07004b
+			public const int appcenter_distribute_update_dialog_message_optional = 2131165259;
+			
+			// aapt resource value: 0x7f07004c
+			public const int appcenter_distribute_update_dialog_postpone = 2131165260;
+			
+			// aapt resource value: 0x7f07004d
+			public const int appcenter_distribute_update_dialog_title = 2131165261;
+			
+			// aapt resource value: 0x7f07004e
+			public const int appcenter_distribute_update_dialog_view_release_notes = 2131165262;
+			
+			// aapt resource value: 0x7f07004f
+			public const int appcenter_distribute_update_failed_dialog_ignore = 2131165263;
+			
+			// aapt resource value: 0x7f070050
+			public const int appcenter_distribute_update_failed_dialog_reinstall = 2131165264;
+			
+			// aapt resource value: 0x7f070051
+			public const int appcenter_distribute_update_failed_dialog_title = 2131165265;
+			
 			// aapt resource value: 0x7f070038
 			public const int bottom_sheet_behavior = 2131165240;
 			
 			// aapt resource value: 0x7f070039
 			public const int character_counter_pattern = 2131165241;
 			
-			// aapt resource value: 0x7f07004c
-			public const int define_AndroidActionItemBadge = 2131165260;
-			
-			// aapt resource value: 0x7f070040
-			public const int define_AndroidIconics = 2131165248;
-			
-			// aapt resource value: 0x7f07004d
-			public const int library_AndroidActionItemBadge_author = 2131165261;
-			
-			// aapt resource value: 0x7f07004e
-			public const int library_AndroidActionItemBadge_authorWebsite = 2131165262;
-			
-			// aapt resource value: 0x7f07004f
-			public const int library_AndroidActionItemBadge_isOpenSource = 2131165263;
-			
-			// aapt resource value: 0x7f070050
-			public const int library_AndroidActionItemBadge_libraryDescription = 2131165264;
-			
-			// aapt resource value: 0x7f070051
-			public const int library_AndroidActionItemBadge_libraryName = 2131165265;
+			// aapt resource value: 0x7f07005e
+			public const int define_AndroidActionItemBadge = 2131165278;
 			
 			// aapt resource value: 0x7f070052
-			public const int library_AndroidActionItemBadge_libraryVersion = 2131165266;
+			public const int define_AndroidIconics = 2131165266;
+			
+			// aapt resource value: 0x7f07005f
+			public const int library_AndroidActionItemBadge_author = 2131165279;
+			
+			// aapt resource value: 0x7f070060
+			public const int library_AndroidActionItemBadge_authorWebsite = 2131165280;
+			
+			// aapt resource value: 0x7f070061
+			public const int library_AndroidActionItemBadge_isOpenSource = 2131165281;
+			
+			// aapt resource value: 0x7f070062
+			public const int library_AndroidActionItemBadge_libraryDescription = 2131165282;
+			
+			// aapt resource value: 0x7f070063
+			public const int library_AndroidActionItemBadge_libraryName = 2131165283;
+			
+			// aapt resource value: 0x7f070064
+			public const int library_AndroidActionItemBadge_libraryVersion = 2131165284;
+			
+			// aapt resource value: 0x7f070065
+			public const int library_AndroidActionItemBadge_libraryWebsite = 2131165285;
+			
+			// aapt resource value: 0x7f070066
+			public const int library_AndroidActionItemBadge_licenseId = 2131165286;
+			
+			// aapt resource value: 0x7f070067
+			public const int library_AndroidActionItemBadge_owner = 2131165287;
+			
+			// aapt resource value: 0x7f070068
+			public const int library_AndroidActionItemBadge_repositoryLink = 2131165288;
+			
+			// aapt resource value: 0x7f070069
+			public const int library_AndroidActionItemBadge_year = 2131165289;
 			
 			// aapt resource value: 0x7f070053
-			public const int library_AndroidActionItemBadge_libraryWebsite = 2131165267;
+			public const int library_AndroidIconics_author = 2131165267;
 			
 			// aapt resource value: 0x7f070054
-			public const int library_AndroidActionItemBadge_licenseId = 2131165268;
+			public const int library_AndroidIconics_authorWebsite = 2131165268;
 			
 			// aapt resource value: 0x7f070055
-			public const int library_AndroidActionItemBadge_owner = 2131165269;
+			public const int library_AndroidIconics_isOpenSource = 2131165269;
 			
 			// aapt resource value: 0x7f070056
-			public const int library_AndroidActionItemBadge_repositoryLink = 2131165270;
+			public const int library_AndroidIconics_libraryDescription = 2131165270;
 			
 			// aapt resource value: 0x7f070057
-			public const int library_AndroidActionItemBadge_year = 2131165271;
+			public const int library_AndroidIconics_libraryName = 2131165271;
 			
-			// aapt resource value: 0x7f070041
-			public const int library_AndroidIconics_author = 2131165249;
+			// aapt resource value: 0x7f070058
+			public const int library_AndroidIconics_libraryVersion = 2131165272;
 			
-			// aapt resource value: 0x7f070042
-			public const int library_AndroidIconics_authorWebsite = 2131165250;
+			// aapt resource value: 0x7f070059
+			public const int library_AndroidIconics_libraryWebsite = 2131165273;
 			
-			// aapt resource value: 0x7f070043
-			public const int library_AndroidIconics_isOpenSource = 2131165251;
+			// aapt resource value: 0x7f07005a
+			public const int library_AndroidIconics_licenseId = 2131165274;
 			
-			// aapt resource value: 0x7f070044
-			public const int library_AndroidIconics_libraryDescription = 2131165252;
+			// aapt resource value: 0x7f07005b
+			public const int library_AndroidIconics_owner = 2131165275;
 			
-			// aapt resource value: 0x7f070045
-			public const int library_AndroidIconics_libraryName = 2131165253;
+			// aapt resource value: 0x7f07005c
+			public const int library_AndroidIconics_repositoryLink = 2131165276;
 			
-			// aapt resource value: 0x7f070046
-			public const int library_AndroidIconics_libraryVersion = 2131165254;
-			
-			// aapt resource value: 0x7f070047
-			public const int library_AndroidIconics_libraryWebsite = 2131165255;
-			
-			// aapt resource value: 0x7f070048
-			public const int library_AndroidIconics_licenseId = 2131165256;
-			
-			// aapt resource value: 0x7f070049
-			public const int library_AndroidIconics_owner = 2131165257;
-			
-			// aapt resource value: 0x7f07004a
-			public const int library_AndroidIconics_repositoryLink = 2131165258;
-			
-			// aapt resource value: 0x7f07004b
-			public const int library_AndroidIconics_year = 2131165259;
+			// aapt resource value: 0x7f07005d
+			public const int library_AndroidIconics_year = 2131165277;
 			
 			// aapt resource value: 0x7f07003f
 			public const int library_name = 2131165247;

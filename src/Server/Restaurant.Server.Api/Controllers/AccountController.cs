@@ -52,7 +52,7 @@ namespace Restaurant.Server.Api.Controllers
 		[Route("GetUserInfo")]
 		public async Task<UserDto> GetUserInfo()
 		{
-			var user = await _userManagerFacade.GetAsync(HttpContext.User);
+			var user = await _userManagerFacade.GetAsync(User);
 			return _mapper.Map<UserDto>(user);
 		}
 

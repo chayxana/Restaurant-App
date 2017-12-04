@@ -22,9 +22,9 @@ function CheckLastExitCode {
 }
 
 $CoverageFolder = "coverage/"
-$OpenCover = "src/packages/OpenCover.4.6.519/tools/OpenCover.Console.exe"
-$CodeCov = "src/packages/Codecov.1.0.3/tools/codecov.exe"
-$CodeCovToken = "077aea61-7f42-49aa-b825-56c1e7c7095b"
+$OpenCover = "packages/OpenCover.4.6.519/tools/OpenCover.Console.exe"
+$CodeCov = "packages/Codecov.1.0.3/tools/codecov.exe"
+$CodeCovToken = "e4122624-6d85-4aa3-846b-91f212a8930f"
 
 function Invoke-InstallOpenCover () {
     Write-Host "Installing OpenCover and Codecov via nuget"

@@ -43,7 +43,7 @@ namespace Restaurant.Core.ViewModels
         }
 
         /// <summary>
-        ///     Gets and sets error message when login fails
+        /// Gets and sets error message when login fails
         /// </summary>
         public string Error
         {
@@ -74,14 +74,6 @@ namespace Restaurant.Core.ViewModels
             get => _password;
             set => this.RaiseAndSetIfChanged(ref _password, value);
         }
-
-		private string _status;
-
-		public string Status
-		{
-			get => _status;
-			set => this.RaiseAndSetIfChanged(ref _status, value);
-		}
 
 		public override string Title => "Login";
     }

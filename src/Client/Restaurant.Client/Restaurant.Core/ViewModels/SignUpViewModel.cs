@@ -14,8 +14,6 @@ namespace Restaurant.Core.ViewModels
     [UsedImplicitly]
     public class SignUpViewModel : BaseViewModel, ISignUpViewModel
     {
-        private readonly INavigationService _navigationService;
-
         private string _confirmPassword;
         private string _email;
         private string _password;
@@ -25,44 +23,32 @@ namespace Restaurant.Core.ViewModels
             IAuthenticationProvider authenticationProvider,
             INavigationService navigationService)
         {
-            _navigationService = navigationService;
-
             var canRegester = this.WhenAny(x => x.Password,
                 x => x.ConfirmPassword, (p, cp) => p.Value == cp.Value);
 
             Register = ReactiveCommand
                 .CreateFromTask(async _ =>
-	            {
-		            IsLoading = true;
+                {
+                    IsLoading = true;
                     var registerDto = autoMapperFacade.Map<RegisterDto>(this);
-	                try
-	                {
-	                    var result = await authenticationProvider.Register(registerDto);
+                    var result = await authenticationProvider.Register(registerDto);
 
-	                    if (result.IsSuccessStatusCode)
-	                    {
-	                        var loginResult = await authenticationProvider.Login(
-	                            new LoginDto {Login = Email, Password = Password});
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var loginResult = await authenticationProvider.Login(
+                            new LoginDto { Login = Email, Password = Password });
 
-	                        if (!loginResult.IsError && loginResult.HttpStatusCode == HttpStatusCode.OK)
-	                        {
-								await _navigationService.NavigateToMainPage(typeof(IMainViewModel));
-	                        }
-	                    }
-	                    IsLoading = false;
-	                }
-	                catch (Exception ex)
-	                {
-	                    // ignored
-	                }
-	                finally
-	                {
-	                    IsLoading = false;
-	                }
+                        if (!loginResult.IsError && loginResult.HttpStatusCode == HttpStatusCode.OK)
+                        {
+                            await navigationService.NavigateToMainPage(typeof(IMainViewModel));
+                        }
+                    }
 
-				}, canRegester);
+                    IsLoading = false;
+
+                }, canRegester);
         }
-		
+
         public string Email
         {
             get => _email;

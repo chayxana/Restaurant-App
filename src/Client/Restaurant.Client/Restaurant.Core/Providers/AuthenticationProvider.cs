@@ -1,7 +1,7 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Restaurant.Abstractions.Api;
+using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Providers;
 using Restaurant.Common.DataTransferObjects;
 
@@ -12,16 +12,19 @@ namespace Restaurant.Core.Providers
         private readonly ITokenProvider _tokenProvider;
         private readonly IAccountApi _accountApi;
 	    private readonly ISettingsProvider _settingsProvider;
-	    private TokenResponse _lastAuthenticatedTokenResponse;
+        private readonly IDateTimeFacade _dateTimeFacade;
+        internal TokenResponse LastAuthenticatedTokenResponse;
 
 		public AuthenticationProvider(
             ITokenProvider tokenProvider,
             IAccountApi accountApi,
-			ISettingsProvider settingsProvider)
+			ISettingsProvider settingsProvider,
+            IDateTimeFacade dateTimeFacade)
         {
             _tokenProvider = tokenProvider;
             _accountApi = accountApi;
 	        _settingsProvider = settingsProvider;
+            _dateTimeFacade = dateTimeFacade;
         }
 
         public async Task<TokenResponse> Login(LoginDto loginDto)
@@ -31,7 +34,7 @@ namespace Restaurant.Core.Providers
 	        if (!result.IsError)
 	        {
 		        UpdateRefreshToken(result.RefreshToken);
-		        _lastAuthenticatedTokenResponse = result;
+		        LastAuthenticatedTokenResponse = result;
 	        }
 
 	        return result;
@@ -49,7 +52,7 @@ namespace Restaurant.Core.Providers
 		    if (!result.IsError)
 		    {
 			    UpdateRefreshToken(result.RefreshToken);
-			    _lastAuthenticatedTokenResponse = result;
+			    LastAuthenticatedTokenResponse = result;
 			}
 
 			return result;
@@ -57,7 +60,7 @@ namespace Restaurant.Core.Providers
 
 	    public async Task<string> GetAccessToken()
 	    {
-		    if (_lastAuthenticatedTokenResponse == null)
+		    if (LastAuthenticatedTokenResponse == null)
 			    return null;
 
 			if (IsAccessTokenExpired())
@@ -65,7 +68,7 @@ namespace Restaurant.Core.Providers
 				await RefreshToken(_settingsProvider.RefreshToken);
 			}
 
-			return _lastAuthenticatedTokenResponse.AccessToken;
+			return LastAuthenticatedTokenResponse.AccessToken;
 	    }
 
 		public Task<object> LogOut()
@@ -76,13 +79,13 @@ namespace Restaurant.Core.Providers
 	    private void UpdateRefreshToken(string refreshToken)
 	    {
 		    _settingsProvider.RefreshToken = refreshToken;
-		    _settingsProvider.LastUpdatedRefreshTokenTime = DateTime.Now;
+		    _settingsProvider.LastUpdatedRefreshTokenTime = _dateTimeFacade.Now;
 	    }
 
 	    private bool IsAccessTokenExpired()
 	    {
-		    return (DateTime.Now - _settingsProvider.LastUpdatedRefreshTokenTime).TotalSeconds >
-		           _lastAuthenticatedTokenResponse.ExpiresIn;
+		    return (_dateTimeFacade.Now - _settingsProvider.LastUpdatedRefreshTokenTime).TotalSeconds >
+		           LastAuthenticatedTokenResponse.ExpiresIn;
 	    }
 	}
 }

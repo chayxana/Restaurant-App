@@ -2,7 +2,7 @@
 using IdentityServer4;
 using IdentityServer4.Models;
 
-namespace API.Tests.Config
+namespace Restaurant.Server.Api.IntegrationTests.Config
 {
     public static class Clients
     {

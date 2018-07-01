@@ -3,7 +3,7 @@ using System.Security.Claims;
 using IdentityModel;
 using IdentityServer4.Test;
 
-namespace API.Tests.Config
+namespace Restaurant.Server.Api.IntegrationTests.Config
 {
     static class Users
     {

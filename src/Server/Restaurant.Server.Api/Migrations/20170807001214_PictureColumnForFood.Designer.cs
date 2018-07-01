@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Restaurant.Server.DataProvider;
+using Restaurant.Server.Api.Data;
 
 namespace Restaurant.Server.Api.Migrations
 {
-    [DbContext(typeof(DatabaseContext))]
+    [DbContext(typeof(RestaurantDbContext))]
     [Migration("20170807001214_PictureColumnForFood")]
     partial class PictureColumnForFood
     {

@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Common.DataTransferObjects;
-using Restaurant.Server.Abstraction.Facades;
-using Restaurant.Server.Abstraction.Providers;
-using Restaurant.Server.Abstraction.Repositories;
-using Restaurant.Server.Models;
+using Restaurant.Server.Api.Abstraction.Facades;
+using Restaurant.Server.Api.Abstraction.Providers;
+using Restaurant.Server.Api.Abstraction.Repositories;
+using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Controllers
 {

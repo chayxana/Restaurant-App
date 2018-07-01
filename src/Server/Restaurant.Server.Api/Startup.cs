@@ -6,16 +6,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Restaurant.Server.Abstraction.Facades;
-using Restaurant.Server.Abstraction.Providers;
-using Restaurant.Server.Abstraction.Repositories;
-using Restaurant.Server.Auth;
-using Restaurant.Server.Core.Facades;
-using Restaurant.Server.Core.Mappers;
-using Restaurant.Server.Core.Providers;
-using Restaurant.Server.DataProvider;
-using Restaurant.Server.DataProvider.Repositories;
-using Restaurant.Server.Models;
+using Restaurant.Server.Api.Abstraction.Facades;
+using Restaurant.Server.Api.Abstraction.Providers;
+using Restaurant.Server.Api.Abstraction.Repositories;
+using Restaurant.Server.Api.Data;
+using Restaurant.Server.Api.Facades;
+using Restaurant.Server.Api.IdentityServer;
+using Restaurant.Server.Api.Mappers;
+using Restaurant.Server.Api.Models;
+using Restaurant.Server.Api.Providers;
+using Restaurant.Server.Api.Repositories;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Restaurant.Server.Api
 {
@@ -23,42 +24,23 @@ namespace Restaurant.Server.Api
 	public class Startup
 	{
 		private readonly IConfiguration _configuration;
-		private readonly IHostingEnvironment _env;
 
-		public Startup(IConfiguration configuration, IHostingEnvironment env)
+		public Startup(IConfiguration configuration)
 		{
 			_configuration = configuration;
-			_env = env;
 		}
 
 		public void ConfigureServices(IServiceCollection services)
 		{
 			var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
 
-			if (_env.IsEnvironment("Heroku") || _env.IsEnvironment("Docker"))
-			{
-				services.AddDbContext<DatabaseContext>(opt => opt.UseNpgsql(connectionString,
-					b => b.MigrationsAssembly("Restaurant.Server.Api")));
-			}
-			else
-			{
-				services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connectionString,
-					b => b.MigrationsAssembly("Restaurant.Server.Api")));
-			}
-
-			services.AddIdentity<User, IdentityRole>(options =>
-			{
-				options.Password.RequireNonAlphanumeric = false;
-				options.Password.RequireUppercase = false;
-			}).AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
-
+			services.AddDbContext<RestaurantDbContext>(options => options.UseSqlServer(connectionString));
 
 			services.AddScoped<IRepository<DailyEating>, DailyEatingRepository>();
 			services.AddScoped<IRepository<Food>, FoodRepository>();
 			services.AddScoped<IRepository<Category>, CategoryRepository>();
 			services.AddScoped<IRepository<Order>, OrderRepository>();
 			services.AddScoped<IMapperFacade, MapperFacade>();
-			services.AddScoped<IUserBootstrapper, UserBootstrapper>();
 			services.AddScoped<IUserManagerFacade, UserManagerFacade>();
 			services.AddSingleton<IFileInfoFacade, FileInfoFacade>();
 			services.AddSingleton<IFileUploadProvider, FileUploadProvider>();
@@ -75,23 +57,47 @@ namespace Restaurant.Server.Api
 
 			services.AddMvc();
 
-			services.SetupIdentityServer(_env)
+			services.AddIdentity<User, IdentityRole>()
+				.AddEntityFrameworkStores<RestaurantDbContext>()
+				.AddDefaultTokenProviders();
+
+			services.AddIdentityServer()
+				.AddDeveloperSigningCredential()
+				.AddInMemoryIdentityResources(Config.GetIdentityResources())
+				.AddInMemoryApiResources(Config.GetApiResources())
+				.AddInMemoryClients(Config.GetClients())
+				.AddTestUsers(DefaultUsers.Get())
 				.AddAspNetIdentity<User>();
 
-			services.SetupAuthentication();
+			services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1", new Info { Title = "Restaurant HTTP API", Version = "v1" });
+			});
 		}
 
 		public void Configure(IApplicationBuilder app,
 			ILoggerFactory loggerFactory,
 			IConfiguration configuration,
-			IUserBootstrapper userBootstrapper)
+			IHostingEnvironment env)
 		{
 			loggerFactory.AddConsole(configuration.GetSection("Logging"));
 			loggerFactory.AddDebug();
 
+			if (env.IsDevelopment())
+			{
+				app.UseDeveloperExceptionPage();
+			}
+
+			app.UseSwagger();
+			app.UseSwaggerUI(c =>
+			{
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", "Restaurant API");
+			});
+
 			app.UseCors("ServerPolicy");
-			app.UseDeveloperExceptionPage();
 			app.UseIdentityServer();
+			app.UseMvc();
+			app.UseStaticFiles();
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
@@ -99,9 +105,7 @@ namespace Restaurant.Server.Api
 					template: "{controller=Home}/{action=Index}");
 			});
 
-			app.UseStaticFiles();
 			new AutoMapperConfiguration().Configure();
-			userBootstrapper.CreateDefaultUsersAndRoles().Wait();
 		}
 	}
 }

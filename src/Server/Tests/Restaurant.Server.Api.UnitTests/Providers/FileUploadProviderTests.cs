@@ -6,8 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Moq;
-using Restaurant.Server.Abstraction.Facades;
-using Restaurant.Server.Core.Providers;
+using Restaurant.Server.Api.Abstraction.Facades;
+using Restaurant.Server.Api.Providers;
 using Xunit;
 
 namespace Restaurant.Server.Api.UnitTests.Providers

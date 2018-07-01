@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Restaurant.Common.DataTransferObjects;
-using Restaurant.Server.Abstraction.Facades;
-using Restaurant.Server.Abstraction.Repositories;
-using Restaurant.Server.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Restaurant.Server.Api.Abstraction.Facades;
+using Restaurant.Server.Api.Abstraction.Repositories;
+using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Controllers
 {

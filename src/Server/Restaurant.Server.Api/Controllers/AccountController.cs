@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Common.DataTransferObjects;
-using Restaurant.Server.Abstraction.Facades;
-using Restaurant.Server.Abstraction.Providers;
-using Restaurant.Server.Models;
+using Restaurant.Server.Api.Abstraction.Facades;
+using Restaurant.Server.Api.Abstraction.Providers;
+using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Controllers
 {
@@ -81,13 +81,7 @@ namespace Restaurant.Server.Api.Controllers
 
 			return result.Succeeded ? Ok() : Error(result);
 		}
-
-		[Route("google-sign-in-callback")]
-		public IActionResult GoogleSignInCallback()
-		{
-			return Ok();
-		}
-
+		
 		private IActionResult Error(IdentityResult result)
 		{
 			foreach (var identityError in result.Errors)

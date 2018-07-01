@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Restaurant.Common.DataTransferObjects;
-using Restaurant.Server.Abstraction.Facades;
-using Restaurant.Server.Abstraction.Repositories;
-using Restaurant.Server.Models;
+using Restaurant.Server.Api.Abstraction.Facades;
+using Restaurant.Server.Api.Abstraction.Repositories;
+using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Controllers
 {

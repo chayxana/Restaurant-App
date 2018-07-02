@@ -12,110 +12,111 @@ using Restaurant.Server.Api.Models;
 
 namespace Restaurant.Server.Api.Controllers
 {
-	[Produces("application/json")]
-	[Route("api/[controller]")]
-	public class FoodsController : Controller
-	{
-		private readonly IFileUploadProvider _fileUploadProvider;
-		private readonly IMapperFacade _mapperFacade;
-		private readonly IRepository<Food> _repository;
+    [Produces("application/json")]
+    [Route("api/v1/[controller]")]
+    public class FoodsController : Controller
+    {
+        private readonly IFileUploadProvider _fileUploadProvider;
+        private readonly IMapperFacade _mapperFacade;
+        private readonly IRepository<Food> _repository;
 
-		public FoodsController(
-			IMapperFacade mapperFacade,
-			IRepository<Food> repository,
-			IFileUploadProvider fileUploadProvider)
-		{
-			_mapperFacade = mapperFacade;
-			_repository = repository;
-			_fileUploadProvider = fileUploadProvider;
-		}
+        public FoodsController(
+            IMapperFacade mapperFacade,
+            IRepository<Food> repository,
+            IFileUploadProvider fileUploadProvider)
+        {
+            _mapperFacade = mapperFacade;
+            _repository = repository;
+            _fileUploadProvider = fileUploadProvider;
+        }
 
-		[HttpGet("{count}/{skip}")]
-		[Route("GetAll")]
-		public IEnumerable<FoodDto> Get(int count = 6, int skip = 0)
-		{
-			var entities = _repository.GetAll()
-				.Skip(skip)
-				.Take(count)
-				.ToList();
+        [HttpGet("{count?}/{skip?}", Name = "GetAll")]
+        [Route("/GetFoods")]
+        public IEnumerable<FoodDto> GetFoods(int? count = 10, int? skip = 0)
+        {
+            var entities = _repository.GetAll()
+                .Skip(skip.Value)
+                .Take(count.Value)
+                .ToList();
 
-			return _mapperFacade.Map<IEnumerable<FoodDto>>(entities);
-		}
+            return _mapperFacade.Map<IEnumerable<FoodDto>>(entities);
+        }
 
-		[HttpGet("{id}")]
-		public FoodDto Get(Guid id)
-		{
-			return _mapperFacade.Map<FoodDto>(_repository.Get(id));
-		}
+        [HttpGet("{id}", Name = "GetFood")]
+        [Route("/GetFood")]
+        public FoodDto GetFood(Guid id)
+        {
+            return _mapperFacade.Map<FoodDto>(_repository.Get(id));
+        }
 
-		[HttpPost]
-		public async Task<IActionResult> Post([FromBody] FoodDto foodDto)
-		{
-			try
-			{
-				var food = _mapperFacade.Map<Food>(foodDto);
-				food.Picture = _fileUploadProvider.GetUploadedFileByUniqId(food.Id.ToString());
-				_repository.Create(food);
-				var result = await _repository.Commit();
-				if (result)
-				{
-					_fileUploadProvider.Reset();
-					return Ok();
-				}
-				_fileUploadProvider.RemoveUploadedFileByUniqId(foodDto.Id.ToString());
-				return BadRequest();
-			}
-			catch (Exception)
-			{
-				_fileUploadProvider.RemoveUploadedFileByUniqId(foodDto.Id.ToString());
-				return BadRequest();
-			}
-		}
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] FoodDto foodDto)
+        {
+            try
+            {
+                var food = _mapperFacade.Map<Food>(foodDto);
+                food.Picture = _fileUploadProvider.GetUploadedFileByUniqId(food.Id.ToString());
+                _repository.Create(food);
+                var result = await _repository.Commit();
+                if (result)
+                {
+                    _fileUploadProvider.Reset();
+                    return Ok();
+                }
+                _fileUploadProvider.RemoveUploadedFileByUniqId(foodDto.Id.ToString());
+                return BadRequest();
+            }
+            catch (Exception)
+            {
+                _fileUploadProvider.RemoveUploadedFileByUniqId(foodDto.Id.ToString());
+                return BadRequest();
+            }
+        }
 
-		[HttpPost]
-		[Route("UploadFile")]
-		public async Task Post([Bind] IFormFile file, [Bind] string foodId)
-		{
-			await _fileUploadProvider.Upload(file, foodId);
-		}
+        [HttpPost]
+        [Route("UploadFoodImage")]
+        public async Task Post([Bind] IFormFile file, [Bind] string foodId)
+        {
+            await _fileUploadProvider.Upload(file, foodId);
+        }
 
-		[HttpPut("{id}")]
-		public async Task<IActionResult> Put(Guid id, [FromBody] FoodDto foodDto)
-		{
-			try
-			{
-				if (id != foodDto.Id)
-					return BadRequest();
-				var food = _mapperFacade.Map<Food>(foodDto);
-				if (_fileUploadProvider.HasFile(id.ToString()))
-				{
-					_fileUploadProvider.Remove(food.Picture);
-					food.Picture = _fileUploadProvider.GetUploadedFileByUniqId(id.ToString());
-				}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(Guid id, [FromBody] FoodDto foodDto)
+        {
+            try
+            {
+                if (id != foodDto.Id)
+                    return BadRequest();
+                var food = _mapperFacade.Map<Food>(foodDto);
+                if (_fileUploadProvider.HasFile(id.ToString()))
+                {
+                    _fileUploadProvider.Remove(food.Picture);
+                    food.Picture = _fileUploadProvider.GetUploadedFileByUniqId(id.ToString());
+                }
 
-				_repository.Update(id, food);
-				return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
-			}
-			catch (Exception)
-			{
-				return BadRequest();
-			}
-		}
+                _repository.Update(id, food);
+                return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
 
-		[HttpDelete("{id}")]
-		public async Task<IActionResult> Delete(Guid id)
-		{
-			try
-			{
-				var food = _repository.Get(id);
-				_fileUploadProvider.Remove(food.Picture);
-				_repository.Delete(food);
-				return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
-			}
-			catch (Exception)
-			{
-				return BadRequest();
-			}
-		}
-	}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            try
+            {
+                var food = _repository.Get(id);
+                _fileUploadProvider.Remove(food.Picture);
+                _repository.Delete(food);
+                return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+    }
 }

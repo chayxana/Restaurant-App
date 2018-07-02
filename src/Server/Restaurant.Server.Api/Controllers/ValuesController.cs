@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Restaurant.Server.Api.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class ValuesController : Controller
     {
-		[HttpGet]
-		[Authorize]
-	    public IEnumerable<string> Get()
-		{
-			return new[] {"Test1", "Test1", "Test1", "Test1", "Test1", "Test1", "Test1", "Test1"};
-		}
+        [HttpGet]
+        [Authorize]
+        public IEnumerable<string> Get()
+        {
+            return new[] { "Test1", "Test1", "Test1", "Test1", "Test1", "Test1", "Test1", "Test1" };
+        }
     }
 }

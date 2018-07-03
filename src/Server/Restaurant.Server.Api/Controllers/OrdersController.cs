@@ -26,17 +26,9 @@ namespace Restaurant.Server.Api.Controllers
         }
 
         [HttpGet]
-        [Route("/GetAll")]
         public IEnumerable<OrderDto> Get()
         {
             var orders = _repository.GetAll();
-            return _mapperFacade.Map<IEnumerable<OrderDto>>(orders);
-        }
-
-        [HttpGet("{id}"), Route("/GetOrdersByUserId")]
-        public IEnumerable<OrderDto> GetOrdersByUsersId(string id)
-        {
-            var orders = _repository.GetAll().Where(x => x.UserId == id);
             return _mapperFacade.Map<IEnumerable<OrderDto>>(orders);
         }
 
@@ -45,6 +37,14 @@ namespace Restaurant.Server.Api.Controllers
         {
             var order = _repository.Get(id);
             return _mapperFacade.Map<OrderDto>(order);
+        }
+
+        [HttpGet]
+        [Route("GetOrdersByUsersId/{id}")]
+        public IEnumerable<OrderDto> GetOrdersByUsersId(string id)
+        {
+            var orders = _repository.GetAll().Where(x => x.UserId == id);
+            return _mapperFacade.Map<IEnumerable<OrderDto>>(orders);
         }
 
         [HttpPost]

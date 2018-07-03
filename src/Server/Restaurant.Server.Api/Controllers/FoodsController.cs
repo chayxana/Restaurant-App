@@ -30,9 +30,8 @@ namespace Restaurant.Server.Api.Controllers
             _fileUploadProvider = fileUploadProvider;
         }
 
-        [HttpGet("{count?}/{skip?}", Name = "GetAll")]
-        [Route("/GetFoods")]
-        public IEnumerable<FoodDto> GetFoods(int? count = 10, int? skip = 0)
+        [HttpGet("{count?}/{skip?}")]
+        public IEnumerable<FoodDto> Get(int? count = 10, int? skip = 0)
         {
             var entities = _repository.GetAll()
                 .Skip(skip.Value)
@@ -42,9 +41,8 @@ namespace Restaurant.Server.Api.Controllers
             return _mapperFacade.Map<IEnumerable<FoodDto>>(entities);
         }
 
-        [HttpGet("{id}", Name = "GetFood")]
-        [Route("/GetFood")]
-        public FoodDto GetFood(Guid id)
+        [HttpGet("{id}")]
+        public FoodDto Get(Guid id)
         {
             return _mapperFacade.Map<FoodDto>(_repository.Get(id));
         }

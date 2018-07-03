@@ -1,6 +1,6 @@
 param(
     [string]$Config = "Release",  
-    [string]$Framework = "netcoreapp2.0",  
+    [string]$Framework = "netcoreapp2.1",  
     [string]$SolutionName = "src/Restaurant.Server.sln",
     [string]$TestProjectFile = "src/Server/Tests/Restaurant.Server.Api.UnitTests/Restaurant.Server.Api.UnitTests.csproj"
 )

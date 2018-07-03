@@ -30,7 +30,7 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
             GetMock<IMapperFacade>().Setup(x => x.Map<IEnumerable<FoodDto>>(It.IsAny<List<Food>>())).Returns(foodDtos);
 
             // When
-            var result = ClassUnderTest.GetFoods(10, 6);
+            var result = ClassUnderTest.Get(10, 6);
 
             // Then
             result.Should().Equal(foodDtos);
@@ -48,7 +48,7 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
             GetMock<IMapperFacade>().Setup(x => x.Map<FoodDto>(It.IsAny<Food>())).Returns(foodDto);
 
             // When
-            var result = ClassUnderTest.GetFood(id);
+            var result = ClassUnderTest.Get(id);
 
             // Then
             result.Should().Be(foodDto);

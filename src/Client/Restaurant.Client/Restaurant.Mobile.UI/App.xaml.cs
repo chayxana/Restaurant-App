@@ -17,8 +17,9 @@ namespace Restaurant.Mobile.UI
             var boot = new Bootstrapper();
             boot.Build();
             AutoMapperConfiguration.Configure();
+			
 
-            var viewResolverService = BootstrapperBase.Container.Resolve<IViewFactory>();
+			var viewResolverService = BootstrapperBase.Container.Resolve<IViewFactory>();
             var welcomePage = viewResolverService.ResolveView(BootstrapperBase.Container.Resolve<IWelcomeViewModel>());
 
             MainPage = new NavigationPage(welcomePage as Page);

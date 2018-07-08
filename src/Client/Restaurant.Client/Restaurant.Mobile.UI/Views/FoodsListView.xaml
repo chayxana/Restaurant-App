@@ -95,7 +95,6 @@
                                     </Grid>
 
                                 </StackLayout>
-                                <controls:FooterDivider VerticalOptions="Center" />
                             </StackLayout>
                         </controls:CardView>
                     </StackLayout>

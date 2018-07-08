@@ -230,6 +230,5 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 
 			result.Should().BeOfType<BadRequestResult>();
 		}
-
 	}
 }

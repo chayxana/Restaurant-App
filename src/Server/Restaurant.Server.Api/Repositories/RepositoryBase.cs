@@ -47,10 +47,10 @@ namespace Restaurant.Server.Api.Repositories
 			return _context.Set<T>();
 		}
 
-
 		public virtual async Task<bool> Commit()
 		{
 			if (_context.ChangeTracker.HasChanges())
+			{
 				try
 				{
 					return await _context.SaveChangesAsync() == 1;
@@ -60,6 +60,7 @@ namespace Restaurant.Server.Api.Repositories
 					_logger.LogDebug(GetHashCode(), ex, "DbContext Validation Errors!");
 					return false;
 				}
+			}
 			_logger.LogDebug("No changes to commit!");
 			return false;
 		}

@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ReactiveUI" Version="8.0.0-alpha0113" />
-    <PackageReference Include="refit" Version="4.0.1" />
+    <PackageReference Include="ReactiveUI" Version="8.3.1" />
+    <PackageReference Include="refit" Version="4.6.16" />
   </ItemGroup>
 
   <ItemGroup>

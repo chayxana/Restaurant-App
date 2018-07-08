@@ -19,7 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{2EA0A2A6-1
 	ProjectSection(SolutionItems) = preProject
 		Client\Libs\ActionItemBadge.dll = Client\Libs\ActionItemBadge.dll
 		Client\Libs\Iconics.Core.dll = Client\Libs\Iconics.Core.dll
-		Client\Libs\TwitterLikeButton.Xamarin.iOS.dll = Client\Libs\TwitterLikeButton.Xamarin.iOS.dll
 		Client\Libs\Xamarin.Android.TwitterLikeButton.dll = Client\Libs\Xamarin.Android.TwitterLikeButton.dll
 	EndProjectSection
 EndProject

@@ -6,7 +6,7 @@ using Restaurant.Server.Api.Models;
 namespace Restaurant.Server.Api.Data
 {
 	[ExcludeFromCodeCoverage]
-	public class RestaurantDbContext : IdentityDbContext<User>
+	public class RestaurantDbContext : DbContext
 	{
 		public RestaurantDbContext(DbContextOptions<RestaurantDbContext> options)
 			: base(options)
@@ -23,12 +23,6 @@ namespace Restaurant.Server.Api.Data
 		{
 			base.OnModelCreating(builder);
 
-			builder.Entity<User>()
-				.HasOne(x => x.UserProfile)
-				.WithOne(x => x.User)
-				.HasForeignKey<UserProfile>(x => x.UserId)
-				.OnDelete(DeleteBehavior.Cascade);
-
 			builder.Entity<Food>(b =>
 			{
 				b.HasMany<Favorite>().WithOne().HasForeignKey(x => x.FoodId).IsRequired();
@@ -39,12 +33,6 @@ namespace Restaurant.Server.Api.Data
 			{
 				b.HasKey(oi => new { oi.FoodId, oi.OderId });
 				b.ToTable("OrderItems");
-			});
-
-			builder.Entity<Order>(b =>
-			{
-				b.HasOne<User>().WithMany(x => x.Orders).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade).IsRequired();
-				b.HasMany(x => x.OrderItems).WithOne().HasForeignKey(x => x.OderId).OnDelete(DeleteBehavior.Cascade);
 			});
 
 			builder.Entity<Favorite>(b =>

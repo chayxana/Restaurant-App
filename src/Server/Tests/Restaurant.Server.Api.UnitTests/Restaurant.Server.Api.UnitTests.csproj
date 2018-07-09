@@ -26,4 +26,8 @@
     <ProjectReference Include="..\..\Restaurant.Server.Api\Restaurant.Server.Api.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Providers\" />
+  </ItemGroup>
+
 </Project>

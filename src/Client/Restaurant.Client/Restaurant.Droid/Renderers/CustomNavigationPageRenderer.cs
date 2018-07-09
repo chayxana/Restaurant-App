@@ -1,22 +1,11 @@
-﻿using Android.App;
-using Android.Content;
-using Android.Content.Res;
-using Android.OS;
-using Android.Util;
+﻿using Android.Content;
 using Android.Views;
-using Com.Mikepenz.Actionitembadge.Library;
-using Com.Mikepenz.Actionitembadge.Library.Utils;
 using Restaurant.Droid.Providers;
 using Restaurant.Droid.Renderers;
 using Restaurant.Mobile.UI.Controls;
 using Restaurant.Mobile.UI.Pages;
-using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms.Platform.Android.AppCompat;
 using AColor = Android.Graphics.Color;
@@ -29,22 +18,28 @@ namespace Restaurant.Droid.Renderers
 {
     public class CustomNavigationPageRenderer : NavigationPageRenderer
     {
-        private readonly DrawableProvider _drawableProvider = new DrawableProvider();
-        private bool _disposed;
-        private int _statusBarHeight = -1;
+        private readonly StatusBarProvider _statusBarProvider;
+        private readonly ActionBarProvider _actionBarProvider;
+        private readonly BadgeMenuItemProvider _badgeMenuItemProvider;
 
         public CustomNavigationPageRenderer(Context context) : base(context)
         {
+            _statusBarProvider = new StatusBarProvider(context);
+            _actionBarProvider = new ActionBarProvider(context);
+            _badgeMenuItemProvider = new BadgeMenuItemProvider(context);
         }
 
-        private CustomNavigationPage PageController => Element as CustomNavigationPage;
-
+        private CustomNavigationPage NavigationPage => Element as CustomNavigationPage;
         private MainActivity MainActivity => Context as MainActivity;
 
         protected override void OnToolbarItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnToolbarItemPropertyChanged(sender, e);
-            UpdateBadge(sender as BadgeToolbarItem);
+
+            if (sender is BadgeToolbarItem badgeToolbarItem)
+            {
+                BadgeToolbarItemPropertyChanged(badgeToolbarItem);
+            }
         }
 
         protected override void UpdateMenuItemIcon(Context context, IMenuItem menuItem, ToolbarItem toolBarItem)
@@ -53,78 +48,41 @@ namespace Restaurant.Droid.Renderers
 
             if (toolBarItem is BadgeToolbarItem item)
             {
-                var color = item.BadgeColor.ToAndroid();
-                var colorPressed = item.BadgePressedColor.ToAndroid();
-                var textColor = item.BadgeTextColor.ToAndroid();
-
-                var badgeStyle = new BadgeStyle(BadgeStyle.Style.Default,
-                    Resource.Layout.menu_action_item_badge,
-                    color,
-                    colorPressed,
-                    textColor);
-
-                var iconDrawable = _drawableProvider.GetFormsDrawable(Context, item.Icon);
-                ActionItemBadge.Update(MainActivity, 
-                    menuItem, 
-                    iconDrawable, 
-                    badgeStyle, 
-                    item.BadgeText, 
-                    new MenuClickListener(item.Activate));
+                _badgeMenuItemProvider.UpdateMenuItemBadge(menuItem, item);
             }
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
-            if (e.PropertyName == NavigationPage.CurrentPageProperty.PropertyName)
+            if (e.PropertyName == Xamarin.Forms.NavigationPage.CurrentPageProperty.PropertyName)
             {
                 if (IsNavigationBarTranslucent())
                 {
-                    PageController.BarBackgroundColor = Color.Transparent;
+                    NavigationPage.BarBackgroundColor = Color.Transparent;
                     MainActivity.MakeStatusBarTranslucent(true);
                 }
                 else
                 {
-                    PageController.BarBackgroundColor = MainActivity.GetColorPrimary().ToColor();
+                    NavigationPage.BarBackgroundColor = MainActivity.GetColorPrimary().ToColor();
                     MainActivity.MakeStatusBarTranslucent(false);
                 }
             }
         }
 
-        private void UpdateBadge(BadgeToolbarItem item)
+        private void BadgeToolbarItemPropertyChanged(BadgeToolbarItem badgeToolbarItem)
         {
-            if (item == null || item.BadgeText == null)
-            {
+            if (badgeToolbarItem?.BadgeText == null)
                 return;
-            }
 
-            var idx = PageController.CurrentPage.ToolbarItems.IndexOf(item);
-            if (idx < 0)
-            {
+            var index = NavigationPage.CurrentPage.ToolbarItems.IndexOf(badgeToolbarItem);
+            if (index < 0)
                 return;
-            }
 
-            if (MainActivity.FindViewById(Resource.Id.toolbar) is AToolbar toolbar && toolbar.Menu.Size() > idx)
+            if (MainActivity.FindViewById(Resource.Id.toolbar) is AToolbar toolbar && toolbar.Menu.Size() > index)
             {
-                var color = item.BadgeColor.ToAndroid();
-                var colorPressed = item.BadgePressedColor.ToAndroid();
-                var textColor = item.BadgeTextColor.ToAndroid();
-
-                var badgeStyle = new BadgeStyle(BadgeStyle.Style.Default,
-                    Resource.Layout.menu_action_item_badge,
-                    color,
-                    colorPressed,
-                    textColor);
-
-                var iconDrawable = _drawableProvider.GetFormsDrawable(Context, item.Icon);
-                var menuItem = toolbar.Menu.GetItem(idx);
-
-                ActionItemBadge.Update(MainActivity, 
-                    menuItem, 
-                    iconDrawable, 
-                    badgeStyle, 
-                    item.BadgeText, 
-                    new MenuClickListener(item.Activate));
+                var menuItem = toolbar.Menu.GetItem(index);
+                _badgeMenuItemProvider.UpdateMenuItemBadge(menuItem, badgeToolbarItem);
             }
         }
 
@@ -135,7 +93,7 @@ namespace Restaurant.Droid.Renderers
             if (IsNavigationBarTranslucent())
             {
                 int containerHeight = b - t;
-                PageController.ContainerArea = new Rectangle(0, 0, Context.FromPixels(r - l), Context.FromPixels(containerHeight));
+                NavigationPage.ContainerArea = new Rectangle(0, 0, Context.FromPixels(r - l), Context.FromPixels(containerHeight));
 
                 for (var i = 0; i < ChildCount; i++)
                 {
@@ -143,8 +101,7 @@ namespace Restaurant.Droid.Renderers
 
                     if (child is AToolbar toolbar)
                     {
-                        var barHeight = ActionBarHeight();
-                        var statusBarHeight = GetStatusBarHeight();
+                        var (barHeight, statusBarHeight) = GetHeights();
                         toolbar.Layout(0, statusBarHeight, r - l, barHeight + statusBarHeight);
                         continue;
                     }
@@ -154,63 +111,17 @@ namespace Restaurant.Droid.Renderers
             }
         }
 
+        private (int actionBarHeight, int statusBarHeight) GetHeights()
+        {
+            var barHeight = _actionBarProvider.GetActionBarHeight();
+            var statusBarHeight = _statusBarProvider.GetStatusBarHeight();
+            return (barHeight, statusBarHeight);
+        }
+
         private bool IsNavigationBarTranslucent()
         {
             return Element.CurrentPage is ITransparentActionBarPage transparentPage 
                 && transparentPage.IsTransparentActionBar;
-        }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && !_disposed)
-            {
-                _disposed = true;
-            }
-
-            base.Dispose(disposing);
-        }
-
-        private int ActionBarHeight()
-        {
-            var attr = Resource.Attribute.actionBarSize;
-
-            int actionBarHeight;
-            using (var tv = new TypedValue())
-            {
-                actionBarHeight = 0;
-                if (Context.Theme.ResolveAttribute(attr, tv, true))
-                {
-                    actionBarHeight = TypedValue.ComplexToDimensionPixelSize(tv.Data, Resources.DisplayMetrics);
-                }
-            }
-
-            if (actionBarHeight <= 0)
-            {
-                return IsPortrait() ? (int)Context.ToPixels(56) : (int)Context.ToPixels(48);
-            }
-
-            return actionBarHeight;
-        }
-
-        private int GetStatusBarHeight()
-        {
-            if (_statusBarHeight >= 0)
-            {
-                return _statusBarHeight;
-            }
-
-            var result = 0;
-            var resourceId = Resources.GetIdentifier("status_bar_height", "dimen", "android");
-            if (resourceId > 0)
-            {
-                result = Resources.GetDimensionPixelSize(resourceId);
-            }
-
-            return _statusBarHeight = result;
-        }
-
-        private bool IsPortrait()
-        {
-            return Context.Resources.Configuration.Orientation == Orientation.Portrait;
         }
     }
 }

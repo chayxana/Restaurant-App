@@ -1,12 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Util;
 using Android.Views;
+using Autofac;
 using ImageCircle.Forms.Plugin.Droid;
+using Restaurant.Abstractions.Services;
 using Restaurant.Mobile.UI;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -37,8 +37,7 @@ namespace Restaurant.Droid
             Forms.Init(this, bundle);
             ImageCircleRenderer.Init();
             MakeStatusBarTranslucent(false);
-
-            LoadApplication(new App());
+            LoadApplication(new App(new AndroidPlatformInitializer()));
         }       
 
         internal void MakeStatusBarTranslucent(bool makeTranslucent)
@@ -61,7 +60,7 @@ namespace Restaurant.Droid
             }
         }
 
-        internal AColor GetColorPrimaryDark()
+        private AColor GetColorPrimaryDark()
         {
             using (var value = new TypedValue())
             {
@@ -87,6 +86,15 @@ namespace Restaurant.Droid
 
                 return AColor.Transparent;
             }
+        }
+    }
+
+    public class AndroidPlatformInitializer : MobilePlatformInitializer
+    {
+        protected override void RegisterTypes(ContainerBuilder builder)
+        {
+            base.RegisterTypes(builder);
+            builder.RegisterType<LoggingService>().As<ILoggingService>();
         }
     }
 }

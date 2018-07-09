@@ -1,4 +1,5 @@
 ﻿using System;
+using Autofac;
 using Foundation;
 using ImageCircle.Forms.Plugin.iOS;
 using Restaurant.Mobile.UI;
@@ -35,7 +36,7 @@ namespace Restaurant.iOS
             Forms.Init();
             ImageCircleRenderer.Init();
 
-            LoadApplication(new App());
+            LoadApplication(new App(new iOSPlatformInitializer()));
 
             return base.FinishedLaunching(app, options);
         }
@@ -74,6 +75,14 @@ namespace Restaurant.iOS
                         "Invalid color value {0} is invalid. It should be a hex value of the form #RBG, #RRGGBB, or #AARRGGBB",
                         hexValue));
             }
+        }
+    }
+
+    public class iOSPlatformInitializer : MobilePlatformInitializer
+    {
+        protected override void RegisterTypes(ContainerBuilder builder)
+        {
+            base.RegisterTypes(builder);
         }
     }
 }

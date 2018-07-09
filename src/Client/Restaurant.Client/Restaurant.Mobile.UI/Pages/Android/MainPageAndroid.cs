@@ -25,7 +25,7 @@ namespace Restaurant.Mobile.UI.Pages.Android
             var foodsPage = viewFactory.ResolveView(foodsViewModel);
 
             Master = masterPage as Page;
-            Detail = new NavigationPage(foodsPage as Page);
+            Detail = new CustomNavigationPage(foodsPage as Page);
 
             this.WhenAnyValue(x => x.ViewModel.IsNavigated)
                 .Where(isNavigated => isNavigated)

@@ -58,6 +58,11 @@ namespace Restaurant.Core.ViewModels
             Orders = new ReactiveList<IOrderViewModel>(groupedOrders) { ChangeTrackingEnabled = true };
         }
 
+        public void RaiseOrdersCount()
+        {
+            this.RaisePropertyChanged(nameof(OrdersCount));
+        }
+
         public ICommand CompleteOrder { get; }
 
         public override string Title => "Your basket";

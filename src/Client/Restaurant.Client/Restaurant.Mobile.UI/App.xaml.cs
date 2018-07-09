@@ -3,6 +3,7 @@ using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Core;
 using Restaurant.Core.Mappers;
+using Restaurant.Mobile.UI.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,7 +23,7 @@ namespace Restaurant.Mobile.UI
 			var viewResolverService = BootstrapperBase.Container.Resolve<IViewFactory>();
             var welcomePage = viewResolverService.ResolveView(BootstrapperBase.Container.Resolve<IWelcomeViewModel>());
 
-            MainPage = new NavigationPage(welcomePage as Page);
+            MainPage = new CustomNavigationPage(welcomePage as Page);
         }
 
         public new static App Current => (App) Application.Current;

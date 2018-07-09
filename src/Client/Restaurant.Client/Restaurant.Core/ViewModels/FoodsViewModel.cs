@@ -4,8 +4,8 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ReactiveUI;
-using Restaurant.Abstractions.Adapters;
 using Restaurant.Abstractions.Api;
+using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
@@ -17,6 +17,7 @@ namespace Restaurant.Core.ViewModels
     public class FoodsViewModel : BaseViewModel
     {
         private readonly IFoodDetailViewModelFactory _foodDetailViewModelFactory;
+        private readonly IDiagnosticsFacade _diagnosticsFacade;
         private readonly IFoodsApi _foodsApi;
         private readonly INavigationService _navigationService;
         private ObservableCollection<FoodDto> _foods;
@@ -27,11 +28,13 @@ namespace Restaurant.Core.ViewModels
 	    }
 
         public FoodsViewModel(
+            IDiagnosticsFacade diagnosticsFacade,
             IBasketViewModel basketViewModel,
             IFoodsApi foodsApi,
             INavigationService navigationService,
             IFoodDetailViewModelFactory foodDetailViewModelFactory)
         {
+            _diagnosticsFacade = diagnosticsFacade;
             _foodsApi = foodsApi;
             _navigationService = navigationService;
             _foodDetailViewModelFactory = foodDetailViewModelFactory;
@@ -66,16 +69,28 @@ namespace Restaurant.Core.ViewModels
 
         public async Task LoadFoods()
         {
-            IsLoading = true;
-            var foods = await _foodsApi.GetFoods(5, 0);
-            if (!BootstrapperBase.MockData)
+            try
             {
-                foreach (var food in foods)
-                    food.Picture = ApiConstants.ApiClientUrl + food.Picture;
+                IsLoading = true;
+                var foods = await _foodsApi.GetFoods();
+                if (!CorePlatformInitializer.MockData)
+                {
+                    foreach (var food in foods)
+                        food.Picture = ApiConstants.ApiClientUrl + food.Picture;
+                }
+
+                Foods = new ObservableCollection<FoodDto>(foods);
+                IsLoading = false;
             }
-            Foods = new ObservableCollection<FoodDto>(foods);
-            BasketViewModel.RaiseOrdersCount();
-            IsLoading = false;
+            catch (Exception ex)
+            {
+                _diagnosticsFacade.TrackError(ex);
+                Foods = new ObservableCollection<FoodDto>();
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         private async Task NavigateToFoodDetail(FoodDto food)

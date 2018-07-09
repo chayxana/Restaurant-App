@@ -1,8 +1,9 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using Autofac;
+﻿using Autofac;
 using Restaurant.Abstractions;
+using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Factories;
+using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Restaurant.Core.Factories
 {
@@ -10,10 +11,14 @@ namespace Restaurant.Core.Factories
     public class ViewModelFactory : IViewModelFactory
     {
         private readonly IContainer _container;
+        private readonly IDiagnosticsFacade _diagnosticsFacade;
 
-        public ViewModelFactory(IContainer container)
+        public ViewModelFactory(
+            IContainer container,
+            IDiagnosticsFacade diagnosticsFacade)
         {
             _container = container;
+            _diagnosticsFacade = diagnosticsFacade;
         }
 
         public INavigatableViewModel GetViewModel(Type viewModelType)
@@ -22,12 +27,12 @@ namespace Restaurant.Core.Factories
             {
                 return _container.Resolve(viewModelType) as INavigatableViewModel;
             }
-#pragma warning disable CS0168 // Variable is declared but never used
-			catch (Exception e)
-#pragma warning restore CS0168 // Variable is declared but never used
-			{
-                throw;
+            catch (Exception e)
+            {
+                _diagnosticsFacade.TrackError(e);
             }
+
+            return null;
         }
 
         public INavigatableViewModel GetMainViewModel(Type viewModelType, string platform)
@@ -36,12 +41,12 @@ namespace Restaurant.Core.Factories
             {
                 return _container.ResolveNamed(platform, viewModelType) as INavigatableViewModel;
             }
-#pragma warning disable CS0168 // Variable is declared but never used
-			catch (Exception e)
-#pragma warning restore CS0168 // Variable is declared but never used
-			{
-                throw;
+            catch (Exception ex)
+            {
+                _diagnosticsFacade.TrackError(ex);
             }
+
+            return null;
         }
     }
 }

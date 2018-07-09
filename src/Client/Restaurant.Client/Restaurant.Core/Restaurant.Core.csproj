@@ -11,6 +11,7 @@
     <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="IdentityModel" Version="3.8.0" />
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
+    <PackageReference Include="NLog" Version="4.5.6" />
     <PackageReference Include="ReactiveUI" Version="8.3.1" />
   </ItemGroup>
 

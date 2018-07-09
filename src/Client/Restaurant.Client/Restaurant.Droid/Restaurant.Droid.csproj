@@ -80,10 +80,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BadgeDrawable.cs" />
     <Compile Include="Effects\ListViewScrollEffect.cs" />
     <Compile Include="Effects\MaxLinesEffect.cs" />
-    <Compile Include="Providers\DrawableProvider.cs" />
+    <Compile Include="LoggingService.cs" />
+    <Compile Include="Providers\BadgeMenuItemProvider.cs" />
+    <Compile Include="Providers\StatusBarProvider.cs" />
     <Compile Include="Renderers\CustomNavigationPageRenderer.cs" />
     <Compile Include="Renderers\CustomSearchBarRenderer.cs" />
     <Compile Include="Renderers\DrawerNavigationViewRenderer.cs" />
@@ -96,10 +97,10 @@
     <Compile Include="Renderers\RestaurantEntryRenderer.cs" />
     <Compile Include="Renderers\TwitterLikeButtonRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="Providers\ActionBarProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\layout\nav_drawer.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -108,6 +109,10 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\NLog.config" />
+    <AndroidAsset Include="Assets\NLog.xsd">
+      <SubType>Designer</SubType>
+    </AndroidAsset>
     <None Include="Properties\AndroidManifest.xml">
       <SubType>Designer</SubType>
     </None>
@@ -218,6 +223,12 @@
     </PackageReference>
     <PackageReference Include="NETStandard.Library">
       <Version>2.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>4.5.6</Version>
+    </PackageReference>
+    <PackageReference Include="NLog.Config">
+      <Version>4.5.6</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI">
       <Version>8.3.1</Version>

@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Net;
 using Autofac;
 using Refit;
 using Restaurant.Abstractions.Adapters;
@@ -22,10 +21,9 @@ using Restaurant.Core.ViewModels.Android;
 namespace Restaurant.Core
 {
     [ExcludeFromCodeCoverage]
-    public abstract class BootstrapperBase
+    public abstract class CorePlatformInitializer : IPlatformInitializer
     {
         public static bool MockData = true;
-        public static IContainer Container { get; private set; }
 
         public IContainer Build()
         {
@@ -69,12 +67,8 @@ namespace Restaurant.Core
             }
 
             RegisterSelf(builder);
-
             RegisterTypes(builder);
-
-            Container = builder.Build();
-
-            return Container;
+            return builder.Build();
         }
 
         protected abstract void RegisterTypes(ContainerBuilder builder);

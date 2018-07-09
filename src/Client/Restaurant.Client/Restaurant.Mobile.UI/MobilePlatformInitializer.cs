@@ -21,7 +21,7 @@ using Xamarin.Forms;
 
 namespace Restaurant.Mobile.UI
 {
-    public class Bootstrapper : BootstrapperBase
+    public abstract class MobilePlatformInitializer : CorePlatformInitializer
     {
         protected override void RegisterTypes(ContainerBuilder builder)
         {
@@ -41,6 +41,7 @@ namespace Restaurant.Mobile.UI
             builder.RegisterType<NavigationFacade>().As<INavigationFacade>();
             builder.RegisterType<PlatformFacade>().As<IPlatformFacade>();
             builder.RegisterType<ViewFactory>().As<IViewFactory>();
+            builder.RegisterType<DiagnosticsFacade>().As<IDiagnosticsFacade>();
 	        builder.RegisterType<SettingsProvider>().As<ISettingsProvider>().SingleInstance();
 	        builder.RegisterInstance(CrossSettings.Current).As<ISettings>().SingleInstance();
         }

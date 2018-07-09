@@ -44,11 +44,7 @@ namespace Restaurant.Server.Api.Mappers
 			CreateMap<OrderItem, OrderItemDto>();
 			CreateMap<OrderItemDto, OrderItem>();
 
-			CreateMap<UserProfile, UserProfileDto>();
-
-	        CreateMap<User, UserDto>()
-		        .ForMember(x => x.Email, map => map.MapFrom(x => x.Email))
-		        .ForMember(x => x.Profile, map => map.MapFrom(x => Mapper.Map<UserProfileDto>(x.UserProfile)));
+			
         }
     }
 }

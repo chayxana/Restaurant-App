@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Restaurant.Server.Api.Data;
-using Restaurant.Server.Api.Database;
 using Microsoft.Extensions.DependencyInjection;
 using Restaurant.Server.Api.Models;
 
@@ -20,14 +19,14 @@ namespace Restaurant.Server.Api
 			BuildWebHost(args)
 				.MigrateDbContext<RestaurantDbContext>((context, services) =>
 				{
-					var logger = services.GetService<ILogger<RestaurantDbContextSeed>>();
-					var configuration = services.GetService<IConfiguration>();
-					var roleManager = services.GetService<RoleManager<IdentityRole>>();
-					var userManager = services.GetService<UserManager<User>>();
+					//var logger = services.GetService<ILogger<RestaurantDbContextSeed>>();
+					//var configuration = services.GetService<IConfiguration>();
+					//var roleManager = services.GetService<RoleManager<IdentityRole>>();
+					//var userManager = services.GetService<UserManager<User>>();
 
-					new RestaurantDbContextSeed()
-						.SeedAsync(logger, configuration, roleManager, userManager)
-						.Wait();
+					//new RestaurantDbContextSeed()
+					//	.SeedAsync(logger, configuration, roleManager, userManager)
+					//	.Wait();
 				})
 				.Run();
 		}

@@ -1,0 +1,91 @@
+version: '3.4'
+
+services:
+  bookings-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sql-data;Database=SmartHotel.Hotels;User Id=sa;Password=Passw0rd!
+    ports:
+      - "6100:80"
+      
+  hotels-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sql-data;Database=SmartHotel.Bookings;User Id=sa;Password=Passw0rd!
+      - discountsvc=http://discounts-api/
+    ports:
+      - "6101:80"
+
+  suggestions-api:
+    environment:
+      - PORT=80
+      - SUGGESTIONS_DATABASE_URL=mssql://sa:Passw0rd!@sql-data:1433/SuggestionsDb
+      - NODE_ENV=docker
+    ports:
+      - "6102:80"
+
+  configuration-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "6103:80"
+
+  tasks-api:
+    environment:
+      - sql_server_url=jdbc:postgresql://tasks-data:5432/tasksdb
+      - sql_user_name=admin
+      - sql_user_password=Passw0rd!
+      - PATH_BASE=/
+    ports:
+      - "6104:8080"
+
+  notifications-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "6105:80"  
+
+  reviews-api:
+    environment:
+      - sql_server_url=jdbc:postgresql://reviews-data:5432/reviewsdb
+      - sql_user_name=admin
+      - sql_user_password=Passw0rd!
+      - PATH_BASE=/
+    ports:
+      - "6106:8080"
+
+  discounts-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - profilesvc=http://profiles-api/
+    ports:
+      - "6107:80"
+
+  profiles-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sql-data;Database=SmartHotel.Profiles;User Id=sa;Password=Passw0rd!
+    ports:
+      - "6108:80"
+
+  sql-data:
+    environment:
+      - MSSQL_SA_PASSWORD=Passw0rd!
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Developer
+    ports:
+      - "6433:1433"
+
+  tasks-data:
+    environment:
+      - POSTGRES_PASSWORD=Passw0rd!
+      - POSTGRES_USER=admin
+      - PGDATA=/pg
+      - POSTGRES_DB=tasksdb
+
+  reviews-data:
+    environment:
+      - POSTGRES_PASSWORD=Passw0rd!
+      - POSTGRES_USER=admin
+      - PGDATA=/pg
+      - POSTGRES_DB=reviewsdb

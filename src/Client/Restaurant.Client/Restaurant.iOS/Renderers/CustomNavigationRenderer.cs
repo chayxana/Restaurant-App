@@ -76,19 +76,19 @@ namespace Restaurant.iOS.Renderers
             var basePage = page as MainBaseContentPage;
             if (basePage != null)
             {
-                NavigationBar.BarTintColor = basePage.ActionBarBackgroundColor.ToUIColor();
-                NavigationBar.TintColor = basePage.ActionBarTextColor.ToUIColor();
-                UINavigationBar.Appearance.ShadowImage = new UIImage();
-                UINavigationBar.Appearance.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
+                //NavigationBar.BarTintColor = basePage.ActionBarBackgroundColor.ToUIColor();
+                //NavigationBar.TintColor = basePage.ActionBarTextColor.ToUIColor();
+                //UINavigationBar.Appearance.ShadowImage = new UIImage();
+                //UINavigationBar.Appearance.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
 
-                var titleAttributes = new UIStringAttributes();
-                titleAttributes.Font = UIFont.FromName("SegoeUI", 22);
-                titleAttributes.ForegroundColor = basePage.ActionBarTextColor == Color.Default
-                    ? titleAttributes.ForegroundColor ?? UINavigationBar.Appearance.TintColor
-                    : basePage.ActionBarTextColor.ToUIColor();
-                NavigationBar.TitleTextAttributes = titleAttributes;
+                //var titleAttributes = new UIStringAttributes();
+                //titleAttributes.Font = UIFont.FromName("SegoeUI", 22);
+                //titleAttributes.ForegroundColor = basePage.ActionBarTextColor == Color.Default
+                //    ? titleAttributes.ForegroundColor ?? UINavigationBar.Appearance.TintColor
+                //    : basePage.ActionBarTextColor.ToUIColor();
+                //NavigationBar.TitleTextAttributes = titleAttributes;
 
-                UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
+                //UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
             }
         }
 

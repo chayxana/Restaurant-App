@@ -31,11 +31,11 @@ namespace Restaurant.Droid.Renderers
             if (e.NewElement == null)
                 return;
 
+            // set the bg
             var fab = new FAB(Context)
             {
                 BackgroundTintList = ColorStateList.ValueOf(Element.ButtonColor.ToAndroid())
             };
-            // set the bg
 
             // set the icon
             var elementImage = Element.Image;

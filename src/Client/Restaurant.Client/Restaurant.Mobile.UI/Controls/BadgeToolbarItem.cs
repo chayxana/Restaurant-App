@@ -1,36 +1,25 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Restaurant.Mobile.UI.Controls
 {
     public class BadgeToolbarItem : ToolbarItem
     {
+        private const string DefaultBadgeText = default(string);
+        private static readonly Color DefaultBadgeColor = Color.Red;
+        private static readonly Color DefaultBadgeTextColor = Color.White;
+        private static readonly Color DefaultBadgePressedColor = Color.Red;
+
         public static readonly BindableProperty BadgeTextProperty =
-            BindableProperty.Create("UserPicture", typeof(string), typeof(BadgeToolbarItem), default(string));
+            BindableProperty.Create(nameof(BadgeText), typeof(string), typeof(BadgeToolbarItem), DefaultBadgeText);
 
         public static readonly BindableProperty BadgeColorProperty =
-            BindableProperty.Create("BadgeColor", typeof(Color), typeof(BadgeToolbarItem), Color.Red);
+            BindableProperty.Create(nameof(BadgeColor), typeof(Color), typeof(BadgeToolbarItem), DefaultBadgeColor);
 
         public static readonly BindableProperty BadgeTextColorProperty =
-            BindableProperty.Create("BadgeTextColor", typeof(Color), typeof(BadgeToolbarItem), Color.White);
+            BindableProperty.Create(nameof(BadgeTextColor), typeof(Color), typeof(BadgeToolbarItem), Color.White);
 
         public static readonly BindableProperty BadgePressedColorProperty =
-            BindableProperty.Create("BadgePressedColor", typeof(Color), typeof(BadgeToolbarItem), Color.Red);
-
-        public BadgeToolbarItem(string name, string icon, Action activated,
-                ToolbarItemOrder order = ToolbarItemOrder.Default,
-                int priority = 0)
-            // ReSharper disable once VirtualMemberCallInConstructor
-            : base(name, icon, activated, order, priority)
-        {
-            UniqId = GetHashCode();
-        }
-
-        // ReSharper disable once VirtualMemberCallInConstructor
-        public BadgeToolbarItem()
-        {
-            UniqId = GetHashCode();
-        }
+            BindableProperty.Create(nameof(BadgePressedColor), typeof(Color), typeof(BadgeToolbarItem), Color.Red);
 
         public string BadgeText
         {
@@ -56,8 +45,6 @@ namespace Restaurant.Mobile.UI.Controls
             set => SetValue(BadgeTextColorProperty, value);
         }
 
-        public int UniqId { get; }
-
-        public bool HasInitialized { get; set; }
+        public int UniqId => GetHashCode();
     }
 }

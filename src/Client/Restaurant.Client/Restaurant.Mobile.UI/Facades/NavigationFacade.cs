@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.Facades;
+using Restaurant.Mobile.UI.Pages;
 using Xamarin.Forms;
 
 namespace Restaurant.Mobile.UI.Facades
@@ -15,9 +16,9 @@ namespace Restaurant.Mobile.UI.Facades
             {
                 if (App.Current.MainPage is MasterDetailPage masterDetailPage)
                 {
-                    if (masterDetailPage.Detail is NavigationPage navigationPage)
+                    if (masterDetailPage.Detail is CustomNavigationPage navigationPage)
                         return navigationPage.Navigation;
-                    var detailNavigationPage = new NavigationPage(masterDetailPage);
+                    var detailNavigationPage = new CustomNavigationPage(masterDetailPage);
                     return detailNavigationPage.Navigation;
                 }
                 return App.Current.MainPage.Navigation;
@@ -44,7 +45,7 @@ namespace Restaurant.Mobile.UI.Facades
             if (Device.RuntimePlatform == Device.Android)
                 App.Current.MainPage = page as Page;
             else if (Device.RuntimePlatform == Device.iOS)
-                App.Current.MainPage = new NavigationPage(page as Page);
+                App.Current.MainPage = new CustomNavigationPage(page as Page);
 
             return Task.CompletedTask;
         }
@@ -53,7 +54,7 @@ namespace Restaurant.Mobile.UI.Facades
         {
             if (App.Current.MainPage is MasterDetailPage masterDetailPage)
             {
-                masterDetailPage.Detail = new NavigationPage(page as Page);
+                masterDetailPage.Detail = new CustomNavigationPage(page as Page);
                 return Task.CompletedTask;
             }
 

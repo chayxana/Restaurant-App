@@ -15,7 +15,7 @@ namespace Restaurant.Core.UnitTests
         public virtual void Init()
         {
             Mocker = AutoMock.GetLoose();
-            BootstrapperBase.MockData = false;
+            CorePlatformInitializer.MockData = false;
         }
 
         [TearDown]

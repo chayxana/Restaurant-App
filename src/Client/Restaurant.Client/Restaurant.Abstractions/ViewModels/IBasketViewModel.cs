@@ -8,6 +8,8 @@ namespace Restaurant.Abstractions.ViewModels
 
         string OrdersCount { get; }
 
+        void RaiseOrdersCount();
+
         void AddOrder(IOrderViewModel order);
     }
 }

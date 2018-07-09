@@ -40,7 +40,6 @@ namespace Restaurant.Droid.Renderers
             var view = Inflate(Context, Resource.Layout.nav_drawer, null);
             _navView = view.JavaCast<Android.Support.Design.Widget.NavigationView>();
 
-
             _navView.NavigationItemSelected += NavView_NavigationItemSelected;
 
             SetNativeControl(_navView);

@@ -23,4 +23,10 @@
     <Folder Include="Pages\iOS\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Pages\CustomNavigationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

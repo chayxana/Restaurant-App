@@ -74,6 +74,7 @@ namespace Restaurant.Core.ViewModels
                     food.Picture = ApiConstants.ApiClientUrl + food.Picture;
             }
             Foods = new ObservableCollection<FoodDto>(foods);
+            BasketViewModel.RaiseOrdersCount();
             IsLoading = false;
         }
 

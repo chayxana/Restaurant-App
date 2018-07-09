@@ -80,9 +80,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BadgeDrawable.cs" />
     <Compile Include="Effects\ListViewScrollEffect.cs" />
     <Compile Include="Effects\MaxLinesEffect.cs" />
-    <Compile Include="Providers\ColorProvider.cs" />
     <Compile Include="Providers\DrawableProvider.cs" />
     <Compile Include="Renderers\CustomNavigationPageRenderer.cs" />
     <Compile Include="Renderers\CustomSearchBarRenderer.cs" />
@@ -473,6 +473,9 @@
       <Project>{af5c0ef6-3675-4a5e-a2f3-daff4dde228d}</Project>
       <Name>Restaurant.Mobile.UI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\dimens.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

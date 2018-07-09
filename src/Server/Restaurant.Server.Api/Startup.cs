@@ -11,10 +11,8 @@ using Restaurant.Server.Api.Abstraction.Providers;
 using Restaurant.Server.Api.Abstraction.Repositories;
 using Restaurant.Server.Api.Data;
 using Restaurant.Server.Api.Facades;
-using Restaurant.Server.Api.IdentityServer;
 using Restaurant.Server.Api.Mappers;
 using Restaurant.Server.Api.Models;
-using Restaurant.Server.Api.Providers;
 using Restaurant.Server.Api.Repositories;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -41,9 +39,9 @@ namespace Restaurant.Server.Api
             services.AddScoped<IRepository<Category>, CategoryRepository>();
             services.AddScoped<IRepository<Order>, OrderRepository>();
             services.AddScoped<IMapperFacade, MapperFacade>();
-            services.AddScoped<IUserManagerFacade, UserManagerFacade>();
-            services.AddSingleton<IFileInfoFacade, FileInfoFacade>();
-            services.AddSingleton<IFileUploadProvider, FileUploadProvider>();
+            //services.AddScoped<IUserManagerFacade, UserManagerFacade>();
+            //services.AddSingleton<IFileInfoFacade, FileInfoFacade>();
+            //services.AddSingleton<IFileUploadProvider, FileUploadProvider>();
 
             services.AddLogging();
 
@@ -57,17 +55,17 @@ namespace Restaurant.Server.Api
 
             services.AddMvc();
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<RestaurantDbContext>()
-                .AddDefaultTokenProviders();
+            //services.AddIdentity<User, IdentityRole>()
+            //    .AddEntityFrameworkStores<RestaurantDbContext>()
+            //    .AddDefaultTokenProviders();
 
-            services.AddIdentityServer()
-                .AddDeveloperSigningCredential()
-                .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients())
-                .AddTestUsers(DefaultUsers.Get())
-                .AddAspNetIdentity<User>();
+            //services.AddIdentityServer()
+            //    .AddDeveloperSigningCredential()
+            //    .AddInMemoryIdentityResources(Config.GetIdentityResources())
+            //    .AddInMemoryApiResources(Config.GetApiResources())
+            //    .AddInMemoryClients(Config.GetClients())
+            //    .AddTestUsers(DefaultUsers.Get())
+            //    .AddAspNetIdentity<User>();
 
             services.AddSwaggerGen(c =>
             {

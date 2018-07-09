@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Restaurant.Common.Constants;
-using Restaurant.Server.Api.IdentityServer;
 
 namespace Restaurant.Server.Api.IntegrationTests.Config
 {

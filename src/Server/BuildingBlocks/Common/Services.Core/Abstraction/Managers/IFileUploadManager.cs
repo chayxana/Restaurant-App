@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Restaurant.Server.Api.Abstraction.Providers
+namespace Services.Core.Abstraction.Managers
 {
-	public interface IFileUploadProvider
+	public interface IFileUploadManager
 	{
 		Task Upload(IFormFile file, string uniqId);
 

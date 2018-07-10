@@ -5,11 +5,13 @@ using BaseUnitTests;
 using Identity.API.Abstraction;
 using Microsoft.AspNetCore.Http;
 using Moq;
+using Services.Core.Abstraction.Facades;
+using Services.Core.Managers;
 using Xunit;
 
 namespace Identity.API.UnitTests
 {
-    public class FileUploadProviderTests : BaseAutoMockedTest<AccountFileUploadManager>
+    public class FileUploadProviderTests : BaseAutoMockedTest<FileUploadManager>
     {
 		[Theory, AutoDomainData]
 	    public async Task Given_file_and_uniq_id_Upload_should_copy_file_and_should_add_uploaded_data_with_uniq_id(string uniqId)

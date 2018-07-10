@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Services.Core.Abstraction.Managers;
 
 namespace Identity.API.Controllers
 {
@@ -15,16 +16,16 @@ namespace Identity.API.Controllers
     public class AccountController : Controller
     {
         private readonly IUserManagerFacade _userManagerFacade;
-        private readonly IAccountFileUploadManager _accountFileUploadManager;
+        private readonly IFileUploadManager _fileUploadManager;
         private readonly IMapper _mapper;
 
         public AccountController(
             IUserManagerFacade userManagerFacade,
-            IAccountFileUploadManager accountFileUploadManager,
+            IFileUploadManager fileUploadManager,
             IMapper mapper)
         {
             _userManagerFacade = userManagerFacade;
-            _accountFileUploadManager = accountFileUploadManager;
+            _fileUploadManager = fileUploadManager;
             _mapper = mapper;
         }
 
@@ -73,9 +74,9 @@ namespace Identity.API.Controllers
         {
             var user = await _userManagerFacade.GetAsync(User);
 
-            await _accountFileUploadManager.Upload(file, user.Id);
+            await _fileUploadManager.Upload(file, user.Id);
 
-            user.UserProfile.Picture = _accountFileUploadManager.GetUploadedFileByUniqId(user.Id);
+            user.UserProfile.Picture = _fileUploadManager.GetUploadedFileByUniqId(user.Id);
 
             var result = await _userManagerFacade.UpdateAsync(user);
 

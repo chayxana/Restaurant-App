@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Identity.API.Abstraction
+namespace Services.Core.Abstraction.Facades
 {
     public interface IFileInfoFacade
     {

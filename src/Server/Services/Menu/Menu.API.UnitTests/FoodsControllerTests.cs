@@ -10,10 +10,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Restaurant.Common.DataTransferObjects;
-using Restaurant.Server.Api.Abstraction.Providers;
 using Restaurant.Server.Api.Abstraction.Repositories;
 using Restaurant.Server.Api.Controllers;
 using Restaurant.Server.Api.Models;
+using Services.Core.Abstraction.Managers;
 using Xunit;
 
 namespace Restaurant.Server.Api.UnitTests.Controllers
@@ -64,7 +64,7 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
             var food = new Food();
             var fileMock = GetMock<IFormFile>();
             GetMock<IMapper>().Setup(x => x.Map<Food>(foodDto)).Returns(food);
-            GetMock<IFileUploadProvider>().Setup(x => x.GetUploadedFileByUniqId(food.Id.ToString())).Returns("picture_name");
+            GetMock<IFileUploadManager>().Setup(x => x.GetUploadedFileByUniqId(food.Id.ToString())).Returns("picture_name");
             GetMock<IRepository<Food>>().Setup(x => x.Commit()).Returns(Task.FromResult(true));
 
             // when 
@@ -72,9 +72,9 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
             var result = await ClassUnderTest.Post(foodDto);
 
             // then
-            GetMock<IFileUploadProvider>().Verify(x => x.Upload(fileMock.Object, fileId), Times.Once);
+            GetMock<IFileUploadManager>().Verify(x => x.Upload(fileMock.Object, fileId), Times.Once);
             GetMock<IRepository<Food>>().Verify(x => x.Create(food), Times.Once);
-            GetMock<IFileUploadProvider>().Verify(x => x.Reset(), Times.Once);
+            GetMock<IFileUploadManager>().Verify(x => x.Reset(), Times.Once);
             result.Should().BeOfType<OkResult>();
         }
 
@@ -91,7 +91,7 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 
             var fileMock = GetMock<IFormFile>();
             GetMock<IMapper>().Setup(x => x.Map<Food>(foodDto)).Returns(food);
-            GetMock<IFileUploadProvider>().Setup(x => x.GetUploadedFileByUniqId(food.Id.ToString())).Returns("picture_name");
+            GetMock<IFileUploadManager>().Setup(x => x.GetUploadedFileByUniqId(food.Id.ToString())).Returns("picture_name");
             GetMock<IRepository<Food>>().Setup(x => x.Commit()).Returns(Task.FromResult(false));
 
             // when 
@@ -99,9 +99,9 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
             var result = await ClassUnderTest.Post(foodDto);
 
             // then
-            GetMock<IFileUploadProvider>().Verify(x => x.Upload(fileMock.Object, fileId), Times.Once);
+            GetMock<IFileUploadManager>().Verify(x => x.Upload(fileMock.Object, fileId), Times.Once);
             GetMock<IRepository<Food>>().Verify(x => x.Create(food), Times.Once);
-            GetMock<IFileUploadProvider>().Verify(x => x.RemoveUploadedFileByUniqId(foodDto.Id.ToString()), Times.Once);
+            GetMock<IFileUploadManager>().Verify(x => x.RemoveUploadedFileByUniqId(foodDto.Id.ToString()), Times.Once);
             result.Should().BeOfType<BadRequestResult>();
         }
 
@@ -117,7 +117,7 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 
             var fileMock = GetMock<IFormFile>();
             GetMock<IMapper>().Setup(x => x.Map<Food>(foodDto)).Returns(food);
-            GetMock<IFileUploadProvider>().Setup(x => x.GetUploadedFileByUniqId(food.Id.ToString())).Throws<FileNotFoundException>();
+            GetMock<IFileUploadManager>().Setup(x => x.GetUploadedFileByUniqId(food.Id.ToString())).Throws<FileNotFoundException>();
             GetMock<IRepository<Food>>().Setup(x => x.Commit()).Returns(Task.FromResult(false));
 
             // when 
@@ -125,9 +125,9 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
             var result = await ClassUnderTest.Post(foodDto);
 
             // then
-            GetMock<IFileUploadProvider>().Verify(x => x.Upload(fileMock.Object, fileId), Times.Once);
+            GetMock<IFileUploadManager>().Verify(x => x.Upload(fileMock.Object, fileId), Times.Once);
             GetMock<IRepository<Food>>().Verify(x => x.Create(food), Times.Never);
-            GetMock<IFileUploadProvider>().Verify(x => x.RemoveUploadedFileByUniqId(foodDto.Id.ToString()), Times.Once);
+            GetMock<IFileUploadManager>().Verify(x => x.RemoveUploadedFileByUniqId(foodDto.Id.ToString()), Times.Once);
             result.Should().BeOfType<BadRequestResult>();
         }
 
@@ -155,7 +155,7 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
             GetMock<IMapper>().Setup(x => x.Map<Food>(foodDto)).Returns(food);
             GetMock<IRepository<Food>>().Setup(x => x.Commit()).Returns(Task.FromResult(true));
 
-            var fileUploader = GetMock<IFileUploadProvider>();
+            var fileUploader = GetMock<IFileUploadManager>();
             fileUploader.Setup(x => x.HasFile(id.ToString())).Returns(true);
             fileUploader.Setup(x => x.GetUploadedFileByUniqId(id.ToString())).Returns("picture");
 
@@ -164,7 +164,7 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
             result.Should().BeOfType<OkResult>();
 
             GetMock<IRepository<Food>>().Verify(x => x.Update(id, food), Times.Once);
-            GetMock<IFileUploadProvider>().Verify(x => x.Remove("old_picture"), Times.Once);
+            GetMock<IFileUploadManager>().Verify(x => x.Remove("old_picture"), Times.Once);
         }
 
         [Fact]
@@ -177,7 +177,7 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
             GetMock<IMapper>().Setup(x => x.Map<Food>(foodDto)).Returns(food);
             GetMock<IRepository<Food>>().Setup(x => x.Commit()).Returns(Task.FromResult(true));
 
-            var fileUploader = GetMock<IFileUploadProvider>();
+            var fileUploader = GetMock<IFileUploadManager>();
             fileUploader.Setup(x => x.HasFile(id.ToString())).Returns(false);
             fileUploader.Setup(x => x.GetUploadedFileByUniqId(id.ToString())).Returns("picture");
 
@@ -186,7 +186,7 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
             result.Should().BeOfType<OkResult>();
 
             GetMock<IRepository<Food>>().Verify(x => x.Update(id, food), Times.Once);
-            GetMock<IFileUploadProvider>().Verify(x => x.Remove("old_picture"), Times.Never);
+            GetMock<IFileUploadManager>().Verify(x => x.Remove("old_picture"), Times.Never);
         }
 
         [Fact]
@@ -200,7 +200,7 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
             var repository = GetMock<IRepository<Food>>();
             repository.Setup(x => x.Commit()).Returns(Task.FromResult(true));
             repository.Setup(x => x.Update(id, food)).Throws<Exception>();
-            var fileUploader = GetMock<IFileUploadProvider>();
+            var fileUploader = GetMock<IFileUploadManager>();
             fileUploader.Setup(x => x.HasFile(id.ToString())).Returns(true);
             fileUploader.Setup(x => x.GetUploadedFileByUniqId(id.ToString())).Returns("picture");
 
@@ -210,7 +210,7 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
 
             GetMock<IRepository<Food>>().Verify(x => x.Update(id, food), Times.Once);
             GetMock<IRepository<Food>>().Verify(x => x.Commit(), Times.Never);
-            GetMock<IFileUploadProvider>().Verify(x => x.Remove("old_picture"), Times.Once);
+            GetMock<IFileUploadManager>().Verify(x => x.Remove("old_picture"), Times.Once);
         }
 
         [Fact]
@@ -225,7 +225,7 @@ namespace Restaurant.Server.Api.UnitTests.Controllers
             var result = await ClassUnderTest.Delete(id);
 
             result.Should().BeOfType<OkResult>();
-            GetMock<IFileUploadProvider>().Verify(x => x.Remove(food.Picture), Times.Once);
+            GetMock<IFileUploadManager>().Verify(x => x.Remove(food.Picture), Times.Once);
             GetMock<IRepository<Food>>().Verify(x => x.Delete(food), Times.Once);
         }
 

@@ -6,9 +6,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Common.DataTransferObjects;
-using Restaurant.Server.Api.Abstraction.Providers;
 using Restaurant.Server.Api.Abstraction.Repositories;
 using Restaurant.Server.Api.Models;
+using Services.Core.Abstraction.Managers;
 
 namespace Restaurant.Server.Api.Controllers
 {
@@ -16,18 +16,18 @@ namespace Restaurant.Server.Api.Controllers
     [Route("api/v1/[controller]")]
     public class FoodsController : Controller
     {
-        private readonly IFileUploadProvider _fileUploadProvider;
+        private readonly IFileUploadManager _fileUploadManager;
         private readonly IMapper _mapperFacade;
         private readonly IRepository<Food> _repository;
 
         public FoodsController(
             IMapper mapperFacade,
             IRepository<Food> repository,
-            IFileUploadProvider fileUploadProvider)
+            IFileUploadManager fileUploadManager)
         {
             _mapperFacade = mapperFacade;
             _repository = repository;
-            _fileUploadProvider = fileUploadProvider;
+            _fileUploadManager = fileUploadManager;
         }
 
         [HttpGet("{count?}/{skip?}")]
@@ -53,20 +53,20 @@ namespace Restaurant.Server.Api.Controllers
             try
             {
                 var food = _mapperFacade.Map<Food>(foodDto);
-                food.Picture = _fileUploadProvider.GetUploadedFileByUniqId(food.Id.ToString());
+                food.Picture = _fileUploadManager.GetUploadedFileByUniqId(food.Id.ToString());
                 _repository.Create(food);
                 var result = await _repository.Commit();
                 if (result)
                 {
-                    _fileUploadProvider.Reset();
+                    _fileUploadManager.Reset();
                     return Ok();
                 }
-                _fileUploadProvider.RemoveUploadedFileByUniqId(foodDto.Id.ToString());
+                _fileUploadManager.RemoveUploadedFileByUniqId(foodDto.Id.ToString());
                 return BadRequest();
             }
             catch (Exception)
             {
-                _fileUploadProvider.RemoveUploadedFileByUniqId(foodDto.Id.ToString());
+                _fileUploadManager.RemoveUploadedFileByUniqId(foodDto.Id.ToString());
                 return BadRequest();
             }
         }
@@ -75,7 +75,7 @@ namespace Restaurant.Server.Api.Controllers
         [Route("UploadFoodImage")]
         public async Task Post([Bind] IFormFile file, [Bind] string foodId)
         {
-            await _fileUploadProvider.Upload(file, foodId);
+            await _fileUploadManager.Upload(file, foodId);
         }
 
         [HttpPut("{id}")]
@@ -86,10 +86,10 @@ namespace Restaurant.Server.Api.Controllers
                 if (id != foodDto.Id)
                     return BadRequest();
                 var food = _mapperFacade.Map<Food>(foodDto);
-                if (_fileUploadProvider.HasFile(id.ToString()))
+                if (_fileUploadManager.HasFile(id.ToString()))
                 {
-                    _fileUploadProvider.Remove(food.Picture);
-                    food.Picture = _fileUploadProvider.GetUploadedFileByUniqId(id.ToString());
+                    _fileUploadManager.Remove(food.Picture);
+                    food.Picture = _fileUploadManager.GetUploadedFileByUniqId(id.ToString());
                 }
 
                 _repository.Update(id, food);
@@ -107,7 +107,7 @@ namespace Restaurant.Server.Api.Controllers
             try
             {
                 var food = _repository.Get(id);
-                _fileUploadProvider.Remove(food.Picture);
+                _fileUploadManager.Remove(food.Picture);
                 _repository.Delete(food);
                 return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
             }

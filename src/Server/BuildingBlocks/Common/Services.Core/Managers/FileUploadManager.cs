@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Identity.API.Abstraction;
 using Microsoft.AspNetCore.Http;
+using Services.Core.Abstraction.Facades;
+using Services.Core.Abstraction.Managers;
 
-namespace Identity.API
+namespace Services.Core.Managers
 {
-	public class AccountFileUploadManager : IAccountFileUploadManager
+	public class FileUploadManager : IFileUploadManager
 	{
 		private readonly IFileInfoFacade _fileInfoFacade;
 		private readonly IDictionary<string, string> _uploadedFiles;
 
-		public AccountFileUploadManager(IFileInfoFacade fileInfoFacade)
+		public FileUploadManager(IFileInfoFacade fileInfoFacade)
 		{
 			_fileInfoFacade = fileInfoFacade;
 			_uploadedFiles = new Dictionary<string, string>();

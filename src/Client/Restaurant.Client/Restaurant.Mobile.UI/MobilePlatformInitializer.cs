@@ -21,7 +21,7 @@ using Xamarin.Forms;
 
 namespace Restaurant.Mobile.UI
 {
-    public abstract class MobilePlatformInitializer : CorePlatformInitializer
+    public abstract class   MobilePlatformInitializer : CorePlatformInitializer
     {
         protected override void RegisterTypes(ContainerBuilder builder)
         {

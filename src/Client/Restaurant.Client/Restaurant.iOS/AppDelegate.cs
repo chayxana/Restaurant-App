@@ -2,6 +2,7 @@
 using Autofac;
 using Foundation;
 using ImageCircle.Forms.Plugin.iOS;
+using Restaurant.Abstractions.Services;
 using Restaurant.Mobile.UI;
 using UIKit;
 using Xamarin.Forms;
@@ -83,6 +84,38 @@ namespace Restaurant.iOS
         protected override void RegisterTypes(ContainerBuilder builder)
         {
             base.RegisterTypes(builder);
+            builder.RegisterType<LoggingService>().As<ILoggingService>();
+        }
+    }
+
+    class LoggingService : ILoggingService
+    {
+        public void Debug(string message)
+        {
+        }
+
+        public void Error(string message)
+        {
+        }
+
+        public void Error(Exception ex)
+        {
+        }
+
+        public void Error(Exception e, string message)
+        {
+        }
+
+        public void Info(string message)
+        {
+        }
+
+        public void Trace(string message)
+        {
+        }
+
+        public void Warn(string message)
+        {
         }
     }
 }

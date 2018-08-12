@@ -133,8 +133,8 @@
     <BundleResource Include="Resources\Icon-Small.png" />
     <BundleResource Include="Resources\Icon-Small%402x.png" />
     <BundleResource Include="Resources\Icon-Small%403x.png" />
-    <BundleResource Include="Resources\like.png" />
-    <BundleResource Include="Resources\like_fill.png" />
+    <BundleResource Include="Resources\like_empty.png" />
+    <BundleResource Include="Resources\like_filled.png" />
     <BundleResource Include="Resources\arrow_down.png" />
     <BundleResource Include="Resources\up_arrow.png" />
     <Compile Include="Renderers\AnimatedIconButton.cs" />
@@ -214,6 +214,12 @@
     </PackageReference>
     <PackageReference Include="AutoMapper">
       <Version>7.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Com.Airbnb.iOS.Lottie">
+      <Version>2.5.4</Version>
+    </PackageReference>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
+      <Version>2.5.4</Version>
     </PackageReference>
     <PackageReference Include="IdentityModel">
       <Version>3.8.0</Version>

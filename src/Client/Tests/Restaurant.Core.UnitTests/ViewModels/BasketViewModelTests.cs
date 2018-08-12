@@ -12,13 +12,14 @@ using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
 using Restaurant.Core.ViewModels;
+using Restaurant.Core.ViewModels.Food;
 
 namespace Restaurant.Core.UnitTests.ViewModels
 {
     public class BasketViewModelTests : BaseAutoMockedTest<BasketViewModel>
     {
         [Test, AutoDomainData]
-        public void Given_order_should_add_orders_list_and_quantity_of_order_should_be_sum_if_order_food_is_same_as_previus(FoodDto food)
+        public void Given_order_should_add_orders_list_and_quantity_of_order_should_be_sum_if_order_food_is_same_as_previus(FoodViewModel food)
         {
             // given
             var viewModel = ClassUnderTest;
@@ -43,7 +44,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
         }
 
         [Test, AutoDomainData]
-        public void Given_order_should_clone_order_object_before_adding_to_orders_list(FoodDto food, FoodDto food2)
+        public void Given_order_should_clone_order_object_before_adding_to_orders_list(FoodViewModel food, FoodViewModel food2)
         {
             // given
             var viewModel = ClassUnderTest;

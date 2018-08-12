@@ -4,6 +4,7 @@ using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
 using System;
 using System.Reactive.Linq;
+using Restaurant.Core.ViewModels.Food;
 
 namespace Restaurant.Core.ViewModels
 {
@@ -12,7 +13,7 @@ namespace Restaurant.Core.ViewModels
 		private decimal _quntity = 1;
 		private string _totalPriceAnimated;
 
-		public OrderViewModel(FoodDto food)
+		public OrderViewModel(IFoodViewModel food)
 		{
 			Food = food;
 
@@ -30,13 +31,13 @@ namespace Restaurant.Core.ViewModels
 				});
 		}
 
-		public OrderViewModel(FoodDto food, decimal quntity)
+		public OrderViewModel(IFoodViewModel food, decimal quntity)
 		{
 			Food = food;
 			Quantity = quntity;
 		}
 
-		public FoodDto Food { get; }
+		public IFoodViewModel Food { get; }
 
 		public decimal Quantity
 		{

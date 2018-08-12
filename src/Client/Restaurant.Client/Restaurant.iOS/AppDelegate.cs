@@ -2,6 +2,7 @@
 using Autofac;
 using Foundation;
 using ImageCircle.Forms.Plugin.iOS;
+using Lottie.Forms.iOS.Renderers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Mobile.UI;
 using UIKit;
@@ -10,19 +11,9 @@ using Xamarin.Forms.Platform.iOS;
 
 namespace Restaurant.iOS
 {
-    // The UIApplicationDelegate for the application. This class is responsible for launching the 
-    // User Interface of the application, as well as listening (and optionally responding) to 
-    // application events from iOS.
     [Register("AppDelegate")]
     public class AppDelegate : FormsApplicationDelegate
     {
-        //
-        // This method is invoked when the application has loaded and is ready to run. In this 
-        // method you should instantiate the window, load the UI into it and then make the window
-        // visible.
-        //
-        // You have 17 seconds to return from this method, or iOS will terminate your application.
-        //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             //UINavigationBar.Appearance.BarTintColor = FromHexString("#2196F3"); //bar background
@@ -35,6 +26,7 @@ namespace Restaurant.iOS
 
             UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
             Forms.Init();
+            AnimationViewRenderer.Init();
             ImageCircleRenderer.Init();
 
             LoadApplication(new App(new iOSPlatformInitializer()));
@@ -88,7 +80,7 @@ namespace Restaurant.iOS
         }
     }
 
-    class LoggingService : ILoggingService
+    internal class LoggingService : ILoggingService
     {
         public void Debug(string message)
         {

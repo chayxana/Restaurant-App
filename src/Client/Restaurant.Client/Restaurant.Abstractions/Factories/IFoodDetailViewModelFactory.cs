@@ -5,6 +5,6 @@ namespace Restaurant.Abstractions.Factories
 {
     public interface IFoodDetailViewModelFactory
     {
-        IFoodDetailViewModel GetFoodDetailViewModel(FoodDto selectedFood);
+        IFoodDetailViewModel GetFoodDetailViewModel(IFoodViewModel selectedFood);
     }
 }

@@ -4,6 +4,7 @@ using ReactiveUI;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
+using Restaurant.Core.ViewModels.Food;
 
 namespace Restaurant.Core.ViewModels
 {
@@ -13,7 +14,7 @@ namespace Restaurant.Core.ViewModels
         private IOrderViewModel _currentOrderViewModel;
 
         public FoodDetailViewModel(
-            FoodDto selectedFood,
+            IFoodViewModel selectedFood,
             IBasketViewModel basketViewModel,
             INavigationService navigationService)
         {
@@ -30,7 +31,7 @@ namespace Restaurant.Core.ViewModels
 
         public override string Title => SelectedFood.Name;
 
-        public FoodDto SelectedFood { get; }
+        public IFoodViewModel SelectedFood { get; }
 
         public IBasketViewModel BasketViewModel
         {

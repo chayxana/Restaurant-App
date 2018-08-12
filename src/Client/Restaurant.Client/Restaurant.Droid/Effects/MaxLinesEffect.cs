@@ -33,7 +33,7 @@ namespace Restaurant.Droid.Effects
         private void SetMaxLines()
         {
             var maxLines = NumberOfLinesEffect.GetNumberOfLines(Element);
-            _control?.SetMaxLines(maxLines);
+            _control.SetMaxLines(maxLines);
             _control.Ellipsize = TextUtils.TruncateAt.End;
         }
     }

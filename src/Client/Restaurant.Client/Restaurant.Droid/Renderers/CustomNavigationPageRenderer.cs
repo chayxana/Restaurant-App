@@ -17,16 +17,14 @@ using AView = Android.Views.View;
 namespace Restaurant.Droid.Renderers
 {
     public class CustomNavigationPageRenderer : NavigationPageRenderer
-    {
-        private readonly StatusBarProvider _statusBarProvider;
-        private readonly ActionBarProvider _actionBarProvider;
+    {   
         private readonly BadgeMenuItemProvider _badgeMenuItemProvider;
+        private readonly BarProvider _barProvider;
 
         public CustomNavigationPageRenderer(Context context) : base(context)
         {
-            _statusBarProvider = new StatusBarProvider(context);
-            _actionBarProvider = new ActionBarProvider(context);
             _badgeMenuItemProvider = new BadgeMenuItemProvider(context);
+            _barProvider = new BarProvider(context);
         }
 
         private CustomNavigationPage NavigationPage => Element as CustomNavigationPage;
@@ -101,7 +99,7 @@ namespace Restaurant.Droid.Renderers
 
                     if (child is AToolbar toolbar)
                     {
-                        var (barHeight, statusBarHeight) = GetHeights();
+                        var (barHeight, statusBarHeight) = _barProvider.GetBarHeights();
                         toolbar.Layout(0, statusBarHeight, r - l, barHeight + statusBarHeight);
                         continue;
                     }
@@ -111,12 +109,7 @@ namespace Restaurant.Droid.Renderers
             }
         }
 
-        private (int actionBarHeight, int statusBarHeight) GetHeights()
-        {
-            var barHeight = _actionBarProvider.GetActionBarHeight();
-            var statusBarHeight = _statusBarProvider.GetStatusBarHeight();
-            return (barHeight, statusBarHeight);
-        }
+        
 
         private bool IsNavigationBarTranslucent()
         {

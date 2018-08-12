@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -9,31 +10,33 @@ using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Common.Constants;
-using Restaurant.Common.DataTransferObjects;
+using Restaurant.Core.ViewModels.Food;
 
 namespace Restaurant.Core.ViewModels
 {
     public class FoodsViewModel : BaseViewModel
     {
         private readonly IFoodDetailViewModelFactory _foodDetailViewModelFactory;
+        private readonly IAutoMapperFacade _autoMapperFacade;
         private readonly IDiagnosticsFacade _diagnosticsFacade;
         private readonly IFoodsApi _foodsApi;
         private readonly INavigationService _navigationService;
-        private ObservableCollection<FoodDto> _foods;
-        private FoodDto _selectedFood;
+        private ObservableCollection<FoodViewModel> _foods;
+        private FoodViewModel _selectedFood;
 
-	    internal FoodsViewModel()
-	    {   
-	    }
+        internal FoodsViewModel()
+        {
+        }
 
         public FoodsViewModel(
+            IAutoMapperFacade autoMapperFacade,
             IDiagnosticsFacade diagnosticsFacade,
             IBasketViewModel basketViewModel,
             IFoodsApi foodsApi,
             INavigationService navigationService,
             IFoodDetailViewModelFactory foodDetailViewModelFactory)
         {
+            _autoMapperFacade = autoMapperFacade;
             _diagnosticsFacade = diagnosticsFacade;
             _foodsApi = foodsApi;
             _navigationService = navigationService;
@@ -49,13 +52,14 @@ namespace Restaurant.Core.ViewModels
             BasketViewModel = basketViewModel;
         }
 
-        public ObservableCollection<FoodDto> Foods
+
+        public ObservableCollection<FoodViewModel> Foods
         {
             get => _foods;
             private set => this.RaiseAndSetIfChanged(ref _foods, value);
         }
 
-        public FoodDto SelectedFood
+        public FoodViewModel SelectedFood
         {
             get => _selectedFood;
             set => this.RaiseAndSetIfChanged(ref _selectedFood, value);
@@ -67,25 +71,27 @@ namespace Restaurant.Core.ViewModels
 
         public override string Title => "Foods";
 
+        private bool foodsLoaded = false;
+
         public async Task LoadFoods()
         {
+            if (foodsLoaded)
+                return;
+
             try
             {
                 IsLoading = true;
                 var foods = await _foodsApi.GetFoods();
-                if (!CorePlatformInitializer.MockData)
-                {
-                    foreach (var food in foods)
-                        food.Picture = ApiConstants.ApiClientUrl + food.Picture;
-                }
-
-                Foods = new ObservableCollection<FoodDto>(foods);
+                var foodsViewModel = _autoMapperFacade.Map<IEnumerable<FoodViewModel>>(foods);
+                Foods = new ObservableCollection<FoodViewModel>(foodsViewModel);
+                foodsLoaded = true;
+                
                 IsLoading = false;
             }
             catch (Exception ex)
             {
                 _diagnosticsFacade.TrackError(ex);
-                Foods = new ObservableCollection<FoodDto>();
+                Foods = new ObservableCollection<FoodViewModel>();
             }
             finally
             {
@@ -93,7 +99,7 @@ namespace Restaurant.Core.ViewModels
             }
         }
 
-        private async Task NavigateToFoodDetail(FoodDto food)
+        private async Task NavigateToFoodDetail(FoodViewModel food)
         {
             var viewModel = _foodDetailViewModelFactory.GetFoodDetailViewModel(food);
             await _navigationService.NavigateAsync(viewModel);

@@ -4,9 +4,12 @@ using Android.OS;
 using Android.Support.V7.App;
 using Android.Util;
 using Android.Views;
+using Android.Widget;
 using Autofac;
 using ImageCircle.Forms.Plugin.Droid;
+using Lottie.Forms.Droid;
 using Restaurant.Abstractions.Services;
+using Restaurant.Droid.Renderers;
 using Restaurant.Mobile.UI;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -20,6 +23,7 @@ namespace Restaurant.Droid
         Theme = "@style/MainTheme",
         MainLauncher = true,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    
     public class MainActivity : FormsAppCompatActivity
     {
         static MainActivity()

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ListView xmlns="http://xamarin.com/schemas/2014/forms"
           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -9,6 +9,7 @@
           xmlns:effects="clr-namespace:Restaurant.Mobile.UI.Effects;assembly=Restaurant.Mobile.UI"
           xmlns:views="clr-namespace:Restaurant.Mobile.UI.Views;assembly=Restaurant.Mobile.UI"
           xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls;assembly=Restaurant.Mobile.UI"
+          xmlns:converters="clr-namespace:Restaurant.Mobile.UI.Converters;assembly=Restaurant.Mobile.UI"
           x:Class="Restaurant.Mobile.UI.Views.FoodsListView"
           x:Name="list"
           IsRefreshing="{Binding IsBusy, Mode=OneWay}"
@@ -16,6 +17,12 @@
           SeparatorVisibility="None"
           HasUnevenRows="True"
           StyleId="foodsList">
+    <ListView.Resources>
+        <ResourceDictionary>
+            <converters:IsFilledIconConverter x:Key="IsFilledIconConverter" />
+        </ResourceDictionary>
+    </ListView.Resources>
+    >
     <ListView.Effects>
         <effects:ListViewScrollEffect />
     </ListView.Effects>
@@ -27,7 +34,7 @@
         <ActivityIndicator IsRunning="True">
             <ActivityIndicator.Color>
                 <OnPlatform x:TypeArguments="Color">
-                    <On Platform="Android" Value="{StaticResource primaryColor}"/>
+                    <On Platform="Android" Value="{StaticResource primaryColor}" />
                 </OnPlatform>
             </ActivityIndicator.Color>
         </ActivityIndicator>
@@ -47,11 +54,11 @@
                                     <ActivityIndicator VerticalOptions="Center"
                                                        WidthRequest="25"
                                                        HeightRequest="25"
-                                                       IsRunning="{Binding Source={x:Reference photoImage}, Path=IsLoading}" 
+                                                       IsRunning="{Binding Source={x:Reference photoImage}, Path=IsLoading}"
                                                        IsVisible="{Binding Source={x:Reference photoImage}, Path=IsLoading}">
                                         <ActivityIndicator.Color>
                                             <OnPlatform x:TypeArguments="Color">
-                                                <On Platform="Android" Value="{StaticResource primaryColor}"/>
+                                                <On Platform="Android" Value="{StaticResource primaryColor}" />
                                             </OnPlatform>
                                         </ActivityIndicator.Color>
                                     </ActivityIndicator>
@@ -79,7 +86,7 @@
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="Rs. "
                                                    FontSize="Small"
-                                                   TextColor="{StaticResource  asphaltPrimary}"
+                                                   TextColor="{StaticResource asphaltPrimary}"
                                                    VerticalOptions="CenterAndExpand" />
 
                                             <Label Text="{Binding Price, StringFormat='{0:C}'}"
@@ -88,10 +95,17 @@
                                                    VerticalOptions="CenterAndExpand" />
                                         </StackLayout>
 
-                                        <StackLayout Grid.Column="1" Orientation="Horizontal"
-                                                     HorizontalOptions="End">
-                                            <controls:TwitterLikeButton />
-                                        </StackLayout>
+                                        <controls:AnimatedImage
+                                            Margin="10"
+                                            Source="{Binding IsFavorite, Converter={StaticResource IsFilledIconConverter}, ConverterParameter='like'}"
+                                            Grid.Column="1"
+                                            VerticalOptions="FillAndExpand"
+                                            HorizontalOptions="FillAndExpand">
+                                            <controls:AnimatedImage.GestureRecognizers>
+                                                <TapGestureRecognizer 
+                                                    Command="{Binding FavoriteCommand}" />
+                                            </controls:AnimatedImage.GestureRecognizers>
+                                        </controls:AnimatedImage>
                                     </Grid>
 
                                 </StackLayout>

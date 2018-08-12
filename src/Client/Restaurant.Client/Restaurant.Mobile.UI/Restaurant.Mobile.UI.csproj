@@ -1,12 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Restaurant.Mobile.UI</AssemblyName>
     <RootNamespace>Restaurant.Mobile.UI</RootNamespace>
   </PropertyGroup>
-
   <ItemGroup>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="2.5.4" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.7.0" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.7.0" />
     <PackageReference Include="NLog" Version="4.5.6" />
@@ -15,22 +14,17 @@
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
     <PackageReference Include="Xamarin.Forms" Version="3.1.0.583944" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Restaurant.Common\Restaurant.Common.csproj" />
     <ProjectReference Include="..\Restaurant.Abstractions\Restaurant.Abstractions.csproj" />
     <ProjectReference Include="..\Restaurant.Core\Restaurant.Core.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Pages\iOS\" />
-    <Folder Include="Services\" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Update="Pages\CustomNavigationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
-
 </Project>

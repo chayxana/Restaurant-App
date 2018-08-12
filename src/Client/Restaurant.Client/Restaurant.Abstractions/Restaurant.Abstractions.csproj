@@ -1,22 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="Managers\**" />
     <EmbeddedResource Remove="Managers\**" />
     <None Remove="Managers\**" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="ReactiveUI" Version="8.3.1" />
     <PackageReference Include="Refit" Version="4.6.16" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Restaurant.Common\Restaurant.Common.csproj" />
   </ItemGroup>
-
 </Project>

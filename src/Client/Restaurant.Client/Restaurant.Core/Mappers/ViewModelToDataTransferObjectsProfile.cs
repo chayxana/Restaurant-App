@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using AutoMapper;
 using Restaurant.Abstractions.ViewModels;
+using Restaurant.Common.Constants;
 using Restaurant.Common.DataTransferObjects;
 using Restaurant.Core.ViewModels;
+using Restaurant.Core.ViewModels.Food;
 
 namespace Restaurant.Core.Mappers
 {
@@ -26,6 +28,11 @@ namespace Restaurant.Core.Mappers
 	        CreateMap<UserProfileDto, UserInfoViewModel>();
 	        CreateMap<UserDto, UserViewModel>().ForMember(x => x.UserInfoViewModel, 
 				map => map.MapFrom(x => Mapper.Map<UserInfoViewModel>(x.Profile)));
+
+	        CreateMap<FoodDto, FoodViewModel>().ForMember(x => x.Picture, 
+			  map => map.MapFrom(dto => CorePlatformInitializer.MockData 
+				  ? dto.Picture 
+				  : ApiConstants.ApiClientUrl + dto.Picture));
         }
     }
 }

@@ -84,6 +84,7 @@
     <Compile Include="Effects\MaxLinesEffect.cs" />
     <Compile Include="LoggingService.cs" />
     <Compile Include="Providers\BadgeMenuItemProvider.cs" />
+    <Compile Include="Providers\BarProvider.cs" />
     <Compile Include="Providers\StatusBarProvider.cs" />
     <Compile Include="Renderers\CustomNavigationPageRenderer.cs" />
     <Compile Include="Renderers\CustomSearchBarRenderer.cs" />
@@ -190,8 +191,8 @@
     <AndroidResource Include="Resources\drawable\facebook.png" />
     <AndroidResource Include="Resources\drawable\google.png" />
     <AndroidResource Include="Resources\drawable\icon.png" />
-    <AndroidResource Include="Resources\drawable\like.png" />
-    <AndroidResource Include="Resources\drawable\like_fill.png" />
+    <AndroidResource Include="Resources\drawable\like_empty.png" />
+    <AndroidResource Include="Resources\drawable\like_filled.png" />
     <AndroidResource Include="Resources\drawable\minus.xml" />
     <AndroidResource Include="Resources\drawable\plus.xml" />
     <AndroidResource Include="Resources\drawable\rounded_square.xml" />
@@ -208,6 +209,12 @@
     </PackageReference>
     <PackageReference Include="AutoMapper">
       <Version>7.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Com.Airbnb.Android.Lottie">
+      <Version>2.5.4</Version>
+    </PackageReference>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
+      <Version>2.5.4</Version>
     </PackageReference>
     <PackageReference Include="IdentityModel">
       <Version>3.8.0</Version>
@@ -487,6 +494,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\dimens.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\twitter_heart.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

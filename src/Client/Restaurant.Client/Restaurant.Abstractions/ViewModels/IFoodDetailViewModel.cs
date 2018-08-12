@@ -9,6 +9,6 @@ namespace Restaurant.Abstractions.ViewModels
         IBasketViewModel BasketViewModel { get; set; }
         IOrderViewModel CurrentOrder { get; }
         ICommand GoToBasket { get; }
-        FoodDto SelectedFood { get; }
+        IFoodViewModel SelectedFood { get; }
     }
 }

@@ -29,9 +29,6 @@ namespace Restaurant.Common.DataTransferObjects
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
-        public FoodDto Clone()
-        {
-            return (FoodDto)this.MemberwiseClone();
-        }
+       
     }
 }

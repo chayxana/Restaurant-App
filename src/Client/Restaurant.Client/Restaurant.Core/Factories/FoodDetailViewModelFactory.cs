@@ -17,7 +17,7 @@ namespace Restaurant.Core.Factories
             _container = container;
         }
 
-        public IFoodDetailViewModel GetFoodDetailViewModel(FoodDto selectedFood)
+        public IFoodDetailViewModel GetFoodDetailViewModel(IFoodViewModel selectedFood)
         {
             return _container.Resolve<FoodDetailViewModel>(new NamedParameter("selectedFood", selectedFood));
         }

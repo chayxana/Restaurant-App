@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 using ReactiveUI;
+using Restaurant.Core.ViewModels.Food;
 using Xamarin.Forms;
 
 namespace Restaurant.Mobile.UI.Controls
@@ -27,21 +29,22 @@ namespace Restaurant.Mobile.UI.Controls
             if (tapGesture == null)
                 return;
 
-
             Observable.FromEventPattern(tapGesture, "Tapped")
                 .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(async x =>
+                .Select(_ => Animate())
+                .Subscribe(_ =>
                 {
-                    try
+                    if (BindingContext is FoodViewModel foodViewModel)
                     {
-                        await this.ScaleTo(1.4, 75);
-                        await this.ScaleTo(1.0, 75);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e);
+                        foodViewModel.FavoriteCommand.Execute(null);
                     }
                 });
+        }
+
+        private async Task Animate()
+        {
+            await this.ScaleTo(1.4, 75);
+            await this.ScaleTo(1.0, 75);
         }
     }
 }

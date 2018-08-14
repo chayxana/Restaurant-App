@@ -8,8 +8,8 @@
     <None Remove="Managers\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ReactiveUI" Version="8.3.1" />
-    <PackageReference Include="Refit" Version="4.6.16" />
+    <PackageReference Include="ReactiveUI" Version="8.5.1" />
+    <PackageReference Include="Refit" Version="4.6.30" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Restaurant.Common\Restaurant.Common.csproj" />

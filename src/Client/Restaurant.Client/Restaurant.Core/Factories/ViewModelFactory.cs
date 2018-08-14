@@ -30,6 +30,9 @@ namespace Restaurant.Core.Factories
             catch (Exception e)
             {
                 _diagnosticsFacade.TrackError(e);
+#if DEBUG
+                throw;
+#endif
             }
 
             return null;
@@ -44,6 +47,9 @@ namespace Restaurant.Core.Factories
             catch (Exception ex)
             {
                 _diagnosticsFacade.TrackError(ex);
+#if DEBUG
+                throw;
+#endif
             }
 
             return null;

@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using IdentityModel.Client;
+using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Providers;
 using Restaurant.Common.Constants;
 using TokenResponse = Restaurant.Common.DataTransferObjects.TokenResponse;
@@ -11,12 +12,15 @@ namespace Restaurant.Core.Providers
     [ExcludeFromCodeCoverage]
 	public class IdentityModelTokenProvider : ITokenProvider
 	{
+		private readonly IDiagnosticsFacade _diagnosticsFacade;
 		private readonly DiscoveryClient _client;
 
-		public IdentityModelTokenProvider()
+		public IdentityModelTokenProvider(IDiagnosticsFacade diagnosticsFacade)
 		{
+			_diagnosticsFacade = diagnosticsFacade;
 			_client = new DiscoveryClient(ApiConstants.ApiClientUrl) { Policy = { RequireHttps = false } };
 		}
+		
 		public async Task<TokenResponse> RequestResourceOwnerPasswordAsync(string userName, string password)
 		{
 			try
@@ -28,8 +32,10 @@ namespace Restaurant.Core.Providers
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine(e);
+				_diagnosticsFacade.TrackError(e);
+#if DEBUG
 				throw;
+#endif
 			}
 		}
 
@@ -43,7 +49,7 @@ namespace Restaurant.Core.Providers
 
 		private TokenResponse MapIdentityTokenResponseToTokenResponse(IdentityModel.Client.TokenResponse tokenResponse)
 		{
-			return new TokenResponse()
+			return new TokenResponse
 			{
 				AccessToken = tokenResponse.AccessToken,
 				ExpiresIn = tokenResponse.ExpiresIn,

@@ -85,7 +85,7 @@ namespace Restaurant.Core.Providers
 	    private bool IsAccessTokenExpired()
 	    {
 		    return (_dateTimeFacade.Now - _settingsProvider.LastUpdatedRefreshTokenTime).TotalSeconds >
-		           LastAuthenticatedTokenResponse.ExpiresIn;
+		           LastAuthenticatedTokenResponse?.ExpiresIn;
 	    }
 	}
 }

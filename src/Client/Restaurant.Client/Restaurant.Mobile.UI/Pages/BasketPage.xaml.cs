@@ -6,12 +6,15 @@ using Xamarin.Forms.Xaml;
 
 namespace Restaurant.Mobile.UI.Pages
 {
+    public abstract class BasketPageXaml : BaseContentPage<BasketViewModel> {}
+    
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BasketPage : BasketPageXaml
     {
         public BasketPage()
         {
             InitializeComponent();
+            
             Observable.FromEventPattern<SelectedItemChangedEventArgs>(orders, "ItemSelected")
                 .Select(x => x.Sender)
                 .Cast<ListView>()
@@ -22,9 +25,5 @@ namespace Restaurant.Mobile.UI.Pages
         {
             BindingContext = ViewModel;
         }
-    }
-
-    public abstract class BasketPageXaml : BaseContentPage<BasketViewModel>
-    {
     }
 }

@@ -1,5 +1,6 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms.Xaml;
+using NavigationPage = Xamarin.Forms.NavigationPage;
+using Page = Xamarin.Forms.Page;
 
 namespace Restaurant.Mobile.UI.Pages
 {
@@ -15,5 +16,5 @@ namespace Restaurant.Mobile.UI.Pages
         {
             InitializeComponent();
         }
-    }
+	}
 }

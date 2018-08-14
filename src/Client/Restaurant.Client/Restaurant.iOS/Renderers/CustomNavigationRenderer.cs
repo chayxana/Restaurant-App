@@ -16,29 +16,41 @@ namespace Restaurant.iOS.Renderers
         private readonly Dictionary<UIButton, ICommand> buttonCommands = new Dictionary<UIButton, ICommand>();
         private ToolbarItem toolBarItem;
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+        }
+
         protected override Task<bool> OnPushAsync(Page page, bool animated)
         {
-            //ChangeTheme(page);
+            if (page is ITransparentActionBarPage transparentActionBarPage &&
+                transparentActionBarPage.IsTransparentActionBar)
+            {
+                UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
+                NavigationBar.TintColor = UIColor.White;
+
+                UITextAttributes titleTextAttributes = UINavigationBar.Appearance.GetTitleTextAttributes();
+                var stringAttributes = new UIStringAttributes
+                {
+                    Font = titleTextAttributes.Font,
+                    ForegroundColor = UIColor.White
+                };
+                
+                NavigationBar.TitleTextAttributes = stringAttributes;
+                UINavigationBar.Appearance.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
+                NavigationBar.ShadowImage = new UIImage();
+                NavigationBar.BackgroundColor = new UIColor(0, 0, 0, 0);
+                NavigationBar.Translucent = true;
+            }
+            
             return base.OnPushAsync(page, animated);
         }
 
-        public override UIViewController PopViewController(bool animated)
+        protected override Task<bool> OnPopViewAsync(Page page, bool animated)
         {
-            //var obj = Element.GetType().InvokeMember("StackCopy", BindingFlags.GetProperty | BindingFlags.NonPublic | BindingFlags.Instance, Type.DefaultBinder, Element, null);
-            //if (obj != null)
-            //{
-            //    var pages = obj as Stack<Page>;
-            //    if (pages != null && pages.Count >= 2)
-            //    {
-            //        var copy = new Page[pages.Count];
-            //        pages.CopyTo(copy, 0);
-
-            //        var prev = copy[1];
-            //        ChangeTheme(prev);
-            //    }
-            //}
-            return base.PopViewController(animated);
+            return base.OnPopViewAsync(page, animated);
         }
+
 
         public override void ViewWillAppear(bool animated)
         {
@@ -62,35 +74,12 @@ namespace Restaurant.iOS.Renderers
                 //    barButtonItem.BadgeValue = x.ToString();
                 //});
             }
-            base.ViewWillAppear(animated);
+            
+            base.ViewWillAppear(animated);            
+            NavigationBar.TintColor = UIColor.Black;
         }
-
-        private void ChangeTheme(Page page)
-        {
-            var item = page.ToolbarItems.FirstOrDefault(t => t.ClassId == "basket");
-            if (item != null)
-            {
-                toolBarItem = item;
-                page.ToolbarItems.Remove(item);
-            }
-            var basePage = page as MainBaseContentPage;
-            if (basePage != null)
-            {
-                //NavigationBar.BarTintColor = basePage.ActionBarBackgroundColor.ToUIColor();
-                //NavigationBar.TintColor = basePage.ActionBarTextColor.ToUIColor();
-                //UINavigationBar.Appearance.ShadowImage = new UIImage();
-                //UINavigationBar.Appearance.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
-
-                //var titleAttributes = new UIStringAttributes();
-                //titleAttributes.Font = UIFont.FromName("SegoeUI", 22);
-                //titleAttributes.ForegroundColor = basePage.ActionBarTextColor == Color.Default
-                //    ? titleAttributes.ForegroundColor ?? UINavigationBar.Appearance.TintColor
-                //    : basePage.ActionBarTextColor.ToUIColor();
-                //NavigationBar.TitleTextAttributes = titleAttributes;
-
-                //UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
-            }
-        }
+        
+        
 
         public override UIStatusBarStyle PreferredStatusBarStyle()
         {

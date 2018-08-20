@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Restaurant.Server.Api.Models
+namespace Menu.API.Models
 {
 	public class Category 
 	{

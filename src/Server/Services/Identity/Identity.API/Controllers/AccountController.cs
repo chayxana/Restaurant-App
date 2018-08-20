@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Services.Core.Abstraction.Managers;
 
 namespace Identity.API.Controllers
 {
@@ -16,16 +15,13 @@ namespace Identity.API.Controllers
     public class AccountController : Controller
     {
         private readonly IUserManagerFacade _userManagerFacade;
-        private readonly IFileUploadManager _fileUploadManager;
         private readonly IMapper _mapper;
 
         public AccountController(
             IUserManagerFacade userManagerFacade,
-            IFileUploadManager fileUploadManager,
             IMapper mapper)
         {
             _userManagerFacade = userManagerFacade;
-            _fileUploadManager = fileUploadManager;
             _mapper = mapper;
         }
 
@@ -59,28 +55,11 @@ namespace Identity.API.Controllers
 
         [HttpGet]
         [Route("GetAllUsers")]
-        [Authorize(Roles = "Admin")]
         public IEnumerable<UserDto> Users()
         {
             var users = _userManagerFacade.GetAllUsers();
             var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
             return userDtos;
-        }
-
-        [HttpPost]
-        [Route("UpdateUserProfilePicture")]
-        [Authorize]
-        public async Task<IActionResult> UpdatePicture([Bind] IFormFile file)
-        {
-            var user = await _userManagerFacade.GetAsync(User);
-
-            await _fileUploadManager.Upload(file, user.Id);
-
-            user.UserProfile.Picture = _fileUploadManager.GetUploadedFileByUniqId(user.Id);
-
-            var result = await _userManagerFacade.UpdateAsync(user);
-
-            return result.Succeeded ? Ok() : Error(result);
         }
 
         private IActionResult Error(IdentityResult result)

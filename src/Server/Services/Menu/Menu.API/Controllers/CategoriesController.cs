@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Menu.API.Abstraction.Repositories;
+using Menu.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Restaurant.Common.DataTransferObjects;
-using Restaurant.Server.Api.Abstraction.Repositories;
-using Restaurant.Server.Api.Models;
 
-namespace Restaurant.Server.Api.Controllers
+namespace Menu.API.Controllers
 {
     [Produces("application/json")]
     [Route("/api/v1/[controller]")]

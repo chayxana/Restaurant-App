@@ -1,10 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Menu.API.Data;
+using Menu.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Restaurant.Server.Api.Models;
 
-namespace Restaurant.Server.Api.Repositories
+namespace Menu.API.Repositories
 {
 	[ExcludeFromCodeCoverage]
 	public class FoodRepository : RepositoryBase<Food>

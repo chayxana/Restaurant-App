@@ -2,21 +2,19 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
+using Menu.API.Abstraction.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Restaurant.Server.Api.Abstraction.Repositories;
-using Restaurant.Server.Api.Models;
 
-
-namespace Restaurant.Server.Api.Repositories
+namespace Menu.API.Repositories
 {
 	[ExcludeFromCodeCoverage]
 	public abstract class RepositoryBase<T> : IRepository<T> where T: class 
 	{
-		private readonly ApplicationDbContext _context;
+		private readonly DbContext _context;
 		private readonly ILogger _logger;
 
-		protected RepositoryBase(ApplicationDbContext context, ILogger logger)
+		protected RepositoryBase(DbContext context, ILogger logger)
 		{
 			_context = context;
 			_logger = logger;
@@ -66,18 +64,4 @@ namespace Restaurant.Server.Api.Repositories
 			return false;
 		}
 	}
-
-    public class ApplicationDbContext : DbContext
-    {
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Category>(b =>
-            {
-                b.HasMany(x => x.Foods).WithOne(x => x.Category).HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Cascade);
-                b.ToTable("Categories");
-            });
-        }
-    }
 }

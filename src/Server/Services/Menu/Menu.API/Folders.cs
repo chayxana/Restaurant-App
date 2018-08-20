@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Restaurant.Server.Api.Constants
+namespace Menu.API
 {
     [ExcludeFromCodeCoverage]
     public class Folders

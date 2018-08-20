@@ -54,10 +54,19 @@ namespace Identity.API
                 .AddTestUsers(DefaultUsers.Get())
                 .AddAspNetIdentity<ApplicationUser>();
 
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Title = "Restaurant - Identity HTTP API",
+                    Version = "v1",
+                    TermsOfService = "Terms Of Service"
+                });
+            });
+
             services.AddAutoMapper(typeof(Startup));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -71,7 +80,12 @@ namespace Identity.API
 
             app.UseCors("ServerPolicy");
 
+            app.UseSwagger().UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Identity.API V1");
+            });
 
+            app.UseMvcWithDefaultRoute();
             app.UseHttpsRedirection();
             app.UseMvc();
         }

@@ -1,8 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Menu.API.Data;
+using Menu.API.Models;
 using Microsoft.Extensions.Logging;
-using Restaurant.Server.Api.Models;
 
-namespace Restaurant.Server.Api.Repositories
+namespace Menu.API.Repositories
 {
 	[ExcludeFromCodeCoverage]
 	public class CategoryRepository : RepositoryBase<Category>

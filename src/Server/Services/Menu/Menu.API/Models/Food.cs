@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Restaurant.Server.Api.Models
+namespace Menu.API.Models
 {
 	public class Food 
 	{

@@ -3,29 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Menu.API.Abstraction.Managers;
+using Menu.API.Abstraction.Repositories;
+using Menu.API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Restaurant.Common.DataTransferObjects;
-using Restaurant.Server.Api.Abstraction.Repositories;
-using Restaurant.Server.Api.Models;
-using Services.Core.Abstraction.Managers;
 
-namespace Restaurant.Server.Api.Controllers
+namespace Menu.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
     public class FoodsController : Controller
     {
         private readonly IFileUploadManager _fileUploadManager;
-        private readonly IMapper _mapperFacade;
+        private readonly IMapper _mapper;
         private readonly IRepository<Food> _repository;
 
         public FoodsController(
-            IMapper mapperFacade,
+            IMapper mapper,
             IRepository<Food> repository,
             IFileUploadManager fileUploadManager)
         {
-            _mapperFacade = mapperFacade;
+            _mapper = mapper;
             _repository = repository;
             _fileUploadManager = fileUploadManager;
         }
@@ -38,13 +37,13 @@ namespace Restaurant.Server.Api.Controllers
                 .Take(count.Value)
                 .ToList();
 
-            return _mapperFacade.Map<IEnumerable<FoodDto>>(entities);
+            return _mapper.Map<IEnumerable<FoodDto>>(entities);
         }
 
         [HttpGet("{id}")]
         public FoodDto Get(Guid id)
         {
-            return _mapperFacade.Map<FoodDto>(_repository.Get(id));
+            return _mapper.Map<FoodDto>(_repository.Get(id));
         }
 
         [HttpPost]
@@ -52,7 +51,7 @@ namespace Restaurant.Server.Api.Controllers
         {
             try
             {
-                var food = _mapperFacade.Map<Food>(foodDto);
+                var food = _mapper.Map<Food>(foodDto);
                 food.Picture = _fileUploadManager.GetUploadedFileByUniqId(food.Id.ToString());
                 _repository.Create(food);
                 var result = await _repository.Commit();
@@ -85,7 +84,7 @@ namespace Restaurant.Server.Api.Controllers
             {
                 if (id != foodDto.Id)
                     return BadRequest();
-                var food = _mapperFacade.Map<Food>(foodDto);
+                var food = _mapper.Map<Food>(foodDto);
                 if (_fileUploadManager.HasFile(id.ToString()))
                 {
                     _fileUploadManager.Remove(food.Picture);

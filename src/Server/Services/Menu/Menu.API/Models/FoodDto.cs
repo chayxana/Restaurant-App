@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Restaurant.Common.DataTransferObjects
+namespace Menu.API.Models
 {
     public class FoodDto
     {

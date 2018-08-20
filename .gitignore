@@ -217,3 +217,5 @@ ModelManifest.xml
 Images/
 *.idea/
 *.a
+*/Basket/src/gopkg.in/*
+*/Basket/src/github/*

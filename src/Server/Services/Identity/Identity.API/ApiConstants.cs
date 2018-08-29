@@ -1,4 +1,4 @@
-﻿namespace Restaurant.Common.Constants
+﻿namespace Identity.API
 {
 	public struct ApiConstants
 	{

@@ -5,6 +5,7 @@ import (
 	"basket_api/controllers"
 	_ "basket_api/docs"
 	"basket_api/repositories"
+	"fmt"
 	"net/http"
 	"os"
 
@@ -34,7 +35,7 @@ func main() {
 	redisPool, err := initRedis()
 
 	if err != nil {
-		return
+		fmt.Print(err)
 	}
 
 	basketRepository := repositories.NewRedisBasketRepository(redisPool)
@@ -55,7 +56,6 @@ func main() {
 	router.GET("/", func(c *gin.Context) {
 		c.Redirect(http.StatusMovedPermanently, "/swagger/index.html")
 	})
-
 	router.Run(":5000")
 }
 

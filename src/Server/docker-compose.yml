@@ -1,6 +1,14 @@
 version: '3.7'
 
 services:
+  identity-api:
+    image: restaurant/identity
+    build: ./Services/Identity/Identity.API/
+    ports:
+       - "9090:9090"
+    depends_on:
+       - identity-data
+ 
   menu-api:
     image: restaurant/menu
     build: ./Services/Menu/Menu.API/
@@ -9,6 +17,8 @@ services:
     depends_on:
        - menu-data
     
-
   menu-data:
+    image: postgres:10.1
+  
+  identity-data:
     image: postgres:10.1

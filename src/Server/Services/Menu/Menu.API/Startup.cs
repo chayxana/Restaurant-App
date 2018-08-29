@@ -27,7 +27,17 @@ namespace Menu.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvcCore()
+                .AddAuthorization()
+                .AddJsonFormatters();
+
+            services.AddAuthentication("Bearer")
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = Configuration["IdentityUrl"];
+                    options.RequireHttpsMetadata = false;
+                    options.ApiName = "api1";
+                });
 
             var connectionString = Configuration.GetConnectionString("MenuDatabaseConnectionString");
             services.AddDbContext<ApplicationDbContext>(options => 
@@ -48,6 +58,8 @@ namespace Menu.API
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseAuthentication();
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

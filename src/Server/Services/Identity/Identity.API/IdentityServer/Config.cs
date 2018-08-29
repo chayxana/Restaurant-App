@@ -2,9 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 using IdentityServer4;
 using IdentityServer4.Models;
-using Restaurant.Common.Constants;
 
-namespace Restaurant.Server.Api.IdentityServer
+namespace Identity.API.IdentityServer
 {
 	[ExcludeFromCodeCoverage]
 	public static class Config
@@ -62,7 +61,7 @@ namespace Restaurant.Server.Api.IdentityServer
 					ClientName = "MVC Client",
 					AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
 
-					RequireConsent = true,
+					RequireConsent = false,
 
 					ClientSecrets = {new Secret("secret".Sha256())},
 

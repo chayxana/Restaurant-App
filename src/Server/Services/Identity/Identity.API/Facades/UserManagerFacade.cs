@@ -14,13 +14,11 @@ namespace Identity.API.Facades
 {
 	public class UserManagerFacade : IUserManagerFacade
 	{
-		private readonly ApplicatiobDbContext _context;
 		private readonly UserManager<ApplicationUser> _userManager;
 
-		public UserManagerFacade(UserManager<ApplicationUser> userManager, ApplicatiobDbContext context)
+		public UserManagerFacade(UserManager<ApplicationUser> userManager)
 		{
 			_userManager = userManager;
-			_context = context;
 		}
 
 		public Task<IdentityResult> Create(ApplicationUser applicationUser, string password)
@@ -32,9 +30,11 @@ namespace Identity.API.Facades
 		{
 			var userId = principal.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-			return await _context.Users
+			var result = await _userManager.Users
 				.Include(x => x.UserProfile)
 				.SingleOrDefaultAsync(x => x.Id == userId);
+
+			return result;
 		}
 
 		public IEnumerable<ApplicationUser> GetAllUsers()
@@ -43,7 +43,6 @@ namespace Identity.API.Facades
 				.Include(x => x.UserProfile)
 				.ToList();
 		}
-
 
 		public Task<IdentityResult> UpdateAsync(ApplicationUser applicationUser)
 		{

@@ -13,6 +13,7 @@ namespace Menu.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
+    [Authorize]
     public class FoodsController : Controller
     {
         private readonly IFileUploadManager _fileUploadManager;

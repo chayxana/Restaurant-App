@@ -13,3 +13,4 @@ COPY --from=builder /go/bin/basket_api /basket_api
 ENTRYPOINT ./basket_api    
 LABEL Name=basket_api Version=0.0.1
 EXPOSE 5000
+ENV PORT 5000

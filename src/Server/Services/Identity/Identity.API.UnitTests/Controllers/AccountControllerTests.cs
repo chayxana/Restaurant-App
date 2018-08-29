@@ -14,7 +14,7 @@ using Xunit;
 
 namespace Identity.API.UnitTests
 {
-    public class AccountControllerTests : BaseAutoMockedTest<AccountController>
+    public class AccountControllerTests : BaseAutoMockedTest<AccountApiController>
     {
 		[Theory, AutoDomainData]
 	    public async Task Given_valid_parameters_Register_should_return_Ok(RegisterDto dto)

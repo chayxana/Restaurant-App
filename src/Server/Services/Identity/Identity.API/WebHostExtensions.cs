@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Data.SqlClient;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Polly;
-using Polly.Retry;
-using System;
-using System.Data.SqlClient;
 
-namespace Microsoft.AspNetCore.Hosting
+namespace Identity.API
 {
     public static class IWebHostExtensions
     {

@@ -5,19 +5,18 @@ using Identity.API.Abstraction;
 using Identity.API.Model.DataTransferObjects;
 using Identity.API.Model.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Identity.API.Controllers
+namespace Identity.API.Controllers.Account
 {
     [Route("api/v1/[controller]")]
-    public class AccountController : Controller
+    public class AccountApiController : Controller
     {
         private readonly IUserManagerFacade _userManagerFacade;
         private readonly IMapper _mapper;
 
-        public AccountController(
+        public AccountApiController(
             IUserManagerFacade userManagerFacade,
             IMapper mapper)
         {
@@ -34,10 +33,7 @@ namespace Identity.API.Controllers
             {
                 Email = registerDto.Email,
                 UserName = registerDto.Email,
-                UserProfile = new UserProfile
-                {
-                    Picture = "http://via.placeholder.com/200x200"
-                }
+                UserProfile = new UserProfile()
             };
             var result = await _userManagerFacade.Create(user, registerDto.Password);
 

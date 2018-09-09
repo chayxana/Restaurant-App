@@ -6,6 +6,7 @@ using AutoMapper;
 using Menu.API.Abstraction.Managers;
 using Menu.API.Abstraction.Repositories;
 using Menu.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

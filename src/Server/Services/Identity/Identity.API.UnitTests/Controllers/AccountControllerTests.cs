@@ -5,6 +5,7 @@ using BaseUnitTests;
 using FluentAssertions;
 using Identity.API.Abstraction;
 using Identity.API.Controllers;
+using Identity.API.Controllers.Account;
 using Identity.API.Model.DataTransferObjects;
 using Identity.API.Model.Entities;
 using Microsoft.AspNetCore.Identity;

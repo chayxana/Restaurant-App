@@ -5,20 +5,31 @@ services:
     image: restaurant/identity
     build: ./Services/Identity/Identity.API/
     ports:
-       - "9090:9090"
+       - "5000:80"
     depends_on:
        - identity-data
- 
+
   menu-api:
     image: restaurant/menu
     build: ./Services/Menu/Menu.API/
     ports:
-       - "8080:80"
+       - "5100:80"
     depends_on:
        - menu-data
-    
+  
+  basket-api:
+    image: restaurant/basket
+    build: ./Services/Basket/src/basket_api/
+    ports:
+      - "5200:80"
+    depends_on:
+      - basket-data
+
   menu-data:
     image: postgres:10.1
   
   identity-data:
     image: postgres:10.1
+
+  basket-data:
+    image: redis

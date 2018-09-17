@@ -36,7 +36,7 @@ func (r *RedisBasketRepository) GetBasket(customerID string) (*models.CustomerBa
 
 	err = json.Unmarshal(data, &result)
 	if err != nil {
-		return nil, fmt.Errorf("error unmarshalling %v to %v", data, result)
+		return nil, fmt.Errorf("error marshalling %v to %v", data, result)
 	}
 
 	return &result, err
@@ -96,4 +96,8 @@ func (r *RedisBasketRepository) getKeys(pattern string) ([]string, error) {
 	}
 
 	return keys, nil
+}
+
+func (r *RedisBasketRepository) getAll() ([]string, error) {
+	return nil, nil
 }

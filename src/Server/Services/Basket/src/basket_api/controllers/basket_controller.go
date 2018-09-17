@@ -19,7 +19,7 @@ func NewBasketController(r repositories.BasketRepository) *BasketController {
 	return &BasketController{BasketRepository: r}
 }
 
-// Create godoc
+// Create go doc
 // @Summary Add a CustomerBasket
 // @Description add by json new CustomerBasket
 // @Tags CustomerBasket
@@ -51,7 +51,7 @@ func (bc *BasketController) Create(c *gin.Context) {
 	c.JSON(http.StatusOK, result)
 }
 
-// Get godoc
+// Get go doc
 // @Summary Gets a CustomerBasket
 // @Description Get CustomerBasket by ID
 // @Tags CustomerBasket

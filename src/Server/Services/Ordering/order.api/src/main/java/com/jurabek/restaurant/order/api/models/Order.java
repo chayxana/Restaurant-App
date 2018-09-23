@@ -2,22 +2,17 @@ package com.jurabek.restaurant.order.api.models;
 
 import java.sql.Date;
 import java.util.Collection;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.*;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 /**
  * Order
  */
 @Entity
-@Table(name = "Orders")
-public class Order extends AuditModel{
-    
-    private static final long serialVersionUID = 8053559736205578247L;
-
+@Table(name="orders")
+public class Order extends AuditModel {
     @Id
     private UUID id;
     
@@ -25,9 +20,8 @@ public class Order extends AuditModel{
     
     private Date orderDate;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="orders")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Collection<OrderItem> orderItems;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "order")
+    private Set<OrderItems> orderItems;
 
     /**
      * @return the id
@@ -67,14 +61,14 @@ public class Order extends AuditModel{
     /**
      * @return the orderItems
      */
-    public Collection<OrderItem> getOrderItems() {
+    public Collection<OrderItems> getOrderItems() {
         return orderItems;
     }
 
     /**
      * @param orderItems the orderItems to set
      */
-    public void setOrderItems(Collection<OrderItem> orderItems) {
+    public void setOrderItems(Set<OrderItems> orderItems) {
         this.orderItems = orderItems;
     }
 

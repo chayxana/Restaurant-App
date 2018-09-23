@@ -6,9 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="OrderItems")
-public class OrderItem extends AuditModel {
-
-    private static final long serialVersionUID = -8454316171369243710L;
+public class OrderItems extends AuditModel {
 
     @Id
     private UUID id;
@@ -21,8 +19,8 @@ public class OrderItem extends AuditModel {
 
     private String foodName;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = com.jurabek.restaurant.order.api.models.Order.class)
+    @JoinColumn(name = "order_id")
     private Order order;
 
     /**

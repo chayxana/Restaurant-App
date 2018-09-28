@@ -1,4 +1,4 @@
-package com.jurabek.restaurant.order.api;
+package com.jurabek.restaurant.order.api.config;
 
 import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;

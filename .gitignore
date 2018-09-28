@@ -219,3 +219,4 @@ Images/
 *.a
 */Basket/src/gopkg.in/*
 */Basket/src/github/*
+src/Server/services/go/src/basket.api/basket.api

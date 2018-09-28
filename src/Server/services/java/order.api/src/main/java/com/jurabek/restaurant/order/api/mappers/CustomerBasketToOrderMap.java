@@ -1,0 +1,41 @@
+package com.jurabek.restaurant.order.api.mappers;
+
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import com.jurabek.restaurant.order.api.dtos.CustomerBasketDto;
+import com.jurabek.restaurant.order.api.models.Order;
+import com.jurabek.restaurant.order.api.models.OrderItems;
+
+import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
+
+/**
+ * CustomerBasketToOrderMap
+ */
+public class CustomerBasketToOrderMap extends PropertyMap<CustomerBasketDto, Order> {
+
+    private ModelMapper modelMapper;
+
+    public CustomerBasketToOrderMap(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
+
+    @Override
+    protected void configure() {
+
+        using(ctx -> {
+            CustomerBasketDto customerBasketDto = (CustomerBasketDto) ctx.getSource();
+            List<OrderItems> orderItems = customerBasketDto.getItems().stream()
+                    .map(basketItem -> modelMapper.map(basketItem, OrderItems.class)).collect(Collectors.toList());
+            
+            return orderItems;
+        }).map(source, destination.getOrderItems());
+
+        map().setId(UUID.randomUUID());
+        map().setOrderedDate(new Date());
+        map().setBuyerId(source.getCustomerId());
+    }
+}

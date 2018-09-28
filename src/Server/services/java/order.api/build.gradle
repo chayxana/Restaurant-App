@@ -30,5 +30,6 @@ dependencies {
 	compile ('org.postgresql:postgresql:42.2.5')
 	compile('io.springfox:springfox-swagger2:2.9.2')
 	compile('io.springfox:springfox-swagger-ui:2.9.2')
+	compile('org.modelmapper:modelmapper:2.3.0')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

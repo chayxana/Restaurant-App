@@ -1,8 +1,8 @@
 package com.jurabek.restaurant.order.api.models;
 
-import java.sql.Date;
 import java.util.Collection;
-import java.util.Set;
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.*;
@@ -13,35 +13,40 @@ import javax.persistence.*;
 @Entity
 @Table(name="orders")
 public class Order extends AuditModel {
+
+    private static final long serialVersionUID = -601414249273316205L;
+
     @Id
+    @Column(nullable = false)
     private UUID id;
     
+    @Column(nullable = false)
     private UUID buyerId;
     
-    private Date orderDate;
+    private Date orderedDate;
+
+       /**
+     * @return the orderedDate
+     */
+    public Date getOrderedDate() {
+        return orderedDate;
+    }
+
+    /**
+     * @param orderedDate the orderedDate to set
+     */
+    public void setOrderedDate(Date orderedDate) {
+        this.orderedDate = orderedDate;
+    }
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "order")
-    private Set<OrderItems> orderItems;
+    private List<OrderItems> orderItems;
 
     /**
      * @return the id
      */
     public UUID getId() {
         return id;
-    }
-
-    /**
-     * @return the orderDate
-     */
-    public Date getOrderDate() {
-        return orderDate;
-    }
-
-    /**
-     * @param orderDate the orderDate to set
-     */
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
     }
 
     /**
@@ -68,7 +73,7 @@ public class Order extends AuditModel {
     /**
      * @param orderItems the orderItems to set
      */
-    public void setOrderItems(Set<OrderItems> orderItems) {
+    public void setOrderItems(List<OrderItems> orderItems) {
         this.orderItems = orderItems;
     }
 

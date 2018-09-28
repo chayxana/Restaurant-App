@@ -12,12 +12,27 @@ public class CustomerBasketItemDto {
     private float oldUnitPrice;
     private int quantity;
     private String picture;
+    private String foodName;
 
     /**
      * @return the id
      */
     public UUID getId() {
         return id;
+    }
+
+    /**
+     * @return the foodName
+     */
+    public String getFoodName() {
+        return foodName;
+    }
+
+    /**
+     * @param foodName the foodName to set
+     */
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
     }
 
     /**

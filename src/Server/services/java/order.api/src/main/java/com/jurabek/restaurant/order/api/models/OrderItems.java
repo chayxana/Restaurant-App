@@ -8,9 +8,13 @@ import javax.persistence.*;
 @Table(name="OrderItems")
 public class OrderItems extends AuditModel {
 
+    private static final long serialVersionUID = -4611751218470604041L;
+
     @Id
+    @Column(nullable = false)
     private UUID id;
     
+    @Column(nullable = false)
     private UUID foodId;
 
     private float unitPrice;
@@ -20,7 +24,7 @@ public class OrderItems extends AuditModel {
     private String foodName;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = com.jurabek.restaurant.order.api.models.Order.class)
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
     /**

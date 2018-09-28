@@ -11,4 +11,5 @@ type BasketItem struct {
 	OldUnitPrice float32   `json:"oldUnitPrice"`
 	Quantity     int       `json:"quantity"`
 	Picture      string    `json:picture`
+	FoodName     string    `json:foodName`
 }

@@ -1,5 +1,6 @@
 package com.jurabek.restaurant.order.api.dtos;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +20,8 @@ public class CustomerBasketDto {
     public List<CustomerBasketItemDto> getItems() {
         return items;
     }
+
+ 
 
     /**
      * @return the customerId

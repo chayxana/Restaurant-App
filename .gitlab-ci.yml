@@ -4,8 +4,7 @@ stages:
 - build
 
 before_script:
-  - cd src/server/
-
+  - cd src/Server/
 
 build:basket_api:
   stage: build

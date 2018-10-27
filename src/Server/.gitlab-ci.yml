@@ -1,0 +1,28 @@
+image: docker:latest
+
+stages:
+- build
+
+build:basket_api:
+  stage: build
+  script:
+    - chmod +x ci/build.sh
+    - ci/build.sh basket
+
+build:order_api:
+  stage: build
+  script:
+    - chmod +x ci/build.sh
+    - ci/build.sh order
+
+build:identity_api:
+  stage: build
+  script:
+    - chmod +x ci/build.sh
+    - ci/build.sh identity
+
+build:menu_api:
+  stage: build
+  script:
+    - chmod +x ci/build.sh
+    - ci/build.sh menu

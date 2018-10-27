@@ -7,7 +7,7 @@ import (
 
 	"basket.api/controllers"
 	_ "basket.api/docs"
-	redis_config "basket.api/redis"
+	redisConfig "basket.api/redis"
 	"basket.api/repositories"
 
 	"github.com/gin-gonic/gin"
@@ -57,6 +57,7 @@ func main() {
 	router.GET("/", func(c *gin.Context) {
 		c.Redirect(http.StatusMovedPermanently, "/swagger/index.html")
 	})
+
 	router.Run(":5000")
 }
 
@@ -65,10 +66,10 @@ func initRedis() (*redis.Pool, error) {
 	if redisHost == "" {
 		redisHost = ":6379"
 	}
-	pool := redis_config.NewRedisPool(redisHost)
-	redis_config.CleanupHook(pool)
+	pool := redisConfig.NewRedisPool(redisHost)
+	redisConfig.CleanupHook(pool)
 
-	err := redis_config.HealthCheck(pool)
+	err := redisConfig.HealthCheck(pool)
 
 	return pool, err
 }

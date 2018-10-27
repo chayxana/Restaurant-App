@@ -1,5 +1,7 @@
 package com.jurabek.restaurant.order.api.services;
 
+import java.util.Collection;
+
 import com.jurabek.restaurant.order.api.dtos.CustomerBasketDto;
 import com.jurabek.restaurant.order.api.models.Order;
 import com.jurabek.restaurant.order.api.models.OrderItems;
@@ -32,4 +34,9 @@ public class OrdersServicesIml implements OrdersService {
         }
         ordersRepository.save(order);
     }
+
+    @Override
+    public Collection<CustomerBasketDto> getAll() {
+		return null;
+	}
 }

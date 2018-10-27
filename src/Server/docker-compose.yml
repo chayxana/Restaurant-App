@@ -3,33 +3,47 @@ version: '3.7'
 services:
   identity-api:
     image: restaurant/identity
-    build: ./Services/Identity/Identity.API/
+    build: ./services/netcore/Identity.API/
     ports:
-       - "5000:80"
+       - "5000:5000"
     depends_on:
        - identity-data
 
   menu-api:
     image: restaurant/menu
-    build: ./Services/Menu/Menu.API/
+    build: ./services/netcore/Menu.API/
     ports:
-       - "5100:80"
+       - "5100:5100"
     depends_on:
        - menu-data
   
   basket-api:
     image: restaurant/basket
-    build: ./Services/Basket/src/basket_api/
+    build: ./services/go/src/basket.api/
     ports:
-      - "5200:80"
+      - "5200:5200"
     depends_on:
       - basket-data
 
+  order-api:
+    image: restaurant/order
+    build: ./services/java/order.api/
+    ports:
+      - "5300:5300"
+    depends_on:
+      - order-data
+
   menu-data:
-    image: postgres:10.1
+    image: postgres:alpine
   
   identity-data:
-    image: postgres:10.1
+    image: postgres:alpine
 
   basket-data:
-    image: redis
+    image: redis:alpine
+  
+  order-data:
+    image: restaurant/order_database
+    build: 
+      context: ./services/java/order.api/
+      dockerfile: Dockerfile-database

@@ -1,5 +1,7 @@
 package com.jurabek.restaurant.order.api.services;
 
+import java.util.Collection;
+
 import com.jurabek.restaurant.order.api.dtos.CustomerBasketDto;
 
 /**
@@ -7,4 +9,5 @@ import com.jurabek.restaurant.order.api.dtos.CustomerBasketDto;
  */
 public interface OrdersService {
     void Create(CustomerBasketDto customerBasketDto);
+    Collection<CustomerBasketDto> getAll();
 }

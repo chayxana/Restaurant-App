@@ -11,6 +11,12 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__IdentityConnectionString=Host=identity-data;Database=identity_database;Username=admin;Password=Passw0rd!
 
+  order-api:
+    environment: 
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://order-data:5432/orderdb
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=Passw0rd!
+
   menu-data:
     environment:
       - POSTGRES_PASSWORD=Passw0rd!
@@ -24,3 +30,10 @@ services:
       - POSTGRES_USER=admin
       - PGDATA=/pg
       - POSTGRES_DB=identitydb
+  order-data:
+    environment:
+      - CREATED_DATABASE=orderdb
+      - POSTGRES_PASSWORD=Passw0rd!
+      - POSTGRES_USER=admin
+      - PGDATA=/pg
+      - POSTGRES_DB=orderdb

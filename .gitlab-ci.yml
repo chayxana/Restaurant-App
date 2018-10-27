@@ -3,6 +3,10 @@ image: docker:latest
 stages:
 - build
 
+before_script:
+  - cd src/server/
+
+
 build:basket_api:
   stage: build
   script:

@@ -6,8 +6,8 @@ COPY . ./
 
 RUN apk add --no-cache git
 RUN go get -d -v -t ./...
-RUN go test -c --cover ./controllers -o /tests/controllers.test
 RUN go install -v ./...
+RUN go test -c ./controllers -o /tests/controllers.test
 
 #final stage
 FROM alpine:latest

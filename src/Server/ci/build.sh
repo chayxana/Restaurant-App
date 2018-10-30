@@ -29,12 +29,12 @@ build_order_api(){
     docker_build_and_push
 }
 build_identity_api() {
-    cd ./services/netcore/Identity.API/
+    cd ./services/netcore/Identity/
     docker_build_and_push
 }
 
 build_menu_api() {
-    cd ./services/netcore/Menu.API/
+    cd ./services/netcore/Menu/
     docker_build_and_push
 }
 

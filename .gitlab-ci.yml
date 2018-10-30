@@ -18,26 +18,26 @@ before_script:
 build:basket_api:
   stage: build
   script:
-    - ci/build.sh BASKET_API
+    - ci/build.sh basket_api
 
 build:order_api:
   stage: build
   script:
-    - ci/build.sh ORDER_API
+    - ci/build.sh order_api
 
 build:identity_api:
   stage: build
   script:
-    - ci/build.sh IDENTITY_API
+    - ci/build.sh identity_api
 
 build:menu_api:
   stage: build
   script:
-    - ci/build.sh MENU_API
+    - ci/build.sh menu_api
 
 test:basket_api:
   stage: test
   script: 
-    - ci/test.sh BASKET_API
+    - ci/test.sh basket_api
   dependencies:
     - build:basket_api

@@ -10,7 +10,7 @@ variables:
   IMAGE_BASE_NAME: registry.gitlab.com/jurabek/restaurant-app
 
 before_script:
-  - docker login -u $CI_USER_LOGIN -p $CI_USER_PASSWORD registry.gitlab.com
+  - docker login registry.gitlab.com -u "$DOCKER_USER_NAME" -p $DOCKER_PASSWORD
   - cd src/Server/
   - chmod +x ci/build.sh
   - chmod +x ci/test.sh

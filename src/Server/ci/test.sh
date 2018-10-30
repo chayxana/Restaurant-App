@@ -26,12 +26,15 @@ test_basket_api() {
 test_order_api(){
     echo "test order api"
 }
+
 test_identity_api() {
-    echo "test identity api"
+    docker pull "$IMAGE_BASE_NAME:$CI_API_NAME"
+    docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "vstest" "Identity.API.UnitTests.dll"
 }
 
 test_menu_api() {
-    echo "test menu api"
+    docker pull "$IMAGE_BASE_NAME:$CI_API_NAME"
+    docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "vstest" "Menu.API.UnitTests.dll"
 }
 
 main "$@"

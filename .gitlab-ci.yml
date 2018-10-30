@@ -4,30 +4,40 @@ services:
 
 stages:
 - build
+- test
+
+variables:
+  IMAGE_BASE_NAME: registry.gitlab.com/jurabek/restaurant-app
 
 before_script:
+  - docker login -u $CI_USER_LOGIN -p $CI_USER_PASSWORD registry.gitlab.com
   - cd src/Server/
+  - chmod +x ci/build.sh
+  - chmod +x ci/test.sh
 
 build:basket_api:
   stage: build
   script:
-    - chmod +x ci/build.sh
-    - ci/build.sh basket
+    - ci/build.sh BASKET_API
 
 build:order_api:
   stage: build
   script:
-    - chmod +x ci/build.sh
-    - ci/build.sh order
+    - ci/build.sh ORDER_API
 
 build:identity_api:
   stage: build
   script:
-    - chmod +x ci/build.sh
-    - ci/build.sh identity
+    - ci/build.sh IDENTITY_API
 
 build:menu_api:
   stage: build
   script:
-    - chmod +x ci/build.sh
-    - ci/build.sh menu
+    - ci/build.sh MENU_API
+
+test:basket_api:
+  stage: test
+  script: 
+    - ci/test.sh BASKET_API
+  dependencies:
+    - build:basket_api

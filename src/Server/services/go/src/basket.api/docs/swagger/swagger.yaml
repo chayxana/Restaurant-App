@@ -2,7 +2,9 @@ basePath: /api/
 definitions:
   models.BasketItem:
     properties:
-      foodID:
+      foodId:
+        type: string
+      foodName:
         type: string
       id:
         type: string

@@ -15,27 +15,6 @@ var (
 	lockBasketRepositoryMockUpdate    sync.RWMutex
 )
 
-// BasketRepositoryMock is a mock implementation of BasketRepository.
-//
-//     func TestSomethingThatUsesBasketRepository(t *testing.T) {
-//
-//         // make and configure a mocked BasketRepository
-//         mockedBasketRepository := &BasketRepositoryMock{
-//             DeleteFunc: func(id string) error {
-// 	               panic("TODO: mock out the Delete method")
-//             },
-//             GetBasketFunc: func(customerID string) (*models.CustomerBasket, error) {
-// 	               panic("TODO: mock out the GetBasket method")
-//             },
-//             UpdateFunc: func(item *models.CustomerBasket) error {
-// 	               panic("TODO: mock out the Update method")
-//             },
-//         }
-//
-//         // TODO: use mockedBasketRepository in code that requires BasketRepository
-//         //       and then make assertions.
-//
-//     }
 type BasketRepositoryMock struct {
 	// DeleteFunc mocks the Delete method.
 	DeleteFunc func(id string) error

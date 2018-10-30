@@ -1,5 +1,5 @@
 #build stage
-FROM golang:alpine AS builder
+FROM golang:1.10-alpine AS builder
 
 WORKDIR $GOPATH/src/basket.api
 COPY . ./

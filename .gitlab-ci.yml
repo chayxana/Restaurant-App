@@ -41,3 +41,17 @@ test:basket_api:
     - ci/test.sh basket_api
   dependencies:
     - build:basket_api
+
+test:identity_api:
+  stage: test
+  script: 
+    - ci/test.sh identity_api
+  dependencies:
+    - build:identity_api
+
+test:menu_api:
+  stage: test
+  script: 
+    - ci/test.sh menu_api
+  dependencies:
+    - build:menu_api

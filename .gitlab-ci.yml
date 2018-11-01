@@ -5,6 +5,7 @@ services:
 stages:
 - build
 - test
+- deploy
 
 variables:
   IMAGE_BASE_NAME: registry.gitlab.com/jurabek/restaurant-app
@@ -51,7 +52,7 @@ test:identity_api:
 
 test:menu_api:
   stage: test
-  script: 
+  script:
     - ci/test.sh menu_api
   dependencies:
     - build:menu_api

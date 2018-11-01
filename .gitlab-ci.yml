@@ -53,5 +53,13 @@ test:menu_api:
   stage: test
   script: 
     - ci/test.sh menu_api
+  after_script:
+    - mv coveragereport/ public/
   dependencies:
     - build:menu_api
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  only:
+    - master

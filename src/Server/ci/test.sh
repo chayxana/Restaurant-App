@@ -29,12 +29,23 @@ test_order_api(){
 
 test_identity_api() {
     docker pull "$IMAGE_BASE_NAME:$CI_API_NAME"
-    docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "vstest" "Identity.API.UnitTests.dll"
+    docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "dotnet vstest" "./Identity.API.UnitTests.dll"
 }
 
 test_menu_api() {
     docker pull "$IMAGE_BASE_NAME:$CI_API_NAME"
-    docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "vstest" "Menu.API.UnitTests.dll"
+    docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "dotnet" "vstest" "./Menu.API.UnitTests.dll"
+
+    docker run --name "$CI_API_NAME_coverage" $IMAGE_BASE_NAME:$CI_API_NAME /bin/bash -c \
+    "coverlet ./Menu.API.UnitTests.dll \
+    --target dotnet \
+    --targetargs \"vstest ./Menu.API.UnitTests.dll\" \
+    --format opencover \
+    --output /app/coverage.xml \
+    && reportgenerator \"-reports:/app/coverage.xml\" \"-targetdir:/app/coveragereport\" " 
+
+    docker cp $(docker ps -aqf "name=$CI_API_NAME_coverage"):/app/coveragereport ./
+    docker rm $(docker ps -aqf "name=$CI_API_NAME_coverage")
 }
 
 main "$@"

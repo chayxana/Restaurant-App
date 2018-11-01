@@ -18,9 +18,12 @@ RUN dotnet publish test/Menu.API.UnitTests.csproj -c Release -o /apptest
 
 FROM build AS final
 WORKDIR /app
+ENV PATH="${PATH}:/root/.dotnet/tools"
+RUN dotnet tool install --global coverlet.console
+RUN dotnet tool install --global dotnet-reportgenerator-globaltool
+
 COPY --from=publish /app .
 COPY --from=publish /apptest .
-ENTRYPOINT ["dotnet"] 
-CMD ["Menu.API.dll"]
+CMD ["dotnet", "Menu.API.dll"]
 
 EXPOSE 5100

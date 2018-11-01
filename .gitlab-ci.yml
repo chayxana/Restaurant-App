@@ -53,7 +53,6 @@ test:menu_api:
   stage: test
   script: 
     - ci/test.sh menu_api
-  
   dependencies:
     - build:menu_api
   artifacts:

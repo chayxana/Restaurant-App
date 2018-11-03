@@ -29,7 +29,7 @@ test_order_api(){
 
 test_identity_api() {
     docker pull "$IMAGE_BASE_NAME:$CI_API_NAME"
-    docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "dotnet vstest" "./Identity.API.UnitTests.dll"
+    docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "dotnet" "vstest" "./Identity.API.UnitTests.dll"
 }
 
 test_menu_api() {

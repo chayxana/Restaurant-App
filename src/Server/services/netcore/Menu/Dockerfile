@@ -15,15 +15,20 @@ RUN dotnet build test/Menu.API.UnitTests.csproj -c Release -o /app
 FROM build AS publish
 RUN dotnet publish api/Menu.API.csproj -c Release -o /app
 RUN dotnet publish test/Menu.API.UnitTests.csproj -c Release -o /apptest
+RUN cp test/code_coverage.sh /apptest
+
 
 FROM build AS final
 WORKDIR /app
 ENV PATH="${PATH}:/root/.dotnet/tools"
+
 RUN dotnet tool install --global coverlet.console
 RUN dotnet tool install --global dotnet-reportgenerator-globaltool
 
 COPY --from=publish /app .
 COPY --from=publish /apptest .
+
+RUN ["chmod", "+x", "code_coverage.sh"]
 CMD ["dotnet", "Menu.API.dll"]
 
 EXPOSE 5100

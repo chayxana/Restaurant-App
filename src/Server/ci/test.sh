@@ -44,7 +44,7 @@ test_menu_api() {
     docker rm $(docker ps -aqf "name=$CI_API_NAME_coverage")
     
     COVERAGE_RESULT=$(grep "Total Branch" output.txt | tr -dc '[0-9]+\.[0-9]')
-    curl -o menu_coverage.svg https://img.shields.io/badge/coverage-$COVERAGE_RESULT%25-orange.svg
+    curl -o badges/menu_coverage.svg https://img.shields.io/badge/coverage-$COVERAGE_RESULT%25-orange.svg
 }
 
 main "$@"

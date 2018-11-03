@@ -11,6 +11,7 @@ variables:
   IMAGE_BASE_NAME: registry.gitlab.com/jurabek/restaurant-app
 
 before_script:
+  - apk add --update curl && rm -rf /var/cache/apk/*
   - docker login registry.gitlab.com -u "$DOCKER_USER_NAME" -p $DOCKER_PASSWORD
   - cd src/Server/
   - chmod +x ci/build.sh
@@ -52,8 +53,6 @@ test:identity_api:
 
 test:menu_api:
   stage: test
-  before_script:
-    - apk add --update curl && rm -rf /var/cache/apk/*
   script:
     - ci/test.sh menu_api
   dependencies:

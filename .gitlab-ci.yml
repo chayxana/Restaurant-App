@@ -58,14 +58,14 @@ test:menu_api:
     - build:menu_api
   artifacts:
     paths:
-      - coveragereport/
+      - menu_coverage.svg
 
 pages:
   stage: deploy
   dependencies:
     - test:menu_api
   script:
-    - mv coveragereport/ public/
+    - mv menu_coverage.svg public/
   artifacts:
     paths:
       - public

@@ -11,6 +11,7 @@ variables:
   IMAGE_BASE_NAME: registry.gitlab.com/jurabek/restaurant-app
 
 before_script:
+  - mkdir -p badges
   - apk add --update curl && rm -rf /var/cache/apk/*
   - docker login registry.gitlab.com -u "$DOCKER_USER_NAME" -p $DOCKER_PASSWORD
   - cd src/Server/
@@ -59,14 +60,14 @@ test:menu_api:
     - build:menu_api
   artifacts:
     paths:
-      - menu_coverage.svg
+      - badges/
 
 pages:
   stage: deploy
   dependencies:
     - test:menu_api
   script:
-    - mv menu_coverage.svg public/
+    - mv badges/ public/
   artifacts:
     paths:
       - public

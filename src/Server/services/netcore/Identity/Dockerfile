@@ -21,7 +21,6 @@ FROM build AS final
 WORKDIR /app
 COPY --from=publish /app .
 COPY --from=publish /apptest .
-ENTRYPOINT ["dotnet"]
 CMD ["Identity.API.dll"] 
 
 EXPOSE 5000

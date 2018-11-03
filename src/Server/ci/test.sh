@@ -38,7 +38,7 @@ test_menu_api() {
     
     # code coverage 
     docker run -e GITHUB_USER_NAME="$GITHUB_USER_NAME" \
-    -e GITHUB_USER_PASSWORD=="$GITHUB_USER_PASSWORD" \
+    -e GITHUB_USER_PASSWORD="$GITHUB_USER_PASSWORD" \
     --name "$CI_API_NAME_coverage" \
     $IMAGE_BASE_NAME:$CI_API_NAME /bin/bash -c ./code_coverage.sh | tee output.txt
     docker rm $(docker ps -aqf "name=$CI_API_NAME_coverage")

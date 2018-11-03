@@ -52,6 +52,8 @@ test:identity_api:
 
 test:menu_api:
   stage: test
+  before_script:
+    - apk add --update curl && rm -rf /var/cache/apk/*
   script:
     - ci/test.sh menu_api
   dependencies:

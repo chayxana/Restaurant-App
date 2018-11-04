@@ -58,8 +58,8 @@ test_menu_api() {
     
     BADGE_COLOR="orange"
 
-    ./generate_badge.sh "$CI_API_NAME_coverage.svg" "coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
-    ./upload_badge.sh "$CI_API_NAME_coverage.svg"
+    ./ci/generate_badge.sh "$CI_API_NAME_coverage.svg" "coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
+    ./ci/upload_badge.sh "$CI_API_NAME_coverage.svg"
 }
 
 main "$@"

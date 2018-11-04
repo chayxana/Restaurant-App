@@ -7,7 +7,7 @@ COPY . ./
 RUN apk add --no-cache git
 RUN go get -d -v -t ./...
 RUN go install -v ./...
-RUN CGO_ENABLED=0 go test -c ./controllers -o /tests/controllers.test
+RUN CGO_ENABLED=0 go test -c ./controllers -o /tests/controllers.test -cover
 
 #final stage
 FROM alpine:latest

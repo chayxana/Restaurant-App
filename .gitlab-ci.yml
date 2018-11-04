@@ -24,7 +24,7 @@ build:basket_api:
     - ci/build.sh basket_api
     - echo "success" > basket_status.txt
   after_script:
-    - ls -al
+    - cd src/Server/
     - ci/update_build_badge.sh `cat basket_status.txt` basket_api
 
 build:order_api:
@@ -35,7 +35,7 @@ build:order_api:
     - ci/build.sh order_api
     - echo "success" > order_status.txt
   after_script:
-    - ls -al
+    - cd src/Server/
     - ci/update_build_badge.sh `cat order_status.txt` order_api
 
 build:identity_api:
@@ -46,7 +46,7 @@ build:identity_api:
     - ci/build.sh identity_api
     - echo "success" > identity_status.txt
   after_script:
-    - ls -al 
+    - cd src/Server/
     - ci/update_build_badge.sh `cat identity_status.txt` identity_api
 
 build:menu_api:
@@ -57,7 +57,7 @@ build:menu_api:
     - ci/build.sh menu_api
     - echo "success" > menu_status.txt
   after_script:
-    - ls -al
+    - cd src/Server/
     - ci/update_build_badge.sh `cat menu_status.txt` identity_api
 
 test:basket_api:

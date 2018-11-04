@@ -6,5 +6,5 @@ git add -A
 DATE=`date +%Y-%m-%d`
 COMMIT_MESSAGE="Updating badges-$DATE"
 git commit -m"$COMMIT_MESSAGE"
-git push https://$GITHUB_USER_NAME:$GITHUB_USER_PASSWORD@github.com/Jurabek/restaurant-badges.git master
+git push -f https://$GITHUB_USER_NAME:$GITHUB_USER_PASSWORD@github.com/Jurabek/restaurant-badges.git master
 cd ..

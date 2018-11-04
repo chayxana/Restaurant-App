@@ -49,7 +49,7 @@ build:identity_api:
 build:menu_api:
   stage: build
   script:
-    - ci/update_build_badge.sh running identity_api
+    - ci/update_build_badge.sh running menu_api
     - echo "failure" > menu_status.txt
     - ci/build.sh menu_api
     - echo "success" > menu_status.txt

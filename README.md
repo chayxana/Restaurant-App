@@ -2,14 +2,13 @@
 
 | Microservices | Language      | Build Status| Coverage |
 | ------------- |:-------------:| -----------:| --------:|
-| Basket API    | Golang        | [![build status](https://www.dropbox.com/s/iyd2zm0dbuuz04k/basket_api_build_status.svg?dl=1)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
-| Menu API      | .net core     | [![build status](https://www.dropbox.com/s/k3mwmuo6nexjwwo/menu_api_build_status.svg?dl=1)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) | [![coverage](https://www.dropbox.com/s/cxqz4izs3i7tve3/menu_api_coverage.svg?dl=1)](https://jurabek.github.io/restaurant-menu-api-coverage)
-| Identity API | .net core      |    [![build status](https://www.dropbox.com/s/5rnmc8yrfynmyiw/identity_api_build_status.svg?dl=1)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
-| Order API | java |    [![build status](https://www.dropbox.com/s/h7mtywm6vb3vrx6/order_api_build_status.svg?dl=1)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
+| Basket API    | Golang        |<a href="https://gitlab.com/Jurabek/Restaurant-App/pipelines"><img alt="build status" src="https://www.dropbox.com/s/iyd2zm0dbuuz04k/basket_api_build_status.svg?raw=1"/></a> |
+| Menu API      | .net core     |<a href="https://gitlab.com/Jurabek/Restaurant-App/pipelines"><img alt="build status" src="https://www.dropbox.com/s/k3mwmuo6nexjwwo/menu_api_build_status.svg?raw=1"/></a> | <a href="https://gitlab.com/Jurabek/Restaurant-App/pipelines"><img alt="coverage" src="https://www.dropbox.com/s/cxqz4izs3i7tve3/menu_api_coverage.svg?raw=1"/></a> |
+| Identity API | .net core | <a href="https://gitlab.com/Jurabek/Restaurant-App/pipelines"><img alt="build status" src="https://www.dropbox.com/s/5rnmc8yrfynmyiw/identity_api_build_status.svg?raw=1"/></a>|
+| Order API | java |<a href="https://gitlab.com/Jurabek/Restaurant-App/pipelines"><img alt="build status" src="https://www.dropbox.com/s/h7mtywm6vb3vrx6/order_api_build_status.svg?raw=1"/></a>|
 
 [![Android Build status](https://build.appcenter.ms/v0.1/apps/ae1793a8-cb35-40cc-a5db-583847244261/branches/develop/badge)](https://appcenter.ms)
 [![iOS Build status](https://build.appcenter.ms/v0.1/apps/9a0e12b9-f5cc-4a2c-8d54-f09e48cffd86/branches/develop/badge)](https://appcenter.ms)
-
 
 
 <img src="art/1.png" width="210"/> <img src="art/2.png" width="210"/> <img src="art/3.png" width="210"/> <img src="art/4.png" width="210"/> <img src="art/5.png" width="210"/>

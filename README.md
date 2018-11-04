@@ -2,10 +2,10 @@
 
 | Microservices | Language      | Build Status| Coverage |
 | ------------- |:-------------:| -----------:| --------:|
-| Basket API    | Golang        |[![build status](https://raw.githubusercontent.com/Jurabek/restaurant-badges/master/basket_api_build_status.svg?sanitize=true)](https://gitlab.com/Jurabek/Restaurant-App/pipelines)|
-| Menu API      | .net core     | [![build status](https://raw.githubusercontent.com/Jurabek/restaurant-badges/master/menu_api_build_status.svg?sanitize=true)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) | [![coverage](https://raw.githubusercontent.com/Jurabek/restaurant-badges/master/menu_api_coverage.svg?sanitize=true)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
-| Identity API | .net core | [![build status](https://raw.githubusercontent.com/Jurabek/restaurant-badges/master/identity_api_build_status.svg?sanitize=true)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
-| Order API | java |[![build status](https://raw.githubusercontent.com/Jurabek/restaurant-badges/master/order_api_build_status.svg?sanitize=true)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
+| Basket API    | Golang        |[![build status](https://cdn.jsdelivr.net/gh/Jurabek/restaurant-badges/basket_api_build_status.svg?sanitize=true)](https://gitlab.com/Jurabek/Restaurant-App/pipelines)|
+| Menu API      | .net core     | [![build status](https://cdn.jsdelivr.net/gh/Jurabek/restaurant-badges/menu_api_build_status.svg?sanitize=true)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) | [![coverage](https://cdn.jsdelivr.net/gh/Jurabek/restaurant-badges/menu_api_coverage.svg?sanitize=true)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
+| Identity API | .net core | [![build status](https://cdn.jsdelivr.net/gh/Jurabek/restaurant-badges/identity_api_build_status.svg?sanitize=true)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
+| Order API | java |[![build status](https://cdn.jsdelivr.net/gh/Jurabek/restaurant-badges/order_api_build_status.svg?sanitize=true)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
 
 [![Android Build status](https://build.appcenter.ms/v0.1/apps/ae1793a8-cb35-40cc-a5db-583847244261/branches/develop/badge)](https://appcenter.ms)
 [![iOS Build status](https://build.appcenter.ms/v0.1/apps/9a0e12b9-f5cc-4a2c-8d54-f09e48cffd86/branches/develop/badge)](https://appcenter.ms)

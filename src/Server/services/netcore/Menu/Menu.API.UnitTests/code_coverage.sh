@@ -20,7 +20,8 @@ publish_repoport_to_github_pages(){
     git remote add origin https://github.com/Jurabek/restaurant-menu-api-coverage.git
     git pull
     git add -A
-    git commit -m'Updating code coverage'
+    DATE=`date +%Y-%m-%d`
+    git commit -m'Updating code coverage-$DATE'
     git push -f https://$GITHUB_USER_NAME:$GITHUB_USER_PASSWORD@github.com/Jurabek/restaurant-menu-api-coverage.git master
 }
 

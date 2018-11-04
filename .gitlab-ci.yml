@@ -14,6 +14,8 @@ before_script:
   - apk add --update curl && rm -rf /var/cache/apk/*
   - docker login registry.gitlab.com -u "$DOCKER_USER_NAME" -p $DOCKER_PASSWORD
   - cd src/Server/
+  - chmod +x ci/upload_badge.sh
+  - chmod +x ci/generate_badge.sh
   - chmod +x ci/build.sh
   - chmod +x ci/test.sh
 

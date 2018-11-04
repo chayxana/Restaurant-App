@@ -14,6 +14,7 @@ generate_report() {
 
 publish_repoport_to_github_pages(){
     cd /app/coveragereport
+    git init
     git config --global user.email "gitlabci@github.com"
     git config --global user.name "Jurabek"
     git remote add origin https://github.com/Jurabek/restaurant-menu-api-coverage.git

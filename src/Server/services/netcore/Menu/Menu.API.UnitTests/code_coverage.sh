@@ -20,7 +20,8 @@ publish_repoport_to_github_pages(){
     git pull
     git add -A
     DATE=`date +%Y-%m-%d`
-    git commit -m"Updating code coverage-$DATE"
+    COMMIT_MESSAGE="Updating code coverage-$DATE"
+    git commit -m"$COMMIT_MESSAGE"
     git push -f https://$GITHUB_USER_NAME:$GITHUB_USER_PASSWORD@github.com/Jurabek/restaurant-menu-api-coverage.git master
 }
 

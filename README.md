@@ -3,7 +3,7 @@
 | Microservices | Language      | Build Status| Coverage |
 | ------------- |:-------------:| -----------:| --------:|
 | Basket API    | Golang        | [![build status](https://www.dropbox.com/s/iyd2zm0dbuuz04k/basket_api_build_status.svg?raw=1)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
-| Menu API      | .net core     |   [![pipeline status](https://gitlab.com/Jurabek/Restaurant-App/badges/feature/backend_microservices_architicture/pipeline.svg)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) | [![coverage](https://www.dropbox.com/s/cxqz4izs3i7tve3/menu_api_coverage.svg?raw=1)](https://jurabek.github.io/restaurant-menu-api-coverage)
+| Menu API      | .net core     | [![build status](https://www.dropbox.com/s/k3mwmuo6nexjwwo/menu_api_build_status.svg?raw=1)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) | [![coverage](https://www.dropbox.com/s/cxqz4izs3i7tve3/menu_api_coverage.svg?raw=1)](https://jurabek.github.io/restaurant-menu-api-coverage)
 | Identity API | .net core      |    [![build status](https://www.dropbox.com/s/5rnmc8yrfynmyiw/identity_api_build_status.svg?raw=1)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
 | Order API | java |    [![build status](https://www.dropbox.com/s/h7mtywm6vb3vrx6/order_api_build_status.svg?raw=1)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
 

@@ -39,18 +39,18 @@ test_menu_api() {
     # code coverage 
     docker run -e GITHUB_USER_NAME="$GITHUB_USER_NAME" \
                -e GITHUB_USER_PASSWORD="$GITHUB_USER_PASSWORD" \
-                --name "$CI_API_NAME_coverage" \
-                $IMAGE_BASE_NAME:$CI_API_NAME /bin/bash -c ./code_coverage.sh | tee output.txt
+               --name "$CI_API_NAME_coverage" \
+               $IMAGE_BASE_NAME:$CI_API_NAME /bin/bash -c ./code_coverage.sh | tee output.txt
    
     docker rm $(docker ps -aqf "name=$CI_API_NAME_coverage")
     
     COVERAGE_RESULT=$(grep "Total Branch" output.txt | tr -dc '[0-9]+\.[0-9]')
     
-    if [ $COVERAGE_RESULT < 30] && [ $COVERAGE_RESULT > 0]; then
+    if [ $COVERAGE_RESULT -lt 30] && [ $COVERAGE_RESULT -gt 0]; then
         BADGE_COLOR="red"
-    elif [ $COVERAGE_RESULT > 30 ] && [ $COVERAGE_RESULT < 60]; then
+    elif [ $COVERAGE_RESULT -gt 30 ] && [ $COVERAGE_RESULT -lt 60]; then
         BADGE_COLOR="orange"
-    elif [ $COVERAGE_RESULT > 60 ] && [ $COVERAGE_RESULT < 100]; then
+    elif [ $COVERAGE_RESULT -gt 60 ] && [ $COVERAGE_RESULT -lt 100]; then
         BADGE_COLOR="green"
     else
         exit 1

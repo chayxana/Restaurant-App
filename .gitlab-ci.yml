@@ -58,7 +58,7 @@ build:menu_api:
     - echo "success" > menu_status.txt
   after_script:
     - cd src/Server/
-    - ci/update_build_badge.sh `cat menu_status.txt` identity_api
+    - ci/update_build_badge.sh `cat menu_status.txt` menu_api
 
 test:basket_api:
   stage: test

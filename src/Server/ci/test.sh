@@ -20,7 +20,7 @@ main () {
 
 test_basket_api() {
     docker pull "$IMAGE_BASE_NAME:$CI_API_NAME"
-    docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME ./controllers.test
+    docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME ./controllers.test -test.coverprofile=coverage.out
 }
 
 test_order_api(){

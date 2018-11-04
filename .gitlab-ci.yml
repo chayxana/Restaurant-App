@@ -11,65 +11,49 @@ variables:
   IMAGE_BASE_NAME: registry.gitlab.com/jurabek/restaurant-app
 
 before_script:
-  - mkdir -p badges
   - apk add --update curl && rm -rf /var/cache/apk/*
   - docker login registry.gitlab.com -u "$DOCKER_USER_NAME" -p $DOCKER_PASSWORD
-  - chmod +x src/Server/ci/build.sh
-  - chmod +x src/Server/ci/test.sh
+  - cd src/Server/
+  - chmod +x ci/build.sh
+  - chmod +x ci/test.sh
 
 build:basket_api:
   stage: build
   script:
-    - src/Server/ci/build.sh basket_api
+    - ci/build.sh basket_api
 
 build:order_api:
   stage: build
   script:
-    - src/Server/ci/build.sh order_api
+    - ci/build.sh order_api
 
 build:identity_api:
   stage: build
   script:
-    - src/Server/ci/build.sh identity_api
+    - ci/build.sh identity_api
 
 build:menu_api:
   stage: build
   script:
-    - src/Server/ci/build.sh menu_api
+    - ci/build.sh menu_api
 
 test:basket_api:
   stage: test
   script: 
-    - src/Server/ci/test.sh basket_api
+    - ci/test.sh basket_api
   dependencies:
     - build:basket_api
 
 test:identity_api:
   stage: test
   script: 
-    - src/Server/ci/test.sh identity_api
+    - ci/test.sh identity_api
   dependencies:
     - build:identity_api
 
 test:menu_api:
   stage: test
   script:
-    - src/Server/ci/test.sh menu_api
+    - ci/test.sh menu_api
   dependencies:
     - build:menu_api
-  artifacts:
-    paths:
-      - badges/
-
-pages:
-  stage: deploy
-  dependencies:
-    - test:menu_api
-  script:
-    - mv badges/ public/
-  artifacts:
-    paths:
-      - public
-    expire_in: 30 days
-  only:
-    - master

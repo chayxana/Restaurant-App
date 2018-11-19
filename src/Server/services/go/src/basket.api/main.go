@@ -58,7 +58,7 @@ func main() {
 		c.Redirect(http.StatusMovedPermanently, "/swagger/index.html")
 	})
 
-	router.Run(":5000")
+	router.Run()
 }
 
 func initRedis() (*redis.Pool, error) {

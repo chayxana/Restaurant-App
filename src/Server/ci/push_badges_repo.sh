@@ -6,6 +6,8 @@ DATE=`date +%Y-%m-%d`
 COMMIT_MESSAGE="Updating badges-$DATE"
 git commit -m"$COMMIT_MESSAGE"
 git fetch
+sleep 2
+git fetch
 git pull
 git push -f https://$GITHUB_USER_NAME:$GITHUB_USER_PASSWORD@github.com/Jurabek/restaurant-badges.git master
 cd ..

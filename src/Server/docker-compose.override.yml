@@ -13,9 +13,10 @@ services:
 
   order-api:
     environment: 
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://order-data:5432/orderdb
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://order_data:5432/orderdb
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=Passw0rd!
+      - SERVER_PORT=8080
 
   menu-data:
     environment:
@@ -30,9 +31,9 @@ services:
       - POSTGRES_USER=admin
       - PGDATA=/pg
       - POSTGRES_DB=identitydb
-  order-data:
+  
+  order_data:
     environment:
-      - CREATED_DATABASE=orderdb
       - POSTGRES_PASSWORD=Passw0rd!
       - POSTGRES_USER=admin
       - PGDATA=/pg

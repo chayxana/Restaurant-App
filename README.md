@@ -2,7 +2,7 @@
 
 | Microservices | Language      | Build Status| Coverage |
 | ------------- |:-------------:| -----------:| --------:|
-| Basket API    |  <img src="art/golang.svg" width="30"/>     |[![build status](https://jurabek.github.io/restaurant-badges/basket_api_build_status.svg?sanitize=true)](https://gitlab.com/Jurabek/Restaurant-App/pipelines)|
+| Basket API    |  <img src="art/golang.svg" width="20"/>     |[![build status](https://jurabek.github.io/restaurant-badges/basket_api_build_status.svg?sanitize=true)](https://gitlab.com/Jurabek/Restaurant-App/pipelines)|
 | Menu API      | <img src="art/dotnet.svg" width="30"/>    | [![build status](https://jurabek.github.io/restaurant-badges/menu_api_build_status.svg?sanitize=true)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) | [![coverage](https://jurabek.github.io/restaurant-badges//menu_api_coverage.svg?sanitize=true)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
 | Identity API | <img src="art/dotnet.svg" width="30"/> | [![build status](https://jurabek.github.io/restaurant-badges/identity_api_build_status.svg?sanitize=true)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
 | Order API | <img src="art/java.svg" width="30"/> |[![build status](https://jurabek.github.io/restaurant-badges/order_api_build_status.svg?sanitize=true)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |

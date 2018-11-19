@@ -15,14 +15,21 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
+
+
 group = 'com.jurabek.restaurant'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
+task testJar(type: Jar) {
+    classifier = 'tests'
+    from sourceSets.test.output
+}
+artifacts {
+    archives testJar
+}
 repositories {
 	mavenCentral()
 }
-
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')

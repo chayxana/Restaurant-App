@@ -17,20 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/orders")
 public class OrdersController {
 
-  private OrdersService ordersService;
+	private OrdersService ordersService;
 
-  @Autowired
-  public OrdersController(OrdersService ordersService) {
-    this.ordersService = ordersService;
-  }
+	@Autowired
+	public OrdersController(OrdersService ordersService) {
+		this.ordersService = ordersService;
+	}
 
-  @GetMapping()
-  public List<Order> getData() {
-    return null;
-  }
+	@GetMapping()
+	public List<Order> getData() {
+		return null;
+	}
 
-  @PostMapping()
-  public void create(@RequestBody CustomerBasketDto customerBasketDto) {
-    ordersService.Create(customerBasketDto);
-  }
+	@PostMapping()
+	public void create(@RequestBody CustomerBasketDto customerBasketDto) {
+		ordersService.Create(customerBasketDto);
+	}
 }

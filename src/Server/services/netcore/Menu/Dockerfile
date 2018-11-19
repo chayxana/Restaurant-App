@@ -27,8 +27,7 @@ RUN dotnet tool install --global dotnet-reportgenerator-globaltool
 
 COPY --from=publish /app .
 COPY --from=publish /apptest .
+EXPOSE 80
 
 RUN ["chmod", "+x", "code_coverage.sh"]
 CMD ["dotnet", "Menu.API.dll"]
-
-EXPOSE 5100

@@ -19,8 +19,9 @@ RUN dotnet publish test/Identity.API.UnitTests.csproj -c Release -o /apptest
 
 FROM build AS final
 WORKDIR /app
+
 COPY --from=publish /app .
 COPY --from=publish /apptest .
-CMD ["Identity.API.dll"] 
+EXPOSE 80
 
-EXPOSE 5000
+CMD ["dotnet", "Identity.API.dll"] 

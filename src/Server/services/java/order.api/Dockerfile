@@ -12,5 +12,5 @@ FROM java:alpine
 WORKDIR /root/
 COPY --from=builder /usr/src/ordering_api/build/libs/order.api-0.0.1-SNAPSHOT.jar .
 
-EXPOSE 5300
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "./order.api-0.0.1-SNAPSHOT.jar"]

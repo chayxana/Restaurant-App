@@ -1,5 +1,6 @@
 package com.jurabek.restaurant.order.api.controllers;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.jurabek.restaurant.order.api.dtos.CustomerBasketDto;
@@ -26,7 +27,7 @@ public class OrdersController {
 
 	@GetMapping()
 	public List<Order> getData() {
-		return null;
+		return this.ordersService.getAll();
 	}
 
 	@PostMapping()

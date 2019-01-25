@@ -39,7 +39,7 @@ public class Order extends AuditModel {
         this.orderedDate = orderedDate;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "order")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderItems> orderItems;
 
     /**

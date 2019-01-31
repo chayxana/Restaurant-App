@@ -20,7 +20,7 @@ main () {
 
 
 build_basket_api() {
-    cd  ./services/go/src/basket.api/
+    cd  ./services/go/basket.api/
     docker_build_and_push
 }
 

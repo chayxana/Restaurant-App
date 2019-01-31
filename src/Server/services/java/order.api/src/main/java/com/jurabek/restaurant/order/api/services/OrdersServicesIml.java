@@ -37,7 +37,7 @@ public class OrdersServicesIml implements OrdersService {
     }
 
     @Override
-    public List<OrderDto> getAll() {
+    public List<Order> getAll() {
         List<Order> orders = this.ordersRepository.findAll();
         return orders;
 	}

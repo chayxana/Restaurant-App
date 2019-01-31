@@ -217,6 +217,5 @@ ModelManifest.xml
 Images/
 *.idea/
 *.a
-src/Server/services/go/src/gopkg.in
-src/Server/services/go/src/github.com
 src/Server/services/go/src/basket.api/main
+src/Server/services/go/pkg

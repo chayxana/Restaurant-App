@@ -6,7 +6,7 @@ package repositories
 import (
 	"sync"
 
-	"basket.api/models"
+	"github.com/jurabek/basket.api/models"
 )
 
 var (

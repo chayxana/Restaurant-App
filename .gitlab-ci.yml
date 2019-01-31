@@ -13,6 +13,8 @@ variables:
 before_script:
   - apk add --update curl && rm -rf /var/cache/apk/*
   - apk add --update git && rm -rf /var/cache/apk/*
+  - apk add --no-cache curl jq python py-pip
+  - pip install awscli
   - docker login registry.gitlab.com -u "$DOCKER_USER_NAME" -p $DOCKER_PASSWORD
   - cd src/Server/
   - chmod -R +x ci/

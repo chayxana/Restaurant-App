@@ -3,9 +3,9 @@ package controllers
 import (
 	"net/http"
 
-	"basket.api/models"
-	"basket.api/repositories"
 	"github.com/gin-gonic/gin"
+	"github.com/jurabek/basket.api/models"
+	"github.com/jurabek/basket.api/repositories"
 )
 
 // BasketController is router initializer for http

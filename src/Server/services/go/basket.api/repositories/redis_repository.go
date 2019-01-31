@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"basket.api/models"
+	"github.com/jurabek/basket.api/models"
 
 	"github.com/gomodule/redigo/redis"
 )

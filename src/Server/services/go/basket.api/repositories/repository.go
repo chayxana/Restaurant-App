@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"basket.api/models"
+	"github.com/jurabek/basket.api/models"
 )
 
 type BasketRepository interface {

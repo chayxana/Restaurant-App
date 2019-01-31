@@ -32,5 +32,4 @@ fi
 FILE_NAME="badges/${CI_API_NAME}_build_status.svg"
 
 ./ci/generate_badge.sh $FILE_NAME "$BADGE_SUBJECT" "$BADGE_STATUS" $BADGE_COLOR
-sleep 1
-./ci/push_badges_repo.sh
+./ci/upload_badge_s3.sh $FILE_NAME

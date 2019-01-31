@@ -1,6 +1,7 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators/';
+import { map, catchError } from 'rxjs/operators';
 import { IBaseModel } from 'app/models/base.model';
 import { IBaseService } from 'app/services/interfaces/base.service';
 
@@ -57,6 +58,6 @@ export abstract class BaseService<T extends IBaseModel> implements IBaseService<
             errMsg = error.message ? error.message : error.toString();
         }
         console.error(errMsg);
-        return Observable.throw(errMsg);
+        return observableThrowError(errMsg);
     }
 }

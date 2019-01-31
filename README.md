@@ -10,7 +10,6 @@
 [![Android Build status](https://build.appcenter.ms/v0.1/apps/ae1793a8-cb35-40cc-a5db-583847244261/branches/develop/badge)](https://appcenter.ms)
 [![iOS Build status](https://build.appcenter.ms/v0.1/apps/9a0e12b9-f5cc-4a2c-8d54-f09e48cffd86/branches/develop/badge)](https://appcenter.ms)
 
-
 <img src="art/1.png" width="210"/> <img src="art/2.png" width="210"/> <img src="art/3.png" width="210"/> <img src="art/4.png" width="210"/> <img src="art/5.png" width="210"/>
 
 The Restaurant App is a sample open source application powered by C# and Xamarin, this sample provides us how to build mobile and web applications with a clean architecture and write testable and clean code.

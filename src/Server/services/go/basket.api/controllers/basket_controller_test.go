@@ -11,9 +11,9 @@ import (
 
 	"github.com/google/uuid"
 
-	"basket.api/models"
-	"basket.api/repositories"
 	"github.com/gin-gonic/gin"
+	"github.com/jurabek/basket.api/models"
+	"github.com/jurabek/basket.api/repositories"
 	"github.com/stretchr/testify/assert"
 )
 

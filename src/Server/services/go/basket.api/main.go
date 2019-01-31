@@ -2,18 +2,14 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 	"os"
 
-	"basket.api/controllers"
-	_ "basket.api/docs"
-	redisConfig "basket.api/redis"
-	"basket.api/repositories"
+	"github.com/jurabek/basket.api/controllers"
+	redisConfig "github.com/jurabek/basket.api/redis"
+	"github.com/jurabek/basket.api/repositories"
 
 	"github.com/gin-gonic/gin"
-	"github.com/gomodule/redigo/redis"
-	"github.com/swaggo/gin-swagger"
-	"github.com/swaggo/gin-swagger/swaggerFiles"
+	"github.com/gomodule/redigo/redis" // swagger embed files
 )
 
 // @title Basket API
@@ -50,14 +46,6 @@ func main() {
 			basket.POST("", controller.Create)
 		}
 	}
-
-	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
-	// Home page should be redirected to swagger page
-	router.GET("/", func(c *gin.Context) {
-		c.Redirect(http.StatusMovedPermanently, "/swagger/index.html")
-	})
-
 	router.Run()
 }
 

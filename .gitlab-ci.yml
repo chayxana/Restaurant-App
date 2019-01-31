@@ -18,7 +18,6 @@ before_script:
   - docker login registry.gitlab.com -u "$DOCKER_USER_NAME" -p $DOCKER_PASSWORD
   - cd src/Server/
   - chmod -R +x ci/
-  - ci/init_badges_repo.sh
 
 build:basket_api:
   stage: build

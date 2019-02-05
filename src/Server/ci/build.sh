@@ -20,21 +20,21 @@ main () {
 
 
 build_basket_api() {
-    cd  ./services/go/basket.api/
+    cd  ./services/basket.api/
     docker_build_and_push
 }
 
 build_order_api(){
-    cd ./services/java/order.api/
+    cd ./services/order.api/
     docker_build_and_push
 }
 build_identity_api() {
-    cd ./services/netcore/Identity/
+    cd ./services/identity.api/
     docker_build_and_push
 }
 
 build_menu_api() {
-    cd ./services/netcore/Menu/
+    cd ./services/menu.api/
     docker_build_and_push
 }
 

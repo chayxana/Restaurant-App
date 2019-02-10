@@ -83,3 +83,10 @@ test:menu_api:
     - ci/test.sh menu_api
   dependencies:
     - build:menu_api
+
+test:order_api:
+  stage: test
+  script:
+    - ci/test.sh order_api
+  dependencies:
+    - build:order_api

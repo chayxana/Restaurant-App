@@ -16,14 +16,22 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 
-
 group = 'com.jurabek.restaurant'
 sourceCompatibility = 1.8
 
 task testJar(type: Jar) {
+	zip64 = true
     classifier = 'tests'
+	manifest {
+    	attributes ('Main-Class': 'com.jurabek.restaurant.order.api.ApplicationTests')
+  	}
     from sourceSets.test.output
+	from { configurations.testRuntime.collect { it.isDirectory() ? it : zipTree(it) } }
+  	with jar
 }
+
+testJar.dependsOn 'test'
+
 artifacts {
     archives testJar
 }
@@ -34,7 +42,7 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
-	compile ('org.postgresql:postgresql:42.2.5')
+	compile('org.postgresql:postgresql:42.2.5')
 	compile('io.springfox:springfox-swagger2:2.9.2')
 	compile('io.springfox:springfox-swagger-ui:2.9.2')
 	compile('org.modelmapper:modelmapper:2.3.0')

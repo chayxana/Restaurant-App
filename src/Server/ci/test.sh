@@ -3,6 +3,8 @@
 CI_API_NAME=$1
 
 main () {
+    docker_pull
+
     case "$CI_API_NAME" in
         basket_api) test_basket_api ;;
         order_api) test_order_api ;;
@@ -19,21 +21,18 @@ main () {
 }
 
 test_basket_api() {
-    docker pull "$IMAGE_BASE_NAME:$CI_API_NAME"
     docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME ./controllers.test -test.coverprofile=coverage.out
 }
 
 test_order_api(){
-    echo "test order api"
+    docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "java" "-jar" "./order.api-tests.jar"
 }
 
 test_identity_api() {
-    docker pull "$IMAGE_BASE_NAME:$CI_API_NAME"
     docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "dotnet" "vstest" "./Identity.API.UnitTests.dll"
 }
 
 test_menu_api() {
-    docker pull "$IMAGE_BASE_NAME:$CI_API_NAME"
     docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "dotnet" "vstest" "./Menu.API.UnitTests.dll"
     
     # code coverage 
@@ -61,6 +60,10 @@ test_menu_api() {
 
     ./ci/generate_badge.sh $COVERAGE_FILE_NAME "coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
     ./ci/upload_badge_s3.sh $COVERAGE_FILE_NAME
+}
+
+docker_pull() {
+    docker pull "$IMAGE_BASE_NAME:$CI_API_NAME"
 }
 
 main "$@"

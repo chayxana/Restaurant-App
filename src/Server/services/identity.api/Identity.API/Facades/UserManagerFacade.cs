@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Identity.API.Abstraction;
-using Identity.API.Data;
-using Identity.API.Model;
 using Identity.API.Model.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

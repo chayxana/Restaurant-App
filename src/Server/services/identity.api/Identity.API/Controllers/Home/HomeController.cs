@@ -34,14 +34,6 @@ namespace Identity.API.Controllers.Home
             return NotFound();
         }
 
-        [Authorize]
-        public IActionResult Secure()
-        {
-            ViewData["Message"] = "Secure page.";
-
-            return View();
-        }
-
         /// <summary>
         /// Shows the error page
         /// </summary>

@@ -47,4 +47,19 @@ public class OrdersServicesIml implements OrdersService {
         List<CustomerOrderDto> result = modelMapper.map(orders, orderDtoType);
         return result;
 	}
+
+    @Override
+    public boolean Update(CustomerBasketDto customerBasketDto) {
+        return false;
+    }
+
+    @Override
+    public CustomerOrderDto getOrderByCustomerId(String customerId) {
+        return null;
+    }
+
+	@Override
+	public boolean Delete(String orderId) {
+		return false;
+	}
 }

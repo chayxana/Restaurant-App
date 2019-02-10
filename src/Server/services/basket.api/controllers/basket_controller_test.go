@@ -17,6 +17,18 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var items = []models.BasketItem{
+	models.BasketItem{
+		ID:           uuid.New(),
+		FoodID:       uuid.New(),
+		UnitPrice:    20,
+		OldUnitPrice: 10,
+		Quantity:     1,
+		Picture:      "picture",
+		FoodName:     "foodName",
+	},
+}
+
 func TestBasketControllerGetShouldReturnOkWhenValidCustomerID(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	customerBasket := models.CustomerBasket{}
@@ -60,17 +72,6 @@ func TestBasketControllerGetShouldReturnBadRequestWhenInValidCustomerID(t *testi
 
 func TestBasketControllerCreateShouldCreateItemAndReturnOk(t *testing.T) {
 	gin.SetMode(gin.TestMode)
-	items := []models.BasketItem{
-		models.BasketItem{
-			ID:           uuid.New(),
-			FoodID:       uuid.New(),
-			UnitPrice:    20,
-			OldUnitPrice: 10,
-			Quantity:     1,
-			Picture:      "picture",
-			FoodName:     "foodName",
-		},
-	}
 
 	customerBasket := models.CustomerBasket{
 		CustomerID: uuid.New(),
@@ -105,17 +106,6 @@ func TestBasketControllerCreateShouldCreateItemAndReturnOk(t *testing.T) {
 
 func TestBasketControllerCreateShouldNotCreateItemAndReturn_400(t *testing.T) {
 	gin.SetMode(gin.TestMode)
-	items := []models.BasketItem{
-		models.BasketItem{
-			ID:           uuid.New(),
-			FoodID:       uuid.New(),
-			UnitPrice:    20,
-			OldUnitPrice: 10,
-			Quantity:     1,
-			Picture:      "picture",
-			FoodName:     "foodName",
-		},
-	}
 
 	customerBasket := models.CustomerBasket{
 		CustomerID: uuid.New(),
@@ -142,17 +132,6 @@ func TestBasketControllerCreateShouldNotCreateItemAndReturn_400(t *testing.T) {
 
 func TestBasketControllerCreateShouldCreateItemAndWhenCouldNotFindCreatedItemReturn_400(t *testing.T) {
 	gin.SetMode(gin.TestMode)
-	items := []models.BasketItem{
-		models.BasketItem{
-			ID:           uuid.New(),
-			FoodID:       uuid.New(),
-			UnitPrice:    20,
-			OldUnitPrice: 10,
-			Quantity:     1,
-			Picture:      "picture",
-			FoodName:     "foodName",
-		},
-	}
 
 	customerBasket := models.CustomerBasket{
 		CustomerID: uuid.New(),

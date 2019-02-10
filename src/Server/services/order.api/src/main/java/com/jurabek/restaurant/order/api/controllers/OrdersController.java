@@ -33,4 +33,12 @@ public class OrdersController {
 	public void create(@RequestBody CustomerBasketDto customerBasketDto) {
 		ordersService.Create(customerBasketDto);
 	}
+
+	public void update(@RequestBody CustomerBasketDto customerBasketDto) {
+		
+	}
+
+	public CustomerBasketDto getOrderByCustomerId(String customerId) {
+		return null;
+	}
 }

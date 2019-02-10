@@ -9,6 +9,11 @@ import com.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
  * OrdersService
  */
 public interface OrdersService {
-    boolean Create(CustomerBasketDto customerBasketDto);
+    
+    CustomerOrderDto getOrderByCustomerId(String customerId);
     List<CustomerOrderDto> getAll();
+
+    boolean Create(CustomerBasketDto customerBasketDto);
+    boolean Update(CustomerBasketDto customerBasketDto);
+    boolean Delete(String orderId);
 }

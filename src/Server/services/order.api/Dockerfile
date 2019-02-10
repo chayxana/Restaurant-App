@@ -1,16 +1,14 @@
-FROM gradle:4.2.1-jdk8-alpine AS builder
+FROM java:alpine AS builder
 
 COPY . /usr/src/ordering_api
 WORKDIR /usr/src/ordering_api
 
-USER root
-RUN chown -R gradle /usr/src/ordering_api
-USER gradle
-RUN gradle build --stacktrace
+RUN ./gradlew build -x test
 
 FROM java:alpine
 WORKDIR /root/
 COPY --from=builder /usr/src/ordering_api/build/libs/order.api.jar .
+COPY --from=builder /usr/src/ordering_api/build/libs/order.api-tests.jar .
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "./order.api.jar"]
+CMD ["java", "-jar", "./order.api.jar"]

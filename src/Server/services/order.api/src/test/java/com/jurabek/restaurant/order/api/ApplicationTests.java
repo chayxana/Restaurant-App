@@ -1,18 +1,25 @@
-// package com.jurabek.restaurant.order.api;
+package com.jurabek.restaurant.order.api;
 
-// import org.junit.Ignore;
-// import org.junit.Test;
-// import org.junit.runner.RunWith;
-// import org.springframework.boot.test.context.SpringBootTest;
-// import org.springframework.test.context.junit4.SpringRunner;
+import com.jurabek.restaurant.order.api.controllers.OrdersControllerTests;
 
-// @RunWith(SpringRunner.class)
-// @SpringBootTest
-// @Ignore
-// public class ApplicationTests {
+import org.junit.internal.TextListener;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
 
-// 	@Test
-// 	public void contextLoads() {
+/**
+ * ApplicationTests
+ */
+public class ApplicationTests {
 
-// 	}
-// }
+    public static void main(String[] args) {
+        JUnitCore junit = new JUnitCore();
+        junit.addListener(new TextListener(System.out));
+        Result result = junit.run(OrdersControllerTests.class);
+        printResult(result);
+    }
+
+    public static void printResult(Result result) {
+        System.out.printf("Test ran: %s, Failed: %s%n",
+                result.getRunCount(), result.getFailureCount());
+    }
+}

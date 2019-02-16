@@ -1,1 +1,0 @@
-FROM microsoft/aspnetcore:alpine

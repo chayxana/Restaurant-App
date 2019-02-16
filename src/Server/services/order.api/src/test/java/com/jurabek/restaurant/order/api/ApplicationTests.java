@@ -18,7 +18,7 @@ public class ApplicationTests {
         printResult(result);
     }
 
-    public static void printResult(Result result) {
+    private static void printResult(Result result) {
         System.out.printf("Test ran: %s, Failed: %s%n",
                 result.getRunCount(), result.getFailureCount());
     }

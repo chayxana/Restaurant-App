@@ -28,10 +28,9 @@ public class CustomerBasketToOrderMap extends PropertyMap<CustomerBasketDto, Ord
 
         using(ctx -> {
             CustomerBasketDto customerBasketDto = (CustomerBasketDto) ctx.getSource();
-            List<OrderItems> orderItems = customerBasketDto.getItems().stream()
+
+            return customerBasketDto.getItems().stream()
                     .map(basketItem -> modelMapper.map(basketItem, OrderItems.class)).collect(Collectors.toList());
-            
-            return orderItems;
         }).map(source, destination.getOrderItems());
 
         map().setId(UUID.randomUUID());

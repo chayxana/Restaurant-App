@@ -23,7 +23,7 @@ build:basket_api:
   stage: build
   script:
     - ci/update_build_badge.sh running basket_api
-    - echo "failure" > basket_status.txt
+    - echo "failure" > basket_status.txt #Variables does not work, why I don't know (:
     - ci/build.sh basket_api
     - echo "success" > basket_status.txt
   after_script:

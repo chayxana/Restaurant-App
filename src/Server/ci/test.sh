@@ -36,12 +36,10 @@ test_menu_api() {
     docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "dotnet" "vstest" "./Menu.API.UnitTests.dll"
     
     # code coverage 
-    docker run -e GITHUB_USER_NAME="$GITHUB_USER_NAME" \
-               -e GITHUB_USER_PASSWORD="$GITHUB_USER_PASSWORD" \
+    docker run -v /coveragereport/menu_api:/app/coveragereport \
                --name "$CI_API_NAME_coverage" \
                $IMAGE_BASE_NAME:$CI_API_NAME /bin/bash -c ./code_coverage.sh | tee output.txt
    
-    docker rm $(docker ps -aqf "name=$CI_API_NAME_coverage")
     
     COVERAGE_RESULT=$(grep "Total Branch" output.txt | tr -dc '[0-9]+\.[0-9]')
     
@@ -60,6 +58,8 @@ test_menu_api() {
 
     ./ci/generate_badge.sh $COVERAGE_FILE_NAME "coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
     ./ci/upload_badge_s3.sh $COVERAGE_FILE_NAME
+    cd /coveragereport/menu_api & ls
+    docker rm $(docker ps -aqf "name=$CI_API_NAME_coverage")
 }
 
 docker_pull() {

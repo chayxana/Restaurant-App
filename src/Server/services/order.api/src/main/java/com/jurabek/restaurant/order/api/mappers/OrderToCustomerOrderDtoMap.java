@@ -25,10 +25,9 @@ public class OrderToCustomerOrderDtoMap extends PropertyMap<Order, CustomerOrder
     protected void configure() {
         using(ctx -> {
             Order order = (Order) ctx.getSource();
-            List<CustomerOrderItemsDto> orderItems = order.getOrderItems().stream()
+
+            return order.getOrderItems().stream()
                     .map(orderItem -> modelMapper.map(orderItem, CustomerOrderItemsDto.class)).collect(Collectors.toList());
-            
-            return orderItems;
         }).map(source, destination.getOrderItems());
     }
 }

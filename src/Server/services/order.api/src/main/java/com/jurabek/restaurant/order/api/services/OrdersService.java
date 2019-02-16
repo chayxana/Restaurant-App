@@ -12,8 +12,7 @@ public interface OrdersService {
     
     CustomerOrderDto getOrderByCustomerId(String customerId);
     List<CustomerOrderDto> getAll();
-
-    boolean Create(CustomerBasketDto customerBasketDto);
-    boolean Update(CustomerBasketDto customerBasketDto);
-    boolean Delete(String orderId);
+    void Create(CustomerBasketDto customerBasketDto);
+    void Update(CustomerBasketDto customerBasketDto);
+    void Delete(String orderId);
 }

@@ -7,11 +7,7 @@ import com.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
 import com.jurabek.restaurant.order.api.services.OrdersService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/orders")
@@ -34,11 +30,22 @@ public class OrdersController {
 		ordersService.Create(customerBasketDto);
 	}
 
+	@PutMapping()
 	public void update(@RequestBody CustomerBasketDto customerBasketDto) {
-		
+		ordersService.Update(customerBasketDto);
 	}
 
-	public CustomerBasketDto getOrderByCustomerId(String customerId) {
-		return null;
+	@GetMapping("getOrderByCustomerId")
+	public CustomerOrderDto getOrderByCustomerId(String customerId) {
+		return ordersService.getOrderByCustomerId(customerId);
 	}
+
+	@DeleteMapping()
+	public void delete(String orderId){
+	    ordersService.Delete(orderId);
+    }
+
+    public void cancelOrder(String orderId) {
+
+    }
 }

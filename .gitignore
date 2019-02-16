@@ -216,3 +216,6 @@ _Pvt_Extensions/
 ModelManifest.xml
 Images/
 *.idea/
+*.a
+src/Server/services/go/src/basket.api/main
+src/Server/services/go/pkg

@@ -22,7 +22,7 @@ FROM build AS final
 WORKDIR /app
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
-RUN dotnet tool install --global coverlet.console
+RUN dotnet tool install --global coverlet.console --version 1.2.1.0
 RUN dotnet tool install --global dotnet-reportgenerator-globaltool
 
 COPY --from=publish /app .

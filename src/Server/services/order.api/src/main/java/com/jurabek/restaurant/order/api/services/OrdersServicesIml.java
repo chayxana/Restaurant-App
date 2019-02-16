@@ -14,6 +14,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.lang.reflect.Type;
+import java.util.UUID;
 
 /**
  * OrdersServicesIml
@@ -31,35 +32,32 @@ public class OrdersServicesIml implements OrdersService {
     }
 
     @Override
-    public boolean Create(CustomerBasketDto customerBasketDto) {
+    public void Create(CustomerBasketDto customerBasketDto) {
         Order order = modelMapper.map(customerBasketDto, Order.class);
         for (OrderItems orderItems : order.getOrderItems()) {
             orderItems.setOrder(order);
         }
         ordersRepository.save(order);
-        return true;
     }
 
     @Override
     public List<CustomerOrderDto> getAll() {
         List<Order> orders = this.ordersRepository.findAll();
         Type orderDtoType = new TypeToken<ArrayList<CustomerOrderDto>>() {}.getType();
-        List<CustomerOrderDto> result = modelMapper.map(orders, orderDtoType);
-        return result;
+        return modelMapper.map(orders, orderDtoType);
 	}
 
     @Override
-    public boolean Update(CustomerBasketDto customerBasketDto) {
-        return false;
+    public void Update(CustomerBasketDto customerBasketDto) {
     }
 
     @Override
     public CustomerOrderDto getOrderByCustomerId(String customerId) {
-        return null;
+        Order order= ordersRepository.getByBuyerId(UUID.fromString(customerId));
+        return modelMapper.map(order, CustomerOrderDto.class);
     }
 
 	@Override
-	public boolean Delete(String orderId) {
-		return false;
+	public void Delete(String orderId) {
 	}
 }

@@ -1,8 +1,12 @@
 # Restaurant App
 
-[![Xamarin client build status](https://ci.appveyor.com/api/projects/status/p29atu2ty3ih7thm/branch/develop?svg=true&pendingText=client-core-unit-tests%20pending&passingText=client-core-unit-tests&failingText=client-core-unit-tests)](https://ci.appveyor.com/project/Jurabek/restaurant-manager-vwadp)
-[![Backend build status](https://ci.appveyor.com/api/projects/status/4uh90c7u42d8aleo/branch/develop?svg=true&pendingText=backend-unit-tests%20pending&passingText=backend-unit-tests&failingText=backend-unit-tests)](https://ci.appveyor.com/project/Jurabek/restaurant-manager)
-[![codecov](https://codecov.io/gh/Jurabek/Restaurant-App/branch/develop/graph/badge.svg)](https://codecov.io/gh/Jurabek/Restaurant-App)
+| Microservices | Language      | Build Status| Coverage |
+| ------------- |:-------------:| -----------:| --------:|
+| Basket API    |  <img src="art/golang.svg" width="20"/>     |[![build status](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/basket_api_build_status.svg)](https://gitlab.com/Jurabek/Restaurant-App/pipelines)|
+| Menu API      | <img src="art/dotnet.svg" width="30"/>    | [![build status](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/menu_api_build_status.svg)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) | [![coverage](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/menu_api_coverage.svg)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
+| Identity API | <img src="art/dotnet.svg" width="30"/> | [![build status](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/identity_api_build_status.svg)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
+| Order API | <img src="art/java.svg" width="30"/> |[![build status](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/order_api_build_status.svg)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
+
 [![Android Build status](https://build.appcenter.ms/v0.1/apps/ae1793a8-cb35-40cc-a5db-583847244261/branches/develop/badge)](https://appcenter.ms)
 [![iOS Build status](https://build.appcenter.ms/v0.1/apps/9a0e12b9-f5cc-4a2c-8d54-f09e48cffd86/branches/develop/badge)](https://appcenter.ms)
 

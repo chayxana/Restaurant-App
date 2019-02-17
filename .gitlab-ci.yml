@@ -18,40 +18,39 @@ before_script:
   - docker login registry.gitlab.com -u "$DOCKER_USER_NAME" -p $DOCKER_PASSWORD
   - cd src/Server/
   - chmod -R +x ci/
-  - pwd
 
-build:basket_api:
-  stage: build
-  script:
-    - ci/update_build_badge.sh running basket_api
-    - echo "failure" > basket_status.txt #Variables does not work, why I don't know (:
-    - ci/build.sh basket_api
-    - echo "success" > basket_status.txt
-  after_script:
-    - cd src/Server/
-    - ci/update_build_badge.sh `cat basket_status.txt` basket_api
+# build:basket_api:
+#   stage: build
+#   script:
+#     - ci/update_build_badge.sh running basket_api
+#     - echo "failure" > basket_status.txt #Variables does not work, why I don't know (:
+#     - ci/build.sh basket_api
+#     - echo "success" > basket_status.txt
+#   after_script:
+#     - cd src/Server/
+#     - ci/update_build_badge.sh `cat basket_status.txt` basket_api
 
-build:order_api:
-  stage: build
-  script:
-    - ci/update_build_badge.sh running order_api
-    - echo "failure" > order_status.txt
-    - ci/build.sh order_api
-    - echo "success" > order_status.txt
-  after_script:
-    - cd src/Server/
-    - ci/update_build_badge.sh `cat order_status.txt` order_api
+# build:order_api:
+#   stage: build
+#   script:
+#     - ci/update_build_badge.sh running order_api
+#     - echo "failure" > order_status.txt
+#     - ci/build.sh order_api
+#     - echo "success" > order_status.txt
+#   after_script:
+#     - cd src/Server/
+#     - ci/update_build_badge.sh `cat order_status.txt` order_api
 
-build:identity_api:
-  stage: build
-  script:
-    - ci/update_build_badge.sh running identity_api
-    - echo "failure" > identity_status.txt
-    - ci/build.sh identity_api
-    - echo "success" > identity_status.txt
-  after_script:
-    - cd src/Server/
-    - ci/update_build_badge.sh `cat identity_status.txt` identity_api
+# build:identity_api:
+#   stage: build
+#   script:
+#     - ci/update_build_badge.sh running identity_api
+#     - echo "failure" > identity_status.txt
+#     - ci/build.sh identity_api
+#     - echo "success" > identity_status.txt
+#   after_script:
+#     - cd src/Server/
+#     - ci/update_build_badge.sh `cat identity_status.txt` identity_api
 
 build:menu_api:
   stage: build
@@ -64,19 +63,19 @@ build:menu_api:
     - cd src/Server/
     - ci/update_build_badge.sh `cat menu_status.txt` menu_api
 
-test:basket_api:
-  stage: test
-  script: 
-    - ci/test.sh basket_api
-  dependencies:
-    - build:basket_api
+# test:basket_api:
+#   stage: test
+#   script: 
+#     - ci/test.sh basket_api
+#   dependencies:
+#     - build:basket_api
 
-test:identity_api:
-  stage: test
-  script: 
-    - ci/test.sh identity_api
-  dependencies:
-    - build:identity_api
+# test:identity_api:
+#   stage: test
+#   script: 
+#     - ci/test.sh identity_api
+#   dependencies:
+#     - build:identity_api
 
 test:menu_api:
   stage: test
@@ -85,9 +84,9 @@ test:menu_api:
   dependencies:
     - build:menu_api
 
-test:order_api:
-  stage: test
-  script:
-    - ci/test.sh order_api
-  dependencies:
-    - build:order_api
+# test:order_api:
+#   stage: test
+#   script:
+#     - ci/test.sh order_api
+#   dependencies:
+#     - build:order_api

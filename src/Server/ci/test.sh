@@ -35,8 +35,10 @@ test_identity_api() {
 test_menu_api() {
     docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "dotnet" "vstest" "./Menu.API.UnitTests.dll"
     
+    mkdir menu_api_coverage_report
+
     # code coverage
-    docker run -v /coveragereport/menu_api:/app/coveragereport \
+    docker run -v "$(pwd)"/menu_api_coverage_report:/app/coveragereport \
                 --name "$CI_API_NAME_coverage" \
                 $IMAGE_BASE_NAME:$CI_API_NAME /bin/bash -c ./code_coverage.sh | tee output.txt
     
@@ -48,7 +50,8 @@ test_menu_api() {
     ./ci/generate_badge.sh $COVERAGE_FILE_NAME "coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
     ./ci/upload_badge_s3.sh $COVERAGE_FILE_NAME
     
-    pwd
+    cd menu_api_coverage_report
+    ls
 
     docker rm $(docker ps -aqf "name=$CI_API_NAME_coverage")
 }

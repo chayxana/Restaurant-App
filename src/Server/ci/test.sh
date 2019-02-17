@@ -42,17 +42,15 @@ test_menu_api() {
                 --name "$CI_API_NAME_coverage" \
                 $IMAGE_BASE_NAME:$CI_API_NAME /bin/bash -c ./code_coverage.sh | tee output.txt
     
-    
     COVERAGE_RESULT=$(grep "Total Branch" output.txt | tr -dc '[0-9]+\.[0-9]')
     BADGE_COLOR=$(get_coverage_result_badge_color $COVERAGE_RESULT)
     COVERAGE_FILE_NAME="${CI_API_NAME}_coverage.svg"
     
     ./ci/generate_badge.sh $COVERAGE_FILE_NAME "coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
     ./ci/upload_badge_s3.sh $COVERAGE_FILE_NAME
-    
-    cd menu_api_coverage_report
-    ls
+    ./ci/sync_folder_s3.sh "$(pwd)/menu_api_coverage_report" menu_api
 
+    rm -rf menu_api_coverage_report
     docker rm $(docker ps -aqf "name=$CI_API_NAME_coverage")
 }
 

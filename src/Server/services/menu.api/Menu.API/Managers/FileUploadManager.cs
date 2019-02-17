@@ -22,7 +22,7 @@ namespace Menu.API.Managers
 		public async Task Upload(IFormFile file, string uniqId)
 		{
 			var uploadedFileName = $"{_fileInfoFacade.GetUniqName()}{Path.GetExtension(file.FileName)}";
-			var filePath = _fileInfoFacade.GetFilePathWithWeebRoot(uploadedFileName);
+			var filePath = _fileInfoFacade.GetFilePathWithWebRoot(uploadedFileName);
 			using (var fileStream = _fileInfoFacade.GetFileStream(filePath, FileMode.Create))
 			{
 				await file.CopyToAsync(fileStream);

@@ -10,7 +10,7 @@ namespace Menu.API.Abstraction.Facades
 
 		void Delete(string path);
 
-	    string GetFilePathWithWeebRoot(string fileName);
+	    string GetFilePathWithWebRoot(string fileName);
 
 	    string GetUniqName();
     }

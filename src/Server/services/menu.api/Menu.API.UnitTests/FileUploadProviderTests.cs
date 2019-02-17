@@ -25,7 +25,7 @@ namespace Menu.API.UnitTests
 ;
 			var fileInfoFacade = GetMock<IFileInfoFacade>();
 			fileInfoFacade.Setup(x => x.GetUniqName()).Returns(uniqName);
-			fileInfoFacade.Setup(x => x.GetFilePathWithWeebRoot(uniqFileName)).Returns(fullPath);
+			fileInfoFacade.Setup(x => x.GetFilePathWithWebRoot(uniqFileName)).Returns(fullPath);
 			fileInfoFacade.Setup(x => x.GetFileStream(fullPath, FileMode.Create)).Returns(Stream.Null);
 
 			var provider = ClassUnderTest;
@@ -63,7 +63,7 @@ namespace Menu.API.UnitTests
                 ;
             var fileInfoFacade = GetMock<IFileInfoFacade>();
             fileInfoFacade.Setup(x => x.GetUniqName()).Returns(uniqName);
-            fileInfoFacade.Setup(x => x.GetFilePathWithWeebRoot(uniqFileName)).Returns(fullPath);
+            fileInfoFacade.Setup(x => x.GetFilePathWithWebRoot(uniqFileName)).Returns(fullPath);
             fileInfoFacade.Setup(x => x.GetFileStream(fullPath, FileMode.Create)).Returns(Stream.Null);
 
             var provider = ClassUnderTest;
@@ -85,7 +85,7 @@ namespace Menu.API.UnitTests
             file.Setup(x => x.CopyToAsync(Stream.Null, default(CancellationToken))).Returns(Task.CompletedTask);
             var fileInfoFacade = GetMock<IFileInfoFacade>();
             fileInfoFacade.Setup(x => x.GetUniqName()).Returns(uniqName);
-            fileInfoFacade.Setup(x => x.GetFilePathWithWeebRoot(uniqFileName)).Returns(fullPath);
+            fileInfoFacade.Setup(x => x.GetFilePathWithWebRoot(uniqFileName)).Returns(fullPath);
             fileInfoFacade.Setup(x => x.GetFileStream(fullPath, FileMode.Create)).Returns(Stream.Null);
             fileInfoFacade.Setup(x => x.Exists(uniqFileName)).Returns(true);
             var provider = ClassUnderTest;

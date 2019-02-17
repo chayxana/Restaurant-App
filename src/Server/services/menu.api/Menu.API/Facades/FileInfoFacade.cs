@@ -30,7 +30,7 @@ namespace Menu.API.Facades
             File.Delete(path);
         }
 
-        public string GetFilePathWithWeebRoot(string fileName)
+        public string GetFilePathWithWebRoot(string fileName)
         {
             return _appEnvironment.WebRootPath + fileName;
         }

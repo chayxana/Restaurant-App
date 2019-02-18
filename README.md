@@ -3,7 +3,7 @@
 | Microservices | Language      | Build Status| Coverage |
 | ------------- |:-------------:| -----------:| --------:|
 | Basket API    |  <img src="art/golang.svg" width="20"/>     |[![build status](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/basket_api_build_status.svg)](https://gitlab.com/Jurabek/Restaurant-App/pipelines)|
-| Menu API      | <img src="art/dotnet.svg" width="30"/>    | [![build status](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/menu_api_build_status.svg)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) | [![coverage](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/menu_api_coverage.svg)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
+| Menu API      | <img src="art/dotnet.svg" width="30"/>    | [![build status](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/menu_api_build_status.svg)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) | [![coverage](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/menu_api_coverage.svg)](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/coverage/menu_api/index.htm)|
 | Identity API | <img src="art/dotnet.svg" width="30"/> | [![build status](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/identity_api_build_status.svg)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
 | Order API | <img src="art/java.svg" width="30"/> |[![build status](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/order_api_build_status.svg)](https://gitlab.com/Jurabek/Restaurant-App/pipelines) |
 

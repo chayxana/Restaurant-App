@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Identity.API.Data;
 using Identity.API.Model.Entities;
+using IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -28,6 +29,11 @@ namespace Identity.API
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();   
                     new RestaurantDbContextSeed().SeedAsync(logger, configuration, roleManager, userManager).Wait();
                 })
+                .MigrateDbContext<ConfigurationDbContext>((context, services) =>
+                    {
+                        var configuration = services.GetRequiredService<IConfiguration>();
+                        new ConfigurationDbContextSeed().SeedAsync(context, configuration).Wait();
+                    })
                 .Run();
         }
 

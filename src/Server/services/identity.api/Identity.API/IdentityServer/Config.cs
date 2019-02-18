@@ -5,78 +5,78 @@ using IdentityServer4.Models;
 
 namespace Identity.API.IdentityServer
 {
-	[ExcludeFromCodeCoverage]
-	public static class Config
-	{
-		// scopes define the resources in your system
-		public static IEnumerable<IdentityResource> GetIdentityResources()
-		{
-			return new List<IdentityResource>
-			{
-				new IdentityResources.OpenId(),
-				new IdentityResources.Profile()
-			};
-		}
+    [ExcludeFromCodeCoverage]
+    public static class Config
+    {
+        // scopes define the resources in your system
+        public static IEnumerable<IdentityResource> GetIdentityResources()
+        {
+            return new List<IdentityResource>
+            {
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile()
+            };
+        }
 
-		public static IEnumerable<ApiResource> GetApiResources()
-		{
-			return new List<ApiResource>
-			{
-				new ApiResource(ApiConstants.ApiName, "Restaurant Manager Api")
-				{
-					UserClaims = {"role"}
-				}
-			};
-		}
+        public static IEnumerable<ApiResource> GetApiResources()
+        {
+            return new List<ApiResource>
+            {
+                new ApiResource(ApiConstants.ApiName, "Restaurant Manager Api")
+                {
+                    UserClaims = {"role"}
+                }
+            };
+        }
 
-		// clients want to access resources (aka scopes)
-		public static IEnumerable<Client> GetClients()
-		{
-			// client credentials client
-			return new List<Client>
-			{
-				// resource owner password grant client
-				new Client
-				{
-					ClientId = ApiConstants.ClientId,
-					AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+        // clients want to access resources (aka scopes)
+        public static IEnumerable<Client> GetClients()
+        {
+            // client credentials client
+            return new List<Client>
+            {
+                // resource owner password grant client
+                new Client
+                {
+                    ClientId = ApiConstants.ClientId,
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
 
-					ClientSecrets =
-					{
-						new Secret("secret".Sha256())
-					},
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
 
-					AllowedScopes =
-					{
-						ApiConstants.ApiName
-					},
+                    AllowedScopes =
+                    {
+                        ApiConstants.ApiName
+                    },
 
-					AllowOfflineAccess = true
-				},
+                    AllowOfflineAccess = true
+                },
 
-			// OpenID Connect hybrid flow and client credentials client (MVC)
-			new Client
-				{
-					ClientId = "mvc_client",
-					ClientName = "MVC Client",
-					AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
+                // OpenID Connect hybrid flow and client credentials client (MVC)
+                new Client
+                {
+                    ClientId = "mvc_client",
+                    ClientName = "MVC Client",
+                    AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
 
-					RequireConsent = false,
+                    RequireConsent = false,
 
-					ClientSecrets = {new Secret("secret".Sha256())},
+                    ClientSecrets = {new Secret("secret".Sha256())},
 
-					RedirectUris = {"http://localhost:5002/signin-oidc"},
-					PostLogoutRedirectUris = {"http://localhost:5002/signout-callback-oidc"},
+                    RedirectUris = {"http://localhost:5002/signin-oidc"},
+                    PostLogoutRedirectUris = {"http://localhost:5002/signout-callback-oidc"},
 
-					AllowedScopes =
-					{
-						IdentityServerConstants.StandardScopes.OpenId,
-						IdentityServerConstants.StandardScopes.Profile,
-						ApiConstants.ApiName
-					},
-					AllowOfflineAccess = true
-				}
-			};
-		}
-	}
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        ApiConstants.ApiName
+                    },
+                    AllowOfflineAccess = true
+                }
+            };
+        }
+    }
 }

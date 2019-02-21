@@ -277,7 +277,7 @@ namespace Identity.API.Controllers.Account
                 ExternalProviders = providers.ToArray()
             };
         }
-
+        
         private async Task<LoginViewModel> BuildLoginViewModelAsync(LoginInputModel model)
         {
             var vm = await BuildLoginViewModelAsync(model.ReturnUrl);

@@ -14,7 +14,9 @@ using Restaurant.Core.Facades;
 using Restaurant.Core.Factories;
 using Restaurant.Core.MockData;
 using Restaurant.Core.Providers;
+using Restaurant.Core.Publishers;
 using Restaurant.Core.Services;
+using Restaurant.Core.Subscribers;
 using Restaurant.Core.ViewModels;
 using Restaurant.Core.ViewModels.Android;
 
@@ -46,6 +48,9 @@ namespace Restaurant.Core
             builder.RegisterType<NavigationItemAdapter>().As<INavigationItemAdapter>();
             builder.RegisterType<OrderDtoAdapter>().As<IOrderDtoAdapter>();
             builder.RegisterType<IdentityModelTokenProvider>().As<ITokenProvider>();
+            
+            builder.RegisterType<BasketItemViewModelPublisher>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<BasketItemViewModelSubscriber>().AsImplementedInterfaces();
             
             if (MockData)
             {

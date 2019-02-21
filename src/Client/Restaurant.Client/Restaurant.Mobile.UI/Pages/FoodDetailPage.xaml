@@ -67,13 +67,13 @@
                 <Label TextColor="{StaticResource grayDark}" VerticalOptions="Center" HorizontalOptions="Center"
                        FontSize="16" Text="Total price: " />
                 <Label TextColor="{StaticResource grayDark}" VerticalOptions="Center" HorizontalOptions="Center"
-                       Text="{Binding CurrentOrder.TotalPriceAnimated}" FontSize="16" />
+                       Text="{Binding CurrentBasketItem.TotalPriceAnimated}" FontSize="16" />
             </StackLayout>
 
             <controls:Divider />
 
             <views:StepperView Margin="{StaticResource FoodDetailtPadding}" MinValue="0" HorizontalOptions="Center"
-                               Value="{Binding CurrentOrder.Quantity}" />
+                               Value="{Binding CurrentBasketItem.Quantity}" />
 
             <controls:Divider />
         </StackLayout>

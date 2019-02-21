@@ -1,13 +1,10 @@
-﻿using Restaurant.Common.DataTransferObjects;
-
-namespace Restaurant.Abstractions.ViewModels
+﻿namespace Restaurant.Abstractions.ViewModels
 {
-    public interface IOrderViewModel
+    public interface IBasketItemViewModel
     {
         IFoodViewModel Food { get; }
         decimal Quantity { get; set; }
         decimal TotalPrice { get; }
 	    string TotalPriceAnimated { get; set; }
-		IOrderViewModel Clone();
     }
 }

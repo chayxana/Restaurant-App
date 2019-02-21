@@ -6,9 +6,8 @@ namespace Restaurant.Abstractions.ViewModels
     public interface IFoodDetailViewModel : INavigatableViewModel
     {
         ICommand AddToBasket { get; }
-        IBasketViewModel BasketViewModel { get; set; }
-        IOrderViewModel CurrentOrder { get; }
         ICommand GoToBasket { get; }
+        IBasketItemViewModel CurrentBasketItem { get; }
         IFoodViewModel SelectedFood { get; }
     }
 }

@@ -10,7 +10,7 @@ namespace Restaurant.Core.ViewModels
 {
 	public class OrderViewModel : ReactiveObject, IOrderViewModel
 	{
-		private decimal _quntity = 1;
+		private decimal _quantity = 1;
 		private string _totalPriceAnimated;
 
 		public OrderViewModel(IFoodViewModel food)
@@ -21,6 +21,7 @@ namespace Restaurant.Core.ViewModels
 				.Select(_ => TotalPrice)
 				.Subscribe(async totalPrice =>
 				{
+					// Animating Total Price in UI
 					var j = totalPrice - 15;
 					j = j <= 0 ? 0 : j;
 					for (var i = j; i <= totalPrice; i++)
@@ -31,20 +32,20 @@ namespace Restaurant.Core.ViewModels
 				});
 		}
 
-		public OrderViewModel(IFoodViewModel food, decimal quntity)
+		public OrderViewModel(IFoodViewModel food, decimal quantity)
 		{
 			Food = food;
-			Quantity = quntity;
+			Quantity = quantity;
 		}
 
 		public IFoodViewModel Food { get; }
 
 		public decimal Quantity
 		{
-			get => _quntity;
+			get => _quantity;
 			set
 			{
-				this.RaiseAndSetIfChanged(ref _quntity, value);
+				this.RaiseAndSetIfChanged(ref _quantity, value);
 				this.RaisePropertyChanged(nameof(TotalPrice));
 			}
 		}

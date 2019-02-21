@@ -43,7 +43,7 @@ namespace Restaurant.Core.Services
 
             return _navigationFacade.PushAsync(CurrentView);
         }
-
+        
         public Task NavigateAsync(Type viewModelType)
         {
             var vm = _viewModelFactory.GetViewModel(viewModelType);

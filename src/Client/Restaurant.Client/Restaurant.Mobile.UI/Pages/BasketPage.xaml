@@ -20,7 +20,7 @@
                          AbsoluteLayout.LayoutFlags="All"
                          Margin="0, 15, 0, 0">
                
-                <ListView x:Name="orders" ItemsSource="{Binding Orders}" SeparatorColor="{StaticResource grayPrimary}"
+                <ListView x:Name="orders" ItemsSource="{Binding Items}" SeparatorColor="{StaticResource grayPrimary}"
                           RowHeight="100">
                     <ListView.ItemTemplate>
                         <DataTemplate>

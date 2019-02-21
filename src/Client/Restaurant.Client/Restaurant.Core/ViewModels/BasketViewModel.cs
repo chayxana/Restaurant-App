@@ -1,66 +1,75 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Input;
 using ReactiveUI;
 using Restaurant.Abstractions.Adapters;
 using Restaurant.Abstractions.Api;
 using Restaurant.Abstractions.Services;
+using Restaurant.Abstractions.Subscribers;
 using Restaurant.Abstractions.ViewModels;
 
 namespace Restaurant.Core.ViewModels
 {
     public class BasketViewModel : BaseViewModel, IBasketViewModel
     {
-        private ReactiveList<IOrderViewModel> _orders = new ReactiveList<IOrderViewModel> { ChangeTrackingEnabled = true };
-        private readonly ObservableAsPropertyHelper<decimal> _totalPrice;
-        private readonly ObservableAsPropertyHelper<string> _ordersCount;
+        private ObservableCollection<IBasketItemViewModel> _items = new ObservableCollection<IBasketItemViewModel>();
+        private decimal _totalPrice;
+        private string _ordersCount;
 
         public BasketViewModel(
             IOrdersApi ordersApi,
+            IBasketItemViewModelSubscriber basketItemViewModelSubscriber,
             INavigationService navigationService,
             IOrderDtoAdapter orderDtoAdapter)
         {
-           _ordersCount = this.WhenAnyValue(x => x.Orders.Count)
-                .Select(count => count == 0 ? null : count.ToString())
-                .ToProperty(this, x => x.OrdersCount);
-
-            _totalPrice = this.WhenAnyObservable(vm => vm.Orders.ItemChanged)
-                .Select(x => Orders.Sum(o => o.TotalPrice))
-                .ToProperty(this, x => x.TotalPrice);
-
-            CompleteOrder = ReactiveCommand.Create(() =>
+            basketItemViewModelSubscriber.Handler
+                .Subscribe(item =>
+                {  
+                    AddBasketItem(item);
+                    OrdersCount = _items.Count.ToString();
+                    TotalPrice = _items.Sum(i => i.TotalPrice);
+                });
+            
+            CompleteOrder = ReactiveCommand.CreateFromTask(async () =>
             {
-                var orderDto = orderDtoAdapter.GetOrderFromOrderViewModels(Orders);
-                ordersApi.Create(orderDto);
-                Orders.Clear();
-                navigationService.NavigateToRoot();
+                var orderDto = orderDtoAdapter.GetOrderFromOrderViewModels(Items);
+                await ordersApi.Create(orderDto);
+                Items.Clear();
+                await navigationService.NavigateToRoot();
             });
         }
 
-        public decimal TotalPrice => _totalPrice.Value;
-
-        public string OrdersCount => _ordersCount.Value;
-
-        public ReactiveList<IOrderViewModel> Orders
+        public decimal TotalPrice
         {
-            get => _orders;
-            set => this.RaiseAndSetIfChanged(ref _orders, value);
+            get => _totalPrice;
+            set => this.RaiseAndSetIfChanged(ref _totalPrice, value);
         }
 
-        public void AddOrder(IOrderViewModel order)
+        public string OrdersCount
         {
-            _orders.Add(order.Clone());
-
-            var groupedOrders = _orders
-                .GroupBy(x => x.Food.Id)
-                .Select(orders => new OrderViewModel(orders.Select(x => x.Food).FirstOrDefault(x => x.Id == orders.Key), orders.Sum(s => s.Quantity)));
-
-            Orders = new ReactiveList<IOrderViewModel>(groupedOrders) { ChangeTrackingEnabled = true };
+            get => _ordersCount;
+            set => this.RaiseAndSetIfChanged(ref _ordersCount, value);
         }
 
-        public void RaiseOrdersCount()
+        public ObservableCollection<IBasketItemViewModel> Items
         {
-            this.RaisePropertyChanged(nameof(OrdersCount));
+            get => _items;
+            set => this.RaiseAndSetIfChanged(ref _items, value);
+        }
+
+        public void AddBasketItem(IBasketItemViewModel basketItem)
+        {
+            var addedItem = _items.FirstOrDefault(x => x.Food.Id == basketItem.Food.Id);
+            if (addedItem != null)
+            {
+                addedItem.Quantity += basketItem.Quantity;
+            }
+            else
+            {
+                _items.Add(basketItem);
+            }
         }
 
         public ICommand CompleteOrder { get; }

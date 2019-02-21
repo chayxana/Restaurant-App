@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
@@ -9,6 +10,7 @@ using ReactiveUI;
 using Restaurant.Abstractions.Api;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Services;
+using Restaurant.Abstractions.Subscribers;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
 using Restaurant.Core.ViewModels;
@@ -19,74 +21,59 @@ namespace Restaurant.Core.UnitTests.ViewModels
     public class BasketViewModelTests : BaseAutoMockedTest<BasketViewModel>
     {
         [Test, AutoDomainData]
-        public void Given_order_should_add_orders_list_and_quantity_of_order_should_be_sum_if_order_food_is_same_as_previus(FoodViewModel food)
+        public void Given_basket_item_list_and_quantity_of_items_should_be_sum_if_order_food_is_same_as_previus(FoodViewModel food)
         {
             // given
+            var publisher = new Subject<IBasketItemViewModel>();
+            
+            GetMock<IBasketItemViewModelSubscriber>().SetupGet(x => x.Handler)
+                .Returns(publisher);
+            
             var viewModel = ClassUnderTest;
-            var orderViewModel = new OrderViewModel(food)
+            var firstBasketItem = new BasketItemViewModel(food)
             {
                 Quantity = 2
             };
-            var orderViewModel2 = new OrderViewModel(food.Clone())
+            var secondBasketItem = new BasketItemViewModel(food)
             {
                 Quantity = 3
             };
+            
+           
 
             // when
-            viewModel.AddOrder(orderViewModel);
-            viewModel.AddOrder(orderViewModel2);
-
+            publisher.OnNext(firstBasketItem);
+            publisher.OnNext(secondBasketItem);
+            
             // then
-            Assert.That(orderViewModel.TotalPrice, Is.EqualTo(2 * food.Price));
-            Assert.That(viewModel.Orders.Count, Is.EqualTo(1));
-            Assert.That(viewModel.Orders.FirstOrDefault().Quantity, Is.EqualTo(5));
+            Assert.That(firstBasketItem.TotalPrice, Is.EqualTo(5 * food.Price));
+            Assert.That(viewModel.Items.Count, Is.EqualTo(1));
+            Assert.That(viewModel.Items.FirstOrDefault().Quantity, Is.EqualTo(5));
             
         }
 
-        [Test, AutoDomainData]
-        public void Given_order_should_clone_order_object_before_adding_to_orders_list(FoodViewModel food, FoodViewModel food2)
-        {
-            // given
-            var viewModel = ClassUnderTest;
-            var orderViewModel = new OrderViewModel(food)
-            {
-                Quantity = 2
-            };
-
-            var orderViewModel2 = new OrderViewModel(food2)
-            {
-                Quantity = 1
-            };
-
-            // when
-            viewModel.AddOrder(orderViewModel);
-
-            // this will be test Order Clone 
-            viewModel.AddOrder(orderViewModel);
-
-            // then
-            Assert.That(viewModel.Orders.Count, Is.EqualTo(1));
-            Assert.That(viewModel.Orders.FirstOrDefault().Quantity, Is.EqualTo(4));
-
-
-            // when
-            viewModel.AddOrder(orderViewModel2);
-            Assert.That(viewModel.Orders.Count, Is.EqualTo(2));
-
-            Assert.That(viewModel.Orders[0].Food, Is.Not.EqualTo(viewModel.Orders[1].Food));
-        }
 
         [Test]
         public void Title_should_be_your_basket()
         {
+            var publisher = new Subject<IBasketItemViewModel>();
+            
+            GetMock<IBasketItemViewModelSubscriber>().SetupGet(x => x.Handler)
+                .Returns(publisher);
+            
             Assert.That(ClassUnderTest.Title, Is.EqualTo("Your basket"));
         }
 
         [Test, AutoDomainData]
         public void Complete_order_should_push_OrderDto_to_server(IEnumerable<OrderItemDto> orders)
         {
+            var publisher = new Subject<IBasketItemViewModel>();
+            
+            GetMock<IBasketItemViewModelSubscriber>().SetupGet(x => x.Handler)
+                .Returns(publisher);
+            
             GetMock<IAutoMapperFacade>()
-                .Setup(x => x.Map<IEnumerable<OrderItemDto>>(It.IsAny<ReactiveList<IOrderViewModel>>()))
+                .Setup(x => x.Map<IEnumerable<OrderItemDto>>(It.IsAny<ReactiveList<IBasketItemViewModel>>()))
                 .Returns(orders);
 
             GetMock<IOrdersApi>().Setup(x => x.Create(It.IsAny<OrderDto>())).Returns(Task.CompletedTask);
@@ -97,10 +84,17 @@ namespace Restaurant.Core.UnitTests.ViewModels
         }
 
         [Test, AutoDomainData]
-        public void Add_orders_should_change_orders_count_as_string(OrderViewModel orderViewModel)
+        public void Add_orders_should_change_orders_count_as_string(FoodViewModel food)
         {
+            var basketItemViewModel = new BasketItemViewModel(food);
+            var publisher = new Subject<IBasketItemViewModel>();
+            
+            GetMock<IBasketItemViewModelSubscriber>().SetupGet(x => x.Handler)
+                .Returns(publisher);
+            
+            
             var viewModel = ClassUnderTest;
-            viewModel.Orders.Add(orderViewModel);
+            publisher.OnNext(basketItemViewModel);
 
             Assert.That(viewModel.OrdersCount, Is.EqualTo("1"));
         }

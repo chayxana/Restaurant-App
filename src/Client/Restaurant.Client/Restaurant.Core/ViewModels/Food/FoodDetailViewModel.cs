@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using JetBrains.Annotations;
 using ReactiveUI;
+using Restaurant.Abstractions.Publishers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Common.DataTransferObjects;
@@ -10,39 +11,32 @@ namespace Restaurant.Core.ViewModels
 {
     public class FoodDetailViewModel : BaseViewModel, IFoodDetailViewModel
     {
-        private IBasketViewModel _basketViewModel;
-        private IOrderViewModel _currentOrderViewModel;
+        private IBasketItemViewModel _currentBasketItemViewModel;
 
         public FoodDetailViewModel(
             IFoodViewModel selectedFood,
-            IBasketViewModel basketViewModel,
+            IBasketItemViewModelPublisher basketItemViewModelPublisher,
             INavigationService navigationService)
         {
             SelectedFood = selectedFood;
-            BasketViewModel = basketViewModel;
-            CurrentOrder = new OrderViewModel(SelectedFood);
+            
+            CurrentBasketItem = new BasketItemViewModel(SelectedFood);
 
-            AddToBasket = ReactiveCommand.Create(() =>
-                basketViewModel.AddOrder(CurrentOrder));
+            AddToBasket = ReactiveCommand.Create(() => 
+                basketItemViewModelPublisher.Publish(CurrentBasketItem));
 
             GoToBasket = ReactiveCommand.CreateFromTask(async () =>
-                await navigationService.NavigateAsync(basketViewModel));
+                await navigationService.NavigateAsync(typeof(IBasketViewModel)));
         }
 
         public override string Title => SelectedFood.Name;
 
         public IFoodViewModel SelectedFood { get; }
 
-        public IBasketViewModel BasketViewModel
+        public IBasketItemViewModel CurrentBasketItem
         {
-            get => _basketViewModel;
-            set => this.RaiseAndSetIfChanged(ref _basketViewModel, value);
-        }
-
-        public IOrderViewModel CurrentOrder
-        {
-            get => _currentOrderViewModel;
-            private set => this.RaiseAndSetIfChanged(ref _currentOrderViewModel, value);
+            get => _currentBasketItemViewModel;
+            private set => this.RaiseAndSetIfChanged(ref _currentBasketItemViewModel, value);
         }
 
         /// <summary>

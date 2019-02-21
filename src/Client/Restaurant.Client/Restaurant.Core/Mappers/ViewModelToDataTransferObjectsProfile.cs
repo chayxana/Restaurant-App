@@ -21,7 +21,7 @@ namespace Restaurant.Core.Mappers
                 .ForMember(x => x.Login, map => map.MapFrom(vm => vm.Email))
                 .ForMember(x => x.Password, map => map.MapFrom(vm => vm.Password));
 
-            CreateMap<IOrderViewModel, OrderItemDto>()
+            CreateMap<IBasketItemViewModel, OrderItemDto>()
                 .ForMember(x => x.Quantity, map => map.MapFrom(x => x.Quantity))
                 .ForMember(x => x.FoodId, map => map.MapFrom(x => x.Food.Id));
 

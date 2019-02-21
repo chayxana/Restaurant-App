@@ -22,7 +22,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
             viewModel.AddToBasket.Execute(null);
 
             // then
-            GetMock<IBasketViewModel>().Verify(x => x.AddOrder(viewModel.CurrentOrder), Times.Once);
+            GetMock<IBasketViewModel>().Verify(x => x.AddBasketItem(viewModel.CurrentBasketItem), Times.Once);
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
             viewModel.GoToBasket.Execute(null);
 
             // then
-            GetMock<INavigationService>().Verify(x => x.NavigateAsync(viewModel.BasketViewModel));
+            GetMock<INavigationService>().Verify(x => x.NavigateAsync(typeof(IBasketViewModel)));
         }
 
         [Test]

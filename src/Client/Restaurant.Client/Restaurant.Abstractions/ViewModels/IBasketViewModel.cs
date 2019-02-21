@@ -1,15 +1,14 @@
-﻿using ReactiveUI;
+﻿using System.Collections.ObjectModel;
+using ReactiveUI;
 
 namespace Restaurant.Abstractions.ViewModels
 {
     public interface IBasketViewModel : INavigatableViewModel
     {
-        ReactiveList<IOrderViewModel> Orders { get; }
+        ObservableCollection<IBasketItemViewModel> Items { get; }
 
         string OrdersCount { get; }
 
-        void RaiseOrdersCount();
-
-        void AddOrder(IOrderViewModel order);
+        void AddBasketItem(IBasketItemViewModel basketItem);
     }
 }

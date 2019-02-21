@@ -21,7 +21,7 @@ namespace Restaurant.Core.Adapters
 	        _autoMapperFacade = autoMapperFacade;
         }
 
-        public OrderDto GetOrderFromOrderViewModels(ReactiveList<IOrderViewModel> orderViewModels)
+        public OrderDto GetOrderFromOrderViewModels(IEnumerable<IBasketItemViewModel> orderViewModels)
         {
             var orderItems = _autoMapperFacade.Map<IEnumerable<OrderItemDto>>(orderViewModels);
             return new OrderDto()

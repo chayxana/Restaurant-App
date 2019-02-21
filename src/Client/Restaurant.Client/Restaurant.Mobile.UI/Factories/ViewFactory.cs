@@ -42,6 +42,7 @@ namespace Restaurant.Mobile.UI.Factories
 
                 view.Title = vm.Title;
                 ret.ViewModel = vm;
+                view.BindingContext = vm;
                 return ret;
             }
             catch (Exception ex)
@@ -65,6 +66,7 @@ namespace Restaurant.Mobile.UI.Factories
 
 		        view.Title = vm.Title;
 		        ret.ViewModel = vm;
+	            view.BindingContext = vm;
 		        return ret;
 			}
 	        catch (Exception ex)
@@ -86,6 +88,7 @@ namespace Restaurant.Mobile.UI.Factories
 
             view.Title = vm.Title;
             viewFor.ViewModel = vm;
+            view.BindingContext = vm;
             return viewFor;
         }
     }

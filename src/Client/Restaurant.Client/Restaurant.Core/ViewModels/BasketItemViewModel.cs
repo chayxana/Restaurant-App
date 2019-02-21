@@ -8,12 +8,12 @@ using Restaurant.Core.ViewModels.Food;
 
 namespace Restaurant.Core.ViewModels
 {
-	public class OrderViewModel : ReactiveObject, IOrderViewModel
+	public class BasketItemViewModel : ReactiveObject, IBasketItemViewModel
 	{
 		private decimal _quantity = 1;
 		private string _totalPriceAnimated;
 
-		public OrderViewModel(IFoodViewModel food)
+		public BasketItemViewModel(IFoodViewModel food)
 		{
 			Food = food;
 
@@ -30,12 +30,6 @@ namespace Restaurant.Core.ViewModels
 						TotalPriceAnimated = $"{i:C}";
 					}
 				});
-		}
-
-		public OrderViewModel(IFoodViewModel food, decimal quantity)
-		{
-			Food = food;
-			Quantity = quantity;
 		}
 
 		public IFoodViewModel Food { get; }
@@ -56,11 +50,6 @@ namespace Restaurant.Core.ViewModels
 		{
 			get => _totalPriceAnimated;
 			set => this.RaiseAndSetIfChanged(ref _totalPriceAnimated, value);
-		}
-
-		public IOrderViewModel Clone()
-		{
-			return (IOrderViewModel)MemberwiseClone();
 		}
 	}
 }

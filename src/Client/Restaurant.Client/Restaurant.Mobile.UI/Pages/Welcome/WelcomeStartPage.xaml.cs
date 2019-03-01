@@ -6,6 +6,7 @@ using Xamarin.Forms.Xaml;
 namespace Restaurant.Mobile.UI.Pages.Welcome
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
+	// ReSharper disable once RedundantExtendsListEntry
 	public partial class WelcomeStartPage : WelcomeStartPageXaml
     {
         public WelcomeStartPage()
@@ -20,8 +21,6 @@ namespace Restaurant.Mobile.UI.Pages.Welcome
             await label2.ScaleTo(1, AppConstants.AnimationSpeed, Easing.SinIn);
             await buttonStack.ScaleTo(1, AppConstants.AnimationSpeed, Easing.SinIn);
             await signUpStack.ScaleTo(1, AppConstants.AnimationSpeed, Easing.SinIn);
-
-            BindingContext = ViewModel;
         }
     }
 

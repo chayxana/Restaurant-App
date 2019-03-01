@@ -1,0 +1,21 @@
+#Will start the gateway server @8080
+server:
+  port=8080
+
+spring:
+  application:
+    name: restaurant-gateway
+ 
+#Ribbon is auto integrated with Zuul and for this exercise we are not using that.
+ribbon:
+  eureka:
+    enabled: false
+ 
+#Zuul routes. Here for /student path, we are routing to localhost:8090 with extra path after that.
+# urls will be ovveriding from docker-compose or kubernetes
+
+zuul:
+  routes:
+    menu:
+      path: /menu/** 
+      url: http://localhost:5200

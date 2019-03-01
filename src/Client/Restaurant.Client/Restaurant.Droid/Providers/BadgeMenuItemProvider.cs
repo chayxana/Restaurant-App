@@ -35,13 +35,15 @@ namespace Restaurant.Droid.Providers
                 textColor);
 
             var iconDrawable = GetFormsDrawable(item.Icon);
+            
+            IMenuItemController menuItemController = item;
 
             ActionItemBadge.Update(MainActivity,
                 menuItem,
                 iconDrawable,
                 badgeStyle,
                 item.BadgeText,
-                new MenuClickListener(item.Activate));
+                new MenuClickListener(menuItemController.Activate));
         }
 
         private Drawable GetFormsDrawable(FileImageSource fileImageSource)

@@ -9,6 +9,7 @@ using Xamarin.Forms.Xaml;
 namespace Restaurant.Mobile.UI.Pages.Android
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+    // ReSharper disable once RedundantExtendsListEntry
     public partial class MenuPage : ContentPage, IViewFor<MasterViewModel>
     {
 
@@ -34,7 +35,6 @@ namespace Restaurant.Mobile.UI.Pages.Android
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(item => { ViewModel.SelectedNavigationItem = item; });
 
-			this.BindingContext = ViewModel;
 	        await ViewModel.LoadUserInfo();
         }
     }

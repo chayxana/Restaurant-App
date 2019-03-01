@@ -16,7 +16,7 @@ namespace Restaurant.Mobile.UI.Providers
 		
 	    public string RefreshToken
 	    {
-		    get => _settings.GetValueOrDefault(Settings.RefreshTokenKey, String.Empty);
+		    get => _settings.GetValueOrDefault(Settings.RefreshTokenKey, string.Empty);
 		    set => _settings.AddOrUpdateValue(Settings.RefreshTokenKey, value);
 	    }
 		

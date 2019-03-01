@@ -237,7 +237,7 @@
       <Version>2.0.3</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI">
-      <Version>8.5.1</Version>
+      <Version>9.11.1</Version>
     </PackageReference>
     <PackageReference Include="Refit">
       <Version>4.6.30</Version>
@@ -402,7 +402,7 @@
       <Version>3.1.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.1.0.697729</Version>
+      <Version>3.5.0.169047</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

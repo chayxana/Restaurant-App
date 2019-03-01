@@ -7,6 +7,7 @@ using Xamarin.Forms.Xaml;
 namespace Restaurant.Mobile.UI.Pages.Welcome
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
+	// ReSharper disable once RedundantExtendsListEntry
 	public partial class SignInPage : SignInPageXaml
     {
         public SignInPage()
@@ -16,7 +17,6 @@ namespace Restaurant.Mobile.UI.Pages.Welcome
 
         protected override async void OnLoaded()
         {
-            BindingContext = ViewModel;
             await AnimateControls(1, Easing.SinIn);
         }
 

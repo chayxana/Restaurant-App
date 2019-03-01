@@ -5,9 +5,10 @@ using Page = Xamarin.Forms.Page;
 namespace Restaurant.Mobile.UI.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class CustomNavigationPage : NavigationPage
-	{
-        public CustomNavigationPage() : base()
+    // ReSharper disable once RedundantExtendsListEntry
+    public partial class CustomNavigationPage : NavigationPage
+    {
+        public CustomNavigationPage()
         {
             InitializeComponent();
         }
@@ -16,5 +17,5 @@ namespace Restaurant.Mobile.UI.Pages
         {
             InitializeComponent();
         }
-	}
+    }
 }

@@ -6,27 +6,37 @@ using Xamarin.Forms.Xaml;
 
 namespace Restaurant.Mobile.UI.Pages
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FoodsPage : FoodsXamlPage
-	{
-		public FoodsPage()
-		{
-			InitializeComponent();
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    // ReSharper disable once RedundantExtendsListEntry
+    public partial class FoodsPage : FoodsXamlPage
+    {
+        private readonly IDisposable _itemSelectedSubscriber;
 
-			Observable.FromEventPattern<SelectedItemChangedEventArgs>(FoodsList, "ItemSelected")
-				.Select(x => x.Sender)
-				.Cast<ListView>()
-				.Subscribe(l => l.SelectedItem = null);
-		}
+        public FoodsPage()
+        {
+            InitializeComponent();
 
-		protected override async void OnLoaded()
-		{
-			BindingContext = ViewModel;
-			await ViewModel.LoadFoods();
-		}
-	}
+            _itemSelectedSubscriber = Observable
+                .FromEventPattern<SelectedItemChangedEventArgs>(FoodsList, "ItemSelected")
+                .Select(x => x.Sender)
+                .Cast<ListView>()
+                .Subscribe(l => l.SelectedItem = null);
+        }
 
-	public abstract class FoodsXamlPage : BaseContentPage<FoodsViewModel>
-	{
-	}
+        protected override async void OnLoaded()
+        {
+            base.OnLoaded();
+            await ViewModel.LoadFoods();
+        }
+
+        protected override void UnLoad()
+        {
+            base.UnLoad();
+            _itemSelectedSubscriber.Dispose();
+        }
+    }
+
+    public abstract class FoodsXamlPage : BaseContentPage<FoodsViewModel>
+    {
+    }
 }

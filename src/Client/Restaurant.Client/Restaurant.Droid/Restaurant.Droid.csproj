@@ -226,7 +226,7 @@
       <Version>4.5.8</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI">
-      <Version>8.5.1</Version>
+      <Version>9.11.1</Version>
     </PackageReference>
     <PackageReference Include="Refit">
       <Version>4.6.30</Version>
@@ -463,7 +463,7 @@
       <Version>28.0.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.1.0.697729</Version>
+      <Version>3.5.0.169047</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

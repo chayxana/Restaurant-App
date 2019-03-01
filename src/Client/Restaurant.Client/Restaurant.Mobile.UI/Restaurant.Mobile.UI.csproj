@@ -9,10 +9,10 @@
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.8.0" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.8.0" />
     <PackageReference Include="NLog" Version="4.5.8" />
-    <PackageReference Include="ReactiveUI" Version="8.5.1" />
+    <PackageReference Include="ReactiveUI" Version="9.11.1" />
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
-    <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
+    <PackageReference Include="Xamarin.Forms" Version="3.5.0.169047" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Restaurant.Common\Restaurant.Common.csproj" />

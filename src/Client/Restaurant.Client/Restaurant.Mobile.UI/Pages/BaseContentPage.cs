@@ -22,7 +22,10 @@ namespace Restaurant.Mobile.UI.Pages
             OnLoaded();
         }
 
-        protected abstract void OnLoaded();
+        protected virtual void OnLoaded()
+        {
+            
+        }
 
         protected virtual void UnLoad()
         {

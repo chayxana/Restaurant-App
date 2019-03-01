@@ -4,37 +4,30 @@ services:
   menu-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__MenuDatabaseConnectionString=Host=menu-data;Database=menu_database;Username=admin;Password=Passw0rd!
+      - ConnectionStrings__MenuDatabaseConnectionString=Host=pgsql;Database=menu_database;Username=admin;Password=Passw0rd!
   
   identity-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__IdentityConnectionString=Host=identity-data;Database=identity_database;Username=admin;Password=Passw0rd!
+      - ConnectionStrings__IdentityConnectionString=Host=pgsql;Database=identity_database;Username=admin;Password=Passw0rd!
 
   order-api:
     environment: 
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://order_data:5432/orderdb
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://pgsql:5432/orderdb
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=Passw0rd!
       - SERVER_PORT=8080
 
-  menu-data:
+  pgsql:
     environment:
       - POSTGRES_PASSWORD=Passw0rd!
       - POSTGRES_USER=admin
       - PGDATA=/pg
       - POSTGRES_DB=menudb
-  
-  identity-data:
+
+  gateway-api:
     environment:
-      - POSTGRES_PASSWORD=Passw0rd!
-      - POSTGRES_USER=admin
-      - PGDATA=/pg
-      - POSTGRES_DB=identitydb
-  
-  order_data:
-    environment:
-      - POSTGRES_PASSWORD=Passw0rd!
-      - POSTGRES_USER=admin
-      - PGDATA=/pg
-      - POSTGRES_DB=orderdb
+      - ZUUL_ROUTES_MENU_URL=menu-api
+      - ZUUL_ROUTES_identity.url=identity-api
+      - ZUUL_ROUTES_basket.url=basket-api
+      - ZUUL_ROUTES_order.url=order-api

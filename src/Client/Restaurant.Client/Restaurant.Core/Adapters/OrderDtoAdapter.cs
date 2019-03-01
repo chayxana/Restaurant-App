@@ -24,7 +24,7 @@ namespace Restaurant.Core.Adapters
         public OrderDto GetOrderFromOrderViewModels(IEnumerable<IBasketItemViewModel> orderViewModels)
         {
             var orderItems = _autoMapperFacade.Map<IEnumerable<OrderItemDto>>(orderViewModels);
-            return new OrderDto()
+            return new OrderDto
             {
                 DateTime = _dateTimeFacade.Now,
                 OrderItems = orderItems

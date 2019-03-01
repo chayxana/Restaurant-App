@@ -8,7 +8,5 @@ namespace Restaurant.Abstractions.ViewModels
         ObservableCollection<IBasketItemViewModel> Items { get; }
 
         string OrdersCount { get; }
-
-        void AddBasketItem(IBasketItemViewModel basketItem);
     }
 }

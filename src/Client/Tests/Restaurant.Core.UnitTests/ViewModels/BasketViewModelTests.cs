@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Text;
@@ -73,7 +74,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
                 .Returns(publisher);
             
             GetMock<IAutoMapperFacade>()
-                .Setup(x => x.Map<IEnumerable<OrderItemDto>>(It.IsAny<ReactiveList<IBasketItemViewModel>>()))
+                .Setup(x => x.Map<IEnumerable<OrderItemDto>>(It.IsAny<ObservableCollection<IBasketItemViewModel>>()))
                 .Returns(orders);
 
             GetMock<IOrdersApi>().Setup(x => x.Create(It.IsAny<OrderDto>())).Returns(Task.CompletedTask);

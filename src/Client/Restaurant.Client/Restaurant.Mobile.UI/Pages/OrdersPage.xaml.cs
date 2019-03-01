@@ -5,6 +5,7 @@ using Xamarin.Forms.Xaml;
 namespace Restaurant.Mobile.UI.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+    // ReSharper disable once RedundantExtendsListEntry
     public partial class OrdersPage : OrdersXamlPage
     {
         public OrdersPage()
@@ -14,10 +15,11 @@ namespace Restaurant.Mobile.UI.Pages
 
         protected override void OnLoaded()
         {
-            //BindingContext = ViewModel;
             //await ViewModel.LoadOrders();
         }
     }
 
-    public abstract class OrdersXamlPage : BaseContentPage<OrdersViewModel> { } 
+    public abstract class OrdersXamlPage : BaseContentPage<OrdersViewModel>
+    {
+    }
 }

@@ -10,5 +10,5 @@ WORKDIR /root/
 COPY --from=builder /usr/src/ordering_api/build/libs/order.api.jar .
 COPY --from=builder /usr/src/ordering_api/build/libs/order.api-tests.jar .
 
-EXPOSE 8080
+EXPOSE 8090
 CMD ["java", "-jar", "./order.api.jar"]

@@ -5,29 +5,26 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__MenuDatabaseConnectionString=Host=pgsql;Database=menu_database;Username=admin;Password=Passw0rd!
+      - eureka__client__serviceUrl=http://service-discovery:8761/eureka/
+      - eureka__instance__hostName=menu-api
+      - eureka__instance__instanceId=menu-api:menu-service:80
+      - eureka__instance__port=80
   
-  identity-api:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__IdentityConnectionString=Host=pgsql;Database=identity_database;Username=admin;Password=Passw0rd!
+  # identity-api:
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ConnectionStrings__IdentityConnectionString=Host=pgsql;Database=identity_database;Username=admin;Password=Passw0rd!
 
   order-api:
-    environment: 
+    environment:
+      - REGISTRY_HOST=service-discovery
       - SPRING_DATASOURCE_URL=jdbc:postgresql://pgsql:5432/orderdb
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=Passw0rd!
-      - SERVER_PORT=8080
 
   pgsql:
     environment:
       - POSTGRES_PASSWORD=Passw0rd!
       - POSTGRES_USER=admin
       - PGDATA=/pg
-      - POSTGRES_DB=menudb
-
-  gateway-api:
-    environment:
-      - ZUUL_ROUTES_MENU_URL=menu-api
-      - ZUUL_ROUTES_identity.url=identity-api
-      - ZUUL_ROUTES_basket.url=basket-api
-      - ZUUL_ROUTES_order.url=order-api
+      - POSTGRES_DB=orderdb

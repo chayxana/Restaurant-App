@@ -5,8 +5,8 @@ plugins {
 
 apply plugin: 'io.spring.dependency-management'
 
-group = 'com.jurabek.restaurant.gateway'
-version = '0.0.1'
+group = 'com.jurabek.restaurant.service.discovery'
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
@@ -19,9 +19,7 @@ ext {
 }
 
 dependencies {
-	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
 }
 
 dependencyManagement {

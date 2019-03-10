@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Pivotal.Discovery.Client;
 
 namespace Identity.API
 {
@@ -81,6 +82,7 @@ namespace Identity.API
                 });
             });
 
+            services.AddDiscoveryClient(Configuration);
             services.AddAutoMapper(typeof(Startup));
         }
 

@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
+using AutoMapper;
+using Menu.API.Abstraction.Repositories;
 using Menu.API.Data;
+using Menu.API.Models;
+using Menu.API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,7 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
+using Pivotal.Discovery.Client;
 namespace Menu.API
 {
     public class Startup
@@ -27,8 +33,8 @@ namespace Menu.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDiscoveryClient(Configuration);
             services.AddMvc();
-
             services.AddAuthorization();
 
             services.AddAuthentication("Bearer")
@@ -54,6 +60,10 @@ namespace Menu.API
                     TermsOfService = "Terms Of Service"
                 });
             });
+
+            services.AddScoped<IRepository<Category>, CategoryRepository>();
+            services.AddScoped<IRepository<Food>, FoodRepository>();
+            services.AddAutoMapper(typeof(Startup).GetTypeInfo().Assembly);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -77,6 +87,7 @@ namespace Menu.API
             app.UseMvcWithDefaultRoute();
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseDiscoveryClient();
         }
     }
 }

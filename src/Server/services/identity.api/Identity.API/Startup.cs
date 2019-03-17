@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -17,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Pivotal.Discovery.Client;
 
 namespace Identity.API
 {
@@ -67,8 +69,8 @@ namespace Identity.API
                     options.ConfigureDbContext = builder =>
                         builder.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly));
 
-                    options.EnableTokenCleanup = true;
-                    options.TokenCleanupInterval = 30; // interval in seconds
+                    options.EnableTokenCleanup = false;
+                    // options.TokenCleanupInterval = 30; // interval in seconds
                 });
 
             services.AddSwaggerGen(options =>
@@ -81,6 +83,7 @@ namespace Identity.API
                 });
             });
 
+            services.AddDiscoveryClient(Configuration);
             services.AddAutoMapper(typeof(Startup));
         }
 
@@ -106,6 +109,7 @@ namespace Identity.API
             app.UseIdentityServer();
             app.UseMvcWithDefaultRoute();
             app.UseHttpsRedirection();
+            app.UseDiscoveryClient();
         }
     }
 }

@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Http;
 
 namespace Menu.API.Managers
 {
-	public class FileUploadManager : IFileUploadManager
+	public class LocalFileUploadManager : IFileUploadManager
 	{
 		private readonly IFileInfoFacade _fileInfoFacade;
 		private readonly IDictionary<string, string> _uploadedFiles;
 
-		public FileUploadManager(IFileInfoFacade fileInfoFacade)
+		public LocalFileUploadManager(IFileInfoFacade fileInfoFacade)
 		{
 			_fileInfoFacade = fileInfoFacade;
 			_uploadedFiles = new Dictionary<string, string>();

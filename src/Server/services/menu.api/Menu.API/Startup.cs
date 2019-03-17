@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
+using AutoMapper;
+using Menu.API.Abstraction.Repositories;
 using Menu.API.Data;
+using Menu.API.Models;
+using Menu.API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,7 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
+using Pivotal.Discovery.Client;
 namespace Menu.API
 {
     public class Startup
@@ -28,7 +34,6 @@ namespace Menu.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
             services.AddAuthorization();
 
             services.AddAuthentication("Bearer")
@@ -40,7 +45,7 @@ namespace Menu.API
                 });
 
             var connectionString = Configuration.GetConnectionString("MenuDatabaseConnectionString");
-            services.AddDbContext<ApplicationDbContext>(options => 
+            services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseNpgsql(connectionString);
             });
@@ -54,12 +59,17 @@ namespace Menu.API
                     TermsOfService = "Terms Of Service"
                 });
             });
+
+            services.AddScoped<IRepository<Category>, CategoryRepository>();
+            services.AddScoped<IRepository<Food>, FoodRepository>();
+            services.AddAutoMapper(typeof(Startup).GetTypeInfo().Assembly);
+            services.AddDiscoveryClient(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseAuthentication();
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -73,10 +83,11 @@ namespace Menu.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Menu.API V1");
             });
-            
+
             app.UseMvcWithDefaultRoute();
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseDiscoveryClient();
         }
     }
 }

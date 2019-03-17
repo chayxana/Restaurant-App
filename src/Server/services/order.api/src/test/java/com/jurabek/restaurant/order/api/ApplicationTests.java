@@ -14,6 +14,10 @@ public class ApplicationTests {
     public static void main(String[] args) {
         JUnitCore junit = new JUnitCore();
         junit.addListener(new TextListener(System.out));
+
+        // Reflections reflections = new Reflections("my.project.prefix");
+        // Set<Class<? extends Object>> allClasses = reflections.getSubTypesOf(Object.class);
+
         Result result = junit.run(OrdersControllerTests.class);
         printResult(result);
     }

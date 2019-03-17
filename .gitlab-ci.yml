@@ -19,6 +19,16 @@ before_script:
   - cd src/Server/
   - chmod -R +x ci/
 
+build:gateway_api:
+  stage: build
+  script:
+    - ci/build.sh gateway_api
+
+build:service_discovery:
+  stage: build
+  script:
+    - ci/build.sh service_discovery
+
 build:basket_api:
   stage: build
   script:

@@ -8,6 +8,8 @@ main () {
         order_api) build_order_api ;;
         identity_api) build_identity_api ;;
         menu_api) build_menu_api ;;
+        gateway_api) build_gateway_api ;;
+        service_discovery) build_service_discovery ;;
         all) 
             build_basket_api
             build_order_api
@@ -18,6 +20,17 @@ main () {
     esac
 }
 
+build_gateway_api(){
+    cd ./gateway/restaurant-gateway/
+    ./gradlew build -x test
+    docker_build_and_push
+}
+
+build_service_discovery(){
+    cd ./gateway/restaurant-service-discovery/
+    ./gradlew build -x test
+    docker_build_and_push
+}
 
 build_basket_api() {
     cd  ./services/basket.api/
@@ -26,6 +39,7 @@ build_basket_api() {
 
 build_order_api(){
     cd ./services/order.api/
+    ./gradlew build -x test
     docker_build_and_push
 }
 build_identity_api() {

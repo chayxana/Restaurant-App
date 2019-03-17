@@ -109,8 +109,6 @@ namespace Restaurant.Droid.Renderers
             }
         }
 
-        
-
         private bool IsNavigationBarTranslucent()
         {
             return Element.CurrentPage is ITransparentActionBarPage transparentPage 

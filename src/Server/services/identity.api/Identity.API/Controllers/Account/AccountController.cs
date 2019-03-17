@@ -53,6 +53,12 @@ namespace Identity.API.Controllers.Account
              _signInManager = signInManager;
          }
 
+        [HttpGet]
+        public IActionResult Register() 
+        {
+            return View();
+        }
+
         /// <summary>
         /// Entry point into the login workflow
         /// </summary>

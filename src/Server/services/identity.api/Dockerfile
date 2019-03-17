@@ -22,6 +22,6 @@ WORKDIR /app
 
 COPY --from=publish /app .
 COPY --from=publish /apptest .
-EXPOSE 5000
+EXPOSE 80
 
 CMD ["dotnet", "Identity.API.dll"] 

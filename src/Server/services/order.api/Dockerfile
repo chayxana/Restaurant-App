@@ -1,14 +1,21 @@
-FROM java:alpine AS builder
+# FROM java:alpine AS builder
 
-COPY . /usr/src/ordering_api
-WORKDIR /usr/src/ordering_api
+# COPY . /usr/src/ordering_api
+# WORKDIR /usr/src/ordering_api
 
-RUN ./gradlew build -x test
+# RUN ./gradlew build -x test
+
+# FROM java:alpine
+# WORKDIR /root/
+# COPY --from=builder /usr/src/ordering_api/build/libs/order.api.jar .
+# COPY --from=builder /usr/src/ordering_api/build/libs/order.api-tests.jar .
+
+# EXPOSE 8090
+# CMD ["java", "-jar", "./order.api.jar"]
+
 
 FROM java:alpine
-WORKDIR /root/
-COPY --from=builder /usr/src/ordering_api/build/libs/order.api.jar .
-COPY --from=builder /usr/src/ordering_api/build/libs/order.api-tests.jar .
 
-EXPOSE 8080
-CMD ["java", "-jar", "./order.api.jar"]
+ADD build/libs/order.api.jar order-api.jar
+ENTRYPOINT ["java", "-jar", "/order-api.jar"]
+EXPOSE 8761

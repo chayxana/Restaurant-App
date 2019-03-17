@@ -1,34 +1,38 @@
 version: '3.7'
 
 services:
+  service-discovery:
+    image: restaurant-service-discovery
+    build: ./gateway/restaurant-service-discovery
+    ports:
+      - "8761:8761"
+
   gateway-api:
     image: restaurant-gateway
     build: ./gateway/restaurant-gateway/
     ports: 
       - "8080:8080"
-    depends_on: 
-      - identity-api
-      - menu-api
-      - basket-api
-      - order-api
+    depends_on:
+      - service-discovery
 
-     
   identity-api:
     image: restaurant/identity
     build: ./services/identity.api/
     ports:
-       - "5000:5000"
+       - "5000:80"
     depends_on:
        - pgsql
+       - service-discovery
 
   menu-api:
     image: restaurant/menu
     build: ./services/menu.api/
     ports:
-       - "5100:5000"
+       - "5100:80"
     depends_on:
        - pgsql
-  
+       - service-discovery
+
   basket-api:
     image: restaurant/basket
     build: ./services/basket.api/
@@ -36,17 +40,19 @@ services:
       - "5200:5200"
     depends_on:
       - redis
+      - service-discovery
 
   order-api:
     image: restaurant/order
     build: ./services/order.api
     ports:
-      - "5300:8080"
+      - "8090:8090"
     depends_on:
       - pgsql
+      - service-discovery
 
   pgsql:
     image: postgres:alpine
   
-  redis:
-    image: redis:alpine
+  # redis:
+  #   image: redis:alpine

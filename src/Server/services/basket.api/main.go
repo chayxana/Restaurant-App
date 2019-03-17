@@ -4,9 +4,13 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	redisConfig "github.com/jurabek/basket.api/config"
 	"github.com/jurabek/basket.api/controllers"
+	"github.com/jurabek/basket.api/eureka"
 	"github.com/jurabek/basket.api/repositories"
 
 	"github.com/gin-gonic/gin"
@@ -31,6 +35,10 @@ import (
 // @host localhost:5000
 // @BasePath /api/
 func main() {
+
+	gin.SetMode(gin.DebugMode)
+
+	handleSigterm()
 	router := gin.Default()
 	redisPool, err := initRedis()
 
@@ -52,12 +60,28 @@ func main() {
 
 	// Home page should be redirected to swagger page
 	router.GET("/", func(c *gin.Context) {
-		c.Redirect(http.StatusMovedPermanently, c.Request.RequestURI+"/swagger/index.html")
+		c.Redirect(http.StatusMovedPermanently, "/swagger/index.html")
 	})
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
+	if eureka.Register() {
+		go eureka.StartHeartbeat()
+	}
+
 	router.Run()
+}
+
+func handleSigterm() {
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+	signal.Notify(c, syscall.SIGTERM)
+	go func() {
+		<-c
+		eureka.UnRegister()
+		time.Sleep(10 * time.Second)
+		os.Exit(0)
+	}()
 }
 
 func initRedis() (*redis.Pool, error) {

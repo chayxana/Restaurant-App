@@ -16,6 +16,5 @@
 
 FROM java:alpine
 
-ADD build/libs/order.api.jar order-api.jar
-ENTRYPOINT ["java", "-jar", "/order-api.jar"]
-EXPOSE 8761
+EXPOSE 8080
+CMD ["java", "-jar", "./order.api.jar"]

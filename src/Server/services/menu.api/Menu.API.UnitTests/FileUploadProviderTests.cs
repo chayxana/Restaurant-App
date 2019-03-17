@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Menu.API.UnitTests
 {
-    public class FileUploadProviderTests : BaseAutoMockedTest<FileUploadManager>
+    public class FileUploadProviderTests : BaseAutoMockedTest<LocalFileUploadManager>
     {
 		[Theory, AutoDomainData]
 	    public async Task Given_file_and_uniq_id_Upload_should_copy_file_and_should_add_uploaded_data_with_uniq_id(string uniqId)

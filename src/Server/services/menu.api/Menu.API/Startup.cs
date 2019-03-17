@@ -33,7 +33,6 @@ namespace Menu.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDiscoveryClient(Configuration);
             services.AddMvc();
             services.AddAuthorization();
 
@@ -46,7 +45,7 @@ namespace Menu.API
                 });
 
             var connectionString = Configuration.GetConnectionString("MenuDatabaseConnectionString");
-            services.AddDbContext<ApplicationDbContext>(options => 
+            services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseNpgsql(connectionString);
             });
@@ -64,12 +63,13 @@ namespace Menu.API
             services.AddScoped<IRepository<Category>, CategoryRepository>();
             services.AddScoped<IRepository<Food>, FoodRepository>();
             services.AddAutoMapper(typeof(Startup).GetTypeInfo().Assembly);
+            services.AddDiscoveryClient(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseAuthentication();
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -83,7 +83,7 @@ namespace Menu.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Menu.API V1");
             });
-            
+
             app.UseMvcWithDefaultRoute();
             app.UseHttpsRedirection();
             app.UseMvc();

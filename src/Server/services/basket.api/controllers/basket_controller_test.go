@@ -137,10 +137,12 @@ func TestBasketControllerCreateShouldCreateItemAndWhenCouldNotFindCreatedItemRet
 		CustomerID: uuid.New(),
 		Items:      &items,
 	}
+
 	var mockedBasketRepository = &repositories.MockBasketRepository{}
 	mockedBasketRepository.On("Update", &customerBasket).Return(nil)
 	mockedBasketRepository.On("GetBasket", customerBasket.CustomerID.String()).Return(&customerBasket, fmt.Errorf("Could not found created item with id: %s", customerBasket.CustomerID))
 	var controller = NewBasketController(mockedBasketRepository)
+
 	router := gin.Default()
 	basket := router.Group("basket")
 	{

@@ -1,4 +1,4 @@
-# FROM java:alpine AS builder
+# FROM openjdk:8-jdk-alpine AS builder
 
 # COPY . /usr/src/service-discovery
 # WORKDIR /usr/src/service-discovery

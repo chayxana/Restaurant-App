@@ -23,13 +23,11 @@ main () {
 build_gateway_api(){
     cd ./gateway/restaurant-gateway/
     ./gradlew build -x test
-    docker_build_and_push
 }
 
 build_service_discovery(){
     cd ./gateway/restaurant-service-discovery/
     ./gradlew build -x test
-    docker_build_and_push
 }
 
 build_basket_api() {

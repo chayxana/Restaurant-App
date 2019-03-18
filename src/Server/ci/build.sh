@@ -21,28 +21,29 @@ main () {
 }
 
 build_gateway_api(){
-    echo "Gateway build run.."
     cd ./gateway/restaurant-gateway/
-    ./gradlew build -x test
+    sh build.sh
+    docker_build_and_push
 }
 
 build_service_discovery(){
-    echo "Service discovery build run.."
-
     cd ./gateway/restaurant-service-discovery/
-    ./gradlew build -x test
-}
-
-build_basket_api() {
-    cd  ./services/basket.api/
+    sh build.sh
     docker_build_and_push
 }
 
 build_order_api(){
     cd ./services/order.api/
-    ./gradlew build -x test
+    sh build.sh
     docker_build_and_push
 }
+
+build_basket_api() {
+    cd ./services/basket.api/
+    sh build.sh
+    docker_build_and_push
+}
+
 build_identity_api() {
     cd ./services/identity.api/
     docker_build_and_push
@@ -54,8 +55,8 @@ build_menu_api() {
 }
 
 docker_build_and_push() {
-    docker build --compress -t $IMAGE_BASE_NAME:$CI_API_NAME .
-    docker push $IMAGE_BASE_NAME:$CI_API_NAME
+    # docker build --compress -t $IMAGE_BASE_NAME:$CI_API_NAME .
+    # docker push $IMAGE_BASE_NAME:$CI_API_NAME
 }
 
 main "$@"

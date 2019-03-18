@@ -54,24 +54,24 @@ build:basket_api:
   stage: build
   script:
     - ci/update_build_badge.sh running basket_api
-    - echo "failure" > basket_status.txt #Variables does not work, why I don't know (:
+    - echo "failure" > basket_status.txt
     - ci/build.sh basket_api
     - echo "success" > basket_status.txt
   after_script:
     - cd src/Server/
     - ci/update_build_badge.sh `cat basket_status.txt` basket_api
 
-# build:order_api:
-#   image: docker:latest
-#   stage: build
-#   script:
-#     - ci/update_build_badge.sh running order_api
-#     - echo "failure" > order_status.txt
-#     - ci/build.sh order_api
-#     - echo "success" > order_status.txt
-#   after_script:
-#     - cd src/Server/
-#     - ci/update_build_badge.sh `cat order_status.txt` order_api
+build:order_api:
+  image: openjdk:8-jdk-alpine
+  stage: build
+  script:
+    - ci/update_build_badge.sh running order_api
+    - echo "failure" > order_status.txt
+    - ci/build.sh order_api
+    - echo "success" > order_status.txt
+  after_script:
+    - cd src/Server/
+    - ci/update_build_badge.sh `cat order_status.txt` order_api
 
 # build:identity_api:
 #   stage: build
@@ -96,6 +96,7 @@ build:basket_api:
 #     - ci/update_build_badge.sh `cat menu_status.txt` menu_api
 
 test:basket_api:
+  image: golang:1.11-alpine
   stage: test
   script: 
     - ci/test.sh basket_api
@@ -116,9 +117,10 @@ test:basket_api:
 #   dependencies:
 #     - build:menu_api
 
-# test:order_api:
-#   stage: test
-#   script:
-#     - ci/test.sh order_api
-#   dependencies:
-#     - build:order_api
+test:order_api:
+  image: openjdk:8-jdk-alpine
+  stage: test
+  script:
+    - ci/test.sh order_api
+  dependencies:
+    - build:order_api

@@ -7,8 +7,6 @@ stages:
 - test
 - deploy
 
-
-
 variables:
   IMAGE_BASE_NAME: registry.gitlab.com/jurabek/restaurant-app
 
@@ -22,9 +20,9 @@ before_script:
   # - apk add --update git && rm -rf /var/cache/apk/*
   # - apk add --no-cache curl jq python py-pip
   # - pip install awscli
+  - export GRADLE_USER_HOME=`pwd`/.gradle
   - cd src/Server/
   - chmod -R +x ci/
-  - export GRADLE_USER_HOME=$(pwd)/.gradle
 
 cache:
   key: "$CI_PROJECT_NAME"

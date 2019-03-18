@@ -10,22 +10,25 @@ main () {
         menu_api) build_menu_api ;;
         gateway_api) build_gateway_api ;;
         service_discovery) build_service_discovery ;;
-        all) 
+        all)
             build_basket_api
             build_order_api
             build_identity_api
             build_menu_api
-            ;;
+        ;;
         *) echo "Invalid api name!" ;;
     esac
 }
 
 build_gateway_api(){
+    echo "Gateway build run.."
     cd ./gateway/restaurant-gateway/
     ./gradlew build -x test
 }
 
 build_service_discovery(){
+    echo "Service discovery build run.."
+
     cd ./gateway/restaurant-service-discovery/
     ./gradlew build -x test
 }

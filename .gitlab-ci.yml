@@ -7,6 +7,8 @@ stages:
 - test
 - deploy
 
+
+
 variables:
   IMAGE_BASE_NAME: registry.gitlab.com/jurabek/restaurant-app
 

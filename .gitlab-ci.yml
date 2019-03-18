@@ -18,14 +18,23 @@ before_script:
   - docker login registry.gitlab.com -u "$DOCKER_USER_NAME" -p $DOCKER_PASSWORD
   - cd src/Server/
   - chmod -R +x ci/
+  - export GRADLE_USER_HOME=$(pwd)/.gradle
+
+cache:
+  key: "$CI_PROJECT_NAME"
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches  
 
 build:gateway_api:
   stage: build
+  image: openjdk:8-jdk-alpine
   script:
     - ci/build.sh gateway_api
 
 build:service_discovery:
   stage: build
+  image: openjdk:8-jdk-alpine
   script:
     - ci/build.sh service_discovery
 

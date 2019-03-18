@@ -21,6 +21,7 @@ before_script:
   # - apk add --no-cache curl jq python py-pip
   # - pip install awscli
   - export GRADLE_USER_HOME=`pwd`/.gradle
+  - export NUGET_PACKAGES=$(pwd)/.nuget  
   - cd src/Server/
   - chmod -R +x ci/
 
@@ -28,13 +29,17 @@ cache:
   key: "$CI_PROJECT_NAME"
   paths:
     - .gradle/wrapper
-    - .gradle/caches  
+    - .gradle/caches
+    - .nuget/  
 
 build:gateway_api:
   stage: build
   image: openjdk:8-jdk-alpine
   script:
     - ci/build.sh gateway_api
+
+
+
 
 build:service_discovery:
   stage: build

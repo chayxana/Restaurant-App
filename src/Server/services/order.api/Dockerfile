@@ -1,20 +1,6 @@
-# FROM java:alpine AS builder
+FROM openjdk:8-jdk-alpine
 
-# COPY . /usr/src/ordering_api
-# WORKDIR /usr/src/ordering_api
+ADD build/libs/order.api.jar order.api.jar
 
-# RUN ./gradlew build -x test
-
-# FROM java:alpine
-# WORKDIR /root/
-# COPY --from=builder /usr/src/ordering_api/build/libs/order.api.jar .
-# COPY --from=builder /usr/src/ordering_api/build/libs/order.api-tests.jar .
-
-# EXPOSE 8090
-# CMD ["java", "-jar", "./order.api.jar"]
-
-
-FROM java:alpine
-
-EXPOSE 8080
+EXPOSE 8090
 CMD ["java", "-jar", "./order.api.jar"]

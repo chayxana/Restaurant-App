@@ -1,7 +1,6 @@
 package com.jurabek.restaurant.order.api.mappers;
 
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 

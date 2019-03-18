@@ -10,9 +10,9 @@ stages:
 variables:
   IMAGE_BASE_NAME: registry.gitlab.com/jurabek/restaurant-app
 
-.before_script_docker_login: &login_docker
-  before_script:
-  - docker login registry.gitlab.com -u "$DOCKER_USER_NAME" -p $DOCKER_PASSWORD
+# .before_script_docker_login: &login_docker
+#   before_script:
+#   - docker login registry.gitlab.com -u "$DOCKER_USER_NAME" -p $DOCKER_PASSWORD
     
 
 before_script:

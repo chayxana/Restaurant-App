@@ -1,6 +1,5 @@
 package com.jurabek.restaurant.order.api.mappers;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import com.jurabek.restaurant.order.api.dtos.CustomerOrderDto;

@@ -9,19 +9,22 @@ stages:
 
 variables:
   IMAGE_BASE_NAME: registry.gitlab.com/jurabek/restaurant-app
+  DOCKER_DRIVER: overlay2
 
-# .before_script_docker_login: &login_docker
+# .before_script_docker_login: &login_to_docker
 #   before_script:
 #   - docker login registry.gitlab.com -u "$DOCKER_USER_NAME" -p $DOCKER_PASSWORD
     
 
 before_script:
-  # - apk add --update curl && rm -rf /var/cache/apk/*
-  # - apk add --update git && rm -rf /var/cache/apk/*
-  # - apk add --no-cache curl jq python py-pip
-  # - pip install awscli
-  - export GRADLE_USER_HOME=`pwd`/.gradle
-  - export NUGET_PACKAGES=$(pwd)/.nuget  
+  - apk add --update curl && rm -rf /var/cache/apk/*
+  - apk add --update git && rm -rf /var/cache/apk/*
+  - apk add --no-cache curl jq python py-pip
+  - pip --cache-dir=pip_cache install awscli
+  - export GRADLE_USER_HOME=$(pwd)/.gradle
+  - export NUGET_PACKAGES=$(pwd)/.nuget
+  - export GOPATH=$(pwd)/go
+
   - cd src/Server/
   - chmod -R +x ci/
 
@@ -30,7 +33,9 @@ cache:
   paths:
     - .gradle/wrapper
     - .gradle/caches
-    - .nuget/  
+    - .nuget/
+    - pip_cache/
+    - go
 
 build:gateway_api:
   stage: build
@@ -38,26 +43,23 @@ build:gateway_api:
   script:
     - ci/build.sh gateway_api
 
-
-
-
 build:service_discovery:
   stage: build
   image: openjdk:8-jdk-alpine
   script:
     - ci/build.sh service_discovery
 
-# build:basket_api:
-#   image: docker:latest
-#   stage: build
-#   script:
-#     - ci/update_build_badge.sh running basket_api
-#     - echo "failure" > basket_status.txt #Variables does not work, why I don't know (:
-#     - ci/build.sh basket_api
-#     - echo "success" > basket_status.txt
-#   after_script:
-#     - cd src/Server/
-#     - ci/update_build_badge.sh `cat basket_status.txt` basket_api
+build:basket_api:
+  image: golang:1.11-alpine
+  stage: build
+  script:
+    - ci/update_build_badge.sh running basket_api
+    - echo "failure" > basket_status.txt #Variables does not work, why I don't know (:
+    - ci/build.sh basket_api
+    - echo "success" > basket_status.txt
+  after_script:
+    - cd src/Server/
+    - ci/update_build_badge.sh `cat basket_status.txt` basket_api
 
 # build:order_api:
 #   image: docker:latest

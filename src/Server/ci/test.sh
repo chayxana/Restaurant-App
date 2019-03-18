@@ -21,11 +21,21 @@ main () {
 }
 
 test_basket_api() {
-    docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME ./controllers.test -test.coverprofile=coverage.out
+    cd ./services/order.api/
+    sh test.sh
+    cd ../../
+    ./ci/sync_folder_s3.sh "$(pwd)/services/order.api/coverage.html" basket_api
+    
+    # docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME ./controllers.test -test.coverprofile=coverage.out
 }
 
 test_order_api(){
-    docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "java" "-jar" "./order.api-tests.jar"
+    cd ./services/order.api/
+    sh test.sh
+    cd ../../
+    ./ci/sync_folder_s3.sh "$(pwd)/services/order.api/build/reports/jacoco/test/html/" order_api
+    
+    # docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "java" "-jar" "./order.api-tests.jar"
 }
 
 test_identity_api() {
@@ -36,11 +46,11 @@ test_menu_api() {
     docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "dotnet" "vstest" "./Menu.API.UnitTests.dll"
     
     mkdir menu_api_coverage_report
-
+    
     # code coverage
     docker run -v "$(pwd)"/menu_api_coverage_report:/app/coveragereport \
-                --name "$CI_API_NAME_coverage" \
-                $IMAGE_BASE_NAME:$CI_API_NAME /bin/bash -c ./code_coverage.sh | tee output.txt
+    --name "$CI_API_NAME_coverage" \
+    $IMAGE_BASE_NAME:$CI_API_NAME /bin/bash -c ./code_coverage.sh | tee output.txt
     
     COVERAGE_RESULT=$(grep "Total Branch" output.txt | tr -dc '[0-9]+\.[0-9]')
     BADGE_COLOR=$(get_coverage_result_badge_color $COVERAGE_RESULT)
@@ -52,7 +62,7 @@ test_menu_api() {
     ./ci/generate_badge.sh $COVERAGE_FILE_NAME "coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
     ./ci/upload_badge_s3.sh $COVERAGE_FILE_NAME
     ./ci/sync_folder_s3.sh "$(pwd)/menu_api_coverage_report" menu_api
-
+    
     rm -rf menu_api_coverage_report
     docker rm $(docker ps -aqf "name=$CI_API_NAME_coverage")
 }

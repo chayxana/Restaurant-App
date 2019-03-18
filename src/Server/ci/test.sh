@@ -46,6 +46,9 @@ test_menu_api() {
     BADGE_COLOR=$(get_coverage_result_badge_color $COVERAGE_RESULT)
     COVERAGE_FILE_NAME="${CI_API_NAME}_coverage.svg"
     
+    echo $COVERAGE_RESULT
+    echo $BADGE_COLOR
+    
     ./ci/generate_badge.sh $COVERAGE_FILE_NAME "coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
     ./ci/upload_badge_s3.sh $COVERAGE_FILE_NAME
     ./ci/sync_folder_s3.sh "$(pwd)/menu_api_coverage_report" menu_api

@@ -99,6 +99,10 @@ func heartbeat() {
 		fmt.Printf("Eureka update error: %v", err)
 	}
 
+	if resp.StatusCode == http.StatusNotFound {
+		Register()
+	}
+
 	if gin.Mode() == gin.DebugMode {
 		fmt.Printf("Hearbeat to eureka: %s", heartBeatURL)
 	}

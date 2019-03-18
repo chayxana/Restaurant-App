@@ -95,12 +95,12 @@ build:basket_api:
 #     - cd src/Server/
 #     - ci/update_build_badge.sh `cat menu_status.txt` menu_api
 
-# test:basket_api:
-#   stage: test
-#   script: 
-#     - ci/test.sh basket_api
-#   dependencies:
-#     - build:basket_api
+test:basket_api:
+  stage: test
+  script: 
+    - ci/test.sh basket_api
+  dependencies:
+    - build:basket_api
 
 # test:identity_api:
 #   stage: test

@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Restaurant.Abstractions.Api;
-using Restaurant.Common.DataTransferObjects;
+using Restaurant.Abstractions.DataTransferObjects;
 
 namespace Restaurant.Core.MockData
 {

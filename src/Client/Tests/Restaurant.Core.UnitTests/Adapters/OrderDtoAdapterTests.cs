@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using NUnit.Framework;
 using ReactiveUI;
+using Restaurant.Abstractions.DataTransferObjects;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Common.DataTransferObjects;
 using Restaurant.Core.Adapters;
 
 namespace Restaurant.Core.UnitTests.Adapters
 {
-	public class OrderDtoAdapterTests : BaseAutoMockedTest<OrderDtoAdapter>
+    public class OrderDtoAdapterTests : BaseAutoMockedTest<OrderDtoAdapter>
 	{
 		[Test, AutoDomainData]
 		public void Given_order_view_models_should_return_order_dto(ObservableCollection<IBasketItemViewModel> orderViewModels, IEnumerable<OrderItemDto> orderItems)

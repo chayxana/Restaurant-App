@@ -1,5 +1,4 @@
 ﻿using System.Windows.Input;
-using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Abstractions.ViewModels
 {

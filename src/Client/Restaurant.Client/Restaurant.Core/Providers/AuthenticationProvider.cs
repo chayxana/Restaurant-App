@@ -1,9 +1,9 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Restaurant.Abstractions.Api;
+using Restaurant.Abstractions.DataTransferObjects;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Providers;
-using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Core.Providers
 {

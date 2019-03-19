@@ -11,7 +11,7 @@ namespace Restaurant.Mobile.UI.Controls
             {
                 Margin = 0;
                 HasShadow = false;
-                OutlineColor = Color.Transparent;
+                BorderColor = Color.Transparent;
                 BackgroundColor = Color.Transparent;
             }
         }

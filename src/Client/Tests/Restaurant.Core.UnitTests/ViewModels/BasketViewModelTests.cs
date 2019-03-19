@@ -9,11 +9,11 @@ using Moq;
 using NUnit.Framework;
 using ReactiveUI;
 using Restaurant.Abstractions.Api;
+using Restaurant.Abstractions.DataTransferObjects;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.Subscribers;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Common.DataTransferObjects;
 using Restaurant.Core.ViewModels;
 using Restaurant.Core.ViewModels.Food;
 

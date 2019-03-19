@@ -3,11 +3,11 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
+using Restaurant.Abstractions.DataTransferObjects;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Providers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Common.DataTransferObjects;
 using Restaurant.Core.ViewModels;
 
 namespace Restaurant.Core.UnitTests.ViewModels

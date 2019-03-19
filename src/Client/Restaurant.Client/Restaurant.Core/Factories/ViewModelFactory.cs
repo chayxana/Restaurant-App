@@ -35,7 +35,9 @@ namespace Restaurant.Core.Factories
 #endif
             }
 
+#pragma warning disable CS0162 // Unreachable code detected
             return null;
+#pragma warning restore CS0162 // Unreachable code detected
         }
 
         public INavigatableViewModel GetMainViewModel(Type viewModelType, string platform)
@@ -52,7 +54,9 @@ namespace Restaurant.Core.Factories
 #endif
             }
 
+#pragma warning disable CS0162 // Unreachable code detected
             return null;
+#pragma warning restore CS0162 // Unreachable code detected
         }
     }
 }

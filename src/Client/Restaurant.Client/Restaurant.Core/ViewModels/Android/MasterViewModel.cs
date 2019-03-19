@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using ReactiveUI;
 using Restaurant.Abstractions.Api;
+using Restaurant.Abstractions.Constants;
 using Restaurant.Abstractions.Enums;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Providers;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Common.Constants;
 
 namespace Restaurant.Core.ViewModels.Android
 {

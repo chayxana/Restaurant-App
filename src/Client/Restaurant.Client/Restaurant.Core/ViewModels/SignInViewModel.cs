@@ -1,11 +1,11 @@
 ﻿using System.Windows.Input;
 using JetBrains.Annotations;
 using ReactiveUI;
+using Restaurant.Abstractions.DataTransferObjects;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Providers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Core.ViewModels
 {

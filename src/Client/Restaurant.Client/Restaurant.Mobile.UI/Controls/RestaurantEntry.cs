@@ -17,9 +17,6 @@ namespace Restaurant.Mobile.UI.Controls
         public static readonly BindableProperty FontProperty =
             BindableProperty.Create("Font", typeof(Font), typeof(RestaurantEntry), new Font());
 
-        public static readonly BindableProperty MaxLengthProperty =
-            BindableProperty.Create("MaxLength", typeof(int), typeof(RestaurantEntry), int.MaxValue);
-
         public static readonly BindableProperty XAlignProperty =
             BindableProperty.Create("XAlign", typeof(TextAlignment), typeof(RestaurantEntry), TextAlignment.Start);
 
@@ -42,12 +39,6 @@ namespace Restaurant.Mobile.UI.Controls
         {
             get => (Font) GetValue(FontProperty);
             set => SetValue(FontProperty, value);
-        }
-
-        public int MaxLength
-        {
-            get => (int) GetValue(MaxLengthProperty);
-            set => SetValue(MaxLengthProperty, value);
         }
 
         public TextAlignment XAlign

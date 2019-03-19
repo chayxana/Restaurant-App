@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Refit;
-using Restaurant.Common.DataTransferObjects;
+using Restaurant.Abstractions.DataTransferObjects;
 
 namespace Restaurant.Abstractions.Api
 {

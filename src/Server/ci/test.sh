@@ -24,7 +24,9 @@ test_basket_api() {
     cd ./services/basket.api/
     sh test.sh
     cd ../../
-    ./ci/sync_folder_s3.sh "$(pwd)/services/basket.api/coverage.html" basket_api
+    pwd
+    echo "$(pwd)/services/basket.api/reports/coverage.html"
+    # ./ci/sync_folder_s3.sh "$(pwd)/services/basket.api/coverage.html" basket_api
     
     # docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME ./controllers.test -test.coverprofile=coverage.out
 }

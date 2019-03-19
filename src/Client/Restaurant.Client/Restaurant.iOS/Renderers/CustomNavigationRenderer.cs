@@ -14,7 +14,7 @@ namespace Restaurant.iOS.Renderers
     public class CustomNavigationRenderer : NavigationRenderer
     {
         private readonly Dictionary<UIButton, ICommand> buttonCommands = new Dictionary<UIButton, ICommand>();
-        private ToolbarItem toolBarItem;
+        private readonly ToolbarItem toolBarItem;
 
         public override void ViewDidLoad()
         {

@@ -3,8 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Restaurant.Abstractions.DataTransferObjects;
 using Restaurant.Abstractions.Providers;
-using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Core.MockData
 {

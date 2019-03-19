@@ -5,10 +5,10 @@ using Moq;
 using NUnit.Framework;
 using Restaurant.Abstractions.Adapters;
 using Restaurant.Abstractions.Api;
+using Restaurant.Abstractions.DataTransferObjects;
 using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Common.DataTransferObjects;
 using Restaurant.Core.ViewModels;
 
 namespace Restaurant.Core.UnitTests.ViewModels
@@ -51,10 +51,10 @@ namespace Restaurant.Core.UnitTests.ViewModels
             Assert.That(ClassUnderTest.Title, Is.EqualTo("Foods"));
         }
 
-        [Test]
-        [AutoDomainData]
-        public async Task When_food_selects_should_navigate_to_FoodDetailPage(IEnumerable<FoodDto> foods)
-        {
+        //[Test]
+        //[AutoDomainData]
+        //public async Task When_food_selects_should_navigate_to_FoodDetailPage(IEnumerable<FoodDto> foods)
+        //{
 //            // given
 //            var viewModel = ClassUnderTest;
 //            var selectedFood = foods.FirstOrDefault();
@@ -73,6 +73,6 @@ namespace Restaurant.Core.UnitTests.ViewModels
 //
 //            // then
 //            GetMock<INavigationService>().Verify(x => x.NavigateAsync(foodDetailViewModel), Times.Once);
-        }
+        //}
     }
 }

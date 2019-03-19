@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ReactiveUI;
 using Restaurant.Abstractions.Api;
-using Restaurant.Common.DataTransferObjects;
+using Restaurant.Abstractions.DataTransferObjects;
 
 namespace Restaurant.Core.ViewModels
 {

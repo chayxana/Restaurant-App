@@ -1,52 +1,38 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{6D99CCA9-A9CF-4A96-8012-450505B3F831}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Common", "Common\Restaurant.Common\Restaurant.Common.csproj", "{2E4D0858-935D-4869-9543-8A5512AD7C6B}"
-EndProject
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28714.193
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{669F573C-3415-4CDC-8951-AA858244DAE6}"
-ProjectSection(SolutionItems) = preProject
-	Libs\ActionItemBadge.dll = Libs\ActionItemBadge.dll
-	Libs\ActionItemBadge.dll.mdb = Libs\ActionItemBadge.dll.mdb
-	Libs\Iconics.Core.dll = Libs\Iconics.Core.dll
-	Libs\Iconics.Core.dll.mdb = Libs\Iconics.Core.dll.mdb
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Libs\ActionItemBadge.dll = Libs\ActionItemBadge.dll
+		Libs\ActionItemBadge.dll.mdb = Libs\ActionItemBadge.dll.mdb
+		Libs\Iconics.Core.dll = Libs\Iconics.Core.dll
+		Libs\Iconics.Core.dll.mdb = Libs\Iconics.Core.dll.mdb
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{040B67C4-0950-4F57-AA6E-F60D7B3E8583}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{9EAAE24F-C3AD-4649-940D-5D61E95CA2B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Core.UnitTests", "Tests\Restaurant.Core.UnitTests\Restaurant.Core.UnitTests.csproj", "{152B037E-567A-4D64-A4F3-7B0FC5C93542}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Core.UnitTests", "Tests\Restaurant.Core.UnitTests\Restaurant.Core.UnitTests.csproj", "{152B037E-567A-4D64-A4F3-7B0FC5C93542}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Abstractions", "Restaurant.Client\Restaurant.Abstractions\Restaurant.Abstractions.csproj", "{196EEC60-A8EE-4007-B83C-C795FA19592A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Abstractions", "Restaurant.Client\Restaurant.Abstractions\Restaurant.Abstractions.csproj", "{196EEC60-A8EE-4007-B83C-C795FA19592A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Core", "Restaurant.Client\Restaurant.Core\Restaurant.Core.csproj", "{B01807DD-CAF0-491A-9FEA-7F5C3D603A94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Core", "Restaurant.Client\Restaurant.Core\Restaurant.Core.csproj", "{B01807DD-CAF0-491A-9FEA-7F5C3D603A94}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Droid", "Restaurant.Client\Restaurant.Droid\Restaurant.Droid.csproj", "{991CD768-F51F-42D1-8BC7-1E41248AF04C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.iOS", "Restaurant.Client\Restaurant.iOS\Restaurant.iOS.csproj", "{C5D412FA-2566-4550-8175-2F068FEC44FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Mobile.UI", "Restaurant.Client\Restaurant.Mobile.UI\Restaurant.Mobile.UI.csproj", "{810973F0-8F0A-48CA-81AD-B200BFE83557}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Mobile.UI", "Restaurant.Client\Restaurant.Mobile.UI\Restaurant.Mobile.UI.csproj", "{810973F0-8F0A-48CA-81AD-B200BFE83557}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{2E4D0858-935D-4869-9543-8A5512AD7C6B} = {6D99CCA9-A9CF-4A96-8012-450505B3F831}
-		{152B037E-567A-4D64-A4F3-7B0FC5C93542} = {040B67C4-0950-4F57-AA6E-F60D7B3E8583}
-		{196EEC60-A8EE-4007-B83C-C795FA19592A} = {9EAAE24F-C3AD-4649-940D-5D61E95CA2B0}
-		{B01807DD-CAF0-491A-9FEA-7F5C3D603A94} = {9EAAE24F-C3AD-4649-940D-5D61E95CA2B0}
-		{991CD768-F51F-42D1-8BC7-1E41248AF04C} = {9EAAE24F-C3AD-4649-940D-5D61E95CA2B0}
-		{C5D412FA-2566-4550-8175-2F068FEC44FC} = {9EAAE24F-C3AD-4649-940D-5D61E95CA2B0}
-		{810973F0-8F0A-48CA-81AD-B200BFE83557} = {9EAAE24F-C3AD-4649-940D-5D61E95CA2B0}
-	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2E4D0858-935D-4869-9543-8A5512AD7C6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E4D0858-935D-4869-9543-8A5512AD7C6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E4D0858-935D-4869-9543-8A5512AD7C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E4D0858-935D-4869-9543-8A5512AD7C6B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{152B037E-567A-4D64-A4F3-7B0FC5C93542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{152B037E-567A-4D64-A4F3-7B0FC5C93542}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{152B037E-567A-4D64-A4F3-7B0FC5C93542}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -71,5 +57,19 @@ Global
 		{810973F0-8F0A-48CA-81AD-B200BFE83557}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{810973F0-8F0A-48CA-81AD-B200BFE83557}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{810973F0-8F0A-48CA-81AD-B200BFE83557}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{152B037E-567A-4D64-A4F3-7B0FC5C93542} = {040B67C4-0950-4F57-AA6E-F60D7B3E8583}
+		{196EEC60-A8EE-4007-B83C-C795FA19592A} = {9EAAE24F-C3AD-4649-940D-5D61E95CA2B0}
+		{B01807DD-CAF0-491A-9FEA-7F5C3D603A94} = {9EAAE24F-C3AD-4649-940D-5D61E95CA2B0}
+		{991CD768-F51F-42D1-8BC7-1E41248AF04C} = {9EAAE24F-C3AD-4649-940D-5D61E95CA2B0}
+		{C5D412FA-2566-4550-8175-2F068FEC44FC} = {9EAAE24F-C3AD-4649-940D-5D61E95CA2B0}
+		{810973F0-8F0A-48CA-81AD-B200BFE83557} = {9EAAE24F-C3AD-4649-940D-5D61E95CA2B0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE52BE7E-F327-4CEF-A518-299BC62D35D3}
 	EndGlobalSection
 EndGlobal

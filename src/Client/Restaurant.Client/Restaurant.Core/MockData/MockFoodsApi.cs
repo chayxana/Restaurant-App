@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
 using Restaurant.Abstractions.Api;
-using Restaurant.Common.DataTransferObjects;
+using Restaurant.Abstractions.DataTransferObjects;
 
 namespace Restaurant.Core.MockData
 {

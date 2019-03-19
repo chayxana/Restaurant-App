@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using AutoMapper;
+using Restaurant.Abstractions.Constants;
+using Restaurant.Abstractions.DataTransferObjects;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Common.Constants;
-using Restaurant.Common.DataTransferObjects;
 using Restaurant.Core.ViewModels;
 using Restaurant.Core.ViewModels.Food;
 

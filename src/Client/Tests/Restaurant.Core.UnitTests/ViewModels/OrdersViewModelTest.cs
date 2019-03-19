@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Restaurant.Abstractions.Api;
-using Restaurant.Common.DataTransferObjects;
+using Restaurant.Abstractions.DataTransferObjects;
 using Restaurant.Core.ViewModels;
 
 namespace Restaurant.Core.UnitTests.ViewModels

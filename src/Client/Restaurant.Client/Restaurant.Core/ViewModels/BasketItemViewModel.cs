@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using ReactiveUI;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Common.DataTransferObjects;
 using System;
 using System.Reactive.Linq;
 using Restaurant.Core.ViewModels.Food;

@@ -1,0 +1,10 @@
+mode: set
+github.com/jurabek/basket.api/controllers/basket_controller.go:17.77,19.2 1 1
+github.com/jurabek/basket.api/controllers/basket_controller.go:31.52,38.16 4 1
+github.com/jurabek/basket.api/controllers/basket_controller.go:43.2,45.16 2 1
+github.com/jurabek/basket.api/controllers/basket_controller.go:50.2,50.31 1 1
+github.com/jurabek/basket.api/controllers/basket_controller.go:38.16,41.3 2 1
+github.com/jurabek/basket.api/controllers/basket_controller.go:45.16,48.3 2 1
+github.com/jurabek/basket.api/controllers/basket_controller.go:63.49,68.16 3 1
+github.com/jurabek/basket.api/controllers/basket_controller.go:72.2,72.31 1 1
+github.com/jurabek/basket.api/controllers/basket_controller.go:68.16,70.3 1 1

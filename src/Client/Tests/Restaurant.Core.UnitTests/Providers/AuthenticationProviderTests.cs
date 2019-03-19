@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using Restaurant.Abstractions.Api;
+using Restaurant.Abstractions.DataTransferObjects;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Providers;
-using Restaurant.Common.DataTransferObjects;
 using Restaurant.Core.Providers;
 
 namespace Restaurant.Core.UnitTests.Providers

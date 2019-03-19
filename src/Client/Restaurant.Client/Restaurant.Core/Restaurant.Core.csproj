@@ -13,7 +13,6 @@
     <PackageReference Include="ReactiveUI" Version="9.11.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Restaurant.Common\Restaurant.Common.csproj" />
     <ProjectReference Include="..\Restaurant.Abstractions\Restaurant.Abstractions.csproj" />
   </ItemGroup>
 </Project>

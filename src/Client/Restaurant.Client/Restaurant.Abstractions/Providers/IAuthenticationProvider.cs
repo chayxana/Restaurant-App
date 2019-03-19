@@ -1,10 +1,10 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using Restaurant.Common.DataTransferObjects;
+using Restaurant.Abstractions.DataTransferObjects;
 
 namespace Restaurant.Abstractions.Providers
 {
-	public interface IAuthenticationProvider
+    public interface IAuthenticationProvider
 	{
 		Task<TokenResponse> Login(LoginDto loginDto);
 

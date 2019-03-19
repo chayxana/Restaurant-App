@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Restaurant.Abstractions.DataTransferObjects;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Abstractions.Adapters
 {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
 using ReactiveUI;
+using Restaurant.Abstractions.DataTransferObjects;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Common.DataTransferObjects;
 
 namespace Restaurant.Core.ViewModels.Food
 {

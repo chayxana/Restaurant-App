@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Restaurant.Common.DataTransferObjects;
+using Restaurant.Abstractions.DataTransferObjects;
 
 namespace Restaurant.Abstractions.Providers
 {

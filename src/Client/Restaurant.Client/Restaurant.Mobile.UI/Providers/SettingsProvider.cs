@@ -1,7 +1,7 @@
 ﻿using System;
 using Plugin.Settings.Abstractions;
+using Restaurant.Abstractions.Constants;
 using Restaurant.Abstractions.Providers;
-using Restaurant.Common.Constants;
 
 namespace Restaurant.Mobile.UI.Providers
 {

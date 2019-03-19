@@ -6,10 +6,10 @@ using AutoFixture.Idioms;
 using Moq;
 using NUnit.Framework;
 using Restaurant.Abstractions.Api;
+using Restaurant.Abstractions.DataTransferObjects;
 using Restaurant.Abstractions.Enums;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Providers;
-using Restaurant.Common.DataTransferObjects;
 using Restaurant.Core.ViewModels;
 using Restaurant.Core.ViewModels.Android;
 

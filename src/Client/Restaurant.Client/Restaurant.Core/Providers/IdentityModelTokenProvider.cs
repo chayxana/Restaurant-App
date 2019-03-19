@@ -2,10 +2,10 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using IdentityModel.Client;
+using Restaurant.Abstractions.Constants;
 using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Providers;
-using Restaurant.Common.Constants;
-using TokenResponse = Restaurant.Common.DataTransferObjects.TokenResponse;
+using TokenResponse = Restaurant.Abstractions.DataTransferObjects.TokenResponse;
 
 namespace Restaurant.Core.Providers
 {

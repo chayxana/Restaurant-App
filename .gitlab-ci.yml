@@ -28,26 +28,35 @@ before_script:
   - cd src/Server/
   - chmod -R +x ci/
 
-cache:
-  key: "$CI_PROJECT_NAME"
-  paths:
-    - .gradle/wrapper
-    - .gradle/caches
-    - .nuget/
-    - pip_cache/
-    - go
+# cache:
+#   key: "$CI_PROJECT_NAME"
+#   paths:
+   
+#     - .nuget/
+#     - pip_cache/
+   
 
 build:gateway_api:
   stage: build
   image: openjdk:8-jdk-alpine
   script:
     - ci/build.sh gateway_api
+  cache:
+    key: gradle-cache
+    paths:
+     - .gradle/wrapper
+     - .gradle/caches
 
 build:service_discovery:
   stage: build
   image: openjdk:8-jdk-alpine
   script:
     - ci/build.sh service_discovery
+  cache:
+    key: gradle-cache
+    paths:
+     - .gradle/wrapper
+     - .gradle/caches
 
 build:basket_api:
   image: golang:1.11-alpine
@@ -60,7 +69,11 @@ build:basket_api:
   after_script:
     - cd src/Server/
     - ci/update_build_badge.sh `cat basket_status.txt` basket_api
-
+  cache:
+    key: go-cache
+    paths:
+      - go
+  
 build:order_api:
   image: openjdk:8-jdk-alpine
   stage: build
@@ -72,6 +85,11 @@ build:order_api:
   after_script:
     - cd src/Server/
     - ci/update_build_badge.sh `cat order_status.txt` order_api
+  cache:
+    key: gradle-cache
+    paths:
+     - .gradle/wrapper
+     - .gradle/caches
 
 # build:identity_api:
 #   stage: build
@@ -102,6 +120,11 @@ test:basket_api:
     - ci/test.sh basket_api
   dependencies:
     - build:basket_api
+  cache:
+    key: go-cache
+    paths:
+      - go
+
 
 # test:identity_api:
 #   stage: test
@@ -124,3 +147,9 @@ test:order_api:
     - ci/test.sh order_api
   dependencies:
     - build:order_api
+  cache:
+    key: gradle-cache
+    paths:
+     - .gradle/wrapper
+     - .gradle/caches
+

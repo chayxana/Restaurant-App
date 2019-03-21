@@ -42,7 +42,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
 
         [Test]
         [AutoDomainData]
-        public void SelectedFood_shoul_be_equal_food_wich_is_passed_from_parameter(FoodDto foodDto)
+        public void SelectedFood_should_be_equal_food_which_is_passed_from_parameter(FoodDto foodDto)
         {
             // given 
             var viewModel = Mocker.Create<FoodDetailViewModel>(new NamedParameter("selectedFood", foodDto));

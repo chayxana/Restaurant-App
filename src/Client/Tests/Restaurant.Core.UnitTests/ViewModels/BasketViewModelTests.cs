@@ -39,9 +39,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
             {
                 Quantity = 3
             };
-            
            
-
             // when
             publisher.OnNext(firstBasketItem);
             publisher.OnNext(secondBasketItem);
@@ -49,6 +47,9 @@ namespace Restaurant.Core.UnitTests.ViewModels
             // then
             Assert.That(firstBasketItem.TotalPrice, Is.EqualTo(5 * food.Price));
             Assert.That(viewModel.Items.Count, Is.EqualTo(1));
+            
+            Assert.That(viewModel.Items, Is.Not.Null);
+            // ReSharper disable once PossibleNullReferenceException
             Assert.That(viewModel.Items.FirstOrDefault().Quantity, Is.EqualTo(5));
             
         }

@@ -19,22 +19,22 @@ apply plugin: 'jacoco'
 group = 'com.jurabek.restaurant'
 sourceCompatibility = 1.8
 
-task testJar(type: Jar) {
-	zip64 = true
-    classifier = 'tests'
-	manifest {
-    	attributes ('Main-Class': 'com.jurabek.restaurant.order.api.ApplicationTests')
-  	}
-    from sourceSets.test.output
-	from { configurations.testRuntime.collect { it.isDirectory() ? it : zipTree(it) } }
-  	with jar
-}
+// task testJar(type: Jar) {
+// 	zip64 = true
+//     classifier = 'tests'
+// 	manifest {
+//     	attributes ('Main-Class': 'com.jurabek.restaurant.order.api.ApplicationTests')
+//   	}
+//     from sourceSets.test.output
+// 	from { configurations.testRuntime.collect { it.isDirectory() ? it : zipTree(it) } }
+//   	with jar
+// }
 
-testJar.dependsOn 'test'
+// testJar.dependsOn 'test'
 
-artifacts {
-    archives testJar
-}
+// artifacts {
+//     archives testJar
+// }
 repositories {
 	mavenCentral()
 }

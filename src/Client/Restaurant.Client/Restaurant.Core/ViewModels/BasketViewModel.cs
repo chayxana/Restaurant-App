@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Input;
 using DynamicData;
-using DynamicData.Alias;
 using DynamicData.Binding;
 using ReactiveUI;
 using Restaurant.Abstractions.Adapters;
@@ -28,7 +27,14 @@ namespace Restaurant.Core.ViewModels
         {
             
             basketItemViewModelSubscriber.Handler
-                .Subscribe(AddItemOrIncrementQuantity);
+                .Subscribe(item =>
+                {
+                    var addedItem = Items.FirstOrDefault(x => x.Food.Id == item.Food.Id);
+                    if (addedItem != null)
+                        addedItem.Quantity += item.Quantity;
+                    else
+                        Items.Add(item);
+                });
 
             _totalPrice = Items.ToObservableChangeSet()
                 .AutoRefresh(x => x.Quantity)
@@ -60,18 +66,5 @@ namespace Restaurant.Core.ViewModels
         public ICommand CompleteOrder { get; }
 
         public override string Title => "Your basket";
-        
-        private void AddItemOrIncrementQuantity(IBasketItemViewModel basketItem)
-        {
-            var addedItem = Items.FirstOrDefault(x => x.Food.Id == basketItem.Food.Id);
-            if (addedItem != null)
-            {
-                addedItem.Quantity += basketItem.Quantity;
-            }
-            else
-            {
-                Items.Add(basketItem);
-            }
-        }
     }
 }

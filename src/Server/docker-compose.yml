@@ -45,6 +45,7 @@ services:
   order-api:
     image: restaurant/order
     build: ./services/order.api
+    dockerfile: Dockerfile.local
     ports:
       - "8090:8090"
     depends_on:
@@ -54,5 +55,5 @@ services:
   pgsql:
     image: postgres:alpine
   
-  # redis:
-  #   image: redis:alpine
+  redis:
+    image: redis:alpine

@@ -12,6 +12,7 @@ namespace Restaurant.Core.UnitTests.Adapters
 	    public void Given_Navigation_item_GetViewModelFromNavigationItem_should_return_INavigatableViewModel()
 		{
 			var navigationItemAdapter = ClassUnderTest;
+			
 			var viewModelFactory = GetMock<IViewModelFactory>();
 			viewModelFactory.Setup(x => x.GetViewModel(typeof(FoodsViewModel))).Returns(new FoodsViewModel());
 			viewModelFactory.Setup(x => x.GetViewModel(typeof(OrdersViewModel))).Returns(new OrdersViewModel());

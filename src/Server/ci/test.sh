@@ -20,7 +20,7 @@ main () {
 }
 
 test_basket_api() {
-    cd ./services/basket.api/ 
+    cd ./services/basket.api/
     sh test.sh
     cd -
     
@@ -31,18 +31,19 @@ test_basket_api() {
 
 test_order_api(){
     cd ./services/order.api/
-    sh test.sh 
+    sh test.sh
     cd -
-
-    COVERAGE_RESULT=awk -F"," '{ instructions += $4 + $5; covered += $5 } END { print 100*covered/instructions}' \
-        ./services/order.api/build/reports/jacoco/test/jacocoTestReport.csv
-
+    
+    ls
+    
+    COVERAGE_RESULT=awk -F"," '{ instructions += $4 + $5; covered += $5 } END { print 100*covered/instructions}' ./services/order.api/build/reports/jacoco/test/jacocoTestReport.csv
+    
     BADGE_COLOR=$(get_coverage_result_badge_color $COVERAGE_RESULT)
     COVERAGE_FILE_NAME="${CI_API_NAME}_coverage.svg"
     
     echo $BADGE_COLOR
     echo $COVERAGE_RESULT
-
+    
     ./ci/generate_badge.sh $COVERAGE_FILE_NAME "coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
     ./ci/upload_badge_s3.sh $COVERAGE_FILE_NAME
     ./ci/sync_folder_s3.sh "$(pwd)/services/order.api/build/reports/jacoco/test/html/" $CI_API_NAME
@@ -55,28 +56,34 @@ test_identity_api() {
 }
 
 test_menu_api() {
-    docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "dotnet" "vstest" "./Menu.API.UnitTests.dll"
     
-    mkdir menu_api_coverage_report
+    cd ./services/menu.api/
+    sh test.sh
+    cd -
+    ls
     
-    # code coverage
-    docker run -v "$(pwd)"/menu_api_coverage_report:/app/coveragereport \
-        --name "$CI_API_NAME_coverage" \
-        $IMAGE_BASE_NAME:$CI_API_NAME /bin/bash -c ./code_coverage.sh | tee output.txt
+    # docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "dotnet" "vstest" "./Menu.API.UnitTests.dll"
     
-    COVERAGE_RESULT=$(grep "Total Branch" output.txt | tr -dc '[0-9]+\.[0-9]')
-    BADGE_COLOR=$(get_coverage_result_badge_color $COVERAGE_RESULT)
-    COVERAGE_FILE_NAME="${CI_API_NAME}_coverage.svg"
+    # mkdir menu_api_coverage_report
     
-    echo $COVERAGE_RESULT
-    echo $BADGE_COLOR
+    # # code coverage
+    # docker run -v "$(pwd)"/menu_api_coverage_report:/app/coveragereport \
+    #     --name "$CI_API_NAME_coverage" \
+    #     $IMAGE_BASE_NAME:$CI_API_NAME /bin/bash -c ./code_coverage.sh | tee output.txt
     
-    ./ci/generate_badge.sh $COVERAGE_FILE_NAME "coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
-    ./ci/upload_badge_s3.sh $COVERAGE_FILE_NAME
-    ./ci/sync_folder_s3.sh "$(pwd)/menu_api_coverage_report" menu_api
+    # COVERAGE_RESULT=$(grep "Total Branch" output.txt | tr -dc '[0-9]+\.[0-9]')
+    # BADGE_COLOR=$(get_coverage_result_badge_color $COVERAGE_RESULT)
+    # COVERAGE_FILE_NAME="${CI_API_NAME}_coverage.svg"
     
-    rm -rf menu_api_coverage_report
-    docker rm $(docker ps -aqf "name=$CI_API_NAME_coverage")
+    # echo $COVERAGE_RESULT
+    # echo $BADGE_COLOR
+    
+    # ./ci/generate_badge.sh $COVERAGE_FILE_NAME "coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
+    # ./ci/upload_badge_s3.sh $COVERAGE_FILE_NAME
+    # ./ci/sync_folder_s3.sh "$(pwd)/menu_api_coverage_report" menu_api
+    
+    # rm -rf menu_api_coverage_report
+    # docker rm $(docker ps -aqf "name=$CI_API_NAME_coverage")
 }
 
 docker_pull() {

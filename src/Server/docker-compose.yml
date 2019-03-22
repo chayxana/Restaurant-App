@@ -3,13 +3,17 @@ version: '3.7'
 services:
   service-discovery:
     image: restaurant-service-discovery
-    build: ./gateway/restaurant-service-discovery
+    build: 
+      context: ./gateway/restaurant-service-discovery
+      dockerfile: Dockerfile.local
     ports:
       - "8761:8761"
 
   gateway-api:
     image: restaurant-gateway
-    build: ./gateway/restaurant-gateway/
+    build: 
+      context: ./gateway/restaurant-gateway/
+      dockerfile: Dockerfile.local
     ports: 
       - "8080:8080"
     depends_on:
@@ -44,8 +48,9 @@ services:
 
   order-api:
     image: restaurant/order
-    build: ./services/order.api
-    dockerfile: Dockerfile.local
+    build: 
+      context: ./services/order.api
+      dockerfile: Dockerfile.local
     ports:
       - "8090:8090"
     depends_on:

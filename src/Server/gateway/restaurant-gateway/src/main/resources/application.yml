@@ -22,6 +22,12 @@ zuul:
     order:
       path: /order/**
       serviceId: order-service
+    identity:
+      path: /identity/**
+      serviceId: identity-service
+    basket:
+      path: /basket/**
+      serviceId: basket-service
 
 eureka:
   client:

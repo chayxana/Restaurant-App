@@ -3,7 +3,6 @@
 CI_API_NAME=$1
 
 main () {
-    docker_pull
     
     case "$CI_API_NAME" in
         basket_api) test_basket_api ;;
@@ -21,15 +20,20 @@ main () {
 }
 
 test_basket_api() {
-    cd ./services/basket.api/ & sh test.sh
+    cd ./services/basket.api/ 
+    sh test.sh
+    cd -
+    
     ./ci/sync_folder_s3.sh "$(pwd)/services/basket.api/reports/" $CI_API_NAME
     
     # docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME ./controllers.test -test.coverprofile=coverage.out
 }
 
 test_order_api(){
-    cd ./services/order.api/ & sh test.sh 
-    
+    cd ./services/order.api/
+    sh test.sh 
+    cd -
+
     COVERAGE_RESULT=awk -F"," '{ instructions += $4 + $5; covered += $5 } END { print 100*covered/instructions}' \
         ./services/order.api/build/reports/jacoco/test/jacocoTestReport.csv
 

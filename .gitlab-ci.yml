@@ -106,6 +106,7 @@ build:order_api:
 #     - ci/update_build_badge.sh `cat identity_status.txt` identity_api
 
 build:menu_api:
+  image: microsoft/dotnet:2.1-sdk-alpine
   stage: build
   script:
     - ci/update_build_badge.sh running menu_api
@@ -129,6 +130,7 @@ test:basket_api:
     - build:basket_api
   cache:
     key: go-cache
+    policy: pull
     paths:
       - go
 
@@ -140,6 +142,7 @@ test:basket_api:
 #     - build:identity_api
 
 test:menu_api:
+  image: microsoft/dotnet:2.1-sdk-alpine
   stage: test
   script:
     - ci/test.sh menu_api
@@ -147,6 +150,7 @@ test:menu_api:
     - build:menu_api
   cache:
     key: dotnet-cache
+    policy: pull
     paths:
       - .nuget/
 
@@ -159,6 +163,7 @@ test:order_api:
     - build:order_api
   cache:
     key: gradle-cache
+    policy: pull
     paths:
      - .gradle/wrapper
      - .gradle/caches

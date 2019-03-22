@@ -38,6 +38,7 @@ build:gateway_api:
     paths:
      - .gradle/wrapper
      - .gradle/caches
+    policy: pull
 
 build:service_discovery:
   stage: build
@@ -49,7 +50,8 @@ build:service_discovery:
     paths:
      - .gradle/wrapper
      - .gradle/caches
-
+    policy: pull
+    
 build:basket_api:
   image: golang:1.11-alpine
   stage: build
@@ -86,16 +88,21 @@ build:order_api:
      - .gradle/wrapper
      - .gradle/caches
 
-# build:identity_api:
-#   stage: build
-#   script:
-#     - ci/update_build_badge.sh running identity_api
-#     - echo "failure" > identity_status.txt
-#     - ci/build.sh identity_api
-#     - echo "success" > identity_status.txt
-#   after_script:
-#     - cd src/Server/
-#     - ci/update_build_badge.sh `cat identity_status.txt` identity_api
+build:identity_api:
+  image: microsoft/dotnet:2.1-sdk-alpine
+  stage: build
+  script:
+    - ci/update_build_badge.sh running identity_api
+    - echo "failure" > identity_status.txt
+    - ci/build.sh identity_api
+    - echo "success" > identity_status.txt
+  after_script:
+    - cd src/Server/
+    - ci/update_build_badge.sh `cat identity_status.txt` identity_api
+  cache:
+    key: dotnet-cache
+    paths:
+      - .nuget/
 
 build:menu_api:
   image: microsoft/dotnet:2.1-sdk-alpine

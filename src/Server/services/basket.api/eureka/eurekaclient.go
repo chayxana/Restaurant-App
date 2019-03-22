@@ -60,24 +60,23 @@ func Register() bool {
 
 	client := &http.Client{}
 
-	var respose http.Response
-	for i := 0; i < 3; i++ {
+	// Simulating resilience, the reason Eureka service become available later when we run docker compose
+	for i := 0; i < 5; i++ {
+
 		respose, err := client.Do(req)
 		if err != nil {
-			fmt.Printf("Eureka register error: %v", err)
+			fmt.Println("Eureka register error")
+			time.Sleep(15 * time.Second)
+			continue
 		}
+
 		defer respose.Body.Close()
-
 		if respose.StatusCode < 300 {
-			break
+			return true
 		}
 	}
 
-	if respose.StatusCode > 300 {
-		return false
-	}
-
-	return true
+	return false
 }
 
 // StartHeartbeat starts sending heartbeat for Eureka Server

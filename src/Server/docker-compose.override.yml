@@ -11,10 +11,12 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://pgsql:5432/orderdb
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=Passw0rd!
+  
   basket-api:
     environment:
-      EUREKA_CLIENT_SERVICE_URL=http://service-discovery:8761/eureka/
-
+      - EUREKA_CLIENT_SERVICE_URL=http://service-discovery:8761/eureka/
+      - REDIS_HOST=redis
+  
   pgsql:
     environment:
       - POSTGRES_PASSWORD=Passw0rd!

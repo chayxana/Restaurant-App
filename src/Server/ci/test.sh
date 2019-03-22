@@ -21,15 +21,14 @@ main () {
 }
 
 test_basket_api() {
-    cd ./services/basket.api/ & sh test.sh & cd -
-    pwd
+    cd ./services/basket.api/ & sh test.sh & cd ../../
     ./ci/sync_folder_s3.sh "$(pwd)/services/basket.api/reports/" basket_api
     
     # docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME ./controllers.test -test.coverprofile=coverage.out
 }
 
 test_order_api(){
-    cd ./services/order.api/ & sh test.sh & cd -
+    cd ./services/order.api/ & sh test.sh & cd ../../
     pwd
 
     ./ci/sync_folder_s3.sh "$(pwd)/services/order.api/build/reports/jacoco/test/html/" order_api

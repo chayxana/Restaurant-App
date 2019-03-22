@@ -28,14 +28,6 @@ before_script:
   - cd src/Server/
   - chmod -R +x ci/
 
-# cache:
-#   key: "$CI_PROJECT_NAME"
-#   paths:
-   
-#     - .nuget/
-#     - pip_cache/
-   
-
 build:gateway_api:
   stage: build
   image: openjdk:8-jdk-alpine
@@ -94,16 +86,16 @@ build:order_api:
      - .gradle/wrapper
      - .gradle/caches
 
-build:identity_api:
-  stage: build
-  script:
-    - ci/update_build_badge.sh running identity_api
-    - echo "failure" > identity_status.txt
-    - ci/build.sh identity_api
-    - echo "success" > identity_status.txt
-  after_script:
-    - cd src/Server/
-    - ci/update_build_badge.sh `cat identity_status.txt` identity_api
+# build:identity_api:
+#   stage: build
+#   script:
+#     - ci/update_build_badge.sh running identity_api
+#     - echo "failure" > identity_status.txt
+#     - ci/build.sh identity_api
+#     - echo "success" > identity_status.txt
+#   after_script:
+#     - cd src/Server/
+#     - ci/update_build_badge.sh `cat identity_status.txt` identity_api
 
 build:menu_api:
   image: microsoft/dotnet:2.1-sdk-alpine

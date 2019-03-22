@@ -42,6 +42,7 @@ build_basket_api() {
 
 build_identity_api() {
     cd ./services/identity.api/
+    sh build.sh
 }
 
 build_menu_api() {

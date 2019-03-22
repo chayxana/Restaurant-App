@@ -28,9 +28,9 @@ test_basket_api() {
 }
 
 test_order_api(){
-    cd ./services/order.api/ & \ 
-        sh test.sh & \
-        COVERAGE_RESULT=awk -F"," '{ instructions += $4 + $5; covered += $5 } END { print 100*covered/instructions}' build/reports/jacoco/test/jacocoTestReport.csv
+    cd ./services/order.api/ \
+        & sh test.sh \ 
+        & COVERAGE_RESULT=awk -F"," '{ instructions += $4 + $5; covered += $5 } END { print 100*covered/instructions}' build/reports/jacoco/test/jacocoTestReport.csv
 
     BADGE_COLOR=$(get_coverage_result_badge_color $COVERAGE_RESULT)
     COVERAGE_FILE_NAME="${CI_API_NAME}_coverage.svg"

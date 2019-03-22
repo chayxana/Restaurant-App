@@ -34,12 +34,14 @@ test_order_api(){
     sh test.sh
     cd -
     
-    COVERAGE_RESULT=$(awk -F"," '{ instructions += $4 + $5; covered += $5 } END { print 100*covered/instructions}' ./services/order.api/build/reports/jacoco/test/jacocoTestReport.csv)
-    
+    COVERAGE_RESULT=$(awk -F"," '{ instructions += $4 + $5; covered += $5 } END { rounded = sprintf("%.0f", 100*covered/instructions); print rounded}' ./services/order.api/build/reports/jacoco/test/jacocoTestReport.csv)
+
+    echo $COVERAGE_RESULT
+
     BADGE_COLOR=$(get_coverage_result_badge_color $COVERAGE_RESULT)
     COVERAGE_FILE_NAME="${CI_API_NAME}_coverage.svg"
     
-    ./ci/generate_badge.sh $COVERAGE_FILE_NAME "coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
+    ./ci/generate_badge.sh $COVERAGE_FILE_NAME "order--api--coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
     ./ci/upload_badge_s3.sh $COVERAGE_FILE_NAME
     ./ci/sync_folder_s3.sh "$(pwd)/services/order.api/build/reports/jacoco/test/html/" $CI_API_NAME
 }
@@ -58,7 +60,7 @@ test_menu_api() {
     BADGE_COLOR=$(get_coverage_result_badge_color $COVERAGE_RESULT)
     COVERAGE_FILE_NAME="${CI_API_NAME}_coverage.svg"
 
-    ./ci/generate_badge.sh $COVERAGE_FILE_NAME "coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
+    ./ci/generate_badge.sh $COVERAGE_FILE_NAME "menu--api--coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
     ./ci/upload_badge_s3.sh $COVERAGE_FILE_NAME
     ./ci/sync_folder_s3.sh "$(pwd)/services/menu.api/coveragereport/" $CI_API_NAME
     

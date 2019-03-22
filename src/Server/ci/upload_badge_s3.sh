@@ -8,5 +8,4 @@ aws configure set default.region eu-central-1
 
 aws s3 cp $FILE_NAME s3://jurabek-restaurant-app/badges/ \
     --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers \
-    --cache-control no-cache \
-    --expires -1
+    --cache-control no-store

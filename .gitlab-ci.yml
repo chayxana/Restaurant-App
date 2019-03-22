@@ -17,9 +17,9 @@ variables:
     
 
 before_script:
-  - apk add --update curl && rm -rf /var/cache/apk/*
-  - apk add --update git && rm -rf /var/cache/apk/*
-  - apk add --no-cache curl jq python py-pip
+  - apk add --update curl 
+  - apk add --update git
+  - apk add curl jq python py-pip
   - pip --cache-dir=pip_cache install awscli
   - export GRADLE_USER_HOME=$(pwd)/.gradle
   - export NUGET_PACKAGES=$(pwd)/.nuget
@@ -66,7 +66,10 @@ build:basket_api:
     - echo "failure" > basket_status.txt
     - ci/build.sh basket_api
     - echo "success" > basket_status.txt
+    - export BASKET_STATUS=success
   after_script:
+    - echo "Printing basket status from export"
+    - echo $BASKET_STATUS
     - cd src/Server/
     - ci/update_build_badge.sh `cat basket_status.txt` basket_api
   cache:

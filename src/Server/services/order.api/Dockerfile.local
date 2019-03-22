@@ -3,7 +3,7 @@ FROM openjdk:8-jdk-alpine as builder
 COPY . /usr/src/ordering_api
 WORKDIR /usr/src/ordering_api
 
-RUN ./gradlew build -x test
+RUN ./gradlew build
 
 FROM openjdk:8-jdk-alpine
 WORKDIR /root/

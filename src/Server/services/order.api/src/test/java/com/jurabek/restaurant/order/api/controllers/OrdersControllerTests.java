@@ -38,6 +38,24 @@ public class OrdersControllerTests {
     }
 
     @Test
+    public void UpdateShouldUpdate() {
+        CustomerBasketDto customerBasketDto = new CustomerBasketDto();
+        doNothing().when(ordersService).Update(customerBasketDto);
+
+        ordersController.update(customerBasketDto);
+        verify(ordersService, times(1)).Update(customerBasketDto);
+    }
+
+    @Test
+    public void DeleteShouldRemove() {
+        String orderId = "orderID";
+        doNothing().when(ordersService).Delete(orderId);
+
+        ordersController.delete(orderId);
+        verify(ordersService, times(1)).Delete(orderId);
+    }
+
+    @Test
     public void getShouldReturnData(){
         List<CustomerOrderDto> mockResults = new ArrayList<>();
         mockResults.add(new CustomerOrderDto());

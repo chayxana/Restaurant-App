@@ -1,14 +1,14 @@
 buildscript {
-	ext {
-		springBootVersion = '2.0.4.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath('com.github.ksoichiro:gradle-console-reporter:0.6.2')
-	}
+    ext {
+        springBootVersion = '2.0.4.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath('com.github.ksoichiro:gradle-console-reporter:0.6.2')
+    }
 }
 
 apply plugin: 'java'
@@ -27,43 +27,36 @@ jacocoTestReport {
         csv.enabled true
         html.enabled true
     }
+
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ['com/jurabek/restaurant/order/api/config/**',
+                              '**/mappers/**',
+                              'com/jurabek/restaurant/order/api/controllers/HomeController.java']
+            )
+        })
+    }
 }
 
-// task testJar(type: Jar) {
-// 	zip64 = true
-//     classifier = 'tests'
-// 	manifest {
-//     	attributes ('Main-Class': 'com.jurabek.restaurant.order.api.ApplicationTests')
-//   	}
-//     from sourceSets.test.output
-// 	from { configurations.testRuntime.collect { it.isDirectory() ? it : zipTree(it) } }
-//   	with jar
-// }
-
-// testJar.dependsOn 'test'
-
-// artifacts {
-//     archives testJar
-// }
-
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.postgresql:postgresql:42.2.5')
-	compile('io.springfox:springfox-swagger2:2.9.2')
-	compile('io.springfox:springfox-swagger-ui:2.9.2')
-	compile('org.modelmapper:modelmapper:2.3.0')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile('org.mockito:mockito-core:2.+')
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.postgresql:postgresql:42.2.5')
+    compile('io.springfox:springfox-swagger2:2.9.2')
+    compile('io.springfox:springfox-swagger-ui:2.9.2')
+    compile('org.modelmapper:modelmapper:2.3.0')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.mockito:mockito-core:2.+')
 }
 
 dependencyManagement {
-	imports {
-		mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.SR2'
-	}
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.SR2'
+    }
 }

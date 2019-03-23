@@ -14,15 +14,15 @@ case "$CI_API_NAME" in
 
 # Set values for shields.io fields based on STATUS
 if [ $STATUS = "running" ]; then
-	BADGE_SUBJECT="build--$API_TITLE"
+	BADGE_SUBJECT="$API_TITLE"
 	BADGE_STATUS="running"
 	BADGE_COLOR="yellow"
 elif [ $STATUS = "failure" ]; then
-	BADGE_SUBJECT="build--$API_TITLE"
+	BADGE_SUBJECT="$API_TITLE"
 	BADGE_STATUS="failed"
 	BADGE_COLOR="red"
 elif [ $STATUS = "success" ]; then
-	BADGE_SUBJECT="build--$API_TITLE"
+	BADGE_SUBJECT="$API_TITLE"
 	BADGE_STATUS="passed"
 	BADGE_COLOR="brightgreen"
 else

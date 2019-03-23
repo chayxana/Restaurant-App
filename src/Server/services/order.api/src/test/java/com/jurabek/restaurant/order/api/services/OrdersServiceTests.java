@@ -24,8 +24,6 @@ import org.modelmapper.TypeToken;
 
 import java.lang.reflect.Type;
 
-
-
 @RunWith(MockitoJUnitRunner.class)
 public class OrdersServiceTests {
     

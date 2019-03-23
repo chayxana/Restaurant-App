@@ -44,8 +44,4 @@ public class OrdersController {
 	public void delete(String orderId){
 	    ordersService.Delete(orderId);
     }
-
-    public void cancelOrder(String orderId) {
-
-    }
 }

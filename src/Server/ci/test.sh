@@ -25,8 +25,6 @@ test_basket_api() {
     cd -
     
     ./ci/sync_folder_s3.sh "$(pwd)/services/basket.api/reports/" $CI_API_NAME
-    
-    # docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME ./controllers.test -test.coverprofile=coverage.out
 }
 
 test_order_api(){
@@ -41,7 +39,7 @@ test_order_api(){
     BADGE_COLOR=$(get_coverage_result_badge_color $COVERAGE_RESULT)
     COVERAGE_FILE_NAME="${CI_API_NAME}_coverage.svg"
     
-    ./ci/generate_badge.sh $COVERAGE_FILE_NAME "order--api--coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
+    ./ci/generate_badge.sh $COVERAGE_FILE_NAME "order--api" "$COVERAGE_RESULT%25" $BADGE_COLOR
     ./ci/upload_badge_s3.sh $COVERAGE_FILE_NAME
     ./ci/sync_folder_s3.sh "$(pwd)/services/order.api/build/reports/jacoco/test/html/" $CI_API_NAME
 }
@@ -60,7 +58,7 @@ test_menu_api() {
     BADGE_COLOR=$(get_coverage_result_badge_color $COVERAGE_RESULT)
     COVERAGE_FILE_NAME="${CI_API_NAME}_coverage.svg"
 
-    ./ci/generate_badge.sh $COVERAGE_FILE_NAME "menu--api--coverage" "$COVERAGE_RESULT%25" $BADGE_COLOR
+    ./ci/generate_badge.sh $COVERAGE_FILE_NAME "menu--api" "$COVERAGE_RESULT%25" $BADGE_COLOR
     ./ci/upload_badge_s3.sh $COVERAGE_FILE_NAME
     ./ci/sync_folder_s3.sh "$(pwd)/services/menu.api/coveragereport/" $CI_API_NAME
     

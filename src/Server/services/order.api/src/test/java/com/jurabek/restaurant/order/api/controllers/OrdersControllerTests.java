@@ -4,6 +4,8 @@ import com.jurabek.restaurant.order.api.dtos.CustomerBasketDto;
 import com.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
 import com.jurabek.restaurant.order.api.services.OrdersService;
 
+import org.hamcrest.core.IsSame;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -66,5 +68,18 @@ public class OrdersControllerTests {
         List<CustomerOrderDto> result = ordersController.getData();
         assertEquals(mockResults, result);
         verify(ordersService, times(1)).getAll();
+    }
+
+    @Test
+    public void getOrderByCustomerIdTest() {
+        CustomerOrderDto customerOrderDto = new CustomerOrderDto();
+        String customerId = "123";
+
+        when(ordersService.getOrderByCustomerId(customerId))
+                .thenReturn(customerOrderDto);
+
+        CustomerOrderDto result = ordersController.getOrderByCustomerId(customerId);
+
+        Assert.assertThat(customerOrderDto, IsSame.sameInstance(result));
     }
 }

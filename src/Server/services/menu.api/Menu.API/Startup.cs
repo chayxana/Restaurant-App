@@ -41,7 +41,7 @@ namespace Menu.API
                 {
                     options.Authority = Configuration["IdentityUrl"];
                     options.RequireHttpsMetadata = false;
-                    options.ApiName = "api1";
+                    options.ApiName = "menu-api";
                 });
 
             var connectionString = Configuration.GetConnectionString("MenuDatabaseConnectionString");

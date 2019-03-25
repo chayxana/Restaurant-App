@@ -30,7 +30,9 @@ services:
 
   menu-api:
     image: restaurant/menu
-    build: ./services/menu.api/
+    build: 
+      context: ./services/menu.api/
+      dockerfile: Dockerfile.local
     ports:
        - "5100:80"
     depends_on:

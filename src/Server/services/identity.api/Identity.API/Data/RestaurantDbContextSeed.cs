@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Polly;
+using Polly.Retry;
 
 namespace Identity.API.Data
 {
@@ -51,7 +52,7 @@ namespace Identity.API.Data
 			});
 		}
 
-		private Policy CreatePolicy(ILogger<RestaurantDbContextSeed> logger, string prefix, int retries = 3)
+		private AsyncRetryPolicy CreatePolicy(ILogger<RestaurantDbContextSeed> logger, string prefix, int retries = 3)
 		{
 			return Policy.Handle<SqlException>().
 				WaitAndRetryAsync(

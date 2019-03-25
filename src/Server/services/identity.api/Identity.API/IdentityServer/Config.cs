@@ -22,10 +22,18 @@ namespace Identity.API.IdentityServer
         {
             return new List<ApiResource>
             {
-                new ApiResource(ApiConstants.ApiName, "Restaurant Manager Api")
+                new ApiResource("menu-api", "Restaurant Menu Api")
                 {
                     UserClaims = {"role"}
-                }
+                },
+                new ApiResource("order-api", "Restaurant Order Api")
+                {
+                    UserClaims = {"role"}
+                },
+                new ApiResource("basket-api", "Restaurant Basket Api")
+                {
+                    UserClaims = {"role"}
+                },
             };
         }
 
@@ -38,19 +46,17 @@ namespace Identity.API.IdentityServer
                 // resource owner password grant client
                 new Client
                 {
-                    ClientId = ApiConstants.ClientId,
+                    ClientId = "user_password.client",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-
-                    ClientSecrets =
-                    {
-                        new Secret("secret".Sha256())
-                    },
-
+                    
+                    RequireClientSecret = false,
+                    
                     AllowedScopes =
                     {
-                        ApiConstants.ApiName
+                        "menu-api",
+                        "basket-api",
+                        "order-api"
                     },
-
                     AllowOfflineAccess = true
                 },
 
@@ -72,7 +78,9 @@ namespace Identity.API.IdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        ApiConstants.ApiName
+                        "menu-api",
+                        "basket-api",
+                        "order-api"
                     },
                     AllowOfflineAccess = true
                 }

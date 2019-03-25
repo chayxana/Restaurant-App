@@ -6,6 +6,7 @@ import java.util.List;
 import com.jurabek.restaurant.order.api.Application;
 import com.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class OrdersControllerIntegrationTests {
     private int port;
 
     @Test
+    @Ignore
     public void greetingShouldReturnDefaultMessage() throws Exception {
 
         List<CustomerOrderDto> result = this.restTemplate

@@ -24,6 +24,12 @@ test_basket_api() {
     sh test.sh
     cd -
     
+    COVERAGE_RESULT=$(sh ./services/basket.api/coverage_result.sh ./services/basket.api/coverage.out)
+    BADGE_COLOR=$(get_coverage_result_badge_color $COVERAGE_RESULT)
+    COVERAGE_FILE_NAME="${CI_API_NAME}_coverage.svg"
+
+    ./ci/generate_badge.sh $COVERAGE_FILE_NAME "basket--api" "$COVERAGE_RESULT%25" $BADGE_COLOR
+    ./ci/upload_badge_s3.sh $COVERAGE_FILE_NAME
     ./ci/sync_folder_s3.sh "$(pwd)/services/basket.api/reports/" $CI_API_NAME
 }
 
@@ -33,9 +39,7 @@ test_order_api(){
     cd -
     
     COVERAGE_RESULT=$(awk -F"," '{ instructions += $4 + $5; covered += $5 } END { rounded = sprintf("%.0f", 100*covered/instructions); print rounded}' ./services/order.api/build/reports/jacoco/test/jacocoTestReport.csv)
-
-    echo $COVERAGE_RESULT
-
+    
     BADGE_COLOR=$(get_coverage_result_badge_color $COVERAGE_RESULT)
     COVERAGE_FILE_NAME="${CI_API_NAME}_coverage.svg"
     
@@ -53,11 +57,11 @@ test_menu_api() {
     cd ./services/menu.api/
     sh test.sh | tee output.txt
     cd -
-
+    
     COVERAGE_RESULT=$(grep "Total Branch" ./services/menu.api/output.txt | tr -dc '[0-9]+\.[0-9]')
     BADGE_COLOR=$(get_coverage_result_badge_color $COVERAGE_RESULT)
     COVERAGE_FILE_NAME="${CI_API_NAME}_coverage.svg"
-
+    
     ./ci/generate_badge.sh $COVERAGE_FILE_NAME "menu--api" "$COVERAGE_RESULT%25" $BADGE_COLOR
     ./ci/upload_badge_s3.sh $COVERAGE_FILE_NAME
     ./ci/sync_folder_s3.sh "$(pwd)/services/menu.api/coveragereport/" $CI_API_NAME
@@ -66,7 +70,7 @@ test_menu_api() {
     # docker run -v "$(pwd)"/menu_api_coverage_report:/app/coveragereport \
     #     --name "$CI_API_NAME_coverage" \
     #     $IMAGE_BASE_NAME:$CI_API_NAME /bin/bash -c ./code_coverage.sh | tee output.txt
-
+    
 }
 
 docker_pull() {
@@ -83,7 +87,7 @@ get_coverage_result_badge_color() {
     elif [ $RESULT -gt 30 ] && [ $RESULT -lt 60 ]
     then
         BADGE_COLOR="orange"
-    elif [ $RESULT -gt 60 ] && [ $RESULT -lt 100 ]
+    elif [ $RESULT -gt 60 ] && [ $RESULT -lt 101 ]
     then
         BADGE_COLOR="green"
     else

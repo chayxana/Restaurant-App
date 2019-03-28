@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Identity.API.Model.Entities;
+using Identity.API.ViewModelBuilders;
 using IdentityModel;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
@@ -30,6 +31,7 @@ namespace Identity.API.Controllers.Account
     [AllowAnonymous]
     public class AccountController : Controller
     {
+        private readonly ILoginViewModelBuilder _loginViewModelBuilder;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
@@ -38,6 +40,7 @@ namespace Identity.API.Controllers.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
 
         public AccountController(
+            ILoginViewModelBuilder loginViewModelBuilder,
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
@@ -45,7 +48,8 @@ namespace Identity.API.Controllers.Account
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
          {
-            _interaction = interaction;
+             _loginViewModelBuilder = loginViewModelBuilder;
+             _interaction = interaction;
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
@@ -232,56 +236,9 @@ namespace Identity.API.Controllers.Account
         /*****************************************/
         /* helper APIs for the AccountController */
         /*****************************************/
-        private async Task<LoginViewModel> BuildLoginViewModelAsync(string returnUrl)
+        private Task<LoginViewModel> BuildLoginViewModelAsync(string returnUrl)
         {
-            var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
-            if (context?.IdP != null)
-            {
-                // this is meant to short circuit the UI and only trigger the one external IdP
-                return new LoginViewModel
-                {
-                    EnableLocalLogin = false,
-                    ReturnUrl = returnUrl,
-                    Username = context?.LoginHint,
-                    ExternalProviders = new ExternalProvider[] { new ExternalProvider { AuthenticationScheme = context.IdP } }
-                };
-            }
-
-            var schemes = await _schemeProvider.GetAllSchemesAsync();
-
-            var providers = schemes
-                .Where(x => x.DisplayName != null ||
-                            (x.Name.Equals(AccountOptions.WindowsAuthenticationSchemeName, StringComparison.OrdinalIgnoreCase))
-                )
-                .Select(x => new ExternalProvider
-                {
-                    DisplayName = x.DisplayName,
-                    AuthenticationScheme = x.Name
-                }).ToList();
-
-            var allowLocal = true;
-            if (context?.ClientId != null)
-            {
-                var client = await _clientStore.FindEnabledClientByIdAsync(context.ClientId);
-                if (client != null)
-                {
-                    allowLocal = client.EnableLocalLogin;
-
-                    if (client.IdentityProviderRestrictions != null && client.IdentityProviderRestrictions.Any())
-                    {
-                        providers = providers.Where(provider => client.IdentityProviderRestrictions.Contains(provider.AuthenticationScheme)).ToList();
-                    }
-                }
-            }
-
-            return new LoginViewModel
-            {
-                AllowRememberLogin = AccountOptions.AllowRememberLogin,
-                EnableLocalLogin = allowLocal && AccountOptions.AllowLocalLogin,
-                ReturnUrl = returnUrl,
-                Username = context?.LoginHint,
-                ExternalProviders = providers.ToArray()
-            };
+            return _loginViewModelBuilder.Build(returnUrl);
         }
         
         private async Task<LoginViewModel> BuildLoginViewModelAsync(LoginInputModel model)

@@ -60,10 +60,8 @@ build:basket_api:
     - echo "failure" > basket_status.txt #https://gitlab.com/gitlab-org/gitlab-runner/issues/3088
     - ci/build.sh basket_api
     - echo "success" > basket_status.txt
-    - export BASKET_STATUS=success
   after_script:
     - echo "Printing basket status from export"
-    - echo $BASKET_STATUS
     - cd src/Server/
     - ci/update_build_badge.sh `cat basket_status.txt` basket_api
   cache:
@@ -133,12 +131,18 @@ test:basket_api:
     paths:
       - go
 
-# test:identity_api:
-#   stage: test
-#   script: 
-#     - ci/test.sh identity_api
-#   dependencies:
-#     - build:identity_api
+test:identity_api:
+  image: microsoft/dotnet:2.2-sdk-alpine
+  stage: test
+  script: 
+    - ci/test.sh identity_api
+  dependencies:
+    - build:identity_api
+  cache:
+    key: dotnet-cache
+    policy: pull
+    paths:
+      - .nuget/
 
 test:menu_api:
   image: microsoft/dotnet:2.1-sdk-alpine

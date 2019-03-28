@@ -6,7 +6,7 @@
 [![build status](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/order_api_build_status.svg)](https://gitlab.com/Jurabek/Restaurant-App/pipelines)
 
 [![coverage](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/menu_api_coverage.svg)](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/coverage/menu_api/index.htm) [![coverage](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/order_api_coverage.svg)](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/coverage/order_api/index.html)
-[![coverage](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/basket_api_coverage.svg)](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/coverage/basket_api/coverage.html)
+[![coverage](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/basket_api_coverage.svg)](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/coverage/basket_api/coverage.html) [![coverage](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/identity_api_coverage.svg)](https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/coverage/identity_api/index.htm)
 
 
 [![Android Build status](https://build.appcenter.ms/v0.1/apps/ae1793a8-cb35-40cc-a5db-583847244261/branches/develop/badge)](https://appcenter.ms)

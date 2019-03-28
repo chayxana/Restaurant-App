@@ -36,14 +36,16 @@ func (bc *BasketController) Create(c *gin.Context) {
 	err := bc.BasketRepository.Update(&entity)
 
 	if err != nil {
-		models.NewError(c, http.StatusBadRequest, err)
+		httpError := models.NewHTTPError(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, httpError)
 		return
 	}
 
 	result, err := bc.BasketRepository.GetBasket(entity.CustomerID.String())
 
 	if err != nil {
-		models.NewError(c, http.StatusBadRequest, err)
+		httpError := models.NewHTTPError(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, httpError)
 		return
 	}
 
@@ -66,7 +68,9 @@ func (bc *BasketController) Get(c *gin.Context) {
 	result, err := bc.BasketRepository.GetBasket(id)
 
 	if err != nil {
-		models.NewError(c, http.StatusBadRequest, err)
+		httpError := models.NewHTTPError(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, httpError)
+		return
 	}
 
 	c.JSON(http.StatusOK, result)

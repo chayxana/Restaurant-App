@@ -1,15 +1,15 @@
 package models
 
-import "github.com/gin-gonic/gin"
-
-func NewError(ctx *gin.Context, status int, err error) {
+// NewHTTPError creates new http error using Golang error
+func NewHTTPError(status int, err error) *HTTPError {
 	er := HTTPError{
 		Code:    status,
 		Message: err.Error(),
 	}
-	ctx.JSON(status, er)
+	return &er
 }
 
+// HTTPError provides information for http error
 type HTTPError struct {
 	Code    int    `json:"code" example:"400"`
 	Message string `json:"message" example:"status bad request"`

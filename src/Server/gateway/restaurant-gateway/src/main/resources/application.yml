@@ -11,8 +11,7 @@ ribbon:
   eureka:
     enabled: enabled
  
-#Zuul routes. Here for /student path, we are routing to localhost:8090 with extra path after that.
-# urls will be ovveriding from docker-compose or kubernetes
+#Zuul routes.
 
 zuul:
   routes:

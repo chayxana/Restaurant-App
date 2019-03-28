@@ -49,7 +49,17 @@ test_order_api(){
 }
 
 test_identity_api() {
-    docker run --rm $IMAGE_BASE_NAME:$CI_API_NAME "dotnet" "vstest" "./Identity.API.UnitTests.dll"
+    cd ./services/identity.api/
+    sh test.sh | tee output.txt
+    cd -
+
+    COVERAGE_RESULT=$(grep "Total Branch" ./services/identity.api/output.txt | tr -dc '[0-9]+\.[0-9]')
+    BADGE_COLOR=$(get_coverage_result_badge_color $COVERAGE_RESULT)
+    COVERAGE_FILE_NAME="${CI_API_NAME}_coverage.svg"
+
+    ./ci/generate_badge.sh $COVERAGE_FILE_NAME "identity--api" "$COVERAGE_RESULT%25" $BADGE_COLOR
+    ./ci/upload_badge_s3.sh $COVERAGE_FILE_NAME
+    ./ci/sync_folder_s3.sh "$(pwd)/services/identity.api/coveragereport/" $CI_API_NAME
 }
 
 test_menu_api() {

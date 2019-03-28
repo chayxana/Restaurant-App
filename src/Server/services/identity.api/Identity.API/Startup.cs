@@ -8,6 +8,7 @@ using AutoMapper;
 using Identity.API.Data;
 using Identity.API.IdentityServer;
 using Identity.API.Model.Entities;
+using Identity.API.ViewModelBuilders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -83,6 +84,8 @@ namespace Identity.API
                     TermsOfService = "Terms Of Service"
                 });
             });
+
+            services.AddTransient<ILoginViewModelBuilder, LoginViewModelBuilder>();
 
             services.AddDiscoveryClient(Configuration);
             services.AddAutoMapper(typeof(Startup));

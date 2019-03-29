@@ -14,6 +14,8 @@
 
 <img src="art/1.png" width="210"/> <img src="art/2.png" width="210"/> <img src="art/3.png" width="210"/> <img src="art/4.png" width="210"/> <img src="art/5.png" width="210"/>
 
+*Note Documentation is legacy, cause issue [#20](https://github.com/Jurabek/Restaurant-App/issues/20)
+
 The Restaurant App is a sample open source application powered by C# and Xamarin, this sample provides us how to build mobile and web applications with a clean architecture and write testable and clean code.
 
 ## Using technologies

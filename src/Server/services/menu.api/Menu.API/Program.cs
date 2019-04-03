@@ -24,7 +24,6 @@ namespace Menu.API
                     var configuration = services.GetRequiredService<IConfiguration>();
                     var connectionString = configuration.GetConnectionString("MenuDatabaseConnectionString");
                     logger.LogInformation(connectionString);
-                    
                 })
                 .Run();
         }

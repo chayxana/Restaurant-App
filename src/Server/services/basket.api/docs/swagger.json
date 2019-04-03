@@ -15,10 +15,10 @@
         },
         "version": "1.0"
     },
-    "host": "localhost:5000",
-    "basePath": "/api/",
+    "host": "{{.Host}}",
+    "basePath": "{{.BasePath}}",
     "paths": {
-        "/basket": {
+        "/items": {
             "post": {
                 "description": "add by json new CustomerBasket",
                 "consumes": [
@@ -61,7 +61,7 @@
                 }
             }
         },
-        "/basket/{id}": {
+        "/items/{id}": {
             "get": {
                 "description": "Get CustomerBasket by ID",
                 "consumes": [
@@ -154,6 +154,16 @@
                     "type": "string",
                     "example": "status bad request"
                 }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "OAuth2Implicit": {
+            "type": "oauth2",
+            "flow": "implicit",
+            "authorizationUrl": "http://localhost:8080/identity/oauth/authorize",
+            "scopes": {
+                "basket-api": ""
             }
         }
     }

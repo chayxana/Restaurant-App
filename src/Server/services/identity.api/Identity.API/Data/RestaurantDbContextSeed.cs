@@ -7,8 +7,6 @@ using Identity.API.Model.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Polly;
-using Polly.Retry;
 
 namespace Identity.API.Data
 {
@@ -21,7 +19,7 @@ namespace Identity.API.Data
 			RoleManager<IdentityRole> roleManager, 
 			UserManager<ApplicationUser> userManager)
 		{
-			var policy = CreatePolicy(logger, nameof(RestaurantDbContextSeed));
+			var policy = RetryPolicyCreator.CreatePolicy(logger, nameof(RestaurantDbContextSeed));
 
 			await policy.ExecuteAsync(async () =>
 			{
@@ -50,19 +48,6 @@ namespace Identity.API.Data
 						await userManager.AddToRoleAsync(admin, "Admin");
 				}
 			});
-		}
-
-		private AsyncRetryPolicy CreatePolicy(ILogger<RestaurantDbContextSeed> logger, string prefix, int retries = 3)
-		{
-			return Policy.Handle<SqlException>().
-				WaitAndRetryAsync(
-					retryCount: retries,
-					sleepDurationProvider: retry => TimeSpan.FromSeconds(5),
-					onRetry: (exception, timeSpan, retry, ctx) =>
-					{
-						logger.LogTrace($"[{prefix}] Exception {exception.GetType().Name} with message ${exception.Message} detected on attempt {retry} of {retries}");
-					}
-				);
 		}
 	}
 }

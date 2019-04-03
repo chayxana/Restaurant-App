@@ -18,7 +18,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Pivotal.Discovery.Client;
+using Steeltoe.Common.Discovery;
+using Steeltoe.Discovery.Client;
+using Swashbuckle.AspNetCore.Filters;
+using Swashbuckle.AspNetCore.Swagger;
+
 namespace Menu.API
 {
     public class Startup
@@ -36,10 +40,12 @@ namespace Menu.API
             services.AddMvc();
             services.AddAuthorization();
 
+            var identityUrl = Configuration["IdentityUrl"];
+
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.Authority = Configuration["IdentityUrl"];
+                    options.Authority = identityUrl;
                     options.RequireHttpsMetadata = false;
                     options.ApiName = "menu-api";
                 });
@@ -58,6 +64,19 @@ namespace Menu.API
                     Version = "v1",
                     TermsOfService = "Terms Of Service"
                 });
+
+                options.AddSecurityDefinition("oauth2", new OAuth2Scheme
+                {
+                    Type = "oauth2",
+                    Flow = "implicit",
+                    AuthorizationUrl = $"{identityUrl}/connect/authorize",
+                    TokenUrl = $"{identityUrl}/connect/token",
+                    Scopes = new Dictionary<string, string>()
+                    {
+                        { "menu-api", "Restaurant Menu Api" }
+                    }
+                });
+                options.OperationFilter<SecurityRequirementsOperationFilter>();
             });
 
             services.AddScoped<IRepository<Category>, CategoryRepository>();
@@ -66,7 +85,7 @@ namespace Menu.API
             services.AddDiscoveryClient(Configuration);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseAuthentication();
 
@@ -79,15 +98,35 @@ namespace Menu.API
                 app.UseHsts();
             }
 
-            app.UseSwagger().UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Menu.API V1");
-            });
-
             app.UseMvcWithDefaultRoute();
-            app.UseHttpsRedirection();
             app.UseMvc();
             app.UseDiscoveryClient();
+
+            var logger = loggerFactory.CreateLogger("init");
+            var pathBase = Configuration["PATH_BASE"];
+            var routePrefix = (!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty);
+
+            if (!string.IsNullOrEmpty(pathBase))
+            {
+                logger.LogDebug($"Using PATH BASE '{pathBase}'");
+                app.UsePathBase(pathBase);
+            }
+            app.UseSwagger(c =>
+            {
+                if (routePrefix != string.Empty)
+                {
+                    c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+                    {
+                        swaggerDoc.Schemes = new List<string>() { httpReq.Scheme };
+                        swaggerDoc.BasePath = routePrefix;
+                    });
+                }
+            }).UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint($"{routePrefix}/swagger/v1/swagger.json", "Menu.API V1");
+                c.OAuthClientId("menu_api_swagger_ui");
+                c.OAuthAppName("Menu API Swagger UI");
+            });
         }
     }
 }

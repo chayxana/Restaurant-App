@@ -11,11 +11,13 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://pgsql:5432/orderdb
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=Passw0rd!
-  
+      - IdentityUrl=http://localhost:8080/identity
+
   basket-api:
     environment:
-      - EUREKA_CLIENT_SERVICE_URL=http://service-discovery:8761/eureka/
+      - EUREKA_CLIENT_SERVICE_URL=http://service-discovery:8761/eureka
       - REDIS_HOST=redis
+      - IdentityUrl=http://localhost:8080/identity
   
   pgsql:
     environment:
@@ -30,6 +32,8 @@ services:
       - ConnectionStrings__MenuDatabaseConnectionString=Host=pgsql;Database=menu_database;Username=admin;Password=Passw0rd!
       - eureka__client__serviceUrl=http://service-discovery:8761/eureka/
       - eureka__instance__port=80
+      - PATH_BASE=/menu
+      - IdentityUrl=http://localhost:8080/identity
   
   identity-api:
     environment:
@@ -37,3 +41,5 @@ services:
       - ConnectionStrings__IdentityConnectionString=Host=pgsql;Database=identity_database;Username=admin;Password=Passw0rd!
       - eureka__client__serviceUrl=http://service-discovery:8761/eureka/
       - eureka__instance__port=80
+      - PATH_BASE=/identity
+      - MENU_API_URL=http://localhost:8080/menu

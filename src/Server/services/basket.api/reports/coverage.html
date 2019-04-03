@@ -56,6 +56,10 @@
 				
 				<option value="file0">github.com/jurabek/basket.api/controllers/basket_controller.go (100.0%)</option>
 				
+				<option value="file1">github.com/jurabek/basket.api/models/eureka_instance.go (0.0%)</option>
+				
+				<option value="file2">github.com/jurabek/basket.api/models/http_error.go (0.0%)</option>
+				
 				</select>
 			</div>
 			<div id="legend">
@@ -106,14 +110,16 @@ func (bc *BasketController) Create(c *gin.Context) <span class="cov8" title="1">
         err := bc.BasketRepository.Update(&amp;entity)
 
         if err != nil </span><span class="cov8" title="1">{
-                models.NewError(c, http.StatusBadRequest, err)
+                httpError := models.NewHTTPError(http.StatusBadRequest, err)
+                c.JSON(http.StatusBadRequest, httpError)
                 return
         }</span>
 
         <span class="cov8" title="1">result, err := bc.BasketRepository.GetBasket(entity.CustomerID.String())
 
         if err != nil </span><span class="cov8" title="1">{
-                models.NewError(c, http.StatusBadRequest, err)
+                httpError := models.NewHTTPError(http.StatusBadRequest, err)
+                c.JSON(http.StatusBadRequest, httpError)
                 return
         }</span>
 
@@ -136,10 +142,117 @@ func (bc *BasketController) Get(c *gin.Context) <span class="cov8" title="1">{
         result, err := bc.BasketRepository.GetBasket(id)
 
         if err != nil </span><span class="cov8" title="1">{
-                models.NewError(c, http.StatusBadRequest, err)
+                httpError := models.NewHTTPError(http.StatusBadRequest, err)
+                c.JSON(http.StatusBadRequest, httpError)
+                return
         }</span>
 
         <span class="cov8" title="1">c.JSON(http.StatusOK, result)</span>
+}
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package models
+
+import (
+        "encoding/json"
+        "fmt"
+)
+
+// CreateEurekaRegistryBody creates new instance of object
+func CreateEurekaRegistryBody(
+        appName string,
+        hostName string,
+        ipAddress string,
+        port int64) EurekaRegisterBody <span class="cov0" title="0">{
+
+        var homeURL = fmt.Sprintf("http://%s:%v", hostName, port)
+        var instanceID = fmt.Sprintf("%s:%s:%v", hostName, appName, port)
+
+        var instance = Instance{
+                InstanceID: instanceID,
+                App:        appName,
+                IPAddr:     ipAddress,
+                Port: Port{
+                        Enabled: true,
+                        Value:   port,
+                },
+                HomePageURL:      homeURL + "/",
+                StatusPageURL:    homeURL + "/info",
+                HealthCheckURL:   homeURL + "/health",
+                VipAddress:       appName,
+                SecureVipAddress: appName,
+                CountryID:        0,
+                DataCenterInfo: DataCenterInfo{
+                        Class: "com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo",
+                        Name:  "MyOwn",
+                },
+                HostName:   hostName,
+                Status:     "UP",
+                ActionType: "ADDED",
+        }
+
+        var body = EurekaRegisterBody{
+                Instance: instance,
+        }
+        return body
+}</span>
+
+// Parse2Json converts object to json string
+func (r *EurekaRegisterBody) Parse2Json() ([]byte, error) <span class="cov0" title="0">{
+        return json.Marshal(r)
+}</span>
+
+// EurekaRegisterBody is main request boyd
+type EurekaRegisterBody struct {
+        Instance Instance `json:"instance"`
+}
+
+// Instance Body of eureka client registry
+type Instance struct {
+        InstanceID       string         `json:"instanceId"`
+        App              string         `json:"app"`
+        IPAddr           string         `json:"ipAddr"`
+        Port             Port           `json:"port"`
+        HomePageURL      string         `json:"homePageUrl"`
+        StatusPageURL    string         `json:"statusPageUrl"`
+        HealthCheckURL   string         `json:"healthCheckUrl"`
+        VipAddress       string         `json:"vipAddress"`
+        SecureVipAddress string         `json:"secureVipAddress"`
+        CountryID        int64          `json:"countryId"`
+        DataCenterInfo   DataCenterInfo `json:"dataCenterInfo"`
+        HostName         string         `json:"hostName"`
+        Status           string         `json:"status"`
+        ActionType       string         `json:"actionType"`
+}
+
+// DataCenterInfo reproduces data center info
+type DataCenterInfo struct {
+        Class string `json:"@class"`
+        Name  string `json:"name"`
+}
+
+// Port reproduces port information
+type Port struct {
+        Enabled bool  `json:"@enabled"`
+        Value   int64 `json:"$"`
+}
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package models
+
+// NewHTTPError creates new http error using Golang error
+func NewHTTPError(status int, err error) *HTTPError <span class="cov0" title="0">{
+        er := HTTPError{
+                Code:    status,
+                Message: err.Error(),
+        }
+        return &amp;er
+}</span>
+
+// HTTPError provides information for http error
+type HTTPError struct {
+        Code    int    `json:"code" example:"400"`
+        Message string `json:"message" example:"status bad request"`
 }
 </pre>
 		

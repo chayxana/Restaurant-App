@@ -20,7 +20,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Pivotal.Discovery.Client;
+using Steeltoe.Discovery.Client;
 
 namespace Identity.API
 {
@@ -35,7 +35,7 @@ namespace Identity.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             var connectionString = Configuration.GetConnectionString("IdentityConnectionString");
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
@@ -58,7 +58,7 @@ namespace Identity.API
                 .AddDefaultTokenProviders();
 
 
-            services.AddIdentityServer()
+            services.AddIdentityServer(s => s.IssuerUri = null)
                 .AddDeveloperSigningCredential()
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddConfigurationStore(options =>
@@ -71,7 +71,7 @@ namespace Identity.API
                     options.ConfigureDbContext = builder =>
                         builder.UseNpgsql(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly));
 
-                    options.EnableTokenCleanup = false;
+                    // options.EnableTokenCleanup = false;
                     // options.TokenCleanupInterval = 30; // interval in seconds
                 });
 
@@ -91,7 +91,7 @@ namespace Identity.API
             services.AddAutoMapper(typeof(Startup));
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -103,28 +103,34 @@ namespace Identity.API
             }
 
             app.UseCors("ServerPolicy");
-
-            app.UseSwagger().UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Identity.API V1");
-            });
-
-            var profile = Configuration.GetValue<string>("Profile", "local");
-
-            if (profile == "gateway")
-            {
-                app.Use((context, next) =>
-                {
-                    context.Request.PathBase = new PathString("/identity");
-                    return next();
-                });
-            }
-
             app.UseStaticFiles();
             app.UseIdentityServer();
             app.UseMvcWithDefaultRoute();
             app.UseHttpsRedirection();
             app.UseDiscoveryClient();
+
+            var pathBase = Configuration["PATH_BASE"];
+            var routePrefix = (!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty);
+            if (!string.IsNullOrEmpty(pathBase))
+            {
+                loggerFactory.CreateLogger("init").LogDebug($"Using PATH BASE '{pathBase}'");
+                app.UsePathBase(pathBase);
+            }
+
+            app.UseSwagger(c =>
+            {
+                if (routePrefix != string.Empty)
+                {
+                    c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+                    {
+                        swaggerDoc.Schemes = new List<string>() { httpReq.Scheme };
+                        swaggerDoc.BasePath = routePrefix;
+                    });
+                }
+            }).UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint($"{routePrefix}/swagger/v1/swagger.json", "Identity.API V1");
+            });
         }
     }
 }

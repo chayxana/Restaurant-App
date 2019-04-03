@@ -1,4 +1,4 @@
-basePath: /api/
+basePath: '{{.BasePath}}'
 definitions:
   models.BasketItem:
     properties:
@@ -35,7 +35,7 @@ definitions:
         example: status bad request
         type: string
     type: object
-host: localhost:5000
+host: '{{.Host}}'
 info:
   contact:
     email: support@swagger.io
@@ -49,7 +49,7 @@ info:
   title: Basket API
   version: "1.0"
 paths:
-  /basket:
+  /items:
     post:
       consumes:
       - application/json
@@ -78,7 +78,7 @@ paths:
       summary: Add a CustomerBasket
       tags:
       - CustomerBasket
-  /basket/{id}:
+  /items/{id}:
     get:
       consumes:
       - application/json
@@ -105,4 +105,11 @@ paths:
       summary: Gets a CustomerBasket
       tags:
       - CustomerBasket
+securityDefinitions:
+  OAuth2Implicit:
+    authorizationUrl: http://localhost:8080/identity/oauth/authorize
+    flow: implicit
+    scopes:
+      basket-api: ""
+    type: oauth2
 swagger: "2.0"

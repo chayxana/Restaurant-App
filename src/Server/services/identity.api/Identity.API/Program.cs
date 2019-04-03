@@ -29,10 +29,12 @@ namespace Identity.API
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();   
                     new RestaurantDbContextSeed().SeedAsync(logger, configuration, roleManager, userManager).Wait();
                 })
+                .MigrateDbContext<PersistedGrantDbContext>((c,s) => {})
                 .MigrateDbContext<ConfigurationDbContext>((context, services) =>
                     {
                         var configuration = services.GetRequiredService<IConfiguration>();
-                        new ConfigurationDbContextSeed().SeedAsync(context, configuration).Wait();
+                        var logger = services.GetRequiredService<ILogger<ConfigurationDbContextSeed>>();
+                        new ConfigurationDbContextSeed().SeedAsync(logger, context, configuration).Wait();
                     })
                 .Run();
         }

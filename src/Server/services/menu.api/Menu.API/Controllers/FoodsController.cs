@@ -14,7 +14,6 @@ namespace Menu.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
-    [Authorize]
     public class FoodsController : Controller
     {
         private readonly IFileUploadManager _fileUploadManager;
@@ -49,6 +48,7 @@ namespace Menu.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Post([FromBody] FoodDto foodDto)
         {
             try
@@ -74,12 +74,14 @@ namespace Menu.API.Controllers
 
         [HttpPost]
         [Route("UploadFoodImage")]
+        [Authorize(Roles = "Admin")]
         public async Task Post([Bind] IFormFile file, [Bind] string foodId)
         {
             await _fileUploadManager.Upload(file, foodId);
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Put(Guid id, [FromBody] FoodDto foodDto)
         {
             try
@@ -103,6 +105,7 @@ namespace Menu.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             try

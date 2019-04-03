@@ -27,7 +27,7 @@ func NewBasketController(r repositories.BasketRepository) *BasketController {
 // @Param CustomerBasket body models.CustomerBasket true "Add CustomerBasket"
 // @Success 200 {object} models.CustomerBasket
 // @Failure 400 {object} models.HTTPError
-// @Router /basket [post]
+// @Router /items [post]
 func (bc *BasketController) Create(c *gin.Context) {
 
 	var entity models.CustomerBasket
@@ -61,7 +61,7 @@ func (bc *BasketController) Create(c *gin.Context) {
 // @Param id path string true "CustomerBasket ID"
 // @Success 200 {object} models.CustomerBasket
 // @Failure 400 {object} models.HTTPError
-// @Router /basket/{id} [get]
+// @Router /items/{id} [get]
 func (bc *BasketController) Get(c *gin.Context) {
 	id := c.Param("id")
 

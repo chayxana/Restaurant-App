@@ -38,7 +38,7 @@ namespace Identity.API.IdentityServer
         }
 
         // clients want to access resources (aka scopes)
-        public static IEnumerable<Client> GetClients()
+        public static IEnumerable<Client> GetClients(IDictionary<string, string> clientUrls)
         {
             // client credentials client
             return new List<Client>
@@ -48,9 +48,9 @@ namespace Identity.API.IdentityServer
                 {
                     ClientId = "user_password.client",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    
+
                     RequireClientSecret = false,
-                    
+
                     AllowedScopes =
                     {
                         "menu-api",
@@ -58,6 +58,38 @@ namespace Identity.API.IdentityServer
                         "order-api"
                     },
                     AllowOfflineAccess = true
+                },
+
+                new Client
+                {
+                    ClientId = "menu_api_swagger_ui",
+                    ClientName = "Menu API Swagger UI",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { $"{clientUrls["MenuApiUrl"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{clientUrls["MenuApiUrl"]}/swagger/" },
+
+                    AllowedScopes =
+                    {
+                        "menu-api"
+                    },
+                    AllowOfflineAccess = true
+                },
+                new Client
+                {
+                    ClientId = "basket_api_swagger_ui",
+                    ClientName = "Basket API Swagger UI",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { $"{clientUrls["BasketApiUrl"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{clientUrls["BasketApiUrl"]}/swagger/" },
+
+                    AllowedScopes =
+                    {
+                        "basket-api"
+                    }
                 },
 
                 // OpenID Connect hybrid flow and client credentials client (MVC)

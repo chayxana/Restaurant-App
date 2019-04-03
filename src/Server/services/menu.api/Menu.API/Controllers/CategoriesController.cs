@@ -11,7 +11,6 @@ namespace Menu.API.Controllers
 {
     [Produces("application/json")]
     [Route("/api/v1/[controller]")]
-    [AllowAnonymous]
     public class CategoriesController : Controller
     {
         private readonly IMapper _mapperFacade;
@@ -38,6 +37,7 @@ namespace Menu.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Post([FromBody] CategoryDto category)
         {
             try
@@ -56,6 +56,7 @@ namespace Menu.API.Controllers
 
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Put(Guid id, [FromBody] CategoryDto categoryDto)
         {
             try
@@ -75,6 +76,7 @@ namespace Menu.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             try

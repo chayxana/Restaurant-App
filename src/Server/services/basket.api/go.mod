@@ -1,7 +1,9 @@
 module github.com/jurabek/basket.api
 
 require (
+	github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc
 	github.com/coreos/etcd v3.3.12+incompatible // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-contrib/sse v0.0.0-20190125020943-a7658810eb74 // indirect
 	github.com/gin-gonic/gin v1.3.0
 	github.com/gomodule/redigo v2.0.0+incompatible
@@ -20,5 +22,5 @@ require (
 	golang.org/x/crypto v0.0.0-20190320223903-b7391e95e576 // indirect
 	golang.org/x/sys v0.0.0-20190322080309-f49334f85ddc // indirect
 	golang.org/x/tools v0.0.0-20190125232054-d66bd3c5d5a6 // indirect
-	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
+	gopkg.in/go-playground/assert.v1 v1.2.1
 )

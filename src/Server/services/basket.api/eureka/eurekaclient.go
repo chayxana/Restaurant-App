@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -14,33 +13,19 @@ import (
 	"github.com/jurabek/basket.api/util"
 )
 
-var appName = "basket-api"
+var appName = "basket-service"
+var eurekaBaseURL = "http://localhost:8761/eureka"
 var eurekaAppServerURL string
 var instanceID string
 
 // Register will send POST request to Eureka  server
 func Register() bool {
 
-	eurekaBaseURL := "http://localhost:8761/eureka"
-
-	var (
-		port     int64
-		hostName string
-	)
-
 	ipAddress := util.GetLocalIP()
-	if osPort := os.Getenv("PORT"); osPort != "" {
-		n, _ := strconv.ParseInt(osPort, 10, 10)
-		port = n
-	} else {
-		port = 8080
-	}
-	if hostname, err := os.Hostname(); err != nil {
-		fmt.Printf("Could not load hostname %v", err)
-	} else {
-		hostName = hostname
-	}
-	if serviceURL, isEmpty := os.LookupEnv("EUREKA_CLIENT_SERVICE_URL"); isEmpty {
+	port := util.GetRunningPort()
+	hostName := util.GetLocalHostName()
+
+	if serviceURL, ok := os.LookupEnv("EUREKA_CLIENT_SERVICE_URL"); ok {
 		eurekaAppServerURL = fmt.Sprintf("%s/apps/%s", serviceURL, appName)
 	} else {
 		eurekaAppServerURL = eurekaBaseURL + "/apps/" + appName
@@ -52,7 +37,7 @@ func Register() bool {
 	instanceID = eurekaRegisterBody.Instance.InstanceID
 
 	if gin.Mode() == gin.DebugMode {
-		fmt.Println("response Body:", string(eurekaInstanceBodyJSON))
+		fmt.Println("Response Body:", string(eurekaInstanceBodyJSON))
 	}
 
 	req, _ := http.NewRequest("POST", eurekaAppServerURL, bytes.NewBuffer(eurekaInstanceBodyJSON))
@@ -61,20 +46,21 @@ func Register() bool {
 	client := &http.Client{}
 
 	// Simulating resilience, the reason Eureka service become available later when we run docker compose
-	for i := 0; i < 5; i++ {
+	for i := 0; i < 10; i++ {
 
 		respose, err := client.Do(req)
 		if err != nil {
-			fmt.Println("Eureka register error")
-			time.Sleep(15 * time.Second)
+			fmt.Println("Eureka register error", err)
+			time.Sleep(10 * time.Second)
 			continue
 		}
 
 		defer respose.Body.Close()
 		if respose.StatusCode < 300 {
-			return true
+			break
 		}
 	}
+	go StartHeartbeat()
 
 	return false
 }
@@ -103,7 +89,7 @@ func heartbeat() {
 	}
 
 	if gin.Mode() == gin.DebugMode {
-		fmt.Printf("Hearbeat to eureka: %s", heartBeatURL)
+		fmt.Printf("Hearbeat to eureka: %s \r\n", heartBeatURL)
 	}
 
 	defer resp.Body.Close()
@@ -111,12 +97,13 @@ func heartbeat() {
 
 // UnRegister removes instance from Eureka Server
 func UnRegister() {
-	fmt.Println("Trying to un register application...")
 
 	unRegisterURL := fmt.Sprintf("%s/%s", eurekaAppServerURL, instanceID)
 	req, err := http.NewRequest("DELETE", unRegisterURL, nil)
 	client := &http.Client{}
 	resp, err := client.Do(req)
+
+	fmt.Println("Trying to un register application...")
 
 	if err != nil {
 		fmt.Printf("Eureka un register error: %v", err)

@@ -33,8 +33,6 @@ services:
     build: 
       context: ./services/menu.api/
       dockerfile: Dockerfile.local
-    ports:
-       - "5100:80"
     depends_on:
        - pgsql
        - service-discovery

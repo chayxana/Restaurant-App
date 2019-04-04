@@ -24,7 +24,7 @@ test_basket_api() {
     sh test.sh
     cd -
     
-    COVERAGE_RESULT=$(sh ./services/basket.api/coverage_result.sh $(pwd)/services/basket.api/coverage.out)
+    COVERAGE_RESULT=$(sh ./services/basket.api/coverage_result.sh $(pwd)/services/basket.api/output.txt)
     BADGE_COLOR=$(get_coverage_result_badge_color $COVERAGE_RESULT)
     COVERAGE_FILE_NAME="${CI_API_NAME}_coverage.svg"
 

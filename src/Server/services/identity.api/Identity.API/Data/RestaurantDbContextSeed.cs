@@ -7,6 +7,7 @@ using Identity.API.Model.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using static Identity.API.Utils.PollyUtil;
 
 namespace Identity.API.Data
 {
@@ -19,7 +20,7 @@ namespace Identity.API.Data
 			RoleManager<IdentityRole> roleManager, 
 			UserManager<ApplicationUser> userManager)
 		{
-			var policy = RetryPolicyCreator.CreatePolicy(logger, nameof(RestaurantDbContextSeed));
+			var policy = CreatePolicy(logger, nameof(RestaurantDbContextSeed));
 
 			await policy.ExecuteAsync(async () =>
 			{

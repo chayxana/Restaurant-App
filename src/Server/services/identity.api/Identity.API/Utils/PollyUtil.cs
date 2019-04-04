@@ -4,9 +4,9 @@ using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
 
-namespace Identity.API.Data
+namespace Identity.API.Utils
 {
-    public class RetryPolicyCreator
+    public class PollyUtil
     {
         public static AsyncRetryPolicy CreatePolicy(ILogger logger, string prefix, int retries = 3)
 		{

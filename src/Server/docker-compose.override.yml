@@ -43,3 +43,5 @@ services:
       - eureka__instance__port=80
       - PATH_BASE=/identity
       - MENU_API_URL=http://localhost:8080/menu
+      - ORDER_API_URL=http://localhost:8080/order
+      - BASKET_API_URL=http://localhost:8080/basket,

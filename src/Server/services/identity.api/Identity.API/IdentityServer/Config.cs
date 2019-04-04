@@ -11,7 +11,7 @@ namespace Identity.API.IdentityServer
         // scopes define the resources in your system
         public static IEnumerable<IdentityResource> GetIdentityResources()
         {
-            return new List<IdentityResource>
+            return new IdentityResource[]
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile()
@@ -20,20 +20,11 @@ namespace Identity.API.IdentityServer
 
         public static IEnumerable<ApiResource> GetApiResources()
         {
-            return new List<ApiResource>
+            return new ApiResource[]
             {
-                new ApiResource("menu-api", "Restaurant Menu Api")
-                {
-                    UserClaims = {"role"}
-                },
-                new ApiResource("order-api", "Restaurant Order Api")
-                {
-                    UserClaims = {"role"}
-                },
-                new ApiResource("basket-api", "Restaurant Basket Api")
-                {
-                    UserClaims = {"role"}
-                },
+                new ApiResource("menu-api", "Restaurant Menu Api") { UserClaims = { "role" } },
+                new ApiResource("order-api", "Restaurant Order Api") { UserClaims = { "role" } },
+                new ApiResource("basket-api", "Restaurant Basket Api") { UserClaims = { "role" } }
             };
         }
 
@@ -41,16 +32,13 @@ namespace Identity.API.IdentityServer
         public static IEnumerable<Client> GetClients(IDictionary<string, string> clientUrls)
         {
             // client credentials client
-            return new List<Client>
+            return new Client[]
             {
-                // resource owner password grant client
                 new Client
                 {
-                    ClientId = "user_password.client",
+                    ClientId = "mobile-client",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-
-                    RequireClientSecret = false,
-
+                    ClientSecrets = {new Secret("secret".Sha256())},
                     AllowedScopes =
                     {
                         "menu-api",
@@ -59,53 +47,46 @@ namespace Identity.API.IdentityServer
                     },
                     AllowOfflineAccess = true
                 },
-
                 new Client
                 {
-                    ClientId = "menu_api_swagger_ui",
+                    ClientId = "menu-api-swagger-ui",
                     ClientName = "Menu API Swagger UI",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
-
                     RedirectUris = { $"{clientUrls["MenuApiUrl"]}/swagger/oauth2-redirect.html" },
                     PostLogoutRedirectUris = { $"{clientUrls["MenuApiUrl"]}/swagger/" },
-
-                    AllowedScopes =
-                    {
-                        "menu-api"
-                    },
-                    AllowOfflineAccess = true
+                    AllowedScopes = {"menu-api" }
                 },
                 new Client
                 {
-                    ClientId = "basket_api_swagger_ui",
+                    ClientId = "basketapi-swagger-ui",
                     ClientName = "Basket API Swagger UI",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
-
                     RedirectUris = { $"{clientUrls["BasketApiUrl"]}/swagger/oauth2-redirect.html" },
                     PostLogoutRedirectUris = { $"{clientUrls["BasketApiUrl"]}/swagger/" },
-
-                    AllowedScopes =
-                    {
-                        "basket-api"
-                    }
+                    AllowedScopes = { "basket-api" }
                 },
-
+                new Client
+                {
+                    ClientId = "order-api-swagger-ui",
+                    ClientName = "Order API Swagger UI",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+                    RedirectUris = { $"{clientUrls["OrderApiUrl"]}/webjars/springfox-swagger-ui/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{clientUrls["OrderApiUrl"]}/swagger/" },
+                    AllowedScopes = { "order-api" }
+                },
                 // OpenID Connect hybrid flow and client credentials client (MVC)
                 new Client
                 {
-                    ClientId = "mvc_client",
+                    ClientId = "spa-client",
                     ClientName = "MVC Client",
                     AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
-
                     RequireConsent = false,
-
                     ClientSecrets = {new Secret("secret".Sha256())},
-
                     RedirectUris = {"http://localhost:5002/signin-oidc"},
                     PostLogoutRedirectUris = {"http://localhost:5002/signout-callback-oidc"},
-
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,

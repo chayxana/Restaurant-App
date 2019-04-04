@@ -124,7 +124,7 @@ namespace Menu.API
             }).UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint($"{routePrefix}/swagger/v1/swagger.json", "Menu.API V1");
-                c.OAuthClientId("menu_api_swagger_ui");
+                c.OAuthClientId("menu-api-swagger-ui");
                 c.OAuthAppName("Menu API Swagger UI");
             });
         }

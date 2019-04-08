@@ -12,6 +12,7 @@ import (
 	"github.com/jurabek/basket.api/controllers"
 	"github.com/jurabek/basket.api/docs"
 	"github.com/jurabek/basket.api/eureka"
+	"github.com/jurabek/basket.api/middlewares"
 	"github.com/jurabek/basket.api/repositories"
 
 	"github.com/gin-gonic/gin"
@@ -43,6 +44,7 @@ func main() {
 	handleSigterm()
 	router := gin.Default()
 	router.Use(requestMiddleware())
+	router.Use(middlewares.AuthMiddleware())
 
 	redisPool, err := initRedis()
 

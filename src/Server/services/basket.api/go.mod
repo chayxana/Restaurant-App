@@ -9,8 +9,11 @@ require (
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/uuid v1.1.1
 	github.com/json-iterator/go v1.1.5 // indirect
+	github.com/lestrrat-go/jwx v0.0.0-20190407121834-9871a5674c2c // indirect
+	github.com/lestrrat-go/pdebug v0.0.0-20180220043849-39f9a71bcabe // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
+	github.com/okta/okta-jwt-verifier-golang v0.0.0-20180501213203-04702def3e1b
 	github.com/ory/go-acc v0.0.0-20181118080137-ddc355013f90 // indirect
 	github.com/ory/x v0.0.37 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect

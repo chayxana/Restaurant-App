@@ -58,7 +58,7 @@ namespace Identity.API
                 .AddDefaultTokenProviders();
 
 
-            services.AddIdentityServer(s => s.IssuerUri = null)
+            services.AddIdentityServer(s => s.IssuerUri = "http://demo.restaurant-identity")
                 .AddDeveloperSigningCredential()
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddConfigurationStore(options =>

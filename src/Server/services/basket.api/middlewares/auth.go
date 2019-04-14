@@ -4,62 +4,67 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 
-	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/jurabek/basket.api/models"
+	"github.com/jurabek/basket.api/oidc"
+	"github.com/patrickmn/go-cache"
 )
 
-func AuthMiddleware() gin.HandlerFunc {
+// CreateAuth creates new instance of Auth
+func CreateAuth() *Auth {
+
+	claimsToValidate := map[string]interface{}{}
+	claimsToValidate["aud"] = "menu-api"
+	claimsToValidate["iss"] = "issuer"
+
+	verifier := oidc.JwtVerifier{
+		Cache:            cache.New(5*time.Minute, 10*time.Minute),
+		Authority:        "http://localhost:5000",
+		ClaimsToValidate: claimsToValidate,
+	}
+
+	auth := Auth{
+		JwtVerifier: &verifier,
+	}
+
+	return &auth
+}
+
+// Auth represents AuthMiddleware
+type Auth struct {
+	JwtVerifier *oidc.JwtVerifier
+}
+
+// AuthMiddleware provides for securing Handlers
+func (auth *Auth) AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		r := c.Request
-		if !strings.Contains(r.URL.Path, "/api/v1/items") {
+		if !strings.Contains(c.Request.URL.Path, "/api/v1/items") {
 			c.Next()
 			return
 		}
-
-		tokenHeader := r.Header.Get("Authorization") //Grab the token from the header
-
-		if tokenHeader == "" { //Token is missing, returns with error code 403 Unauthorized
-			httpError := models.NewHTTPError(http.StatusUnauthorized, fmt.Errorf("token is missing"))
-			c.AbortWithStatusJSON(http.StatusUnauthorized, httpError)
+		authorizationHeader := c.Request.Header.Get("Authorization") //Grab the token from the header
+		if authorizationHeader == "" {                               //Token is missing, returns with error code 403 Unauthorized
+			auth.abortMiddleware(c, fmt.Errorf("token is missing"))
 			return
 		}
-
-		splitted := strings.Split(tokenHeader, " ") //The token normally comes in format `Bearer {token-body}`, we check if the retrieved token matched this requirement
-		if len(splitted) != 2 {
-			httpError := models.NewHTTPError(http.StatusUnauthorized, fmt.Errorf("bearer token invalid format"))
-			c.AbortWithStatusJSON(http.StatusUnauthorized, httpError)
+		// The token normally comes in format `Bearer {token-body}`, we check if the retrieved token matched this requirement
+		bearerToken := strings.Split(authorizationHeader, " ")
+		if len(bearerToken) != 2 {
+			auth.abortMiddleware(c, fmt.Errorf("bearer token invalid format"))
 			return
 		}
-
-		bearerToken := splitted[1]
-
-		toValidate := map[string]string{}
-		toValidate["aud"] = "api://default"
-		toValidate["cid"] = "{CLIENT_ID}"
-
-		token, err := jwt.Parse(bearerToken, func(token *jwt.Token) (interface{}, error) {
-			// Don't forget to validate the alg is what you expect:
-			if err, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
-				fmt.Println(err)
-				return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
-			}
-
-			// hmacSampleSecret is a []byte containing your secret, e.g. []byte("my_secret_key")
-			return []byte("80a17b02480c8bb63af490f68290d046"), nil
-		})
-		if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-			fmt.Println(claims["foo"], claims["nbf"])
-		} else {
-			fmt.Println(err)
-		}
-
-		if err != nil {
-			httpError := models.NewHTTPError(http.StatusUnauthorized, err)
-			c.AbortWithStatusJSON(http.StatusUnauthorized, httpError)
+		ok, err := auth.JwtVerifier.ValidateToken(bearerToken[1])
+		if !ok && err != nil {
+			auth.abortMiddleware(c, err)
 			return
 		}
 		c.Next()
 	}
+}
+
+func (auth *Auth) abortMiddleware(c *gin.Context, err error) {
+	httpError := models.NewHTTPError(http.StatusUnauthorized, err)
+	c.AbortWithStatusJSON(http.StatusUnauthorized, httpError)
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Identity.API.Data;
+﻿using Identity.API.Data;
 using Identity.API.Model.Entities;
 using IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.AspNetCore;

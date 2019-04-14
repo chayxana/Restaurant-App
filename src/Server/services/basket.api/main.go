@@ -8,11 +8,12 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/jurabek/basket.api/middlewares"
+
 	redisConfig "github.com/jurabek/basket.api/config"
 	"github.com/jurabek/basket.api/controllers"
 	"github.com/jurabek/basket.api/docs"
 	"github.com/jurabek/basket.api/eureka"
-	"github.com/jurabek/basket.api/middlewares"
 	"github.com/jurabek/basket.api/repositories"
 
 	"github.com/gin-gonic/gin"
@@ -34,9 +35,9 @@ import (
 
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
-// @securitydefinitions.oauth2.implicit OAuth2Implicit
-// @authorizationurl http://localhost:8080/identity/oauth/authorize
-// @scope.basket-api
+
+// @securitydefinitions.oauth2.application Identity Server OAuth
+// @tokenUrl http://localhost:5000/connect/token
 func main() {
 	os.Setenv("PORT", "5050")
 	gin.SetMode(gin.DebugMode)
@@ -44,7 +45,6 @@ func main() {
 	handleSigterm()
 	router := gin.Default()
 	router.Use(requestMiddleware())
-	router.Use(middlewares.AuthMiddleware())
 
 	redisPool, err := initRedis()
 
@@ -54,6 +54,8 @@ func main() {
 
 	basketRepository := repositories.NewRedisBasketRepository(redisPool)
 	controller := controllers.NewBasketController(basketRepository)
+
+	router.Use(middlewares.AuthMiddleware())
 
 	api := router.Group("/api/v1/")
 	{
@@ -70,9 +72,7 @@ func main() {
 	})
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
 	go eureka.Register()
-
 	router.Run()
 }
 

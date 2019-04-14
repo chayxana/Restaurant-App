@@ -41,6 +41,13 @@
                             "type": "object",
                             "$ref": "#/definitions/models.CustomerBasket"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -80,6 +87,13 @@
                         "description": "CustomerBasket ID",
                         "name": "id",
                         "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Bearer",
+                        "name": "Authorization",
+                        "in": "header",
                         "required": true
                     }
                 ],
@@ -158,13 +172,10 @@
         }
     },
     "securityDefinitions": {
-        "OAuth2Implicit": {
+        "Identity Server OAuth": {
             "type": "oauth2",
-            "flow": "implicit",
-            "authorizationUrl": "http://localhost:8080/identity/oauth/authorize",
-            "scopes": {
-                "basket-api": ""
-            }
+            "flow": "application",
+            "tokenUrl": "http://localhost:5000/connect/token"
         }
     }
 }

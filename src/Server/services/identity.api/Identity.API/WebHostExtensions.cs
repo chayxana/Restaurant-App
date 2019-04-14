@@ -8,7 +8,7 @@ using Polly;
 
 namespace Identity.API
 {
-    public static class IWebHostExtensions
+    public static class WebHostExtensions
     {
         public static IWebHost MigrateDbContext<TContext>(this IWebHost webHost, Action<TContext,IServiceProvider> seeder) where TContext : DbContext
         {
@@ -25,7 +25,7 @@ namespace Identity.API
                     logger.LogInformation($"Migrating database associated with context {typeof(TContext).Name}");
 
                     var retry = Policy.Handle<SqlException>()
-                         .WaitAndRetry(new TimeSpan[]
+                         .WaitAndRetry(new[]
                          {
                              TimeSpan.FromSeconds(5),
                              TimeSpan.FromSeconds(10),

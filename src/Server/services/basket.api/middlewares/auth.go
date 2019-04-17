@@ -17,14 +17,18 @@ func CreateAuth() *Auth {
 
 	claimsToValidate := map[string]interface{}{}
 	claimsToValidate["aud"] = "menu-api"
-	claimsToValidate["iss"] = "issuer"
+	claimsToValidate["iss"] = "http://demo.restaurant-identity"
+
+	httpClient := oidc.JWKHttpClient{}
 
 	verifier := oidc.JwtVerifier{
 		Cache:            cache.New(5*time.Minute, 10*time.Minute),
 		Authority:        "http://localhost:5000",
 		ClaimsToValidate: claimsToValidate,
+		HTTPClient:       &httpClient,
 	}
 
+	verifier.New()
 	auth := Auth{
 		JwtVerifier: &verifier,
 	}

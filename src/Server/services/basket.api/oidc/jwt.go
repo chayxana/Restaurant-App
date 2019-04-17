@@ -3,6 +3,7 @@ package oidc
 import (
 	"errors"
 	"fmt"
+	"reflect"
 	"strings"
 
 	"github.com/dgrijalva/jwt-go"
@@ -12,6 +13,7 @@ import (
 
 // JwtVerifier provides oidc server information
 type JwtVerifier struct {
+	HTTPClient       jwk.HTTPClient
 	Cache            *cache.Cache
 	Authority        string
 	ClaimsToValidate map[string]interface{}
@@ -20,12 +22,10 @@ type JwtVerifier struct {
 
 // New Creates new instance of Oidc
 func (j *JwtVerifier) New() *JwtVerifier {
-
 	if !strings.HasSuffix(j.Authority, "/") {
 		j.Authority += "/"
 	}
-
-	j.jwksURL = j.Authority + ".well-known/openid-verifier/jwks"
+	j.jwksURL = j.Authority + ".well-known/openid-configuration/jwks"
 	return j
 }
 
@@ -43,11 +43,12 @@ func (j *JwtVerifier) ValidateToken(bearerToken string) (bool, error) {
 		if found {
 			set = cachedSet.(*jwk.Set)
 		} else {
-			result, err := jwk.FetchHTTP(j.jwksURL)
+			option := jwk.WithHTTPClient(j.HTTPClient)
+			result, err := jwk.FetchHTTP(j.jwksURL, option)
 			if err != nil {
 				return nil, err
 			}
-			j.Cache.Set(j.jwksURL, &set, cache.DefaultExpiration)
+			j.Cache.Set(j.jwksURL, &set, cache.NoExpiration)
 			set = result
 		}
 
@@ -64,11 +65,26 @@ func (j *JwtVerifier) ValidateToken(bearerToken string) (bool, error) {
 	})
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		for _, v := range j.ClaimsToValidate {
-			fmt.Println(v)
+		for k, v := range j.ClaimsToValidate {
+			claim := claims[k]
+			switch reflect.TypeOf(claim).Kind() {
+			case reflect.String:
+				if claim != v {
+					return false, fmt.Errorf("claims validate failed, wrong claim: %v", k)
+				}
+			case reflect.Slice:
+				var itemFound bool
+				for _, c := range claim.([]interface{}) {
+					if c == v {
+						itemFound = true
+						break
+					}
+				}
+				if !itemFound {
+					return false, fmt.Errorf("claims validate failed, wrong claim: %v", k)
+				}
+			}
 		}
-		fmt.Println(claims["foo"], claims["nbf"])
-
 		return true, nil
 	}
 

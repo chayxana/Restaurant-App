@@ -8,9 +8,10 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/jurabek/basket.api/middlewares"
+
 	redisConfig "github.com/jurabek/basket.api/config"
 	"github.com/jurabek/basket.api/controllers"
-	"github.com/jurabek/basket.api/docs"
 	"github.com/jurabek/basket.api/eureka"
 	"github.com/jurabek/basket.api/repositories"
 
@@ -33,16 +34,16 @@ import (
 
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
-// @securitydefinitions.oauth2.implicit OAuth2Implicit
-// @authorizationurl http://localhost:8080/identity/oauth/authorize
-// @scope.basket-api
+
+// @securitydefinitions.oauth2.application Identity Server OAuth
+// @tokenUrl http://localhost:5000/connect/token
 func main() {
 	os.Setenv("PORT", "5050")
 	gin.SetMode(gin.DebugMode)
 
 	handleSigterm()
 	router := gin.Default()
-	router.Use(requestMiddleware())
+	router.Use(middlewares.RequestMiddleware())
 
 	redisPool, err := initRedis()
 
@@ -52,6 +53,9 @@ func main() {
 
 	basketRepository := repositories.NewRedisBasketRepository(redisPool)
 	controller := controllers.NewBasketController(basketRepository)
+
+	auth := middlewares.CreateAuth()
+	router.Use(auth.AuthMiddleware())
 
 	api := router.Group("/api/v1/")
 	{
@@ -68,26 +72,8 @@ func main() {
 	})
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
 	go eureka.Register()
-
 	router.Run()
-}
-
-func requestMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		if forwardedPrefix := c.Request.Header["X-Forwarded-Prefix"]; forwardedPrefix != nil {
-			docs.SwaggerInfo.BasePath = forwardedPrefix[0] + "/api/v1/"
-			fmt.Printf("Swagger base path: %s\r\n", docs.SwaggerInfo.BasePath)
-		} else {
-			docs.SwaggerInfo.BasePath = "/api/v1/"
-		}
-		if forwardedHost := c.Request.Header["X-Forwarded-Host"]; forwardedHost != nil {
-			docs.SwaggerInfo.Host = forwardedHost[0]
-			fmt.Printf("Swagger host: %s\r\n", docs.SwaggerInfo.Host)
-		}
-		c.Next()
-	}
 }
 
 func handleSigterm() {

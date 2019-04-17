@@ -3,7 +3,6 @@
 
 
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Identity.API.Model.Entities;
 using Identity.API.ViewModelBuilders;

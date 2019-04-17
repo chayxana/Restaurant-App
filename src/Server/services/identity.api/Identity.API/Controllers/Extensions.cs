@@ -9,13 +9,13 @@ namespace Identity.API.Controllers
         /// Determines whether the client is configured to use PKCE.
         /// </summary>
         /// <param name="store">The store.</param>
-        /// <param name="client_id">The client identifier.</param>
+        /// <param name="clientId">The client identifier.</param>
         /// <returns></returns>
-        public static async Task<bool> IsPkceClientAsync(this IClientStore store, string client_id)
+        public static async Task<bool> IsPkceClientAsync(this IClientStore store, string clientId)
         {
-            if (!string.IsNullOrWhiteSpace(client_id))
+            if (!string.IsNullOrWhiteSpace(clientId))
             {
-                var client = await store.FindEnabledClientByIdAsync(client_id);
+                var client = await store.FindEnabledClientByIdAsync(clientId);
                 return client?.RequirePkce == true;
             }
 

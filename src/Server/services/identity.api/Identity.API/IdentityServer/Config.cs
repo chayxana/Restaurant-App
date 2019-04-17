@@ -20,7 +20,7 @@ namespace Identity.API.IdentityServer
 
         public static IEnumerable<ApiResource> GetApiResources()
         {
-            return new ApiResource[]
+            return new[]
             {
                 new ApiResource("menu-api", "Restaurant Menu Api") { UserClaims = { "role" } },
                 new ApiResource("order-api", "Restaurant Order Api") { UserClaims = { "role" } },
@@ -32,7 +32,7 @@ namespace Identity.API.IdentityServer
         public static IEnumerable<Client> GetClients(IDictionary<string, string> clientUrls)
         {
             // client credentials client
-            return new Client[]
+            return new[]
             {
                 new Client
                 {
@@ -49,17 +49,17 @@ namespace Identity.API.IdentityServer
                 },
                 new Client
                 {
-                    ClientId = "menu-api-swagger-ui",
-                    ClientName = "Menu API Swagger UI",
-                    AllowedGrantTypes = GrantTypes.Implicit,
-                    AllowAccessTokensViaBrowser = true,
-                    RedirectUris = { $"{clientUrls["MenuApiUrl"]}/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { $"{clientUrls["MenuApiUrl"]}/swagger/" },
+                    ClientId = "menu-api-swagger-client",
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    ClientSecrets = 
+                    {
+                        new Secret("secret".Sha256())
+                    },
                     AllowedScopes = {"menu-api" }
                 },
                 new Client
                 {
-                    ClientId = "basketapi-swagger-ui",
+                    ClientId = "basket-api-swagger-ui",
                     ClientName = "Basket API Swagger UI",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,

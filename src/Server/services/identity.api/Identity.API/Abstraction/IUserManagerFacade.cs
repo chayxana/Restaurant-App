@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Identity.API.Model;
 using Identity.API.Model.Entities;
 using Microsoft.AspNetCore.Identity;
 

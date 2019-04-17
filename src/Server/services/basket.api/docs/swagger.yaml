@@ -62,6 +62,11 @@ paths:
         schema:
           $ref: '#/definitions/models.CustomerBasket'
           type: object
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -89,6 +94,11 @@ paths:
         name: id
         required: true
         type: string
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -106,10 +116,8 @@ paths:
       tags:
       - CustomerBasket
 securityDefinitions:
-  OAuth2Implicit:
-    authorizationUrl: http://localhost:8080/identity/oauth/authorize
-    flow: implicit
-    scopes:
-      basket-api: ""
+  Identity Server OAuth:
+    flow: application
+    tokenUrl: http://localhost:5000/connect/token
     type: oauth2
 swagger: "2.0"

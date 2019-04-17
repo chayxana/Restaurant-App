@@ -25,11 +25,11 @@ func NewBasketController(r repositories.BasketRepository) *BasketController {
 // @Accept json
 // @Produce json
 // @Param CustomerBasket body models.CustomerBasket true "Add CustomerBasket"
+// @Param Authorization header string true "Bearer"
 // @Success 200 {object} models.CustomerBasket
 // @Failure 400 {object} models.HTTPError
 // @Router /items [post]
 func (bc *BasketController) Create(c *gin.Context) {
-
 	var entity models.CustomerBasket
 	c.BindJSON(&entity)
 
@@ -59,6 +59,7 @@ func (bc *BasketController) Create(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "CustomerBasket ID"
+// @Param Authorization header string true "Bearer"
 // @Success 200 {object} models.CustomerBasket
 // @Failure 400 {object} models.HTTPError
 // @Router /items/{id} [get]

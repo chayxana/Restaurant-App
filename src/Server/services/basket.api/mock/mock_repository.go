@@ -1,4 +1,4 @@
-package repositories
+package mock
 
 import (
 	"github.com/jurabek/basket.api/models"

@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/jurabek/basket.api/mock"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -13,7 +14,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jurabek/basket.api/models"
-	"github.com/jurabek/basket.api/repositories"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -32,7 +32,7 @@ var items = []models.BasketItem{
 func TestBasketControllerGetShouldReturnOkWhenValidCustomerID(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	customerBasket := models.CustomerBasket{}
-	var mockedBasketRepository = &repositories.MockBasketRepository{}
+	var mockedBasketRepository = &mock.MockBasketRepository{}
 
 	mockedBasketRepository.On("GetBasket", "abcd").Return(&customerBasket, nil).Once()
 
@@ -52,7 +52,7 @@ func TestBasketControllerGetShouldReturnOkWhenValidCustomerID(t *testing.T) {
 
 func TestBasketControllerGetShouldReturnBadRequestWhenInValidCustomerID(t *testing.T) {
 	gin.SetMode(gin.TestMode)
-	var mockedBasketRepository = &repositories.MockBasketRepository{}
+	var mockedBasketRepository = &mock.MockBasketRepository{}
 
 	customerBasket := models.CustomerBasket{}
 	mockedBasketRepository.On("GetBasket", "invalid").Return(&customerBasket, fmt.Errorf("Not found item with id: %s", "invalid")).Once()
@@ -78,7 +78,7 @@ func TestBasketControllerCreateShouldCreateItemAndReturnOk(t *testing.T) {
 		Items:      &items,
 	}
 
-	var mockedBasketRepository = &repositories.MockBasketRepository{}
+	var mockedBasketRepository = &mock.MockBasketRepository{}
 	mockedBasketRepository.On("Update", &customerBasket).Return(nil)
 	mockedBasketRepository.On("GetBasket", customerBasket.CustomerID.String()).Return(&customerBasket, nil)
 
@@ -112,7 +112,7 @@ func TestBasketControllerCreateShouldNotCreateItemAndReturn_400(t *testing.T) {
 		Items:      &items,
 	}
 
-	var mockedBasketRepository = &repositories.MockBasketRepository{}
+	var mockedBasketRepository = &mock.MockBasketRepository{}
 	mockedBasketRepository.On("Update", &customerBasket).Return(fmt.Errorf("Could not update item id: %s", customerBasket.CustomerID))
 	var controller = NewBasketController(mockedBasketRepository)
 
@@ -138,7 +138,7 @@ func TestBasketControllerCreateShouldCreateItemAndWhenCouldNotFindCreatedItemRet
 		Items:      &items,
 	}
 
-	var mockedBasketRepository = &repositories.MockBasketRepository{}
+	var mockedBasketRepository = &mock.MockBasketRepository{}
 	mockedBasketRepository.On("Update", &customerBasket).Return(nil)
 	mockedBasketRepository.On("GetBasket", customerBasket.CustomerID.String()).Return(&customerBasket, fmt.Errorf("Could not found created item with id: %s", customerBasket.CustomerID))
 	var controller = NewBasketController(mockedBasketRepository)

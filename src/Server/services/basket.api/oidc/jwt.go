@@ -11,6 +11,8 @@ import (
 	"github.com/patrickmn/go-cache"
 )
 
+
+
 // JwtVerifier provides oidc server information
 type JwtVerifier struct {
 	HTTPClient       jwk.HTTPClient
@@ -35,7 +37,7 @@ func (j *JwtVerifier) ValidateToken(bearerToken string) (bool, error) {
 	token, err := jwt.Parse(bearerToken, func(token *jwt.Token) (interface{}, error) {
 		if err, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
 			fmt.Println(err)
-			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
 
 		var set *jwk.Set
@@ -70,7 +72,7 @@ func (j *JwtVerifier) ValidateToken(bearerToken string) (bool, error) {
 			switch reflect.TypeOf(claim).Kind() {
 			case reflect.String:
 				if claim != v {
-					return false, fmt.Errorf("claims validate failed, wrong claim: %v", k)
+					return false, fmt.Errorf("claims validate failed, invalid claim: %v", k)
 				}
 			case reflect.Slice:
 				var itemFound bool
@@ -81,7 +83,7 @@ func (j *JwtVerifier) ValidateToken(bearerToken string) (bool, error) {
 					}
 				}
 				if !itemFound {
-					return false, fmt.Errorf("claims validate failed, wrong claim: %v", k)
+					return false, fmt.Errorf("claims validate failed, invalid claim: %v", k)
 				}
 			}
 		}

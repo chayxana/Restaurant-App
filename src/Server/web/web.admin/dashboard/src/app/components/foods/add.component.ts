@@ -21,7 +21,7 @@ import * as uuid from 'uuid';
         <input matInput placeholder="Food description">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Price">
+        <input type="number" matInput placeholder="Price">
       </mat-form-field>
 
       <mat-form-field>
@@ -32,13 +32,17 @@ import * as uuid from 'uuid';
         </mat-select>
       </mat-form-field>
 
-      <div>
-        <input type="file" (change)="imageUpload($event)" #file>
-        <img [src]="imageUrl" />
+      <div style="margin:15px 0">
+        <button type="button" mat-stroked-button (click)="file.click()">Select food image</button>
+        <input hidden (change)="imageUpload($event)" #file type="file" id="file">
       </div>
 
+      <mat-card *ngIf="imageUrl" >
+        <img [src]="imageUrl" mat-card-image/>
+      </mat-card>
+
       <button mat-button type="submit" [ngClass]="{ loading : isSaving }" [disabled]="foodForm.invalid" type="submit">
-      Save
+        Save
       </button>
       <button mat-button type="button" (click)="onCancel()">Cancel</button>
     </form>

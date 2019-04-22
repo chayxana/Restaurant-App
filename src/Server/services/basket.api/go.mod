@@ -13,7 +13,6 @@ require (
 	github.com/lestrrat-go/pdebug v0.0.0-20180220043849-39f9a71bcabe // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
-	github.com/okta/okta-jwt-verifier-golang v0.0.0-20180501213203-04702def3e1b
 	github.com/ory/go-acc v0.0.0-20181118080137-ddc355013f90 // indirect
 	github.com/ory/x v0.0.37 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible

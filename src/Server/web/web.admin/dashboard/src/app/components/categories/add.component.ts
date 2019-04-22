@@ -8,20 +8,30 @@ import * as uuid from 'uuid';
 @Component({
   selector: 'app-add-categories',
   template: `
-    <div class="ui raised very padded text container segment">
-      <form class="ui form" #categoryForm="ngForm" (ngSubmit)="onSubmit(categoryForm)">
-        <div class="field" [ngClass]="{error : name.invalid && (name.dirty || name.touched) }">
-          <label>Name</label>
-          <input type="text" required placeholder="Name" [(ngModel)]="category.name" name="name" #name="ngModel">
-        </div>
-        <div class="field" [ngClass]="{error : color.invalid && (color.dirty || color.touched)}">
-          <label>Color</label>
-          <input type="color" required [(ngModel)]="category.color" name="color" #color="ngModel">
-        </div>
-        <button [disabled]="categoryForm.invalid" class="ui button blue" type="submit" [ngClass]="{ loading : saving }">Save</button>
-        <button class="ui button" type="button" (click)="onCancel()">Cancel</button>
-      </form>
-    </div>`
+  <mat-card class="container">
+    <form class="form-container" #categoryForm="ngForm" (ngSubmit)="onSubmit(categoryForm)">
+      <mat-form-field [ngClass]="{error : name.invalid && (name.dirty || name.touched) }">
+        <input matInput type="text" required placeholder="Name" [(ngModel)]="category.name" name="name" #name="ngModel">
+      </mat-form-field>
+      <div [ngClass]="{error : color.invalid && (color.dirty || color.touched)}">
+        <label>Color </label>
+        <input type="color" required [(ngModel)]="category.color" name="color" #color="ngModel">
+      </div>
+      <button mat-button [disabled]="categoryForm.invalid" type="submit" [ngClass]="{ loading : saving }">Save</button>
+      <button mat-button type="button" (click)="onCancel()">Cancel</button>
+    </form>
+  </mat-card>`,
+  styles: [
+    ` .container {
+        margin: 50px;
+      }
+      .form-container {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+    `
+  ]
 })
 
 export class AddCategoryComponent implements OnInit {

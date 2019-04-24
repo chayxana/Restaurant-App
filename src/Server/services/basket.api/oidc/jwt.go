@@ -11,54 +11,36 @@ import (
 	"github.com/patrickmn/go-cache"
 )
 
+// TokenVerifier provides for token validation
+type TokenVerifier interface {
+	ValidateToken(bearerToken string) (bool, error)
+}
 
-
-// JwtVerifier provides oidc server information
-type JwtVerifier struct {
+// JwtTokenVerifier provides oidc server information
+type JwtTokenVerifier struct {
 	HTTPClient       jwk.HTTPClient
 	Cache            *cache.Cache
 	Authority        string
 	ClaimsToValidate map[string]interface{}
-	jwksURL          string
-}
-
-// New Creates new instance of Oidc
-func (j *JwtVerifier) New() *JwtVerifier {
-	if !strings.HasSuffix(j.Authority, "/") {
-		j.Authority += "/"
-	}
-	j.jwksURL = j.Authority + ".well-known/openid-configuration/jwks"
-	return j
 }
 
 // ValidateToken validates claims with given token
-func (j *JwtVerifier) ValidateToken(bearerToken string) (bool, error) {
+func (j *JwtTokenVerifier) ValidateToken(bearerToken string) (bool, error) {
 
 	token, err := jwt.Parse(bearerToken, func(token *jwt.Token) (interface{}, error) {
 		if err, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
 			fmt.Println(err)
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
-
-		var set *jwk.Set
-		cachedSet, found := j.Cache.Get(j.jwksURL)
-		if found {
-			set = cachedSet.(*jwk.Set)
-		} else {
-			option := jwk.WithHTTPClient(j.HTTPClient)
-			result, err := jwk.FetchHTTP(j.jwksURL, option)
-			if err != nil {
-				return nil, err
-			}
-			j.Cache.Set(j.jwksURL, &set, cache.NoExpiration)
-			set = result
+		set, err := j.fetchAndCacheJWKS()
+		if err != nil {
+			return nil, err
 		}
 
 		keyID, ok := token.Header["kid"].(string)
 		if !ok {
 			return nil, errors.New("expecting JWT header to have string kid")
 		}
-
 		if key := set.LookupKeyID(keyID); len(key) == 1 {
 			return key[0].Materialize()
 		}
@@ -66,6 +48,14 @@ func (j *JwtVerifier) ValidateToken(bearerToken string) (bool, error) {
 		return nil, errors.New("unable to find key")
 	})
 
+	if err != nil {
+		return false, err
+	}
+
+	return j.validateTokenByClaims(token)
+}
+
+func (j *JwtTokenVerifier) validateTokenByClaims(token *jwt.Token) (bool, error) {
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		for k, v := range j.ClaimsToValidate {
 			claim := claims[k]
@@ -90,5 +80,31 @@ func (j *JwtVerifier) ValidateToken(bearerToken string) (bool, error) {
 		return true, nil
 	}
 
-	return false, err
+	return false, fmt.Errorf("invalid token")
+}
+
+func (j *JwtTokenVerifier) fetchAndCacheJWKS() (*jwk.Set, error) {
+	var result *jwk.Set
+	if cachedSet, found := j.Cache.Get(j.getJwkURL()); found {
+		if set, ok := cachedSet.(*jwk.Set); !ok {
+			result = set
+		} else {
+			return nil, fmt.Errorf("cannot convert the type %v into %v", cachedSet, reflect.TypeOf(cachedSet))
+		}
+	} else {
+		if response, err := jwk.FetchHTTP(j.getJwkURL(), jwk.WithHTTPClient(j.HTTPClient)); err != nil {
+			return nil, err
+		} else {
+			result = response
+			j.Cache.Set(j.getJwkURL(), &response, cache.NoExpiration)
+		}
+	}
+	return result, nil
+}
+
+func (j *JwtTokenVerifier) getJwkURL() string {
+	if !strings.HasSuffix(j.Authority, "/") {
+		j.Authority += "/"
+	}
+	return j.Authority + ".well-known/openid-configuration/jwks"
 }

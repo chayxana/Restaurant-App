@@ -5,26 +5,25 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-// MockBasketRepository repository extended from Mock
-type MockBasketRepository struct {
+// BasketRepositoryMock repository extended from Mock
+type BasketRepositoryMock struct {
 	mock.Mock
 }
 
 // GetBasket mock
-func (r *MockBasketRepository) GetBasket(customerID string) (*models.CustomerBasket, error) {
+func (r *BasketRepositoryMock) GetBasket(customerID string) (*models.CustomerBasket, error) {
 	args := r.Called(customerID)
-
 	return args.Get(0).(*models.CustomerBasket), args.Error(1)
 }
 
 // Update Mock
-func (r *MockBasketRepository) Update(item *models.CustomerBasket) error {
+func (r *BasketRepositoryMock) Update(item *models.CustomerBasket) error {
 	args := r.Called(item)
 	return args.Error(0)
 }
 
 // Delete mock
-func (r *MockBasketRepository) Delete(id string) error {
+func (r *BasketRepositoryMock) Delete(id string) error {
 	args := r.Called(id)
 	return args.Error(0)
 }

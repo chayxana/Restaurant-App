@@ -31,6 +31,7 @@ namespace Identity.API.Controllers.Account
     public class AccountController : Controller
     {
         private readonly ILoginViewModelBuilder _loginViewModelBuilder;
+        private readonly ILogOutViewModelBuilder _logOutViewModelBuilder;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
@@ -40,6 +41,7 @@ namespace Identity.API.Controllers.Account
 
         public AccountController(
             ILoginViewModelBuilder loginViewModelBuilder,
+            ILogOutViewModelBuilder logOutViewModelBuilder,
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
@@ -48,7 +50,8 @@ namespace Identity.API.Controllers.Account
             SignInManager<ApplicationUser> signInManager)
          {
              _loginViewModelBuilder = loginViewModelBuilder;
-             _interaction = interaction;
+            _logOutViewModelBuilder = logOutViewModelBuilder;
+            _interaction = interaction;
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
@@ -184,7 +187,7 @@ namespace Identity.API.Controllers.Account
         public async Task<IActionResult> Logout(string logoutId)
         {
             // build a model so the logout page knows what to display
-            var vm = await BuildLogoutViewModelAsync(logoutId);
+            var vm = await _logOutViewModelBuilder.Build(logoutId, User?.Identity.IsAuthenticated);
 
             if (vm.ShowLogoutPrompt == false)
             {
@@ -245,30 +248,6 @@ namespace Identity.API.Controllers.Account
             var vm = await BuildLoginViewModelAsync(model.ReturnUrl);
             vm.Username = model.Username;
             vm.RememberLogin = model.RememberLogin;
-            return vm;
-        }
-
-        private async Task<LogoutViewModel> BuildLogoutViewModelAsync(string logoutId)
-        {
-            var vm = new LogoutViewModel { LogoutId = logoutId, ShowLogoutPrompt = AccountOptions.ShowLogoutPrompt };
-
-            if (User?.Identity.IsAuthenticated != true)
-            {
-                // if the user is not authenticated, then just show logged out page
-                vm.ShowLogoutPrompt = false;
-                return vm;
-            }
-
-            var context = await _interaction.GetLogoutContextAsync(logoutId);
-            if (context?.ShowSignoutPrompt == false)
-            {
-                // it's safe to automatically sign-out
-                vm.ShowLogoutPrompt = false;
-                return vm;
-            }
-
-            // show the logout prompt. this prevents attacks where the user
-            // is automatically signed out by another malicious web page.
             return vm;
         }
 

@@ -2,15 +2,11 @@ package middlewares
 
 import (
 	"fmt"
-	"net/http"
-	"strings"
-	"time"
-
 	"github.com/gin-gonic/gin"
-	"github.com/jurabek/basket.api/facades"
 	"github.com/jurabek/basket.api/models"
 	"github.com/jurabek/basket.api/oidc"
-	"github.com/patrickmn/go-cache"
+	"net/http"
+	"strings"
 )
 
 // CreateAuth creates new instance of Auth
@@ -20,10 +16,9 @@ func CreateAuth() *Auth {
 	claimsToValidate["aud"] = "menu-api"
 	claimsToValidate["iss"] = "http://demo.restaurant-identity"
 
-	httpClient := facades.JWKHttpClient{}
+	httpClient := oidc.JWKHttpClient{}
 
 	verifier := oidc.JwtTokenVerifier{
-		Cache:            cache.New(5*time.Minute, 10*time.Minute),
 		Authority:        "http://localhost:5000",
 		ClaimsToValidate: claimsToValidate,
 		HTTPClient:       &httpClient,

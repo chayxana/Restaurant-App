@@ -4,7 +4,7 @@ using BaseUnitTests;
 using Identity.API.Model.Entities;
 using Xunit;
 
-namespace Identity.API.UnitTests
+namespace Identity.API.UnitTests.Models
 {
 	public class UserTest
 	{

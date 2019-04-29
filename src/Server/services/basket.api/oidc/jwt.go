@@ -8,7 +8,6 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/lestrrat-go/jwx/jwk"
-	"github.com/patrickmn/go-cache"
 )
 
 // TokenVerifier provides for token validation
@@ -19,7 +18,6 @@ type TokenVerifier interface {
 // JwtTokenVerifier provides oidc server information
 type JwtTokenVerifier struct {
 	HTTPClient       jwk.HTTPClient
-	Cache            *cache.Cache
 	Authority        string
 	ClaimsToValidate map[string]interface{}
 }
@@ -85,20 +83,12 @@ func (j *JwtTokenVerifier) validateTokenByClaims(token *jwt.Token) (bool, error)
 
 func (j *JwtTokenVerifier) fetchAndCacheJWKS() (*jwk.Set, error) {
 	var result *jwk.Set
-	if cachedSet, found := j.Cache.Get(j.getJwkURL()); found {
-		if set, ok := cachedSet.(*jwk.Set); !ok {
-			result = set
-		} else {
-			return nil, fmt.Errorf("cannot convert the type %v into %v", cachedSet, reflect.TypeOf(cachedSet))
-		}
-	} else {
-		if response, err := jwk.FetchHTTP(j.getJwkURL(), jwk.WithHTTPClient(j.HTTPClient)); err != nil {
-			return nil, err
-		} else {
-			result = response
-			j.Cache.Set(j.getJwkURL(), &response, cache.NoExpiration)
-		}
+
+	response, err := jwk.FetchHTTP(j.getJwkURL(), jwk.WithHTTPClient(j.HTTPClient))
+	if err != nil {
+		return nil, err
 	}
+	result = response
 	return result, nil
 }
 

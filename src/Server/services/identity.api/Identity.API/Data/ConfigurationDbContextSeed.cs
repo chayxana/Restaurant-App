@@ -7,7 +7,7 @@ using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using static Identity.API.Utils.PollyUtil;
+using static Identity.API.Utils.Retry;
 
 namespace Identity.API.Data
 {

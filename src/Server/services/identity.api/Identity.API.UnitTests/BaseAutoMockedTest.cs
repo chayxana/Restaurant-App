@@ -5,26 +5,26 @@ using Moq;
 namespace BaseUnitTests
 {
     public abstract class BaseAutoMockedTest<T> : IDisposable
-		where T : class
+        where T : class
     {
-	    protected T ClassUnderTest => Mocker.Create<T>();
+        protected T ClassUnderTest => Mocker.Create<T>();
 
-	    protected AutoMock Mocker { get; }
+        protected AutoMock Mocker { get; }
 
-	    protected BaseAutoMockedTest()
-	    {
-			Mocker = AutoMock.GetLoose();
-	    }
+        protected BaseAutoMockedTest()
+        {
+            Mocker = AutoMock.GetLoose();
+        }
 
-	    protected Mock<TDepend> GetMock<TDepend>()
-		    where TDepend : class
-	    {
-		    return Mocker.Mock<TDepend>();
-	    }
+        protected Mock<TDepend> GetMock<TDepend>()
+            where TDepend : class
+        {
+            return Mocker.Mock<TDepend>();
+        }
 
-		public void Dispose()
-	    {
-		    Mocker?.Dispose();
-	    }
+        public void Dispose()
+        {
+            Mocker?.Dispose();
+        }
     }
 }

@@ -3,6 +3,7 @@ package repositories
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/jurabek/basket.api/database"
 
 	"github.com/gomodule/redigo/redis"
 	"github.com/jurabek/basket.api/models"
@@ -10,18 +11,18 @@ import (
 
 // RedisBasketRepository implementation of BasketRepository
 type RedisBasketRepository struct {
-	Pool *redis.Pool
+	Conn database.ConnectionProvider
 }
 
 // NewRedisBasketRepository creates new instance of repository
-func NewRedisBasketRepository(pool *redis.Pool) BasketRepository {
-	return &RedisBasketRepository{Pool: pool}
+func NewRedisBasketRepository(conn database.ConnectionProvider) BasketRepository {
+	return &RedisBasketRepository{Conn: conn}
 }
 
 // GetBasket returns CustomerBasket otherwise nill
 func (r *RedisBasketRepository) GetBasket(customerID string) (*models.CustomerBasket, error) {
 
-	conn := r.Pool.Get()
+	conn := r.Conn.Get()
 	defer conn.Close()
 
 	var (
@@ -50,7 +51,7 @@ func (r *RedisBasketRepository) Update(item *models.CustomerBasket) error {
 		return fmt.Errorf("error marshalling %v", item)
 	}
 
-	conn := r.Pool.Get()
+	conn := r.Conn.Get()
 	defer conn.Close()
 
 	_, err = conn.Do("SET", item.CustomerID, value)
@@ -66,7 +67,7 @@ func (r *RedisBasketRepository) Update(item *models.CustomerBasket) error {
 
 // Delete removes existing CustomerBasket
 func (r *RedisBasketRepository) Delete(id string) error {
-	conn := r.Pool.Get()
+	conn := r.Conn.Get()
 	defer conn.Close()
 
 	_, err := conn.Do("DEL", id)
@@ -75,7 +76,7 @@ func (r *RedisBasketRepository) Delete(id string) error {
 
 func (r *RedisBasketRepository) getKeys(pattern string) ([]string, error) {
 
-	conn := r.Pool.Get()
+	conn := r.Conn.Get()
 	defer conn.Close()
 
 	iter := 0

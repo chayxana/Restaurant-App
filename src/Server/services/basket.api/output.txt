@@ -1,0 +1,4 @@
+ok  	github.com/jurabek/basket.api/controllers	0.008s	coverage: 100.0% of statements
+?   	github.com/jurabek/basket.api/repositories	[no test files]
+?   	github.com/jurabek/basket.api/eureka	[no test files]
+ok  	github.com/jurabek/basket.api/oidc	0.010s	coverage: 51.2% of statements

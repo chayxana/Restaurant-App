@@ -25,18 +25,15 @@ namespace Identity.API.Controllers.Account
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
         private readonly IEventService _events;
-        private readonly UserManager<ApplicationUser> _userManager;
 
         public ExternalController(
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
-            IEventService events,
-            UserManager<ApplicationUser> userManager)
+            IEventService events)
         {
             _interaction = interaction;
             _clientStore = clientStore;
             _events = events;
-            _userManager = userManager;
         }
 
         /// <summary>
@@ -54,7 +51,7 @@ namespace Identity.API.Controllers.Account
                 throw new Exception("invalid return URL");
             }
 
-            if (AccountOptions.WindowsAuthenticationSchemeName == provider)
+            if (provider == AccountOptions.WindowsAuthenticationSchemeName)
             {
                 // windows authentication needs special handling
                 return await ProcessWindowsLoginAsync(returnUrl);

@@ -73,6 +73,5 @@ func (bc *BasketController) Get(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, httpError)
 		return
 	}
-
 	c.JSON(http.StatusOK, result)
 }

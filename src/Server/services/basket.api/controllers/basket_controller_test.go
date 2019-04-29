@@ -29,130 +29,89 @@ var items = []models.BasketItem{
 	},
 }
 
-func TestBasketControllerGetShouldReturnOkWhenValidCustomerID(t *testing.T) {
+func TestBasketController(t *testing.T) {
 	gin.SetMode(gin.TestMode)
-	customerBasket := models.CustomerBasket{}
+	customerBasket := models.CustomerBasket{
+		CustomerID: uuid.New(),
+		Items:      &items,
+	}
+
 	var mockedBasketRepository = &mock.BasketRepositoryMock{}
 
 	mockedBasketRepository.On("GetBasket", "abcd").Return(&customerBasket, nil).Once()
-
-	var controller = NewBasketController(mockedBasketRepository)
-
-	router := gin.Default()
-	basket := router.Group("basket")
-	{
-		basket.GET(":id", controller.Get)
-	}
-
-	w := httptest.NewRecorder()
-	r, _ := http.NewRequest("GET", "/basket/abcd", nil)
-	router.ServeHTTP(w, r)
-	assert.Equal(t, http.StatusOK, w.Code)
-}
-
-func TestBasketControllerGetShouldReturnBadRequestWhenInValidCustomerID(t *testing.T) {
-	gin.SetMode(gin.TestMode)
-	var mockedBasketRepository = &mock.BasketRepositoryMock{}
-
-	customerBasket := models.CustomerBasket{}
 	mockedBasketRepository.On("GetBasket", "invalid").Return(&customerBasket, fmt.Errorf("Not found item with id: %s", "invalid")).Once()
+	mockedBasketRepository.On("Update", &customerBasket).Return(nil)
 	var controller = NewBasketController(mockedBasketRepository)
 
 	router := gin.Default()
 	basket := router.Group("basket")
 	{
 		basket.GET(":id", controller.Get)
-	}
-
-	w := httptest.NewRecorder()
-	r, _ := http.NewRequest("GET", "/basket/invalid", nil)
-	router.ServeHTTP(w, r)
-	assert.Equal(t, http.StatusBadRequest, w.Code)
-}
-
-func TestBasketControllerCreateShouldCreateItemAndReturnOk(t *testing.T) {
-	gin.SetMode(gin.TestMode)
-
-	customerBasket := models.CustomerBasket{
-		CustomerID: uuid.New(),
-		Items:      &items,
-	}
-
-	var mockedBasketRepository = &mock.BasketRepositoryMock{}
-	mockedBasketRepository.On("Update", &customerBasket).Return(nil)
-	mockedBasketRepository.On("GetBasket", customerBasket.CustomerID.String()).Return(&customerBasket, nil)
-
-	var controller = NewBasketController(mockedBasketRepository)
-
-	router := gin.Default()
-	basket := router.Group("basket")
-	{
 		basket.POST("", controller.Create)
 	}
-	body, _ := json.Marshal(customerBasket)
 
-	w := httptest.NewRecorder()
-	r, _ := http.NewRequest("POST", "/basket", bytes.NewBuffer(body))
-	router.ServeHTTP(w, r)
+	t.Run("Get should return ok when valid CustomerID", func(t *testing.T) {
+		w := httptest.NewRecorder()
+		r, _ := http.NewRequest("GET", "/basket/abcd", nil)
+		router.ServeHTTP(w, r)
+		assert.Equal(t, http.StatusOK, w.Code)
+	})
 
-	assert.Equal(t, http.StatusOK, w.Code)
+	t.Run("Get should return BadRequest when invalid CustomerID", func(t *testing.T) {
+		w := httptest.NewRecorder()
+		r, _ := http.NewRequest("GET", "/basket/invalid", nil)
+		router.ServeHTTP(w, r)
+		assert.Equal(t, http.StatusBadRequest, w.Code)
+	})
 
-	var result models.CustomerBasket
-	bodyResult, _ := ioutil.ReadAll(w.Body)
-	json.Unmarshal(bodyResult, &result)
+	t.Run("Create should create item and return ok", func(t *testing.T) {
+		mockedBasketRepository.On("GetBasket", customerBasket.CustomerID.String()).Return(&customerBasket, nil)
 
-	assert.Equal(t, result.CustomerID, customerBasket.CustomerID)
-}
+		body, _ := json.Marshal(customerBasket)
 
-func TestBasketControllerCreateShouldNotCreateItemAndReturn_400(t *testing.T) {
-	gin.SetMode(gin.TestMode)
+		w := httptest.NewRecorder()
+		r, _ := http.NewRequest("POST", "/basket", bytes.NewBuffer(body))
+		router.ServeHTTP(w, r)
 
-	customerBasket := models.CustomerBasket{
-		CustomerID: uuid.New(),
-		Items:      &items,
-	}
+		assert.Equal(t, http.StatusOK, w.Code)
 
-	var mockedBasketRepository = &mock.BasketRepositoryMock{}
-	mockedBasketRepository.On("Update", &customerBasket).Return(fmt.Errorf("Could not update item id: %s", customerBasket.CustomerID))
-	var controller = NewBasketController(mockedBasketRepository)
+		var result models.CustomerBasket
+		bodyResult, _ := ioutil.ReadAll(w.Body)
+		json.Unmarshal(bodyResult, &result)
 
-	router := gin.Default()
-	basket := router.Group("basket")
-	{
-		basket.POST("", controller.Create)
-	}
-	body, _ := json.Marshal(customerBasket)
+		assert.Equal(t, result.CustomerID, customerBasket.CustomerID)
+	})
 
-	w := httptest.NewRecorder()
-	r, _ := http.NewRequest("POST", "/basket", bytes.NewBuffer(body))
-	router.ServeHTTP(w, r)
+	t.Run("Create should not create item and return code 400", func(t *testing.T) {
+		invalidCustomerBasket := models.CustomerBasket{
+			CustomerID: uuid.New(),
+		}
+		mockedBasketRepository.On("Update", &invalidCustomerBasket).Return(fmt.Errorf("Could not update item id: %s", customerBasket.CustomerID))
 
-	assert.Equal(t, http.StatusBadRequest, w.Code)
-}
+		body, _ := json.Marshal(invalidCustomerBasket)
 
-func TestBasketControllerCreateShouldCreateItemAndWhenCouldNotFindCreatedItemReturn_400(t *testing.T) {
-	gin.SetMode(gin.TestMode)
+		w := httptest.NewRecorder()
+		r, _ := http.NewRequest("POST", "/basket", bytes.NewBuffer(body))
+		router.ServeHTTP(w, r)
+		assert.Equal(t, http.StatusBadRequest, w.Code)
+	})
 
-	customerBasket := models.CustomerBasket{
-		CustomerID: uuid.New(),
-		Items:      &items,
-	}
+	t.Run("Create should create item and when could not find created item return code 400", func(t *testing.T) {
+		invalidCustomerBasket := models.CustomerBasket{
+			CustomerID: uuid.New(),
+		}
+		mockedBasketRepository.On("Update", &invalidCustomerBasket).Return(nil)
+		mockedBasketRepository.On("GetBasket", invalidCustomerBasket.CustomerID.String()).Return(
+			&invalidCustomerBasket,
+			fmt.Errorf("Could not found created item with id: %s", invalidCustomerBasket.CustomerID))
 
-	var mockedBasketRepository = &mock.BasketRepositoryMock{}
-	mockedBasketRepository.On("Update", &customerBasket).Return(nil)
-	mockedBasketRepository.On("GetBasket", customerBasket.CustomerID.String()).Return(&customerBasket, fmt.Errorf("Could not found created item with id: %s", customerBasket.CustomerID))
-	var controller = NewBasketController(mockedBasketRepository)
+		body, _ := json.Marshal(invalidCustomerBasket)
 
-	router := gin.Default()
-	basket := router.Group("basket")
-	{
-		basket.POST("", controller.Create)
-	}
-	body, _ := json.Marshal(customerBasket)
+		w := httptest.NewRecorder()
+		r, _ := http.NewRequest("POST", "/basket", bytes.NewBuffer(body))
+		router.ServeHTTP(w, r)
 
-	w := httptest.NewRecorder()
-	r, _ := http.NewRequest("POST", "/basket", bytes.NewBuffer(body))
-	router.ServeHTTP(w, r)
+		assert.Equal(t, http.StatusBadRequest, w.Code)
+	})
 
-	assert.Equal(t, http.StatusBadRequest, w.Code)
 }

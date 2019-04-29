@@ -1,20 +1,30 @@
 using System.Threading.Tasks;
+using Identity.API.Abstraction.ViewModelBuilders;
 using Identity.API.Controllers.Account;
+using IdentityServer4.Extensions;
 using IdentityServer4.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace Identity.API.ViewModelBuilders
 {
     public class LogOutViewModelBuilder : ILogOutViewModelBuilder
     {
         private readonly IIdentityServerInteractionService _interaction;
-        public LogOutViewModelBuilder(IIdentityServerInteractionService interaction)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        
+        public LogOutViewModelBuilder(
+            IHttpContextAccessor httpContextAccessor,
+            IIdentityServerInteractionService interaction)
         {
+            _httpContextAccessor = httpContextAccessor;
             _interaction = interaction;
         }
-        public Task<LogoutViewModel> Build(string logoutId, bool? isAuthenticated) => this.BuildLogoutViewModelAsync(logoutId, isAuthenticated);
+        
+        public Task<LogoutViewModel> Build(string logoutId) => BuildLogoutViewModelAsync(logoutId);
 
-        private async Task<LogoutViewModel> BuildLogoutViewModelAsync(string logoutId, bool? isAuthenticated)
+        private async Task<LogoutViewModel> BuildLogoutViewModelAsync(string logoutId)
         {
+            var isAuthenticated = _httpContextAccessor.HttpContext?.User?.IsAuthenticated();
             var vm = new LogoutViewModel { LogoutId = logoutId, ShowLogoutPrompt = AccountOptions.ShowLogoutPrompt };
 
             if (isAuthenticated != true)

@@ -7,7 +7,7 @@ using Identity.API.Model.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using static Identity.API.Utils.PollyUtil;
+using static Identity.API.Utils.Retry;
 
 namespace Identity.API.Data
 {

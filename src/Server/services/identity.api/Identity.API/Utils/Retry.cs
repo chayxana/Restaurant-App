@@ -6,7 +6,7 @@ using Polly.Retry;
 
 namespace Identity.API.Utils
 {
-    public class PollyUtil
+    public class Retry
     {
         public static AsyncRetryPolicy CreatePolicy(ILogger logger, string prefix, int retries = 3)
 		{

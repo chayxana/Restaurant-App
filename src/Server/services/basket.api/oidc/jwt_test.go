@@ -12,7 +12,6 @@ import (
 	"github.com/lestrrat-go/jwx/jwk"
 
 	"github.com/jurabek/basket.api/mock"
-	"github.com/patrickmn/go-cache"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/stretchr/testify/assert"
@@ -110,7 +109,6 @@ func TestJwt(t *testing.T) {
 
 	jwtVerifier := JwtTokenVerifier{
 		HTTPClient: &jwkMockHTTPClient,
-		Cache:      cache.New(5*time.Minute, 10*time.Minute),
 		Authority:  "http://localhost",
 	}
 
@@ -119,11 +117,5 @@ func TestJwt(t *testing.T) {
 		assert.True(t, result)
 		assert.Nil(t, err)
 		assert.NotEmpty(t, token)
-	})
-
-	t.Run("given existing url jwk should load from cache", func(t *testing.T) {
-		result, _ := jwtVerifier.ValidateToken(token)
-		assert.True(t, result)
-		jwkMockHTTPClient.AssertNotCalled(t, "Get", "http://localhost/.well-known/openid-configuration/jwks")
 	})
 }

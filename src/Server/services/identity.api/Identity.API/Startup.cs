@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using AutoMapper;
+using Identity.API.Abstraction.Providers;
+using Identity.API.Abstraction.ViewModelBuilders;
 using Identity.API.Data;
 using Identity.API.Model.Entities;
+using Identity.API.Providers;
 using Identity.API.ViewModelBuilders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,7 +27,7 @@ namespace Identity.API
         }
 
         public IConfiguration Configuration { get; }
-
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -78,7 +81,9 @@ namespace Identity.API
             });
 
             services.AddTransient<ILoginViewModelBuilder, LoginViewModelBuilder>();
-
+            services.AddTransient<ILogOutViewModelBuilder, LogOutViewModelBuilder>();
+            services.AddTransient<ILoggedOutViewModelBuilder, LoggedOutViewModelBuilder>();
+            services.AddTransient<ILoginProvider, LoginProvider>();
             services.AddDiscoveryClient(Configuration);
             services.AddAutoMapper(typeof(Startup));
         }

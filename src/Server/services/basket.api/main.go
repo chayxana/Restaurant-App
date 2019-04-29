@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/jurabek/basket.api/database"
 	"net/http"
 	"os"
 	"os/signal"
@@ -10,7 +11,6 @@ import (
 
 	"github.com/jurabek/basket.api/middlewares"
 
-	redisConfig "github.com/jurabek/basket.api/config"
 	"github.com/jurabek/basket.api/controllers"
 	"github.com/jurabek/basket.api/eureka"
 	"github.com/jurabek/basket.api/repositories"
@@ -51,7 +51,11 @@ func main() {
 		fmt.Print(err)
 	}
 
-	basketRepository := repositories.NewRedisBasketRepository(redisPool)
+	connectionProvider := database.RedisConnectionProvider{
+		Pool:redisPool,
+	}
+
+	basketRepository := repositories.NewRedisBasketRepository(&connectionProvider)
 	controller := controllers.NewBasketController(basketRepository)
 
 	auth := middlewares.CreateAuth()
@@ -73,7 +77,7 @@ func main() {
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	go eureka.Register()
-	router.Run()
+	_ = router.Run()
 }
 
 func handleSigterm() {
@@ -92,10 +96,10 @@ func initRedis() (*redis.Pool, error) {
 	if redisHost == "" {
 		redisHost = ":6379"
 	}
-	pool := redisConfig.NewRedisPool(redisHost)
-	redisConfig.CleanupHook(pool)
+	pool := database.NewRedisPool(redisHost)
+	database.CleanupHook(pool)
 
-	err := redisConfig.HealthCheck(pool)
+	err := database.HealthCheck(pool)
 
 	return pool, err
 }

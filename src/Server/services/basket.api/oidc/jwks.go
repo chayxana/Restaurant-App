@@ -1,4 +1,4 @@
-package facades
+package oidc
 
 import "net/http"
 

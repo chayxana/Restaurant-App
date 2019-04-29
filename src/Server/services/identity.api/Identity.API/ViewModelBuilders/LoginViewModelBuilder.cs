@@ -5,6 +5,7 @@ using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Authentication;
 using System.Linq;
 using System;
+using Identity.API.Abstraction.ViewModelBuilders;
 
 namespace Identity.API.ViewModelBuilders
 {
@@ -36,7 +37,7 @@ namespace Identity.API.ViewModelBuilders
                     EnableLocalLogin = false,
                     ReturnUrl = returnUrl,
                     Username = context?.LoginHint,
-                    ExternalProviders = new ExternalProvider[] { new ExternalProvider { AuthenticationScheme = context.IdP } }
+                    ExternalProviders = new[] { new ExternalProvider { AuthenticationScheme = context.IdP } }
                 };
             }
 
@@ -44,7 +45,7 @@ namespace Identity.API.ViewModelBuilders
 
             var providers = schemes
                 .Where(x => x.DisplayName != null ||
-                            (x.Name.Equals(AccountOptions.WindowsAuthenticationSchemeName, StringComparison.OrdinalIgnoreCase))
+                            x.Name.Equals(AccountOptions.WindowsAuthenticationSchemeName, StringComparison.OrdinalIgnoreCase)
                 )
                 .Select(x => new ExternalProvider
                 {

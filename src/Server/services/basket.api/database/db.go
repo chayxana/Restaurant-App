@@ -1,4 +1,4 @@
-package config
+package database
 
 import (
 	"fmt"
@@ -9,6 +9,21 @@ import (
 
 	"github.com/gomodule/redigo/redis"
 )
+
+// ConnectionProvider abstracts redis connection
+type ConnectionProvider interface {
+	Get() redis.Conn
+}
+
+// RedisConnectionProvider provides redis connection from current Redis Pool
+type RedisConnectionProvider struct {
+	Pool *redis.Pool
+}
+
+// Get return redis.Pool connection
+func (r *RedisConnectionProvider) Get() redis.Conn {
+	return r.Pool.Get()
+}
 
 // NewRedisPool creates new pool
 func NewRedisPool(server string) *redis.Pool {

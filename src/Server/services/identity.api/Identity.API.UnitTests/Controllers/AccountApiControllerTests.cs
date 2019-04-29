@@ -4,7 +4,6 @@ using AutoMapper;
 using BaseUnitTests;
 using FluentAssertions;
 using Identity.API.Abstraction;
-using Identity.API.Controllers;
 using Identity.API.Controllers.Account;
 using Identity.API.Model.DataTransferObjects;
 using Identity.API.Model.Entities;
@@ -13,9 +12,9 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
-namespace Identity.API.UnitTests
+namespace Identity.API.UnitTests.Controllers
 {
-    public class AccountControllerTests : BaseAutoMockedTest<AccountApiController>
+    public class AccountApiControllerTests : BaseAutoMockedTest<AccountApiController>
     {
 		[Theory, AutoDomainData]
 	    public async Task Given_valid_parameters_Register_should_return_Ok(RegisterDto dto)
@@ -51,7 +50,10 @@ namespace Identity.API.UnitTests
 	    public async Task Given_authorized_user_GetUserInfo_should_return_user_info(UserDto userDto)
 	    {
 		    // Given
-		    GetMock<IUserManagerFacade>().Setup(x => x.GetAsync(It.IsAny<ClaimsPrincipal>())).Returns(Task.FromResult(new ApplicationUser()));
+		    GetMock<IUserManagerFacade>()
+			    .Setup(x => x.GetAsync(It.IsAny<ClaimsPrincipal>()))
+			    .Returns(Task.FromResult(new ApplicationUser()));
+		    
 		    GetMock<IMapper>().Setup(x => x.Map<UserDto>(It.IsAny<ApplicationUser>())).Returns(userDto);
 
 			// when

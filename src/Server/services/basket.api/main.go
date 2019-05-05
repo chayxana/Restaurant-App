@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/jurabek/basket.api/database"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/jurabek/basket.api/database"
 
 	"github.com/jurabek/basket.api/middlewares"
 
@@ -52,7 +53,7 @@ func main() {
 	}
 
 	connectionProvider := database.RedisConnectionProvider{
-		Pool:redisPool,
+		Pool: redisPool,
 	}
 
 	basketRepository := repositories.NewRedisBasketRepository(&connectionProvider)

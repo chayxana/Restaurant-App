@@ -35,10 +35,7 @@ func (j *JwtTokenVerifier) ValidateToken(bearerToken string) (bool, error) {
 			return nil, err
 		}
 
-		keyID, ok := token.Header["kid"].(string)
-		if !ok {
-			return nil, errors.New("expecting JWT header to have string kid")
-		}
+		keyID, _ := token.Header["kid"].(string)
 		if key := set.LookupKeyID(keyID); len(key) == 1 {
 			return key[0].Materialize()
 		}

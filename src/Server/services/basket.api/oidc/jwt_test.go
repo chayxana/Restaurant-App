@@ -2,7 +2,7 @@ package oidc
 
 import (
 	"bytes"
-	"crypto/rsa"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"testing"
@@ -59,25 +59,13 @@ WwIDAQAB
 -----END PUBLIC KEY-----`
 )
 
-var (
-	verifyKey    *rsa.PublicKey
-	signKey      *rsa.PrivateKey
-	keysResponse []byte
-)
-
-func createTestJwtToken(audience string, issuer string) (string, error) {
-	expirationTime := time.Now().Add(5 * time.Minute)
-	claims := jwt.StandardClaims{
-		ExpiresAt: expirationTime.Unix(),
-		Audience:  audience,
-		Issuer:    issuer,
-	}
-	signKey, _ = jwt.ParseRSAPrivateKeyFromPEM([]byte(privateKey)) // openssl genrsa -out app.rsa keysize
-	verifyKey, _ = jwt.ParseRSAPublicKeyFromPEM([]byte(publicKey)) // openssl rsa -in app.rsa -pubout > app.rsa.pub
-
+func getJWKSResponse(skipKid bool) []byte {
+	verifyKey, _ := jwt.ParseRSAPublicKeyFromPEM([]byte(publicKey)) // openssl rsa -in app.rsa -pubout > app.rsa.pub
 	key, _ := jwk.New(verifyKey)
 	publicKey, _ := key.(*jwk.RSAPublicKey)
-	_ = publicKey.Set("kid", "1234567890kid")
+	if !skipKid {
+		_ = publicKey.Set("kid", "1234567890kid")
+	}
 
 	set := jwk.Set{
 		Keys: []jwk.Key{
@@ -85,7 +73,17 @@ func createTestJwtToken(audience string, issuer string) (string, error) {
 		},
 	}
 
-	keysResponse, _ = json.Marshal(set)
+	keysResponse, _ := json.Marshal(set)
+	return keysResponse
+}
+
+func createTestJwtToken(audience string, issuer string) (string, error) {
+	claims := jwt.StandardClaims{
+		ExpiresAt: time.Now().Add(5 * time.Minute).Unix(),
+		Audience:  audience,
+		Issuer:    issuer,
+	}
+	signKey, _ := jwt.ParseRSAPrivateKeyFromPEM([]byte(privateKey)) // openssl genrsa -out app.rsa keysize
 
 	token := jwt.NewWithClaims(jwt.SigningMethodRS256, claims)
 	token.Header["kid"] = "1234567890kid"
@@ -101,9 +99,10 @@ func TestJwt(t *testing.T) {
 	token, _ := createTestJwtToken("menu-api", "restaurant-api")
 	response := http.Response{
 		StatusCode: 200,
-		Body:       ioutil.NopCloser(bytes.NewBuffer(keysResponse)),
+		Body:       ioutil.NopCloser(bytes.NewBuffer(getJWKSResponse(false))),
 		Header:     make(http.Header),
 	}
+
 	jwkMockHTTPClient := mock.JWKMockHTTPClient{}
 	jwkMockHTTPClient.On("Get", "http://localhost/.well-known/openid-configuration/jwks").Return(&response, nil)
 
@@ -117,5 +116,57 @@ func TestJwt(t *testing.T) {
 		assert.True(t, result)
 		assert.Nil(t, err)
 		assert.NotEmpty(t, token)
+	})
+
+	t.Run("given invalid signing method validate should not pass", func(t *testing.T) {
+		invalidToken := jwt.New(jwt.SigningMethodHS256)
+		tokenString, _ := invalidToken.SignedString([]byte("123"))
+
+		result, err := jwtVerifier.ValidateToken(tokenString)
+
+		assert.Empty(t, result)
+		assert.NotEmpty(t, err)
+		assert.Equal(t, "unexpected signing method: HS256", err.Error())
+	})
+
+	t.Run("given wrong jwks url validate should not pass", func(t *testing.T) {
+		jwkMockHTTPClient.On("Get", "http://wrong/.well-known/openid-configuration/jwks").Return(&response, fmt.Errorf("connection error")).Once()
+		jwtVerifierWithWrongJwksURL := JwtTokenVerifier{
+			HTTPClient: &jwkMockHTTPClient,
+			Authority:  "http://wrong",
+		}
+
+		result, err := jwtVerifierWithWrongJwksURL.ValidateToken(token)
+
+		assert.Empty(t, result)
+		assert.NotEmpty(t, err)
+		assert.Equal(t, "failed to fetch remote JWK: connection error", err.Error())
+	})
+
+	t.Run("given empty kid response validate should not find key", func(t *testing.T) {
+		wrongResponse := http.Response{
+			StatusCode: 200,
+			Body:       ioutil.NopCloser(bytes.NewBuffer(getJWKSResponse(true))),
+			Header:     make(http.Header),
+		}
+
+		mock := mock.JWKMockHTTPClient{}
+		mock.On("Get", "http://localhost/.well-known/openid-configuration/jwks").Return(&wrongResponse, nil)
+
+		newJwtVerifier := JwtTokenVerifier{
+			HTTPClient: &mock,
+			Authority:  "http://localhost",
+		}
+
+		result, err := newJwtVerifier.ValidateToken(token)
+
+		assert.Empty(t, result)
+		assert.NotEmpty(t, err)
+		assert.Equal(t, "unable to find key", err.Error())
+	})
+
+	t.Run("claims test", func(t *testing.T) {
+		claimsToValidate := map[string]interface{}{}
+		claimsToValidate[""] = nil
 	})
 }

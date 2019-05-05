@@ -8,7 +8,6 @@
         public const string ClientSecret = "secret";
         public const string Bearer = "Bearer";
 
-        private const string AzureClientUrl = "https://restaurantserverapi.azurewebsites.net/";
         private const string ApiClientUrlForAndroidEmulator = "http://10.0.2.2:5000/";
         public static string ApiClientUrl => ApiClientUrlForAndroidEmulator;
     }

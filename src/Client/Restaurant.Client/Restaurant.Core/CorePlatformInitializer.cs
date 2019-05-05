@@ -30,12 +30,13 @@ namespace Restaurant.Core
         public IContainer Build()
         {
             var builder = new ContainerBuilder();
+            
+            builder.RegisterType<FoodsViewModel>().AsSelf();
+            builder.RegisterType<FoodDetailViewModel>().AsSelf();
 
             builder.RegisterType<WelcomeViewModel>().As<IWelcomeViewModel>();
             builder.RegisterType<SignInViewModel>().As<ISignInViewModel>();
             builder.RegisterType<SignUpViewModel>().As<ISignUpViewModel>();
-            builder.RegisterType<FoodsViewModel>().AsSelf();
-            builder.RegisterType<FoodDetailViewModel>().AsSelf();
             builder.RegisterType<OrdersViewModel>().AsSelf();
             builder.RegisterType<BasketViewModel>().As<IBasketViewModel>().SingleInstance();
             builder.RegisterType<MasterViewModel>().As<IMasterViewModel>().SingleInstance();

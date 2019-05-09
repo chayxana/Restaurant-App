@@ -13,27 +13,27 @@ namespace Menu.API.Controllers
     [Route("/api/v1/[controller]")]
     public class CategoriesController : Controller
     {
-        private readonly IMapper _mapperFacade;
+        private readonly IMapper _mapper;
         private readonly IRepository<Category> _repository;
 
         public CategoriesController(
-            IMapper mapperFacade,
+            IMapper mapper,
             IRepository<Category> repository)
         {
-            _mapperFacade = mapperFacade;
+            _mapper = mapper;
             _repository = repository;
         }
 
         [HttpGet]
         public IEnumerable<CategoryDto> Get()
         {
-            return _mapperFacade.Map<IEnumerable<CategoryDto>>(_repository.GetAll());
+            return _mapper.Map<IEnumerable<CategoryDto>>(_repository.GetAll());
         }
 
         [HttpGet("{id}")]
         public CategoryDto Get(Guid id)
         {
-            return _mapperFacade.Map<CategoryDto>(_repository.Get(id));
+            return _mapper.Map<CategoryDto>(_repository.Get(id));
         }
 
         [HttpPost]
@@ -42,7 +42,7 @@ namespace Menu.API.Controllers
         {
             try
             {
-                var entity = _mapperFacade.Map<Category>(category);
+                var entity = _mapper.Map<Category>(category);
                 _repository.Create(entity);
                 return await _repository.Commit()
                     ? Ok()
@@ -64,7 +64,7 @@ namespace Menu.API.Controllers
                 if (id != categoryDto.Id)
                     return BadRequest();
 
-                var category = _mapperFacade.Map<Category>(categoryDto);
+                var category = _mapper.Map<Category>(categoryDto);
 
                 _repository.Update(id, category);
                 return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();

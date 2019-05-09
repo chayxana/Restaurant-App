@@ -35,8 +35,7 @@ namespace Identity.API.Controllers.Account
             ILoginViewModelBuilder loginViewModelBuilder,
             ILogOutViewModelBuilder logOutViewModelBuilder,
             IIdentityServerInteractionService interaction,
-            IClientStore clientStore,
-            IEventService events)
+            IClientStore clientStore)
         {
             _loginProvider = loginProvider;
             _loggedOutViewModelBuilder = loggedOutViewModelBuilder;
@@ -44,14 +43,10 @@ namespace Identity.API.Controllers.Account
             _logOutViewModelBuilder = logOutViewModelBuilder;
             _interaction = interaction;
             _clientStore = clientStore;
-            _events = events;
         }
 
         [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
+        public IActionResult Register() => View();
 
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl)
@@ -59,7 +54,7 @@ namespace Identity.API.Controllers.Account
             var vm = await _loginViewModelBuilder.Build(returnUrl);
             if (vm.IsExternalLoginOnly) // we only have one option for logging in and it's an external provider
             {
-                return RedirectToAction("Challenge", "External", new { provider = vm.ExternalLoginScheme, returnUrl });
+                return RedirectToAction(nameof(ExternalController.Challenge), "External", new { provider = vm.ExternalLoginScheme, returnUrl });
             }
             return View(vm);
         }
@@ -68,46 +63,44 @@ namespace Identity.API.Controllers.Account
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginInputModel model, string button)
         {
-            var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
-
-            if (ModelState.IsValid)
+            var vm = await BuildLoginViewModel(model);
+            if (!ModelState.IsValid)
             {
-                var result = await _loginProvider.LoginUser(model);
-                if (result == SignInResult.Success)
-                {
-                    if (context != null)
-                    {
-                        if (await _clientStore.IsPkceClientAsync(context.ClientId))
-                        {
-                            // if the client is PKCE then we assume it's native, so this change in how to
-                            // return the response is for better UX for the end user.
-                            return View("Redirect", new RedirectViewModel { RedirectUrl = model.ReturnUrl });
-                        }
-                        // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
-                        return Redirect(model.ReturnUrl);
-                    }
-
-                    if (string.IsNullOrEmpty(model.ReturnUrl))
-                    {
-                        return Redirect("~/");
-                    }
-
-                    // request for a local page
-                    if (Url.IsLocalUrl(model.ReturnUrl))
-                    {
-                        return Redirect(model.ReturnUrl);
-                    }
-
-                    // user might have clicked on a malicious link - should be logged
-                    throw new Exception("invalid return URL");
-                }
-
-                await _events.RaiseAsync(new UserLoginFailureEvent(model.Username, "invalid credentials"));
-                ModelState.AddModelError("", AccountOptions.InvalidCredentialsErrorMessage);
+                return View(vm);
             }
 
-            // something went wrong, show form with error
-            var vm = await BuildLoginViewModel(model);
+            var result = await _loginProvider.LoginUser(model);
+            if (result == SignInResult.Success)
+            {
+                var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
+                if (context != null)
+                {
+                    if (await _clientStore.IsPkceClientAsync(context.ClientId))
+                    {
+                        // if the client is PKCE then we assume it's native, so this change in how to
+                        // return the response is for better UX for the end user.
+                        return View("Redirect", new RedirectViewModel { RedirectUrl = model.ReturnUrl });
+                    }
+                    // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
+                    return Redirect(model.ReturnUrl);
+                }
+
+                if (string.IsNullOrEmpty(model.ReturnUrl))
+                {
+                    return Redirect("~/");
+                }
+
+                // request for a local page
+                if (Url.IsLocalUrl(model.ReturnUrl))
+                {
+                    return Redirect(model.ReturnUrl);
+                }
+
+                // user might have clicked on a malicious link - should be logged
+                throw new Exception("invalid return URL");
+            }
+
+            ModelState.AddModelError("", "Invalid username or password");
             return View(vm);
         }
 
@@ -122,9 +115,7 @@ namespace Identity.API.Controllers.Account
         [HttpGet]
         public async Task<IActionResult> Logout(string logoutId)
         {
-            // build a model so the logout page knows what to display
             var vm = await _logOutViewModelBuilder.Build(logoutId);
-
             if (!vm.ShowLogoutPrompt)
             {
                 // if the request for logout was properly authenticated from IdentityServer, then
@@ -151,7 +142,6 @@ namespace Identity.API.Controllers.Account
                 // to us after the user has logged out. this allows us to then
                 // complete our single sign-out processing.
                 string url = Url.Action("Logout", new { logoutId = vm.LogoutId });
-
                 // this triggers a redirect to the external provider for sign-out
                 return SignOut(new AuthenticationProperties { RedirectUri = url }, vm.ExternalAuthenticationScheme);
             }

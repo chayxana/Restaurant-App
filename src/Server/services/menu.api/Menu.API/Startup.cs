@@ -5,8 +5,12 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
+using Menu.API.Abstraction.Facades;
+using Menu.API.Abstraction.Managers;
 using Menu.API.Abstraction.Repositories;
 using Menu.API.Data;
+using Menu.API.Facades;
+using Menu.API.Managers;
 using Menu.API.Models;
 using Menu.API.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -56,6 +60,14 @@ namespace Menu.API
                 options.UseNpgsql(connectionString);
             });
 
+            services.AddCors(o => o.AddPolicy("ServerPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithExposedHeaders("WWW-Authenticate");
+            }));
+
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
@@ -79,6 +91,8 @@ namespace Menu.API
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
             });
 
+            services.AddScoped<IFileUploadManager, LocalFileUploadManager>();
+            services.AddScoped<IFileInfoFacade, FileInfoFacade>();
             services.AddScoped<IRepository<Category>, CategoryRepository>();
             services.AddScoped<IRepository<Food>, FoodRepository>();
             services.AddAutoMapper(typeof(Startup).GetTypeInfo().Assembly);
@@ -98,6 +112,7 @@ namespace Menu.API
                 app.UseHsts();
             }
 
+            app.UseCors("ServerPolicy");
             app.UseMvcWithDefaultRoute();
             app.UseMvc();
             app.UseDiscoveryClient();

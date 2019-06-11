@@ -1,24 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'app/models/category';
 import { CategoryService } from 'app/services/category.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import * as uuid from 'uuid';
+import { MatProgressButtonOptions } from 'mat-progress-buttons';
 
 @Component({
   selector: 'app-add-categories',
   template: `
   <mat-card class="container">
     <form class="form-container" #categoryForm="ngForm" (ngSubmit)="onSubmit(categoryForm)">
-      <mat-form-field [ngClass]="{error : name.invalid && (name.dirty || name.touched) }">
-        <input matInput type="text" required placeholder="Name" [(ngModel)]="category.name" name="name" #name="ngModel">
-      </mat-form-field>
-      <div [ngClass]="{error : color.invalid && (color.dirty || color.touched)}">
-        <label>Color </label>
-        <input type="color" required [(ngModel)]="category.color" name="color" #color="ngModel">
-      </div>
-      <button mat-button [disabled]="categoryForm.invalid" type="submit" [ngClass]="{ loading : saving }">Save</button>
-      <button mat-button type="button" (click)="onCancel()">Cancel</button>
+        <mat-form-field [ngClass]="{error : name.invalid && (name.dirty || name.touched) }">
+          <input matInput type="text" required placeholder="Name" [(ngModel)]="category.name" name="name" #name="ngModel">
+        </mat-form-field>
+        <div [ngClass]="{error : color.invalid && (color.dirty || color.touched)}">
+          <label>Color: </label>
+          <input type="color" required [(ngModel)]="category.color" name="color" #color="ngModel">
+        </div>
+      <mat-card-actions>
+        <mat-spinner-button [options]="saveButtonsOpts" type="submit">Save</mat-spinner-button>
+        <button mat-button type="button" (click)="onCancel()">Cancel</button>
+      </mat-card-actions>
     </form>
   </mat-card>`,
   styles: [
@@ -30,11 +33,30 @@ import * as uuid from 'uuid';
         display: flex;
         flex-direction: column;
       }
+      .form-container > * {
+        width: 100%;
+      }
     `
   ]
 })
 
 export class AddCategoryComponent implements OnInit {
+
+  saveButtonsOpts: MatProgressButtonOptions = {
+    active: false,
+    text: 'Save',
+    spinnerSize: 19,
+    raised: false,
+    stroked: true,
+    flat: false,
+    fab: false,
+    buttonColor: 'primary',
+    spinnerColor: 'accent',
+    fullWidth: false,
+    disabled: false,
+    mode: 'indeterminate',
+  };
+
   saving = false;
   isEditMode: boolean;
   isLoading: boolean;
@@ -65,16 +87,16 @@ export class AddCategoryComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    this.saving = true;
+    this.saveButtonsOpts.active = true;
     if (this.isEditMode) {
       this.categoryService.update(this.category).subscribe(x => {
-        this.saving = false;
+        this.saveButtonsOpts.active = false;
       });
     } else {
       this.category.id = uuid();
       this.categoryService.create(this.category).subscribe(x => {
         form.reset();
-        this.saving = false;
+        this.saveButtonsOpts.active = false;
       });
     }
   }

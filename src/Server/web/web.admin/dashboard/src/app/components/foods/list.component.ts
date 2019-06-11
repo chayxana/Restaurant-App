@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { FoodService } from 'app/services/food.service';
 import { Food } from 'app/models/food';
-import { ContentUrl } from 'app/config/constants';
 
 declare var $: any;
 
@@ -83,7 +82,6 @@ export class FoodListComponent implements OnInit, AfterViewInit {
 
   @ViewChild('modal') deleteModal: ElementRef;
 
-  contentUrl = ContentUrl;
   foods: Food[];
   selectedFood: Food;
   isLoading: boolean;
@@ -99,7 +97,7 @@ export class FoodListComponent implements OnInit, AfterViewInit {
     this.isLoading = true;
     this.foodService.getAll().subscribe(foods => {
       foods.forEach(f => {
-        f.picture = ContentUrl + f.picture;
+        f.picture = f.picture;
       });
       this.foods = foods;
       this.isLoading = false;

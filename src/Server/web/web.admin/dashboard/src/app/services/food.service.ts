@@ -1,29 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { Food } from 'app/models/food';
 import { BaseService } from 'app/services/base.service';
-import { HttpRequest } from '@angular/common/http';
-
-import { ApiUrl } from 'app/config/constants';
+import { HttpRequest, HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
 
 @Injectable()
 export class FoodService extends BaseService<Food> {
+  private _baseUrl: string | null = null;
 
-
-  constructor(http: Http) {
+  constructor(http: HttpClient) {
     super(http);
   }
 
-  baseUrl(id?: string): string {
-    let entityId = '';
-    if (id) {
-      entityId = '/' + id;
+  get BaseUrl(): string {
+    if (this._baseUrl === null) {
+      this._baseUrl = `${environment.apiUrl}/api/v1/foods`;
     }
-    return ApiUrl + 'foods' + entityId;
+    return this._baseUrl;
   }
 
   createFood(food: Food, file: File): any {
-    return new HttpRequest('POST', this.baseUrl(), file, {
+    return new HttpRequest('POST', this.BaseUrl, file, {
       reportProgress: true,
     });
   }
@@ -41,8 +38,7 @@ export class FoodService extends BaseService<Food> {
         }
       };
 
-      xhr.open('POST', this.baseUrl() + '/UploadFile', true);
-
+      xhr.open('POST', this.BaseUrl + '/UploadFile', true);
       const formData = new FormData();
       formData.append('file', picture, picture.name);
       formData.append('foodId', foodId);

@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/jurabek/basket.api/mock"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/jurabek/basket.api/mock"
 
 	"github.com/google/uuid"
 
@@ -17,16 +18,15 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var items = []models.BasketItem{
-	models.BasketItem{
-		ID:           uuid.New(),
-		FoodID:       uuid.New(),
-		UnitPrice:    20,
-		OldUnitPrice: 10,
-		Quantity:     1,
-		Picture:      "picture",
-		FoodName:     "foodName",
-	},
+var items = []models.BasketItem{{
+	ID:           uuid.New(),
+	FoodID:       uuid.New(),
+	UnitPrice:    20,
+	OldUnitPrice: 10,
+	Quantity:     1,
+	Picture:      "picture",
+	FoodName:     "foodName",
+},
 }
 
 func TestBasketController(t *testing.T) {
@@ -77,7 +77,7 @@ func TestBasketController(t *testing.T) {
 
 		var result models.CustomerBasket
 		bodyResult, _ := ioutil.ReadAll(w.Body)
-		json.Unmarshal(bodyResult, &result)
+		_ = json.Unmarshal(bodyResult, &result)
 
 		assert.Equal(t, result.CustomerID, customerBasket.CustomerID)
 	})
@@ -86,7 +86,7 @@ func TestBasketController(t *testing.T) {
 		invalidCustomerBasket := models.CustomerBasket{
 			CustomerID: uuid.New(),
 		}
-		mockedBasketRepository.On("Update", &invalidCustomerBasket).Return(fmt.Errorf("Could not update item id: %s", customerBasket.CustomerID))
+		mockedBasketRepository.On("Update", &invalidCustomerBasket).Return(fmt.Errorf("could not update item id: %s", customerBasket.CustomerID))
 
 		body, _ := json.Marshal(invalidCustomerBasket)
 
@@ -103,15 +103,12 @@ func TestBasketController(t *testing.T) {
 		mockedBasketRepository.On("Update", &invalidCustomerBasket).Return(nil)
 		mockedBasketRepository.On("GetBasket", invalidCustomerBasket.CustomerID.String()).Return(
 			&invalidCustomerBasket,
-			fmt.Errorf("Could not found created item with id: %s", invalidCustomerBasket.CustomerID))
-
+			fmt.Errorf("could not found created item with id: %s", invalidCustomerBasket.CustomerID))
 		body, _ := json.Marshal(invalidCustomerBasket)
 
 		w := httptest.NewRecorder()
 		r, _ := http.NewRequest("POST", "/basket", bytes.NewBuffer(body))
 		router.ServeHTTP(w, r)
-
 		assert.Equal(t, http.StatusBadRequest, w.Code)
 	})
-
 }

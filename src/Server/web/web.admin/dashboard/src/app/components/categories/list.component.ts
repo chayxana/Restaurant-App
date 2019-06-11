@@ -7,48 +7,22 @@ declare var $: any;
 @Component({
   selector: 'app-list-categories',
   template: `
-  <div class="ui container basic segment" [ngClass]="{ loading : isLoading }">
-    <table class="ui blue selectable celled table ">
-      <thead class="full-width">
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Color</th>
-          <th class="right aligned">Edit / Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let category of categories ;let i = index">
-          <td class="collapsing">{{i}}. </td>
-
-          <td>{{category.name}}</td>
-
-          <td><h4 class="ui header" [ngStyle]="{ color : category.color }">{{category.color}}</h4></td>
-
-          <td class="right aligned collapsing">
-          <div class="ui basic small icon buttons">
-            <a class="ui button" [routerLink]="['/categories/create']" [queryParams]="{ id : category.id}">
-              <i class="edit icon"></i>
-            </a>
-            <button class="ui button" (click)="onDelete(category.id)">
-              <i class="remove icon"></i>
-            </button>
-          </div>
-          </td>
-        </tr>
-      </tbody>
-      <tfoot class="full-width">
-        <tr>
-          <th colspan="4">
-            <a routerLink="/categories/create" class="ui right floated small primary labeled icon button">
-              <i class="plus icon"></i> Create category
-          </a>
-          </th>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-    <div class="ui modal" #modal>
+  <div class="container">
+    <mat-card [ngClass]="{ loading : isLoading }">
+      <table mat-table [dataSource]="categories">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="color">
+          <th mat-header-cell *matHeaderCellDef> Color </th>
+          <td mat-cell *matCellDef="let element"> {{element.color}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card>
+    <div class="ui modal" #modal style="display: none">
       <div class="header">
         Deleting category
       </div>
@@ -62,7 +36,28 @@ declare var $: any;
         <div class="ui button" (click)="cancelDelete()">No</div>
       </div>
     </div>
-  `
+
+    <button mat-fab class="pos-fix" routerLink="/categories/create">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  `,
+  styles : [
+    `table {
+      width: 100%;
+    }
+    .container {
+      position: relative;
+    }
+    .pos-fix {
+      position: fixed !important;
+      bottom: 20px;
+      right: 20px;
+      top: auto;
+      left: auto;
+    },
+    `
+  ]
 })
 
 export class ListCategoriesComponent implements OnInit {
@@ -73,10 +68,13 @@ export class ListCategoriesComponent implements OnInit {
   selectedCategory: Category;
   deleting: boolean;
 
+  displayedColumns: string[] = ['name', 'color'];
+
   constructor(private categoryService: CategoryService) { }
 
   ngOnInit() {
     this.categoryService.getAll().subscribe(cat => {
+      console.log(cat);
       this.categories = cat;
     });
   }

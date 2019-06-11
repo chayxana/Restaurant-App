@@ -1,23 +1,21 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from 'app/services/base.service';
 import { Category } from 'app/models/category';
-import { Http } from '@angular/http';
-import { ApiUrl } from 'app/config/constants';
-
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
 
 @Injectable()
 export class CategoryService extends BaseService<Category> {
-
-  constructor(http: Http) {
+  constructor(http: HttpClient) {
     super(http);
   }
 
-  baseUrl(id?: string): string {
-    let entityId = '';
-    if (id) {
-      entityId = '/' + id;
-    }
+  private _baseUrl: string | null = null;
 
-    return ApiUrl + 'categories' + entityId;
+  get BaseUrl(): string {
+    if (this._baseUrl === null) {
+      this._baseUrl = `${environment.apiUrl}/api/v1/categories`;
+    }
+    return this._baseUrl;
   }
 }

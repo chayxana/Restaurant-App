@@ -1,63 +1,67 @@
 
-import {throwError as observableThrowError,  Observable } from 'rxjs';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { IBaseModel } from 'app/models/base.model';
 import { IBaseService } from 'app/services/interfaces/base.service';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 export abstract class BaseService<T extends IBaseModel> implements IBaseService<T> {
-    protected headers: Headers;
-    protected options: RequestOptions;
+    protected headers: HttpHeaders;
+    protected options: any;
 
-    constructor(private http: Http) {
-        this.headers = new Headers({ 'Content-Type': 'application/json' });
-        this.options = new RequestOptions({ headers: this.headers });
+    constructor(private http: HttpClient) {
+        this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        this.options = {
+          headers: this.headers
+        };
     }
 
-    abstract baseUrl(id?: string): string;
+    abstract get BaseUrl(): string;
 
     getAll(): Observable<T[]> {
 
-        return this.http.get(this.baseUrl(), this.options)
+        return this.http.get(this.BaseUrl, this.options)
             .pipe(map(this.extractData), catchError(this.handleError));
     }
 
     get(id: string): Observable<T> {
-        return this.http.get(this.baseUrl(id), this.options)
+        return this.http.get(`${this.BaseUrl}/${id}`, this.options)
             .pipe(map(this.extractData), catchError(this.handleError));
     }
 
-    update(model: T): Observable<boolean> {
-        return this.http.put(this.baseUrl(model.id), model, this.options)
-            .pipe(map(r => r.ok), catchError(this.handleError));
+    update(model: T): Observable<any> {
+        const result = this.http.put(`${this.BaseUrl}/${model.id}`, model, this.options)
+                          .pipe(catchError(this.handleError));
+        return result;
     }
 
-    create(model: T): Observable<boolean> {
-        return this.http.post(this.baseUrl(), model, this.options)
-            .pipe(map(x => x.ok), catchError(this.handleError));
+    create(model: T): Observable<any> {
+        return this.http.post(this.BaseUrl, model, this.options)
+            .pipe(catchError(this.handleError));
     }
 
-    delete(model: T): Observable<boolean> {
-        return this.http.delete(this.baseUrl(model.id), this.options)
-            .pipe(map(x => x.ok), catchError(this.handleError));
+    delete(model: T): Observable<any> {
+        return this.http.delete(`${this.BaseUrl}/${model.id}`, this.options)
+            .pipe(catchError(this.handleError));
     }
 
-    protected extractData(res: Response) {
-        const body = res.json();
-        return body || {};
+    protected extractData(res: any) {
+      return res;
     }
 
-    protected handleError(error: Response | any) {
-        // In a real world app, you might use a remote logging infrastructure
-        let errMsg: string;
-        if (error instanceof Response) {
-            const body = error.json() || '';
-            const err = body.error || JSON.stringify(body);
-            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-        } else {
-            errMsg = error.message ? error.message : error.toString();
-        }
-        console.error(errMsg);
-        return observableThrowError(errMsg);
+    protected handleError(error: HttpErrorResponse) {
+      if (error.error instanceof ErrorEvent) {
+        // A client-side or network error occurred. Handle it accordingly.
+        console.error('An error occurred:', error.error.message);
+      } else {
+        // The backend returned an unsuccessful response code.
+        // The response body may contain clues as to what went wrong,
+        console.error(
+          `Backend returned code ${error.status}, ` +
+          `body was: ${error.error}`);
+      }
+      // return an observable with a user-facing error message
+      return throwError(
+        'Something bad happened; please try again later.');
     }
 }

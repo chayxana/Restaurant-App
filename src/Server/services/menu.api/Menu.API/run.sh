@@ -1,2 +1,2 @@
 # !/bin/sh
-ASPNETCORE_URLS="http://*:5100" ASPNETCORE_ENVIRONMENT=Development dotnet run
+ASPNETCORE_ENVIRONMENT=Development PATH_BASE=/menu dotnet run

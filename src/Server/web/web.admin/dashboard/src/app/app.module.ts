@@ -11,8 +11,9 @@ import { CategoryService } from 'app/services/category.service';
 import { FoodService } from 'app/services/food.service';
 import { routes } from 'app/app.router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import {
   MatInputModule,
   MatFormFieldModule,
@@ -21,11 +22,13 @@ import {
   MatListModule,
   MatSelectModule,
   MatButtonModule,
-  MatToolbarModule, MatIconModule
+  MatToolbarModule, MatIconModule, MatTableModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatProgressButtonsModule } from 'mat-progress-buttons';
+
 
 @NgModule({
   declarations: [
@@ -41,9 +44,11 @@ import { LayoutModule } from '@angular/cdk/layout';
   imports: [
     routes,
     FormsModule,
-    HttpModule,
+    BrowserModule,
+    HttpClientModule,
     ReactiveFormsModule,
     CommonModule,
+    MatTableModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
@@ -53,7 +58,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatButtonModule, MatIconModule,
     MatToolbarModule,
     BrowserAnimationsModule,
-    LayoutModule
+    LayoutModule,
+    MatProgressButtonsModule.forRoot(),
   ],
   providers: [FoodService, CategoryService],
   bootstrap: [AppComponent]

@@ -6,8 +6,8 @@ import { Category } from 'app/models/category';
 import { Food } from 'app/models/food';
 import { Http } from '@angular/http';
 import { NgForm } from '@angular/forms';
-import { ContentUrl } from 'app/config/constants';
 import * as uuid from 'uuid';
+import { MatProgressButtonOptions } from 'mat-progress-buttons';
 
 @Component({
   selector: 'app-add-food',
@@ -33,18 +33,16 @@ import * as uuid from 'uuid';
       </mat-form-field>
 
       <div style="margin:15px 0">
-        <button type="button" mat-stroked-button (click)="file.click()">Select food image</button>
-        <input hidden (change)="imageUpload($event)" #file type="file" id="file">
+        <input (change)="imageUpload($event)" #file type="file" id="file">
       </div>
 
       <mat-card *ngIf="imageUrl" >
         <img [src]="imageUrl" mat-card-image/>
       </mat-card>
-
-      <button mat-button type="submit" [ngClass]="{ loading : isSaving }" [disabled]="foodForm.invalid" type="submit">
-        Save
-      </button>
-      <button mat-button type="button" (click)="onCancel()">Cancel</button>
+      <mat-card-actions>
+        <mat-spinner-button [options]="saveButtonsOpts" type="submit">Save</mat-spinner-button>
+        <button mat-button type="button" (click)="onCancel()">Cancel</button>
+      </mat-card-actions>
     </form>
   </mat-card>`,
   styles: [
@@ -61,6 +59,21 @@ import * as uuid from 'uuid';
   ]
 })
 export class AddFoodComponent implements OnInit {
+
+  saveButtonsOpts: MatProgressButtonOptions = {
+    active: false,
+    text: 'Save',
+    spinnerSize: 19,
+    raised: false,
+    stroked: true,
+    flat: false,
+    fab: false,
+    buttonColor: 'primary',
+    spinnerColor: 'accent',
+    fullWidth: false,
+    disabled: false,
+    mode: 'indeterminate',
+  };
   food: Food = {
     id: null,
     name: '',
@@ -84,7 +97,6 @@ export class AddFoodComponent implements OnInit {
     private foodService: FoodService,
     private route: ActivatedRoute,
     private router: Router,
-    private http: Http,
     vcr: ViewContainerRef
   ) {}
 
@@ -95,16 +107,16 @@ export class AddFoodComponent implements OnInit {
         this.isLoading = true;
         this.foodService.get(id).subscribe(food => {
           this.food = food;
-          this.imageUrl = ContentUrl + this.food.picture;
+          this.imageUrl = this.food.picture;
           this.isEditMode = true;
           this.isLoading = false;
         });
       }
     });
 
-    // this.categoryService.getAll().subscribe(cat => {
-    //   this.categories = cat;
-    // });
+    this.categoryService.getAll().subscribe(cat => {
+      this.categories = cat;
+    });
   }
 
   imageUpload(e) {

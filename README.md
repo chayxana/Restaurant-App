@@ -20,10 +20,12 @@ To getting started, simply fork this repository. Please refer to [CONTRIBUTING.m
 
 - Developing independently deployable and scalable micro-services
 - Developing maintainable and testable Mobile-App using Xamarin.Forms
-- Configuring CI/CD pipelines
-- Using Docker and k8s
-- Writing clean, maintainable and fully testable code
-- Using SOLID principles
+- Building component based React and Angular Applications
+- Configuring CI/CD pipelines, Gitlab & AppCenter
+- Using Docker and k8s (AKS, GKS)
+- Using Netflix OSS for microservices 
+- Writing clean, maintainable and fully testable code (ideal code)
+- Using SOLID principles (based on Uncle Bob's Clean Code and Clean Architicture book)
 - Using Design Patterns
 
 <img src="art/1.png" width="210"/> <img src="art/2.png" width="210"/> <img src="art/3.png" width="210"/> <img src="art/4.png" width="210"/> <img src="art/5.png" width="210"/>

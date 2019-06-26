@@ -60,7 +60,6 @@ namespace Identity.API.UnitTests.Controllers
         [Fact]
         public async Task Given_input_LoginPost()
         {
-            var result = await ClassUnderTest.Login(null);
         }
     }
 }

@@ -1,6 +1,6 @@
 # Restaurant App
 
-Restaurant App is containerized polyglot microservices application which contains projects based on .NET Core, Golang, Java, Xamarin, React, Angular and etc. The project demonstrates how to develop small microservices for larger applications and deploy them easily to the cloud, using microservice architectural principals, containers, orchestration, service mesh and etc.  
+Restaurant App is containerized polyglot microservices application which contains projects based on .NET Core, Golang, Java, Xamarin, React, Angular and etc. The project demonstrates how to develop small microservices for larger applications using containers, orchestration, service discovery, gateway, and etc.
 
 To getting started, simply fork this repository. Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
@@ -14,7 +14,11 @@ To getting started, simply fork this repository. Please refer to [CONTRIBUTING.m
 - Using SOLID principles
 - Using Design Patterns
 
-### List of several individual microservices and infrastructure components
+## Architecture overview
+
+The architecture proposes a microservice oriented architecture implementation with multiple autonomous microservices (each one owning its own data/db) and implementing different approaches within each microservice using REST/HTTP as the communication protocol between the client apps and the microservices and supports asynchronous communication for data updates propagation across multiple services based on Integration Events and an Event Bus Apache Kafka).
+
+## List of several individual microservices and infrastructure components
 
 <table>
    <thead>
@@ -64,7 +68,7 @@ To getting started, simply fork this repository. Please refer to [CONTRIBUTING.m
         </td>
     </tr>
     <tr>
-        <td align="center">2.</td>
+        <td align="center">3.</td>
         <td>Menu API (.NET Core, PostgreSQL)</td>
         <td>Manages data for showing on the list</td>
         <td>
@@ -83,7 +87,7 @@ To getting started, simply fork this repository. Please refer to [CONTRIBUTING.m
         </td>
     </tr>
     <tr>
-        <td align="center">2.</td>
+        <td align="center">4.</td>
         <td>Order API (Java + Spring Boot)</td>
         <td>Manages customer orders and lets service about new orders</td>
         <td>
@@ -104,7 +108,7 @@ To getting started, simply fork this repository. Please refer to [CONTRIBUTING.m
   </tbody>  
 </table>
 
-### Mobile app
+## Mobile app
 
 | Mobile              | Build status |
 |---------------------|--------------|

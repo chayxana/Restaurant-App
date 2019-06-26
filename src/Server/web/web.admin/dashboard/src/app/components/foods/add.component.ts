@@ -4,7 +4,6 @@ import { CategoryService } from 'app/services/category.service';
 import { FoodService } from 'app/services/food.service';
 import { Category } from 'app/models/category';
 import { Food } from 'app/models/food';
-import { Http } from '@angular/http';
 import { NgForm } from '@angular/forms';
 import * as uuid from 'uuid';
 import { MatProgressButtonOptions } from 'mat-progress-buttons';

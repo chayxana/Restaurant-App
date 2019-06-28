@@ -61,7 +61,7 @@ namespace Identity.API.Controllers.Account
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginInputModel model, string button)
+        public async Task<IActionResult> Login(LoginInputModel model)
         {
             var vm = await BuildLoginViewModel(model);
             if (!ModelState.IsValid)

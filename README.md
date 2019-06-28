@@ -16,7 +16,7 @@ To getting started, simply fork this repository. Please refer to [CONTRIBUTING.m
 
 ## Architecture overview
 
-The architecture proposes a microservice oriented architecture implementation with multiple autonomous microservices (each one owning its own data/db) and implementing different approaches within each microservice using REST/HTTP as the communication protocol between the client apps and the microservices and supports asynchronous communication for data updates propagation across multiple services based on Integration Events and an Event Bus Apache Kafka).
+The architecture proposes a micro-service oriented architecture implementation with multiple autonomous micro-services (each one owning its own data/db) and implementing different approaches within each microservice using REST/HTTP as the communication protocol between the client apps and backend and supports asynchronous communication for data updates propagation across multiple services based on Integration Events and an Event Bus(Apache Kafka).
 
 ## List of several individual microservices and infrastructure components
 
@@ -89,7 +89,7 @@ The architecture proposes a microservice oriented architecture implementation wi
     <tr>
         <td align="center">4.</td>
         <td>Order API (Java + Spring Boot)</td>
-        <td>Manages customer orders and lets service about new orders</td>
+        <td>Manages customer orders and notifies cook about new orders</td>
         <td>
             <a href="https://gitlab.com/Jurabek/Restaurant-App/pipelines">
                 <img src="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/order_api_build_status.svg">
@@ -119,3 +119,9 @@ Mobile app developed by Xamarin.Forms and supports iOS and Android, here you can
 The example shows how to develop beautiful user interfaces using Xamarin.Forms and how to manage your code with Clean Architecture on the mobile side and get a clean, maintainable, testable code.
 
 <img src="art/2.png" width="210"/> <img src="art/3.png" width="210"/>
+
+
+### Contributors
+
+Thank you to all the people who have already contributed to our project!
+<a href="graphs/contributors"><img src="https://opencollective.com/restaurant-app/contributors.svg?width=890" /></a>

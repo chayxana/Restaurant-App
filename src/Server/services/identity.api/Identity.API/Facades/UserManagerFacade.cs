@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Identity.API.Facades
 {
+    [ExcludeFromCodeCoverage]
 	public class UserManagerFacade : IUserManagerFacade
 	{
 		private readonly UserManager<ApplicationUser> _userManager;

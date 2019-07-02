@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: menu-api
+spec:
+  selector:
+    matchLabels:
+      app: menu-api
+  template:
+    metadata:
+      labels:
+        app: menu-api
+    spec:
+      containers:
+      - name: menu-api
+        image: jurabek/menu-api
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: basket-api
+spec:
+  selector:
+    matchLabels:
+      app: basket-api
+  template:
+    metadata:
+      labels:
+        app: basket-api
+    spec:
+      containers:
+      - name: basket-api
+        image: jurabek/basket-api
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5001

@@ -6,6 +6,7 @@ using Identity.API.Abstraction.ViewModelBuilders;
 using Identity.API.Data;
 using Identity.API.Model.Entities;
 using Identity.API.Providers;
+using Identity.API.Utils;
 using Identity.API.ViewModelBuilders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -106,27 +107,26 @@ namespace Identity.API
             app.UseHttpsRedirection();
             app.UseDiscoveryClient();
 
-            var pathBase = Configuration["PATH_BASE"];
-            var routePrefix = (!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty);
-            if (!string.IsNullOrEmpty(pathBase))
+            var (hasBasePath, basePath) =  Configuration.BasePath();
+            if (hasBasePath)
             {
-                loggerFactory.CreateLogger("init").LogDebug($"Using PATH BASE '{pathBase}'");
-                app.UsePathBase(pathBase);
+                loggerFactory.CreateLogger("init").LogDebug($"Using PATH BASE '{basePath}'");
+                app.UsePathBase(basePath);
             }
 
             app.UseSwagger(c =>
             {
-                if (routePrefix != string.Empty)
+                if (basePath != string.Empty)
                 {
                     c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
                     {
                         swaggerDoc.Schemes = new List<string>() { httpReq.Scheme };
-                        swaggerDoc.BasePath = routePrefix;
+                        swaggerDoc.BasePath = basePath;
                     });
                 }
             }).UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint($"{routePrefix}/swagger/v1/swagger.json", "Identity.API V1");
+                c.SwaggerEndpoint($"{basePath}/swagger/v1/swagger.json", "Identity.API V1");
             });
         }
     }

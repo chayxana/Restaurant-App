@@ -1,9 +1,11 @@
-﻿using AutoMapper;
+﻿using System.Diagnostics.CodeAnalysis;
+using AutoMapper;
 using Identity.API.Model.DataTransferObjects;
 using Identity.API.Model.Entities;
 
 namespace Identity.API.Mappers
 {
+    [ExcludeFromCodeCoverage]
     public class IdentityModelsProfile : Profile
     {
         public IdentityModelsProfile()

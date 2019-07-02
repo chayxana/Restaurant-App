@@ -8,6 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Identity.API.Migrations.IdentityServer.ConfigurationDb
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [DbContext(typeof(ConfigurationDbContext))]
     partial class ConfigurationDbContextModelSnapshot : ModelSnapshot
     {

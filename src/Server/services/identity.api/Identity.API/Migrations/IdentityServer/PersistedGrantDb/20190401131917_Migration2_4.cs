@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Identity.API.Migrations.IdentityServer.PersistedGrantDb
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class Migration2_4 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

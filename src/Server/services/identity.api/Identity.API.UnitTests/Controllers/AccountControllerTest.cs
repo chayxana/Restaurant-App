@@ -15,7 +15,7 @@ using Xunit;
 
 namespace Identity.API.UnitTests.Controllers
 {
-    public class AccountMvcControllerTest : BaseAutoMockedTest<AccountMvcController>
+    public class AccountControllerTest : BaseAutoMockedTest<AccountController>
     {
         [Fact]
         public async Task Given_return_url_Login_should_return_view_with_viewModel()

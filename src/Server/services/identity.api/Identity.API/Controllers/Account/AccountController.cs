@@ -19,7 +19,7 @@ namespace Identity.API.Controllers.Account
 {
     [SecurityHeaders]
     [AllowAnonymous]
-    public class AccountMvcController : Controller
+    public class AccountController : Controller
     {
         private readonly ILoginProvider _loginProvider;
         private readonly ILoggedOutViewModelBuilder _loggedOutViewModelBuilder;
@@ -29,7 +29,7 @@ namespace Identity.API.Controllers.Account
         private readonly IClientStore _clientStore;
         private readonly IEventService _events;
 
-        public AccountMvcController(
+        public AccountController(
             ILoginProvider loginProvider,
             ILoggedOutViewModelBuilder loggedOutViewModelBuilder,
             ILoginViewModelBuilder loginViewModelBuilder,

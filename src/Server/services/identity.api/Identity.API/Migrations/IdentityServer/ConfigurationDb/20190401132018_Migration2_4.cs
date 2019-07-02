@@ -4,6 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Identity.API.Migrations.IdentityServer.ConfigurationDb
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class Migration2_4 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -1,9 +1,12 @@
-FROM openjdk:8-jdk-alpine as builder
+FROM gradle:4.8-jdk8 as builder
 
 COPY . /usr/src/discovery
+USER root
+RUN chown -R gradle:gradle /usr/src/discovery
+USER gradle
 WORKDIR /usr/src/discovery
 
-RUN ./gradlew build
+RUN gradle build
 
 FROM java:alpine
 COPY --from=builder /usr/src/discovery/build/libs/restaurant-service-discovery-0.0.1-SNAPSHOT.jar service-discovery.jar

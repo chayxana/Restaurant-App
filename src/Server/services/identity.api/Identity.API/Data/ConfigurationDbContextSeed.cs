@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Identity.API.IdentityServer;
@@ -12,6 +13,7 @@ using static Identity.API.Utils.Retry;
 namespace Identity.API.Data
 {
 
+    [ExcludeFromCodeCoverage]
     public class ConfigurationDbContextSeed
     {
         public async Task SeedAsync(

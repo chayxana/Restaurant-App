@@ -1,9 +1,12 @@
-FROM openjdk:8-jdk-alpine as builder
+FROM gradle:4.8-jdk8 as builder
 
 COPY . /usr/src/ordering_api
-WORKDIR /usr/src/ordering_api
+USER root
+RUN chown -R gradle:gradle /usr/src/ordering_api
+USER gradle
 
-RUN ./gradlew build
+WORKDIR /usr/src/ordering_api
+RUN gradle build
 
 FROM openjdk:8-jdk-alpine
 WORKDIR /root/

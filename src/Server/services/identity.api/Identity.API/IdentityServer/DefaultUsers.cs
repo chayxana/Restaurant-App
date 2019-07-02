@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 using IdentityModel;
 using IdentityServer4.Test;
 
 namespace Identity.API.IdentityServer
 {
+    [ExcludeFromCodeCoverage]
     public static class DefaultUsers
     {
         public static List<TestUser> Get()

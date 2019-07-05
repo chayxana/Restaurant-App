@@ -1,10 +1,16 @@
-<div class="my-login-page">
+@using Microsoft.Extensions.Configuration
+@using Identity.API.Utils
+
+@inject IConfiguration configuration
+@{ var basePath = configuration.GetBasePath(); }
+
+<div class="my-login-page h-100">
 	<section class="h-100">
 		<div class="container h-100">
 			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
 					<div class="brand">
-						<img src="~/logo.jpg" alt="bootstrap 4 login page">
+						<img src="@basePath/logo.jpg" alt="bootstrap 4 login page">
 					</div>
 					<div class="card fat">
 						<div class="card-body">

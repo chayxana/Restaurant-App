@@ -44,7 +44,7 @@ namespace Menu.API
             services.AddMvc();
             services.AddAuthorization();
 
-            var identityUrl = Configuration["IdentityUrl"];
+            var identityUrl = Configuration["ExternalIdentityUrl"];
 
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
@@ -106,6 +106,7 @@ namespace Menu.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDiscoveryClient();
             }
             else
             {
@@ -115,7 +116,6 @@ namespace Menu.API
             app.UseCors("ServerPolicy");
             app.UseMvcWithDefaultRoute();
             app.UseMvc();
-            app.UseDiscoveryClient();
 
             var logger = loggerFactory.CreateLogger("init");
             var pathBase = Configuration["PATH_BASE"];

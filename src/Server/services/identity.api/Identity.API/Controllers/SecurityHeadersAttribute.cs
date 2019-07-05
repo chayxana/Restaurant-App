@@ -43,7 +43,6 @@ namespace Identity.API.Controllers
                 {
                     context.HttpContext.Response.Headers.Add("X-Content-Security-Policy", csp);
                 }
-
                 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
                 var referrer_policy = "no-referrer";
                 if (!context.HttpContext.Response.Headers.ContainsKey("Referrer-Policy"))

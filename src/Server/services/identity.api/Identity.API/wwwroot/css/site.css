@@ -1,4 +1,7 @@
-﻿.navbar-header {
+﻿html, body {
+  height: 100%;
+}
+.navbar-header {
   position: relative;
   top: -4px;
 }

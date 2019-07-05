@@ -10,6 +10,6 @@
 <p>Once complete, you may close this tab</p>
 
 <meta http-equiv="refresh" content="0;url=@Model.RedirectUrl" data-url="@Model.RedirectUrl">
-@{ var (hasBasePath, basePath) = configuration.BasePath(); }
+@{ var basePath = configuration.GetBasePath(); }
 <script src="~@basePath/js/signin-redirect.js"></script>
 

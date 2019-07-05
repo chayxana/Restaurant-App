@@ -2,24 +2,29 @@ package middlewares
 
 import (
 	"fmt"
+	"net/http"
+	"os"
+	"strings"
+
 	"github.com/gin-gonic/gin"
 	"github.com/jurabek/basket.api/models"
 	"github.com/jurabek/basket.api/oidc"
-	"net/http"
-	"strings"
 )
 
 // CreateAuth creates new instance of Auth
 func CreateAuth() *Auth {
 
+	authority, ok := os.LookupEnv("ExternalIdentityUrl")
+	if !ok {
+		authority = "http://localhost:5000"
+	}
+
 	claimsToValidate := map[string]interface{}{}
 	claimsToValidate["aud"] = "menu-api"
-	claimsToValidate["iss"] = "http://demo.restaurant-identity"
-
+	claimsToValidate["iss"] = authority
 	httpClient := oidc.JWKHttpClient{}
-
 	verifier := oidc.JwtTokenVerifier{
-		Authority:        "http://localhost:5000",
+		Authority:        authority,
 		ClaimsToValidate: claimsToValidate,
 		HTTPClient:       &httpClient,
 	}

@@ -2,18 +2,14 @@ using System;
 using System.Threading.Tasks;
 using Identity.API.Abstraction.Providers;
 using Identity.API.Abstraction.ViewModelBuilders;
-using Identity.API.Model.Entities;
-using IdentityServer4.Events;
-using IdentityServer4.Extensions;
-using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
+using Identity.API.Utils;
+using Microsoft.Extensions.Configuration;
 
 namespace Identity.API.Controllers.Account
 {
@@ -21,6 +17,7 @@ namespace Identity.API.Controllers.Account
     [AllowAnonymous]
     public class AccountController : Controller
     {
+        private readonly IConfiguration _configuration;
         private readonly ILoginProvider _loginProvider;
         private readonly ILoggedOutViewModelBuilder _loggedOutViewModelBuilder;
         private readonly ILoginViewModelBuilder _loginViewModelBuilder;
@@ -30,6 +27,7 @@ namespace Identity.API.Controllers.Account
         private readonly IEventService _events;
 
         public AccountController(
+            IConfiguration configuration,
             ILoginProvider loginProvider,
             ILoggedOutViewModelBuilder loggedOutViewModelBuilder,
             ILoginViewModelBuilder loginViewModelBuilder,
@@ -37,6 +35,7 @@ namespace Identity.API.Controllers.Account
             IIdentityServerInteractionService interaction,
             IClientStore clientStore)
         {
+            _configuration = configuration;
             _loginProvider = loginProvider;
             _loggedOutViewModelBuilder = loggedOutViewModelBuilder;
             _loginViewModelBuilder = loginViewModelBuilder;
@@ -73,6 +72,7 @@ namespace Identity.API.Controllers.Account
             if (result == SignInResult.Success)
             {
                 var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
+                var basePath = _configuration.GetBasePath();
                 if (context != null)
                 {
                     if (await _clientStore.IsPkceClientAsync(context.ClientId))

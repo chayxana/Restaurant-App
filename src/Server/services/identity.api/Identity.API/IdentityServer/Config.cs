@@ -49,18 +49,20 @@ namespace Identity.API.IdentityServer
                 },
                 new Client
                 {
-                    ClientId = "menu-api-swagger-client",
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets = 
-                    {
-                        new Secret("secret".Sha256())
-                    },
-                    AllowedScopes = {"menu-api" }
+                    ClientId = "menu-api-swagger-ui",
+                    ClientName = "Menu API Swagger UI",
+                    RequireConsent = false,
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+                    RedirectUris = { $"{clientUrls["MenuApiUrl"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{clientUrls["MenuApiUrl"]}/swagger/" },
+                    AllowedScopes = { "menu-api" }
                 },
                 new Client
                 {
                     ClientId = "basket-api-swagger-ui",
                     ClientName = "Basket API Swagger UI",
+                    RequireConsent = false,
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
                     RedirectUris = { $"{clientUrls["BasketApiUrl"]}/swagger/oauth2-redirect.html" },
@@ -71,6 +73,7 @@ namespace Identity.API.IdentityServer
                 {
                     ClientId = "order-api-swagger-ui",
                     ClientName = "Order API Swagger UI",
+                    RequireConsent = false,
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
                     RedirectUris = { $"{clientUrls["OrderApiUrl"]}/webjars/springfox-swagger-ui/oauth2-redirect.html" },

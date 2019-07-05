@@ -10,6 +10,8 @@ spring:
 ribbon:
   eureka:
     enabled: enabled
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
  
 #Zuul routes.
 
@@ -24,9 +26,13 @@ zuul:
     identity:
       path: /identity/**
       serviceId: identity-service
+      sensitiveHeaders:
     basket:
       path: /basket/**
       serviceId: basket-service
+  host:
+        connect-timeout-millis: 60000
+        socket-timeout-millis: 60000
 
 eureka:
   client:
@@ -38,3 +44,4 @@ management:
     web:
       exposure:
         include: "*"
+  

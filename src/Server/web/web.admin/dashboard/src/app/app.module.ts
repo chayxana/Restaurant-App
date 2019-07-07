@@ -28,7 +28,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatProgressButtonsModule } from 'mat-progress-buttons';
-
+import { ColorPickerModule } from 'ngx-color-picker';
+import { LoginComponent } from './components/account/login/login.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { MatProgressButtonsModule } from 'mat-progress-buttons';
     FoodListComponent,
     ListUsersComponent,
     CreateUserComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    LoginComponent
   ],
   imports: [
     routes,
@@ -60,6 +62,10 @@ import { MatProgressButtonsModule } from 'mat-progress-buttons';
     BrowserAnimationsModule,
     LayoutModule,
     MatProgressButtonsModule.forRoot(),
+    ColorPickerModule
+  ],
+  exports: [
+    ColorPickerModule
   ],
   providers: [FoodService, CategoryService],
   bootstrap: [AppComponent]

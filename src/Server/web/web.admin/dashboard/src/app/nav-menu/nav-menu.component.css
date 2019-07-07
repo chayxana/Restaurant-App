@@ -1,9 +1,13 @@
 .sidenav-container {
-  height: 100%;
+  position: fixed;
+   height: 100%;
+   min-height: 100%;
+   width: 100%;
+   min-width: 100%;
 }
 
 .sidenav {
-  width: 200px;
+  width: 220px;
 }
 
 .mat-toolbar.mat-primary {

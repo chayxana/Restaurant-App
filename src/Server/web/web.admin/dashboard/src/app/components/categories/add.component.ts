@@ -14,10 +14,11 @@ import { MatProgressButtonOptions } from 'mat-progress-buttons';
         <mat-form-field [ngClass]="{error : name.invalid && (name.dirty || name.touched) }">
           <input matInput type="text" required placeholder="Name" [(ngModel)]="category.name" name="name" #name="ngModel">
         </mat-form-field>
-        <div [ngClass]="{error : color.invalid && (color.dirty || color.touched)}">
-          <label>Color: </label>
-          <input type="color" required [(ngModel)]="category.color" name="color" #color="ngModel">
-        </div>
+        <mat-form-field [ngClass]="{error : color.invalid && (color.dirty || color.touched)}">
+          <input matInput required placeholder="Color"
+              [(colorPicker)]="category.color"
+              [(ngModel)]="category.color" name="color" #color="ngModel"/>
+        </mat-form-field >
       <mat-card-actions>
         <mat-spinner-button [options]="saveButtonsOpts" type="submit">Save</mat-spinner-button>
         <button mat-button type="button" (click)="onCancel()">Cancel</button>
@@ -26,7 +27,7 @@ import { MatProgressButtonOptions } from 'mat-progress-buttons';
   </mat-card>`,
   styles: [
     ` .container {
-        margin: 50px;
+        margin-top: 20px;
       }
       .form-container {
         padding: 20px;

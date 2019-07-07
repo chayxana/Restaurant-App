@@ -61,3 +61,6 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+
+src/Server/services/identity.api/Identity.API/wwwroot/lib/bootstrap/js/bootstrap.bundle.js linguist-vendored

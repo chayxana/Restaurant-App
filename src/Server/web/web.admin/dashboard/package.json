@@ -25,6 +25,8 @@
     "@types/uuid": "^3.4.5",
     "core-js": "^2.6.9",
     "mat-progress-buttons": "^8.0.4",
+    "ngx-color-picker": "^8.0.1",
+    "oidc-client": "^1.8.2",
     "rxjs": "^6.5.2",
     "tslib": "^1.10.0",
     "uuid": "^3.3.2",

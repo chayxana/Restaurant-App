@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -13,6 +14,7 @@ using Menu.API.Facades;
 using Menu.API.Managers;
 using Menu.API.Models;
 using Menu.API.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -44,15 +46,20 @@ namespace Menu.API
             services.AddMvc();
             services.AddAuthorization();
 
-            var identityUrl = Configuration["ExternalIdentityUrl"];
-
-            services.AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication(options =>
-                {
-                    options.Authority = identityUrl;
-                    options.RequireHttpsMetadata = false;
-                    options.ApiName = "menu-api";
-                });
+            var identityUrl = Configuration["InternalIdentityUrl"];
+            var externalIdentityUrl = Configuration["ExternalIdentityUrl"];
+            
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = identityUrl;
+                options.RequireHttpsMetadata = false;
+                options.Audience = "menu-api";
+            });
 
             var connectionString = Configuration.GetConnectionString("MenuDatabaseConnectionString");
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -81,8 +88,8 @@ namespace Menu.API
                 {
                     Type = "oauth2",
                     Flow = "implicit",
-                    AuthorizationUrl = $"{identityUrl}/connect/authorize",
-                    TokenUrl = $"{identityUrl}/connect/token",
+                    AuthorizationUrl = $"{externalIdentityUrl}/connect/authorize",
+                    TokenUrl = $"{externalIdentityUrl}/connect/token",
                     Scopes = new Dictionary<string, string>()
                     {
                         { "menu-api", "Restaurant Menu Api" }

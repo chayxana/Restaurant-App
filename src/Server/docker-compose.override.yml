@@ -34,6 +34,7 @@ services:
       - eureka__instance__port=80
       - PATH_BASE=/menu
       - ExternalIdentityUrl=http://localhost:8080/identity
+      - InternalIdentityUrl=http://identity-api
   
   identity-api:
     environment:

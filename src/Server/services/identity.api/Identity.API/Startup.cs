@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
-using System.Threading.Tasks;
 using AutoMapper;
 using Identity.API.Abstraction.Providers;
 using Identity.API.Abstraction.ViewModelBuilders;
@@ -9,9 +8,6 @@ using Identity.API.Model.Entities;
 using Identity.API.Providers;
 using Identity.API.Utils;
 using Identity.API.ViewModelBuilders;
-using IdentityServer4.Configuration;
-using IdentityServer4.Extensions;
-using IdentityServer4.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -22,15 +18,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
 using Steeltoe.Discovery.Client;
 
 namespace Identity.API
 {
     public class Startup
     {
-        private ForwardedHeadersOptions fordwardedHeaderOptions;
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -79,7 +72,7 @@ namespace Identity.API
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddIdentityServer()
+            services.AddIdentityServer(x => x.IssuerUri = "null" )
                 .AddDeveloperSigningCredential()
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddConfigurationStore(options =>

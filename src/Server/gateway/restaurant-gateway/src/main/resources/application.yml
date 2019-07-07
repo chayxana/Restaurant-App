@@ -20,6 +20,7 @@ zuul:
     menu:
       path: /menu/**
       serviceId: menu-service
+      sensitiveHeaders:
     order:
       path: /order/**
       serviceId: order-service

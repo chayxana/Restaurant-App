@@ -24,7 +24,6 @@ namespace Identity.API.Controllers.Account
         private readonly ILogOutViewModelBuilder _logOutViewModelBuilder;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
-        private readonly IEventService _events;
 
         public AccountController(
             IConfiguration configuration,

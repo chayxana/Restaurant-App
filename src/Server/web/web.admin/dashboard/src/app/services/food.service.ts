@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Food } from 'app/models/food';
 import { BaseService } from 'app/services/base.service';
-import { HttpRequest, HttpClient } from '@angular/common/http';
+import { HttpRequest, HttpClient, HttpEventType, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
+import { AuthService } from './auth.service';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable()
 export class FoodService extends BaseService<Food> {
@@ -19,30 +21,40 @@ export class FoodService extends BaseService<Food> {
     return this._baseUrl;
   }
 
-  createFood(food: Food, file: File): any {
-    return new HttpRequest('POST', this.BaseUrl, file, {
+  uploadImage(files: Set<File>, foodId: string, token: string): Observable<number> {
+
+    const formData: FormData = new FormData();
+    formData.append('foodId', foodId);
+
+    files.forEach(file => {
+      formData.append('file', file, file.name);
+    });
+
+    const req = new HttpRequest('POST', this.BaseUrl + '/UploadFoodImage', formData, {
       reportProgress: true,
+      headers: new HttpHeaders({
+        'Authorization': token
+      })
     });
-  }
 
-  uploadImage(picture: File, foodId: string) {
-    return new Promise((resolve, reject) => {
-      const xhr: XMLHttpRequest = new XMLHttpRequest();
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(true);
-          } else {
-            reject(false);
-          }
-        }
-      };
+    // create a new progress-subject for every file
+    const progress = new Subject<number>();
 
-      xhr.open('POST', this.BaseUrl + '/UploadFile', true);
-      const formData = new FormData();
-      formData.append('file', picture, picture.name);
-      formData.append('foodId', foodId);
-      xhr.send(formData);
+    const startTime = new Date().getTime();
+    this.http.request(req).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        // calculate the progress percentage
+
+        const percentDone = Math.round((100 * event.loaded) / event.total);
+        // pass the percentage into the progress-stream
+        progress.next(percentDone);
+      } else if (event instanceof HttpResponse) {
+        // Close the progress-stream if we get an answer form the API
+        // The upload is complete
+        progress.complete();
+      }
     });
+
+    return progress.asObservable();
   }
 }

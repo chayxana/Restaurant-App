@@ -30,10 +30,9 @@ namespace Menu.API.UnitTests
 
 			var provider = ClassUnderTest;
 
-			await provider.Upload(file.Object, uniqId);
+			await provider.Upload(file.Object);
 
 			Assert.True(provider.HasFile(uniqId));
-			Assert.Equal(uniqFileName, provider.GetUploadedFileByUniqId(uniqId));
 		}
 
         [Fact]
@@ -68,8 +67,7 @@ namespace Menu.API.UnitTests
 
             var provider = ClassUnderTest;
 
-            await provider.Upload(file.Object, uniqId);
-            provider.Reset();
+            await provider.Upload(file.Object);
         }
 
 
@@ -90,8 +88,7 @@ namespace Menu.API.UnitTests
             fileInfoFacade.Setup(x => x.Exists(uniqFileName)).Returns(true);
             var provider = ClassUnderTest;
 
-            await provider.Upload(file.Object, uniqId);
-            provider.RemoveUploadedFileByUniqId(uniqId);
+            await provider.Upload(file.Object);
 
             GetMock<IFileInfoFacade>().Verify(x => x.Delete(uniqFileName), Times.Once);
             Assert.False(provider.HasFile(uniqId));

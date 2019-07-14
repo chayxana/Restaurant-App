@@ -1,121 +1,86 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit,  ViewEncapsulation } from '@angular/core';
 import { FoodService } from 'app/services/food.service';
 import { Food } from 'app/models/food';
-
-declare var $: any;
-
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-foods-list',
   template: `
-  <div class="container" [ngClass]="{ loading : isLoading }">
+  <div class="container">
     <mat-card>
-    <table class="ui celled table">
-    <thead class="full-width">
-      <tr>
-        <th>#</th>
-        <th>Picture</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Category</th>
-        <th>Price</th>
-        <th class="right aligned">Edit / Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let food of foods;let i = index">
-        <td class="collapsing">{{i}}. </td>
-
-        <td class="collapsing">
-          <img [src]="food.picture" class="ui mini rounded image">
-        </td>
-
-        <td>{{food.name}}</td>
-
-        <td>{{food.description}}</td>
-
-        <td>
-          <span class="ui green">{{food.category?.name}}</span>
-        </td>
-
-        <td class="collapsing">{{food.price}}</td>
-
-        <td class="right aligned collapsing">
-         <div class="ui basic small icon buttons">
-          <a class="ui button" [routerLink]="['/foods/create']" [queryParams]="{ id : food.id}">
-            <i class="edit icon"></i>
-          </a>
-          <button class="ui button" (click)="onDelete(food.id)">
-            <i class="remove icon"></i>
-          </button>
-        </div>
-        </td>
-      </tr>
-    </tbody>
-    <tfoot class="full-width">
-      <tr>
-        <th colspan="7">
-          <a routerLink="/foods/create" class="ui right floated small primary labeled icon button">
-            <i class="plus icon"></i> Create food
-          </a>
-        </th>
-      </tr>
-    </tfoot>
-  </table>
-
+      <table mat-table [dataSource]="foods">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Description </th>
+          <td mat-cell *matCellDef="let row"> {{row.description}} </td>
+        </ng-container>
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef> Category </th>
+          <td mat-cell *matCellDef="let row"> {{row.category?.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef> Price </th>
+          <td mat-cell *matCellDef="let row"> {{row.price}} </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>
+            Edit / Delete
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <a mat-icon-button [routerLink]="['/foods/create']" href="#" [queryParams]="{ id : row.id}">
+              <mat-icon>edit</mat-icon>
+            </a>
+            <button mat-icon-button (click)="onDelete(row.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+       </table>
     </mat-card>
+    <button mat-fab class="pos-fix" routerLink="/foods/create">
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
-
   `,
-  styles : [
-    `.container {
-      position: relative;
+  styles: [
+    `table {
+      width: 100%;
     }
+
+    .container {
+      position: relative;
+      padding: 20px;
+    }
+
     .pos-fix {
       position: fixed !important;
       bottom: 20px;
       right: 20px;
       top: auto;
       left: auto;
-    },
-    `
+    }`
   ]
 })
-export class FoodListComponent implements OnInit, AfterViewInit {
-
-  //  <div class="ui modal" #modal>
-  //     <div class="header">
-  //       Deleting food
-  //     </div>
-  //     <div class="image content">
-  //       <div class="description">
-  //         Do you want to delete "{{selectedFood?.name}}"?
-  //       </div>
-  //     </div>
-  //     <div class="actions">
-  //       <div class="ui primary button" [ngClass]="{ loading : deleting }" (click)="confirmDelete()">Yes</div>
-  //       <div class="ui button" (click)="cancelDelete()">No</div>
-  //     </div>
-  //   </div>
-
-  @ViewChild('modal') deleteModal: ElementRef;
+export class FoodListComponent implements OnInit {
 
   foods: Food[];
   selectedFood: Food;
   isLoading: boolean;
   deleting: boolean;
-
-  constructor(private foodService: FoodService) { }
-
-  ngAfterViewInit(): void {
-
-  }
+  displayedColumns: string[] = ['name', 'description', 'category', 'price', 'actions'];
+  constructor(private foodService: FoodService, private authService: AuthService) { }
 
   ngOnInit() {
     this.isLoading = true;
-    this.foodService.getAll().subscribe(foods => {
+    this.foodService.getAll(this.authService.authorizationHeaderValue).subscribe(foods => {
+      console.table(foods);
       foods.forEach(f => {
-        f.picture = f.picture;
+        f.pictures = f.pictures;
       });
       this.foods = foods;
       this.isLoading = false;
@@ -123,22 +88,20 @@ export class FoodListComponent implements OnInit, AfterViewInit {
   }
 
   onDelete(id: string) {
-    this.foodService.get(id).subscribe(food => {
+    this.foodService.get(id, this.authService.authorizationHeaderValue).subscribe(food => {
       this.selectedFood = food;
     });
-    $(this.deleteModal.nativeElement).modal('show');
   }
 
   confirmDelete() {
     this.deleting = true;
-    this.foodService.delete(this.selectedFood).subscribe(x => {
+    this.foodService.delete(this.selectedFood, this.authService.authorizationHeaderValue).subscribe(x => {
       this.foods = this.foods.filter(food => food.id !== this.selectedFood.id);
       this.deleting = false;
-      $(this.deleteModal.nativeElement).modal('hide');
     });
   }
 
   cancelDelete() {
-    $(this.deleteModal.nativeElement).modal('hide');
+
   }
 }

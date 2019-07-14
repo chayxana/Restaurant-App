@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Menu.API.Models
+namespace Menu.API.DataTransferObjects
 {
     public class FoodDto
     {
@@ -14,8 +15,8 @@ namespace Menu.API.Models
         [JsonProperty("description")]
         public string Description { get; set; }
 
-        [JsonProperty("picture")]
-        public string Picture { get; set; }
+        [JsonProperty("pictures")]
+        public List<FoodPictureDto> Pictures { get; set; }
 
         [JsonProperty("price")]
         public decimal Price { get; set; }

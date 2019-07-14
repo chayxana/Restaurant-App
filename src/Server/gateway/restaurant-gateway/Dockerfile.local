@@ -8,7 +8,7 @@ WORKDIR /usr/src/gateway
 
 RUN gradle build
 
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8-jre-alpine
 COPY --from=builder /usr/src/gateway/build/libs/restaurant-gateway-0.0.1.jar gateway.jar
 
 ENTRYPOINT ["java", "-jar", "/gateway.jar"]

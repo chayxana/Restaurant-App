@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
+using Menu.API.DataTransferObjects;
 using Menu.API.Models;
 
 namespace Menu.API.Mappers
@@ -11,23 +8,23 @@ namespace Menu.API.Mappers
     {
         public ModelsMapperProfile()
         {
-            CreateMap<Food, FoodDto>()
-                .ForMember(x => x.CategoryDto,
-                    map => map.MapFrom(x => Mapper.Map<CategoryDto>(x.Category)))
-                .ForMember(x => x.Picture,
-                    map => map.MapFrom(x => Folders.UploadFilesPath + x.Picture));
+            CreateMap<Food, FoodDto>();
 
             CreateMap<FoodDto, Food>()
                 .ForMember(x => x.Category,
-                    map => map.MapFrom(x => Mapper.Map<Category>(x.CategoryDto)))
-                .ForMember(x => x.Picture,
-                    map => map.MapFrom(x => x.Picture.Contains(Folders.UploadFilesPath)
-                        ? x.Picture.Replace(Folders.UploadFilesPath, "")
-                        : x.Picture));
+                    map => map.MapFrom(x => Mapper.Map<Category>(x.CategoryDto)));
 
             CreateMap<Category, CategoryDto>();
 
             CreateMap<CategoryDto, Category>();
+
+            CreateMap<FoodPicture, FoodPictureDto>()
+                .ForMember(x => x.FilePath,
+                    map => map.MapFrom(m => Folders.UploadFilesPath + m.FileName));
+
+            CreateMap<FoodPictureDto, FoodPicture>()
+                .ForMember(x => x.FileName,
+                    map => map.MapFrom(m => m.FilePath));
         }
     }
 }

@@ -6,6 +6,7 @@ using Menu.API.Abstraction.Repositories;
 using Menu.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Menu.API.DataTransferObjects;
 
 namespace Menu.API.Controllers
 {

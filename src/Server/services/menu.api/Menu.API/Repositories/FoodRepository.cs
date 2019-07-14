@@ -17,7 +17,9 @@ namespace Menu.API.Repositories
 
 		public override IQueryable<Food> GetAll()
 		{
-			return base.GetAll().Include(x => x.Category);
+			return base.GetAll()
+				.Include(x => x.Category)
+				.Include(x => x.Pictures);
 		}
 	}
 }

@@ -14,3 +14,7 @@
   position: sticky;
   top: 0;
 }
+
+.fill-space {
+  flex: 1 1 auto;
+}

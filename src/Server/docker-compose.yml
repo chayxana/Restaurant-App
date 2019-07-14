@@ -53,15 +53,12 @@ services:
 
   pgsql:
     image: postgres:alpine
-    # volumes: 
-    #   - database-data:/var/lib/postgresql/data
+    volumes: 
+      - database-data:/var/lib/postgresql/data
   
   redis:
     image: redis:alpine
     
     
-    # volumes: 
-    # - cache-data:/data
- 
-  # volumes:
-  #   database-data:
+volumes:
+  database-data:

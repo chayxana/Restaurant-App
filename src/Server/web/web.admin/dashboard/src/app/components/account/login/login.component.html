@@ -1,3 +1,13 @@
-<p>
-  login works!
-</p>
+<mat-card class="container">
+  <div>
+    <h1 class="mt-5">{{title}}</h1>
+    <p class="lead">This step uses the <a
+        href="http://docs.identityserver.io/en/latest/topics/grant_types.html#implicit" target="_blank">implicit flow
+        type</a> and redirects to the IdentityServer instance to perform the authentication step. Before you can login
+      here, you must <a routerLink="/register">register a new account</a>.</p>
+    <img src="assets/images/open-identity.png" width="175" class="mb-4" />
+    <p>
+      <button mat-stroked-button (click)="login()">Login with IdentityServer</button>
+    </p>
+  </div>
+</mat-card>

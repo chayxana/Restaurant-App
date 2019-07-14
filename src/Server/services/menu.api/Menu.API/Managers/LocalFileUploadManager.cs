@@ -7,55 +7,35 @@ using Microsoft.AspNetCore.Http;
 
 namespace Menu.API.Managers
 {
-	public class LocalFileUploadManager : IFileUploadManager
-	{
-		private readonly IFileInfoFacade _fileInfoFacade;
-		private readonly IDictionary<string, string> _uploadedFiles;
+    public class LocalFileUploadManager : IFileUploadManager
+    {
+        private readonly IFileInfoFacade _fileInfoFacade;
 
-		public LocalFileUploadManager(IFileInfoFacade fileInfoFacade)
-		{
-			_fileInfoFacade = fileInfoFacade;
-			_uploadedFiles = new Dictionary<string, string>();
-		}
+        public LocalFileUploadManager(IFileInfoFacade fileInfoFacade)
+        {
+            _fileInfoFacade = fileInfoFacade;
+        }
 
+        public async Task<string> Upload(IFormFile file)
+        {
+            var uploadedFileName = $"{_fileInfoFacade.GetUniqName()}_{file.FileName}";
+            var filePath = Folders.UploadFilesPath + _fileInfoFacade.GetFilePathWithWebRoot(uploadedFileName);
+            using (var fileStream = _fileInfoFacade.GetFileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(fileStream);
+            }
+			return uploadedFileName;
+        }
 
-		public async Task Upload(IFormFile file, string uniqId)
-		{
-			var uploadedFileName = $"{_fileInfoFacade.GetUniqName()}{Path.GetExtension(file.FileName)}";
-			var filePath = _fileInfoFacade.GetFilePathWithWebRoot(uploadedFileName);
-			using (var fileStream = _fileInfoFacade.GetFileStream(filePath, FileMode.Create))
-			{
-				await file.CopyToAsync(fileStream);
-				_uploadedFiles.Add(uniqId, uploadedFileName);
-			}
-		}
+        public void Remove(string fileName)
+        {
+            if (_fileInfoFacade.Exists(fileName))
+                _fileInfoFacade.Delete(fileName);
+        }
 
-		public void Remove(string fileName)
-		{
-			if (_fileInfoFacade.Exists(fileName))
-				_fileInfoFacade.Delete(fileName);
-		}
-
-		public void Reset()
-		{
-			_uploadedFiles.Clear();
-		}
-
-		public string GetUploadedFileByUniqId(string uniqId)
-		{
-			return _uploadedFiles[uniqId];
-		}
-
-		public void RemoveUploadedFileByUniqId(string uniqId)
-		{
-			var fileName = GetUploadedFileByUniqId(uniqId);
-			Remove(fileName);
-			_uploadedFiles.Remove(uniqId);
-		}
-
-		public bool HasFile(string uniqId)
-		{
-			return _uploadedFiles.ContainsKey(uniqId);
-		}
-	}
+        public bool HasFile(string fileName)
+        {
+            return _fileInfoFacade.Exists(fileName);
+        }
+    }
 }

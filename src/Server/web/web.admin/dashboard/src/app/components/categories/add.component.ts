@@ -5,6 +5,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import * as uuid from 'uuid';
 import { MatProgressButtonOptions } from 'mat-progress-buttons';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-add-categories',
@@ -17,6 +18,7 @@ import { MatProgressButtonOptions } from 'mat-progress-buttons';
         <mat-form-field [ngClass]="{error : color.invalid && (color.dirty || color.touched)}">
           <input matInput required placeholder="Color"
               [(colorPicker)]="category.color"
+              cpPosition='bottom'
               [(ngModel)]="category.color" name="color" #color="ngModel"/>
         </mat-form-field >
       <mat-card-actions>
@@ -27,7 +29,7 @@ import { MatProgressButtonOptions } from 'mat-progress-buttons';
   </mat-card>`,
   styles: [
     ` .container {
-        margin-top: 20px;
+        margin: 25px;
       }
       .form-container {
         padding: 20px;
@@ -71,7 +73,8 @@ export class AddCategoryComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(route => {
@@ -79,7 +82,7 @@ export class AddCategoryComponent implements OnInit {
       if (id) {
         this.isEditMode = true;
         this.isLoading = true;
-        this.categoryService.get(id).subscribe(cat => {
+        this.categoryService.get(id, this.authService.authorizationHeaderValue).subscribe(cat => {
           this.category = cat;
           this.isLoading = false;
         });
@@ -90,12 +93,12 @@ export class AddCategoryComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.saveButtonsOpts.active = true;
     if (this.isEditMode) {
-      this.categoryService.update(this.category).subscribe(x => {
+      this.categoryService.update(this.category, this.authService.authorizationHeaderValue).subscribe(x => {
         this.saveButtonsOpts.active = false;
       });
     } else {
       this.category.id = uuid();
-      this.categoryService.create(this.category).subscribe(x => {
+      this.categoryService.create(this.category, this.authService.authorizationHeaderValue).subscribe(x => {
         form.reset();
         this.saveButtonsOpts.active = false;
       });

@@ -5,7 +5,10 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
+using Amazon;
+using Amazon.S3;
 using AutoMapper;
+using IdentityModel;
 using Menu.API.Abstraction.Facades;
 using Menu.API.Abstraction.Managers;
 using Menu.API.Abstraction.Repositories;
@@ -24,6 +27,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Steeltoe.Common.Discovery;
 using Steeltoe.Discovery.Client;
 using Swashbuckle.AspNetCore.Filters;
@@ -59,6 +63,12 @@ namespace Menu.API
                 options.Authority = identityUrl;
                 options.RequireHttpsMetadata = false;
                 options.Audience = "menu-api";
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    NameClaimType = JwtClaimTypes.Name,
+                    RoleClaimType = JwtClaimTypes.Role,
+                    ValidateIssuer = false
+                };
             });
 
             var connectionString = Configuration.GetConnectionString("MenuDatabaseConnectionString");
@@ -98,10 +108,20 @@ namespace Menu.API
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
             });
 
+            services.AddScoped<IAmazonS3>(provider => 
+            {
+                var configuration = provider.GetService<IConfiguration>();
+                var "" = "AKIA53WX4PRAJMOEMCPC";
+                var  "" = "9IQpaBuifonqDDXs82CG6aSFtVkIXk6WY3AsCaLW";
+                var amazonInstance = new AmazonS3Client("",  "", RegionEndpoint.EUCentral1);
+                return amazonInstance;
+            });
+
             services.AddScoped<IFileUploadManager, LocalFileUploadManager>();
             services.AddScoped<IFileInfoFacade, FileInfoFacade>();
             services.AddScoped<IRepository<Category>, CategoryRepository>();
             services.AddScoped<IRepository<Food>, FoodRepository>();
+            services.AddScoped<IRepository<FoodPicture>, PictureRepository>();
             services.AddAutoMapper(typeof(Startup).GetTypeInfo().Assembly);
             services.AddDiscoveryClient(Configuration);
         }

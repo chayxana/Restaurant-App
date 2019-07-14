@@ -8,3 +8,12 @@
 */obj
 **/.toolstarget
 */build
+
+*/src
+.pom.xml
+*/.git
+
+*/.settings
+.classpath
+.project
+.springBeans

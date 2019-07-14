@@ -1,13 +1,19 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>
+  <mat-toolbar-row *ngIf="isAuthenticated">
     <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
     <span>Dashboard</span>
+    <span class="fill-space"></span>
+    <nav>
+      <a mat-icon-button (click)="signOut()" href="#">
+        <mat-icon>exit_to_app</mat-icon>
+      </a>
+   </nav>
   </mat-toolbar-row>
 </mat-toolbar>
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport="false"
+<mat-sidenav-container  class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav"  fixedInViewport="false"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="!(isHandset$ | async)">
     <mat-nav-list>

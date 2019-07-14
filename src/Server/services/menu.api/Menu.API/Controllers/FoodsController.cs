@@ -9,6 +9,7 @@ using Menu.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Menu.API.DataTransferObjects;
 
 namespace Menu.API.Controllers
 {
@@ -19,14 +20,17 @@ namespace Menu.API.Controllers
         private readonly IFileUploadManager _fileUploadManager;
         private readonly IMapper _mapper;
         private readonly IRepository<Food> _repository;
+        private readonly IRepository<FoodPicture> _pictureRepository;
 
         public FoodsController(
             IMapper mapper,
             IRepository<Food> repository,
+            IRepository<FoodPicture> pictureRepository,
             IFileUploadManager fileUploadManager)
         {
             _mapper = mapper;
             _repository = repository;
+            _pictureRepository = pictureRepository;
             _fileUploadManager = fileUploadManager;
         }
 
@@ -51,74 +55,61 @@ namespace Menu.API.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Post([FromBody] FoodDto foodDto)
         {
-            try
+            var food = _mapper.Map<Food>(foodDto);
+            _repository.Create(food);
+            var result = await _repository.Commit();
+            if (result)
             {
-                var food = _mapper.Map<Food>(foodDto);
-                food.Picture = _fileUploadManager.GetUploadedFileByUniqId(food.Id.ToString());
-                _repository.Create(food);
-                var result = await _repository.Commit();
-                if (result)
-                {
-                    _fileUploadManager.Reset();
-                    return Ok();
-                }
-                _fileUploadManager.RemoveUploadedFileByUniqId(foodDto.Id.ToString());
-                return BadRequest();
+                return Ok();
             }
-            catch (Exception)
-            {
-                _fileUploadManager.RemoveUploadedFileByUniqId(foodDto.Id.ToString());
-                return BadRequest();
-            }
+            return BadRequest();
         }
 
         [HttpPost]
         [Route("UploadFoodImage")]
         [Authorize(Roles = "Admin")]
-        public async Task Post([Bind] IFormFile file, [Bind] string foodId)
+        public async Task Post([Bind] List<IFormFile> files, [Bind] string foodId)
         {
-            await _fileUploadManager.Upload(file, foodId);
+            foreach (var file in files)
+            {
+                var fileName = await _fileUploadManager.Upload(file);
+
+                var foodPicture = new FoodPicture()
+                {
+                    Id = Guid.NewGuid(),
+                    FoodId = Guid.Parse(foodId),
+                    OriginalFileName = file.FileName,
+                    FileName = fileName,
+                    Length = file.Length,
+                    ContentType = file.ContentType
+                };
+
+                _pictureRepository.Create(foodPicture);
+                await _pictureRepository.Commit();
+            }
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Put(Guid id, [FromBody] FoodDto foodDto)
         {
-            try
-            {
-                if (id != foodDto.Id)
-                    return BadRequest();
-                var food = _mapper.Map<Food>(foodDto);
-                if (_fileUploadManager.HasFile(id.ToString()))
-                {
-                    _fileUploadManager.Remove(food.Picture);
-                    food.Picture = _fileUploadManager.GetUploadedFileByUniqId(id.ToString());
-                }
-
-                _repository.Update(id, food);
-                return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
-            }
-            catch (Exception)
+            if (id != foodDto.Id)
             {
                 return BadRequest();
             }
+
+            var food = _mapper.Map<Food>(foodDto);
+            _repository.Update(id, food);
+            return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            try
-            {
-                var food = _repository.Get(id);
-                _fileUploadManager.Remove(food.Picture);
-                _repository.Delete(food);
-                return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
+            var food = _repository.Get(id);
+            _repository.Delete(food);
+            return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
         }
     }
 }

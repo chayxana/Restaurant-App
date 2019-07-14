@@ -14,6 +14,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 import {
   MatInputModule,
   MatFormFieldModule,
@@ -30,6 +32,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatProgressButtonsModule } from 'mat-progress-buttons';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { LoginComponent } from './components/account/login/login.component';
+import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
+import { AuthGuard } from './services/auth.guard';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,8 @@ import { LoginComponent } from './components/account/login/login.component';
     ListUsersComponent,
     CreateUserComponent,
     NavMenuComponent,
-    LoginComponent
+    LoginComponent,
+    AuthCallbackComponent
   ],
   imports: [
     routes,
@@ -62,12 +67,13 @@ import { LoginComponent } from './components/account/login/login.component';
     BrowserAnimationsModule,
     LayoutModule,
     MatProgressButtonsModule.forRoot(),
-    ColorPickerModule
+    ColorPickerModule,
+    MatSnackBarModule
   ],
   exports: [
     ColorPickerModule
   ],
-  providers: [FoodService, CategoryService],
+  providers: [FoodService, CategoryService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -18,9 +18,9 @@ namespace Identity.API.UnitTests.Controllers
     public class AccountControllerTest : BaseAutoMockedTest<AccountController>
     {
         [Fact]
-        public async Task Given_return_url_Login_should_return_view_with_viewModel()
+        public async Task When_ReturnUrl_Login_should_return_view_with_viewModel()
         {
-            // Given
+            // act
             var returnUrl = "test_url";
             var loginViewModel = new LoginViewModel
             {
@@ -31,8 +31,10 @@ namespace Identity.API.UnitTests.Controllers
                 .Setup(x => x.Build(returnUrl))
                 .Returns(Task.FromResult(loginViewModel));
 
+            // arrange
             var result = await ClassUnderTest.Login(returnUrl);
 
+            // assert
             Assert.IsType<ViewResult>(result);
             Assert.Equal(loginViewModel, ((ViewResult)result).Model);
         }
@@ -40,7 +42,7 @@ namespace Identity.API.UnitTests.Controllers
         [Fact]
         public async Task Given_IsExternalLoginOnly_Login_should_redirect_to_External_controller()
         {
-            // Given
+            // act
             var returnUrl = "test_url";
             var loginViewModel = new LoginViewModel
             {
@@ -53,8 +55,10 @@ namespace Identity.API.UnitTests.Controllers
                 .Setup(x => x.Build(returnUrl))
                 .Returns(Task.FromResult(loginViewModel));
 
+            // arrange
             var result = await ClassUnderTest.Login(returnUrl);
 
+            // assert
             Assert.IsType<RedirectToActionResult>(result);
 
             var redirectToActionResult = result as RedirectToActionResult;

@@ -7,24 +7,26 @@ import { Food } from 'app/models/food';
 import { NgForm } from '@angular/forms';
 import * as uuid from 'uuid';
 import { MatProgressButtonOptions } from 'mat-progress-buttons';
+import { AuthService } from 'app/services/auth.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-add-food',
   template: `
   <mat-card class="container">
-    <form #foodForm class='form-container'>
+    <form #foodForm class='form-container' (ngSubmit)="onSubmit(foodForm)">
       <mat-form-field>
-        <input matInput placeholder="Food name">
+        <input matInput placeholder="Food name" [(ngModel)]="food.name" name="name">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Food description">
+        <input matInput placeholder="Food description" [(ngModel)]="food.description" name="description">
       </mat-form-field>
       <mat-form-field>
-        <input type="number" matInput placeholder="Price">
+        <input type="number" matInput placeholder="Price" [(ngModel)]="food.price" name="price">
       </mat-form-field>
 
       <mat-form-field>
-        <mat-select placeholder="Categories">
+        <mat-select placeholder="Categories" [(ngModel)]="food.categoryId" name="categoryId">
           <mat-option *ngFor="let category of categories" [value]="category.id">
             {{category.name}}
           </mat-option>
@@ -36,7 +38,7 @@ import { MatProgressButtonOptions } from 'mat-progress-buttons';
       </div>
 
       <mat-card *ngIf="imageUrl" >
-        <img [src]="imageUrl" mat-card-image/>
+        <img [src]="imageUrl" class="food-image"/>
       </mat-card>
       <mat-card-actions>
         <mat-spinner-button [options]="saveButtonsOpts" type="submit">Save</mat-spinner-button>
@@ -53,6 +55,9 @@ import { MatProgressButtonOptions } from 'mat-progress-buttons';
         padding: 20px;
         display: flex;
         flex-direction: column;
+      },
+      .food-image {
+        width: "40px";
       }
     `
   ]
@@ -80,15 +85,14 @@ export class AddFoodComponent implements OnInit {
     price: null,
     category: null,
     categoryId: null,
-    picture: null
+    pictures: null
   };
 
-  imageUrl: any;
+  imageUrls: string[];
   file: File;
   categories: Category[];
   isSaving: boolean;
   isEditMode: boolean;
-  isLoading: boolean;
   imageUpdated: boolean;
 
   constructor(
@@ -96,24 +100,20 @@ export class AddFoodComponent implements OnInit {
     private foodService: FoodService,
     private route: ActivatedRoute,
     private router: Router,
-    vcr: ViewContainerRef
-  ) {}
+    private authService: AuthService,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(async params => {
       const id = params['id'];
       if (id) {
-        this.isLoading = true;
-        this.foodService.get(id).subscribe(food => {
-          this.food = food;
-          this.imageUrl = this.food.picture;
-          this.isEditMode = true;
-          this.isLoading = false;
-        });
+        const food = await this.foodService.get(id, this.authService.authorizationHeaderValue).toPromise();
+        this.food = food;
+        this.imageUrls = this.food.pictures;
       }
     });
-
-    this.categoryService.getAll().subscribe(cat => {
+    this.categoryService.getAll(this.authService.authorizationHeaderValue).subscribe(cat => {
       this.categories = cat;
     });
   }
@@ -126,48 +126,45 @@ export class AddFoodComponent implements OnInit {
         this.imageUpdated = true;
       }
 
-      this.imageUrl = reader.result;
+      this.imageUrls = reader.result;
     };
     reader.readAsDataURL(this.file);
   }
 
-  onSubmit(form: NgForm, file: HTMLInputElement) {
+  async onSubmit(form: NgForm, file: HTMLInputElement) {
     this.isSaving = true;
     if (this.isEditMode) {
       if (this.imageUpdated) {
-        this.uploadPicture().then(uploaded => {
-          this.foodService.update(this.food).subscribe(x => {
-            this.isSaving = false;
-            // this.toastr.success('Food updated successfully!', 'Updated!', { toastLife: 2000 });
-          });
-        });
-      } else {
-        this.foodService.update(this.food).subscribe(x => {
-          this.isSaving = false;
-          // this.toastr.success('Food updated successfully!', 'Updated!', { toastLife: 2000 });
-        });
+        await this.uploadPicture();
       }
+      await this.foodService.update(this.food, this.authService.authorizationHeaderValue).toPromise();
+      this.showMessage('Food updated successfully!');
+
     } else {
       this.food.id = uuid();
-      this.uploadPicture().then(uploaded => {
-        if (uploaded) {
-          this.createFood().subscribe(x => {
-            this.reset(form, file);
-          });
-        } else {
-          this.isSaving = false;
-        }
-        // this.toastr.success('Food created successfully!', 'Created!', { toastLife: 2000 });
-      });
+
+      await this.createFood();
+      await this.uploadPicture();
+
+      this.showMessage('Food created successfully!');
+      this.reset(form, file);
     }
   }
 
-  uploadPicture() {
-    return this.foodService.uploadImage(this.file, this.food.id);
+  private showMessage(message: string) {
+    this.snackBar.open(message, null, {
+      duration: 2000
+    });
   }
 
-  createFood() {
-    return this.foodService.create(this.food);
+  private uploadPicture(): Promise<any> {
+    const files = new Set<File>();
+    files.add(this.file);
+    return this.foodService.uploadImage(files, this.food.id, this.authService.authorizationHeaderValue).toPromise();
+  }
+
+  private createFood(): Promise<any> {
+    return this.foodService.create(this.food, this.authService.authorizationHeaderValue).toPromise();
   }
 
   onCancel() {
@@ -177,7 +174,7 @@ export class AddFoodComponent implements OnInit {
   reset(form: NgForm, file: HTMLInputElement) {
     form.reset();
     file.value = '';
-    this.imageUrl = null;
+    this.imageUrls = null;
     this.isSaving = false;
   }
 }

@@ -1,4 +1,8 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Amazon;
+using Amazon.S3;
+using AutoMapper.Configuration;
 using Menu.API.Abstraction.Managers;
 using Microsoft.AspNetCore.Http;
 
@@ -6,9 +10,13 @@ namespace Menu.API.Managers
 {
     public class S3FileUploadManager : IFileUploadManager
     {
-        public string GetUploadedFileByUniqId(string uniqId)
+        private readonly IConfiguration _configuration;
+        private readonly IAmazonS3 _s3Client;
+        
+        public S3FileUploadManager(IConfiguration configuration, IAmazonS3 s3Client)
         {
-            throw new System.NotImplementedException();
+            _configuration = configuration;
+            _s3Client = s3Client;
         }
 
         public bool HasFile(string uniqId)
@@ -20,18 +28,8 @@ namespace Menu.API.Managers
         {
             throw new System.NotImplementedException();
         }
-
-        public void RemoveUploadedFileByUniqId(string uniqId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Reset()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task Upload(IFormFile file, string uniqId)
+        
+        public Task<string> Upload(IFormFile file)
         {
             throw new System.NotImplementedException();
         }

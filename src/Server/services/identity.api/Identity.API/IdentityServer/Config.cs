@@ -14,7 +14,8 @@ namespace Identity.API.IdentityServer
             return new IdentityResource[]
             {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile()
+                new IdentityResources.Profile(),
+                new IdentityResources.Email()
             };
         }
 
@@ -46,6 +47,25 @@ namespace Identity.API.IdentityServer
                         "order-api"
                     },
                     AllowOfflineAccess = true
+                },
+                new Client
+                {
+                    ClientId = "dashboard-spa",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    ClientSecrets = {new Secret("secret".Sha256())},
+                    AllowAccessTokensViaBrowser = true,
+                    RedirectUris = { $"http://localhost:4200/auth-callback" },
+                    PostLogoutRedirectUris = { $"http://localhost:4200" },
+                    AllowOfflineAccess = true,
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "menu-api",
+                        "basket-api",
+                        "order-api"
+                    },
                 },
                 new Client
                 {

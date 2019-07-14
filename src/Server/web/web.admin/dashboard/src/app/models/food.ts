@@ -1,5 +1,6 @@
 import { Category } from './category';
 import { IBaseModel } from './base.model';
+import { FoodPicture } from './foodPicture';
 
 export class Food implements IBaseModel {
     id: string;
@@ -8,5 +9,5 @@ export class Food implements IBaseModel {
     price: number;
     category: Category;
     categoryId: string;
-    picture: string;
+    pictures: FoodPicture[];
 }

@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AddCategoryComponent } from 'app/components/categories/add.component';
-import { AddFoodComponent } from 'app/components/foods/add.component';
+import { AddFoodComponent } from 'app/components/foods/add/add.component';
 import { ListCategoriesComponent } from 'app/components/categories/list.component';
-import { FoodListComponent } from 'app/components/foods/list.component';
+import { FoodListComponent } from 'app/components/foods/list/list.component';
 import { ListUsersComponent } from 'app/components/users/list.component';
 import { CreateUserComponent } from 'app/components/users/create.component';
 import { CategoryService } from 'app/services/category.service';
@@ -14,6 +14,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatMenuModule} from '@angular/material/menu';
+
 import {
   MatInputModule,
   MatFormFieldModule,
@@ -30,6 +33,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatProgressButtonsModule } from 'mat-progress-buttons';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { LoginComponent } from './components/account/login/login.component';
+import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
+import { AuthGuard } from './services/auth.guard';
 
 @NgModule({
   declarations: [
@@ -41,7 +46,8 @@ import { LoginComponent } from './components/account/login/login.component';
     ListUsersComponent,
     CreateUserComponent,
     NavMenuComponent,
-    LoginComponent
+    LoginComponent,
+    AuthCallbackComponent
   ],
   imports: [
     routes,
@@ -62,12 +68,14 @@ import { LoginComponent } from './components/account/login/login.component';
     BrowserAnimationsModule,
     LayoutModule,
     MatProgressButtonsModule.forRoot(),
-    ColorPickerModule
+    ColorPickerModule,
+    MatSnackBarModule,
+    MatMenuModule
   ],
   exports: [
     ColorPickerModule
   ],
-  providers: [FoodService, CategoryService],
+  providers: [FoodService, CategoryService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

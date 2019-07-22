@@ -18,13 +18,14 @@
         android:paddingTop="38dp"
         android:orientation="vertical"
         android:gravity="bottom">
-        <refractored.controls.CircleImageView
+        <ImageView
             android:id="@+id/profile_image"
             android:layout_width="63dp"
             android:layout_height="63dp"
             local:civ_border_width="0dp"
             local:civ_border_color="#FFFFFFFF"
             android:clickable="true" />
+        
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"

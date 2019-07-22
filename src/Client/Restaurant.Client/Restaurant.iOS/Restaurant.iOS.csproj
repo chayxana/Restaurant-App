@@ -189,15 +189,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Restaurant.Core\Restaurant.Core.csproj">
-      <Project>{a0547077-0cf6-461d-8a2d-514c4ed89c94}</Project>
+      <Project>{B01807DD-CAF0-491A-9FEA-7F5C3D603A94}</Project>
       <Name>Restaurant.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Restaurant.Mobile.UI\Restaurant.Mobile.UI.csproj">
-      <Project>{af5c0ef6-3675-4a5e-a2f3-daff4dde228d}</Project>
+      <Project>{810973F0-8F0A-48CA-81AD-B200BFE83557}</Project>
       <Name>Restaurant.Mobile.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Restaurant.Abstractions\Restaurant.Abstractions.csproj">
-      <Project>{147B8D2D-E0C0-415A-8380-7739CC0F581A}</Project>
+      <Project>{196EEC60-A8EE-4007-B83C-C795FA19592A}</Project>
       <Name>Restaurant.Abstractions</Name>
     </ProjectReference>
   </ItemGroup>
@@ -210,25 +210,25 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
-      <Version>4.8.1</Version>
+      <Version>4.9.2</Version>
     </PackageReference>
     <PackageReference Include="AutoMapper">
-      <Version>7.0.1</Version>
+      <Version>8.1.1</Version>
     </PackageReference>
     <PackageReference Include="Com.Airbnb.iOS.Lottie">
-      <Version>2.5.4</Version>
+      <Version>2.5.8</Version>
     </PackageReference>
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
-      <Version>2.5.4</Version>
+      <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="IdentityModel">
-      <Version>3.9.0</Version>
+      <Version>3.10.10</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities">
-      <Version>2.1.1</Version>
+      <Version>2.2.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.Platforms">
-      <Version>2.1.0</Version>
+      <Version>2.2.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Win32.Primitives">
       <Version>4.3.0</Version>
@@ -237,10 +237,10 @@
       <Version>2.0.3</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI">
-      <Version>9.11.1</Version>
+      <Version>9.19.5</Version>
     </PackageReference>
     <PackageReference Include="Refit">
-      <Version>4.6.30</Version>
+      <Version>4.7.9</Version>
     </PackageReference>
     <PackageReference Include="System.AppContext">
       <Version>4.3.0</Version>
@@ -309,10 +309,10 @@
       <Version>4.3.0</Version>
     </PackageReference>
     <PackageReference Include="System.Net.Http">
-      <Version>4.3.3</Version>
+      <Version>4.3.4</Version>
     </PackageReference>
     <PackageReference Include="System.Net.Primitives">
-      <Version>4.3.0</Version>
+      <Version>4.3.1</Version>
     </PackageReference>
     <PackageReference Include="System.Net.Sockets">
       <Version>4.3.0</Version>
@@ -333,10 +333,10 @@
       <Version>4.3.0</Version>
     </PackageReference>
     <PackageReference Include="System.Runtime">
-      <Version>4.3.0</Version>
+      <Version>4.3.1</Version>
     </PackageReference>
     <PackageReference Include="System.Runtime.Extensions">
-      <Version>4.3.0</Version>
+      <Version>4.3.1</Version>
     </PackageReference>
     <PackageReference Include="System.Runtime.Handles">
       <Version>4.3.0</Version>
@@ -375,7 +375,7 @@
       <Version>4.3.0</Version>
     </PackageReference>
     <PackageReference Include="System.Text.RegularExpressions">
-      <Version>4.3.0</Version>
+      <Version>4.3.1</Version>
     </PackageReference>
     <PackageReference Include="System.Threading">
       <Version>4.3.0</Version>
@@ -402,7 +402,7 @@
       <Version>3.1.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.5.0.169047</Version>
+      <Version>4.1.0.581479</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

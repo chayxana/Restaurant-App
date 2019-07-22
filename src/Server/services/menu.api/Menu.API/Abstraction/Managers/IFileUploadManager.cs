@@ -1,20 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
 namespace Menu.API.Abstraction.Managers
 {
 	public interface IFileUploadManager
 	{
-		Task Upload(IFormFile file, string uniqId);
+		Task<string> Upload(IFormFile file);
 
 		void Remove(string fileName);
 
-		void Reset();
-
-		string GetUploadedFileByUniqId(string uniqId);
-
-		void RemoveUploadedFileByUniqId(string uniqId);
-
-		bool HasFile(string uniqId);
+		bool HasFile(string fileName);
 	}
 }

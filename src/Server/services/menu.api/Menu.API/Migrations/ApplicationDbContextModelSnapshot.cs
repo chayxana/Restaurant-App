@@ -16,10 +16,10 @@ namespace Menu.API.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("Restaurant.Server.Api.Models.Category", b =>
+            modelBuilder.Entity("Menu.API.Models.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -34,7 +34,7 @@ namespace Menu.API.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Restaurant.Server.Api.Models.Food", b =>
+            modelBuilder.Entity("Menu.API.Models.Food", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -48,9 +48,6 @@ namespace Menu.API.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<string>("Picture")
-                        .IsRequired();
-
                     b.Property<decimal>("Price");
 
                     b.Property<string>("Recept");
@@ -62,11 +59,41 @@ namespace Menu.API.Migrations
                     b.ToTable("Food");
                 });
 
-            modelBuilder.Entity("Restaurant.Server.Api.Models.Food", b =>
+            modelBuilder.Entity("Menu.API.Models.FoodPicture", b =>
                 {
-                    b.HasOne("Restaurant.Server.Api.Models.Category", "Category")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ContentType");
+
+                    b.Property<string>("FileName");
+
+                    b.Property<Guid>("FoodId");
+
+                    b.Property<long>("Length");
+
+                    b.Property<string>("OriginalFileName");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoodId");
+
+                    b.ToTable("FoodPicture");
+                });
+
+            modelBuilder.Entity("Menu.API.Models.Food", b =>
+                {
+                    b.HasOne("Menu.API.Models.Category", "Category")
                         .WithMany("Foods")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Menu.API.Models.FoodPicture", b =>
+                {
+                    b.HasOne("Menu.API.Models.Food", "Food")
+                        .WithMany("Pictures")
+                        .HasForeignKey("FoodId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

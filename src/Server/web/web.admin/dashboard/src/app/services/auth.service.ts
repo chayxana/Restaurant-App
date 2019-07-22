@@ -3,7 +3,6 @@ import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -11,6 +10,7 @@ export class AuthService {
   private manager = new UserManager(getClientSettings());
   private user: User | null;
   private _authNavStatusSource = new BehaviorSubject<boolean>(false);
+
   // Observable navItem stream
   authNavStatus$ = this._authNavStatusSource.asObservable();
 
@@ -32,21 +32,26 @@ export class AuthService {
   }
 
   get authorizationHeaderValue(): string {
+    console.log(this.user.access_token);
     return `${this.user.token_type} ${this.user.access_token}`;
+  }
+
+  get name(): string {
+    return this.user != null ? this.user.profile.name : '';
   }
 }
 
 function getClientSettings(): UserManagerSettings {
   return {
       authority: environment.identityUrl,
-      client_id: 'angular_spa',
-      redirect_uri: 'http://localhost:4200/auth-callback',
-      post_logout_redirect_uri: 'http://localhost:4200/',
+      client_id: 'dashboard-spa',
+      redirect_uri: environment.spaBaseUrl + '/auth-callback',
+      post_logout_redirect_uri: environment.spaBaseUrl,
       response_type: 'id_token token',
       scope: 'openid profile menu-api order-api basket-api',
       filterProtocolClaims: true,
       loadUserInfo: true,
       automaticSilentRenew: true,
-      silent_redirect_uri: 'http://localhost:4200/silent-refresh.html'
+      silent_redirect_uri: environment.spaBaseUrl + '/silent-refresh.html'
   };
 }

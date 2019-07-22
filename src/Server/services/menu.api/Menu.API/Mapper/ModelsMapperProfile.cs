@@ -10,9 +10,7 @@ namespace Menu.API.Mappers
         {
             CreateMap<Food, FoodDto>();
 
-            CreateMap<FoodDto, Food>()
-                .ForMember(x => x.Category,
-                    map => map.MapFrom(x => Mapper.Map<Category>(x.CategoryDto)));
+            CreateMap<FoodDto, Food>();
 
             CreateMap<Category, CategoryDto>();
 

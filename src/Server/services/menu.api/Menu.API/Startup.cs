@@ -12,11 +12,13 @@ using IdentityModel;
 using Menu.API.Abstraction.Facades;
 using Menu.API.Abstraction.Managers;
 using Menu.API.Abstraction.Repositories;
+using Menu.API.Abstraction.Services;
 using Menu.API.Data;
 using Menu.API.Facades;
 using Menu.API.Managers;
 using Menu.API.Models;
 using Menu.API.Repositories;
+using Menu.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -122,6 +124,7 @@ namespace Menu.API
             services.AddScoped<IRepository<Category>, CategoryRepository>();
             services.AddScoped<IRepository<Food>, FoodRepository>();
             services.AddScoped<IRepository<FoodPicture>, PictureRepository>();
+            services.AddScoped<IFoodPictureService, FoodPictureService>();
             services.AddAutoMapper(typeof(Startup).GetTypeInfo().Assembly);
             services.AddDiscoveryClient(Configuration);
         }
@@ -142,6 +145,7 @@ namespace Menu.API
 
             app.UseCors("ServerPolicy");
             app.UseMvcWithDefaultRoute();
+            app.UseStaticFiles();
             app.UseMvc();
 
             var logger = loggerFactory.CreateLogger("init");

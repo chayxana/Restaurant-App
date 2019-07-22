@@ -1,4 +1,4 @@
 export class FoodPicture {
   id: string;
-  name: string;
+  filePath: string;
 }

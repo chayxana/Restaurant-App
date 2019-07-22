@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Menu.API.DataTransferObjects;
+using Menu.API.Abstraction.Services;
 
 namespace Menu.API.Controllers
 {
@@ -17,21 +18,18 @@ namespace Menu.API.Controllers
     [Route("api/v1/[controller]")]
     public class FoodsController : Controller
     {
-        private readonly IFileUploadManager _fileUploadManager;
         private readonly IMapper _mapper;
         private readonly IRepository<Food> _repository;
-        private readonly IRepository<FoodPicture> _pictureRepository;
+        private readonly IFoodPictureService _foodPictureService;
 
         public FoodsController(
             IMapper mapper,
             IRepository<Food> repository,
-            IRepository<FoodPicture> pictureRepository,
-            IFileUploadManager fileUploadManager)
+            IFoodPictureService foodPictureService)
         {
-            _mapper = mapper;
-            _repository = repository;
-            _pictureRepository = pictureRepository;
-            _fileUploadManager = fileUploadManager;
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _foodPictureService = foodPictureService ?? throw new ArgumentNullException(nameof(foodPictureService));
         }
 
         [HttpGet("{count?}/{skip?}")]
@@ -41,8 +39,8 @@ namespace Menu.API.Controllers
                 .Skip(skip.Value)
                 .Take(count.Value)
                 .ToList();
-
-            return _mapper.Map<IEnumerable<FoodDto>>(entities);
+            var result = _mapper.Map<IEnumerable<FoodDto>>(entities);
+            return result;
         }
 
         [HttpGet("{id}")]
@@ -68,29 +66,16 @@ namespace Menu.API.Controllers
         [HttpPost]
         [Route("UploadFoodImage")]
         [Authorize(Roles = "Admin")]
-        public async Task Post([Bind] List<IFormFile> files, [Bind] string foodId)
+        public Task Post([Bind] List<IFormFile> files, [Bind] string foodId)
         {
-            foreach (var file in files)
-            {
-                var fileName = await _fileUploadManager.Upload(file);
-
-                var foodPicture = new FoodPicture()
-                {
-                    Id = Guid.NewGuid(),
-                    FoodId = Guid.Parse(foodId),
-                    OriginalFileName = file.FileName,
-                    FileName = fileName,
-                    Length = file.Length,
-                    ContentType = file.ContentType
-                };
-
-                _pictureRepository.Create(foodPicture);
-                await _pictureRepository.Commit();
-            }
+            return _foodPictureService.UploadAndCreatePictures(files, foodId);
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
+        [ProducesResponseType(304)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> Put(Guid id, [FromBody] FoodDto foodDto)
         {
             if (id != foodDto.Id)
@@ -100,6 +85,22 @@ namespace Menu.API.Controllers
 
             var food = _mapper.Map<Food>(foodDto);
             _repository.Update(id, food);
+            
+            if (foodDto.DeletedPictures?.Any() == true)
+            {
+                await _foodPictureService.RemovePictures(foodDto.DeletedPictures);
+            }
+
+            if (!_repository.HasChanges() && foodDto.DeletedPictures?.Any() == false)
+            {
+                return StatusCode(304);
+            }
+
+            if(!_repository.HasChanges() && foodDto.DeletedPictures?.Any() == true) 
+            {
+                return Ok();
+            }
+
             return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
         }
 

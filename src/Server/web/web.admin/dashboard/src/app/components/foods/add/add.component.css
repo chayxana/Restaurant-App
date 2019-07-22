@@ -1,0 +1,37 @@
+.container {
+  margin: 50px;
+}
+
+.form-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.images-container {
+  margin: 20px;
+  position: relative;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-around;
+}
+
+.images-container > * {
+  margin: 1em 0;
+}
+
+.image-delete-button {
+  position: absolute;
+  z-index: -1;
+}
+
+.food-image {
+  max-width: 200px;
+}
+.save-button {
+  min-width: 150px;
+}
+
+.form-container>* {
+  width: 100%;
+}

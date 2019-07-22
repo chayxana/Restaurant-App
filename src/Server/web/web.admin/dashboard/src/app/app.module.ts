@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AddCategoryComponent } from 'app/components/categories/add.component';
-import { AddFoodComponent } from 'app/components/foods/add.component';
+import { AddFoodComponent } from 'app/components/foods/add/add.component';
 import { ListCategoriesComponent } from 'app/components/categories/list.component';
-import { FoodListComponent } from 'app/components/foods/list.component';
+import { FoodListComponent } from 'app/components/foods/list/list.component';
 import { ListUsersComponent } from 'app/components/users/list.component';
 import { CreateUserComponent } from 'app/components/users/create.component';
 import { CategoryService } from 'app/services/category.service';
@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatMenuModule} from '@angular/material/menu';
 
 import {
   MatInputModule,
@@ -68,7 +69,8 @@ import { AuthGuard } from './services/auth.guard';
     LayoutModule,
     MatProgressButtonsModule.forRoot(),
     ColorPickerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule
   ],
   exports: [
     ColorPickerModule

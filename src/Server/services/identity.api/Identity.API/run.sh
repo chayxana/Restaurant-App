@@ -1,2 +1,2 @@
 # !/bin/sh
-ASPNETCORE_ENVIRONMENT=Development PATH_BASE=/identity dotnet run
+ASPNETCORE_ENVIRONMENT=Development ASPNETCORE_URLS=http://*:5100 dotnet run

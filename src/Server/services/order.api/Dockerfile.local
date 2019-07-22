@@ -8,7 +8,7 @@ USER gradle
 WORKDIR /usr/src/ordering_api
 RUN gradle build
 
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8-jre-alpine
 WORKDIR /root/
 COPY --from=builder /usr/src/ordering_api/build/libs/order.api.jar .
 

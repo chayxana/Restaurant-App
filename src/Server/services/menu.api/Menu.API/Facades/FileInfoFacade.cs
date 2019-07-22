@@ -30,9 +30,14 @@ namespace Menu.API.Facades
             File.Delete(path);
         }
 
-        public string GetFilePathWithWebRoot(string fileName)
+        public string GetFilePathWithWebRoot(string folderPath, string fileName)
         {
-            return _appEnvironment.WebRootPath + fileName;
+            var folder = _appEnvironment.WebRootPath + folderPath;
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+            return folder + fileName;
         }
 
         public string GetUniqName()

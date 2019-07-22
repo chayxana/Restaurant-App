@@ -17,5 +17,7 @@ namespace Menu.API.Abstraction.Repositories
 		IQueryable<T> GetAll();
 
 		Task<bool> Commit();
+
+		bool HasChanges();
 	}
 }

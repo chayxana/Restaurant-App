@@ -8,6 +8,7 @@ using BaseUnitTests;
 using FluentAssertions;
 using Menu.API.Abstraction.Repositories;
 using Menu.API.Controllers;
+using Menu.API.DataTransferObjects;
 using Menu.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;

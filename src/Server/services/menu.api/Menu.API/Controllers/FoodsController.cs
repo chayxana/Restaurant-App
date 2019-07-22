@@ -9,6 +9,8 @@ using Menu.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Menu.API.DataTransferObjects;
+using Menu.API.Abstraction.Services;
 
 namespace Menu.API.Controllers
 {
@@ -16,18 +18,18 @@ namespace Menu.API.Controllers
     [Route("api/v1/[controller]")]
     public class FoodsController : Controller
     {
-        private readonly IFileUploadManager _fileUploadManager;
         private readonly IMapper _mapper;
         private readonly IRepository<Food> _repository;
+        private readonly IFoodPictureService _foodPictureService;
 
         public FoodsController(
             IMapper mapper,
             IRepository<Food> repository,
-            IFileUploadManager fileUploadManager)
+            IFoodPictureService foodPictureService)
         {
-            _mapper = mapper;
-            _repository = repository;
-            _fileUploadManager = fileUploadManager;
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _foodPictureService = foodPictureService ?? throw new ArgumentNullException(nameof(foodPictureService));
         }
 
         [HttpGet("{count?}/{skip?}")]
@@ -37,8 +39,8 @@ namespace Menu.API.Controllers
                 .Skip(skip.Value)
                 .Take(count.Value)
                 .ToList();
-
-            return _mapper.Map<IEnumerable<FoodDto>>(entities);
+            var result = _mapper.Map<IEnumerable<FoodDto>>(entities);
+            return result;
         }
 
         [HttpGet("{id}")]
@@ -51,74 +53,64 @@ namespace Menu.API.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Post([FromBody] FoodDto foodDto)
         {
-            try
+            var food = _mapper.Map<Food>(foodDto);
+            _repository.Create(food);
+            var result = await _repository.Commit();
+            if (result)
             {
-                var food = _mapper.Map<Food>(foodDto);
-                food.Picture = _fileUploadManager.GetUploadedFileByUniqId(food.Id.ToString());
-                _repository.Create(food);
-                var result = await _repository.Commit();
-                if (result)
-                {
-                    _fileUploadManager.Reset();
-                    return Ok();
-                }
-                _fileUploadManager.RemoveUploadedFileByUniqId(foodDto.Id.ToString());
-                return BadRequest();
+                return Ok();
             }
-            catch (Exception)
-            {
-                _fileUploadManager.RemoveUploadedFileByUniqId(foodDto.Id.ToString());
-                return BadRequest();
-            }
+            return BadRequest();
         }
 
         [HttpPost]
         [Route("UploadFoodImage")]
         [Authorize(Roles = "Admin")]
-        public async Task Post([Bind] IFormFile file, [Bind] string foodId)
+        public Task Post([Bind] List<IFormFile> files, [Bind] string foodId)
         {
-            await _fileUploadManager.Upload(file, foodId);
+            return _foodPictureService.UploadAndCreatePictures(files, foodId);
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
+        [ProducesResponseType(304)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> Put(Guid id, [FromBody] FoodDto foodDto)
         {
-            try
-            {
-                if (id != foodDto.Id)
-                    return BadRequest();
-                var food = _mapper.Map<Food>(foodDto);
-                if (_fileUploadManager.HasFile(id.ToString()))
-                {
-                    _fileUploadManager.Remove(food.Picture);
-                    food.Picture = _fileUploadManager.GetUploadedFileByUniqId(id.ToString());
-                }
-
-                _repository.Update(id, food);
-                return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
-            }
-            catch (Exception)
+            if (id != foodDto.Id)
             {
                 return BadRequest();
             }
+
+            var food = _mapper.Map<Food>(foodDto);
+            _repository.Update(id, food);
+            
+            if (foodDto.DeletedPictures?.Any() == true)
+            {
+                await _foodPictureService.RemovePictures(foodDto.DeletedPictures);
+            }
+
+            if (!_repository.HasChanges() && foodDto.DeletedPictures?.Any() == false)
+            {
+                return StatusCode(304);
+            }
+
+            if(!_repository.HasChanges() && foodDto.DeletedPictures?.Any() == true) 
+            {
+                return Ok();
+            }
+
+            return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            try
-            {
-                var food = _repository.Get(id);
-                _fileUploadManager.Remove(food.Picture);
-                _repository.Delete(food);
-                return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
+            var food = _repository.Get(id);
+            _repository.Delete(food);
+            return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
         }
     }
 }

@@ -1,4 +1,5 @@
-# Restaurant App
+# Restaurant App 
+[![Gitter](https://badges.gitter.im/Restaurant-App-Community/community.svg)](https://gitter.im/Restaurant-App-Community/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Restaurant App is containerized polyglot microservices application which contains projects based on .NET Core, Golang, Java, Xamarin, React, Angular and etc. The project demonstrates how to develop small microservices for larger applications using containers, orchestration, service discovery, gateway, and etc.
 
@@ -124,4 +125,4 @@ The example shows how to develop beautiful user interfaces using Xamarin.Forms a
 ### Contributors
 
 Thank you to all the people who have already contributed to our project!
-<a href="graphs/contributors"><img src="https://opencollective.com/restaurant-app/contributors.svg?width=890" /></a>
+<a href="/graphs/contributors"><img src="https://opencollective.com/restaurant-app/contributors.svg?width=890" /></a>

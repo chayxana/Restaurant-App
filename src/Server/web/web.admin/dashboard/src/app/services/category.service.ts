@@ -3,6 +3,7 @@ import { BaseService } from 'app/services/base.service';
 import { Category } from 'app/models/category';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class CategoryService extends BaseService<Category> {

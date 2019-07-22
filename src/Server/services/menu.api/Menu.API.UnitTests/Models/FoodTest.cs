@@ -17,7 +17,7 @@ namespace Menu.API.UnitTests.Models
 			assertion.Verify(new Properties<Food>().Select(d => d.Name));
 			assertion.Verify(new Properties<Food>().Select(d => d.Description));
 			assertion.Verify(new Properties<Food>().Select(d => d.Recept));
-			assertion.Verify(new Properties<Food>().Select(d => d.Picture));
+			assertion.Verify(new Properties<Food>().Select(d => d.Pictures));
 			assertion.Verify(new Properties<Food>().Select(d => d.Price));
 			assertion.Verify(new Properties<Food>().Select(d => d.Currency));
 			assertion.Verify(new Properties<Food>().Select(d => d.Category));

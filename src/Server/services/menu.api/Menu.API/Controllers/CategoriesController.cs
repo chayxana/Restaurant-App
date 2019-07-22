@@ -6,6 +6,7 @@ using Menu.API.Abstraction.Repositories;
 using Menu.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Menu.API.DataTransferObjects;
 
 namespace Menu.API.Controllers
 {
@@ -65,7 +66,6 @@ namespace Menu.API.Controllers
                     return BadRequest();
 
                 var category = _mapper.Map<Category>(categoryDto);
-
                 _repository.Update(id, category);
                 return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
             }

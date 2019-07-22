@@ -18,6 +18,12 @@ namespace Menu.API.Data
                                        .OnDelete(DeleteBehavior.Cascade);
                 b.ToTable("Categories");
             });
+
+            modelBuilder.Entity<FoodPicture>()
+                .HasOne(x => x.Food)
+                .WithMany(x => x.Pictures)
+                .HasForeignKey(x => x.FoodId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

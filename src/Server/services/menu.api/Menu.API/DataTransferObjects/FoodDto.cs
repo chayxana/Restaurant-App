@@ -22,7 +22,7 @@ namespace Menu.API.DataTransferObjects
         public decimal Price { get; set; }
 
         [JsonProperty("category")]
-        public CategoryDto CategoryDto { get; set; }
+        public CategoryDto Category { get; set; }
 
         [JsonProperty("categoryId")]
         public Guid CategoryId { get; set; }
@@ -30,9 +30,7 @@ namespace Menu.API.DataTransferObjects
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
-        public FoodDto Clone()
-        {
-            return (FoodDto)this.MemberwiseClone();
-        }
+        [JsonProperty("deletedPictures")]
+        public List<FoodPictureDto> DeletedPictures { get; set; }
     }
 }

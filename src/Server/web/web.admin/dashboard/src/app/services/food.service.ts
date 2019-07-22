@@ -21,13 +21,13 @@ export class FoodService extends BaseService<Food> {
     return this._baseUrl;
   }
 
-  uploadImage(files: Set<File>, foodId: string, token: string): Observable<number> {
+  uploadImage(files: File[], foodId: string, token: string): Observable<number> {
 
     const formData: FormData = new FormData();
     formData.append('foodId', foodId);
 
     files.forEach(file => {
-      formData.append('file', file, file.name);
+      formData.append('files', file, file.name);
     });
 
     const req = new HttpRequest('POST', this.BaseUrl + '/UploadFoodImage', formData, {

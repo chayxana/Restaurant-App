@@ -66,7 +66,6 @@ namespace Menu.API.Controllers
                     return BadRequest();
 
                 var category = _mapper.Map<Category>(categoryDto);
-
                 _repository.Update(id, category);
                 return await _repository.Commit() ? Ok() : (IActionResult)BadRequest();
             }

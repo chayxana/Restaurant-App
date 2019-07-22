@@ -1,14 +1,18 @@
-import { Component, OnInit,  ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FoodService } from 'app/services/food.service';
 import { Food } from 'app/models/food';
 import { AuthService } from 'app/services/auth.service';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { environment } from 'environments/environment';
+import { FoodPicture } from 'app/models/foodPicture';
 
 @Component({
   selector: 'app-foods-list',
   template: `
   <div class="container">
     <mat-card>
-      <table mat-table [dataSource]="foods">
+      <table mat-table [dataSource]="foods$ | async">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Name </th>
           <td mat-cell *matCellDef="let element"> {{element.name}} </td>
@@ -27,15 +31,22 @@ import { AuthService } from 'app/services/auth.service';
         </ng-container>
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef>
-            Edit / Delete
+            Actions
           </th>
           <td mat-cell *matCellDef="let row">
-            <a mat-icon-button [routerLink]="['/foods/create']" href="#" [queryParams]="{ id : row.id}">
-              <mat-icon>edit</mat-icon>
-            </a>
-            <button mat-icon-button (click)="onDelete(row.id)">
-              <mat-icon>delete</mat-icon>
+            <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
+              <mat-icon>more_horiz</mat-icon>
             </button>
+            <mat-menu #beforeMenu="matMenu" xPosition="before">
+              <a mat-menu-item [routerLink]="['/foods/edit', row.id]" href="#">
+                <mat-icon>edit</mat-icon>
+                Edit
+              </a>
+              <button mat-menu-item (click)="onDelete(row.id)">
+                <mat-icon>delete</mat-icon>
+                Delete
+              </button>
+            </mat-menu>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -68,7 +79,7 @@ import { AuthService } from 'app/services/auth.service';
 })
 export class FoodListComponent implements OnInit {
 
-  foods: Food[];
+  foods$: Observable<Food[]>;
   selectedFood: Food;
   isLoading: boolean;
   deleting: boolean;
@@ -77,14 +88,7 @@ export class FoodListComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    this.foodService.getAll(this.authService.authorizationHeaderValue).subscribe(foods => {
-      console.table(foods);
-      foods.forEach(f => {
-        f.pictures = f.pictures;
-      });
-      this.foods = foods;
-      this.isLoading = false;
-    });
+    this.foods$ = this.foodService.getAll(this.authService.authorizationHeaderValue);
   }
 
   onDelete(id: string) {
@@ -96,7 +100,7 @@ export class FoodListComponent implements OnInit {
   confirmDelete() {
     this.deleting = true;
     this.foodService.delete(this.selectedFood, this.authService.authorizationHeaderValue).subscribe(x => {
-      this.foods = this.foods.filter(food => food.id !== this.selectedFood.id);
+      // this.foods$ = this.foods$.filter(food => food.id !== this.selectedFood.id);
       this.deleting = false;
     });
   }

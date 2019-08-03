@@ -56,27 +56,6 @@ namespace Menu.API.UnitTests.Controllers
         }
 
         [Fact]
-        public async Task Given_valid_inputs_Post_should_create_food_and_should_upload_image_before_creating()
-        {
-            // given
-            var foodId = "123";
-            var foodDto = new FoodDto();
-            var food = new Food();
-            var fileMock = GetMock<IFormFile>();
-            GetMock<IMapper>().Setup(x => x.Map<Food>(foodDto)).Returns(food);
-            GetMock<IRepository<Food>>().Setup(x => x.Commit()).Returns(Task.FromResult(true));
-
-            // when 
-            await ClassUnderTest.Post(new List<IFormFile>() { fileMock.Object }, foodId);
-            var result = await ClassUnderTest.Post(foodDto);
-
-            // then
-            GetMock<IFileUploadManager>().Verify(x => x.Upload(fileMock.Object), Times.Once);
-            GetMock<IRepository<Food>>().Verify(x => x.Create(food), Times.Once);
-            result.Should().BeOfType<OkResult>();
-        }
-
-        [Fact]
         public async Task Given_id_and_FoodDto_Id_not_equal_Put_should_return_bad_request()
         {
             var id = Guid.NewGuid();

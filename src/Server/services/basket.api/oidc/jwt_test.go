@@ -2,13 +2,13 @@ package oidc
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"testing"
 	"time"
 
-	"github.com/gin-gonic/gin/json"
 	"github.com/lestrrat-go/jwx/jwk"
 
 	"github.com/jurabek/basket.api/mock"

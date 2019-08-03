@@ -174,8 +174,8 @@
     "securityDefinitions": {
         "Identity Server OAuth": {
             "type": "oauth2",
-            "flow": "application",
-            "tokenUrl": "http://localhost:5000/connect/token"
+            "flow": "implicit",
+            "authorizationUrl": "http://localhost:5100/connect/authorize"
         }
     }
 }

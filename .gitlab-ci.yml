@@ -103,7 +103,7 @@ build:identity_api:
       - .nuget/
 
 build:menu_api:
-  image: microsoft/dotnet:2.1-sdk-alpine
+  image: microsoft/dotnet:2.2-sdk-alpine
   stage: build
   script:
     - ci/update_build_badge.sh running menu_api
@@ -145,7 +145,7 @@ test:identity_api:
       - .nuget/
 
 test:menu_api:
-  image: microsoft/dotnet:2.1-sdk-alpine
+  image: microsoft/dotnet:2.2-sdk-alpine
   stage: test
   script:
     - ci/test.sh menu_api

@@ -117,7 +117,7 @@ paths:
       - CustomerBasket
 securityDefinitions:
   Identity Server OAuth:
-    flow: application
-    tokenUrl: http://localhost:5000/connect/token
+    authorizationUrl: http://localhost:5100/connect/authorize
+    flow: implicit
     type: oauth2
 swagger: "2.0"

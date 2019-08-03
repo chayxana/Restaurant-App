@@ -20,9 +20,26 @@ declare var $: any;
           <td mat-cell *matCellDef="let element"> {{element.color}} </td>
         </ng-container>
         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef> Actions </th>
-          <td mat-cell *matCellDef="let row"> {{row.actions}} </td>
+          <th mat-header-cell *matHeaderCellDef>
+            Actions
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
+              <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #beforeMenu="matMenu" xPosition="before">
+              <a mat-menu-item [routerLink]="['/categories/edit', row.id]" href="#">
+                <mat-icon>edit</mat-icon>
+                Edit
+              </a>
+              <button mat-menu-item (click)="onDelete(row.id)">
+                <mat-icon>delete</mat-icon>
+                Delete
+              </button>
+            </mat-menu>
+          </td>
         </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>

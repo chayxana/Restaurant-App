@@ -61,18 +61,21 @@ export class AddFoodComponent implements OnInit {
     this.categories$ = this.categoryService.getAll(this.authService.authorizationHeaderValue);
   }
 
-  imageUpload(e) {
+  imageUpload(e: any) {
     for (let i = 0; i < e.target.files.length; i++) {
       this.newImages.push(e.target.files[i]);
     }
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (this.isEditMode) {
-        this.imageUpdated = true;
-      }
-      this.allPictures.push(<FoodPicture>{ filePath: reader.result as string, id: uuid.v4() });
-    };
-    this.newImages.forEach(f => reader.readAsDataURL(f));
+
+    this.newImages.forEach(f => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (this.isEditMode) {
+          this.imageUpdated = true;
+        }
+        this.allPictures.push(<FoodPicture>{ filePath: reader.result as string, id: uuid.v4() });
+      };
+      reader.readAsDataURL(f);
+    });
   }
 
   deletePicture(picture: FoodPicture) {

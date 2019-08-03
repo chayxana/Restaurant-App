@@ -77,8 +77,8 @@ export class AddCategoryComponent implements OnInit {
     private authService: AuthService) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(route => {
-      const id = route['id'];
+    this.route.paramMap.subscribe(route => {
+      const id = route.get('id');
       if (id) {
         this.isEditMode = true;
         this.isLoading = true;

@@ -11,6 +11,7 @@ namespace Menu.API.Controllers
     [Route("api/v1/[controller]")]
     public class CurrencyController : Controller
     {
+        [HttpGet]
         public IEnumerable<CurrencyDto> Get()
         {
             var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures)

@@ -12,6 +12,7 @@
       </mat-form-field>
       <mat-form-field>
         <input matInput placeholder="Currency" [(ngModel)]="food.currency" name="currency">
+        <mat-error></mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-select placeholder="Categories" [(ngModel)]="food.categoryId" name="categoryId">
@@ -21,7 +22,7 @@
         </mat-select>
       </mat-form-field>
       <div style="margin:15px 0">
-        <input (change)="imageUpload($event)" #file type="file" id="file">
+        <input (change)="imageUpload($event)" multiple #file type="file" id="file">
       </div>
       <div class="images-container" *ngIf="allPictures?.length > 0">
         <mat-card *ngFor="let picture of allPictures">
@@ -35,10 +36,11 @@
         </mat-card>
       </div>
     </mat-card-content>
-    <mat-divider></mat-divider>
     <mat-card-actions align='end'>
-      <mat-spinner-button class="save-button" [options]="saveButtonsOpts" type="submit">Save</mat-spinner-button>
-      <button mat-raised-button type="button" (click)="onCancel()">Cancel</button>
+      <div style="margin-top: 20px">
+        <mat-spinner-button class="save-button" [options]="saveButtonsOpts" type="submit">Save</mat-spinner-button>
+        <button mat-raised-button type="button" (click)="onCancel()">Cancel</button>
+      </div>
     </mat-card-actions>
   </form>
 </mat-card>

@@ -39,18 +39,6 @@ build:gateway_api:
      - .gradle/wrapper
      - .gradle/caches
     policy: pull
-
-build:service_discovery:
-  stage: build
-  image: openjdk:8-jdk-alpine
-  script:
-    - ci/build.sh service_discovery
-  cache:
-    key: gradle-cache
-    paths:
-     - .gradle/wrapper
-     - .gradle/caches
-    policy: pull
     
 build:basket_api:
   image: golang:1.11-alpine

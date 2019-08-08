@@ -3,9 +3,12 @@ import { FoodService } from 'app/services/food.service';
 import { Food } from 'app/models/food';
 import { AuthService } from 'app/services/auth.service';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, filter, switchMap } from 'rxjs/operators';
 import { environment } from 'environments/environment';
 import { FoodPicture } from 'app/models/foodPicture';
+import { MatDialog } from '@angular/material';
+import { ConfirmationDialogComponent } from 'app/components/confirmation-dialog/confirmation-dialog.component';
+import { DialogData } from 'app/models/dialog-data';
 
 @Component({
   selector: 'app-foods-list',
@@ -35,7 +38,7 @@ import { FoodPicture } from 'app/models/foodPicture';
           </th>
           <td mat-cell *matCellDef="let row">
             <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
-              <mat-icon>more_horiz</mat-icon>
+              <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #beforeMenu="matMenu" xPosition="before">
               <a mat-menu-item [routerLink]="['/foods/edit', row.id]" href="#">
@@ -62,12 +65,10 @@ import { FoodPicture } from 'app/models/foodPicture';
     `table {
       width: 100%;
     }
-
     .container {
       position: relative;
       padding: 20px;
     }
-
     .pos-fix {
       position: fixed !important;
       bottom: 20px;
@@ -78,34 +79,34 @@ import { FoodPicture } from 'app/models/foodPicture';
   ]
 })
 export class FoodListComponent implements OnInit {
-
   foods$: Observable<Food[]>;
   selectedFood: Food;
   isLoading: boolean;
   deleting: boolean;
   displayedColumns: string[] = ['name', 'description', 'category', 'price', 'actions'];
-  constructor(private foodService: FoodService, private authService: AuthService) { }
+  constructor(private foodService: FoodService, private authService: AuthService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.isLoading = true;
     this.foods$ = this.foodService.getAll(this.authService.authorizationHeaderValue);
   }
 
-  onDelete(id: string) {
-    this.foodService.get(id, this.authService.authorizationHeaderValue).subscribe(food => {
-      this.selectedFood = food;
+  async onDelete(id: string) {
+    this.selectedFood = await this.foodService.get(id, this.authService.authorizationHeaderValue).toPromise();
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: <DialogData>{
+        title: 'Delete food?',
+        description: `Do you want to delete ${this.selectedFood.name} ?`,
+        positiveButtonText: 'Yes',
+        negativeButtonText: 'No'
+      }
     });
-  }
 
-  confirmDelete() {
-    this.deleting = true;
-    this.foodService.delete(this.selectedFood, this.authService.authorizationHeaderValue).subscribe(x => {
-      // this.foods$ = this.foods$.filter(food => food.id !== this.selectedFood.id);
-      this.deleting = false;
-    });
-  }
-
-  cancelDelete() {
-
+    dialogRef.afterClosed().
+      pipe(
+        filter(x => x === true),
+        switchMap(_ => this.foodService.delete(this.selectedFood, this.authService.authorizationHeaderValue))
+      ).subscribe(x => {
+        this.foods$ = this.foodService.getAll(this.authService.authorizationHeaderValue);
+      });
   }
 }

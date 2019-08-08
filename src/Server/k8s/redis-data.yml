@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: restaurant
+        component: cache-data
+    spec:
+      containers:
+      - image: redis:alpine
+        name: cache-data
+        resources:

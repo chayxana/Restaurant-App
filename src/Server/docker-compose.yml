@@ -1,30 +1,19 @@
-version: '3.7'
+version: '3'
 
 services:
-  service-discovery:
-    image: restaurant-service-discovery
-    build: 
-      context: ./gateway/restaurant-service-discovery
-      dockerfile: Dockerfile.local
-    ports:
-      - "8761:8761"
-
   gateway-api:
-    image: restaurant-gateway
+    image: restaurant/gateway
     build: 
       context: ./gateway/restaurant-gateway/
       dockerfile: Dockerfile.local
     ports: 
       - "8080:8080"
-    depends_on:
-      - service-discovery
 
   identity-api:
     image: restaurant/identity
     build: ./services/identity.api/
     depends_on:
        - pgsql
-       - service-discovery
 
   menu-api:
     image: restaurant/menu
@@ -33,14 +22,12 @@ services:
       dockerfile: Dockerfile.local
     depends_on:
        - pgsql
-       - service-discovery
 
   basket-api:
     image: restaurant/basket
     build: ./services/basket.api/
     depends_on:
       - redis
-      - service-discovery
 
   order-api:
     image: restaurant/order
@@ -49,16 +36,14 @@ services:
       dockerfile: Dockerfile.local
     depends_on:
       - pgsql
-      - service-discovery
 
   pgsql:
     image: postgres:alpine
     volumes: 
       - database-data:/var/lib/postgresql/data
-  
+    
   redis:
     image: redis:alpine
-    
     
 volumes:
   database-data:

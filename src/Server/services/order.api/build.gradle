@@ -46,7 +46,6 @@ repositories {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
     compile('com.auth0:auth0-spring-security-api:1.1.0')
     compile('com.auth0:jwks-rsa:0.8.2')
     compile('org.postgresql:postgresql:42.2.5')

@@ -1,7 +1,19 @@
 
+image_tag=$(date '+%Y%m%d%H%M')
+container_registry='jurabek'
 
-docker_build_and_push() {
-    echo "Docker build..."
-    # docker build --compress -t $IMAGE_BASE_NAME:$CI_API_NAME .
-    # docker push $IMAGE_BASE_NAME:$CI_API_NAME
-}
+echo "#################### Building Docker images ####################"
+docker-compose -f ./docker-compose.yml build
+
+# Remove temporary images
+# docker rmi $(docker images -qf "dangling=true")
+
+echo "#################### Pushing images to registry ####################"
+services=(gateway identity menu basket order)
+
+for service in "${services[@]}"
+do
+    echo "Pushing image for service $service..."
+    docker tag "restaurant/$service" "$container_registry/$service"
+    docker push "$container_registry/$service"
+done

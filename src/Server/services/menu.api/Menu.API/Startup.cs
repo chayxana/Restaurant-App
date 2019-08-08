@@ -126,7 +126,6 @@ namespace Menu.API
             services.AddScoped<IRepository<FoodPicture>, PictureRepository>();
             services.AddScoped<IFoodPictureService, FoodPictureService>();
             services.AddAutoMapper(typeof(Startup).GetTypeInfo().Assembly);
-            services.AddDiscoveryClient(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -136,7 +135,6 @@ namespace Menu.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDiscoveryClient();
             }
             else
             {

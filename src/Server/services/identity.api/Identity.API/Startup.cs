@@ -103,7 +103,6 @@ namespace Identity.API
             services.AddTransient<ILogOutViewModelBuilder, LogOutViewModelBuilder>();
             services.AddTransient<ILoggedOutViewModelBuilder, LoggedOutViewModelBuilder>();
             services.AddTransient<ILoginProvider, LoginProvider>();
-            services.AddDiscoveryClient(Configuration);
             services.AddAutoMapper(typeof(Startup));
         }
 
@@ -151,7 +150,6 @@ namespace Identity.API
             }
 
             app.UseCors("ServerPolicy");
-            app.UseDiscoveryClient();
             app.UseIdentityServer();
 
 

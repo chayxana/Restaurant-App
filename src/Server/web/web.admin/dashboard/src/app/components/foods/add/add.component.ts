@@ -65,7 +65,6 @@ export class AddFoodComponent implements OnInit {
     for (let i = 0; i < e.target.files.length; i++) {
       this.newImages.push(e.target.files[i]);
     }
-
     this.newImages.forEach(f => {
       const reader = new FileReader();
       reader.onloadend = () => {

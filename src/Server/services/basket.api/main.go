@@ -41,8 +41,6 @@ import (
 // @authorizationUrl http://localhost:5100/connect/authorize
 // @scope basket-api
 func main() {
-	os.Setenv("PORT", "5050")
-	os.Setenv("ExternalIdentityUrl", "http://localhost:8080/identity")
 	gin.SetMode(gin.DebugMode)
 
 	handleSigterm()
@@ -80,7 +78,6 @@ func main() {
 	})
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	go eureka.Register()
 	_ = router.Run()
 }
 

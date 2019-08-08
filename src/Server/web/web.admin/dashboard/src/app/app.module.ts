@@ -25,7 +25,7 @@ import {
   MatListModule,
   MatSelectModule,
   MatButtonModule,
-  MatToolbarModule, MatIconModule, MatTableModule
+  MatToolbarModule, MatIconModule, MatTableModule, MatDialogModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -35,6 +35,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { LoginComponent } from './components/account/login/login.component';
 import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
 import { AuthGuard } from './services/auth.guard';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,11 @@ import { AuthGuard } from './services/auth.guard';
     CreateUserComponent,
     NavMenuComponent,
     LoginComponent,
-    AuthCallbackComponent
+    AuthCallbackComponent,
+    ConfirmationDialogComponent
+  ],
+  entryComponents: [
+    ConfirmationDialogComponent
   ],
   imports: [
     routes,
@@ -70,7 +75,8 @@ import { AuthGuard } from './services/auth.guard';
     MatProgressButtonsModule.forRoot(),
     ColorPickerModule,
     MatSnackBarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
   ],
   exports: [
     ColorPickerModule

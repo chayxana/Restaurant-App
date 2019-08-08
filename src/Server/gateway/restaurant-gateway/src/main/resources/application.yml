@@ -5,40 +5,27 @@ server:
 spring:
   application:
     name: restaurant-gateway
- 
-#Ribbon is auto integrated with Zuul and for this exercise we are not using that.
-ribbon:
-  eureka:
-    enabled: enabled
-  ReadTimeout: 60000
-  ConnectTimeout: 60000
- 
-#Zuul routes.
 
+#Zuul routes.
 zuul:
   routes:
     menu:
       path: /menu/**
-      serviceId: menu-service
       sensitiveHeaders:
+      url: ${MENU_URL:http://localhost:5000}
     order:
       path: /order/**
-      serviceId: order-service
+      url: ${ORDER_URL:http://localhost:8090}
     identity:
       path: /identity/**
-      serviceId: identity-service
       sensitiveHeaders:
+      url: ${IDENTITY_URL:http://localhost:5100}
     basket:
       path: /basket/**
-      serviceId: basket-service
+      url: ${BASKET_URL:http://localhost:5200}
   host:
         connect-timeout-millis: 60000
         socket-timeout-millis: 60000
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://${registry.host:localhost}:${registry.port:8761}/eureka/
 
 management:
   endpoints:

@@ -113,9 +113,9 @@ namespace Menu.API
             services.AddScoped<IAmazonS3>(provider => 
             {
                 var configuration = provider.GetService<IConfiguration>();
-                var "" = "AKIA53WX4PRAJMOEMCPC";
-                var  "" = "9IQpaBuifonqDDXs82CG6aSFtVkIXk6WY3AsCaLW";
-                var amazonInstance = new AmazonS3Client("",  "", RegionEndpoint.EUCentral1);
+                var accessKeyId = "";
+                var secretKey = "";
+                var amazonInstance = new AmazonS3Client(accessKeyId, secretKey, RegionEndpoint.EUCentral1);
                 return amazonInstance;
             });
 

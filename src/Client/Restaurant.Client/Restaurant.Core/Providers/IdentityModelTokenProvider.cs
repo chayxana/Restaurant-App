@@ -37,6 +37,8 @@ namespace Restaurant.Core.Providers
 				throw;
 #endif
 			}
+
+			return null;
 		}
 
 		public async Task<TokenResponse> RequestRefreshToken(string refreshToken)

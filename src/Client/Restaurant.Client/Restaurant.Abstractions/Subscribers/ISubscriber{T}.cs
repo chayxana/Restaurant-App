@@ -6,7 +6,7 @@ namespace Restaurant.Abstractions.Subscribers
     /// Provides IObservable to be able subscribe for particular type publishers
     /// </summary>
     /// <typeparam name="T">Particular type of objects </typeparam>
-    public interface ISubscriber<T>
+    public interface ISubscriber<out T>
     {
         IObservable<T> Handler { get; }
     }

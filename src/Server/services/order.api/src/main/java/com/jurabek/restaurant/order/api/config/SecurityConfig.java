@@ -92,6 +92,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             }
         }
 
+        @SuppressWarnings("unchecked")
         List<Jwk> getAll() throws SigningKeyNotFoundException {
             List<Jwk> jwks = Lists.newArrayList();
             final List<Map<String, Object>> keys = (List<Map<String, Object>>) getJwks().get("keys");

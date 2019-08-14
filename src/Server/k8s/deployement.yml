@@ -1,44 +1,3 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: gateway-api
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: gateway-api
-    spec:
-      containers:
-      - image: jurabek/gateway
-        name: gateway-api
-        ports:
-        - containerPort: 8080
-        env:
-        - name: IDENTITY_URL
-          value: http://identity-api
-        - name: BASKET_URL
-          value: http://basket-api
-        - name: ORDER_URL
-          value: http://order-api
-        - name: MENU_URL
-          value: http://menu-api
-        resources: {}
-        livenessProbe:
-          httpGet:
-            path: /actuator/health
-            port: 8080
-          initialDelaySeconds: 50
-          timeoutSeconds: 5
-          periodSeconds: 15
-        readinessProbe:
-          httpGet:
-            path: /actuator/health
-            port: 8080
-          initialDelaySeconds: 50
-          timeoutSeconds: 5
-          periodSeconds: 15
-
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -85,8 +44,6 @@ spec:
           value: Development
         - name: BASKET_API_URL
           value: http://localhost:8080/basket
-        - name: ConnectionStrings__IdentityConnectionString
-          value: Host=pgsql-data;Database=identity_database;Username=admin;Password=Passw0rd!
         - name: ExternalIdentityUrl
           value: http://localhost:8080/identity
         - name: MENU_API_URL
@@ -95,6 +52,11 @@ spec:
           value: http://localhost:8080/order
         - name: PATH_BASE
           value: /identity
+        - name: ConnectionStrings__IdentityConnectionString
+          valueFrom:
+            configMapKeyRef:
+              name: local-config
+              key: identity__ConnectionString
         resources: {}
 
 ---
@@ -118,15 +80,18 @@ spec:
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: Development
+        - name: PATH_BASE
+          value: /menu
         - name: ConnectionStrings__MenuDatabaseConnectionString
-          value: Host=pgsql-data;Database=menu_database;Username=admin;Password=Passw0rd!
+          valueFrom:
+           configMapKeyRef:
+             name: local-config
+             key: menu__ConnectionString
         - name: ExternalIdentityUrl
           value: http://localhost:8080/identity
         - name: InternalIdentityUrl
           value: http://identity-api
-        - name: PATH_BASE
-          value: /menu
-
+        
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -149,9 +114,32 @@ spec:
         - name: ExternalIdentityUrl
           value: http://localhost:8080/identity
         - name: SPRING_DATASOURCE_PASSWORD
-          value: Passw0rd!
+          valueFrom:
+            configMapKeyRef:
+              name: local-config
+              key: order__DataSourcePassword
         - name: SPRING_DATASOURCE_URL
-          value: jdbc:postgresql://pgsql-data:5432/orderdb
+          valueFrom:
+            configMapKeyRef:
+              name: local-config
+              key: order__DataSourceUrl
         - name: SPRING_DATASOURCE_USERNAME
-          value: admin 
+          valueFrom:
+            configMapKeyRef:
+              name: local-config
+              key: order__DataSourceUserName 
         resources: {}
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8090
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8090
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 10

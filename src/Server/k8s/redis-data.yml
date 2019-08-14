@@ -8,10 +8,24 @@ spec:
   template:
     metadata:
       labels:
-        app: restaurant
-        component: cache-data
+        app: basket-cache
     spec:
       containers:
       - image: redis:alpine
         name: cache-data
         resources:
+
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: basket-cache
+  name: pgsql-data
+spec:
+  ports:
+  - port: 5432
+    targetPort: 5432
+  selector:
+    app: pgsql

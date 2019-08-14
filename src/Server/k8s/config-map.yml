@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: local-config
+  labels:
+    app: restaurant  
+data:
+  menu__ConnectionString: Host=pgsql-data;Database=menu_database;Username=admin;Password=Passw0rd!
+  identity__ConnectionString: Host=pgsql-data;Database=identity_database;Username=admin;Password=Passw0rd!
+  order__DataSourceUrl: jdbc:postgresql://pgsql-data:5432/orderdb
+  order__DataSourceUserName: admin
+  order__DataSourcePassword: Passw0rd!
+  

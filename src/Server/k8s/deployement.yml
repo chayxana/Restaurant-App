@@ -129,17 +129,17 @@ spec:
               name: local-config
               key: order__DataSourceUserName 
         resources: {}
-        livenessProbe:
-          httpGet:
-            path: /actuator/health
-            port: 8090
-          initialDelaySeconds: 10
-          timeoutSeconds: 5
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /actuator/health
-            port: 8090
-          initialDelaySeconds: 10
-          timeoutSeconds: 5
-          periodSeconds: 10
+        # livenessProbe:
+        #   httpGet:
+        #     path: /actuator/health
+        #     port: 8090
+        #   initialDelaySeconds: 10
+        #   timeoutSeconds: 5
+        #   periodSeconds: 10
+        # readinessProbe:
+        #   httpGet:
+        #     path: /actuator/health
+        #     port: 8090
+        #   initialDelaySeconds: 10
+        #   timeoutSeconds: 5
+        #   periodSeconds: 10

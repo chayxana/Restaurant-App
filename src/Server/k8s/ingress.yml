@@ -5,26 +5,28 @@ metadata:
     app: frontend
   name: restaurant-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    ingress.kubernetes.io/ssl-redirect: "false"
+    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
   - host: local-restaurant-app
   - http:
       paths:
-      - path: /menu
+      - path: /menu/(.+)
         backend:
           serviceName: menu-api
           servicePort: 80
-      - path: /basket
+      - path: /basket/(.+)
         backend:
           serviceName: basket-api
           servicePort: 80
-      - path: /identity
+      - path: /identity/(.+)
         backend:
           serviceName: identity-api
           servicePort: 80
-      - path: /order
+      - path: /order/(.+)
         backend:
           serviceName: order-api
           servicePort: 80

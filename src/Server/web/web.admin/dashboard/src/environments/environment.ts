@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5000',
-  identityUrl : 'http://localhost:5100',
+  apiUrl: 'http://localhost:8080/menu',
+  identityUrl : 'http://localhost:8080/identity',
   spaBaseUrl : 'http://localhost:4200'
 };
 

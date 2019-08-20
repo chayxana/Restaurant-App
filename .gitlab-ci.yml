@@ -56,6 +56,9 @@ build:basket_api:
     key: go-cache
     paths:
       - go
+  only:
+    changes:
+      - src/Server/services/basket.api/**/*
   
 build:order_api:
   image: openjdk:8-jdk-alpine
@@ -73,6 +76,9 @@ build:order_api:
     paths:
      - .gradle/wrapper
      - .gradle/caches
+  only:
+    changes:
+      - src/Server/services/order.api/**/*
 
 build:identity_api:
   image: microsoft/dotnet:2.2-sdk-alpine
@@ -89,6 +95,9 @@ build:identity_api:
     key: dotnet-cache
     paths:
       - .nuget/
+  only:
+    changes:
+      - src/Server/services/identity.api/**/*
 
 build:menu_api:
   image: microsoft/dotnet:2.2-sdk-alpine
@@ -105,6 +114,9 @@ build:menu_api:
     key: dotnet-cache
     paths:
       - .nuget/
+  only:
+    changes:
+      - src/Server/services/menu.api/**/*
 
 test:basket_api:
   image: golang:1.11-alpine

@@ -39,6 +39,9 @@ build:gateway_api:
      - .gradle/wrapper
      - .gradle/caches
     policy: pull
+  only:
+    changes:
+      - src/Server/gateway/restaurant-gateway/**/*
     
 build:basket_api:
   image: golang:1.11-alpine

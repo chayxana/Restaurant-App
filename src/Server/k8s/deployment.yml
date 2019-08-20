@@ -1,0 +1,150 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: basket-api
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: basket-api
+    spec:
+      containers:
+      - image: jurabek/basket
+        name: basket-api
+        ports:
+        - containerPort: 5200
+        env:
+        - name: ExternalIdentityUrl
+          value: http://localhost/identity
+        - name: REDIS_HOST
+          value: redis
+        resources: {}
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: identity-api
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: identity-api
+    spec:
+      containers:
+      - name: identity-api 
+        ports:
+        - containerPort: 80
+        image: jurabek/identity
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
+        - name: BASKET_API_URL
+          value: http://localhost/basket
+        - name: ExternalIdentityUrl
+          value: http://localhost/identity
+        - name: MENU_API_URL
+          value: http://localhost/menu
+        - name: ORDER_API_URL
+          value: http://localhost/order
+        - name: PATH_BASE
+          value: /identity
+        - name: ConnectionStrings__IdentityConnectionString
+          valueFrom:
+            configMapKeyRef:
+              name: local-config
+              key: identity__ConnectionString
+        resources: {}
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: menu-api
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: menu-api
+    spec:
+      containers:
+      - name: menu-api
+        image: jurabek/menu
+        ports:
+          - containerPort: 80
+        resources: {}
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
+        - name: PATH_BASE
+          value: /menu
+        - name: ConnectionStrings__MenuDatabaseConnectionString
+          valueFrom:
+           configMapKeyRef:
+             name: local-config
+             key: menu__ConnectionString
+        - name: ExternalIdentityUrl
+          value: http://localhost:8080/identity
+        - name: InternalIdentityUrl
+          value: http://identity-api
+        
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: order-api
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: order-api
+    spec:
+      containers:
+      - image: jurabek/order
+        name: order-api
+        ports:
+          - containerPort: 8090
+        env:
+        - name: ExternalIdentityUrl
+          value: http://localhost:8080/identity
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: local-config
+              key: order__DataSourcePassword
+        - name: SPRING_DATASOURCE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: local-config
+              key: order__DataSourceUrl
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: local-config
+              key: order__DataSourceUserName 
+        resources: {}
+
+
+
+
+---
+        # livenessProbe:
+        #   httpGet:
+        #     path: /actuator/health
+        #     port: 8090
+        #   initialDelaySeconds: 10
+        #   timeoutSeconds: 5
+        #   periodSeconds: 10
+        # readinessProbe:
+        #   httpGet:
+        #     path: /actuator/health
+        #     port: 8090
+        #   initialDelaySeconds: 10
+        #   timeoutSeconds: 5
+        #   periodSeconds: 10

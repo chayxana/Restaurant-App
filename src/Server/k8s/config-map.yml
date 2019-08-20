@@ -10,4 +10,5 @@ data:
   order__DataSourceUrl: jdbc:postgresql://pgsql-data:5432/orderdb
   order__DataSourceUserName: admin
   order__DataSourcePassword: Passw0rd!
+  basket__ConnectionString: redis-data
   

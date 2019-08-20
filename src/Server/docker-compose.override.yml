@@ -4,8 +4,8 @@ services:
   gateway-api:
     environment: 
       - IDENTITY_URL=http://identity-api
-      - BASKET_URL=http://basket-api
-      - ORDER_URL=http://order-api
+      - BASKET_URL=http://basket-api:5200
+      - ORDER_URL=http://order-api:8090
       - MENU_URL=http://menu-api
   
   order-api:

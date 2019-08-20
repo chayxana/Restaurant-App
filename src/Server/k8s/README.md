@@ -1,4 +1,4 @@
-# Kubernetes Ingress setup locally
+# How to setup kubernetes ingress locally ?
 
 ## Docker for Mac and Docker Desktop
 

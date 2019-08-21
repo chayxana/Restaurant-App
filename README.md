@@ -1,7 +1,7 @@
 # Restaurant App 
 [![Gitter](https://badges.gitter.im/Restaurant-App-Community/community.svg)](https://gitter.im/Restaurant-App-Community/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-Restaurant App is containerized polyglot microservices application which contains projects based on .NET Core, Golang, Java, Xamarin, React, Angular and etc. The project demonstrates how to develop small microservices for larger applications using containers, orchestration, service discovery, gateway, and etc.
+Restaurant App is containerized polyglot microservices application which contains projects based on .NET Core, Golang, Java, Xamarin, React, Angular and etc. The project demonstrates how to develop small microservices for larger applications using containers, orchestration, service discovery, gateway, and etc. You are always welcome to improve code quality and contribute it.
 
 To getting started, simply fork this repository. Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
@@ -12,7 +12,7 @@ To getting started, simply fork this repository. Please refer to [CONTRIBUTING.m
 - Configuring CI/CD pipelines
 - Using Docker and k8s
 - Writing clean, maintainable and fully testable code
-- Using SOLID principles
+- Using SOLID Design Principles
 - Using Design Patterns
 
 ## Architecture overview

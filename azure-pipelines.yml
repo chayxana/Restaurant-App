@@ -15,7 +15,7 @@ trigger:
 jobs:
 - job: Android
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: 'windows-latest'
   variables:
     buildConfiguration: 'Release'
     outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
@@ -32,7 +32,7 @@ jobs:
 
 - job: iOS
   pool:
-    vmImage: 'macOS-10.13'
+    vmImage: 'macOS-latest'
   variables:
     buildConfiguration: 'Release'
   steps:

@@ -133,6 +133,9 @@ test:basket_api:
     policy: pull
     paths:
       - go
+  only:
+    changes:
+      - src/Server/services/basket.api/**/*
 
 test:identity_api:
   image: microsoft/dotnet:2.2-sdk-alpine
@@ -146,6 +149,9 @@ test:identity_api:
     policy: pull
     paths:
       - .nuget/
+  only:
+    changes:
+      - src/Server/services/identity.api/**/*
 
 test:menu_api:
   image: microsoft/dotnet:2.2-sdk-alpine
@@ -159,6 +165,9 @@ test:menu_api:
     policy: pull
     paths:
       - .nuget/
+  only:
+    changes:
+      - src/Server/services/menu.api/**/*
 
 test:order_api:
   image: openjdk:8-jdk-alpine
@@ -173,4 +182,6 @@ test:order_api:
     paths:
      - .gradle/wrapper
      - .gradle/caches
-
+  only:
+    changes:
+      - src/Server/services/order.api/**/*

@@ -49,12 +49,6 @@
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ActionItemBadge">
-      <HintPath>..\..\Libs\ActionItemBadge.dll</HintPath>
-    </Reference>
-    <Reference Include="Iconics.Core">
-      <HintPath>..\..\Libs\Iconics.Core.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
@@ -94,6 +88,10 @@
     <AndroidResource Include="Resources\layout\nav_drawer_header.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable-mdpi\icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\icon.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\NLog.config" />

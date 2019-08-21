@@ -1,11 +1,11 @@
 ﻿using System;
 using Android.Views;
-using Com.Mikepenz.Actionitembadge.Library;
+//using Com.Mikepenz.Actionitembadge.Library;
 using Object = Java.Lang.Object;
 
 namespace Restaurant.Droid.Renderers
 {
-    public class MenuClickListener : Object, IMenuItemOnMenuItemClickListener, ActionItemBadge.IActionItemBadgeListener
+    public class MenuClickListener : Object, IMenuItemOnMenuItemClickListener //, ActionItemBadge.IActionItemBadgeListener
     {
         private readonly Action _callback;
 

@@ -22,7 +22,7 @@ The main branches are **`develop`** and **`master`**:
 - **`develop`**: Contains the latest code **and it is the branch actively developed**.  
 **All PRs must be against `develop` branch to be considered**. This branch is developed using .NET Core 2.x, Xamarin, Golang 1.11, Java 8
 
-Restaurant-App is a sample app to **showcase architectural patterns** for developing polyglot microservices applications on .NET Core, Golang and Java
+Restaurant-App is a sample app to **showcase architectural and design patterns** for developing polyglot microservices applications on .NET Core, Golang and Java and Xamarin Mobile Applications
 
 Since this is a learning resource, some design decisions have favored simplicity to convey a pattern, over production-grade robustness.
 

@@ -210,7 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
-      <Version>4.9.2</Version>
+      <Version>4.9.4</Version>
     </PackageReference>
     <PackageReference Include="AutoMapper">
       <Version>8.1.1</Version>
@@ -237,7 +237,7 @@
       <Version>2.0.3</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI">
-      <Version>9.19.5</Version>
+      <Version>9.20.1</Version>
     </PackageReference>
     <PackageReference Include="Refit">
       <Version>4.7.9</Version>

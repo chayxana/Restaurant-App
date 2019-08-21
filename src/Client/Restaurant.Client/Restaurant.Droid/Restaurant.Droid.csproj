@@ -14,7 +14,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
@@ -33,10 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>3</WarningLevel>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
-    <AndroidSupportedAbis>arm64-v8a;armeabi-v7a</AndroidSupportedAbis>
+    <AndroidSupportedAbis>x86;arm64-v8a;x86_64</AndroidSupportedAbis>
     <Debugger>Xamarin</Debugger>
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -56,7 +55,6 @@
     <Reference Include="Iconics.Core">
       <HintPath>..\..\Libs\Iconics.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Java.Interop" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
@@ -193,7 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
-      <Version>4.9.2</Version>
+      <Version>4.9.4</Version>
     </PackageReference>
     <PackageReference Include="AutoMapper">
       <Version>8.1.1</Version>
@@ -220,7 +218,7 @@
       <Version>4.6.5</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI">
-      <Version>9.19.5</Version>
+      <Version>9.20.1</Version>
     </PackageReference>
     <PackageReference Include="Refit">
       <Version>4.7.9</Version>

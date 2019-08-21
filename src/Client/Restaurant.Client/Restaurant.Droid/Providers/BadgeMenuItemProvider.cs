@@ -2,8 +2,10 @@
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Views;
-using Com.Mikepenz.Actionitembadge.Library;
-using Com.Mikepenz.Actionitembadge.Library.Utils;
+
+// TODO: Android Binding library failing for ActionItemBadge in Mono 6
+//using Com.Mikepenz.Actionitembadge.Library;
+//using Com.Mikepenz.Actionitembadge.Library.Utils; 
 using Restaurant.Droid.Renderers;
 using Restaurant.Mobile.UI.Controls;
 using Xamarin.Forms;
@@ -28,22 +30,22 @@ namespace Restaurant.Droid.Providers
             var colorPressed = item.BadgePressedColor.ToAndroid();
             var textColor = item.BadgeTextColor.ToAndroid();
 
-            var badgeStyle = new BadgeStyle(BadgeStyle.Style.Default,
-                Resource.Layout.menu_action_item_badge,
-                color,
-                colorPressed,
-                textColor);
+            //var badgeStyle = new BadgeStyle(BadgeStyle.Style.Default,
+            //    Resource.Layout.menu_action_item_badge,
+            //    color,
+            //    colorPressed,
+            //    textColor);
 
-            var iconDrawable = GetFormsDrawable(item.Icon);
+            //var iconDrawable = GetFormsDrawable(item.Icon);
             
-            IMenuItemController menuItemController = item;
+            //IMenuItemController menuItemController = item;
 
-            ActionItemBadge.Update(MainActivity,
-                menuItem,
-                iconDrawable,
-                badgeStyle,
-                item.BadgeText,
-                new MenuClickListener(menuItemController.Activate));
+            //ActionItemBadge.Update(MainActivity,
+            //    menuItem,
+            //    iconDrawable,
+            //    badgeStyle,
+            //    item.BadgeText,
+            //    new MenuClickListener(menuItemController.Activate));
         }
 
         private Drawable GetFormsDrawable(FileImageSource fileImageSource)

@@ -4,7 +4,13 @@
 # https://aka.ms/yaml
 
 trigger:
-- develop
+  branches:
+    include:
+    - develop
+  paths:
+    include:
+    - src/Client/*
+    - azure-pipelines.yml
 
 jobs:
 - job: Android
@@ -20,7 +26,7 @@ jobs:
       restoreSolution: '**/Restaurant.Client.sln'
   - task: XamarinAndroid@1
     inputs:
-      projectFile: '**/*droid*.csproj'
+      projectFile: '**/Restaurant.Droid.csproj'
       outputDirectory: '$(outputDirectory)'
       configuration: '$(buildConfiguration)'
 
@@ -33,10 +39,10 @@ jobs:
   - task: NuGetToolInstaller@0
   - task: NuGetCommand@2
     inputs:
-      restoreSolution: '**/*.sln'
+      restoreSolution: '**/Restaurant.Client.sln'
   - task: XamariniOS@2
     inputs:
-      solutionFile: '**/*iOS.csproj'
+      solutionFile: '**/Restaurant.iOS.csproj'
       configuration: '$(buildConfiguration)'
       buildForSimulator: true
       packageApp: false

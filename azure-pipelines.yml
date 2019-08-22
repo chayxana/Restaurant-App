@@ -32,6 +32,7 @@ jobs:
       msbuildVersionOption: 'latest'
       msbuildArchitectureOption: 'x64'
       jdkOption: 'JDKVersion'
+      msbuildArguments: /p:JavaSdkDirectory="$(JAVA_HOME)/"
 
 - job: iOS
   pool:

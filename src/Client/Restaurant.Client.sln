@@ -4,12 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.28714.193
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{669F573C-3415-4CDC-8951-AA858244DAE6}"
-	ProjectSection(SolutionItems) = preProject
-		Libs\ActionItemBadge.dll = Libs\ActionItemBadge.dll
-		Libs\ActionItemBadge.dll.mdb = Libs\ActionItemBadge.dll.mdb
-		Libs\Iconics.Core.dll = Libs\Iconics.Core.dll
-		Libs\Iconics.Core.dll.mdb = Libs\Iconics.Core.dll.mdb
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{040B67C4-0950-4F57-AA6E-F60D7B3E8583}"
 EndProject

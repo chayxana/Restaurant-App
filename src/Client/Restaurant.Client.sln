@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.iOS", "Restauran
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Mobile.UI", "Restaurant.Client\Restaurant.Mobile.UI\Restaurant.Mobile.UI.csproj", "{810973F0-8F0A-48CA-81AD-B200BFE83557}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Common", "Common\Restaurant.Common\Restaurant.Common.csproj", "{E5F2F938-745F-4FE6-86CD-593E6753255B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{810973F0-8F0A-48CA-81AD-B200BFE83557}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{810973F0-8F0A-48CA-81AD-B200BFE83557}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{810973F0-8F0A-48CA-81AD-B200BFE83557}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5F2F938-745F-4FE6-86CD-593E6753255B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5F2F938-745F-4FE6-86CD-593E6753255B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5F2F938-745F-4FE6-86CD-593E6753255B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5F2F938-745F-4FE6-86CD-593E6753255B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{991CD768-F51F-42D1-8BC7-1E41248AF04C} = {9EAAE24F-C3AD-4649-940D-5D61E95CA2B0}
 		{C5D412FA-2566-4550-8175-2F068FEC44FC} = {9EAAE24F-C3AD-4649-940D-5D61E95CA2B0}
 		{810973F0-8F0A-48CA-81AD-B200BFE83557} = {9EAAE24F-C3AD-4649-940D-5D61E95CA2B0}
+		{E5F2F938-745F-4FE6-86CD-593E6753255B} = {9EAAE24F-C3AD-4649-940D-5D61E95CA2B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BE52BE7E-F327-4CEF-A518-299BC62D35D3}

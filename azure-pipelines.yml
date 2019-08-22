@@ -29,6 +29,9 @@ jobs:
       projectFile: '**/Restaurant.Droid.csproj'
       outputDirectory: '$(outputDirectory)'
       configuration: '$(buildConfiguration)'
+      msbuildVersionOption: 'latest'
+      msbuildArchitectureOption: 'x64'
+      jdkOption: 'JDKVersion'
 
 - job: iOS
   pool:
@@ -44,5 +47,7 @@ jobs:
     inputs:
       solutionFile: '**/Restaurant.iOS.csproj'
       configuration: '$(buildConfiguration)'
-      buildForSimulator: true
+      clean: true
       packageApp: false
+      buildForSimulator: true
+      runNugetRestore: false

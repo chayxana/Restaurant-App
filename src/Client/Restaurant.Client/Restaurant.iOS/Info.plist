@@ -42,5 +42,7 @@
 	<string>UIStatusBarStyleLightContent</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CFBundleName</key>
+	<string>Restaurant.iOS</string>
 </dict>
 </plist>

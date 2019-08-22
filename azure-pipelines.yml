@@ -46,8 +46,3 @@ jobs:
   - task: XamariniOS@2
     inputs:
       solutionFile: '**/Restaurant.iOS.csproj'
-      configuration: '$(buildConfiguration)'
-      clean: true
-      packageApp: false
-      buildForSimulator: true
-      runNugetRestore: false

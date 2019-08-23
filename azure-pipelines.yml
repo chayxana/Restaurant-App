@@ -48,11 +48,13 @@ jobs:
       echo "##vso[task.setvariable variable=PKG_CONFIG_PATH;]$MONOPREFIX/lib/pkgconfig:$MONOPREFIX/share/pkgconfig:$PKG_CONFIG_PATH"
       echo "##vso[task.setvariable variable=PATH;]$MONOPREFIX/bin:$PATH"
       mono --version
-      cat /Library/Frameworks/Xamarin.iOS.framework/Versions/Current/Version
-      ls /Library/Frameworks/Xamarin.iOS.framework/Versions/
-
+      cat /Library/Frameworks/Xamarin.iOS.framework/Versions/6_0_0/Version
+     
       # cat $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh
-      # sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 6_0_0
+      sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 6_0_0
+
+      echo "Current SDK changed: "
+      cat /Library/Frameworks/Xamarin.iOS.framework/Current/Version
       
   - task: NuGetToolInstaller@0
   - task: NuGetCommand@2

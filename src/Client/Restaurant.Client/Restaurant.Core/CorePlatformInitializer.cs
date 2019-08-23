@@ -16,11 +16,10 @@ using Restaurant.Core.Factories;
 using Restaurant.Core.Mappers;
 using Restaurant.Core.MockData;
 using Restaurant.Core.Providers;
-using Restaurant.Core.Publishers;
 using Restaurant.Core.Services;
-using Restaurant.Core.Subscribers;
 using Restaurant.Core.ViewModels;
 using Restaurant.Core.ViewModels.Android;
+using Restaurant.Core.ViewModels.Food;
 
 namespace Restaurant.Core
 {
@@ -32,9 +31,9 @@ namespace Restaurant.Core
         public IContainer Build()
         {
             var builder = new ContainerBuilder();
-            
+
             builder.RegisterInstance(AutoMapperConfiguration.Configure()).As<IMapper>();
-            
+
             builder.RegisterType<FoodsViewModel>().AsSelf();
             builder.RegisterType<FoodDetailViewModel>().AsSelf();
 
@@ -42,26 +41,25 @@ namespace Restaurant.Core
             builder.RegisterType<SignInViewModel>().As<ISignInViewModel>();
             builder.RegisterType<SignUpViewModel>().As<ISignUpViewModel>();
             builder.RegisterType<OrdersViewModel>().AsSelf();
-            builder.RegisterType<BasketViewModel>().As<IBasketViewModel>().SingleInstance();
+            builder.RegisterType<BasketViewModel>().As<IBasketViewModel>();
             builder.RegisterType<MasterViewModel>().As<IMasterViewModel>().SingleInstance();
 
             builder.RegisterType<DateTimeFacade>().As<IDateTimeFacade>();
             builder.RegisterType<FoodDetailViewModelFactory>().As<IFoodDetailViewModelFactory>();
             builder.RegisterType<ViewModelFactory>().As<IViewModelFactory>();
             builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
+            builder.RegisterType<BasketItemsService>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<NavigationItemAdapter>().As<INavigationItemAdapter>();
             builder.RegisterType<OrderDtoAdapter>().As<IOrderDtoAdapter>();
             builder.RegisterType<IdentityModelTokenProvider>().As<ITokenProvider>();
-            
-            builder.RegisterType<BasketItemViewModelPublisher>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<BasketItemViewModelSubscriber>().AsImplementedInterfaces();
-            
+
+
             if (MockData)
             {
                 builder.RegisterType<MockOrdersApi>().As<IOrdersApi>();
                 builder.RegisterType<MockFoodsApi>().As<IFoodsApi>();
                 builder.RegisterType<MockAccountApi>().As<IAccountApi>();
-				builder.RegisterType<MockAuthenticationProvider>().As<IAuthenticationProvider>();
+                builder.RegisterType<MockAuthenticationProvider>().As<IAuthenticationProvider>();
             }
             else
             {
@@ -81,7 +79,7 @@ namespace Restaurant.Core
         }
 
         protected abstract void RegisterTypes(ContainerBuilder builder);
-        
+
         private static void RegisterSelf(ContainerBuilder builder)
         {
             IContainer container = null;

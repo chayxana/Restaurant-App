@@ -1,9 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Autofac;
-using Restaurant.Abstractions.Adapters;
 using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Core.ViewModels;
+using Restaurant.Core.ViewModels.Food;
 
 namespace Restaurant.Core.Factories
 {
@@ -11,6 +10,7 @@ namespace Restaurant.Core.Factories
     public class FoodDetailViewModelFactory : IFoodDetailViewModelFactory
     {
         private readonly IContainer _container;
+
         public FoodDetailViewModelFactory(IContainer container)
         {
             _container = container;

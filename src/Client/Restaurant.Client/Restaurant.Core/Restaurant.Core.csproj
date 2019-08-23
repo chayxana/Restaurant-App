@@ -15,4 +15,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Restaurant.Abstractions\Restaurant.Abstractions.csproj" />
   </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Publishers"/>
+        <Folder Include="Subscribers"/>
+    </ItemGroup>
 </Project>

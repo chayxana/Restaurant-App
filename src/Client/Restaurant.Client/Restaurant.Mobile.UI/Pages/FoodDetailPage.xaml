@@ -8,15 +8,16 @@
                           xmlns:pages="clr-namespace:Restaurant.Mobile.UI.Pages;assembly=Restaurant.Mobile.UI"
                           xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls;assembly=Restaurant.Mobile.UI"
                           xmlns:views="clr-namespace:Restaurant.Mobile.UI.Views;assembly=Restaurant.Mobile.UI"
+                          xmlns:food="clr-namespace:Restaurant.Core.ViewModels.Food;assembly=Restaurant.Core"
                           x:Class="Restaurant.Mobile.UI.Pages.FoodDetailPage"
                           mc:Ignorable="d"
-                          d:DataContext="{d:DesignInstance viewModels:FoodDetailViewModel}">
+                          d:DataContext="{d:DesignInstance food:FoodDetailViewModel}">
 
     <pages:FoodDetailPage.ToolbarItems>
         <controls:BadgeToolbarItem Icon="ic_shopping_cart_white" Command="{Binding GoToBasket}"
                                    BadgeColor="{StaticResource badgeColor}"
                                    BadgePressedColor="{StaticResource badgeColor}"
-                                   BadgeText="{Binding BasketViewModel.OrdersCount}" />
+                                   BadgeText="{Binding BasketItemsCount}" />
     </pages:FoodDetailPage.ToolbarItems>
 
     <AbsoluteLayout>

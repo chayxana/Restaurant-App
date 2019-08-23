@@ -1,11 +1,9 @@
 ﻿using Autofac;
-using Moq;
 using NUnit.Framework;
 using Restaurant.Abstractions.DataTransferObjects;
-using Restaurant.Abstractions.Publishers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Core.ViewModels;
+using Restaurant.Core.ViewModels.Food;
 
 namespace Restaurant.Core.UnitTests.ViewModels
 {
@@ -23,7 +21,6 @@ namespace Restaurant.Core.UnitTests.ViewModels
             viewModel.AddToBasket.Execute(null);
 
             // then
-            GetMock<IBasketItemViewModelPublisher>().Verify(x => x.Publish(viewModel.CurrentBasketItem), Times.Once);
         }
 
         [Test]

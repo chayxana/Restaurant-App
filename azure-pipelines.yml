@@ -23,7 +23,7 @@ jobs:
   steps:
   - task: CacheBeta@0
     inputs:
-      key: nuget | packages.lock.json
+      key: packages.lock.json
       path: $(NUGET_PACKAGES)
     displayName: Cache NuGet packages
 
@@ -50,7 +50,7 @@ jobs:
   steps:
   - task: CacheBeta@0
     inputs:
-      key: nuget | packages.lock.json
+      key: packages.lock.json
       path: $(NUGET_PACKAGES)
     displayName: Cache NuGet packages
     
@@ -62,8 +62,7 @@ jobs:
       echo "##vso[task.setvariable variable=PATH;]$MONOPREFIX/bin:$PATH"
       sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 6_0_0
     displayName: Selecting Xamarin.iOS
-  # - script: /bin/bash -c "echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_10.3.app;sudo xcode-select --switch /Applications/Xcode_10.3.app/Contents/Developer"
-  
+    
   - task: DotNetCoreInstaller@0
     inputs:
       version: '2.2.301'

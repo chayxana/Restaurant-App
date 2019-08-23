@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using AutoMapper;
 using ReactiveUI;
 using Restaurant.Abstractions.Api;
 using Restaurant.Abstractions.Facades;
@@ -17,7 +18,7 @@ namespace Restaurant.Core.ViewModels
     public class FoodsViewModel : BaseViewModel
     {
         private readonly IFoodDetailViewModelFactory _foodDetailViewModelFactory;
-        private readonly IAutoMapperFacade _autoMapperFacade;
+        private readonly IMapper _mapper;
         private readonly IDiagnosticsFacade _diagnosticsFacade;
         private readonly IFoodsApi _foodsApi;
         private readonly INavigationService _navigationService;
@@ -29,14 +30,14 @@ namespace Restaurant.Core.ViewModels
         }
 
         public FoodsViewModel(
-            IAutoMapperFacade autoMapperFacade,
+            IMapper mapper,
             IDiagnosticsFacade diagnosticsFacade,
             IBasketViewModel basketViewModel,
             IFoodsApi foodsApi,
             INavigationService navigationService,
             IFoodDetailViewModelFactory foodDetailViewModelFactory)
         {
-            _autoMapperFacade = autoMapperFacade;
+            _mapper = mapper;
             _diagnosticsFacade = diagnosticsFacade;
             _foodsApi = foodsApi;
             _navigationService = navigationService;
@@ -82,7 +83,7 @@ namespace Restaurant.Core.ViewModels
             {
                 IsLoading = true;
                 var foods = await _foodsApi.GetFoods();
-                var foodsViewModel = _autoMapperFacade.Map<IEnumerable<FoodViewModel>>(foods);
+                var foodsViewModel = _mapper.Map<IEnumerable<FoodViewModel>>(foods);
                 Foods = new ObservableCollection<FoodViewModel>(foodsViewModel);
                 foodsLoaded = true;
                 

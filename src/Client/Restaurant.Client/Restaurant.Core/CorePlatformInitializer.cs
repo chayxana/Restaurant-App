@@ -45,7 +45,6 @@ namespace Restaurant.Core
             builder.RegisterType<BasketViewModel>().As<IBasketViewModel>().SingleInstance();
             builder.RegisterType<MasterViewModel>().As<IMasterViewModel>().SingleInstance();
 
-            builder.RegisterType<AutoMapperFacade>().As<IAutoMapperFacade>();
             builder.RegisterType<DateTimeFacade>().As<IDateTimeFacade>();
             builder.RegisterType<FoodDetailViewModelFactory>().As<IFoodDetailViewModelFactory>();
             builder.RegisterType<ViewModelFactory>().As<IViewModelFactory>();

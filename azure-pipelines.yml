@@ -26,13 +26,13 @@ jobs:
   - task: NuGetCommand@2
     inputs:
       restoreSolution: '**/Restaurant.Client.sln'
-  - task: CacheBeta@0
-    inputs:
-      key: |
-        $(Agent.OS)
-        $(Build.SourcesDirectory)
-      path: $(NUGET_PACKAGES)
-    displayName: Cache NuGet packages
+  # - task: CacheBeta@0
+  #   inputs:
+  #     key: |
+  #       $(Agent.OS)
+  #       $(Build.SourcesDirectory)
+  #     path: $(NUGET_PACKAGES)
+  #   displayName: Cache NuGet packages
   - task: XamarinAndroid@1
     inputs:
       projectFile: '**/Restaurant.Droid.csproj'
@@ -71,13 +71,13 @@ jobs:
   - task: NuGetCommand@2
     inputs:
       restoreSolution: '**/Restaurant.Client.sln'
-  - task: CacheBeta@0
-    inputs:
-      key: |
-        $(Agent.OS)
-        $(Build.SourcesDirectory)
-      path: $(NUGET_PACKAGES)
-    displayName: Cache NuGet packages
+  # - task: CacheBeta@0
+  #   inputs:
+  #     key: |
+  #       $(Agent.OS)
+  #       $(Build.SourcesDirectory)
+  #     path: $(NUGET_PACKAGES)
+  #   displayName: Cache NuGet packages
   - task: XamariniOS@2
     inputs:
       solutionFile: '**/Restaurant.iOS.csproj'

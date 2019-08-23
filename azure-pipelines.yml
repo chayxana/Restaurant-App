@@ -54,7 +54,7 @@ jobs:
       sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 6_0_0
 
       echo "Current SDK changed: "
-      cat /Library/Frameworks/Xamarin.iOS.framework/Current/Version
+      cat /Library/Frameworks/Xamarin.iOS.framework/Versions/Current/Version
       
   - task: NuGetToolInstaller@0
   - task: NuGetCommand@2

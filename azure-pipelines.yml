@@ -21,6 +21,11 @@ jobs:
     outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
     NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages
   steps:
+  
+  - task: NuGetToolInstaller@0
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '**/Restaurant.Client.sln'
   - task: CacheBeta@0
     inputs:
       key: |
@@ -28,11 +33,6 @@ jobs:
         $(Build.SourcesDirectory)
       path: $(NUGET_PACKAGES)
     displayName: Cache NuGet packages
-
-  - task: NuGetToolInstaller@0
-  - task: NuGetCommand@2
-    inputs:
-      restoreSolution: '**/Restaurant.Client.sln'
   - task: XamarinAndroid@1
     inputs:
       projectFile: '**/Restaurant.Droid.csproj'
@@ -50,14 +50,6 @@ jobs:
     buildConfiguration: 'Release'
     NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages
   steps:
-  - task: CacheBeta@0
-    inputs:
-      key: |
-        $(Agent.OS)
-        $(Build.SourcesDirectory)
-      path: $(NUGET_PACKAGES)
-    displayName: Cache NuGet packages
-    
   - bash: |
       SYMLINK=6_0_0
       MONOPREFIX=/Library/Frameworks/Mono.framework/Versions/$SYMLINK
@@ -79,7 +71,13 @@ jobs:
   - task: NuGetCommand@2
     inputs:
       restoreSolution: '**/Restaurant.Client.sln'
-      
+  - task: CacheBeta@0
+    inputs:
+      key: |
+        $(Agent.OS)
+        $(Build.SourcesDirectory)
+      path: $(NUGET_PACKAGES)
+    displayName: Cache NuGet packages
   - task: XamariniOS@2
     inputs:
       solutionFile: '**/Restaurant.iOS.csproj'

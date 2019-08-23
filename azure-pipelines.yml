@@ -19,7 +19,14 @@ jobs:
   variables:
     buildConfiguration: 'Release'
     outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+    NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages
   steps:
+  - task: CacheBeta@0
+    inputs:
+      key: nuget | packages.lock.json
+      path: $(NUGET_PACKAGES)
+    displayName: Cache NuGet packages
+
   - task: NuGetToolInstaller@0
   - task: NuGetCommand@2
     inputs:
@@ -39,7 +46,14 @@ jobs:
     vmImage: 'macOS-latest'
   variables:
     buildConfiguration: 'Release'
+    NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages
   steps:
+  - task: CacheBeta@0
+    inputs:
+      key: nuget | packages.lock.json
+      path: $(NUGET_PACKAGES)
+    displayName: Cache NuGet packages
+    
   - bash: |
       SYMLINK=6_0_0
       MONOPREFIX=/Library/Frameworks/Mono.framework/Versions/$SYMLINK
@@ -50,7 +64,6 @@ jobs:
     displayName: Selecting Xamarin.iOS
   # - script: /bin/bash -c "echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_10.3.app;sudo xcode-select --switch /Applications/Xcode_10.3.app/Contents/Developer"
   
-
   - task: DotNetCoreInstaller@0
     inputs:
       version: '2.2.301'

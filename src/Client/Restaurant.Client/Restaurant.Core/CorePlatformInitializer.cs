@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Autofac;
+using AutoMapper;
 using Refit;
 using Restaurant.Abstractions.Adapters;
 using Restaurant.Abstractions.Api;
@@ -12,6 +13,7 @@ using Restaurant.Abstractions.ViewModels;
 using Restaurant.Core.Adapters;
 using Restaurant.Core.Facades;
 using Restaurant.Core.Factories;
+using Restaurant.Core.Mappers;
 using Restaurant.Core.MockData;
 using Restaurant.Core.Providers;
 using Restaurant.Core.Publishers;
@@ -30,6 +32,8 @@ namespace Restaurant.Core
         public IContainer Build()
         {
             var builder = new ContainerBuilder();
+            
+            builder.RegisterInstance(AutoMapperConfiguration.Configure()).As<IMapper>();
             
             builder.RegisterType<FoodsViewModel>().AsSelf();
             builder.RegisterType<FoodDetailViewModel>().AsSelf();

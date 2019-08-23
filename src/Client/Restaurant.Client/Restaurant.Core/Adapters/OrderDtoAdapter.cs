@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AutoMapper;
 using ReactiveUI;
 using Restaurant.Abstractions.Adapters;
 using Restaurant.Abstractions.DataTransferObjects;
@@ -11,19 +12,19 @@ namespace Restaurant.Core.Adapters
     public class OrderDtoAdapter : IOrderDtoAdapter
     {
 	    private readonly IDateTimeFacade _dateTimeFacade;
-	    private readonly IAutoMapperFacade _autoMapperFacade;
+	    private readonly IMapper _mapper;
 
         public OrderDtoAdapter(
 			IDateTimeFacade dateTimeFacade,
-			IAutoMapperFacade autoMapperFacade)
+			IMapper mapper)
         {
 	        _dateTimeFacade = dateTimeFacade;
-	        _autoMapperFacade = autoMapperFacade;
+	        _mapper = mapper;
         }
 
         public OrderDto GetOrderFromOrderViewModels(IEnumerable<IBasketItemViewModel> orderViewModels)
         {
-            var orderItems = _autoMapperFacade.Map<IEnumerable<OrderItemDto>>(orderViewModels);
+            var orderItems = _mapper.Map<IEnumerable<OrderItemDto>>(orderViewModels);
             return new OrderDto
             {
                 DateTime = _dateTimeFacade.Now,

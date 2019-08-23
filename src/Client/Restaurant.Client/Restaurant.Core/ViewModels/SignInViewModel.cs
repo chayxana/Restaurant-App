@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using AutoMapper;
 using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.DataTransferObjects;
@@ -18,7 +19,7 @@ namespace Restaurant.Core.ViewModels
 
         public SignInViewModel(
             IAuthenticationProvider authenticationProvider,
-            IAutoMapperFacade autoMapperFacade,
+            IMapper autoMapperFacade,
             INavigationService navigationService)
         {
             var canLogin = this.WhenAny(x => x.Email, x => x.Password,

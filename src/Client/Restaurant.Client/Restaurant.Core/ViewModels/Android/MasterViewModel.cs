@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Threading.Tasks;
+using AutoMapper;
 using ReactiveUI;
 using Restaurant.Abstractions.Api;
 using Restaurant.Abstractions.Constants;
@@ -14,16 +15,16 @@ namespace Restaurant.Core.ViewModels.Android
 	{
 		private readonly IAuthenticationProvider _authenticationProvider;
 		private readonly IAccountApi _accountApi;
-		private readonly IAutoMapperFacade _autoMapperFacade;
+		private readonly IMapper _mapper;
 		
 		public MasterViewModel(
 			IAuthenticationProvider authenticationProvider,
 			IAccountApi accountApi,
-			IAutoMapperFacade autoMapperFacade)
+			IMapper mapper)
 		{
 			_authenticationProvider = authenticationProvider;
 			_accountApi = accountApi;
-			_autoMapperFacade = autoMapperFacade;
+			_mapper = mapper;
 		}
 
 		private NavigationItem _selectedNavigationItem;
@@ -54,7 +55,7 @@ namespace Restaurant.Core.ViewModels.Android
 
 			var userDto = await _accountApi.GetUserInfo($"{ApiConstants.Bearer} {accessToken}");
 
-			UserViewModel = _autoMapperFacade.Map<UserViewModel>(userDto);
+			UserViewModel = _mapper.Map<UserViewModel>(userDto);
 		}
 	}
 }

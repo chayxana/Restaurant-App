@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using ReactiveUI;
@@ -74,7 +75,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
             GetMock<IBasketItemViewModelSubscriber>().SetupGet(x => x.Handler)
                 .Returns(publisher);
             
-            GetMock<IAutoMapperFacade>()
+            GetMock<IMapper>()
                 .Setup(x => x.Map<IEnumerable<OrderItemDto>>(It.IsAny<ObservableCollection<IBasketItemViewModel>>()))
                 .Returns(orders);
 

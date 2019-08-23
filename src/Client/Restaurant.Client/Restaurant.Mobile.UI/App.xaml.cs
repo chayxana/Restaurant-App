@@ -21,7 +21,6 @@ namespace Restaurant.Mobile.UI
         {
             _platformInitializer = platformInitializer;
             InitializeComponent();
-            AutoMapperConfiguration.Configure();
             SetupMainPage();
         }
 

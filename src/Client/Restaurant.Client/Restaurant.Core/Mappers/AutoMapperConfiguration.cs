@@ -6,9 +6,13 @@ namespace Restaurant.Core.Mappers
     [ExcludeFromCodeCoverage]
     public static class AutoMapperConfiguration
     {
-        public static void Configure()
+        public static IMapper Configure()
         {
-            Mapper.Initialize(x => { x.AddProfile<ViewModelToDataTransferObjectsProfile>(); });
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<ViewModelToDataTransferObjectsProfile>();
+            });
+            return new Mapper(configuration);
         }
     }
 }

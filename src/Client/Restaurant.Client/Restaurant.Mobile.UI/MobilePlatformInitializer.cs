@@ -9,6 +9,7 @@ using Restaurant.Abstractions.ViewModels;
 using Restaurant.Core;
 using Restaurant.Core.ViewModels;
 using Restaurant.Core.ViewModels.Android;
+using Restaurant.Core.ViewModels.Food;
 using Restaurant.Core.ViewModels.iOS;
 using Restaurant.Mobile.UI.Facades;
 using Restaurant.Mobile.UI.Factories;
@@ -21,7 +22,7 @@ using Xamarin.Forms;
 
 namespace Restaurant.Mobile.UI
 {
-    public abstract class  MobilePlatformInitializer : CorePlatformInitializer
+    public abstract class MobilePlatformInitializer : CorePlatformInitializer
     {
         protected override void RegisterTypes(ContainerBuilder builder)
         {
@@ -42,8 +43,8 @@ namespace Restaurant.Mobile.UI
             builder.RegisterType<PlatformFacade>().As<IPlatformFacade>();
             builder.RegisterType<ViewFactory>().As<IViewFactory>();
             builder.RegisterType<DiagnosticsFacade>().As<IDiagnosticsFacade>();
-	        builder.RegisterType<SettingsProvider>().As<ISettingsProvider>().SingleInstance();
-	        builder.RegisterInstance(CrossSettings.Current).As<ISettings>().SingleInstance();
+            builder.RegisterType<SettingsProvider>().As<ISettingsProvider>().SingleInstance();
+            builder.RegisterInstance(CrossSettings.Current).As<ISettings>().SingleInstance();
         }
     }
 }

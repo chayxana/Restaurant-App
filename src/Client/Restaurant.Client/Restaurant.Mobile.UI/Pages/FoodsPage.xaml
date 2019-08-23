@@ -25,7 +25,7 @@
     <pages:FoodsXamlPage.ToolbarItems>
         <controls:BadgeToolbarItem Icon="ic_shopping_cart_white"
                                    Command="{Binding GoToBasket}"
-                                   BadgeText="{Binding BasketViewModel.OrdersCount}"
+                                   BadgeText="{Binding BasketItemsCount}"
                                    BadgeColor="{StaticResource badgeColor}"
                                    BadgePressedColor="{StaticResource badgeColor}" />
     </pages:FoodsXamlPage.ToolbarItems>
@@ -43,7 +43,7 @@
                                    VerticalOptions="EndAndExpand">
                     <ActivityIndicator.Color>
                         <OnPlatform x:TypeArguments="Color">
-                            <On Platform="Android" Value="{StaticResource primaryColor}"/>
+                            <On Platform="Android" Value="{StaticResource primaryColor}" />
                         </OnPlatform>
                     </ActivityIndicator.Color>
                 </ActivityIndicator>

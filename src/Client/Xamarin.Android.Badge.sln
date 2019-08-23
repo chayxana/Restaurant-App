@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iconics.Core", "Xamarin.Android.Badge\Iconics.Core\Iconics.Core.csproj", "{5CD4E60D-6382-4297-A8F4-863710F303EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionItemBadge", "Xamarin.Android.Badge\ActionItemBadge\ActionItemBadge.csproj", "{5C908A97-73F3-49CB-9F96-BD61F2D7F4EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5CD4E60D-6382-4297-A8F4-863710F303EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CD4E60D-6382-4297-A8F4-863710F303EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CD4E60D-6382-4297-A8F4-863710F303EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CD4E60D-6382-4297-A8F4-863710F303EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C908A97-73F3-49CB-9F96-BD61F2D7F4EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C908A97-73F3-49CB-9F96-BD61F2D7F4EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C908A97-73F3-49CB-9F96-BD61F2D7F4EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C908A97-73F3-49CB-9F96-BD61F2D7F4EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

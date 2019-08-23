@@ -2,10 +2,8 @@
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Views;
-
-// TODO: Android Binding library failing for ActionItemBadge in Mono 6
-//using Com.Mikepenz.Actionitembadge.Library;
-//using Com.Mikepenz.Actionitembadge.Library.Utils; 
+using Com.Mikepenz.Actionitembadge.Library;
+using Com.Mikepenz.Actionitembadge.Library.Utils;
 using Restaurant.Droid.Renderers;
 using Restaurant.Mobile.UI.Controls;
 using Xamarin.Forms;
@@ -17,12 +15,12 @@ namespace Restaurant.Droid.Providers
     {
         private readonly Context _context;
 
-        private MainActivity MainActivity => _context as MainActivity;
-
         public BadgeMenuItemProvider(Context context)
         {
             _context = context;
         }
+
+        private MainActivity MainActivity => _context as MainActivity;
 
         internal void UpdateMenuItemBadge(IMenuItem menuItem, BadgeToolbarItem item)
         {
@@ -30,22 +28,22 @@ namespace Restaurant.Droid.Providers
             var colorPressed = item.BadgePressedColor.ToAndroid();
             var textColor = item.BadgeTextColor.ToAndroid();
 
-            //var badgeStyle = new BadgeStyle(BadgeStyle.Style.Default,
-            //    Resource.Layout.menu_action_item_badge,
-            //    color,
-            //    colorPressed,
-            //    textColor);
+            var badgeStyle = new BadgeStyle(BadgeStyle.Style.Default,
+                Resource.Layout.menu_action_item_badge,
+                color,
+                colorPressed,
+                textColor);
 
-            //var iconDrawable = GetFormsDrawable(item.Icon);
-            
-            //IMenuItemController menuItemController = item;
+            var iconDrawable = GetFormsDrawable(item.Icon);
 
-            //ActionItemBadge.Update(MainActivity,
-            //    menuItem,
-            //    iconDrawable,
-            //    badgeStyle,
-            //    item.BadgeText,
-            //    new MenuClickListener(menuItemController.Activate));
+            IMenuItemController menuItemController = item;
+
+            ActionItemBadge.Update(MainActivity,
+                menuItem,
+                iconDrawable,
+                badgeStyle,
+                item.BadgeText,
+                new MenuClickListener(menuItemController.Activate));
         }
 
         private Drawable GetFormsDrawable(FileImageSource fileImageSource)
@@ -58,6 +56,7 @@ namespace Restaurant.Droid.Providers
                 if (bitmap != null)
                     drawable = new BitmapDrawable(_context.Resources, bitmap);
             }
+
             return drawable;
         }
     }

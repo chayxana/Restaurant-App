@@ -17,13 +17,17 @@ namespace Restaurant.Core.ViewModels
 {
     public class FoodsViewModel : BaseViewModel
     {
-        private readonly IFoodDetailViewModelFactory _foodDetailViewModelFactory;
-        private readonly IMapper _mapper;
         private readonly IDiagnosticsFacade _diagnosticsFacade;
+        private readonly IFoodDetailViewModelFactory _foodDetailViewModelFactory;
         private readonly IFoodsApi _foodsApi;
+        private readonly IMapper _mapper;
         private readonly INavigationService _navigationService;
+
+        private string _basketItemsCount;
         private ObservableCollection<FoodViewModel> _foods;
         private FoodViewModel _selectedFood;
+
+        private bool foodsLoaded;
 
         internal FoodsViewModel()
         {
@@ -32,10 +36,10 @@ namespace Restaurant.Core.ViewModels
         public FoodsViewModel(
             IMapper mapper,
             IDiagnosticsFacade diagnosticsFacade,
-            IBasketViewModel basketViewModel,
             IFoodsApi foodsApi,
             INavigationService navigationService,
-            IFoodDetailViewModelFactory foodDetailViewModelFactory)
+            IFoodDetailViewModelFactory foodDetailViewModelFactory,
+            IBasketItemsService basketItemsService)
         {
             _mapper = mapper;
             _diagnosticsFacade = diagnosticsFacade;
@@ -47,10 +51,15 @@ namespace Restaurant.Core.ViewModels
                 .Where(x => x != null)
                 .Subscribe(async food => await NavigateToFoodDetail(food));
 
-            GoToBasket =
-                ReactiveCommand.CreateFromTask(async () => await _navigationService.NavigateAsync(BasketViewModel));
+            BasketItemsCount = basketItemsService.ItemsCount;
 
-            BasketViewModel = basketViewModel;
+            basketItemsService.Handler
+                .Select(x => x.ToString())
+                .Subscribe(x => BasketItemsCount = x);
+
+            GoToBasket =
+                ReactiveCommand.CreateFromTask(
+                    async () => await _navigationService.NavigateAsync(typeof(IBasketViewModel)));
         }
 
 
@@ -66,13 +75,16 @@ namespace Restaurant.Core.ViewModels
             set => this.RaiseAndSetIfChanged(ref _selectedFood, value);
         }
 
-        public IBasketViewModel BasketViewModel { get; }
 
         public ICommand GoToBasket { get; set; }
 
-        public override string Title => "Foods";
+        public string BasketItemsCount
+        {
+            get => _basketItemsCount;
+            set => this.RaiseAndSetIfChanged(ref _basketItemsCount, value);
+        }
 
-        private bool foodsLoaded = false;
+        public override string Title => "Foods";
 
         public async Task LoadFoods()
         {
@@ -86,7 +98,7 @@ namespace Restaurant.Core.ViewModels
                 var foodsViewModel = _mapper.Map<IEnumerable<FoodViewModel>>(foods);
                 Foods = new ObservableCollection<FoodViewModel>(foodsViewModel);
                 foodsLoaded = true;
-                
+
                 IsLoading = false;
             }
             catch (Exception ex)

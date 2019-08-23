@@ -22,11 +22,9 @@ jobs:
   steps:
   - task: NuGetToolInstaller@0
   - task: NuGetCommand@2
-    enabled: false
     inputs:
       restoreSolution: '**/Restaurant.Client.sln'
   - task: XamarinAndroid@1
-    enabled: false
     inputs:
       projectFile: '**/Restaurant.Droid.csproj'
       outputDirectory: '$(outputDirectory)'

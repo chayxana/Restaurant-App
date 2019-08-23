@@ -23,12 +23,12 @@ namespace Restaurant.Core.Adapters
                     return _viewModelFactory.GetViewModel(typeof(FoodsViewModel));
                 case NavigationItem.Orders:
                     return _viewModelFactory.GetViewModel(typeof(OrdersViewModel)); // TODO:
-                //case NavigationItem.Chat:
-                //    return _viewModelFactory.GetViewModel(typeof(object)); // TODO:
+                case NavigationItem.Chat:
+                    return _viewModelFactory.GetViewModel(typeof(OrdersViewModel)); // TODO:
                 //case NavigationItem.Settings:
                 //    return _viewModelFactory.GetViewModel(typeof(object)); // TODO:
                 default:
-	                return null;
+                    return null;
             }
         }
     }

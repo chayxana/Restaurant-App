@@ -1,31 +1,44 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Reactive.Linq;
+using System.Windows.Input;
 using JetBrains.Annotations;
 using ReactiveUI;
-using Restaurant.Abstractions.Publishers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Core.ViewModels.Food;
 
-namespace Restaurant.Core.ViewModels
+namespace Restaurant.Core.ViewModels.Food
 {
     public class FoodDetailViewModel : BaseViewModel, IFoodDetailViewModel
     {
+        private string _basketItemsCount;
         private IBasketItemViewModel _currentBasketItemViewModel;
 
         public FoodDetailViewModel(
             IFoodViewModel selectedFood,
-            IBasketItemViewModelPublisher basketItemViewModelPublisher,
-            INavigationService navigationService)
+            INavigationService navigationService,
+            IBasketItemsService basketItemsService)
         {
             SelectedFood = selectedFood;
-            
+
             CurrentBasketItem = new BasketItemViewModel(SelectedFood);
 
-            AddToBasket = ReactiveCommand.Create(() => 
-                basketItemViewModelPublisher.Publish(CurrentBasketItem));
+            AddToBasket = ReactiveCommand.Create(() =>
+                basketItemsService.Add(CurrentBasketItem));
 
             GoToBasket = ReactiveCommand.CreateFromTask(async () =>
                 await navigationService.NavigateAsync(typeof(IBasketViewModel)));
+
+            BasketItemsCount = basketItemsService.ItemsCount;
+
+            basketItemsService.Handler
+                .Select(x => x.ToString())
+                .Subscribe(x => BasketItemsCount = x);
+        }
+
+        public string BasketItemsCount
+        {
+            get => _basketItemsCount;
+            set => this.RaiseAndSetIfChanged(ref _basketItemsCount, value);
         }
 
         public override string Title => SelectedFood.Name;

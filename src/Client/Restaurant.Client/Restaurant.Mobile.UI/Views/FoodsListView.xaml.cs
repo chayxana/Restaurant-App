@@ -8,6 +8,7 @@ namespace Restaurant.Mobile.UI.Views
         public FoodsListView() : base(ListViewCachingStrategy.RecycleElement)
         {
             InitializeComponent();
+            ItemSelected += (_, __) => SelectedItem = null;
         }
     }
 }

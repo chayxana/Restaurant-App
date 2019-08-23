@@ -1,6 +1,4 @@
-﻿using Restaurant.Core.ViewModels;
-using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+﻿using Restaurant.Core.ViewModels.Food;
 using Xamarin.Forms.Xaml;
 
 namespace Restaurant.Mobile.UI.Pages

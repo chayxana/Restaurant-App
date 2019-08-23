@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using ReactiveUI;
 
 namespace Restaurant.Abstractions.ViewModels
 {
@@ -7,6 +6,6 @@ namespace Restaurant.Abstractions.ViewModels
     {
         ObservableCollection<IBasketItemViewModel> Items { get; }
 
-        string OrdersCount { get; }
+        decimal TotalPrice { get; }
     }
 }

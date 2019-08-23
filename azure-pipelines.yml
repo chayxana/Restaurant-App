@@ -23,7 +23,9 @@ jobs:
   steps:
   - task: CacheBeta@0
     inputs:
-      key: packages.lock.json
+      key: |
+        $(Agent.OS)
+        $(Build.SourcesDirectory)
       path: $(NUGET_PACKAGES)
     displayName: Cache NuGet packages
 
@@ -50,7 +52,9 @@ jobs:
   steps:
   - task: CacheBeta@0
     inputs:
-      key: packages.lock.json
+      key: |
+        $(Agent.OS)
+        $(Build.SourcesDirectory)
       path: $(NUGET_PACKAGES)
     displayName: Cache NuGet packages
     

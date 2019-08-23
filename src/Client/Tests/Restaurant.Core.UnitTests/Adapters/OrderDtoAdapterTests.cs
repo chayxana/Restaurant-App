@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using AutoMapper;
 using NUnit.Framework;
 using ReactiveUI;
 using Restaurant.Abstractions.DataTransferObjects;
@@ -18,7 +19,7 @@ namespace Restaurant.Core.UnitTests.Adapters
 			IEnumerable<OrderItemDto> orderItems)
 		{
 			// given
-			GetMock<IAutoMapperFacade>()
+			GetMock<IMapper>()
 				.Setup(x => x.Map<IEnumerable<OrderItemDto>>(orderViewModels)).Returns(orderItems);
 			
 			GetMock<IDateTimeFacade>()

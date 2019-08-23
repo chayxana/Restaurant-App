@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using Restaurant.Abstractions.DataTransferObjects;
@@ -37,7 +38,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
             authenticationManager.Setup(x => x.Login(It.IsAny<LoginDto>()))
                 .Returns(Task.FromResult(tokenResponse));
 
-            GetMock<IAutoMapperFacade>().Setup(x => x.Map<RegisterDto>(It.IsAny<SignUpViewModel>())).Returns(registerDto);
+            GetMock<IMapper>().Setup(x => x.Map<RegisterDto>(It.IsAny<SignUpViewModel>())).Returns(registerDto);
 
 
             // when

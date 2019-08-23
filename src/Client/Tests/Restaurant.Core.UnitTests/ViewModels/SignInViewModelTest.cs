@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using Restaurant.Abstractions.DataTransferObjects;
@@ -40,7 +41,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
             ViewModel.Password = "invalid";
             var tokenResponse = new TokenResponse {IsError = true, HttpStatusCode = HttpStatusCode.BadRequest};
 
-            GetMock<IAutoMapperFacade>().Setup(x => x.Map<LoginDto>(ViewModel))
+            GetMock<IMapper>().Setup(x => x.Map<LoginDto>(ViewModel))
                 .Returns<LoginDto>(null);
 
             GetMock<IAuthenticationProvider>().Setup(x => x.Login(null)).Returns(Task.FromResult(tokenResponse));
@@ -63,7 +64,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
 
             var loginDto = new LoginDto {Login = ViewModel.Email, Password = ViewModel.Password};
 
-            GetMock<IAutoMapperFacade>().Setup(x => x.Map<LoginDto>(ViewModel))
+            GetMock<IMapper>().Setup(x => x.Map<LoginDto>(ViewModel))
                 .Returns(loginDto);
 
             GetMock<IAuthenticationProvider>().Setup(x => x.Login(loginDto)).Returns(Task.FromResult(tokenResponse));
@@ -86,7 +87,7 @@ namespace Restaurant.Core.UnitTests.ViewModels
 
             var loginDto = new LoginDto {Login = ViewModel.Email, Password = ViewModel.Password};
 
-            GetMock<IAutoMapperFacade>().Setup(x => x.Map<LoginDto>(ViewModel))
+            GetMock<IMapper>().Setup(x => x.Map<LoginDto>(ViewModel))
                 .Returns(loginDto);
 
             GetMock<IAuthenticationProvider>().Setup(x => x.Login(loginDto)).Returns(Task.FromResult(tokenResponse));

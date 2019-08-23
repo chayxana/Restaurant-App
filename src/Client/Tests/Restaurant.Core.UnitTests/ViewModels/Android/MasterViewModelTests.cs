@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Albedo;
 using AutoFixture;
 using AutoFixture.Idioms;
+using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using Restaurant.Abstractions.Api;
@@ -24,7 +25,7 @@ namespace Restaurant.Core.UnitTests.ViewModels.Android
 		    var masterViewModel = ClassUnderTest;
 			var userViewModel = new UserViewModel();
 			GetMock<IAuthenticationProvider>().Setup(x => x.GetAccessToken()).Returns(Task.FromResult(accessToken));
-		    GetMock<IAutoMapperFacade>().Setup(x => x.Map<UserViewModel>(userDto)).Returns(userViewModel);
+		    GetMock<IMapper>().Setup(x => x.Map<UserViewModel>(userDto)).Returns(userViewModel);
 		    GetMock<IAccountApi>().Setup(x => x.GetUserInfo(It.IsAny<string>())).Returns(Task.FromResult(userDto));
 			// when
 		    await masterViewModel.LoadUserInfo();

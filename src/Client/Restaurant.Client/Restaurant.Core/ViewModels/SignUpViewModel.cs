@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Windows.Input;
+using AutoMapper;
 using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.DataTransferObjects;
@@ -19,7 +20,7 @@ namespace Restaurant.Core.ViewModels
         private string _password;
 
         public SignUpViewModel(
-            IAutoMapperFacade autoMapperFacade,
+            IMapper mapper,
             IAuthenticationProvider authenticationProvider,
             INavigationService navigationService)
         {
@@ -30,7 +31,7 @@ namespace Restaurant.Core.ViewModels
                 .CreateFromTask(async _ =>
                 {
                     IsLoading = true;
-                    var registerDto = autoMapperFacade.Map<RegisterDto>(this);
+                    var registerDto = mapper.Map<RegisterDto>(this);
                     var result = await authenticationProvider.Register(registerDto);
 
                     if (result.IsSuccessStatusCode)

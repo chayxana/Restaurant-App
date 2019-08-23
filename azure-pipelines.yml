@@ -51,12 +51,18 @@ jobs:
       sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 6_0_0
     displayName: Selecting Xamarin.iOS
   # - script: /bin/bash -c "echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_10.3.app;sudo xcode-select --switch /Applications/Xcode_10.3.app/Contents/Developer"
+  
+
+
+  - task: DotNetCoreInstaller@0
+    inputs:
+      version: '2.2.301'
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '2.2.301'
     
   - task: NuGetToolInstaller@0
-    inputs:
-      versionSpec: '4.3.0'
-      checkLatest: true
-
   - task: NuGetCommand@2
     inputs:
       restoreSolution: '**/Restaurant.Client.sln'

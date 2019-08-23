@@ -49,9 +49,8 @@ jobs:
       echo "##vso[task.setvariable variable=PKG_CONFIG_PATH;]$MONOPREFIX/lib/pkgconfig:$MONOPREFIX/share/pkgconfig:$PKG_CONFIG_PATH"
       echo "##vso[task.setvariable variable=PATH;]$MONOPREFIX/bin:$PATH"
       sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 6_0_0
-      echo "##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]/Applications/Xcode_10.3.app;sudo xcode-select --switch /Applications/Xcode_10.3.app/Contents/Developer"
-      xcode-select -p
     displayName: Selecting Xamarin.iOS
+  # - script: /bin/bash -c "echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_10.3.app;sudo xcode-select --switch /Applications/Xcode_10.3.app/Contents/Developer"
     
   - task: NuGetToolInstaller@0
   - task: NuGetCommand@2

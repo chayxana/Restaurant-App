@@ -175,7 +175,7 @@
         "Identity Server OAuth": {
             "type": "oauth2",
             "flow": "implicit",
-            "authorizationUrl": "http://localhost:5100/connect/authorize"
+            "authorizationUrl": "http://localhost/identity/connect/authorize"
         }
     }
 }

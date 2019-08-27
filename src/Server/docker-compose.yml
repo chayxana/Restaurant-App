@@ -37,6 +37,12 @@ services:
     depends_on:
       - pgsql
 
+  dashboard-app:
+    image: restaurant/dashboard
+    build:
+      context: ./web/web.admin/dashboard
+      dockerfile: Dockerfile
+      
   pgsql:
     image: postgres:alpine
     volumes: 

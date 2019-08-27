@@ -1,14 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using AutoMapper;
+using HealthChecks.UI.Client;
 using Identity.API.Abstraction.Providers;
 using Identity.API.Abstraction.ViewModelBuilders;
 using Identity.API.Data;
+using Identity.API.Middleware;
 using Identity.API.Model.Entities;
 using Identity.API.Providers;
 using Identity.API.Utils;
 using Identity.API.ViewModelBuilders;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -17,8 +20,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
-using Steeltoe.Discovery.Client;
 
 namespace Identity.API
 {
@@ -35,16 +38,24 @@ namespace Identity.API
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+
             services.Configure<ForwardedHeadersOptions>(options =>
             {
-                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor |
-                    ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
-
-                options.ForwardedHostHeaderName = "x-forwarded-host";
-                options.ForwardedProtoHeaderName = "x-forwarded-proto";
-
-                options.KnownNetworks.Clear();
-                options.KnownProxies.Clear();
+                if (IsK8S)
+                {
+                    options.ForwardedHeaders =
+                        ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                }
+                else
+                {
+                    options.ForwardedHeaders =
+                        ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
+                    
+                    options.ForwardedHostHeaderName = "x-forwarded-host";
+                    options.ForwardedProtoHeaderName = "x-forwarded-proto";
+                    options.KnownNetworks.Clear();
+                    options.KnownProxies.Clear();
+                }
             });
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -60,6 +71,9 @@ namespace Identity.API
                 options.UseNpgsql(connectionString);
             });
 
+            services.AddHealthChecks()
+                .AddCheck("self", () => HealthCheckResult.Healthy());
+
             services.AddCors(o => o.AddPolicy("ServerPolicy", builder =>
             {
                 builder.AllowAnyOrigin()
@@ -72,7 +86,7 @@ namespace Identity.API
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddIdentityServer(x => x.IssuerUri = "null" )
+            services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddConfigurationStore(options =>
@@ -105,41 +119,34 @@ namespace Identity.API
             services.AddTransient<ILoginProvider, LoginProvider>();
             services.AddAutoMapper(typeof(Startup));
         }
-
+        public bool IsK8S => Configuration.GetValue<string>("OrchestrationType").ToUpper().Equals("K8S");
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseForwardedHeaders();
-            app.Use(async (context, next) =>
+            app.UseMiddleware<RequestLoggerMiddleware>();
+
+            var basePath = Configuration.GetBasePath();
+            if (IsK8S)
             {
-                var _logger = loggerFactory.CreateLogger("init");
-                // Request method, scheme, and path
-                _logger.LogDebug("Request Method: {METHOD}", context.Request.Method);
-                _logger.LogDebug("Request Scheme: {SCHEME}", context.Request.Scheme);
-                _logger.LogDebug("Request Path: {PATH}", context.Request.Path);
-                _logger.LogDebug("Base Path: {PATHBASE}", context.Request.PathBase);
-                _logger.LogDebug("Host: {HOST}", context.Request.Host.Value);
-
-                // Headers
-                foreach (var header in context.Request.Headers)
+                if (!string.IsNullOrEmpty(basePath))
                 {
-                    _logger.LogDebug("Header: {KEY}: {VALUE}", header.Key, header.Value);
+                    loggerFactory.CreateLogger<Startup>().LogDebug("Using PATH BASE '{pathBase}'", basePath);
+                    app.UsePathBase(basePath);
                 }
-
-                // Connection: RemoteIp
-                _logger.LogDebug("Request RemoteIp: {REMOTE_IP_ADDRESS}", context.Connection.RemoteIpAddress);
-
-                await next();
-            });
-
-            app.Use((context, next) =>
+            }
+            else
             {
-                if (context.Request.Headers.TryGetValue("x-forwarded-prefix", out var prefix))
+                app.Use((context, next) =>
                 {
-                    context.Request.PathBase = new PathString(prefix);
-                }
-                return next();
-            });
-
+                    if (context.Request.Headers.TryGetValue("x-forwarded-prefix", out var prefix))
+                    {
+                        loggerFactory.CreateLogger<Startup>().LogDebug("Using x-forwarded-prefix as a PREFIX '{pathBase}'", prefix);
+                        context.Request.PathBase = new PathString(prefix);
+                    }
+                    return next();
+                });
+            }
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -152,8 +159,6 @@ namespace Identity.API
             app.UseCors("ServerPolicy");
             app.UseIdentityServer();
 
-
-            var basePath = Configuration.GetBasePath();
             app.UseSwagger(c =>
             {
                 if (basePath != string.Empty)
@@ -167,6 +172,16 @@ namespace Identity.API
             }).UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint($"{basePath}/swagger/v1/swagger.json", "Identity.API V1");
+            });
+
+            app.UseHealthChecks("/hc", new HealthCheckOptions()
+            {
+                Predicate = _ => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
+            app.UseHealthChecks("/liveness", new HealthCheckOptions
+            {
+                Predicate = r => r.Name.Contains("self")
             });
 
             app.UseStaticFiles();

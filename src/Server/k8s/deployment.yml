@@ -12,6 +12,7 @@ spec:
     spec:
       containers:
       - image: jurabek/basket
+        imagePullPolicy: Always
         name: basket-api
         ports:
         - containerPort: 5200
@@ -20,6 +21,8 @@ spec:
           value: http://localhost/identity
         - name: REDIS_HOST
           value: redis
+        - name: BASE_PATH
+          value: /basket
         resources:
 
 ---
@@ -35,7 +38,8 @@ spec:
         app: identity-api
     spec:
       containers:
-      - name: identity-api 
+      - name: identity-api
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
         image: jurabek/identity
@@ -76,6 +80,7 @@ spec:
       containers:
       - name: menu-api
         image: jurabek/menu
+        imagePullPolicy: Always
         ports:
           - containerPort: 80
         env:
@@ -111,12 +116,15 @@ spec:
     spec:
       containers:
       - image: jurabek/order
+        imagePullPolicy: Always
         name: order-api
         ports:
           - containerPort: 8090
         env:
+        - name: SERVER_SERVLET_CONTEXT_PATH
+          value: /order
         - name: ExternalIdentityUrl
-          value: http://localhost:8080/identity
+          value: http://localhost/identity
         - name: SPRING_DATASOURCE_PASSWORD
           valueFrom:
             configMapKeyRef:

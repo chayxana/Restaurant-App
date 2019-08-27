@@ -8,6 +8,7 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath('com.github.ksoichiro:gradle-console-reporter:0.6.2')
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7.1"
     }
 }
 
@@ -17,6 +18,8 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.ksoichiro.console.reporter'
+apply plugin: 'org.sonarqube';
+
 
 group = 'com.jurabek.restaurant'
 sourceCompatibility = 1.8
@@ -46,6 +49,7 @@ repositories {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile("org.springframework.boot:spring-boot-starter-actuator")
     compile('com.auth0:auth0-spring-security-api:1.1.0')
     compile('com.auth0:jwks-rsa:0.8.2')
     compile('org.postgresql:postgresql:42.2.5')

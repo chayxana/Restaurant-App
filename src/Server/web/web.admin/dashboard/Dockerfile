@@ -1,20 +1,15 @@
 
 # Stage 1
-FROM node:8.11.2-alpine as node
-
+FROM node:8.11.2-alpine as builder
 WORKDIR /usr/src/app
-
-COPY package*.json ./
-
-RUN npm install
-
-COPY . .
-
-RUN npm run build
+COPY package*.json yarn.lock ./
+RUN yarn
+COPY . ./
+RUN yarn build
 
 # Stage 2
 FROM nginx:1.13.12-alpine
-
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=node /usr/src/app/dist/dashboard /usr/share/nginx/html
+COPY --from=builder /usr/src/app/dist/dashboard /usr/share/nginx/html
+EXPOSE 80
 

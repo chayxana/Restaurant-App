@@ -38,7 +38,7 @@ import (
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
 // @securitydefinitions.oauth2.implicit Identity Server OAuth
-// @authorizationUrl http://localhost:5100/connect/authorize
+// @authorizationUrl http://localhost/identity/connect/authorize
 // @scope basket-api
 func main() {
 	gin.SetMode(gin.DebugMode)

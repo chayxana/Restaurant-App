@@ -7,6 +7,11 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="HealthChecks.PostgreSQL" Version="1.0.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="2.2.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.HealthChecks" Version="1.0.0" />
+
     <PackageReference Include="IdentityServer4.EntityFramework" Version="2.4.0" />
     <PackageReference Include="Pivotal.Discovery.ClientCore" Version="2.2.0" />
     <PackageReference Include="Polly" Version="7.1.0" />

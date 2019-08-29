@@ -22,6 +22,7 @@ using Menu.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -49,12 +50,18 @@ namespace Menu.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders =
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
+
             services.AddAuthorization();
 
             var identityUrl = Configuration["InternalIdentityUrl"];
             var externalIdentityUrl = Configuration["ExternalIdentityUrl"];
-            
+
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services.AddAuthentication(options =>
             {
@@ -110,7 +117,7 @@ namespace Menu.API
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
             });
 
-            services.AddScoped<IAmazonS3>(provider => 
+            services.AddScoped<IAmazonS3>(provider =>
             {
                 var configuration = provider.GetService<IConfiguration>();
                 var accessKeyId = "";
@@ -130,6 +137,8 @@ namespace Menu.API
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseForwardedHeaders();
+
             app.UseAuthentication();
 
             if (env.IsDevelopment())
@@ -140,11 +149,6 @@ namespace Menu.API
             {
                 app.UseHsts();
             }
-
-            app.UseCors("ServerPolicy");
-            app.UseMvcWithDefaultRoute();
-            app.UseStaticFiles();
-            app.UseMvc();
 
             var logger = loggerFactory.CreateLogger("init");
             var pathBase = Configuration["PATH_BASE"];
@@ -171,6 +175,11 @@ namespace Menu.API
                 c.OAuthClientId("menu-api-swagger-ui");
                 c.OAuthAppName("Menu API Swagger UI");
             });
+
+            app.UseCors("ServerPolicy");
+            app.UseMvcWithDefaultRoute();
+            app.UseStaticFiles();
+            app.UseMvc();
         }
     }
 }

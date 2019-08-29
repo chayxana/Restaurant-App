@@ -119,5 +119,7 @@ securityDefinitions:
   Identity Server OAuth:
     authorizationUrl: http://localhost/identity/connect/authorize
     flow: implicit
+    scopes:
+      basket-api: ' Access to basket-api'
     type: oauth2
 swagger: "2.0"

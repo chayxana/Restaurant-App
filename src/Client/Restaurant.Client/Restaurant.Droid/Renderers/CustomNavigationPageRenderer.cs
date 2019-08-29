@@ -19,12 +19,12 @@ namespace Restaurant.Droid.Renderers
     public class CustomNavigationPageRenderer : NavigationPageRenderer
     {   
         private readonly BadgeMenuItemProvider _badgeMenuItemProvider;
-        private readonly BarProvider _barProvider;
+        private readonly ActionBarFacade _actionBarFacade;
 
         public CustomNavigationPageRenderer(Context context) : base(context)
         {
             _badgeMenuItemProvider = new BadgeMenuItemProvider(context);
-            _barProvider = new BarProvider(context);
+            _actionBarFacade = new ActionBarFacade(context);
         }
 
         private CustomNavigationPage NavigationPage => Element as CustomNavigationPage;
@@ -99,7 +99,7 @@ namespace Restaurant.Droid.Renderers
 
                     if (child is AToolbar toolbar)
                     {
-                        var (barHeight, statusBarHeight) = _barProvider.GetBarHeights();
+                        var (barHeight, statusBarHeight) = _actionBarFacade.GetBarHeights();
                         toolbar.Layout(0, statusBarHeight, r - l, barHeight + statusBarHeight);
                         continue;
                     }

@@ -10,17 +10,10 @@ using Restaurant.Abstractions.ViewModels;
 
 namespace Restaurant.Core.Services
 {
-    public class BasketItemsService : IBasketItemsService,
-        IBasketItemsCountPublisher,
-        IBasketItemsCountSubscriber
+    public class BasketItemsService : IBasketItemsService
     {
         private readonly Subject<int> _handler = new Subject<int>();
-
-        public void Publish(int data)
-        {
-            _handler.OnNext(data);
-        }
-
+        
         public ObservableCollection<IBasketItemViewModel> Items { get; } =
             new ObservableCollection<IBasketItemViewModel>();
 
@@ -33,7 +26,6 @@ namespace Restaurant.Core.Services
             }
         }
 
-        public IObservable<int> Handler => _handler;
 
         public void Clear()
         {
@@ -50,7 +42,9 @@ namespace Restaurant.Core.Services
 
             var count = Items.Sum(x => x.Quantity);
 
-            Publish((int) count);
+            _handler.OnNext((int) count);
         }
+
+        public IObservable<int> ItemsCountChange => _handler;
     }
 }

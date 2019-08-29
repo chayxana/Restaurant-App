@@ -8,6 +8,6 @@ namespace Restaurant.Abstractions.Subscribers
     /// <typeparam name="T">Particular type of objects </typeparam>
     public interface ISubscriber<out T>
     {
-        IObservable<T> Handler { get; }
+        IDisposable Subscribe(IObserver<T> observer);
     }
 }

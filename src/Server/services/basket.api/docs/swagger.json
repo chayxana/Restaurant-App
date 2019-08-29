@@ -175,7 +175,10 @@
         "Identity Server OAuth": {
             "type": "oauth2",
             "flow": "implicit",
-            "authorizationUrl": "http://localhost/identity/connect/authorize"
+            "authorizationUrl": "http://localhost/identity/connect/authorize",
+            "scopes": {
+                "basket-api": " Access to basket-api"
+            }
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Restaurant.Core.ViewModels.Food
 
             BasketItemsCount = basketItemsService.ItemsCount;
 
-            basketItemsService.Handler
+            basketItemsService.ItemsCountChange
                 .Select(x => x.ToString())
                 .Subscribe(x => BasketItemsCount = x);
         }

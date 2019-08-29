@@ -85,7 +85,7 @@ namespace Identity.API.IdentityServer
                     RequireConsent = false,
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
-                    RedirectUris = { $"{clientUrls["BasketApiUrl"]}/swagger/oauth2-redirect.html" },
+                    RedirectUris = { $"{clientUrls["BasketApiUrl"]}/swagger/oauth2-redirect.html" ,"http://localhost:3200/oauth2-redirect.html" },
                     PostLogoutRedirectUris = { $"{clientUrls["BasketApiUrl"]}/swagger/" },
                     AllowedScopes = { "basket-api" }
                 },

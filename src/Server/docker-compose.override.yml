@@ -20,6 +20,7 @@ services:
     environment:
       - REDIS_HOST=redis
       - ExternalIdentityUrl=http://localhost:8080/identity
+      - BASE_PATH=/basket
   
   pgsql:
     environment:

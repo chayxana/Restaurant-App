@@ -53,7 +53,7 @@ namespace Restaurant.Core.ViewModels
 
             BasketItemsCount = basketItemsService.ItemsCount;
 
-            basketItemsService.Handler
+            basketItemsService.ItemsCountChange
                 .Select(x => x.ToString())
                 .Subscribe(x => BasketItemsCount = x);
 

@@ -26,7 +26,7 @@ before_script:
     
 build:basket_api:
   before_script:
-    - sh services/basket.api/install_ci_dependencies.sh
+    - sh src/Server/services/basket.api/install_ci_dependencies.sh
   image: golang:1.11-alpine
   stage: build & test
   script:

@@ -18,6 +18,11 @@ main () {
     esac
 }
 
+qa_basket_api() {
+    cd ./services/basket.api
+    sh qa.sh
+}
+
 qa_order_api() {
     cd ./services/order.api/
     sh qa.sh
@@ -25,6 +30,11 @@ qa_order_api() {
 
 qa_menu_api() {
     cd ./services/menu.api/
+    sh qa.sh
+}
+
+qa_identity_api() {
+    cd ./services/identity.api
     sh qa.sh
 }
 

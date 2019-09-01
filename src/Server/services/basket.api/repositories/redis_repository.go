@@ -3,6 +3,7 @@ package repositories
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/jurabek/basket.api/database"
 
 	"github.com/gomodule/redigo/redis"
@@ -29,7 +30,6 @@ func (r *RedisBasketRepository) GetBasket(customerID string) (*models.CustomerBa
 		result models.CustomerBasket
 		data   []byte
 	)
-
 	data, err := redis.Bytes(conn.Do("GET", customerID))
 	if err != nil {
 		return nil, fmt.Errorf("error getting key %s: %v", customerID, err)

@@ -1,3 +1,8 @@
+#!/bin/sh
+
+PATH="${PATH}:/root/.dotnet/tools"
+dotnet tool install --global dotnet-sonarscanner --version 4.6.2
+
 dotnet test Menu.API.UnitTests/Menu.API.UnitTests.csproj \
     /p:CollectCoverage=true \
     /p:CoverletOutputFormat=opencover

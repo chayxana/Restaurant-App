@@ -41,10 +41,15 @@ public class OrdersControllerTests {
 
     @Test
     public void UpdateShouldUpdate() {
+        
+        // Arrange
         CustomerBasketDto customerBasketDto = new CustomerBasketDto();
         doNothing().when(ordersService).Update(customerBasketDto);
 
+        // Act
         ordersController.update(customerBasketDto);
+
+        // Assert
         verify(ordersService, times(1)).Update(customerBasketDto);
     }
 

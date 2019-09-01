@@ -17,6 +17,7 @@ variables:
     
 
 before_script:
+  - apk add --no-cache curl
   - export GRADLE_USER_HOME=$(pwd)/.gradle
   - export NUGET_PACKAGES=$(pwd)/.nuget
   - export GOPATH=$(pwd)/go
@@ -62,7 +63,6 @@ build:order_api:
     - ci/update_build_badge.sh `cat order_status.txt` order_api
   cache:
     key: gradle-cache
-    policy: pull
     paths:
      - .gradle/wrapper
      - .gradle/caches
@@ -121,7 +121,7 @@ build:menu_api:
     paths:
       - public/badges/**
 
-finalize:build:
+pages:
   stage: finalize build
   script:
     - echo "Deploying badges"

@@ -3,9 +3,9 @@ services:
 - docker:dind
 
 stages:
-- build
-- test
+- build & test
 - deploy
+- finalize build
 
 variables:
   IMAGE_BASE_NAME: registry.gitlab.com/jurabek/restaurant-app
@@ -17,42 +17,24 @@ variables:
     
 
 before_script:
-  - apk add --update curl 
-  - apk add --update git
-  - apk add curl jq python py-pip
-  - pip --cache-dir=pip_cache install awscli
   - export GRADLE_USER_HOME=$(pwd)/.gradle
   - export NUGET_PACKAGES=$(pwd)/.nuget
   - export GOPATH=$(pwd)/go
 
   - cd src/Server/
   - chmod -R +x ci/
-
-build:gateway_api:
-  stage: build
-  image: openjdk:8-jdk-alpine
-  script:
-    - ci/build.sh gateway_api
-  cache:
-    key: gradle-cache
-    paths:
-     - .gradle/wrapper
-     - .gradle/caches
-    policy: pull
-  only:
-    changes:
-      - src/Server/gateway/restaurant-gateway/**/*
     
 build:basket_api:
+  before_script:
+    - sh services/basket.api/install_ci_dependencies.sh
   image: golang:1.11-alpine
-  stage: build
+  stage: build & test
   script:
     - ci/update_build_badge.sh running basket_api
     - echo "failure" > basket_status.txt #https://gitlab.com/gitlab-org/gitlab-runner/issues/3088
     - ci/build.sh basket_api
     - echo "success" > basket_status.txt
   after_script:
-    - echo "Printing basket status from export"
     - cd src/Server/
     - ci/update_build_badge.sh `cat basket_status.txt` basket_api
   cache:
@@ -62,33 +44,42 @@ build:basket_api:
   only:
     changes:
       - src/Server/services/basket.api/**/*
+  artifacts:
+    paths:
+      - public/badges/**
   
 build:order_api:
   image: openjdk:8-jdk-alpine
-  stage: build
+  stage: build & test
   script:
     - ci/update_build_badge.sh running order_api
     - echo "failure" > order_status.txt
     - ci/build.sh order_api
+    - ci/qa.sh order_api
     - echo "success" > order_status.txt
   after_script:
     - cd src/Server/
     - ci/update_build_badge.sh `cat order_status.txt` order_api
   cache:
     key: gradle-cache
+    policy: pull
     paths:
      - .gradle/wrapper
      - .gradle/caches
   only:
     changes:
       - src/Server/services/order.api/**/*
+  artifacts:
+    paths:
+      - public/badges/**
 
 build:identity_api:
   image: microsoft/dotnet:2.2-sdk-alpine
-  stage: build
+  stage: build & test
   script:
     - ci/update_build_badge.sh running identity_api
     - echo "failure" > identity_status.txt
+    - ci/qa.sh identity_api
     - ci/build.sh identity_api
     - echo "success" > identity_status.txt
   after_script:
@@ -96,18 +87,23 @@ build:identity_api:
     - ci/update_build_badge.sh `cat identity_status.txt` identity_api
   cache:
     key: dotnet-cache
+    policy: pull
     paths:
       - .nuget/
   only:
     changes:
       - src/Server/services/identity.api/**/*
+  artifacts:
+    paths:
+      - public/badges/**
 
 build:menu_api:
   image: microsoft/dotnet:2.2-sdk-alpine
-  stage: build
+  stage: build & test
   script:
     - ci/update_build_badge.sh running menu_api
     - echo "failure" > menu_status.txt
+    - ci/qa.sh menu_api
     - ci/build.sh menu_api
     - echo "success" > menu_status.txt
   after_script:
@@ -115,73 +111,22 @@ build:menu_api:
     - ci/update_build_badge.sh `cat menu_status.txt` menu_api
   cache:
     key: dotnet-cache
-    paths:
-      - .nuget/
-  only:
-    changes:
-      - src/Server/services/menu.api/**/*
-
-test:basket_api:
-  image: golang:1.11-alpine
-  stage: test
-  script: 
-    - ci/test.sh basket_api
-  dependencies:
-    - build:basket_api
-  cache:
-    key: go-cache
-    policy: pull
-    paths:
-      - go
-  only:
-    changes:
-      - src/Server/services/basket.api/**/*
-
-test:identity_api:
-  image: microsoft/dotnet:2.2-sdk-alpine
-  stage: test
-  script: 
-    - ci/test.sh identity_api
-  dependencies:
-    - build:identity_api
-  cache:
-    key: dotnet-cache
-    policy: pull
-    paths:
-      - .nuget/
-  only:
-    changes:
-      - src/Server/services/identity.api/**/*
-
-test:menu_api:
-  image: microsoft/dotnet:2.2-sdk-alpine
-  stage: test
-  script:
-    - ci/test.sh menu_api
-  dependencies:
-    - build:menu_api
-  cache:
-    key: dotnet-cache
     policy: pull
     paths:
       - .nuget/
   only:
     changes:
       - src/Server/services/menu.api/**/*
-
-test:order_api:
-  image: openjdk:8-jdk-alpine
-  stage: test
-  script:
-    - ci/test.sh order_api
-  dependencies:
-    - build:order_api
-  cache:
-    key: gradle-cache
-    policy: pull
+  artifacts:
     paths:
-     - .gradle/wrapper
-     - .gradle/caches
+      - public/badges/**
+
+finalize:build:
+  stage: finalize build
+  script:
+    - echo "Deploying badges"
+  artifacts:
+    paths:
+      - public/
   only:
-    changes:
-      - src/Server/services/order.api/**/*
+    - develop

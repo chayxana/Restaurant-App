@@ -122,6 +122,7 @@ build:menu_api:
       - public/badges/**
 
 pages:
+  before_script: []
   stage: finalize build
   script:
     - echo "Deploying badges"

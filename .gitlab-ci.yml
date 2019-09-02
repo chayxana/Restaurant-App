@@ -46,6 +46,8 @@ build:basket_api:
     changes:
       - src/Server/services/basket.api/**/*
   artifacts:
+    untracked: true
+    when: always
     paths:
       - public/badges/
   
@@ -70,6 +72,8 @@ build:order_api:
     changes:
       - src/Server/services/order.api/**/*
   artifacts:
+    untracked: true
+    when: always
     paths:
       - public/badges/
 
@@ -94,6 +98,8 @@ build:identity_api:
     changes:
       - src/Server/services/identity.api/**/*
   artifacts:
+    untracked: true
+    when: always
     paths:
       - public/badges/
 
@@ -118,6 +124,9 @@ build:menu_api:
     changes:
       - src/Server/services/menu.api/**/*
   artifacts:
+    untracked: true
+    when:
+      always
     paths:
       - public/badges/
 

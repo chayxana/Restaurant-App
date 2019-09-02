@@ -47,7 +47,7 @@ build:basket_api:
       - src/Server/services/basket.api/**/*
   artifacts:
     paths:
-      - public/badges/**
+      - public/badges/
   
 build:order_api:
   image: openjdk:8-jdk-alpine
@@ -71,7 +71,7 @@ build:order_api:
       - src/Server/services/order.api/**/*
   artifacts:
     paths:
-      - public/badges/**
+      - public/badges/
 
 build:identity_api:
   image: microsoft/dotnet:2.2-sdk-alpine
@@ -95,7 +95,7 @@ build:identity_api:
       - src/Server/services/identity.api/**/*
   artifacts:
     paths:
-      - public/badges/**
+      - public/badges/
 
 build:menu_api:
   image: microsoft/dotnet:2.2-sdk-alpine
@@ -119,7 +119,7 @@ build:menu_api:
       - src/Server/services/menu.api/**/*
   artifacts:
     paths:
-      - public/badges/**
+      - public/badges/
 
 pages:
   before_script: []

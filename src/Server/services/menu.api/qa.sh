@@ -9,7 +9,7 @@ dotnet test Menu.API.UnitTests/Menu.API.UnitTests.csproj \
 
 dotnet build-server shutdown
 
-dotnet sonarscanner begin \
+dotnet-sonarscanner begin \
      /d:"sonar.host.url=https://sonarcloud.io" \
      /o:"restaurant-app" \
      /k:"restaurant-menu-api" \
@@ -18,4 +18,4 @@ dotnet sonarscanner begin \
      /d:sonar.coverage.exclusions="**Tests*.cs"
 
 dotnet build Menu.API.sln
-dotnet sonarscanner end /d:sonar.login="77a854f90e4e5cf4f26de587be88715750a2a9cc"
+dotnet-sonarscanner end /d:sonar.login="77a854f90e4e5cf4f26de587be88715750a2a9cc"

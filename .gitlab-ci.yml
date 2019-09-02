@@ -21,16 +21,14 @@ before_script:
   - export GRADLE_USER_HOME=$(pwd)/.gradle
   - export NUGET_PACKAGES=$(pwd)/.nuget
   - export GOPATH=$(pwd)/go
-  - pwd
   - cd src/Server/
   - chmod -R +x ci/
     
 build:basket_api:
-  before_script:
-    - sh src/Server/services/basket.api/install_ci_dependencies.sh
   image: golang:1.11-alpine
   stage: build & test
   script:
+    - sh services/basket.api/install_ci_dependencies.sh
     - ci/update_build_badge.sh running basket_api
     - echo "failure" > basket_status.txt #https://gitlab.com/gitlab-org/gitlab-runner/issues/3088
     - ci/build.sh basket_api
@@ -46,10 +44,9 @@ build:basket_api:
     changes:
       - src/Server/services/basket.api/**/*
   artifacts:
-    untracked: true
     when: always
     paths:
-      - src/Server/public/badges/
+      - public/badges/
   
 build:order_api:
   image: openjdk:8-jdk-alpine
@@ -72,10 +69,9 @@ build:order_api:
     changes:
       - src/Server/services/order.api/**/*
   artifacts:
-    untracked: true
     when: always
     paths:
-      - src/Server/public/badges/
+      - public/badges/
 
 build:identity_api:
   image: microsoft/dotnet:2.2-sdk-alpine
@@ -98,10 +94,9 @@ build:identity_api:
     changes:
       - src/Server/services/identity.api/**/*
   artifacts:
-    untracked: true
     when: always
     paths:
-      - src/Server/public/badges/
+      - public/badges/
 
 build:menu_api:
   image: microsoft/dotnet:2.2-sdk-alpine
@@ -124,11 +119,10 @@ build:menu_api:
     changes:
       - src/Server/services/menu.api/**/*
   artifacts:
-    untracked: true
     when:
       always
     paths:
-      - src/Server/public/badges/
+      - public/badges/
 
 pages:
   before_script: []

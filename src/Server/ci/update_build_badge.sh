@@ -3,6 +3,7 @@
 STATUS=$1
 CI_API_NAME=$2
 API_TITLE=""
+echo $CI_API_NAME
 
 case "$CI_API_NAME" in
         basket_api) API_TITLE="basket--api" ;;

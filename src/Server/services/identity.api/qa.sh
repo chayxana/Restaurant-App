@@ -1,6 +1,7 @@
+#!/bin/sh
 
-PATH="${PATH}:/root/.dotnet/tools"
 dotnet tool install --global dotnet-sonarscanner --version 4.6.2
+PATH="${PATH}:/root/.dotnet/tools"
 
 dotnet test Identity.API.UnitTests/Identity.API.UnitTests.csproj \
     /p:CollectCoverage=true \

@@ -21,7 +21,7 @@ before_script:
   - export GRADLE_USER_HOME=$(pwd)/.gradle
   - export NUGET_PACKAGES=$(pwd)/.nuget
   - export GOPATH=$(pwd)/go
-
+  - pwd
   - cd src/Server/
   - chmod -R +x ci/
     
@@ -49,7 +49,7 @@ build:basket_api:
     untracked: true
     when: always
     paths:
-      - public/badges/
+      - src/Server/public/badges/
   
 build:order_api:
   image: openjdk:8-jdk-alpine
@@ -75,7 +75,7 @@ build:order_api:
     untracked: true
     when: always
     paths:
-      - public/badges/
+      - src/Server/public/badges/
 
 build:identity_api:
   image: microsoft/dotnet:2.2-sdk-alpine
@@ -101,7 +101,7 @@ build:identity_api:
     untracked: true
     when: always
     paths:
-      - public/badges/
+      - src/Server/public/badges/
 
 build:menu_api:
   image: microsoft/dotnet:2.2-sdk-alpine
@@ -128,7 +128,7 @@ build:menu_api:
     when:
       always
     paths:
-      - public/badges/
+      - src/Server/public/badges/
 
 pages:
   before_script: []

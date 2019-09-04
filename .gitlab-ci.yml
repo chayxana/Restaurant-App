@@ -2,6 +2,7 @@
 services:
 - docker:dind
 
+
 stages:
 - build & test
 - deploy
@@ -15,7 +16,6 @@ variables:
     
 
 before_script:
-  - apk add --no-cache curl
   - export GRADLE_USER_HOME=$(pwd)/.gradle
   - export NUGET_PACKAGES=$(pwd)/.nuget
   - export GOPATH=$(pwd)/go
@@ -23,7 +23,7 @@ before_script:
   - chmod -R +x ci/
     
 build:basket_api:
-  image: golang:1.11-alpine
+  image: jurabek/golang:1.11-alpine
   stage: build & test
   script:
     - sh services/basket.api/install_ci_dependencies.sh
@@ -41,13 +41,9 @@ build:basket_api:
   only:
     changes:
       - src/Server/services/basket.api/**/*
-  artifacts:
-    when: always
-    paths:
-      - public/badges/
   
 build:order_api:
-  image: openjdk:8-jdk-alpine
+  image: jurabek/openjdk:8-jdk-alpine
   stage: build & test
   script:
     - ci/update_build_badge.sh running order_api
@@ -66,13 +62,9 @@ build:order_api:
   only:
     changes:
       - src/Server/services/order.api/**/*
-  artifacts:
-    when: always
-    paths:
-      - public/badges/
 
 build:identity_api:
-  image: microsoft/dotnet:2.2-sdk-alpine
+  image: jurabek/dotnet-sdk:2.2-alpine
   stage: build & test
   script:
     - ci/update_build_badge.sh running identity_api
@@ -90,13 +82,9 @@ build:identity_api:
   only:
     changes:
       - src/Server/services/identity.api/**/*
-  artifacts:
-    when: always
-    paths:
-      - public/badges/
 
 build:menu_api:
-  image: microsoft/dotnet:2.2-sdk-alpine
+  image: jurabek/dotnet-sdk:2.2-alpine
   stage: build & test
   script:
     - ci/update_build_badge.sh running menu_api
@@ -118,15 +106,4 @@ build:menu_api:
     when:
       always
     paths:
-      - public/badges/
-
-pages:
-  before_script: []
-  stage: deploy
-  script:
-    - echo "Deploying badges"
-  artifacts:
-    paths:
       - public/
-  only:
-    - develop

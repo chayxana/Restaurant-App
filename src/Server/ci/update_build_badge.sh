@@ -33,6 +33,4 @@ fi
 FILE_NAME="${CI_API_NAME}_build_status.svg"
 
 ./ci/generate_badge.sh $FILE_NAME "$BADGE_SUBJECT" "$BADGE_STATUS" $BADGE_COLOR
-mkdir -p /builds/Jurabek/Restaurant-App/public/badges/ && mv $FILE_NAME /builds/Jurabek/Restaurant-App/public/badges/$FILE_NAME
-
-ls /builds/Jurabek/Restaurant-App/public/badges/
+./ci/upload_badge_s3.sh $FILE_NAME

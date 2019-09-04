@@ -5,6 +5,10 @@ RUN apk add --no-cache git
 
 WORKDIR /src
 COPY ./go.mod ./go.sum ./
+
+ENV GOPROXY=https://proxy.golang.org
+ENV GOSUMDB=sum.golang.org
+ENV GO111MODULE=on
 RUN go mod download
 
 COPY ./ ./

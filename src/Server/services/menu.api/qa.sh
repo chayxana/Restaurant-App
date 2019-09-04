@@ -1,15 +1,10 @@
 #!/bin/sh
 
-dotnet tool install --global dotnet-sonarscanner --version 4.6.2
-PATH="${PATH}:/root/.dotnet/tools"
-
-apk add --no-cache openjdk8-jre
+dotnet restore Menu.API.sln
 
 dotnet test Menu.API.UnitTests/Menu.API.UnitTests.csproj \
     /p:CollectCoverage=true \
     /p:CoverletOutputFormat=opencover
-
-dotnet build-server shutdown
 
 dotnet-sonarscanner begin \
      /d:"sonar.host.url=https://sonarcloud.io" \

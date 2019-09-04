@@ -1,9 +1,10 @@
 #!/bin/sh
+
+dotnet restore Identity.API.sln
+
 dotnet test Identity.API.UnitTests/Identity.API.UnitTests.csproj \
     /p:CollectCoverage=true \
     /p:CoverletOutputFormat=opencover
-
-dotnet build-server shutdown
 
 dotnet-sonarscanner begin \
      /d:"sonar.host.url=https://sonarcloud.io" \

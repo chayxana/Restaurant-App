@@ -5,11 +5,9 @@ services:
 stages:
 - build & test
 - deploy
-- finalize build
 
 variables:
   IMAGE_BASE_NAME: registry.gitlab.com/jurabek/restaurant-app
-  DOCKER_DRIVER: overlay2
 
 # .before_script_docker_login: &login_to_docker
 #   before_script:
@@ -39,7 +37,7 @@ build:basket_api:
   cache:
     key: go-cache
     paths:
-      - go
+      - go/pkg/mod
   only:
     changes:
       - src/Server/services/basket.api/**/*
@@ -87,7 +85,6 @@ build:identity_api:
     - ci/update_build_badge.sh `cat identity_status.txt` identity_api
   cache:
     key: dotnet-cache
-    policy: pull
     paths:
       - .nuget/
   only:
@@ -112,7 +109,6 @@ build:menu_api:
     - ci/update_build_badge.sh `cat menu_status.txt` menu_api
   cache:
     key: dotnet-cache
-    policy: pull
     paths:
       - .nuget/
   only:
@@ -126,7 +122,7 @@ build:menu_api:
 
 pages:
   before_script: []
-  stage: finalize build
+  stage: deploy
   script:
     - echo "Deploying badges"
   artifacts:

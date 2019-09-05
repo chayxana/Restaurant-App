@@ -6,4 +6,4 @@ ENV PATH="${PATH}:/root/.dotnet/tools"
 RUN apk add --no-cache openjdk8-jre
 RUN apk add --no-cache curl git jq python py-pip
 RUN pip install awscli
-RUN apk del curl git py-pip
+RUN apk del git py-pip

@@ -1,4 +1,5 @@
 FROM openjdk:8-jdk-alpine
 
-RUN apk add --update curl git jq python py-pip
-RUN pip --cache-dir=pip_cache install awscli
+RUN apk add --no-cache curl git jq python py-pip
+RUN pip install awscli
+RUN apk del curl git jq py-pip

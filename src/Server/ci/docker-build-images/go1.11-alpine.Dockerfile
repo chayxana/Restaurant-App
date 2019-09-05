@@ -2,9 +2,9 @@ FROM golang:1.11-alpine
 
 ENV SONAR_SCANNER_VERSION=4.0.0.1744
 
-RUN apk add --no-cache git curl unzip openjdk8-jre
-RUN apk add --update curl git jq python py-pip
-RUN pip --cache-dir=pip_cache install awscli
+RUN apk add --no-cache git curl unzip openjdk8-jre jq python py-pip
+RUN pip install awscli
+RUN apk del jq py-pip
 
 RUN java -version
 

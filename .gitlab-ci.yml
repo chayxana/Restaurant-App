@@ -1,7 +1,7 @@
 
-image: docker:git
+image: docker:stable
 services:
-- docker:dind
+- docker:18.09.7-dind
 
 stages:
 - build & test

@@ -39,7 +39,7 @@ build:basket_api:
       - src/Server/services/basket.api/**/*
   
 build:order_api:
-  image: $IMAGE_BASE_NAME/openjdk:8-jdk-alpine
+  image: jurabek/openjdk:8-jdk-alpine
   stage: build & test
   script:
     - ci/update_build_badge.sh running order_api
@@ -60,7 +60,7 @@ build:order_api:
       - src/Server/services/order.api/**/*
 
 build:identity_api:
-  image: $IMAGE_BASE_NAME/dotnet-sdk:2.2-alpine
+  image: jurabek/dotnet-sdk:2.2-alpine
   stage: build & test
   script:
     - ci/update_build_badge.sh running identity_api
@@ -78,9 +78,9 @@ build:identity_api:
   only:
     changes:
       - src/Server/services/identity.api/**/*
-
+  
 build:menu_api:
-  image: $IMAGE_BASE_NAME/dotnet-sdk:2.2-alpine
+  image: jurabek/dotnet-sdk:2.2-alpine
   stage: build & test
   script:
     - ci/update_build_badge.sh running menu_api

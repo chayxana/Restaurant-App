@@ -9,13 +9,10 @@ stages:
 
 variables:
   IMAGE_BASE_NAME: registry.gitlab.com/jurabek/restaurant-app
-
-# .before_script_docker_login: &login_to_docker
-#   before_script:
-#   - docker login registry.gitlab.com -u "$DOCKER_USER_NAME" -p $DOCKER_PASSWORD
-    
-
+  DOCKER_DRIVER: overlay2
+  
 before_script:
+  - docker login registry.gitlab.com -u "$DOCKER_USER_NAME" -p $DOCKER_PASSWORD
   - export GRADLE_USER_HOME=$(pwd)/.gradle
   - export NUGET_PACKAGES=$(pwd)/.nuget
   - export GOPATH=$(pwd)/go
@@ -23,7 +20,7 @@ before_script:
   - chmod -R +x ci/
     
 build:basket_api:
-  image: jurabek/golang:1.11-alpine
+  image: $IMAGE_BASE_NAME/golang:1.11-alpine
   stage: build & test
   script:
     - sh services/basket.api/install_ci_dependencies.sh
@@ -43,7 +40,7 @@ build:basket_api:
       - src/Server/services/basket.api/**/*
   
 build:order_api:
-  image: jurabek/openjdk:8-jdk-alpine
+  image: $IMAGE_BASE_NAME/openjdk:8-jdk-alpine
   stage: build & test
   script:
     - ci/update_build_badge.sh running order_api
@@ -64,7 +61,7 @@ build:order_api:
       - src/Server/services/order.api/**/*
 
 build:identity_api:
-  image: jurabek/dotnet-sdk:2.2-alpine
+  image: $IMAGE_BASE_NAME/dotnet-sdk:2.2-alpine
   stage: build & test
   script:
     - ci/update_build_badge.sh running identity_api
@@ -84,7 +81,7 @@ build:identity_api:
       - src/Server/services/identity.api/**/*
 
 build:menu_api:
-  image: jurabek/dotnet-sdk:2.2-alpine
+  image: $IMAGE_BASE_NAME/dotnet-sdk:2.2-alpine
   stage: build & test
   script:
     - ci/update_build_badge.sh running menu_api

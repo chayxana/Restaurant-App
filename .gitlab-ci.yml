@@ -25,6 +25,7 @@ build:basket_api:
     - sh services/basket.api/install_ci_dependencies.sh
     - ci/update_build_badge.sh running basket_api
     - echo "failure" > basket_status.txt #https://gitlab.com/gitlab-org/gitlab-runner/issues/3088
+    - ci/qa.sh basket_api
     - ci/build.sh basket_api
     - echo "success" > basket_status.txt
   after_script:

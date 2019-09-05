@@ -20,7 +20,7 @@ before_script:
   - chmod -R +x ci/
     
 build:basket_api:
-  image: $IMAGE_BASE_NAME/golang:1.11-alpine
+  image: jurabek/golang:1.11-alpine
   stage: build & test
   script:
     - sh services/basket.api/install_ci_dependencies.sh

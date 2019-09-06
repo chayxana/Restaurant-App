@@ -12,7 +12,7 @@
     <PackageReference Include="ReactiveUI" Version="9.20.1" />
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
-    <PackageReference Include="Xamarin.Forms" Version="4.1.0.581479" />
+    <PackageReference Include="Xamarin.Forms" Version="4.2.0.709249" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Restaurant.Abstractions\Restaurant.Abstractions.csproj" />

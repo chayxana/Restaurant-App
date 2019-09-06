@@ -23,7 +23,8 @@ namespace Restaurant.iOS
 //            UINavigationBar.Appearance.BackgroundColor = new UIColor(0, 0, 0, 0);
 //            UINavigationBar.Appearance.Translucent = true;
             
-            
+            Forms.SetFlags("CollectionView_Experimental");
+
             Forms.Init();
             AnimationViewRenderer.Init();
             ImageCircleRenderer.Init();

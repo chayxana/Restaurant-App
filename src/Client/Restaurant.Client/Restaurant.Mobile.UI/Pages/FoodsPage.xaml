@@ -31,24 +31,23 @@
     </pages:FoodsXamlPage.ToolbarItems>
 
     <pages:FoodsXamlPage.Content>
-        <Grid>
-            <views:FoodsListView ItemsSource="{Binding Foods}"
-                                 IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
-                                 SelectedItem="{Binding SelectedFood}"
-                                 x:Name="FoodsList" />
+        <views:FoodsListView ItemsSource="{Binding Foods}"
+                             IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
+                             SelectedItem="{Binding SelectedFood}"
+                             SelectionMode="Single"
+                             x:Name="FoodsList" />
 
-            <StackLayout IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center">
-                <ActivityIndicator IsRunning="{Binding IsLoading}"
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="EndAndExpand">
-                    <ActivityIndicator.Color>
-                        <OnPlatform x:TypeArguments="Color">
-                            <On Platform="Android" Value="{StaticResource primaryColor}" />
-                        </OnPlatform>
-                    </ActivityIndicator.Color>
-                </ActivityIndicator>
-                <Label TextColor="{StaticResource asphaltDark}" HorizontalOptions="Center">Loading...</Label>
-            </StackLayout>
-        </Grid>
+        <!-- <StackLayout IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center"> -->
+        <!--     <ActivityIndicator IsRunning="{Binding IsLoading}" -->
+        <!--                        HorizontalOptions="Center" -->
+        <!--                        VerticalOptions="EndAndExpand"> -->
+        <!--         <ActivityIndicator.Color> -->
+        <!--             <OnPlatform x:TypeArguments="Color"> -->
+        <!--                 <On Platform="Android" Value="{StaticResource primaryColor}" /> -->
+        <!--             </OnPlatform> -->
+        <!--         </ActivityIndicator.Color> -->
+        <!--     </ActivityIndicator> -->
+        <!--     <Label TextColor="{StaticResource asphaltDark}" HorizontalOptions="Center">Loading...</Label> -->
+        <!-- </StackLayout> -->
     </pages:FoodsXamlPage.Content>
 </pages:FoodsXamlPage>

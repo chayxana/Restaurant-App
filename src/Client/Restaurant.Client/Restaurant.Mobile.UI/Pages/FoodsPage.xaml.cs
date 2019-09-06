@@ -10,29 +10,16 @@ namespace Restaurant.Mobile.UI.Pages
     // ReSharper disable once RedundantExtendsListEntry
     public partial class FoodsPage : FoodsXamlPage
     {
-        private readonly IDisposable _itemSelectedSubscriber;
-
         public FoodsPage()
         {
             InitializeComponent();
-
-            _itemSelectedSubscriber = Observable
-                .FromEventPattern<SelectedItemChangedEventArgs>(FoodsList, "ItemSelected")
-                .Select(x => x.Sender)
-                .Cast<ListView>()
-                .Subscribe(l => l.SelectedItem = null);
+            FoodsList.SelectionChanged += (s, e) => { FoodsList.SelectedItem = null; };
         }
 
         protected override async void OnLoaded()
         {
             base.OnLoaded();
             await ViewModel.LoadFoods();
-        }
-
-        protected override void UnLoad()
-        {
-            base.UnLoad();
-            _itemSelectedSubscriber.Dispose();
         }
     }
 

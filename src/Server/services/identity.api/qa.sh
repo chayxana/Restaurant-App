@@ -12,7 +12,8 @@ dotnet-sonarscanner begin \
      /k:"restaurant-identity-api" \
      /d:"sonar.login=77a854f90e4e5cf4f26de587be88715750a2a9cc" \
      /d:sonar.cs.opencover.reportsPaths="Identity.API.UnitTests/coverage.opencover.xml" \
-     /d:sonar.coverage.exclusions="**Tests*.cs"
+     /d:sonar.coverage.exclusions="**Tests*.cs" \
+     /d:sonar.exclusions="Identity.API/wwwroot/**, Identity.API/Migrations/**"
 
 dotnet build Identity.API.sln
 dotnet-sonarscanner end /d:sonar.login="77a854f90e4e5cf4f26de587be88715750a2a9cc"

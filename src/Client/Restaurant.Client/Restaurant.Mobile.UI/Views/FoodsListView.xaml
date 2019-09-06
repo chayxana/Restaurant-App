@@ -1,35 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ListView xmlns="http://xamarin.com/schemas/2014/forms"
-          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-          mc:Ignorable="d"
-          xmlns:effects="clr-namespace:Restaurant.Mobile.UI.Effects;assembly=Restaurant.Mobile.UI"
-          xmlns:views="clr-namespace:Restaurant.Mobile.UI.Views;assembly=Restaurant.Mobile.UI"
-          xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls;assembly=Restaurant.Mobile.UI"
-          xmlns:converters="clr-namespace:Restaurant.Mobile.UI.Converters;assembly=Restaurant.Mobile.UI"
-          x:Class="Restaurant.Mobile.UI.Views.FoodsListView"
-          x:Name="list"
-          IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-          IsPullToRefreshEnabled="False"
-          SeparatorVisibility="None"
-          HasUnevenRows="True"
-          StyleId="foodsList">
-    <ListView.Resources>
+<CollectionView xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                mc:Ignorable="d"
+                xmlns:effects="clr-namespace:Restaurant.Mobile.UI.Effects;assembly=Restaurant.Mobile.UI"
+                xmlns:views="clr-namespace:Restaurant.Mobile.UI.Views;assembly=Restaurant.Mobile.UI"
+                xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls;assembly=Restaurant.Mobile.UI"
+                xmlns:converters="clr-namespace:Restaurant.Mobile.UI.Converters;assembly=Restaurant.Mobile.UI"
+                x:Class="Restaurant.Mobile.UI.Views.FoodsListView"
+                x:Name="list"
+                StyleId="foodsList">
+    <CollectionView.Resources>
         <ResourceDictionary>
             <converters:IsFilledIconConverter x:Key="IsFilledIconConverter" />
         </ResourceDictionary>
-    </ListView.Resources>
-    
-    <ListView.Effects>
-        <effects:ListViewScrollEffect />
-    </ListView.Effects>
+    </CollectionView.Resources>
 
-    <ListView.Header>
+    <CollectionView.Header>
         <views:FoodsSearchView />
-    </ListView.Header>
-    <ListView.Footer>
+    </CollectionView.Header>
+    <CollectionView.Footer>
         <ActivityIndicator IsRunning="True">
             <ActivityIndicator.Color>
                 <OnPlatform x:TypeArguments="Color">
@@ -37,82 +29,75 @@
                 </OnPlatform>
             </ActivityIndicator.Color>
         </ActivityIndicator>
-    </ListView.Footer>
+    </CollectionView.Footer>
 
-    <ListView.ItemTemplate>
+    <CollectionView.ItemTemplate>
         <DataTemplate>
-            <controls:CustomViewCell IsTransparentBackgroundWhenSelectedCell="True">
-                <ViewCell.View>
-                    <StackLayout Spacing="{DynamicResource CardSpacing}"
-                                 Padding="{DynamicResource CardPadding}">
-                        <controls:CardView>
-                            <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
-                                <Grid HeightRequest="120">
-                                    <Image x:Name="photoImage" Source="{Binding Picture}" Aspect="AspectFill" />
+            <controls:CardView Padding="{DynamicResource CardPadding}">
+                <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
+                    <Grid HeightRequest="120">
+                        <Image x:Name="photoImage" Source="{Binding Picture}" Aspect="AspectFill" />
 
-                                    <ActivityIndicator VerticalOptions="Center"
-                                                       WidthRequest="25"
-                                                       HeightRequest="25"
-                                                       IsRunning="{Binding Source={x:Reference photoImage}, Path=IsLoading}"
-                                                       IsVisible="{Binding Source={x:Reference photoImage}, Path=IsLoading}">
-                                        <ActivityIndicator.Color>
-                                            <OnPlatform x:TypeArguments="Color">
-                                                <On Platform="Android" Value="{StaticResource primaryColor}" />
-                                            </OnPlatform>
-                                        </ActivityIndicator.Color>
-                                    </ActivityIndicator>
-                                </Grid>
+                        <ActivityIndicator VerticalOptions="Center"
+                                           WidthRequest="25"
+                                           HeightRequest="25"
+                                           IsRunning="{Binding Source={x:Reference photoImage}, Path=IsLoading}"
+                                           IsVisible="{Binding Source={x:Reference photoImage}, Path=IsLoading}">
+                            <ActivityIndicator.Color>
+                                <OnPlatform x:TypeArguments="Color">
+                                    <On Platform="Android" Value="{StaticResource primaryColor}" />
+                                </OnPlatform>
+                            </ActivityIndicator.Color>
+                        </ActivityIndicator>
+                    </Grid>
 
-                                <StackLayout Padding="10, 10, 10, 3">
-                                    <StackLayout>
-                                        <Label Text="{Binding Name}" FontSize="Medium"
-                                               TextColor="{StaticResource asphaltDark}"
-                                               VerticalOptions="CenterAndExpand" />
+                    <StackLayout Padding="10, 10, 10, 3">
+                        <StackLayout>
+                            <Label Text="{Binding Name}" FontSize="Medium"
+                                   TextColor="{StaticResource asphaltDark}"
+                                   VerticalOptions="CenterAndExpand" />
 
-                                        <Label Text="{Binding Description}"
-                                               Style="{StaticResource FoodsListDescriptionLabelStyle}"
-                                               FontSize="Micro"
-                                               TextColor="{StaticResource grayPrimary}" />
-                                    </StackLayout>
+                            <Label Text="{Binding Description}"
+                                   Style="{StaticResource FoodsListDescriptionLabelStyle}"
+                                   FontSize="Micro"
+                                   TextColor="{StaticResource grayPrimary}" />
+                        </StackLayout>
 
-                                    <controls:HeaderDivider />
+                        <controls:HeaderDivider />
 
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="Rs. "
-                                                   FontSize="Small"
-                                                   TextColor="{StaticResource asphaltPrimary}"
-                                                   VerticalOptions="CenterAndExpand" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Rs. "
+                                       FontSize="Small"
+                                       TextColor="{StaticResource asphaltPrimary}"
+                                       VerticalOptions="CenterAndExpand" />
 
-                                            <Label Text="{Binding Price, StringFormat='{0:C}'}"
-                                                   FontSize="Small"
-                                                   TextColor="{StaticResource  asphaltPrimary}"
-                                                   VerticalOptions="CenterAndExpand" />
-                                        </StackLayout>
-
-                                        <controls:AnimatedImage
-                                            Margin="10"
-                                            Source="{Binding IsFavorite, Converter={StaticResource IsFilledIconConverter}, ConverterParameter='like'}"
-                                            Grid.Column="1"
-                                            VerticalOptions="FillAndExpand"
-                                            HorizontalOptions="FillAndExpand">
-                                            <controls:AnimatedImage.GestureRecognizers>
-                                                <TapGestureRecognizer 
-                                                    Command="{Binding FavoriteCommand}" />
-                                            </controls:AnimatedImage.GestureRecognizers>
-                                        </controls:AnimatedImage>
-                                    </Grid>
-
-                                </StackLayout>
+                                <Label Text="{Binding Price, StringFormat='{0:C}'}"
+                                       FontSize="Small"
+                                       TextColor="{StaticResource  asphaltPrimary}"
+                                       VerticalOptions="CenterAndExpand" />
                             </StackLayout>
-                        </controls:CardView>
+
+                            <controls:AnimatedImage
+                                Margin="10"
+                                Source="{Binding IsFavorite, Converter={StaticResource IsFilledIconConverter}, ConverterParameter='like'}"
+                                Grid.Column="1"
+                                VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand">
+                                <controls:AnimatedImage.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding FavoriteCommand}" />
+                                </controls:AnimatedImage.GestureRecognizers>
+                            </controls:AnimatedImage>
+                        </Grid>
+
                     </StackLayout>
-                </ViewCell.View>
-            </controls:CustomViewCell>
+                </StackLayout>
+            </controls:CardView>
         </DataTemplate>
-    </ListView.ItemTemplate>
-</ListView>
+    </CollectionView.ItemTemplate>
+</CollectionView>

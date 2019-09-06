@@ -76,6 +76,7 @@ build:identity_api:
     key: dotnet-cache
     paths:
       - .nuget/
+    policy: pull
   only:
     changes:
       - src/Server/services/identity.api/**/*
@@ -96,6 +97,7 @@ build:menu_api:
     key: dotnet-cache
     paths:
       - .nuget/
+    policy: pull
   only:
     changes:
       - src/Server/services/menu.api/**/*

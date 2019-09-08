@@ -3,12 +3,12 @@
 namespace Restaurant.Mobile.UI.Views
 {
     // ReSharper disable once RedundantExtendsListEntry
-    public partial class FoodsListView : ListView
+    public partial class FoodsListView : CollectionView
     {
-        public FoodsListView() : base(ListViewCachingStrategy.RecycleElement)
+        public FoodsListView()
         {
             InitializeComponent();
-            ItemSelected += (_, __) => SelectedItem = null;
+//            ItemSelected += (_, __) => SelectedItem = null;
         }
     }
 }

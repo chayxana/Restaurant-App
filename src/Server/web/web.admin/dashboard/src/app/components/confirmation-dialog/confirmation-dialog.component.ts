@@ -4,7 +4,16 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-confirmation-dialog',
-  templateUrl: './confirmation-dialog.component.html'
+  template: `
+  <h1 mat-dialog-title>{{data.title}}</h1>
+  <div mat-dialog-content>
+    <p>{{data.description}}</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="warn" [mat-dialog-close]="true">{{data.positiveButtonText}}</button>
+    <button mat-raised-button (click)="onNoClick()" cdkFocusInitial>{{data.negativeButtonText}}</button>
+  </div>
+  `
 })
 export class ConfirmationDialogComponent implements OnInit {
   constructor(

@@ -1,0 +1,14 @@
+table {
+  width: 100%;
+}
+.container {
+  position: relative;
+  padding: 20px;
+}
+.pos-fix {
+  position: fixed !important;
+  bottom: 20px;
+  right: 20px;
+  top: auto;
+  left: auto;
+}

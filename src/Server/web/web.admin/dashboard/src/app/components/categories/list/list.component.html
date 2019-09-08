@@ -1,0 +1,40 @@
+<div class="container">
+  <mat-card [ngClass]="{ loading : isLoading }">
+    <mat-table [dataSource]="categories$ | async">
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell  *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="color">
+        <mat-header-cell *matHeaderCellDef> Color </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.color}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>
+          Actions
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <a mat-menu-item [routerLink]="['/categories/edit', row.id]" href="#">
+              <mat-icon>edit</mat-icon>
+              Edit
+            </a>
+            <button mat-menu-item (click)="onDelete(row.id)">
+              <mat-icon>delete</mat-icon>
+              Delete
+            </button>
+          </mat-menu>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card>
+  <button mat-fab class="pos-fix" routerLink="/categories/create">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

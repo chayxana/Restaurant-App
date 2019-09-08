@@ -9,38 +9,8 @@ import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-add-categories',
-  template: `
-  <mat-card class="container">
-    <form class="form-container" #categoryForm="ngForm" (ngSubmit)="onSubmit(categoryForm)">
-        <mat-form-field [ngClass]="{error : name.invalid && (name.dirty || name.touched) }">
-          <input matInput type="text" required placeholder="Name" [(ngModel)]="category.name" name="name" #name="ngModel">
-        </mat-form-field>
-        <mat-form-field [ngClass]="{error : color.invalid && (color.dirty || color.touched)}">
-          <input matInput required placeholder="Color"
-              [(colorPicker)]="category.color"
-              cpPosition='bottom'
-              [(ngModel)]="category.color" name="color" #color="ngModel"/>
-        </mat-form-field >
-      <mat-card-actions>
-        <mat-spinner-button [options]="saveButtonsOpts" type="submit">Save</mat-spinner-button>
-        <button mat-button type="button" (click)="onCancel()">Cancel</button>
-      </mat-card-actions>
-    </form>
-  </mat-card>`,
-  styles: [
-    ` .container {
-        margin: 25px;
-      }
-      .form-container {
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-      }
-      .form-container > * {
-        width: 100%;
-      }
-    `
-  ]
+  templateUrl: './add.component.html',
+  styleUrls: ['./add.component.css']
 })
 
 export class AddCategoryComponent implements OnInit {
@@ -90,19 +60,18 @@ export class AddCategoryComponent implements OnInit {
     });
   }
 
-  onSubmit(form: NgForm) {
+  async onSubmit(form: NgForm) {
     this.saveButtonsOpts.active = true;
     if (this.isEditMode) {
-      this.categoryService.update(this.category, this.authService.authorizationHeaderValue).subscribe(x => {
-        this.saveButtonsOpts.active = false;
-      });
+      await this.categoryService.update(this.category, this.authService.authorizationHeaderValue)
+        .toPromise();
     } else {
       this.category.id = uuid();
-      this.categoryService.create(this.category, this.authService.authorizationHeaderValue).subscribe(x => {
-        form.reset();
-        this.saveButtonsOpts.active = false;
-      });
+      await this.categoryService.create(this.category, this.authService.authorizationHeaderValue)
+        .toPromise();
+      form.reset();
     }
+    this.saveButtonsOpts.active = false;
   }
 
   onCancel() {

@@ -219,3 +219,4 @@ Images/
 *.a
 src/Server/services/go/src/basket.api/main
 src/Server/services/go/pkg
+src/Server/web/web.admin/dashboard/package-lock.json

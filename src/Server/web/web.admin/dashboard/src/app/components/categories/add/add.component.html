@@ -1,0 +1,17 @@
+<mat-card class="container">
+  <form class="form-container" #categoryForm="ngForm" (ngSubmit)="onSubmit(categoryForm)">
+      <mat-form-field [ngClass]="{error : name.invalid && (name.dirty || name.touched) }">
+        <input matInput type="text" required placeholder="Name" [(ngModel)]="category.name" name="name" #name="ngModel">
+      </mat-form-field>
+      <mat-form-field [ngClass]="{error : color.invalid && (color.dirty || color.touched)}">
+        <input matInput required placeholder="Color"
+            [(colorPicker)]="category.color"
+            cpPosition='bottom'
+            [(ngModel)]="category.color" name="color" #color="ngModel"/>
+      </mat-form-field >
+    <mat-card-actions>
+      <mat-spinner-button [options]="saveButtonsOpts" type="submit">Save</mat-spinner-button>
+      <button mat-button type="button" (click)="onCancel()">Cancel</button>
+    </mat-card-actions>
+  </form>
+</mat-card>

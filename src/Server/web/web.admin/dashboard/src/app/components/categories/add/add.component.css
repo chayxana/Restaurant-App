@@ -1,0 +1,11 @@
+.container {
+  margin: 25px;
+}
+.form-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.form-container > * {
+  width: 100%;
+}

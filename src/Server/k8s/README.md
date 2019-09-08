@@ -1,18 +1,20 @@
 # Using k8s locally
+
 Prerequisites
-- For masOS        
+
+- For masOS
   - Docker Desktop, Version >= 2.0.0
   - Minikube or k8s enabled for Docker Desktop
     - [minikube](https://minikube.sigs.k8s.io/docs/start/)
     - [Docker Desktop k8s](https://rominirani.com/tutorial-getting-started-with-kubernetes-with-docker-on-mac-7f58467203fd)
 
-```bash 
+```bash
 # Use for getting token to login k8s dashboard
 kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
 ```
 
-
 ## Setup k8s ingress locally
+
 ### k8s Ingress Docker Desktop
 
 ```bash

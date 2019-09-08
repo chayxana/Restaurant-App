@@ -1,16 +1,16 @@
 #!/bin/bash
 
-echo "################### Deleting k8s resources ###############"
+echo "Deleting k8s resources..."
 
 kubectl delete deployments --all
 kubectl delete services --all
 kubectl delete configmap local-config|| true
 kubectl delete -f ingress.yml
 
-echo "#################### Deploying infrastructure components ####################"
+echo "Deploying infrastructure components..."
 kubectl create -f pgsql-data.yml -f redis-data.yml -f config-map.yml
 
-echo "#################### Creating services ####################"
+echo "Creating services..."
 kubectl create -f services.yml
 kubectl create -f ingress.yml
 

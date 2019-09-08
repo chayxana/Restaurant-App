@@ -45,13 +45,13 @@ function getClientSettings(): UserManagerSettings {
   return {
       authority: environment.identityUrl,
       client_id: 'dashboard-spa',
-      redirect_uri: environment.spaBaseUrl + '/auth-callback',
-      post_logout_redirect_uri: environment.spaBaseUrl,
+      redirect_uri: window.location.origin + '/auth-callback',
+      post_logout_redirect_uri: window.location.origin,
       response_type: 'id_token token',
       scope: 'openid profile menu-api order-api basket-api',
       filterProtocolClaims: true,
       loadUserInfo: true,
       automaticSilentRenew: true,
-      silent_redirect_uri: environment.spaBaseUrl + '/silent-refresh.html'
+      silent_redirect_uri: window.location.origin + '/silent-refresh.html'
   };
 }

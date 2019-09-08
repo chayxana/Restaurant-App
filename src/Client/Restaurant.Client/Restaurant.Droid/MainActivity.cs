@@ -37,7 +37,7 @@ namespace Restaurant.Droid
             ToolbarResource = Resource.Layout.toolbar;
 
             base.OnCreate(bundle);
-
+            Forms.SetFlags("CollectionView_Experimental");
             Forms.Init(this, bundle);
             ImageCircleRenderer.Init();
             MakeStatusBarTranslucent(false);

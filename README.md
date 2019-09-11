@@ -1,25 +1,25 @@
 # Restaurant App 
 [![Gitter](https://badges.gitter.im/Restaurant-App-Community/community.svg)](https://gitter.im/Restaurant-App-Community/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-Restaurant App is containerized polyglot microservices application which contains projects based on .NET Core, Golang, Java, Xamarin, React, Angular and etc. The project demonstrates how to develop small microservices for larger applications using containers, orchestration, service discovery, gateway, and etc. You are always welcome to improve code quality and contribute it.
+Restaurant App is containerized polyglot microservices application which contains projects based on .NET Core, Golang, Java, Xamarin, React, Angular and etc. The project demonstrates how to develop small microservices for larger applications using containers, orchestration, service discovery, gateway, and etc. You are always welcome to improve code quality and contribute it, if you have any questions or issues don't hesitate to ask in our [gitter](https://gitter.im/Restaurant-App-Community/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) chat.
 
 To getting started, simply fork this repository. Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ## Motivation
 
 - Developing independently deployable and scalable micro-services
-- Developing cross-platform mobile apps using Xamarin.Forms
-- Configuring CI/CD pipelines
-- Using Docker and k8s
-- Writing clean, maintainable and fully testable code
+- Developing cross-platform beautiful mobile apps using Xamarin.Forms
+- Configuring CI/CD pipelines using Gitlab CI, Azure DevOps, automated deployments using k8s, Helm, Docker
+- Using modern technologies such as GraphQL, gRPC, Apache Kafka, Serverless, Service meshes
+- Writing clean, maintainable and fully testable code, Unit Testing, Integration Testing and Mocking practices
 - Using SOLID Design Principles
-- Using Design Patterns
+- Using Design Patterns and Best practices in different programming languages
 
 ## Architecture overview
 
-The architecture proposes a micro-service oriented architecture implementation with multiple autonomous micro-services (each one owning its own data/db) and implementing different approaches within each microservice using REST/HTTP as the communication protocol between the client apps and backend and supports asynchronous communication for data updates propagation across multiple services based on Integration Events and an Event Bus(Apache Kafka).
+The architecture proposes a micro-service oriented architecture implementation with multiple autonomous micro-services (each one owning its own data/db and programming language) and using REST/HTTP as the communication protocol between the client apps, and gRPC for the backend communication in order to support data update propagation across multiple services.
 
-## List of several individual microservices and infrastructure components
+## List of micro-services and infrastructure components
 
 <table>
    <thead>
@@ -27,22 +27,22 @@ The architecture proposes a micro-service oriented architecture implementation w
     <th>Service</th>
     <th>Description</th>
     <th>Build status</th>
-    <th>Coverage</th>
+    <th>Quality</th>
     <th>Endpoints</th>
   </thead>
   <tbody>
     <tr>
         <td align="center">1.</td>
         <td>Identity API (.NET Core + IdentityServer4)</td>
-        <td>Authentication service powered by OAuth2 and OpenID Connect</td>
+        <td>Identity management service, powered by OAuth2 and OpenID Connect</td>
         <td>
             <a href="https://gitlab.com/Jurabek/Restaurant-App/pipelines">
                 <img src="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/identity_api_build_status.svg">
             </a>
         </td>
         <td>
-            <a href="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/coverage/identity_api/index.htm">
-                <img src="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/identity_api_coverage.svg">
+            <a href="https://sonarcloud.io/dashboard?id=restaurant-identity-api">
+                <img src="https://sonarcloud.io/api/project_badges/measure?project=restaurant-identity-api&metric=alert_status">
             </a>
         </td>
         <td>
@@ -52,15 +52,15 @@ The architecture proposes a micro-service oriented architecture implementation w
     <tr>
         <td align="center">2.</td>
         <td>Basket API (Golang + Redis)</td>
-        <td>Manages customer basket in order to keep items, caches items into redis</td>
+        <td>Manages customer basket in order to keep items on in-memory cache using redis</td>
         <td>
             <a href="https://gitlab.com/Jurabek/Restaurant-App/pipelines">
                 <img src="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/basket_api_build_status.svg">
             </a>
         </td>
         <td>
-            <a href="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/coverage/basket_api/coverage.html">
-                <img src="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/basket_api_coverage.svg">
+            <a href="https://sonarcloud.io/dashboard?id=restaurant-basket-api">
+                <img src="https://sonarcloud.io/api/project_badges/measure?project=restaurant-basket-api&metric=alert_status">
             </a>
         </td>
         <td>
@@ -71,15 +71,15 @@ The architecture proposes a micro-service oriented architecture implementation w
     <tr>
         <td align="center">3.</td>
         <td>Menu API (.NET Core, PostgreSQL)</td>
-        <td>Manages data for showing on the list</td>
+        <td>Manages data for showing restaurant menu</td>
         <td>
             <a href="https://gitlab.com/Jurabek/Restaurant-App/pipelines">
                 <img src="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/menu_api_build_status.svg">
             </a>
         </td>
         <td>
-            <a href="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/coverage/menu_api/index.htm">
-                <img src="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/menu_api_coverage.svg">
+            <a href="https://sonarcloud.io/dashboard?id=restaurant-menu-api">
+                <img src="https://sonarcloud.io/api/project_badges/measure?project=restaurant-menu-api&metric=alert_status">
             </a>
         </td>
         <td>
@@ -90,15 +90,15 @@ The architecture proposes a micro-service oriented architecture implementation w
     <tr>
         <td align="center">4.</td>
         <td>Order API (Java + Spring Boot)</td>
-        <td>Manages customer orders and notifies cook about new orders</td>
+        <td>Manages customer orders</td>
         <td>
             <a href="https://gitlab.com/Jurabek/Restaurant-App/pipelines">
                 <img src="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/order_api_build_status.svg">
             </a>
         </td>
         <td>
-            <a href="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/coverage/order_api/index.html">
-                <img src="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/order_api_coverage.svg">
+            <a href="https://sonarcloud.io/dashboard?id=restaurant-order-api">
+                <img src="https://sonarcloud.io/api/project_badges/measure?project=restaurant-order-api&metric=alert_status">
             </a>
         </td>
         <td>

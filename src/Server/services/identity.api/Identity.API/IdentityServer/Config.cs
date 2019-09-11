@@ -54,7 +54,7 @@ namespace Identity.API.IdentityServer
                     AllowedGrantTypes = GrantTypes.Implicit,
                     ClientSecrets = {new Secret("secret".Sha256())},
                     AllowAccessTokensViaBrowser = true,
-                    RedirectUris = { $"http://localhost:4200/auth-callback" },
+                    RedirectUris = { $"http://localhost:4200/auth-callback", "http://localhost:4200/assets/silent-renew.html" },
                     PostLogoutRedirectUris = { $"http://localhost:4200" },
                     AllowOfflineAccess = true,
                     AllowedScopes =

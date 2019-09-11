@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import * as uuid from 'uuid';
 import { MatProgressButtonOptions } from 'mat-progress-buttons';
 import { AuthService } from 'app/services/auth.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-add-categories',
@@ -35,7 +36,7 @@ export class AddCategoryComponent implements OnInit {
   isLoading: boolean;
 
   category: Category = {
-    id: '',
+    id: uuid(),
     color: '',
     name: ''
   };
@@ -44,7 +45,8 @@ export class AddCategoryComponent implements OnInit {
     private categoryService: CategoryService,
     private router: Router,
     private route: ActivatedRoute,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(route => {
@@ -63,12 +65,11 @@ export class AddCategoryComponent implements OnInit {
   async onSubmit(form: NgForm) {
     this.saveButtonsOpts.active = true;
     if (this.isEditMode) {
-      await this.categoryService.update(this.category, this.authService.authorizationHeaderValue)
-        .toPromise();
+      await this.categoryService.update(this.category, this.authService.authorizationHeaderValue).toPromise();
+      this.showMessage('Category updated successfully!');
     } else {
-      this.category.id = uuid();
-      await this.categoryService.create(this.category, this.authService.authorizationHeaderValue)
-        .toPromise();
+      await this.categoryService.create(this.category, this.authService.authorizationHeaderValue).toPromise();
+      this.showMessage('Category created successfully!');
       form.reset();
     }
     this.saveButtonsOpts.active = false;
@@ -76,5 +77,11 @@ export class AddCategoryComponent implements OnInit {
 
   onCancel() {
     this.router.navigate(['/categories']);
+  }
+
+  private showMessage(message: string) {
+    this.snackBar.open(message, null, {
+      duration: 2000
+    });
   }
 }

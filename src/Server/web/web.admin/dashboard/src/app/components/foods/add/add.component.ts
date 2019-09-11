@@ -88,21 +88,17 @@ export class AddFoodComponent implements OnInit {
   }
 
   async onSubmit(form: NgForm, file: HTMLInputElement) {
-    this.isSaving = true;
     if (this.isEditMode) {
       if (this.imageUpdated) {
         await this.uploadPicture();
       }
       await this.foodService.update(this.food, this.authService.authorizationHeaderValue).toPromise();
       this.showMessage('Food updated successfully!');
-
     } else {
-      this.food.id = uuid();
       await this.foodService.create(this.food, this.authService.authorizationHeaderValue).toPromise();
       if (this.newImages.length > 0) {
         await this.uploadPicture();
       }
-
       this.showMessage('Food created successfully!');
       this.reset(form, file);
     }

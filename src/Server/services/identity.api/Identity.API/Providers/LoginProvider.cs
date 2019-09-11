@@ -61,7 +61,7 @@ namespace Identity.API.Providers
             if (user.IsAuthenticated())
             {
                 // delete local authentication cookie
-                await _httpContextAccessor.HttpContext.SignOutAsync();
+                await _httpContextAccessor.HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
 
                 // raise the logout event
                 await _events.RaiseAsync(new UserLogoutSuccessEvent(user.GetSubjectId(), user.GetDisplayName()));

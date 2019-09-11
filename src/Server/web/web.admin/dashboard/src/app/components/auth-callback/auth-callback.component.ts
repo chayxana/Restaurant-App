@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { StorageService } from 'app/services/storage.service';
+import { REDIRECT_URL_KEY } from 'app/config/constants';
 
 @Component({
   selector: 'app-auth-callback',
@@ -18,7 +20,11 @@ export class AuthCallbackComponent implements OnInit {
 
   error: boolean;
 
-  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private localStorageService: StorageService) { }
 
   async ngOnInit() {
 
@@ -27,6 +33,11 @@ export class AuthCallbackComponent implements OnInit {
       return;
     }
     await this.authService.completeAuthentication();
-    this.router.navigate(['/']);
+    const redirectUrl = this.localStorageService.getItem(REDIRECT_URL_KEY);
+    if (redirectUrl) {
+      this.router.navigate([redirectUrl]);
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 }

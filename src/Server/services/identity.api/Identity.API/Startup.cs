@@ -86,7 +86,13 @@ namespace Identity.API
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddIdentityServer()
+            services.AddIdentityServer(options => 
+                {
+                    options.Events.RaiseErrorEvents = true;
+                    options.Events.RaiseInformationEvents = true;
+                    options.Events.RaiseFailureEvents = true;
+                    options.Events.RaiseSuccessEvents = true;
+                })
                 .AddDeveloperSigningCredential()
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddConfigurationStore(options =>
@@ -134,7 +140,7 @@ namespace Identity.API
                     app.UsePathBase(basePath);
                 }
             }
-            else
+            else // locally when we use Netflix Zull 
             {
                 app.Use((context, next) =>
                 {

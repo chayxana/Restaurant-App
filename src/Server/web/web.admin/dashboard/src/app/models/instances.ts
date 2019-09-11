@@ -1,9 +1,10 @@
 import { Food } from './food';
 import { MatProgressButtonOptions } from 'mat-progress-buttons';
+import * as uuid from 'uuid';
 
 export function getFoodInstance(): Food {
   return <Food>{
-    id: null,
+    id: uuid(),
     name: '',
     description: '',
     price: null,

@@ -30,7 +30,7 @@ export class ListCategoriesComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.categories$  = this.categoryService.getAll(this.authService.authorizationHeaderValue);
+    this.categories$ = this.categoryService.getAll(this.authService.authorizationHeaderValue);
   }
 
 

@@ -13,6 +13,7 @@ import { CategoriesModule } from './components/categories/categories.module';
 import { AccountModule } from './components/account/account.module';
 import { FoodsModule } from './components/foods/foods.module';
 import { SharedModule } from './shared.module';
+import { StorageService } from './services/storage.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { SharedModule } from './shared.module';
     AccountModule,
     FoodsModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, StorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

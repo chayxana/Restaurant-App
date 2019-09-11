@@ -14,7 +14,19 @@ export class AuthService {
   // Observable navItem stream
   authNavStatus$ = this._authNavStatusSource.asObservable();
 
-  login() {
+  async hasSession(): Promise<boolean> {
+    try {
+      const _ = await this.manager.querySessionStatus();
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+  async loginSilent() {
+    this.user = await this.manager.signinSilent();
+    this._authNavStatusSource.next(this.isAuthenticated());
+  }
+  async login() {
     return this.manager.signinRedirect();
   }
 
@@ -23,8 +35,9 @@ export class AuthService {
     this._authNavStatusSource.next(this.isAuthenticated());
   }
 
-  signOut() {
-    this.manager.signoutRedirect();
+  async signOut() {
+    const a = await this.manager.signoutRedirect();
+    await this.manager.clearStaleState();
   }
 
   isAuthenticated(): boolean {
@@ -32,7 +45,6 @@ export class AuthService {
   }
 
   get authorizationHeaderValue(): string {
-    console.log(this.user.access_token);
     return `${this.user.token_type} ${this.user.access_token}`;
   }
 
@@ -52,6 +64,6 @@ function getClientSettings(): UserManagerSettings {
       filterProtocolClaims: true,
       loadUserInfo: true,
       automaticSilentRenew: true,
-      silent_redirect_uri: window.location.origin + '/silent-refresh.html'
+      silent_redirect_uri: window.location.origin + '/assets/silent-renew.html'
   };
 }

@@ -4,10 +4,9 @@
     <p class="lead">This step uses the <a
         href="http://docs.identityserver.io/en/latest/topics/grant_types.html#implicit" target="_blank">implicit flow
         type</a> and redirects to the IdentityServer instance to perform the authentication step. Before you can login
-      here, you must <a routerLink="/register">register a new account</a>.</p>
-    <img src="assets/images/open-identity.png" width="175" class="mb-4" />
+      here, you must <a routerLink="#">register a new account</a>.</p>
     <p>
-      <button (click)="login()">Login with IdentityServer</button>
+      <mat-spinner-button color="primary" [options]="loginButtonsOpts" (click)="login()"></mat-spinner-button>
     </p>
   </div>
 </mat-card>

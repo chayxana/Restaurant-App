@@ -37,7 +37,7 @@ import (
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @securitydefinitions.oauth2.implicit Identity Server OAuth
+// @securitydefinitions.oauth2.implicit OAuth
 // @authorizationUrl http://localhost/identity/connect/authorize
 // @scope.basket-api Access to basket-api
 func main() {

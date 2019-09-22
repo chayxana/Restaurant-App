@@ -14,14 +14,13 @@ import (
 // CreateAuth creates new instance of Auth
 func CreateAuth() *Auth {
 
-	authority, ok := os.LookupEnv("ExternalIdentityUrl")
+	authority, ok := os.LookupEnv("IDENTITY_URL")
 	if !ok {
 		authority = "http://localhost:5000"
 	}
 
 	claimsToValidate := map[string]interface{}{}
-	claimsToValidate["aud"] = "menu-api"
-	claimsToValidate["iss"] = authority
+	claimsToValidate["aud"] = "basket-api"
 	httpClient := oidc.JWKHttpClient{}
 	verifier := oidc.JwtTokenVerifier{
 		Authority:        authority,

@@ -7,6 +7,7 @@ services:
       - BASKET_URL=http://basket-api:5200
       - ORDER_URL=http://order-api:8090
       - MENU_URL=http://menu-api
+      - DASHBOARD_URL=http://dashboard-app
   
   order-api:
     environment:
@@ -14,12 +15,12 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://pgsql:5432/orderdb
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=Passw0rd!
-      - ExternalIdentityUrl=http://localhost:8080/identity
+      - IDENTITY_URL_PUB=http://localhost:8080/identity
 
   basket-api:
     environment:
       - REDIS_HOST=redis
-      - ExternalIdentityUrl=http://localhost:8080/identity
+      - IDENTITY_URL=http://identity-api
       - BASE_PATH=/basket
   
   pgsql:
@@ -34,8 +35,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__MenuDatabaseConnectionString=Host=pgsql;Database=menu_database;Username=admin;Password=Passw0rd!
       - PATH_BASE=/menu
-      - ExternalIdentityUrl=http://localhost:8080/identity
-      - InternalIdentityUrl=http://identity-api
+      - IDENTITY_URL_PUB=http://localhost:8080/identity
+      - IDENTITY_URL=http://identity-api
   
   identity-api:
     environment:
@@ -45,4 +46,5 @@ services:
       - MENU_API_URL=http://localhost:8080/menu
       - ORDER_API_URL=http://localhost:8080/order
       - BASKET_API_URL=http://localhost:8080/basket
-      - ExternalIdentityUrl=http://localhost:8080/identity
+      - DASHBOARD_URL=http://localhost:8080/dashboard
+      - IDENTITY_URL_PUB=http://localhost:8080/identity

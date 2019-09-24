@@ -1,4 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions;
 
@@ -20,7 +23,7 @@ namespace Restaurant.Core.ViewModels
             get => _isLoading;
             set => this.RaiseAndSetIfChanged(ref _isLoading, value);
         }
-        
+
         /// <summary>
         /// Get and set Title and provides page title for UI
         /// </summary>

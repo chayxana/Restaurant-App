@@ -9,7 +9,7 @@ docker-compose -f ./docker-compose.yml build
 # docker rmi $(docker images -qf "dangling=true")
 
 echo "#################### Pushing images to registry ####################"
-services=(identity menu basket order)
+services=(identity menu basket order dashboard)
 
 for service in "${services[@]}"
 do

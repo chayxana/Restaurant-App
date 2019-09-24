@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Value(value = "${jwt.apiAudience}")
     private String apiAudience;
 
-    @Value("${ExternalIdentityUrl:http://localhost:5100}")
+    @Value("${IDENTITY_URL_PUB:http://localhost:5100}")
     private String identityUrl;
 
     @Override

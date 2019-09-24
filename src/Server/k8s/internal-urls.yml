@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: internal-urls
+  labels:
+    app: restaurant
+data:
+  basket: http://basket-api
+  order: http://order-api
+  identity: http://identity-api
+  menu: http://menu-api

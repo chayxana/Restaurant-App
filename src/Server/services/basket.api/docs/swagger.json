@@ -20,6 +20,11 @@
     "paths": {
         "/items": {
             "post": {
+                "security": [
+                    {
+                        "OAuth": []
+                    }
+                ],
                 "description": "add by json new CustomerBasket",
                 "consumes": [
                     "application/json"
@@ -41,13 +46,6 @@
                             "type": "object",
                             "$ref": "#/definitions/models.CustomerBasket"
                         }
-                    },
-                    {
-                        "type": "string",
-                        "description": "Bearer",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
                     }
                 ],
                 "responses": {
@@ -70,6 +68,11 @@
         },
         "/items/{id}": {
             "get": {
+                "security": [
+                    {
+                        "OAuth": []
+                    }
+                ],
                 "description": "Get CustomerBasket by ID",
                 "consumes": [
                     "application/json"
@@ -87,13 +90,6 @@
                         "description": "CustomerBasket ID",
                         "name": "id",
                         "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Bearer",
-                        "name": "Authorization",
-                        "in": "header",
                         "required": true
                     }
                 ],
@@ -172,7 +168,7 @@
         }
     },
     "securityDefinitions": {
-        "Identity Server OAuth": {
+        "OAuth": {
             "type": "oauth2",
             "flow": "implicit",
             "authorizationUrl": "http://localhost/identity/connect/authorize",

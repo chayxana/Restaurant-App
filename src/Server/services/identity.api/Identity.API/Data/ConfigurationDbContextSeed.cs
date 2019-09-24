@@ -29,6 +29,7 @@ namespace Identity.API.Data
                 clientUrls.Add("MenuApiUrl", configuration["MENU_API_URL"]);
                 clientUrls.Add("BasketApiUrl", configuration["BASKET_API_URL"]);
                 clientUrls.Add("OrderApiUrl", configuration["ORDER_API_URL"]);
+                clientUrls.Add("DashboardAppUrl", configuration["DASHBOARD_APP_URL"]);
 
                 foreach (var client in Config.GetClients(clientUrls))
                 {

@@ -1,5 +1,5 @@
 <mat-card class="container">
-  <form #foodForm (ngSubmit)="onSubmit(foodForm)">
+  <form #foodForm (ngSubmit)="onSubmit(foodForm, file)">
     <mat-card-content class="form-container">
       <mat-form-field>
         <input matInput placeholder="Food name" [(ngModel)]="food.name" name="name">

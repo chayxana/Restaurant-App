@@ -32,6 +32,7 @@ export class AuthService {
 
   async completeAuthentication() {
     this.user = await this.manager.signinRedirectCallback();
+    console.log(this.user);
     this._authNavStatusSource.next(this.isAuthenticated());
   }
 
@@ -44,7 +45,8 @@ export class AuthService {
     return this.user != null && !this.user.expired;
   }
 
-  get authorizationHeaderValue(): string {
+  get authHeader(): string {
+    console.log(`${this.user.token_type} ${this.user.access_token}`);
     return `${this.user.token_type} ${this.user.access_token}`;
   }
 

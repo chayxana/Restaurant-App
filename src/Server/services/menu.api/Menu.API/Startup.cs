@@ -59,8 +59,8 @@ namespace Menu.API
 
             services.AddAuthorization();
 
-            var identityUrl = Configuration["InternalIdentityUrl"];
-            var externalIdentityUrl = Configuration["ExternalIdentityUrl"];
+            var identityUrl = Configuration["IDENTITY_URL"];
+            var publicIdentityUrl = Configuration["IDENTITY_URL_PUB"];
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services.AddAuthentication(options =>
@@ -107,8 +107,8 @@ namespace Menu.API
                 {
                     Type = "oauth2",
                     Flow = "implicit",
-                    AuthorizationUrl = $"{externalIdentityUrl}/connect/authorize",
-                    TokenUrl = $"{externalIdentityUrl}/connect/token",
+                    AuthorizationUrl = $"{publicIdentityUrl}/connect/authorize",
+                    TokenUrl = $"{publicIdentityUrl}/connect/token",
                     Scopes = new Dictionary<string, string>()
                     {
                         { "menu-api", "Restaurant Menu Api" }

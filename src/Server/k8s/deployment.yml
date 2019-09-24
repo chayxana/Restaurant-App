@@ -2,6 +2,26 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
+  name: dashboard-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dashboard-app
+    spec:
+      containers:
+      - image: jurabek/dashboard
+        imagePullPolicy: Always
+        name: dashboard-app
+        ports:
+        - containerPort: 80
+        resources:
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
   name: basket-api
 spec:
   replicas: 1
@@ -17,10 +37,13 @@ spec:
         ports:
         - containerPort: 5200
         env:
-        - name: ExternalIdentityUrl
-          value: http://localhost/identity
+        - name: IDENTITY_URL
+          valueFrom:
+            configMapKeyRef:
+              name: internal-urls
+              key: identity
         - name: REDIS_HOST
-          value: redis
+          value: redis-data:6379
         - name: BASE_PATH
           value: /basket
         resources:
@@ -46,25 +69,41 @@ spec:
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: Development
-        - name: BASKET_API_URL
-          value: http://localhost/basket
-        - name: ExternalIdentityUrl
-          value: http://localhost/identity
-        - name: MENU_API_URL
-          value: http://localhost/menu
-        - name: ORDER_API_URL
-          value: http://localhost/order
         - name: OrchestrationType
           value: k8s
         - name: PATH_BASE
           value: /identity
+        - name: BASKET_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: endpoints
+              key: basket_pub
+        - name: IDENTITY_URL_PUB
+          valueFrom:
+            configMapKeyRef:
+              name: endpoints
+              key: identity_pub
+        - name: MENU_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: endpoints
+              key: menu_pub
+        - name: ORDER_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: endpoints
+              key: order_pub
+        - name: DASHBOARD_URL
+          valueFrom:
+            configMapKeyRef:
+              name: endpoints
+              key: dashboard_pub
         - name: ConnectionStrings__IdentityConnectionString
           valueFrom:
             configMapKeyRef:
               name: local-config
               key: identity__ConnectionString
         resources:
-
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -95,10 +134,16 @@ spec:
            configMapKeyRef:
              name: local-config
              key: menu__ConnectionString
-        - name: ExternalIdentityUrl
-          value: http://localhost/identity
-        - name: InternalIdentityUrl
-          value: http://identity-api
+        - name: IDENTITY_URL_PUB
+          valueFrom:
+            configMapKeyRef:
+              name: endpoints
+              key: identity_pub
+        - name: IDENTITY_URL
+          valueFrom:
+            configMapKeyRef:
+              name: internal-urls
+              key: identity
         resources:
         
 ---
@@ -123,8 +168,11 @@ spec:
         env:
         - name: SERVER_SERVLET_CONTEXT_PATH
           value: /order
-        - name: ExternalIdentityUrl
-          value: http://localhost/identity
+        - name: IDENTITY_URL_PUB
+          valueFrom:
+            configMapKeyRef:
+              name: endpoints
+              key: identity_pub
         - name: SPRING_DATASOURCE_PASSWORD
           valueFrom:
             configMapKeyRef:

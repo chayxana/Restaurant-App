@@ -62,11 +62,6 @@ paths:
         schema:
           $ref: '#/definitions/models.CustomerBasket'
           type: object
-      - description: Bearer
-        in: header
-        name: Authorization
-        required: true
-        type: string
       produces:
       - application/json
       responses:
@@ -80,6 +75,8 @@ paths:
           schema:
             $ref: '#/definitions/models.HTTPError'
             type: object
+      security:
+      - OAuth: []
       summary: Add a CustomerBasket
       tags:
       - CustomerBasket
@@ -94,11 +91,6 @@ paths:
         name: id
         required: true
         type: string
-      - description: Bearer
-        in: header
-        name: Authorization
-        required: true
-        type: string
       produces:
       - application/json
       responses:
@@ -112,11 +104,13 @@ paths:
           schema:
             $ref: '#/definitions/models.HTTPError'
             type: object
+      security:
+      - OAuth: []
       summary: Gets a CustomerBasket
       tags:
       - CustomerBasket
 securityDefinitions:
-  Identity Server OAuth:
+  OAuth:
     authorizationUrl: http://localhost/identity/connect/authorize
     flow: implicit
     scopes:

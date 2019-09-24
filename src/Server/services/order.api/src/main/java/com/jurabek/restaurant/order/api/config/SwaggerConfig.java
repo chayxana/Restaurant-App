@@ -28,7 +28,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    @Value("${ExternalIdentityUrl:http://localhost:5100}")
+    @Value("${IDENTITY_URL_PUB:http://localhost:5100}")
     private String identityUrl;
     @Bean
     public Docket api() {

@@ -2,11 +2,24 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: dashboard-app
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    name: http
+  selector:
+    app: dashboard-app
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: menu-api
 spec:
   type: ClusterIP
   ports:
   - port: 80
+    name: http
   selector:
     app: menu-api
 
@@ -19,6 +32,7 @@ spec:
   type: ClusterIP
   ports:
   - port: 80
+    name: http
     targetPort: 5200
   selector:
     app: basket-api
@@ -32,6 +46,7 @@ spec:
   type: ClusterIP
   ports:
   - port: 80
+    name: http
     targetPort: 8090
   selector:
     app: order-api
@@ -45,5 +60,6 @@ spec:
   type: ClusterIP
   ports:
   - port: 80
+    name: http
   selector:
     app: identity-api

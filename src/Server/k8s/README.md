@@ -7,6 +7,7 @@ Prerequisites
   - Minikube or k8s enabled for Docker Desktop
     - [minikube](https://minikube.sigs.k8s.io/docs/start/)
     - [Docker Desktop k8s](https://rominirani.com/tutorial-getting-started-with-kubernetes-with-docker-on-mac-7f58467203fd)
+    - [k8s dashboard](https://github.com/kubernetes/dashboard)
 
 ```bash
 # Use for getting token to login k8s dashboard
@@ -23,14 +24,11 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/mast
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/cloud-generic.yaml
 
 # To be able to use Identity Server 4 behind the k8s ingress controller
-kubect apply -f k8s/ingress-config-map.yml
+kubect apply -f k8s/docker-setup/ingress-config-map.yml
 ```
 
 ### k8s Ingress Minikube
 
 ```bash
 minikube addons enable ingress
-
-# To be able to use Identity Server 4 behind the k8s ingress controller
-kubect apply -f k8s/ingress-config-map.yml
 ```

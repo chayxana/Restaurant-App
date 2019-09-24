@@ -22,11 +22,11 @@ export class FoodListComponent implements OnInit {
   constructor(private foodService: FoodService, private authService: AuthService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.foods$ = this.foodService.getAll(this.authService.authorizationHeaderValue);
+    this.foods$ = this.foodService.getAll(this.authService.authHeader);
   }
 
   async onDelete(id: string) {
-    this.selectedFood = await this.foodService.get(id, this.authService.authorizationHeaderValue).toPromise();
+    this.selectedFood = await this.foodService.get(id, this.authService.authHeader).toPromise();
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: <DialogData>{
         title: 'Delete food?',
@@ -39,9 +39,9 @@ export class FoodListComponent implements OnInit {
     dialogRef.afterClosed().
       pipe(
         filter(x => x === true),
-        switchMap(_ => this.foodService.delete(this.selectedFood, this.authService.authorizationHeaderValue))
+        switchMap(_ => this.foodService.delete(this.selectedFood, this.authService.authHeader))
       ).subscribe(() => {
-        this.foods$ = this.foodService.getAll(this.authService.authorizationHeaderValue);
+        this.foods$ = this.foodService.getAll(this.authService.authHeader);
       });
   }
 }

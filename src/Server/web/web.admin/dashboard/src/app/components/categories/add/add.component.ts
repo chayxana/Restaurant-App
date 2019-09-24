@@ -54,7 +54,7 @@ export class AddCategoryComponent implements OnInit {
       if (id) {
         this.isEditMode = true;
         this.isLoading = true;
-        this.categoryService.get(id, this.authService.authorizationHeaderValue).subscribe(cat => {
+        this.categoryService.get(id, this.authService.authHeader).subscribe(cat => {
           this.category = cat;
           this.isLoading = false;
         });
@@ -65,10 +65,10 @@ export class AddCategoryComponent implements OnInit {
   async onSubmit(form: NgForm) {
     this.saveButtonsOpts.active = true;
     if (this.isEditMode) {
-      await this.categoryService.update(this.category, this.authService.authorizationHeaderValue).toPromise();
+      await this.categoryService.update(this.category, this.authService.authHeader).toPromise();
       this.showMessage('Category updated successfully!');
     } else {
-      await this.categoryService.create(this.category, this.authService.authorizationHeaderValue).toPromise();
+      await this.categoryService.create(this.category, this.authService.authHeader).toPromise();
       this.showMessage('Category created successfully!');
       form.reset();
     }

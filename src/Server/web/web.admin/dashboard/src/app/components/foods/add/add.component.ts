@@ -45,7 +45,7 @@ export class AddFoodComponent implements OnInit {
       filter(param => param.get('id') != null),
       tap(_ => this.isEditMode = true),
       map(param => param.get('id')),
-      switchMap((id: string) => this.foodService.get(id, this.authService.authorizationHeaderValue)
+      switchMap((id: string) => this.foodService.get(id, this.authService.authHeader)
       )).pipe(
         tap(food => {
           food.pictures = food.pictures.map(x => <FoodPicture>{
@@ -58,7 +58,7 @@ export class AddFoodComponent implements OnInit {
         this.food.deletedPictures = [];
         this.allPictures = this.food.pictures.slice();
       });
-    this.categories$ = this.categoryService.getAll(this.authService.authorizationHeaderValue);
+    this.categories$ = this.categoryService.getAll(this.authService.authHeader);
   }
 
   imageUpload(e: any) {
@@ -92,10 +92,10 @@ export class AddFoodComponent implements OnInit {
       if (this.imageUpdated) {
         await this.uploadPicture();
       }
-      await this.foodService.update(this.food, this.authService.authorizationHeaderValue).toPromise();
+      await this.foodService.update(this.food, this.authService.authHeader).toPromise();
       this.showMessage('Food updated successfully!');
     } else {
-      await this.foodService.create(this.food, this.authService.authorizationHeaderValue).toPromise();
+      await this.foodService.create(this.food, this.authService.authHeader).toPromise();
       if (this.newImages.length > 0) {
         await this.uploadPicture();
       }
@@ -111,7 +111,7 @@ export class AddFoodComponent implements OnInit {
   }
 
   private uploadPicture(): Promise<any> {
-    return this.foodService.uploadImage(this.newImages, this.food.id, this.authService.authorizationHeaderValue).toPromise();
+    return this.foodService.uploadImage(this.newImages, this.food.id, this.authService.authHeader).toPromise();
   }
 
   onCancel() {

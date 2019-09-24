@@ -30,12 +30,12 @@ export class ListCategoriesComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.categories$ = this.categoryService.getAll(this.authService.authorizationHeaderValue);
+    this.categories$ = this.categoryService.getAll(this.authService.authHeader);
   }
 
 
   async onDelete(id: string) {
-    this.selectedCategory = await this.categoryService.get(id, this.authService.authorizationHeaderValue).toPromise();
+    this.selectedCategory = await this.categoryService.get(id, this.authService.authHeader).toPromise();
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: <DialogData>{
         title: 'Delete category?',
@@ -48,9 +48,9 @@ export class ListCategoriesComponent implements OnInit {
     dialogRef.afterClosed().
       pipe(
         filter(x => x === true),
-        switchMap(_ => this.categoryService.delete(this.selectedCategory, this.authService.authorizationHeaderValue))
+        switchMap(_ => this.categoryService.delete(this.selectedCategory, this.authService.authHeader))
       ).subscribe(() => {
-        this.categories$ = this.categoryService.getAll(this.authService.authorizationHeaderValue);
+        this.categories$ = this.categoryService.getAll(this.authService.authHeader);
       });
   }
 }

@@ -52,9 +52,10 @@ public class OrdersServicesIml implements OrdersService {
     }
 
     @Override
-    public CustomerOrderDto getOrderByCustomerId(String customerId) {
-        Order order= ordersRepository.getByBuyerId(UUID.fromString(customerId));
-        return modelMapper.map(order, CustomerOrderDto.class);
+    public List<CustomerOrderDto> getOrderByCustomerId(String customerId) {
+        List<Order> order= ordersRepository.getByBuyerId(UUID.fromString(customerId));
+        Type orderDtoType = new TypeToken<ArrayList<CustomerOrderDto>>() {}.getType();
+        return modelMapper.map(order, orderDtoType);
     }
 
 	@Override

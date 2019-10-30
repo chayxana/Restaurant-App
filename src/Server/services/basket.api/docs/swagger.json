@@ -109,6 +109,43 @@
                         }
                     }
                 }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "OAuth": []
+                    }
+                ],
+                "description": "Deletes CustomerBasket by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CustomerBasket"
+                ],
+                "summary": "Deletes a CustomerBasket",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "CustomerBasket ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.HTTPError"
+                        }
+                    }
+                }
             }
         }
     },

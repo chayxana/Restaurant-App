@@ -72,17 +72,22 @@ public class OrdersServiceTests {
 
     @Test
     public void GivenCustomerIdReturnOrder() {
-        Order order = new Order();
+        List<Order> orders = new ArrayList<>();
+        orders.add(new Order());
         String customerId = UUID.randomUUID().toString();
-        CustomerOrderDto dto = new CustomerOrderDto();
+        List<CustomerOrderDto> dtos = new ArrayList<>();
+        dtos.add(new CustomerOrderDto());
+
+        Type orderDtoType = new TypeToken<ArrayList<CustomerOrderDto>>() {}.getType();
 
         when(ordersRepository.getByBuyerId(UUID.fromString(customerId)))
-            .thenReturn(order);
+            .thenReturn(orders);
         
-        when(modelMapper.map(order, CustomerOrderDto.class)).thenReturn(dto);
+        when(modelMapper.map(orders, orderDtoType)).thenReturn(dtos);
 
-        CustomerOrderDto result = ordersService.getOrderByCustomerId(customerId);
+        List<CustomerOrderDto> result = ordersService.getOrderByCustomerId(customerId);
 
-        Assert.assertThat(dto, IsSame.sameInstance(result));
+        Assert.assertThat(result.size(), Is.is(1));
+        Assert.assertThat(result.get(0), IsSame.sameInstance(dtos.get(0)));
     }
 }

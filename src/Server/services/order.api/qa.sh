@@ -1,4 +1,4 @@
- #!/bin/sh
+#!/bin/sh
  
  ./gradlew sonarqube \
         -Dsonar.projectKey=restaurant-order-api \

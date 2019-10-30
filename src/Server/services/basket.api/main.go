@@ -13,7 +13,6 @@ import (
 	"github.com/jurabek/basket.api/middlewares"
 
 	"github.com/jurabek/basket.api/controllers"
-	"github.com/jurabek/basket.api/eureka"
 	"github.com/jurabek/basket.api/repositories"
 
 	"github.com/gin-gonic/gin"
@@ -70,6 +69,7 @@ func main() {
 		{
 			basket.GET(":id", controller.Get)
 			basket.POST("", controller.Create)
+			basket.DELETE(":id", controller.Delete)
 		}
 	}
 
@@ -91,7 +91,6 @@ func handleSigterm() {
 	signal.Notify(c, syscall.SIGTERM, os.Kill, os.Interrupt)
 	go func() {
 		<-c
-		eureka.UnRegister()
 		time.Sleep(10 * time.Second)
 		os.Exit(0)
 	}()

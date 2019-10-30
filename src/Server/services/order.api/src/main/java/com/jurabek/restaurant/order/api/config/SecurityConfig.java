@@ -36,18 +36,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        JwtWebSecurityConfigurer
+                .forRS256(apiAudience, "issuer")
+                .configure(http);
         final JwkProvider jwkProvider = new JWKProviderBuilderCustom().build();
         JwtWebSecurityConfigurer.forRS256(apiAudience, null,
                 new JwtAuthenticationProvider(jwkProvider, null, apiAudience))
                 .configure(http)
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/orders/getAll").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/v1/orders/**")
                 .authenticated();
     }
 
-    class JWKProviderBuilderCustom
-    {
+    class JWKProviderBuilderCustom {
         private final int expiresIn;
         private final TimeUnit expiresUnit;
         private final int cacheSize;
@@ -58,41 +61,41 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             this.cacheSize = 5;
         }
 
-        JwkProvider build()  {
+        JwkProvider build() {
             JwkProvider urlProvider = null;
             try {
                 urlProvider = new UrlJwkProviderOverride(
                         new URL(identityUrl + "/.well-known/openid-configuration/jwks"));
-            } catch (MalformedURLException e) {
+            } catch (MalformedURLException ignored) {
             }
             urlProvider = new GuavaCachedJwkProvider(urlProvider, cacheSize, expiresIn, expiresUnit);
             return urlProvider;
         }
     }
 
-    class UrlJwkProviderOverride implements JwkProvider {
+    static class UrlJwkProviderOverride implements JwkProvider {
         final URL url;
 
         UrlJwkProviderOverride(URL url) {
             this.url = url;
         }
+
         private Map<String, Object> getJwks() throws SigningKeyNotFoundException {
             try {
-                final URLConnection c = this.url.openConnection();
-
-                c.setRequestProperty("Accept", "application/json");
-                final InputStream inputStream = c.getInputStream();
+                final URLConnection urlConnection = this.url.openConnection();
+                urlConnection.setRequestProperty("Accept", "application/json");
+                final InputStream inputStream = urlConnection.getInputStream();
                 final JsonFactory factory = new JsonFactory();
-                final JsonParser parser = factory.createParser(inputStream);
-                final TypeReference<Map<String, Object>> typeReference = new TypeReference<Map<String, Object>>() {
-                };
-                return new ObjectMapper().reader().readValue(parser, typeReference);
+                try (final JsonParser parser = factory.createParser(inputStream)) {
+                    final TypeReference<Map<String, Object>> typeReference = new TypeReference<Map<String, Object>>() {
+                    };
+                    return new ObjectMapper().reader().readValue(parser, typeReference);
+                }
             } catch (IOException e) {
                 throw new SigningKeyNotFoundException("Cannot obtain jwks from url " + url.toString(), e);
             }
         }
 
-        @SuppressWarnings("unchecked")
         List<Jwk> getAll() throws SigningKeyNotFoundException {
             List<Jwk> jwks = Lists.newArrayList();
             final List<Map<String, Object>> keys = (List<Map<String, Object>>) getJwks().get("keys");

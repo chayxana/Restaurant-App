@@ -1,10 +1,15 @@
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dashboard-app
+  labels: 
+    app: dashboard-app
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard-app
   template:
     metadata:
       labels:
@@ -16,15 +21,16 @@ spec:
         name: dashboard-app
         ports:
         - containerPort: 80
-        resources:
-
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: basket-api
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: basket-api
   template:
     metadata:
       labels:
@@ -46,15 +52,16 @@ spec:
           value: redis-data:6379
         - name: BASE_PATH
           value: /basket
-        resources:
-
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: identity-api
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: identity-api
   template:
     metadata:
       labels:
@@ -103,14 +110,16 @@ spec:
             configMapKeyRef:
               name: local-config
               key: identity__ConnectionString
-        resources:
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: menu-api
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: menu-api
   template:
     metadata:
       labels:
@@ -144,15 +153,17 @@ spec:
             configMapKeyRef:
               name: internal-urls
               key: identity
-        resources:
         
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: order-api
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: order-api
   strategy: {}
   template:
     metadata:
@@ -187,22 +198,4 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: local-config
-              key: order__DataSourceUserName 
-        resources:
-
-
----
-        # livenessProbe:
-        #   httpGet:
-        #     path: /actuator/health
-        #     port: 8090
-        #   initialDelaySeconds: 10
-        #   timeoutSeconds: 5
-        #   periodSeconds: 10
-        # readinessProbe:
-        #   httpGet:
-        #     path: /actuator/health
-        #     port: 8090
-        #   initialDelaySeconds: 10
-        #   timeoutSeconds: 5
-        #   periodSeconds: 10
+              key: order__DataSourceUserName

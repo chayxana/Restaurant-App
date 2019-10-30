@@ -14,6 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -77,14 +78,14 @@ public class OrdersControllerTests {
 
     @Test
     public void getOrderByCustomerIdTest() {
-        CustomerOrderDto customerOrderDto = new CustomerOrderDto();
+        List<CustomerOrderDto> customerOrderDtos = Arrays.asList(new CustomerOrderDto());
         String customerId = "123";
 
         when(ordersService.getOrderByCustomerId(customerId))
-                .thenReturn(customerOrderDto);
+                .thenReturn(customerOrderDtos);
 
-        CustomerOrderDto result = ordersController.getOrderByCustomerId(customerId);
+        List<CustomerOrderDto> result = ordersController.getOrderByCustomerId(customerId);
 
-        Assert.assertThat(customerOrderDto, IsSame.sameInstance(result));
+        Assert.assertThat(customerOrderDtos.get(0), IsSame.sameInstance(result.get(0)));
     }
 }

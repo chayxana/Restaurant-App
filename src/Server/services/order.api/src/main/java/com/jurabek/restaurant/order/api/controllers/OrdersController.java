@@ -20,7 +20,7 @@ public class OrdersController {
 		this.ordersService = ordersService;
 	}
 
-	@GetMapping()
+	@GetMapping("getAllOrders")
 	public List<CustomerOrderDto> getData() {
 		return this.ordersService.getAll();
 	}
@@ -35,8 +35,8 @@ public class OrdersController {
 		ordersService.Update(customerBasketDto);
 	}
 
-	@GetMapping("getOrderByCustomerId")
-	public CustomerOrderDto getOrderByCustomerId(String customerId) {
+	@GetMapping("getOrdersByCustomerId")
+	public List<CustomerOrderDto> getOrderByCustomerId(String customerId) {
 		return ordersService.getOrderByCustomerId(customerId);
 	}
 

@@ -64,9 +64,9 @@ tput bold
 tput setaf 0 # reset
 kubectl create configmap endpoints \
     "--from-literal=basket_pub=http://api.restaurant.com/basket" \
-    "--from-literal=order_pub=http://api.restaurant.com/basket" \
-    "--from-literal=menu_pub=http://api.restaurant.com/basket" \
-    "--from-literal=identity_pub=http://api.restaurant.com/basket" \
+    "--from-literal=order_pub=http://api.restaurant.com/order" \
+    "--from-literal=menu_pub=http://api.restaurant.com/menu" \
+    "--from-literal=identity_pub=http://api.restaurant.com/identity" \
     "--from-literal=dashboard_pub=http://dashboard.restaurant.com" \
 
 kubectl create -f deployment.yml

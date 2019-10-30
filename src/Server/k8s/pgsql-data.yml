@@ -11,12 +11,15 @@ spec:
       storage: 100Mi
 
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pgsql-database
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: pgsql
   strategy:
     type: Recreate
   template:
@@ -35,6 +38,7 @@ spec:
         - name: POSTGRES_USER
           value: admin
         image: postgres:alpine
+        imagePullPolicy: IfNotPresent
         name: pgsql
         volumeMounts:
         - mountPath: /var/lib/postgresql/data

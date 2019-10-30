@@ -75,3 +75,27 @@ func (bc *BasketController) Get(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, result)
 }
+
+// Delete go doc
+// @Summary Deletes a CustomerBasket
+// @Description Deletes CustomerBasket by ID
+// @Tags CustomerBasket
+// @Accept json
+// @Produce json
+// @Param id path string true "CustomerBasket ID"
+// @Success 200 ""
+// @Failure 400 {object} models.HTTPError
+// @Router /items/{id} [delete]
+// @Security OAuth
+func (bc *BasketController) Delete(c *gin.Context) {
+	id := c.Param("id")
+
+	err := bc.BasketRepository.Delete(id)
+
+	if err != nil {
+		httpError := models.NewHTTPError(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, httpError)
+		return
+	}
+	c.Status(http.StatusOK)
+}

@@ -81,6 +81,30 @@ paths:
       tags:
       - CustomerBasket
   /items/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes CustomerBasket by ID
+      parameters:
+      - description: CustomerBasket ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.HTTPError'
+            type: object
+      security:
+      - OAuth: []
+      summary: Deletes a CustomerBasket
+      tags:
+      - CustomerBasket
     get:
       consumes:
       - application/json

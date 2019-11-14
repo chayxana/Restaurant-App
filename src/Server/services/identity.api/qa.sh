@@ -15,7 +15,6 @@ dotnet-sonarscanner begin \
      /d:sonar.coverage.exclusions="**Tests*.cs" \
      /d:sonar.exclusions="Identity.API/wwwroot/**, Identity.API/Migrations/**"
      /d:sonar.pullRequest=$CI_EXTERNAL_PULL_REQUEST_IID \
-     /d:sonar.analysis.mode=preview \
      /d:sonar.github.repository=Jurabek/Restaurant-App \
      /d:sonar.github.oauth=$GITHUB_SONAR_KEY
 

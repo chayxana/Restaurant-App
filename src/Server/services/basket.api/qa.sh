@@ -3,4 +3,5 @@ CGO_ENABLED=0 go test ./controllers ./repositories ./eureka ./oidc --cover -cove
 sonar-scanner -Dsonar.login=423f19c6b4a3ad087de2e7039311d3f047bcb90e \
     -Dsonar.pullRequest=$CI_EXTERNAL_PULL_REQUEST_IID \
     -Dsonar.github.repository=Jurabek/Restaurant-App \
-    -Dsonar.github.oauth=$GITHUB_SONAR_KEY
+    -Dsonar.github.oauth=$GITHUB_SONAR_KEY \
+    -Dsonar.pullrequest.github.endpoint=https://github.com/api/v3

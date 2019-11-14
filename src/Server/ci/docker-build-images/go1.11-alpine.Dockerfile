@@ -1,4 +1,4 @@
-FROM golang:1.11-alpine
+FROM golang:1.13.4-alpine
 
 ENV SONAR_SCANNER_VERSION=4.0.0.1744
 

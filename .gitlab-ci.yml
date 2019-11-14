@@ -22,7 +22,7 @@ build:basket_api:
   image: jurabek/golang:1.11-alpine
   stage: build & test
   script:
-    - sh services/basket.api/install_ci_dependencies.sh
+    # - sh services/basket.api/install_ci_dependencies.sh
     - ci/update_build_badge.sh running basket_api
     - echo "failure" > basket_status.txt #https://gitlab.com/gitlab-org/gitlab-runner/issues/3088
     - ci/qa.sh basket_api
@@ -30,7 +30,7 @@ build:basket_api:
     - echo "success" > basket_status.txt
   after_script:
     - cd src/Server/
-    - ci/update_build_badge.sh `cat basket_status.txt` basket_api
+    # - ci/update_build_badge.sh `cat basket_status.txt` basket_api
   cache:
     key: go-cache
     paths:
@@ -38,19 +38,22 @@ build:basket_api:
   only:
     changes:
       - src/Server/services/basket.api/**/*
+    refs:
+      - external_pull_requests
+      - develop
   
 build:order_api:
   image: jurabek/openjdk:8-jdk-alpine
   stage: build & test
   script:
-    - ci/update_build_badge.sh running order_api
+    # - ci/update_build_badge.sh running order_api
     - echo "failure" > order_status.txt
     - ci/build.sh order_api
     - ci/qa.sh order_api
     - echo "success" > order_status.txt
   after_script:
     - cd src/Server/
-    - ci/update_build_badge.sh `cat order_status.txt` order_api
+    # - ci/update_build_badge.sh `cat order_status.txt` order_api
   cache:
     key: gradle-cache
     paths:
@@ -59,19 +62,22 @@ build:order_api:
   only:
     changes:
       - src/Server/services/order.api/**/*
+    refs:
+      - external_pull_requests
+      - develop
 
 build:identity_api:
   image: jurabek/dotnet-sdk:2.2-alpine
   stage: build & test
   script:
-    - ci/update_build_badge.sh running identity_api
+    # - ci/update_build_badge.sh running identity_api
     - echo "failure" > identity_status.txt
     - ci/qa.sh identity_api
     - ci/build.sh identity_api
     - echo "success" > identity_status.txt
   after_script:
     - cd src/Server/
-    - ci/update_build_badge.sh `cat identity_status.txt` identity_api
+    # - ci/update_build_badge.sh `cat identity_status.txt` identity_api
   cache:
     key: dotnet-cache
     paths:
@@ -80,19 +86,22 @@ build:identity_api:
   only:
     changes:
       - src/Server/services/identity.api/**/*
+    refs:
+      - external_pull_requests
+      - develop
   
 build:menu_api:
   image: jurabek/dotnet-sdk:2.2-alpine
   stage: build & test
   script:
-    - ci/update_build_badge.sh running menu_api
+    # - ci/update_build_badge.sh running menu_api
     - echo "failure" > menu_status.txt
     - ci/qa.sh menu_api
     - ci/build.sh menu_api
     - echo "success" > menu_status.txt
   after_script:
     - cd src/Server/
-    - ci/update_build_badge.sh `cat menu_status.txt` menu_api
+    # - ci/update_build_badge.sh `cat menu_status.txt` menu_api
   cache:
     key: dotnet-cache
     paths:
@@ -101,6 +110,9 @@ build:menu_api:
   only:
     changes:
       - src/Server/services/menu.api/**/*
+    refs:
+      - external_pull_requests
+      - develop
   artifacts:
     when:
       always

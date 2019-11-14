@@ -11,10 +11,7 @@ trigger:
     include:
     - src/Client/*
     - azure-pipelines.yml
-pr:
-  branches:
-    include:
-    - develop
+pr: none
 
 jobs:
 - job: Android

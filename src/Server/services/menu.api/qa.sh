@@ -14,7 +14,6 @@ dotnet-sonarscanner begin \
      /d:sonar.cs.opencover.reportsPaths="Menu.API.UnitTests/coverage.opencover.xml" \
      /d:sonar.coverage.exclusions="**Tests*.cs" \
      /d:sonar.pullRequest=$CI_EXTERNAL_PULL_REQUEST_IID \
-     /d:sonar.analysis.mode=preview \
      /d:sonar.github.repository=Jurabek/Restaurant-App \
      /d:sonar.github.oauth=$GITHUB_SONAR_KEY
 

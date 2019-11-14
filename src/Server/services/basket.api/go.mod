@@ -27,3 +27,5 @@ require (
 	golang.org/x/sys v0.0.0-20190801041406-cbf593c0f2f3 // indirect
 	gopkg.in/go-playground/assert.v1 v1.2.1
 )
+
+go 1.13

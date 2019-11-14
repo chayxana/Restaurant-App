@@ -135,7 +135,7 @@ paths:
       - CustomerBasket
 securityDefinitions:
   OAuth:
-    authorizationUrl: http://localhost/identity/connect/authorize
+    authorizationUrl: '{{.AuthUrl}}'
     flow: implicit
     scopes:
       basket-api: ' Access to basket-api'

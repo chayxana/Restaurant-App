@@ -21,6 +21,7 @@ services:
     environment:
       - REDIS_HOST=redis
       - IDENTITY_URL=http://identity-api
+      - IDENTITY_URL_PUB=http://localhost:8080/identity
       - BASE_PATH=/basket
   
   pgsql:

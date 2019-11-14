@@ -17,10 +17,17 @@ spec:
     spec:
       containers:
       - image: jurabek/dashboard
-        imagePullPolicy: Always
+        imagePullPolicy: Never
         name: dashboard-app
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "60m"
+          limits:
+            memory: "64Mi"
+            cpu: "100m"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -38,7 +45,7 @@ spec:
     spec:
       containers:
       - image: jurabek/basket
-        imagePullPolicy: Always
+        imagePullPolicy: Never
         name: basket-api
         ports:
         - containerPort: 5200
@@ -48,10 +55,22 @@ spec:
             configMapKeyRef:
               name: internal-urls
               key: identity
+        - name: IDENTITY_URL_PUB
+          valueFrom:
+            configMapKeyRef:
+              name: endpoints
+              key: identity_pub
         - name: REDIS_HOST
           value: redis-data:6379
         - name: BASE_PATH
           value: /basket
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "60m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -69,7 +88,7 @@ spec:
     spec:
       containers:
       - name: identity-api
-        imagePullPolicy: Always
+        imagePullPolicy: Never
         ports:
         - containerPort: 80
         image: jurabek/identity
@@ -100,7 +119,7 @@ spec:
             configMapKeyRef:
               name: endpoints
               key: order_pub
-        - name: DASHBOARD_URL
+        - name: DASHBOARD_APP_URL
           valueFrom:
             configMapKeyRef:
               name: endpoints
@@ -110,6 +129,26 @@ spec:
             configMapKeyRef:
               name: local-config
               key: identity__ConnectionString
+        readinessProbe:
+          httpGet:
+            path: /hc
+            port: 80
+          initialDelaySeconds: 3
+          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 80
+          initialDelaySeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 10
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -128,7 +167,7 @@ spec:
       containers:
       - name: menu-api
         image: jurabek/menu
-        imagePullPolicy: Always
+        imagePullPolicy: Never
         ports:
           - containerPort: 80
         env:
@@ -153,6 +192,31 @@ spec:
             configMapKeyRef:
               name: internal-urls
               key: identity
+        readinessProbe:
+          httpGet:
+            path: /hc
+            port: 80
+          initialDelaySeconds: 10
+          timeoutSeconds: 3
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 5
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 80
+          initialDelaySeconds: 10
+          timeoutSeconds: 3
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 5
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
         
 ---
 apiVersion: apps/v1
@@ -164,7 +228,6 @@ spec:
   selector:
     matchLabels:
       app: order-api
-  strategy: {}
   template:
     metadata:
       labels:
@@ -172,7 +235,7 @@ spec:
     spec:
       containers:
       - image: jurabek/order
-        imagePullPolicy: Always
+        imagePullPolicy: Never
         name: order-api
         ports:
           - containerPort: 8090
@@ -184,6 +247,11 @@ spec:
             configMapKeyRef:
               name: endpoints
               key: identity_pub
+        - name: BASKET_URL
+          valueFrom:
+            configMapKeyRef:
+              name: internal-urls
+              key: basket
         - name: SPRING_DATASOURCE_PASSWORD
           valueFrom:
             configMapKeyRef:
@@ -199,3 +267,28 @@ spec:
             configMapKeyRef:
               name: local-config
               key: order__DataSourceUserName
+        readinessProbe:
+          httpGet:
+            path: /order/health
+            port: 8090
+          initialDelaySeconds: 30
+          timeoutSeconds: 3
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 5
+        livenessProbe:
+          httpGet:
+            path: /order/health
+            port: 8090
+          initialDelaySeconds: 60
+          timeoutSeconds: 3
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 5
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"

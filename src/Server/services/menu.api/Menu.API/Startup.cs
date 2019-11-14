@@ -21,6 +21,7 @@ using Menu.API.Repositories;
 using Menu.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,8 +32,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Steeltoe.Common.Discovery;
-using Steeltoe.Discovery.Client;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -85,6 +84,9 @@ namespace Menu.API
             {
                 options.UseNpgsql(connectionString);
             });
+
+            services.AddHealthChecks()
+                .AddNpgSql(connectionString);
 
             services.AddCors(o => o.AddPolicy("ServerPolicy", builder =>
             {
@@ -175,7 +177,11 @@ namespace Menu.API
                 c.OAuthClientId("menu-api-swagger-ui");
                 c.OAuthAppName("Menu API Swagger UI");
             });
-
+            app.UseHealthChecks("/hc");
+            app.UseHealthChecks("/liveness", new HealthCheckOptions
+            {
+                Predicate = r => r.Name.Contains("self")
+            });
             app.UseCors("ServerPolicy");
             app.UseMvcWithDefaultRoute();
             app.UseStaticFiles();

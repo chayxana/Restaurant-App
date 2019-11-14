@@ -7,6 +7,7 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="2.2.1" />
     <PackageReference Include="HealthChecks.PostgreSQL" Version="1.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="2.2.4" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" Version="2.2.0" />

@@ -7,8 +7,8 @@
     <ProjectGuid>{0653635a-c13b-4622-965c-aa086527cb52}</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="2.2.1" />
     <PackageReference Include="AWSSDK.S3" Version="3.3.103.2" />
-    <PackageReference Include="Pivotal.Discovery.ClientCore" Version="2.2.0-rc2" />
     <PackageReference Include="Polly" Version="5.6.1" />
     <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="AutoMapper" Version="7.0.1" />

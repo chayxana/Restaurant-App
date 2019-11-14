@@ -37,8 +37,6 @@ namespace Identity.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 if (IsK8S)
@@ -72,7 +70,8 @@ namespace Identity.API
             });
 
             services.AddHealthChecks()
-                .AddCheck("self", () => HealthCheckResult.Healthy());
+                .AddCheck("self", () => HealthCheckResult.Healthy())
+                .AddNpgSql(connectionString);
 
             services.AddCors(o => o.AddPolicy("ServerPolicy", builder =>
             {

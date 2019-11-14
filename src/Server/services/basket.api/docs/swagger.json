@@ -208,7 +208,7 @@
         "OAuth": {
             "type": "oauth2",
             "flow": "implicit",
-            "authorizationUrl": "http://localhost/identity/connect/authorize",
+            "authorizationUrl": "{{.AuthUrl}}",
             "scopes": {
                 "basket-api": " Access to basket-api"
             }

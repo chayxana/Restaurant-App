@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  proxy:
+    image: reverse-proxy
+    build: ./gateway
+    ports: 
+      - "3030:3030"
+  dashboard:
+    image: dashboard
+    build: ./web/web.admin/dashboard
+    ports: 
+      - "3000:80"

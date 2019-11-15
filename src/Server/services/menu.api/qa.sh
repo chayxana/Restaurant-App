@@ -13,6 +13,7 @@ dotnet-sonarscanner begin \
     /d:"sonar.login=77a854f90e4e5cf4f26de587be88715750a2a9cc" \
     /d:sonar.cs.opencover.reportsPaths="Menu.API.UnitTests/coverage.opencover.xml" \
     /d:sonar.coverage.exclusions="**Tests*.cs" \
+    /d:sonar.exclusions="Menu.API/Migrations/**, Menu.API/Data/**, Menu.API/Mapper/**"
     /d:sonar.github.repository=Jurabek/Restaurant-App \
     /d:sonar.pullrequest.base=$CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_NAME \
     /d:sonar.pullrequest.branch=$CI_EXTERNAL_PULL_REQUEST_SOURCE_BRANCH_NAME \

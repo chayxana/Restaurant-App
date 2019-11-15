@@ -9,7 +9,7 @@ if [ "$EUID" -ne 0 ]; then
   echo "-------------------------------------------------------------------------------------------"
   echo "Note this script needs sudo permissions... Please run it again with sudo."
   echo "-------------------------------------------------------------------------------------------"
-  tput sgr 0 
+  tput sgr 0
   exit
 fi
 
@@ -67,7 +67,7 @@ kubectl create configmap endpoints \
     "--from-literal=order_pub=http://api.restaurant.com/order" \
     "--from-literal=menu_pub=http://api.restaurant.com/menu" \
     "--from-literal=identity_pub=http://api.restaurant.com/identity" \
-    "--from-literal=dashboard_pub=http://dashboard.restaurant.com" \
+    "--from-literal=dashboard_pub=http://api.restaurant.com/dashboard" \
 
 kubectl create -f deployment.yml
 echo "Deployment DONE!"

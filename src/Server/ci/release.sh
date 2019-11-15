@@ -21,7 +21,7 @@ docker-compose -f ./docker-compose.yml build
 # Remove temporary images
 # docker rmi $(docker images -qf "dangling=true")
 
-echo "#################### Pushing images to registry ####################"
+echo "#################### Tagging images to registry ####################"
 services=(identity menu basket order dashboard)
 
 for service in "${services[@]}"

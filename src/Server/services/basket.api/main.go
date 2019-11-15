@@ -74,7 +74,7 @@ func main() {
 	}
 	authURL, _ := os.LookupEnv("IDENTITY_URL_PUB")
 	authorizeURL := authURL + "/connect/authorize"
-	fmt.Fprintf(os.Stderr, "[DEBUG] Using Authorize URL: %s", authorizeURL)
+	fmt.Fprintf(os.Stderr, "[DEBUG] Using Authorize URL: %s\r\n", authorizeURL)
 	docs.OverrideAuthURL(authorizeURL)
 
 	// Home page should be redirected to swagger page

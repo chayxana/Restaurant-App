@@ -9,4 +9,5 @@
        -Dsonar.pullrequest.base=$CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_NAME \
        -Dsonar.pullrequest.branch=$CI_EXTERNAL_PULL_REQUEST_SOURCE_BRANCH_NAME \
        -Dsonar.pullrequest.key=$CI_EXTERNAL_PULL_REQUEST_IID \
-       -Dsonar.pullrequest.provider=GitHub
+       -Dsonar.pullrequest.provider=GitHub \
+       -Dsonar.exclusions="src/test/**, src/main/java/com/jurabek/restaurant/order/api/config/**"

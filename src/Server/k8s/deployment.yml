@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - image: jurabek/dashboard
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         name: dashboard-app
         ports:
         - containerPort: 80
@@ -45,7 +45,7 @@ spec:
     spec:
       containers:
       - image: jurabek/basket
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         name: basket-api
         ports:
         - containerPort: 5200
@@ -88,7 +88,7 @@ spec:
     spec:
       containers:
       - name: identity-api
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
         image: jurabek/identity
@@ -167,7 +167,7 @@ spec:
       containers:
       - name: menu-api
         image: jurabek/menu
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 80
         env:
@@ -235,7 +235,7 @@ spec:
     spec:
       containers:
       - image: jurabek/order
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         name: order-api
         ports:
           - containerPort: 8090

@@ -37,8 +37,8 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: Dockerfile.ci
-      working-directory: ./src/Server/
-      
+        workdir: ./src/Server/services/basket.api
+
     - name: Upload basket-api artifact
       uses: actions/upload-artifact@v1
       with:

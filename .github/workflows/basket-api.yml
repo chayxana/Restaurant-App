@@ -29,8 +29,5 @@ jobs:
     - run: |
         chmod -R +x ci/
         ci/build.sh basket_api
-        echo $GOPATH
-        cd $GOPATH
-        ls
       working-directory: ./src/Server/
     

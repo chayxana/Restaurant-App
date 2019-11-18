@@ -1,6 +1,5 @@
 package com.jurabek.restaurant.order.api.dtos;
 
-import com.jurabek.restaurant.order.api.models.OrderItems;
 import org.junit.Test;
 
 import static com.google.code.beanmatchers.BeanMatchers.hasValidGettersAndSetters;

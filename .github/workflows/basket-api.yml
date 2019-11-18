@@ -1,0 +1,25 @@
+  
+name: basket-api
+
+on:
+  push:
+    branches:
+    - develop
+  pull_request:
+    branches:
+    - develop
+
+jobs:
+  container-job:
+    runs-on: ubuntu-latest
+
+    container:
+      image: jurabek/golang:1.11-alpine
+
+    steps:
+    - uses: actions/checkout@v1
+    - run: |
+        chmod -R +x ci/
+        ci/qa.sh basket_api
+        ci/build.sh basket_api
+      working-directory: ./src/Server/

@@ -27,13 +27,15 @@ jobs:
     - run: |
         chmod -R +x ci/
         ci/build.sh basket_api
+        ls
       working-directory: ./src/Server/
     - name: Upload basket-api artifact
       uses: actions/upload-artifact@v1
       with:
         name: basket_api
-        path: ./basket.api
+        path: ./src/Server/services/basket.api/basket.api
   docker-build-and-push:
+    needs: build-and-test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -41,6 +43,12 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: basket_api
+    - name:
+      shell: bash
+      run: |
+        ls
+        cd basket_api
+        ls
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:

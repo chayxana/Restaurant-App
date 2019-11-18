@@ -35,7 +35,7 @@ jobs:
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       with:
-        projectBaseDir: ./src/Server/services/basket.api/basket.api
+        projectBaseDir: ./src/Server/services/basket.api
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.BASKET_API_SONAR_TOKEN }}

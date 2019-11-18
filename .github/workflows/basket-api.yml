@@ -28,7 +28,18 @@ jobs:
       run: |
         chmod -R +x ci/
         ci/build.sh basket_api
+        ci/qa.sh basket_api
       working-directory: ./src/Server/
+
+    - uses: actions/checkout@master
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      with:
+        projectBaseDir: ./src/Server/services/basket.api/basket.api
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.BASKET_API_SONAR_TOKEN }}
+  
     - name: Upload basket-api artifact
       uses: actions/upload-artifact@v1
       with:

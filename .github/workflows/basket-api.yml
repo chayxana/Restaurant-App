@@ -21,16 +21,13 @@ jobs:
     steps:
     - uses: actions/cache@v1
       with:
-        path: /go/pkg/mod
-        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        path: ~/go/pkg/mod
+        key: ${{ runner.os }}-go-basket-api
         restore-keys: |
-          ${{ runner.os }}-go-
+          ${{ runner.os }}-go-basket-api
     - uses: actions/checkout@v1
     - run: |
         chmod -R +x ci/
         ci/build.sh basket_api
-        echo $GOPATH
-        cd $GOPATH
-        ls
       working-directory: ./src/Server/
     

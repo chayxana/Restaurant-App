@@ -24,11 +24,21 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-go-
     - uses: actions/checkout@v1
-    - run: |
+    - name: build artifact 
+      run: |
         chmod -R +x ci/
         ci/build.sh basket_api
         ls
       working-directory: ./src/Server/
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: jurabek/basket
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        dockerfile: Dockerfile.ci
+      working-directory: ./src/Server/
+      
     - name: Upload basket-api artifact
       uses: actions/upload-artifact@v1
       with:
@@ -49,10 +59,3 @@ jobs:
         ls
         cd basket_api
         ls
-    - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
-      with:
-        name: jurabek/basket
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        dockerfile: Dockerfile.ci

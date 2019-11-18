@@ -19,6 +19,12 @@ jobs:
       image: jurabek/golang:1.11-alpine
 
     steps:
+    - uses: actions/cache@v1
+      with:
+        path: /go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
     - uses: actions/checkout@v1
     - run: |
         chmod -R +x ci/

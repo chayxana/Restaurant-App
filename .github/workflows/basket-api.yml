@@ -30,4 +30,3 @@ jobs:
         chmod -R +x ci/
         ci/build.sh basket_api
       working-directory: ./src/Server/
-    

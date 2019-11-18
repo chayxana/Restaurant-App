@@ -24,14 +24,18 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-go-
     - uses: actions/checkout@v1
-    - name: Build artifact 
+    - name: Build & QA 
       run: |
         chmod -R +x ci/
         ci/build.sh basket_api
         ci/qa.sh basket_api
       working-directory: ./src/Server/
+    - uses: actions/upload-artifact@v1
+        name: Upload basket-api artifact
+        with:
+          name: basket_api
+          path: ./src/Server/services/basket.api/basket.api
 
-    - uses: actions/checkout@master
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       with:
@@ -39,12 +43,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.BASKET_API_SONAR_TOKEN }}
-  
-    - name: Upload basket-api artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: basket_api
-        path: ./src/Server/services/basket.api/basket.api
   
   docker-push:
     needs: build-and-test

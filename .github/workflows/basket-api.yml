@@ -17,21 +17,25 @@ jobs:
     container:
       image: jurabek/golang:1.11-alpine
     steps:
-    - uses: actions/cache@v1
+    - name: Setup cache
+      uses: actions/cache@v1
       with:
         path: /go/pkg/mod
         key: ${{ runner.os }}-go-basket-api
         restore-keys: |
           ${{ runner.os }}-go-
+        
     - uses: actions/checkout@v1
+    
     - name: Build & QA 
       run: |
         chmod -R +x ci/
         ci/build.sh basket_api
         ci/qa.sh basket_api
       working-directory: ./src/Server/
-    - uses: actions/upload-artifact@v1
+    
     - name: Upload basket-api artifact
+      uses: actions/upload-artifact@v1
       with:
         name: basket_api
         path: ./src/Server/services/basket.api/basket.api

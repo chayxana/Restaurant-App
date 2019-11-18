@@ -31,10 +31,10 @@ jobs:
         ci/qa.sh basket_api
       working-directory: ./src/Server/
     - uses: actions/upload-artifact@v1
-        name: Upload basket-api artifact
-        with:
-          name: basket_api
-          path: ./src/Server/services/basket.api/basket.api
+    - name: Upload basket-api artifact
+      with:
+        name: basket_api
+        path: ./src/Server/services/basket.api/basket.api
 
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master

@@ -12,12 +12,10 @@ on:
     - './src/Server/services/basket.api/**'
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
-
     container:
       image: jurabek/golang:1.11-alpine
-
     steps:
     - uses: actions/cache@v1
       with:
@@ -30,3 +28,23 @@ jobs:
         chmod -R +x ci/
         ci/build.sh basket_api
       working-directory: ./src/Server/
+    - name: Upload basket-api artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: basket_api
+        path: ./basket.api
+  docker-build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Download basket-api artifact
+      uses: actions/download-artifact@v1
+      with:
+        name: basket_api
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: jurabek/basket
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        dockerfile: Dockerfile.ci

@@ -29,10 +29,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-go-
     
-    
     - uses: actions/checkout@v1
-      name: Checkout code    
-    
     - name: Build & QA 
       run: |
         chmod -R +x ci/

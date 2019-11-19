@@ -29,8 +29,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-go-
     
-    - name: Checkout code    
+    
     - uses: actions/checkout@v1
+      name: Checkout code    
     
     - name: Build & QA 
       run: |

@@ -14,8 +14,6 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    # container:
-    #   image: jurabek/golang:1.11-alpine
     steps:
     - name: Install Go
       uses: actions/setup-go@v1
@@ -24,8 +22,8 @@ jobs:
     - name: Setup cache
       uses: actions/cache@v1
       with:
-        path: /go/pkg/mod
-        key: ${{ runner.os }}-go-basket-api
+        path: ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
         restore-keys: |
           ${{ runner.os }}-go-
     

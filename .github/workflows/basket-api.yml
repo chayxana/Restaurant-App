@@ -23,9 +23,9 @@ jobs:
       uses: actions/cache@preview
       with:
         path: ~/go/pkg/mod
-        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        key: go-${{ hashFiles('**/go.sum') }}
         restore-keys: |
-          ${{ runner.os }}-go-
+          go-
     
     - uses: actions/checkout@v1
     - name: Build & QA 

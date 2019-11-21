@@ -23,7 +23,7 @@ jobs:
       uses: actions/cache@v1
       with:
         path: ~/go/pkg/mod
-        key: go-${{ hashFiles('**go.sum') }}
+        key: go-${{ hashFiles('./src/Server/services/basket.api/basket.api/go.sum') }}
         restore-keys: |
           go-
     

@@ -9,6 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * OrderItemsRepository
  */
-public interface OrderItemsRepository extends JpaRepository<OrderItems, UUID>{
-    
+public interface OrderItemsRepository extends JpaRepository<OrderItems, UUID>{   
 }

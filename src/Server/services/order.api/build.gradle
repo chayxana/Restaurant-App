@@ -46,16 +46,22 @@ repositories {
 }
 
 dependencies {
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.boot:spring-boot-starter-oauth2-resource-server')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile('com.auth0:auth0-spring-security-api:1.1.0')
-    compile('com.auth0:jwks-rsa:0.8.2')
+    compile('org.apache.httpcomponents:httpclient:4.5.10')
     compile('org.postgresql:postgresql:42.2.5')
     compile('io.springfox:springfox-swagger2:2.9.2')
     compile('io.springfox:springfox-swagger-ui:2.9.2')
+
     compile('org.modelmapper:modelmapper:2.3.0')
     compile('org.hibernate:hibernate-core:5.4.2.Final')
+
+    compileOnly('org.projectlombok:lombok:1.18.10')
+    annotationProcessor('org.projectlombok:lombok:1.18.10')
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.mockito:mockito-core:2.+')
     testCompile('com.google.code.bean-matchers:bean-matchers:0.12')

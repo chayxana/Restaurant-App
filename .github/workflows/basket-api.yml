@@ -41,8 +41,8 @@ jobs:
         name: basket_api
         path: ./src/Server/services/basket.api/basket.api
 
-    - uses: jurabek/sonar-scanner-github-actions@master
     - name: SonarCloud Scan
+      uses: jurabek/sonar-scanner-github-actions@master
       with:
         projectBaseDir: ./src/Server/services/basket.api
       env:

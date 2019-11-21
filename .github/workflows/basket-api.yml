@@ -20,10 +20,10 @@ jobs:
       with:
         go-version: 1.13.x
     - name: Setup cache
-      uses: actions/cache@v1
+      uses: actions/cache@preview
       with:
         path: ~/go/pkg/mod
-        key: ${{ runner.os }}-go-${{ hashFiles('./src/Server/services/basket.api/go.sum') }}
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
         restore-keys: |
           ${{ runner.os }}-go-
     
@@ -41,8 +41,8 @@ jobs:
         name: basket_api
         path: ./src/Server/services/basket.api/basket.api
 
+    - uses: jurabek/sonar-scanner-github-actions@master
     - name: SonarCloud Scan
-      uses: jurabek/sonar-scanner-github-actions@master
       with:
         projectBaseDir: ./src/Server/services/basket.api
       env:

@@ -7,6 +7,7 @@ import java.util.UUID;
 /**
  * CustomerBasketDto
  */
+
 public class CustomerBasketDto {
 
     private UUID customerId;

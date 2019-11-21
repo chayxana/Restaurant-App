@@ -1,6 +1,8 @@
 package com.jurabek.restaurant.order.api.config;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -11,15 +13,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import springfox.documentation.builders.ImplicitGrantBuilder;
-import springfox.documentation.builders.OAuthBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.AuthorizationScope;
-import springfox.documentation.service.GrantType;
-import springfox.documentation.service.LoginEndpoint;
-import springfox.documentation.service.SecurityReference;
-import springfox.documentation.service.SecurityScheme;
+import springfox.documentation.builders.*;
+import springfox.documentation.schema.ModelRef;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.paths.RelativePathProvider;
@@ -28,10 +24,11 @@ import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import static java.util.Collections.singletonList;
+
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-
     @Value("${IDENTITY_URL_PUB:http://localhost:5100}")
     private String identityUrl;
 
@@ -47,7 +44,9 @@ public class SwaggerConfig {
 
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
+
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select().apis(RequestHandlerSelectors.basePackage("com.jurabek.restaurant.order.api"))
                 .paths(Predicates.not(PathSelectors.regex("/error"))).build()
                 .pathProvider(new RelativePathProvider(this.servletContext) {
                     @Override
@@ -55,7 +54,8 @@ public class SwaggerConfig {
                         return basePath;
                     }
                 })
-                .securitySchemes(Arrays.asList(securityScheme())).securityContexts(Arrays.asList(securityContext()));
+                .securitySchemes(singletonList(securityScheme()))
+                .securityContexts(singletonList(securityContext()));
     }
 
     @Bean
@@ -68,7 +68,7 @@ public class SwaggerConfig {
         GrantType grantType = new ImplicitGrantBuilder()
             .loginEndpoint(new LoginEndpoint(identityUrl + "/connect/authorize")).build();
 
-        SecurityScheme oauth = new OAuthBuilder().name("Order API Swagger UI").grantTypes(Arrays.asList(grantType))
+        SecurityScheme oauth = new OAuthBuilder().name("oauth2").grantTypes(singletonList(grantType))
                 .scopes(Arrays.asList(scopes())).build();
 
         return oauth;
@@ -81,7 +81,7 @@ public class SwaggerConfig {
 
     private SecurityContext securityContext() {
         return SecurityContext.builder()
-                .securityReferences(Arrays.asList(new SecurityReference("Order API Swagger UI", scopes())))
+                .securityReferences(Arrays.asList(new SecurityReference("oauth2", scopes())))
                 .forPaths(PathSelectors.regex("/api/v1/orders*")).build();
     }
 

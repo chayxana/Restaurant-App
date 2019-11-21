@@ -1,0 +1,50 @@
+server:
+  port: 8090
+  tomcat:
+    max-threads: 5
+
+# Spring Boot initialization time improvements
+spring:
+  main:
+    lazy:
+      initialization: true
+  jmx:
+    enabled: true
+  application:
+    name: order-service
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/restaurant_orders_database
+    username: jurabek
+    password:
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:5100
+          jwk-set-uri: http://localhost:5100/.well-known/openid-configuration/jwks
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+management:
+  endpoints:
+    web:
+      base-path:
+    health:
+      show-details: always
+
+IDENTITY_URL_PUB: http://localhost:5100
+BASKET_URL: http://localhost:5200
+
+
+

@@ -23,9 +23,9 @@ jobs:
       uses: actions/cache@v1
       with:
         path: ~/go/pkg/mod
-        key: go-${{ hashFiles('./src/Server/services/basket.api/basket.api/go.sum') }}
+        key: go-cache-key
         restore-keys: |
-          go-
+          go-cache-key
     
     - uses: actions/checkout@v1
     - name: Build & QA 

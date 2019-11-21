@@ -70,3 +70,4 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: Dockerfile.ci
         workdir: ./src/Server/services/basket.api
+

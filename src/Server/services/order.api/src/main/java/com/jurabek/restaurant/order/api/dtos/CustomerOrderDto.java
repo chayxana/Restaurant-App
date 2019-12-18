@@ -1,6 +1,5 @@
 package com.jurabek.restaurant.order.api.dtos;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;

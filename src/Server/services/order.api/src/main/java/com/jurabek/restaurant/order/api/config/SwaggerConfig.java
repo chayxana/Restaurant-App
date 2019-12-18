@@ -1,12 +1,9 @@
 package com.jurabek.restaurant.order.api.config;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.Objects;
 
 import javax.servlet.ServletContext;
-
-import com.google.common.base.Predicates;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import springfox.documentation.builders.*;
-import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -47,7 +43,7 @@ public class SwaggerConfig {
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .select().apis(RequestHandlerSelectors.basePackage("com.jurabek.restaurant.order.api"))
-                .paths(Predicates.not(PathSelectors.regex("/error"))).build()
+                .paths(x -> !Objects.equals(x, "/error")).build()
                 .pathProvider(new RelativePathProvider(this.servletContext) {
                     @Override
                     public String getApplicationBasePath() {
@@ -68,20 +64,17 @@ public class SwaggerConfig {
         GrantType grantType = new ImplicitGrantBuilder()
             .loginEndpoint(new LoginEndpoint(identityUrl + "/connect/authorize")).build();
 
-        SecurityScheme oauth = new OAuthBuilder().name("oauth2").grantTypes(singletonList(grantType))
+        return new OAuthBuilder().name("oauth2").grantTypes(singletonList(grantType))
                 .scopes(Arrays.asList(scopes())).build();
-
-        return oauth;
     }
 
     private AuthorizationScope[] scopes() {
-        AuthorizationScope[] scopes = { new AuthorizationScope("order-api", "Restaurant Order API") };
-        return scopes;
+        return new AuthorizationScope[]{ new AuthorizationScope("order-api", "Restaurant Order API") };
     }
 
     private SecurityContext securityContext() {
         return SecurityContext.builder()
-                .securityReferences(Arrays.asList(new SecurityReference("oauth2", scopes())))
+                .securityReferences(singletonList(new SecurityReference("oauth2", scopes())))
                 .forPaths(PathSelectors.regex("/api/v1/orders*")).build();
     }
 

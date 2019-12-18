@@ -10,11 +10,11 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
 /**
- * OrderToOrdetDtoMap
+ * OrderToOrderDtoMap
  */
 public class OrderToCustomerOrderDtoMap extends PropertyMap<Order, CustomerOrderDto> {
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public OrderToCustomerOrderDtoMap(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
@@ -23,7 +23,7 @@ public class OrderToCustomerOrderDtoMap extends PropertyMap<Order, CustomerOrder
     @Override
     protected void configure() {
         using(ctx -> {
-            Order order = (Order) ctx.getSource();
+            var order = (Order) ctx.getSource();
 
             return order.getOrderItems().stream()
                     .map(orderItem -> modelMapper.map(orderItem, CustomerOrderItemsDto.class)).collect(Collectors.toList());

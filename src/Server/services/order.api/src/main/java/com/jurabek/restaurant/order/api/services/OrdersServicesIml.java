@@ -13,7 +13,6 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.lang.reflect.Type;
 import java.util.UUID;
 
 /**
@@ -33,7 +32,7 @@ public class OrdersServicesIml implements OrdersService {
 
     @Override
     public void Create(CustomerBasketDto customerBasketDto) {
-        Order order = modelMapper.map(customerBasketDto, Order.class);
+        var order = modelMapper.map(customerBasketDto, Order.class);
         for (OrderItems orderItems : order.getOrderItems()) {
             orderItems.setOrder(order);
         }
@@ -42,8 +41,8 @@ public class OrdersServicesIml implements OrdersService {
 
     @Override
     public List<CustomerOrderDto> getAll() {
-        List<Order> orders = this.ordersRepository.findAll();
-        Type orderDtoType = new TypeToken<ArrayList<CustomerOrderDto>>() {}.getType();
+        var orders = this.ordersRepository.findAll();
+        var orderDtoType = new TypeToken<ArrayList<CustomerOrderDto>>() {}.getType();
         return modelMapper.map(orders, orderDtoType);
 	}
 
@@ -53,8 +52,8 @@ public class OrdersServicesIml implements OrdersService {
 
     @Override
     public List<CustomerOrderDto> getOrderByCustomerId(String customerId) {
-        List<Order> order= ordersRepository.getByBuyerId(UUID.fromString(customerId));
-        Type orderDtoType = new TypeToken<ArrayList<CustomerOrderDto>>() {}.getType();
+        var order= ordersRepository.getByBuyerId(UUID.fromString(customerId));
+        var orderDtoType = new TypeToken<ArrayList<CustomerOrderDto>>() {}.getType();
         return modelMapper.map(order, orderDtoType);
     }
 

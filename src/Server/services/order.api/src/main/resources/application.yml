@@ -43,8 +43,10 @@ management:
     health:
       show-details: always
 
-IDENTITY_URL_PUB: http://localhost:5100
-BASKET_URL: http://localhost:5200
-
+microservices:
+  basket-api:
+    url: http://localhost:5200
+  identity-api-public:
+    url: http://localhost:5100
 
 

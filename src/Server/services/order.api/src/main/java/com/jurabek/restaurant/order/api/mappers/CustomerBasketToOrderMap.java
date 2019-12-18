@@ -16,7 +16,7 @@ import org.modelmapper.PropertyMap;
  */
 public class CustomerBasketToOrderMap extends PropertyMap<CustomerBasketDto, Order> {
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public CustomerBasketToOrderMap(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
@@ -26,7 +26,7 @@ public class CustomerBasketToOrderMap extends PropertyMap<CustomerBasketDto, Ord
     protected void configure() {
 
         using(ctx -> {
-            CustomerBasketDto customerBasketDto = (CustomerBasketDto) ctx.getSource();
+            var customerBasketDto = (CustomerBasketDto) ctx.getSource();
 
             return customerBasketDto.getItems().stream()
                     .map(basketItem -> modelMapper.map(basketItem, OrderItems.class)).collect(Collectors.toList());

@@ -7,3 +7,25 @@ on:
   pull_request:
     branches:
     - develop
+jobs:
+  my_job:
+    name: deploy to staging
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v1.4.0
+        with:
+          dotnet-version: 2.2.104
+      - uses: actions/cache@v1
+        with:
+          path: ~/.nuget/packages
+          key: dotnet-cache-key
+          restore-keys: |
+            dotnet-cache-key
+      - uses: actions/checkout@v1
+      - name: Build & QA 
+        run: |
+          chmod -R +x ci/
+          ci/build.sh menu_api
+          ci/qa.sh menu_api
+        working-directory: ./src/Server/

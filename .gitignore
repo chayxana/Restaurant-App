@@ -220,3 +220,8 @@ Images/
 src/Server/services/go/src/basket.api/main
 src/Server/services/go/pkg
 src/Server/web/web.admin/dashboard/package-lock.json
+
+# Node.js 
+node_modules
+build
+npm-debug.log

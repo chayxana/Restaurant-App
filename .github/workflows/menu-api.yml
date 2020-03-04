@@ -28,6 +28,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Build & QA 
         run: |
+          echo $PATH
           chmod -R +x ci/
           ci/build.sh menu_api
           ci/qa.sh menu_api

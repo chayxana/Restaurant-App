@@ -1,5 +1,8 @@
 #!/bin/sh
 
+dotnet tool install --global dotnet-sonarscanner --version 4.6.2
+export PATH="${PATH}:/root/.dotnet/tools"
+
 dotnet restore Menu.API.sln
 
 dotnet test Menu.API.UnitTests/Menu.API.UnitTests.csproj \

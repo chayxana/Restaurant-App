@@ -8,8 +8,8 @@ on:
   pull_request:
     branches:
     - develop
-    # paths:
-    # - './src/Server/services/basket.api/**'
+    paths:
+    - './src/Server/services/basket.api/**'
 
 jobs:
   build-and-test:

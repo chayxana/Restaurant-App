@@ -31,5 +31,5 @@ jobs:
           echo $PATH
           chmod -R +x ci/
           ci/build.sh menu_api
-          ci/qa.sh menu_api
+          # ci/qa.sh menu_api
         working-directory: ./src/Server/

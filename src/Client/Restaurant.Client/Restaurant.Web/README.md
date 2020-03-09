@@ -1,3 +1,2 @@
 
-Restaurant App Web Application
-########################################
+# Restaurant App Web Application

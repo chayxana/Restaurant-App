@@ -217,6 +217,6 @@ ModelManifest.xml
 Images/
 *.idea/
 *.a
-src/Server/services/go/src/basket.api/main
-src/Server/services/go/pkg
-src/Server/web/web.admin/dashboard/package-lock.json
+src/backend/services/go/src/basket.api/main
+src/backend/services/go/pkg
+src/backend/web/web.admin/dashboard/package-lock.json

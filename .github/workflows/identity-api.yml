@@ -1,4 +1,4 @@
-name: menu-api
+name: identity-api
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
     branches:
     - develop
     paths:
-    - './src/backend/services/menu.api/**'
+    - './src/backend/services/identity.api/**'
 
 jobs:
   my_job:
@@ -22,14 +22,14 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: ~/.nuget/packages
-          key: menu-api-dotnet-cache-key
+          key: identity-api-dotnet-cache-key
           restore-keys: |
-            menu-api-dotnet-cache-key
+            identity-api-dotnet-cache-key
       - uses: actions/checkout@v1
       - name: Build & QA 
         run: |
           echo $PATH
           chmod -R +x ci/
-          ci/build.sh menu_api
-          # ci/qa.sh menu_api
+          ci/build.sh identity_api
+          # ci/qa.sh identity_api
         working-directory: ./src/backend/

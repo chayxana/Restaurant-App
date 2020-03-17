@@ -9,7 +9,7 @@ trigger:
     - develop
   paths:
     include:
-    - src/Client/*
+    - src/mobile/*
     - azure-pipelines.yml
 pr: none
 

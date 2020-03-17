@@ -36,9 +36,7 @@ The architecture proposes a micro-service oriented architecture implementation w
         <td>Identity API (.NET Core + IdentityServer4)</td>
         <td>Identity management service, powered by OAuth2 and OpenID Connect</td>
         <td>
-            <a href="https://gitlab.com/Jurabek/Restaurant-App/pipelines">
-                <img src="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/identity_api_build_status.svg">
-            </a>
+            <img src="https://github.com/Jurabek/Restaurant-App/workflows/identity-api/badge.svg">
         </td>
         <td>
             <a href="https://sonarcloud.io/dashboard?id=restaurant-identity-api">
@@ -54,9 +52,7 @@ The architecture proposes a micro-service oriented architecture implementation w
         <td>Basket API (Golang + Redis)</td>
         <td>Manages customer basket in order to keep items on in-memory cache using redis</td>
         <td>
-            <a href="https://gitlab.com/Jurabek/Restaurant-App/pipelines">
-                <img src="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/basket_api_build_status.svg">
-            </a>
+            <img src="https://github.com/Jurabek/Restaurant-App/workflows/basket-api/badge.svg">
         </td>
         <td>
             <a href="https://sonarcloud.io/dashboard?id=restaurant-basket-api">
@@ -73,9 +69,7 @@ The architecture proposes a micro-service oriented architecture implementation w
         <td>Menu API (.NET Core, PostgreSQL)</td>
         <td>Manages data for showing restaurant menu</td>
         <td>
-            <a href="https://gitlab.com/Jurabek/Restaurant-App/pipelines">
-                <img src="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/menu_api_build_status.svg">
-            </a>
+            <img src="https://github.com/Jurabek/Restaurant-App/workflows/menu-api/badge.svg">
         </td>
         <td>
             <a href="https://sonarcloud.io/dashboard?id=restaurant-menu-api">
@@ -92,9 +86,7 @@ The architecture proposes a micro-service oriented architecture implementation w
         <td>Order API (Java + Spring Boot)</td>
         <td>Manages customer orders</td>
         <td>
-            <a href="https://gitlab.com/Jurabek/Restaurant-App/pipelines">
-                <img src="https://s3.eu-central-1.amazonaws.com/jurabek-restaurant-app/badges/order_api_build_status.svg">
-            </a>
+            <img src="https://github.com/Jurabek/Restaurant-App/workflows/order-api/badge.svg">
         </td>
         <td>
             <a href="https://sonarcloud.io/dashboard?id=restaurant-order-api">

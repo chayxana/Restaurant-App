@@ -14,7 +14,7 @@ on:
 
 jobs:
   my_job:
-    name: deploy to staging
+    name: build and test
     runs-on: ubuntu-18.04
     steps:
       - name: Setup .NET Core SDK

@@ -4,6 +4,8 @@ on:
   push:
     branches:
     - develop
+    paths:
+    - './src/backend/services/order.api/**'
   pull_request:
     branches:
     - develop
@@ -12,7 +14,7 @@ on:
 
 jobs:
   my_job:
-    name: deploy to staging
+    name: build and test
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
@@ -26,7 +28,7 @@ jobs:
         key: order-api-cache-key
         restore-keys: |
           order-api-cache-key
-    - name: Build with Gradle
+    - name: Build & QA
       run: |
         echo $PATH
         chmod -R +x ci/

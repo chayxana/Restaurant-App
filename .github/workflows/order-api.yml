@@ -32,3 +32,4 @@ jobs:
         chmod -R +x ci/
         ci/build.sh order_api
         ci/qa.sh order_api
+      working-directory: ./src/backend/

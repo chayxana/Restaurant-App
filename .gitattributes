@@ -63,4 +63,4 @@
 #*.RTF   diff=astextplain
 
 
-src/Server/services/identity.api/Identity.API/wwwroot/lib/bootstrap/js/bootstrap.bundle.js linguist-vendored
+src/backend/services/identity.api/Identity.API/wwwroot/lib/bootstrap/js/bootstrap.bundle.js linguist-vendored

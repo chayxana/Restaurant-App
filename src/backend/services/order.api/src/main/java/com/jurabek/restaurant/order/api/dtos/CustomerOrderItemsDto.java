@@ -51,5 +51,4 @@ public class CustomerOrderItemsDto {
     public void setFoodName(String foodName) {
         this.foodName = foodName;
     }
-
 }

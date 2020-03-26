@@ -8,10 +8,17 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class EndpointsConfiguration {
-    @Value("${microservices.basket-api.url:http://localhost:5200}")
+    @Value("${microservices.basket-api.url")
     private String basketUrl;
+
+    @Value("${microservices.identity-api-public.url}")
+    private String identityPublicUrl;
 
     public String getBasketUrl() {
         return basketUrl;
+    }
+    
+    public String getIdentityPublicUrl() {
+        return identityPublicUrl;
     }
 }

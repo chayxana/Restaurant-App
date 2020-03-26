@@ -19,7 +19,7 @@ services:
     image: restaurant/menu
     build: 
       context: ./services/menu.api/
-      dockerfile: Dockerfile.local
+      dockerfile: local.Dockerfile
     depends_on:
        - pgsql
 
@@ -41,12 +41,14 @@ services:
     image: restaurant/dashboard
     build:
       context: ./web/web.admin/dashboard
-      dockerfile: Dockerfile
+      dockerfile: local.Dockerfile
       
   pgsql:
     image: postgres:alpine
     volumes: 
       - database-data:/var/lib/postgresql/data
+    ports: 
+      - "5433:5432"
     
   redis:
     image: redis:alpine

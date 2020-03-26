@@ -1,46 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using Menu.API.DataTransferObjects;
-using Microsoft.AspNetCore.Mvc;
-
 namespace Menu.API.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using Menu.API.Models;
+    using Menu.API.Providers;
+    using Microsoft.AspNetCore.Mvc;
+
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
     public class CurrencyController : Controller
     {
-        [HttpGet]
-        public IEnumerable<CurrencyDto> Get()
+        private readonly ICurrencyProvider currencyProvider;
+
+        public CurrencyController(ICurrencyProvider currencyProvider)
         {
-            var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures)
-                                      .Except(CultureInfo.GetCultures(CultureTypes.NeutralCultures))
-                                      .Where(x => !x.Equals(CultureInfo.InvariantCulture));
+            this.currencyProvider = currencyProvider;
+        }
 
-            var result = new List<CurrencyDto>();
-            foreach (var culture in cultures)
-            {
-                try
-                {
-                    var regionInfo = new RegionInfo(culture.LCID);
-                    result.Add(new CurrencyDto
-                    {
-                        CurrencyName = regionInfo.CurrencyEnglishName,
-                        CurrencySymbol = regionInfo.CurrencySymbol,
-                        LCID = culture.LCID,
-                        CountryName = regionInfo.EnglishName
-                    });
-                }
-                catch (Exception)
-                { // Ignore
-                }
-            }
-
-            return result.Where(x => !string.IsNullOrEmpty(x.CurrencyName))
-                        .GroupBy(x => x.CurrencyName)
-                        .Select(x => x.FirstOrDefault())
-                        .OrderBy(x => x.CurrencyName);
+        [HttpGet]
+        public IEnumerable<Currency> Get()
+        {
+            return currencyProvider.GetAll();
         }
     }
 }

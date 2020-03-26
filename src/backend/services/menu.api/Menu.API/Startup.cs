@@ -17,6 +17,7 @@ using Menu.API.Data;
 using Menu.API.Facades;
 using Menu.API.Managers;
 using Menu.API.Models;
+using Menu.API.Providers;
 using Menu.API.Repositories;
 using Menu.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -29,9 +30,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -49,7 +52,7 @@ namespace Menu.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddControllers();
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders =
@@ -98,22 +101,26 @@ namespace Menu.API
 
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Restaurant - Menu HTTP API",
                     Version = "v1",
-                    TermsOfService = "Terms Of Service"
                 });
 
-                options.AddSecurityDefinition("oauth2", new OAuth2Scheme
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
-                    Type = "oauth2",
-                    Flow = "implicit",
-                    AuthorizationUrl = $"{publicIdentityUrl}/connect/authorize",
-                    TokenUrl = $"{publicIdentityUrl}/connect/token",
-                    Scopes = new Dictionary<string, string>()
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows()
                     {
-                        { "menu-api", "Restaurant Menu Api" }
+                        Implicit = new OpenApiOAuthFlow()
+                        {
+                            AuthorizationUrl = new Uri($"{publicIdentityUrl}/connect/authorize"),
+                            TokenUrl = new Uri($"{publicIdentityUrl}/connect/token"),
+                            Scopes = new Dictionary<string, string>()
+                            {
+                                { "menu-api", "Restaurant Menu Api" }
+                            }
+                        }
                     }
                 });
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
@@ -134,10 +141,11 @@ namespace Menu.API
             services.AddScoped<IRepository<Food>, FoodRepository>();
             services.AddScoped<IRepository<FoodPicture>, PictureRepository>();
             services.AddScoped<IFoodPictureService, FoodPictureService>();
+            services.AddScoped<ICurrencyProvider, CurrencyProvider>();
             services.AddAutoMapper(typeof(Startup).GetTypeInfo().Assembly);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseForwardedHeaders();
 
@@ -163,16 +171,19 @@ namespace Menu.API
             }
             app.UseSwagger(c =>
             {
-                if (routePrefix != string.Empty)
+                c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
                 {
-                    c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
-                    {
-                        swaggerDoc.Schemes = new List<string>() { httpReq.Scheme };
-                        swaggerDoc.BasePath = routePrefix;
-                    });
-                }
+                    swaggerDoc.Servers = new List<OpenApiServer> 
+                    { 
+                        new OpenApiServer
+                        {
+                            Url = $"{httpReq.Scheme}://{httpReq.Host.Value}{routePrefix}" 
+                        } 
+                    };
+                });
             }).UseSwaggerUI(c =>
             {
+                c.RoutePrefix = routePrefix;
                 c.SwaggerEndpoint($"{routePrefix}/swagger/v1/swagger.json", "Menu.API V1");
                 c.OAuthClientId("menu-api-swagger-ui");
                 c.OAuthAppName("Menu API Swagger UI");
@@ -182,10 +193,13 @@ namespace Menu.API
             {
                 Predicate = r => r.Name.Contains("self")
             });
-            app.UseCors("ServerPolicy");
-            app.UseMvcWithDefaultRoute();
             app.UseStaticFiles();
-            app.UseMvc();
+            app.UseCors("ServerPolicy");
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

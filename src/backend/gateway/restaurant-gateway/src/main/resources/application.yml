@@ -27,6 +27,7 @@ zuul:
       path: /dashboard/**
       sensitiveHeaders:
       url: ${DASHBOARD_URL:http://localhost:8088}
+      strip-prefix: true
 
   host:
     connect-timeout-millis: 60000

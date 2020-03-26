@@ -44,6 +44,14 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "local-docker": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local-docker.ts"
+                }
+              ]
             }
           }
         },
@@ -123,5 +131,8 @@
       }
     }
   },
-  "defaultProject": "dashboard"
+  "defaultProject": "dashboard",
+  "cli": {
+    "analytics": "df9b5a5b-ffb1-4fa1-a8d4-a0abfd0df271"
+  }
 }

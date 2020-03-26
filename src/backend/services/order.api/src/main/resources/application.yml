@@ -28,8 +28,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:5100
-          jwk-set-uri: http://localhost:5100/.well-known/openid-configuration/jwks
+          issuer-uri: ${IDENTITY_URL_PUB:http://localhost:5100}
+          jwk-set-uri: ${IDENTITY_URL_PUB:http://localhost:5100}/.well-known/openid-configuration/jwks
 logging:
   level:
     org:
@@ -40,13 +40,17 @@ management:
   endpoints:
     web:
       base-path:
+      exposure:
+        include: [env,beans,health,info]
     health:
       show-details: always
-
+      
 microservices:
   basket-api:
-    url: http://localhost:5200
+    url: ${BASKET_URL:http://localhost:5200}
   identity-api-public:
-    url: http://localhost:5100
+    url: ${IDENTITY_URL_PUB:http://localhost:5100}
+  identity-api:
+    url: ${IDENTITY_URL:http://localhost:5100}
 
 

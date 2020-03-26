@@ -1,0 +1,21 @@
+DishID,Type,Name,Description,Price
+1,Appetizers,Parmesan Deviled Eggs,These delectable little bites are made with organic eggs: fresh Parmesan: and chopped pine nuts.  ,8.00
+2,Appetizers,Artichokes with Garlic Aioli,Our artichokes are brushed with an olive: oil: and rosemary blend: and then broiled to perfection. Served with a side of creamy garlic aioli.,9.00
+3,Appetizers,French Onion Soup,Caramelized onions slow cooked in a savory broth topped with sourdough: and a provolone cheese blend. Served with sourdough bread.,7.00
+4,Appetizers,Mini Cheeseburgers ,These mini cheeseburgers are served on a fresh baked pretzel bun with lettuce: tomato: avocado: and your choice of cheese.,8.00
+5,Appetizers,Panko Stuffed Mushrooms ,Large mushroom caps are filled a savory cream cheese: bacon and panko breadcrumb stuffing" topped with cheddar cheese. ,7.00
+6,Salads,House Salad,Our house salad is made with romaine lettuce and spinach: topped with tomatoes: cucumbers: red onions and carrots: Served with a dressing of your choice.,7.00
+7,Salads,Chef's Salad,The chef's salad has cucumber: tomatoes: red onions: mushrooms: hard-boiled eggs: cheese: and hot grilled chicken on a bed of romaine lettuce. Served with croutons and your choice of dressing.,9.00
+8,Salads,Quinoa Salmon Salad,Our quinoa salad is served with quinoa: tomatoes: cucumber: scallions: and smoked salmon. Served with your choice of dressing.,9.99
+9, Main dish,Classic Burger,Our classic burger is made with 100% pure angus beef: served with lettuce: tomatoes: onions: pickles: and cheese of your choice. Veggie burger available upon request. Served with French fries: fresh fruit: or a side salad.,9.99
+10,Main dish,Tomato Bruschetta Tortellini,This classic cheese tortellini is cooked in a sundried tomato sauce. Served with bruschetta topped with a tomato and basil marinara.,9.99
+11,Main dish,Handcrafted Pizza,Our thin crust pizzas are made fresh daily and topped with your choices of fresh meats: veggies: cheese: and sauce:  Price includes two toppings. Add $1 for each additional topping.,9.99
+12,Main dish,Barbecued Tofu Skewers,Our barbecued skewers include tofu: cherry tomatoes: bell peppers: and zucchini marinated in a ginger sesame sauce and charbroiled. Served with steamed rice.,9.99
+13,Desert,Creme Brulee,Elegantly crafted creamy vanilla custard with a caramelized crunchy layer on top. Served with seasonal fruit.,9.00
+14,Desert,Cheesecake,Our New York Style Cheesecake is rich: smooth: and creamy: Available in various flavors: and with seasonal fruit toppings.,9.00
+15,Desert,Chocolate Chip Brownie ,A warm chocolate chip brownie served with chocolate or vanilla ice cream and rich chocolate sauce.,6.00
+16,Desert,Apple Pie,Made with local granny smith apples to bring you the freshest classic apple pie available.,5.00
+17,Desert,Mixed Berry Tart,Raspberries: blueberries: and strawberries on top of a creamy filling served in a crispy tart.,7.00
+18,Drinks,Tropical Blue Smoothie,This blueberry mint-based smoothie is refreshing and perfect for any celebration.,6.00
+19,Drinks,Pomegranate Iced Tea,Our unique blend of pomegranate juice: black Rooibos: and mint tea creates this light fusion of flavors.  ,4.00
+20,Drinks,Cafe Latte,Our house blend of espresso and foamed milk. Can be served with flavored syrups and over ice.  Non-dairy substitutions available upon request.,6.00

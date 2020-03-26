@@ -11,11 +11,11 @@ services:
   
   order-api:
     environment:
-      - REGISTRY_HOST=service-discovery
       - SPRING_DATASOURCE_URL=jdbc:postgresql://pgsql:5432/orderdb
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=Passw0rd!
       - IDENTITY_URL_PUB=http://localhost:8080/identity
+      - BASKET_URL==http://basket-api:5200
 
   basket-api:
     environment:
@@ -47,5 +47,5 @@ services:
       - MENU_API_URL=http://localhost:8080/menu
       - ORDER_API_URL=http://localhost:8080/order
       - BASKET_API_URL=http://localhost:8080/basket
-      - DASHBOARD_URL=http://localhost:8080/dashboard
+      - DASHBOARD_APP_URL=http://localhost:8080/dashboard
       - IDENTITY_URL_PUB=http://localhost:8080/identity

@@ -1,10 +1,10 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace Menu.API
+﻿namespace Menu.API
 {
+    using System.Diagnostics.CodeAnalysis;
+
     [ExcludeFromCodeCoverage]
-    public class Folders
-	{
-		public const string UploadFilesPath = "/Images/";
-	}
+    public static class Folders
+    {
+        public const string UploadFilesPath = "/pictures/";
+    }
 }

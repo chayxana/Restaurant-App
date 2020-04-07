@@ -129,19 +129,28 @@ spec:
             configMapKeyRef:
               name: local-config
               key: identity__ConnectionString
+        - name: Kestrel__EndPoints__Http__Url
+          valueFrom:
+            configMapKeyRef:
+              name: local-config
+              key: kestrel__Endpoint
         readinessProbe:
           httpGet:
             path: /hc
             port: 80
-          initialDelaySeconds: 3
+          initialDelaySeconds: 60
           timeoutSeconds: 5
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 5
         livenessProbe:
           httpGet:
             path: /liveness
             port: 80
           initialDelaySeconds: 10
-          timeoutSeconds: 10
-          failureThreshold: 10
+          periodSeconds: 15
+          successThreshold: 1
+          failureThreshold: 5
         resources:
           requests:
             memory: "64Mi"
@@ -192,13 +201,18 @@ spec:
             configMapKeyRef:
               name: internal-urls
               key: identity
+        - name: Kestrel__EndPoints__Http__Url
+          valueFrom:
+            configMapKeyRef:
+              name: local-config
+              key: kestrel__Endpoint
         readinessProbe:
           httpGet:
             path: /hc
             port: 80
-          initialDelaySeconds: 10
-          timeoutSeconds: 3
-          periodSeconds: 10
+          initialDelaySeconds: 60
+          timeoutSeconds: 5
+          periodSeconds: 30
           successThreshold: 1
           failureThreshold: 5
         livenessProbe:
@@ -206,8 +220,7 @@ spec:
             path: /liveness
             port: 80
           initialDelaySeconds: 10
-          timeoutSeconds: 3
-          periodSeconds: 10
+          periodSeconds: 15
           successThreshold: 1
           failureThreshold: 5
         resources:

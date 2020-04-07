@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Amazon;
 using Amazon.S3;
 using AutoMapper;
+using HealthChecks.UI.Client;
 using IdentityModel;
 using Menu.API.Abstraction.Facades;
 using Menu.API.Abstraction.Managers;
@@ -24,6 +25,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -35,8 +37,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Filters;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace Menu.API
 {
@@ -49,16 +49,28 @@ namespace Menu.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        public bool IsK8S => Configuration.GetValue<string>("OrchestrationType").ToUpper().Equals("K8S");
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
             services.Configure<ForwardedHeadersOptions>(options =>
             {
-                options.ForwardedHeaders =
-                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-            });
+                if (IsK8S)
+                {
+                    options.ForwardedHeaders =
+                        ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                }
+                else
+                {
+                    options.ForwardedHeaders =
+                        ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
 
+                    options.ForwardedHostHeaderName = "x-forwarded-host";
+                    options.ForwardedProtoHeaderName = "x-forwarded-proto";
+                    options.KnownNetworks.Clear();
+                    options.KnownProxies.Clear();
+                }
+            });
             services.AddAuthorization();
 
             var identityUrl = Configuration["IDENTITY_URL"];
@@ -148,9 +160,6 @@ namespace Menu.API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseForwardedHeaders();
-
-            app.UseAuthentication();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -164,41 +173,61 @@ namespace Menu.API
             var pathBase = Configuration["PATH_BASE"];
             var routePrefix = (!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty);
 
-            if (!string.IsNullOrEmpty(pathBase))
+            if (IsK8S)
             {
                 logger.LogDebug($"Using PATH BASE '{pathBase}'");
                 app.UsePathBase(pathBase);
+            }
+            else
+            {
+                app.Use((context, next) =>
+                {
+                    if (context.Request.Headers.TryGetValue("x-forwarded-prefix", out var prefix))
+                    {
+                        loggerFactory.CreateLogger<Startup>().LogDebug("Using x-forwarded-prefix as a PREFIX '{pathBase}'", prefix);
+                        context.Request.PathBase = new PathString(prefix);
+                    }
+                    return next();
+                });
             }
             app.UseSwagger(c =>
             {
                 c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
                 {
-                    swaggerDoc.Servers = new List<OpenApiServer> 
-                    { 
+                    swaggerDoc.Servers = new List<OpenApiServer>
+                    {
                         new OpenApiServer
                         {
-                            Url = $"{httpReq.Scheme}://{httpReq.Host.Value}{routePrefix}" 
-                        } 
+                            Url = $"{httpReq.Scheme}://{httpReq.Host.Value}{routePrefix}"
+                        }
                     };
                 });
             }).UseSwaggerUI(c =>
             {
-                c.RoutePrefix = routePrefix;
                 c.SwaggerEndpoint($"{routePrefix}/swagger/v1/swagger.json", "Menu.API V1");
                 c.OAuthClientId("menu-api-swagger-ui");
                 c.OAuthAppName("Menu API Swagger UI");
             });
-            app.UseHealthChecks("/hc");
-            app.UseHealthChecks("/liveness", new HealthCheckOptions
-            {
-                Predicate = r => r.Name.Contains("self")
-            });
+
             app.UseStaticFiles();
-            app.UseCors("ServerPolicy");
             app.UseRouting();
+            app.UseCors("ServerPolicy");
+            app.UseAuthentication();
+            app.UseAuthorization();
+            
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
+                {
+                    Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                });
+                endpoints.MapHealthChecks("/liveness", new HealthCheckOptions
+                {
+                    Predicate = r => r.Name.Contains("self")
+                });
             });
         }
     }

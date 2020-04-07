@@ -11,4 +11,5 @@ data:
   order__DataSourceUserName: admin
   order__DataSourcePassword: Passw0rd!
   basket__ConnectionString: redis-data
+  kestrel__Endpoint: http://0.0.0.0:80
   

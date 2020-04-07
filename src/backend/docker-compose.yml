@@ -14,6 +14,8 @@ services:
     build: ./services/identity.api/
     depends_on:
        - pgsql
+    ports: 
+      - "5000:80"
 
   menu-api:
     image: restaurant/menu
@@ -41,7 +43,7 @@ services:
     image: restaurant/dashboard
     build:
       context: ./web/web.admin/dashboard
-      dockerfile: local.Dockerfile
+      dockerfile: Dockerfile
       
   pgsql:
     image: postgres:alpine

@@ -14,7 +14,7 @@ namespace Identity.API.Mappers
 
             CreateMap<ApplicationUser, UserDto>()
                 .ForMember(x => x.Email, map => map.MapFrom(x => x.Email))
-                .ForMember(x => x.Profile, map => map.MapFrom(x => Mapper.Map<UserProfileDto>(x.UserProfile)));
+                .ForMember(x => x.Profile, map => map.MapFrom(x =>  x.UserProfile));
         }
     }
 }

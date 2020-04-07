@@ -16,12 +16,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace Identity.API
 {
@@ -36,7 +37,8 @@ namespace Identity.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddControllers();
+            services.AddControllersWithViews();
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 if (IsK8S)
@@ -48,7 +50,7 @@ namespace Identity.API
                 {
                     options.ForwardedHeaders =
                         ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
-                    
+
                     options.ForwardedHostHeaderName = "x-forwarded-host";
                     options.ForwardedProtoHeaderName = "x-forwarded-proto";
                     options.KnownNetworks.Clear();
@@ -85,7 +87,7 @@ namespace Identity.API
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddIdentityServer(options => 
+            services.AddIdentityServer(options =>
                 {
                     options.Events.RaiseErrorEvents = true;
                     options.Events.RaiseInformationEvents = true;
@@ -110,11 +112,10 @@ namespace Identity.API
 
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Restaurant - Identity HTTP API",
                     Version = "v1",
-                    TermsOfService = "Terms Of Service"
                 });
             });
 
@@ -124,8 +125,10 @@ namespace Identity.API
             services.AddTransient<ILoginProvider, LoginProvider>();
             services.AddAutoMapper(typeof(Startup));
         }
+
         public bool IsK8S => Configuration.GetValue<string>("OrchestrationType").ToUpper().Equals("K8S");
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseForwardedHeaders();
             app.UseMiddleware<RequestLoggerMiddleware>();
@@ -151,7 +154,7 @@ namespace Identity.API
                     return next();
                 });
             }
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -161,37 +164,47 @@ namespace Identity.API
                 app.UseHsts();
             }
 
-            app.UseCors("ServerPolicy");
-            app.UseIdentityServer();
-
             app.UseSwagger(c =>
             {
-                if (basePath != string.Empty)
+                c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
                 {
-                    c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+                    swaggerDoc.Servers = new List<OpenApiServer>
                     {
-                        swaggerDoc.Schemes = new List<string>() { httpReq.Scheme };
-                        swaggerDoc.BasePath = basePath;
-                    });
-                }
+                        new OpenApiServer
+                        {
+                            Url = $"{httpReq.Scheme}://{httpReq.Host.Value}{basePath}"
+                        }
+                    };
+                });
             }).UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint($"{basePath}/swagger/v1/swagger.json", "Identity.API V1");
-            });
-
-            app.UseHealthChecks("/hc", new HealthCheckOptions()
-            {
-                Predicate = _ => true,
-                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
-            app.UseHealthChecks("/liveness", new HealthCheckOptions
-            {
-                Predicate = r => r.Name.Contains("self")
+                c.OAuthClientId("menu-api-swagger-ui");
+                c.OAuthAppName("Menu API Swagger UI");
             });
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            app.UseMvcWithDefaultRoute();
+
+            app.UseRouting();
+            app.UseCors("ServerPolicy");
+            app.UseIdentityServer();
+
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllers();
+                endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
+                {
+                    Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                });
+                endpoints.MapHealthChecks("/liveness", new HealthCheckOptions
+                {
+                    Predicate = r => r.Name.Contains("self")
+                });
+            });
         }
     }
 }

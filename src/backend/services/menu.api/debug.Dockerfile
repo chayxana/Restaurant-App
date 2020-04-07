@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:3.1-sdk AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build-env
 ARG buildconfig
 WORKDIR /app
 COPY ServiceApp.WebApi.csproj .
@@ -10,7 +10,7 @@ RUN if [ "${buildconfig}" = "Debug" ]; then \
         dotnet publish -o /publish -c Release; \
     fi
 
-FROM microsoft/dotnet:3.1-aspnetcore-runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine
 ARG buildconfig
 ENV DEBIAN_FRONTEND noninteractive
 WORKDIR /publish

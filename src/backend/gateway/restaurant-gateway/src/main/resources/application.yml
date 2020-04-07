@@ -13,6 +13,7 @@ zuul:
       path: /menu/**
       sensitiveHeaders:
       url: ${MENU_URL:http://localhost:5000}
+      strip-prefix: true
     order:
       path: /order/**
       url: ${ORDER_URL:http://localhost:8090}

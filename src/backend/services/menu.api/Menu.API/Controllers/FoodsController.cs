@@ -34,7 +34,7 @@ namespace Menu.API.Controllers
 
         [HttpGet("{count?}/{skip?}")]
         public IEnumerable<FoodDto> Get(int? count = 10, int? skip = 0)
-        {
+        {   
             var entities = _repository.GetAll()
                 .Skip(skip.Value)
                 .Take(count.Value)

@@ -7,6 +7,7 @@ using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 
 namespace Identity.API.Controllers.Home
 {
@@ -15,9 +16,9 @@ namespace Identity.API.Controllers.Home
     public class HomeController : Controller
     {
         private readonly IIdentityServerInteractionService _interaction;
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
 
-        public HomeController(IIdentityServerInteractionService interaction, IHostingEnvironment environment)
+        public HomeController(IIdentityServerInteractionService interaction, IWebHostEnvironment environment)
         {
             _interaction = interaction;
             _environment = environment;

@@ -9,9 +9,9 @@ namespace Menu.API.Facades
     [ExcludeFromCodeCoverage]
     public class FileInfoFacade : IFileInfoFacade
     {
-        private readonly IHostingEnvironment _appEnvironment;
+        private readonly IWebHostEnvironment _appEnvironment;
 
-        public FileInfoFacade(IHostingEnvironment appEnvironment)
+        public FileInfoFacade(IWebHostEnvironment appEnvironment)
         {
             _appEnvironment = appEnvironment;
         }

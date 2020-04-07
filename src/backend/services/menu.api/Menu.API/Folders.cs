@@ -1,4 +1,6 @@
-﻿namespace Menu.API
+﻿using System;
+
+namespace Menu.API
 {
     using System.Diagnostics.CodeAnalysis;
 

@@ -4,8 +4,6 @@ on:
   push:
     branches:
     - develop
-    paths:
-    - './src/backend/services/order.api/**'
   pull_request:
     branches:
     - develop

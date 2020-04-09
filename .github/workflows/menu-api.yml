@@ -31,7 +31,7 @@ jobs:
           echo $PATH
           chmod -R +x ci/
           ci/build.sh menu_api
-          ci/build.sh menu_api
+          ci/qa.sh menu_api
         working-directory: ./src/backend/
         env:
           SONAR_TOKEN: ${{ secrets.MENU_API_SONAR_TOKEN }}

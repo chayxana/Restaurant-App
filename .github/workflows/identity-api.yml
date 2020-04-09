@@ -4,8 +4,6 @@ on:
   push:
     branches:
     - develop
-    paths:
-    - './src/backend/services/identity.api/**'
   pull_request:
     branches:
     - develop
@@ -33,5 +31,5 @@ jobs:
           echo $PATH
           chmod -R +x ci/
           ci/build.sh identity_api
-          # ci/qa.sh identity_api
+          ci/qa.sh identity_api
         working-directory: ./src/backend/

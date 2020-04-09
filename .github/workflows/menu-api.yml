@@ -37,6 +37,7 @@ jobs:
         run: |
           echo "Started sonar scanner"
           ci/qa.sh menu_api
+          echpo "Finished"
         working-directory: ./src/backend/
         env:
           SONAR_TOKEN: ${{ secrets.MENU_API_SONAR_TOKEN }}

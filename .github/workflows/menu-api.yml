@@ -26,10 +26,13 @@ jobs:
           restore-keys: |
             menu-api-dotnet-cache-key
       - uses: actions/checkout@v1
+      
       - name: Build
         run: |
           chmod -R +x ci/
           ci/build.sh menu_api
+        working-directory: ./src/backend/
+      
       - name: Test & QA
         run: |
           chmod -R +x ci/
@@ -38,11 +41,14 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.MENU_API_SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+        if: matrix.os == 'ubuntu-latest'
+      - uses: actions/upload-artifact@v1
       - name: Upload menu-api artifact
-        uses: actions/upload-artifact@v1
         with:
           name: menu_api
           path: ./src/backend/services/menu.api/menu-api-release
+
   docker-push:
     needs: build-and-test
     runs-on: ubuntu-latest

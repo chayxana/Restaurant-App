@@ -12,6 +12,7 @@ on:
     - develop
     paths:
     - './src/backend/services/basket.api/**'
+    types: [opened, synchronize, reopened]
 
 jobs:
   build-and-test:
@@ -43,7 +44,7 @@ jobs:
         name: basket_api
         path: ./src/backend/services/basket.api/basket.api
 
-    - uses: jurabek/sonar-scanner-github-actions@master
+    - uses: sonarsource/sonarcloud-github-action@master
       name: SonarCloud Scan
       with:
         projectBaseDir: ./src/backend/services/basket.api

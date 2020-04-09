@@ -11,7 +11,7 @@ dotnet test Menu.API.UnitTests/Menu.API.UnitTests.csproj \
     /p:CollectCoverage=true \
     /p:CoverletOutputFormat=opencover
 
-/dotnet-sonarscanner begin \
+dotnet-sonarscanner begin \
     /d:"sonar.host.url=https://sonarcloud.io" \
     /o:"restaurant-app" \
     /k:"restaurant-menu-api" \
@@ -23,4 +23,4 @@ dotnet test Menu.API.UnitTests/Menu.API.UnitTests.csproj \
     /d:sonar.pullrequest.provider=GitHub
 
 dotnet build Menu.API.sln
-/dotnet-sonarscanner end /d:sonar.login=$SONAR_TOKEN
+dotnet-sonarscanner end /d:sonar.login=$SONAR_TOKEN

@@ -11,7 +11,7 @@ on:
     - './src/backend/services/menu.api/**'
 
 jobs:
-  my_job:
+  build:
     name: build and test
     runs-on: ubuntu-18.04
     steps:
@@ -36,3 +36,30 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.MENU_API_SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload menu-api artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: menu_api
+          path: ./src/backend/services/menu.api/menu-api-release
+  docker-push:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Download basket-api artifact
+      uses: actions/download-artifact@v1
+      with:
+        name: menu_api
+    - name: Copy artifact to working directory
+      shell: bash
+      run: |
+        cp menu-api-release ./src/backend/services/menu.api/
+    - name: Publish docker image
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: jurabek/menu
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        dockerfile: release.Dockerfile
+        workdir: ./src/backend/services/menu.api
+

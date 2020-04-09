@@ -11,7 +11,7 @@ on:
     - './src/backend/services/identity.api/**'
 
 jobs:
-  my_job:
+  build:
     name: build and test
     runs-on: ubuntu-18.04
     steps:
@@ -34,4 +34,30 @@ jobs:
           ci/qa.sh identity_api
         working-directory: ./src/backend/
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload menu-api artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: identity_api
+          path: ./src/backend/services/identity.api/identity-api-release
+  docker-push:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Download basket-api artifact
+      uses: actions/download-artifact@v1
+      with:
+        name: identity_api
+    - name: Copy artifact to working directory
+      shell: bash
+      run: |
+        cp identity-api-release ./src/backend/services/identity.api/
+    - name: Publish docker image
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: jurabek/menu
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        dockerfile: release.Dockerfile
+        workdir: ./src/backend/services/identity.api

@@ -20,19 +20,24 @@ jobs:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.4.0
         with:
-          dotnet-version: 3.1.100 
-      - uses: actions/cache@v1
+          dotnet-version: 3.1.100
+
+      - uses: actions/checkout@v1
+
+      - name: Setup cache 
+        uses: actions/cache@v1
         with:
           path: ~/.nuget/packages
-          key: menu-api-dotnet-cache-key
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/Menu.API/packages.lock.json') }}
           restore-keys: |
-            menu-api-dotnet-cache-key
-      - uses: actions/checkout@v1
+            ${{ runner.os }}-nuget-
+
       - name: Build
         run: |
           chmod -R +x ci/
           ci/build.sh menu_api
         working-directory: ./src/backend/
+
       - name: Test & QA
         run: |
           chmod -R +x ci/
@@ -41,8 +46,10 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.MENU_API_SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@v1
+        if: matrix.os == 'ubuntu-latest'
+      
       - name: Upload menu-api artifact
+        uses: actions/upload-artifact@v1
         with:
           name: menu_api
           path: ./src/backend/services/menu.api/menu-api-release

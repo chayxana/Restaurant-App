@@ -20,22 +20,27 @@ jobs:
       matrix:
         os: [macOS-latest, ubuntu-latest, windows-latest]
     steps:
-      - uses: actions/setup-dotnet@v1.4.0
       - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v1.4.0
         with:
-          dotnet-version: 3.1.100 
-      - uses: actions/cache@v1
+          dotnet-version: 3.1.100
+      
+      - uses: actions/checkout@v1
+
+      - name: Setup cache
+        uses: actions/cache@v1
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/Identity.API/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
-      - uses: actions/checkout@v1
+      
       - name: Build
         run: |
           chmod -R +x ci/
           ci/build.sh identity_api
         working-directory: ./src/backend/
+
       - name: Test & QA
         run: |
           chmod -R +x ci/
@@ -43,11 +48,14 @@ jobs:
         working-directory: ./src/backend/
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: matrix.os == 'ubuntu-latest'
+        
       - name: Upload menu-api artifact
         uses: actions/upload-artifact@v1
         with:
           name: identity_api
           path: ./src/backend/services/identity.api/identity-api-release
+        if: matrix.os == 'ubuntu-latest'
 
   docker-push:
     needs: build-and-test

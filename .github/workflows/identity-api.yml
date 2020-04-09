@@ -67,8 +67,7 @@ jobs:
     - name: Copy artifact to working directory
       shell: bash
       run: |
-        ls -a
-        cp identity_api/identity-api-release ./src/backend/services/identity.api/
+        cp -r identity_api/ ./src/backend/services/identity.api/identity-api-release
     - name: Publish docker image
       uses: elgohr/Publish-Docker-Github-Action@master
       with:

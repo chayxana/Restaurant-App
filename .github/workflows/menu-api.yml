@@ -35,11 +35,7 @@ jobs:
       - name: QA
         uses: jurabek/dotnet-sonarscanner-github-actions@master
         with: 
-          qaFile: ci/build.sh menu_api
-        run: |
-          echo $PATH
-          chmod -R +x ci/
-        working-directory: ./src/backend/
+          qaFile: ./src/backend/services/menu.api/qa.sh
         env:
           SONAR_TOKEN: ${{ secrets.MENU_API_SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

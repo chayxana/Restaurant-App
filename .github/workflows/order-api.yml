@@ -31,9 +31,9 @@ jobs:
     - name: Build & QA
       run: |
         echo $PATH
-        chmod -R +x ci/
-        ci/build.sh order_api
-        ci/qa.sh order_api
+        chmod -R +x scripts/
+        scripts/build.sh order_api
+        scripts/qa.sh order_api
       working-directory: ./src/backend/
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

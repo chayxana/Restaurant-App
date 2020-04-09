@@ -26,11 +26,13 @@ jobs:
           restore-keys: |
             identity-api-dotnet-cache-key
       - uses: actions/checkout@v1
-      - name: Build & QA 
+      - name: Build
         run: |
-          echo $PATH
           chmod -R +x ci/
           ci/build.sh identity_api
+      - name: Test & QA
+        run: |
+          chmod -R +x ci/
           ci/qa.sh identity_api
         working-directory: ./src/backend/
         env:
@@ -52,6 +54,7 @@ jobs:
     - name: Copy artifact to working directory
       shell: bash
       run: |
+        ls -a
         cp identity-api-release ./src/backend/services/identity.api/
     - name: Publish docker image
       uses: elgohr/Publish-Docker-Github-Action@master

@@ -26,11 +26,13 @@ jobs:
           restore-keys: |
             menu-api-dotnet-cache-key
       - uses: actions/checkout@v1
-      - name: Build & QA
+      - name: Build
         run: |
-          echo $PATH
           chmod -R +x ci/
           ci/build.sh menu_api
+      - name: Test & QA
+        run: |
+          chmod -R +x ci/
           ci/qa.sh menu_api
         working-directory: ./src/backend/
         env:
@@ -53,6 +55,7 @@ jobs:
     - name: Copy artifact to working directory
       shell: bash
       run: |
+        ls -a
         cp menu-api-release ./src/backend/services/menu.api/
     - name: Publish docker image
       uses: elgohr/Publish-Docker-Github-Action@master

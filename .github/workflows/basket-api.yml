@@ -23,32 +23,37 @@ jobs:
       uses: actions/setup-go@v1
       with:
         go-version: 1.13.x
+    - uses: actions/checkout@v1
+    
     - name: Setup cache
       uses: actions/cache@v1
       with:
         path: ~/go/pkg/mod
-        key: ${{ runner.os }}-go-${{ hashFiles('./src/backend/services/basket.api/go.sum') }}
+        key: ${{ runner.os }}-go-${{ hashFiles('**/basket.api/go.sum') }}
         restore-keys: |
           ${{ runner.os }}-go-
-    - uses: actions/checkout@v1
+    
     - name: Build & QA 
       run: |
         chmod -R +x ci/
         ci/build.sh basket_api
       working-directory: ./src/backend/
+    
     - name: Test & QA
       run: |
         chmod -R +x ci/
         ci/qa.sh basket_api
       working-directory: ./src/backend/
-    - uses: actions/upload-artifact@v1
+    
     - name: Upload basket-api artifact
+      uses: actions/upload-artifact@v1
       with:
         name: basket_api
         path: ./src/backend/services/basket.api/basket.api
       if: matrix.os == 'ubuntu-latest'
-    - uses: sonarsource/sonarcloud-github-action@master
-      name: SonarCloud Scan
+    
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
       with:
         projectBaseDir: ./src/backend/services/basket.api
       env:

@@ -4,6 +4,8 @@ on:
   push:
     branches:
     - develop
+    paths:
+    - './src/backend/services/identity.api/**'
   pull_request:
     branches:
     - develop
@@ -26,13 +28,11 @@ jobs:
           restore-keys: |
             menu-api-dotnet-cache-key
       - uses: actions/checkout@v1
-      
       - name: Build
         run: |
           chmod -R +x ci/
           ci/build.sh menu_api
         working-directory: ./src/backend/
-      
       - name: Test & QA
         run: |
           chmod -R +x ci/
@@ -41,13 +41,12 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.MENU_API_SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
-        if: matrix.os == 'ubuntu-latest'
       - uses: actions/upload-artifact@v1
       - name: Upload menu-api artifact
         with:
           name: menu_api
           path: ./src/backend/services/menu.api/menu-api-release
+        if: matrix.os == 'ubuntu-latest'
 
   docker-push:
     needs: build-and-test

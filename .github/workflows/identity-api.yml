@@ -16,13 +16,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macOS-latest, ubuntu-latest, windows-latest]
+        os: [macOS-latest, ubuntu-latest]
     steps:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.4.0
         with:
           dotnet-version: 3.1.100
-      
+
       - uses: actions/checkout@v1
 
       - name: Setup cache
@@ -34,15 +34,15 @@ jobs:
             ${{ runner.os }}-nuget-
       
       - name: Build
-        run: |
-          chmod -R +x ci/
-          ci/build.sh identity_api
+        run: | 
+          chmod -R +x scripts/
+          scripts/build.sh identity_api
         working-directory: ./src/backend/
 
       - name: Test & QA
         run: |
-          chmod -R +x ci/
-          ci/qa.sh identity_api
+          chmod -R +x scripts/
+          scripts/qa.sh identity_api
         working-directory: ./src/backend/
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -68,7 +68,7 @@ jobs:
       shell: bash
       run: |
         ls -a
-        cp identity-api-release ./src/backend/services/identity.api/
+        cp identity_api/identity-api-release ./src/backend/services/identity.api/
     - name: Publish docker image
       uses: elgohr/Publish-Docker-Github-Action@master
       with:

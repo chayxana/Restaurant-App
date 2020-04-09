@@ -34,14 +34,14 @@ jobs:
 
       - name: Build
         run: |
-          chmod -R +x ci/
-          ci/build.sh menu_api
+          chmod -R +x scripts/
+          scripts/build.sh menu_api
         working-directory: ./src/backend/
 
       - name: Test & QA
         run: |
-          chmod -R +x ci/
-          ci/qa.sh menu_api
+          chmod -R +x scripts/
+          scripts/qa.sh menu_api
         working-directory: ./src/backend/
         env:
           SONAR_TOKEN: ${{ secrets.MENU_API_SONAR_TOKEN }}
@@ -68,7 +68,7 @@ jobs:
       shell: bash
       run: |
         ls -a
-        cp menu-api-release ./src/backend/services/menu.api/
+        cp menu_api/menu-api-release ./src/backend/services/menu.api/
     - name: Publish docker image
       uses: elgohr/Publish-Docker-Github-Action@master
       with:

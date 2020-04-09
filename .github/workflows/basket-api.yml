@@ -35,14 +35,14 @@ jobs:
     
     - name: Build & QA 
       run: |
-        chmod -R +x ci/
-        ci/build.sh basket_api
+        chmod -R +x scripts/
+        scripts/build.sh basket_api
       working-directory: ./src/backend/
     
     - name: Test & QA
       run: |
-        chmod -R +x ci/
-        ci/qa.sh basket_api
+        chmod -R +x scripts/
+        scripts/qa.sh basket_api
       working-directory: ./src/backend/
     
     - name: Upload basket-api artifact
@@ -80,6 +80,6 @@ jobs:
         name: jurabek/basket
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        dockerfile: Dockerfile.ci
+        dockerfile: release.Dockerfile
         workdir: ./src/backend/services/basket.api
 

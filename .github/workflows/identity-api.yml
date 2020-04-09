@@ -33,3 +33,5 @@ jobs:
           ci/build.sh identity_api
           ci/qa.sh identity_api
         working-directory: ./src/backend/
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

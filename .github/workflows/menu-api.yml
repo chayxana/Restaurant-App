@@ -32,9 +32,10 @@ jobs:
           chmod -R +x ci/
           ci/build.sh menu_api
         working-directory: ./src/backend/
-      - uses: jurabek/dotnet-sonarscanner-github-actions@master
+      - name: QA
+        uses: jurabek/dotnet-sonarscanner-github-actions@master
         with: 
-          qaFile: ./src/backend/ci/qa.sh
+          qaFile: ci/qa.sh
         env:
           SONAR_TOKEN: ${{ secrets.MENU_API_SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

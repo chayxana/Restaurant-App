@@ -34,11 +34,8 @@ jobs:
         working-directory: ./src/backend/
       - uses: jurabek/dotnet-sonarscanner-github-actions@master
       - name: QA
-        run: |
-          echo "Started sonar scanner"
-          ci/qa.sh menu_api
-          echpo "Finished"
-        working-directory: ./src/backend/
+        with: 
+          qaFile: ./src/backend/ci/qa.sh
         env:
           SONAR_TOKEN: ${{ secrets.MENU_API_SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

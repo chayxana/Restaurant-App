@@ -4,8 +4,6 @@ on:
   push:
     branches:
     - develop
-    paths:
-    - './src/backend/services/identity.api/**'
   pull_request:
     branches:
     - develop
@@ -49,7 +47,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: matrix.os == 'ubuntu-latest'
-        
+
       - name: Upload menu-api artifact
         uses: actions/upload-artifact@v1
         with:

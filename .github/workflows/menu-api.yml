@@ -26,17 +26,13 @@ jobs:
           restore-keys: |
             menu-api-dotnet-cache-key
       - uses: actions/checkout@v1
-      - name: Build
+      - name: Build & QA
         run: |
           echo $PATH
           chmod -R +x ci/
           ci/build.sh menu_api
+          ci/build.sh menu_api
         working-directory: ./src/backend/
-      - name: QA
-        uses: jurabek/dotnet-sonarscanner-github-actions@master
-        with: 
-          qaFile: qa.sh
-          projectDirectory: ./src/backend/services/menu.api/
         env:
           SONAR_TOKEN: ${{ secrets.MENU_API_SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

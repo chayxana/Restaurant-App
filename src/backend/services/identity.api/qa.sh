@@ -1,5 +1,10 @@
 #!/bin/sh
 
+dotnet tool install --global dotnet-sonarscanner --version 4.8.0
+chmod +x /root/.dotnet/tools/dotnet-sonarscanner
+
+export PATH="${PATH}:/root/.dotnet/tools"
+
 dotnet restore Identity.API.sln
 
 dotnet test Identity.API.UnitTests/Identity.API.UnitTests.csproj \

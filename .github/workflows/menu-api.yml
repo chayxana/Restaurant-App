@@ -4,8 +4,6 @@ on:
   push:
     branches:
     - develop
-    paths:
-    - './src/backend/services/identity.api/**'
   pull_request:
     branches:
     - develop
@@ -15,7 +13,10 @@ on:
 jobs:
   build-and-test:
     name: build and test
-    runs-on: ubuntu-18.04
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macOS-latest, ubuntu-latest]
     steps:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.4.0
@@ -68,7 +69,7 @@ jobs:
       shell: bash
       run: |
         ls -a
-        cp menu_api/menu-api-release ./src/backend/services/menu.api/
+        cp -r menu_api/ ./src/backend/services/menu.api/menu-api-release
     - name: Publish docker image
       uses: elgohr/Publish-Docker-Github-Action@master
       with:

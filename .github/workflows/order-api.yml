@@ -21,6 +21,12 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: '0'
+    
+    - name: Bump version and push tag
+      uses: anothrNick/github-tag-action@1.17.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        WITH_V: true
 
     - name: Set up JDK
       uses: actions/setup-java@v1
@@ -50,3 +56,26 @@ jobs:
         name: order_api
         path: ./src/backend/services/order.api/build/libs/order.api.jar
       if: matrix.os == 'ubuntu-latest'
+
+
+  docker-push:
+      needs: build-and-test
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v1
+      - name: Download basket-api artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: order_api
+      - name: Copy artifact to working directory
+        shell: bash
+        run: |
+          cp order_api/order.api.jar ./src/backend/services/order.api/build/libs/order.api.jar
+      - name: Publish docker image
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: jurabek/order
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          dockerfile: release.Dockerfile
+          workdir: ./src/backend/services/order.api

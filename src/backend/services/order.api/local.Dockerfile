@@ -1,4 +1,4 @@
-FROM gradle:5.6-jdk11 as builder
+FROM gradle:6.3-jdk11 as builder
 
 COPY . /usr/src/ordering_api
 USER root
@@ -8,7 +8,7 @@ USER gradle
 WORKDIR /usr/src/ordering_api
 RUN gradle build
 
-FROM adoptopenjdk/openjdk11-openj9:alpine-slim
+FROM adoptopenjdk/openjdk11-openj9:alpine-jre
 WORKDIR /root/
 COPY --from=builder /usr/src/ordering_api/build/libs/order.api.jar .
 

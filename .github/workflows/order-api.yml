@@ -64,7 +64,7 @@ jobs:
       - name: Copy artifact to working directory
         shell: bash
         run: |
-          cp order_api/order.api.jar ./src/backend/services/order.api/build/libs/order.api.jar
+          cp order_api/order.api.jar ./src/backend/services/order.api/
       - name: Publish docker image
         uses: elgohr/Publish-Docker-Github-Action@master
         with:

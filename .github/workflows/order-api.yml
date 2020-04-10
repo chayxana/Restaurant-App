@@ -4,8 +4,6 @@ on:
   push:
     branches:
     - develop
-    paths:
-    - './src/backend/services/order.api/**'
   pull_request:
     branches:
     - develop
@@ -13,21 +11,29 @@ on:
     - './src/backend/services/order.api/**'
 
 jobs:
-  my_job:
+  build-and-test:
     name: build and test
-    runs-on: ubuntu-18.04
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macOS-latest, ubuntu-latest]
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 11
+      with:
+        fetch-depth: '0'
+
+    - name: Set up JDK
       uses: actions/setup-java@v1
       with:
         java-version: 11
+    
     - uses: actions/cache@v1
       with:
         path: ~/.gradle/caches
-        key: order-api-cache-key
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/order.api/build.gradle') }}
         restore-keys: |
-          order-api-cache-key
+          ${{ runner.os }}-gradle-
+    
     - name: Build & QA
       run: |
         echo $PATH
@@ -37,3 +43,10 @@ jobs:
       working-directory: ./src/backend/
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload order-api artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: order_api
+        path: ./src/backend/services/order.api/build/libs/order.api.jar
+      if: matrix.os == 'ubuntu-latest'

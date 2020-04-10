@@ -30,15 +30,15 @@ jacocoTestReport {
         html.enabled true
     }
 
-    afterEvaluate {
-        classDirectories = files(classDirectories.files.collect {
-            fileTree(dir: it,
-                    exclude: ['com/jurabek/restaurant/order/api/config/**',
-                              '**/mappers/**',
-                              'com/jurabek/restaurant/order/api/controllers/HomeController.java']
-            )
-        })
-    }
+    // afterEvaluate {
+    //     classDirectories = files(classDirectories.files.collect {
+    //         fileTree(dir: it,
+    //                 exclude: ['com/jurabek/restaurant/order/api/config/**',
+    //                           '**/mappers/**',
+    //                           'com/jurabek/restaurant/order/api/controllers/HomeController.java']
+    //         )
+    //     })
+    // }
 }
 
 repositories {

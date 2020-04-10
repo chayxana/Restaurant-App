@@ -18,12 +18,14 @@ jobs:
       matrix:
         os: [macOS-latest, ubuntu-latest]
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.4.0
         with:
           dotnet-version: 3.1.100
-
-      - uses: actions/checkout@v1
 
       - name: Setup cache 
         uses: actions/cache@v1
@@ -61,6 +63,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+      with:
+        fetch-depth: '0'
+
     - name: Download basket-api artifact
       uses: actions/download-artifact@v1
       with:

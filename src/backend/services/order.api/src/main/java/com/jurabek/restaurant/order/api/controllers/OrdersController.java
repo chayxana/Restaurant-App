@@ -22,10 +22,15 @@ public class OrdersController {
 		this.ordersService = ordersService;
 	}
 
-	@GetMapping("getAllOrders")
+	@GetMapping()
 	@ApiOperation(value = "Returns all orders", authorizations= { @Authorization(value="oauth2") })
 	public List<CustomerOrderDto> getData() {
 		return this.ordersService.getAll();
+	}
+
+	@GetMapping("/{orderId}")
+	public CustomerOrderDto get(@PathVariable String orderId) {
+		return ordersService.getById(orderId);
 	}
 
 	@PostMapping()
@@ -40,9 +45,9 @@ public class OrdersController {
 		ordersService.Update(customerBasketDto);
 	}
 
-	@GetMapping("getOrdersByCustomerId")
+	@GetMapping("customer/{customerId}")
 	@ApiOperation(value = "Returns all orders for specific customer", authorizations= { @Authorization(value="oauth2") })
-	public List<CustomerOrderDto> getOrderByCustomerId(String customerId) {
+	public List<CustomerOrderDto> getOrderByCustomerId(@RequestParam String customerId) {
 		return ordersService.getOrderByCustomerId(customerId);
 	}
 

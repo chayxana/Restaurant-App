@@ -33,7 +33,7 @@ namespace Identity.API.ViewModelBuilders
                 vm.ShowLogoutPrompt = false;
                 return vm;
             }
-
+        
             var context = await _interaction.GetLogoutContextAsync(logoutId);
             if (context?.ShowSignoutPrompt == false)
             {

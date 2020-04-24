@@ -52,12 +52,19 @@ public class OrdersServicesIml implements OrdersService {
 
     @Override
     public List<CustomerOrderDto> getOrderByCustomerId(String customerId) {
-        var order= ordersRepository.getByBuyerId(UUID.fromString(customerId));
+        var order = ordersRepository.getByBuyerId(UUID.fromString(customerId));
         var orderDtoType = new TypeToken<ArrayList<CustomerOrderDto>>() {}.getType();
         return modelMapper.map(order, orderDtoType);
     }
 
 	@Override
 	public void Delete(String orderId) {
+        ordersRepository.deleteById(UUID.fromString(orderId));
 	}
+
+    @Override
+    public CustomerOrderDto getById(String orderId) {
+        var order = ordersRepository.findById(UUID.fromString(orderId));
+        return modelMapper.map(order, CustomerOrderDto.class);
+    }
 }

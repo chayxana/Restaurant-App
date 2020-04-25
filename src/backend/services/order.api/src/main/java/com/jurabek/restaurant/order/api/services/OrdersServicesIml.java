@@ -64,7 +64,8 @@ public class OrdersServicesIml implements OrdersService {
 
     @Override
     public CustomerOrderDto getById(String orderId) {
-        var order = ordersRepository.findById(UUID.fromString(orderId));
+        var order = ordersRepository.findById(UUID.fromString(orderId))
+                                    .orElseThrow(() -> new RuntimeException());
         return modelMapper.map(order, CustomerOrderDto.class);
     }
 }

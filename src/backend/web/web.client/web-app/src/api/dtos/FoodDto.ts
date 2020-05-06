@@ -1,22 +1,21 @@
-export interface FoodDto {
+export interface IFoodDto {
     id:              string;
     name:            string;
     description:     string;
-    pictures:        Picture[];
+    pictures:        IPicture[];
     price:           number;
-    category:        Category;
+    category:        ICategory;
     categoryId:      string;
     currency:        string;
-    deletedPictures: null;
 }
 
-export interface Category {
+export interface ICategory {
     id:    string;
     name:  string;
     color: string;
 }
 
-export interface Picture {
+export interface IPicture {
     id:       string;
     filePath: string;
 }

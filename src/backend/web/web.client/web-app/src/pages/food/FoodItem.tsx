@@ -1,19 +1,47 @@
 import * as React from 'react';
 import Card from "@material-ui/core/Card";
-import { CardActionArea, CardMedia, CardContent, CardActions, Button, Tooltip, IconButton } from '@material-ui/core';
-import { RouteComponentProps } from 'react-router';
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-import { FoodDto } from 'src/api/dtos/FoodDto';
+import { CardActionArea, CardMedia, CardContent, CardActions, Button, Tooltip, IconButton, createStyles, Theme, WithStyles, withStyles } from '@material-ui/core';
 
-interface Props extends RouteComponentProps<any> {
-  item: FoodDto
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import { IFoodDto } from 'src/api/dtos/FoodDto';
+import { RouteComponentProps } from 'react-router';
+
+const styles = (_: Theme) => createStyles({
+  item: {
+    marginLeft: 5,
+    fontWeight: "bold",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis"
+  },
+  price: {
+    margin: 5
+  },
+  isPopular: {
+    color: "#1a9349",
+    fontWeight: "bold",
+    margin: 5
+  },
+  cardStyle: {
+    width: 200, 
+    height: 270, 
+    margin: 10, 
+    display: "inline-block"
+  },
+  cardActions: { 
+    display: "flex", 
+    alignItems: "center", 
+    height: 45 
+  }
+});
+
+interface Props extends RouteComponentProps<{}> {
+  item: IFoodDto;
 }
 
-const FoodItem: React.FC<Props> = props => {
+const FoodItem: React.FC<Props & WithStyles<typeof styles>> = props => {
   return (
-    <Card
-      style={{ width: 200, height: 270, margin: 10, display: "inline-block" }}
-    >
+    <Card className={props.classes.cardStyle}>
       <CardActionArea
         onClick={() => {
           props.history.push("/details/" + props.item.id);
@@ -24,45 +52,30 @@ const FoodItem: React.FC<Props> = props => {
           image={props.item.pictures[0].filePath}
         />
         <CardContent style={{ height: 50 }}>
-          <div
-            style={{
-              marginLeft: 5,
-              fontWeight: "bold",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis"
-            }}
-          >
+          <div className={props.classes.item}>
             {props.item.name}
           </div>
-          <div style={{ margin: 5 }}>Price: {props.item.price} $</div>
-          <div style={{ color: "#1a9349", fontWeight: "bold", margin: 5 }}>
-            {false && "Popular"}
-          </div>
+          <div className={props.classes.price}>Price: {props.item.price} $</div>
+          <div className={props.classes.isPopular}>{false && "Popular"}</div>
         </CardContent>
       </CardActionArea>
-      <CardActions
-        style={{ display: "flex", alignItems: "center", height: 45 }}
-      >
+      <CardActions className={props.classes.cardActions}>
         <Button
           size="small"
           style={{ marginRight: 60 }}
           onClick={() => {
             props.history.push("/details/" + props.item.id);
-          }}
-        >
-          {" "}
-                Details
-              </Button>
+          }}>{" "}Details
+        </Button>
         <Tooltip title="Add to cart">
           <IconButton
             size="small"
-            onClick={e => {
-              e.stopPropagation();
-              // this.props.dispatch(
-              //   addItemInCart({ ...this.props.item, quantity: 1 })
-              // );
-            }}
+            // onClick={e => {
+            //   e.stopPropagation();
+            //   // this.props.dispatch(
+            //   //   addItemInCart({ ...this.props.item, quantity: 1 })
+            //   // );
+            // }}
             color="primary"
             aria-label="Add to shopping cart"
           >
@@ -74,4 +87,4 @@ const FoodItem: React.FC<Props> = props => {
   );
 };
 
-export default FoodItem
+export default withStyles(styles)(FoodItem);

@@ -24,16 +24,20 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "lint:ts": "tslint 'src/**/*.{ts,tsx,js}'"
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",
     "@types/node": "^13.13.4",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.7",
-    "typescript": "^3.8.3",
     "@types/react-redux": "^7.1.7",
     "@types/react-router-dom": "^5.1.5",
-    "@types/react-router-redux": "^5.0.18"
+    "@types/react-router-redux": "^5.0.18",
+    "@types/redux-logger": "^3.0.7",
+    "tslint": "^6.1.2",
+    "tslint-react": "^5.0.0",
+    "typescript": "^3.8.3"
   }
 }

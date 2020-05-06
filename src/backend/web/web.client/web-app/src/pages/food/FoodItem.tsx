@@ -56,7 +56,7 @@ const FoodItem: React.FC<Props & WithStyles<typeof styles>> = props => {
             {props.item.name}
           </div>
           <div className={props.classes.price}>Price: {props.item.price} $</div>
-          <div className={props.classes.isPopular}>{false && "Popular"}</div>
+          <div className={props.classes.isPopular}> {false && "Popular"} </div>
         </CardContent>
       </CardActionArea>
       <CardActions className={props.classes.cardActions}>

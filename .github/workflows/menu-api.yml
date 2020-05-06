@@ -5,12 +5,12 @@ on:
     branches:
     - develop
     paths:
-    - './src/backend/services/order.api/**'
+    - 'src/backend/services/order.api/**'
   pull_request:
     branches:
     - develop
     paths:
-    - './src/backend/services/menu.api/**'
+    - 'src/backend/services/menu.api/**'
 
 jobs:
   build-and-test:

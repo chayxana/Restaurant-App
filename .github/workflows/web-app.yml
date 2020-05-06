@@ -3,14 +3,14 @@ name: web-app
 on:
   push:
     branches:
-    - develop
+      - develop
     paths:
-    - './src/backend/web/web.client/web-app/**'
+      - './src/backend/web/web.client/web-app/**'
   pull_request:
     branches:
-    - develop
+      - develop
     paths:
-    - './src/backend/web/web.client/web-app/**'
+      - './src/backend/web/web.client/web-app/**'
 
 jobs:
   build:

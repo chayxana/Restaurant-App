@@ -3,12 +3,12 @@ name: order-api
 on:
   push:
     branches:
-    - develop
+      - develop
   pull_request:
     branches:
-    - develop
+      - develop
     paths:
-    - './src/backend/services/order.api/**'
+      - './src/backend/services/order.api/**'
 
 jobs:
   build-and-test:

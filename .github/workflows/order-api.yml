@@ -5,12 +5,14 @@ on:
     branches:
       - develop
     paths:
-      - 'src/backend/web/web.client/web-app/**'
+      - 'src/backend/services/order.api/**'
+      - '.github/workflows/order-api.yml'
   pull_request:
     branches:
-      - develop
+    - develop
     paths:
-      - 'src/backend/services/order.api/**'
+    - 'src/backend/services/order.api/**'
+    - '.github/workflows/order-api.yml'
 
 jobs:
   build-and-test:

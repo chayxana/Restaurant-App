@@ -6,13 +6,16 @@ on:
     branches:
     - develop
     paths:
-    - './src/backend/services/order.api/**'
+    - 'src/backend/services/order.api/**'
+    - '.github/workflows/basket-api.yml'
 
   pull_request:
     branches:
     - develop
     paths:
-    - './src/backend/services/basket.api/**'
+    - 'src/backend/services/basket.api/**'
+    - '.github/workflows/basket-api.yml'
+  
     types: [opened, synchronize, reopened]
 
 jobs:

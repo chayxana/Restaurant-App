@@ -6,11 +6,13 @@ on:
     - develop
     paths:
     - 'src/backend/services/order.api/**'
+    - '.github/workflows/menu-api.yml'
   pull_request:
     branches:
     - develop
     paths:
     - 'src/backend/services/menu.api/**'
+    - '.github/workflows/menu-api.yml'
 
 jobs:
   build-and-test:

@@ -42,6 +42,12 @@ class RestApiClient {
 		const response = await this.backend.get<IFoodDto[]>('/menu/api/v1/foods');
 		return response.data;
 	}
+
+	public async getFood(token: string, foodId: string) {
+		this.AccessToken = token;
+		const response = await this.backend.get<IFoodDto>(`/menu/api/v1/foods/${foodId}`);
+		return response.data;
+	}
 }
 
 const RestClient = new RestApiClient();

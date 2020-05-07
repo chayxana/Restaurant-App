@@ -1,0 +1,42 @@
+{
+	"folders": [
+		{
+			"name": "root",
+			"path": "./src/backend/"
+		},
+		{
+			"name": "basket-api",
+			"path": "./src/backend/services/basket.api"
+		},
+		{
+			"name": "identity-api",
+			"path": "./src/backend/services/identity.api"
+		},
+		{
+			"name": "menu-api",
+			"path": "./src/backend/services/menu.api"
+		},
+		{
+			"name": "order-api",
+			"path": "./src/backend/services/order.api"
+		},
+		{
+			"name": "gateway-api",
+			"path": "./src/backend/gateway/restaurant-gateway"
+		},
+		{
+			"name": "dashboard-app",
+			"path": "./src/backend/web/web.admin/dashboard"
+		},
+		{
+			"name": "react-web",
+			"path": "./src/backend/web/web.client/web-app"
+		},
+		{
+			"path": "./src/backend/k8s"
+		},
+		{
+			"path": "./src/backend/scripts"
+		}
+	]
+}

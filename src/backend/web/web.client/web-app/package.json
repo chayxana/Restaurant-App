@@ -12,7 +12,7 @@
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "react-router-redux": "^4.0.8",
-    "react-scripts-ts": "3.1.0",
+    "react-scripts-ts": "^4.0.8",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
@@ -39,5 +39,11 @@
     "tslint": "^6.1.2",
     "tslint-react": "^5.0.0",
     "typescript": "^3.8.3"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

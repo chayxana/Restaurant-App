@@ -1,8 +1,8 @@
-import { createReducer, getType } from 'typesafe-actions';
-import { requestShowCartDialog, requestAddItemToCart } from '../actions/cart';
+import { createReducer } from 'typesafe-actions';
 import { combineReducers } from 'redux';
 import { AllActions } from '../actions/actions';
 import { IFoodDto } from 'src/api/dtos/FoodDto';
+import { ADD_ITEM_TO_CART, SHOW_CART_DIALOG } from '../constants';
 
 export interface CartState {
     showCartDialog: boolean;
@@ -10,11 +10,11 @@ export interface CartState {
 }
 
 const showCart = createReducer(false)
-                    .handleAction(getType(requestShowCartDialog), (state: CartState, action: any) => {
+    .handleAction(SHOW_CART_DIALOG, (state: CartState, action: any) => {
     return state.showCartDialog = action.payload;
 });
 
-const cartItems = createReducer([]).handleAction(getType(requestAddItemToCart), (state: CartState, action: any) => {
+const cartItems = createReducer([]).handleAction(ADD_ITEM_TO_CART, (state: CartState, action: any) => {
     return state.cartItems = action.any;
 });
 

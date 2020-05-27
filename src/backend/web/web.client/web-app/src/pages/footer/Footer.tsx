@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import "./Footer.css";
 
 class Footer extends React.Component {
-  render() {
+  public render() {
     return (
       <div
         style={{

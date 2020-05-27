@@ -1,13 +1,13 @@
-import { createReducer, getType } from 'typesafe-actions';
-import { recieveToken } from '../actions/auth';
+import { createReducer } from 'typesafe-actions';
 import { combineReducers } from 'redux';
 import { AllActions } from '../actions/actions';
+import { RECIEVE_TOKEN } from '../constants';
 
 export interface AuthState {
     loggedIn : boolean;
 }
 
-const loggedIn = createReducer(false).handleAction(getType(recieveToken), (state: AuthState, action: any) => {
+const loggedIn = createReducer(false).handleAction(RECIEVE_TOKEN, (state: AuthState, action: any) => {
     return state.loggedIn = action.payload;
 });
 

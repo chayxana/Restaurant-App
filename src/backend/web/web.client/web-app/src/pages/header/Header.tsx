@@ -7,7 +7,6 @@ import Badge from "@material-ui/core/Badge";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { RouteComponentProps } from "react-router-dom";
-import cartImage from "../../Images/logo2.png";
 import Person from "@material-ui/icons/PersonOutline";
 import Avatar from "@material-ui/core/Avatar";
 import Menu from "@material-ui/core/Menu";
@@ -23,20 +22,16 @@ const categories = [
     icon: "list"
   },
   {
-    name: "Clothing and Shoes",
+    name: "Foods",
     icon: "group"
   },
   {
-    name: "Jewelry and Watches",
+    name: "Drinks",
     icon: "watch"
   },
   {
-    name: "Books",
+    name: "Deserts",
     icon: "menu_book"
-  },
-  {
-    name: "Computers",
-    icon: "computer"
   }
 ];
 
@@ -64,15 +59,16 @@ interface State {
   categoryFilterValue: string;
 }
 
-class Header extends React.Component<Props, State> {
-  state = {
+class HeaderComponent extends React.Component<Props, State> {
+  
+  public readonly state: State = {
     searchTerm: "",
     anchorEl: null,
     categoryFilterValue: categories[0].name
   };
 
-  render() {
-    let { anchorEl } = this.state;
+  public render() {
+    const { anchorEl } = this.state;
 
     return (
       <AppBar
@@ -89,12 +85,12 @@ class Header extends React.Component<Props, State> {
               <MenuIcon fontSize="default" />
             </IconButton>
 
-            <img
+            {/* <img
               src={cartImage}
               alt={"Logo"}
               style={{ marginLeft: 10 }}
 
-            />
+            /> */}
             <TextField
               label="Search products"
               value={this.state.searchTerm}
@@ -198,4 +194,4 @@ class Header extends React.Component<Props, State> {
     );
   }
 }
-export default Header;
+export default HeaderComponent;

@@ -35,10 +35,6 @@ jobs:
     - name: Build
       run: npm run build --if-present
       working-directory: ./src/backend/web/web.client/web-app/
-    
-    - name: Test
-      run: npm test
-      working-directory: ./src/backend/web/web.client/web-app/
       
       env:
         CI: true

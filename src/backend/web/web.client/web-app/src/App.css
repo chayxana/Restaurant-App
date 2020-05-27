@@ -1,4 +1,4 @@
-/* .header, .menu, .content {
+.header, .menu, .content {
   box-sizing: border-box;
 }
 
@@ -35,4 +35,5 @@ body {
   top:0; bottom:0;
   margin:auto;
 }
-  */
+
+ 

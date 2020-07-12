@@ -32,16 +32,16 @@ kubectl create -f ingress.yml
 tput bold
 tput setaf 2 # yellow
 ip_regex='([0-9]{1,3}\.){3}[0-9]{1,3}|[A-B]|[a-b]'
-echo "-------------------------------------------------------------------------------------------"
-echo "Please wait, retrieving ingress DNS/IP"
-while true; do
-    printf "."
-    ingressUrl=$(kubectl get ing restaurant-ingress -o=jsonpath="{.status.loadBalancer.ingress[0].ip}")
-    if [[ $ingressUrl =~ $ip_regex ]]; then
-        break
-    fi
-    sleep 5s
-done
+# echo "-------------------------------------------------------------------------------------------"
+# echo "Please wait, retrieving ingress DNS/IP"
+# while true; do
+#     printf "."
+#     ingressUrl=$(kubectl get ing restaurant-ingress -o=jsonpath="{.status.loadBalancer.ingress[0].ip}")
+#     if [[ $ingressUrl =~ $ip_regex ]]; then
+#         break
+#     fi
+#     sleep 5s
+# done
 
 printf "\n"
 externalURL=$ingressUrl
@@ -51,23 +51,23 @@ hostfile="/etc/hosts"
 tput bold
 tput setaf 3 # yellow
 
-HOSTS=$(kubectl get ing restaurant-ingress | awk '{print $2}')
-for host in $(echo $HOSTS | tr "," "\n")
-do
- if ! grep -q "^$externalURL $host" "$hostfile"; then
-    echo "- Adding entry '$externalURL $host"
-    echo "$externalURL $host" >> "$hostfile"
- fi
-done
+# HOSTS=$(kubectl get ing restaurant-ingress | awk '{print $2}')
+# for host in $(echo $HOSTS | tr "," "\n")
+# do
+#  if ! grep -q "^$externalURL $host" "$hostfile"; then
+#     echo "- Adding entry '$externalURL $host"
+#     echo "$externalURL $host" >> "$hostfile"
+#  fi
+# done
 
 tput bold
 tput setaf 0 # reset
 kubectl create configmap endpoints \
-    "--from-literal=basket_pub=http://api.restaurant.com/basket" \
-    "--from-literal=order_pub=http://api.restaurant.com/order" \
-    "--from-literal=menu_pub=http://api.restaurant.com/menu" \
-    "--from-literal=identity_pub=http://api.restaurant.com/identity" \
-    "--from-literal=dashboard_pub=http://api.restaurant.com/dashboard" \
+    "--from-literal=basket_pub=http://localhost/basket" \
+    "--from-literal=order_pub=http://localhost/order" \
+    "--from-literal=menu_pub=http://localhost/menu" \
+    "--from-literal=identity_pub=http://localhost/identity" \
+    "--from-literal=dashboard_pub=http://localhost/dashboard" \
 
 kubectl create -f deployment.yml
 echo "Deployment DONE!"

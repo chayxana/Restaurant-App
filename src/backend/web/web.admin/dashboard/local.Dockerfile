@@ -1,8 +1,8 @@
 
 # Stage 1
-FROM node:8.11.2-alpine as builder
+FROM node:11-alpine as builder
 WORKDIR /usr/src/app
-COPY package*.json yarn.lock ./
+COPY package.json ./
 RUN yarn
 COPY . ./
 RUN yarn build --configuration=local-docker --base-href=/dashboard/ --deploy-url=/dashboard/

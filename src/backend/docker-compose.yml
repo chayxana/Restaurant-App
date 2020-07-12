@@ -4,10 +4,16 @@ services:
   gateway-api:
     image: restaurant/gateway
     build: 
-      context: ./gateway/restaurant-gateway/
-      dockerfile: Dockerfile.local
+      context: ./gateway
+      dockerfile: Dockerfile
     ports: 
       - "8080:8080"
+    depends_on:
+      - menu-api
+      - dashboard-app
+      - identity-api
+      - basket-api
+      - order-api
 
   identity-api:
     image: restaurant/identity
@@ -43,7 +49,7 @@ services:
     image: restaurant/dashboard
     build:
       context: ./web/web.admin/dashboard
-      dockerfile: Dockerfile
+      dockerfile: local.Dockerfile
       
   pgsql:
     image: postgres:alpine

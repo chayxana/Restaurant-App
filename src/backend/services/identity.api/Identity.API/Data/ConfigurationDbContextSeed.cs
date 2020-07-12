@@ -31,6 +31,12 @@ namespace Identity.API.Data
                 clientUrls.Add("OrderApiUrl", configuration["ORDER_API_URL"]);
                 clientUrls.Add("DashboardAppUrl", configuration["DASHBOARD_APP_URL"]);
 
+                logger.LogDebug("Logging client urls!");
+                foreach (var clientUrl in clientUrls)
+                {
+                    logger.LogDebug($"{clientUrl.Key}:{clientUrl.Value}");
+                }
+
                 foreach (var client in Config.GetClients(clientUrls))
                 {
                     if (!context.Clients.Any(c => c.ClientId == client.ClientId))
@@ -49,7 +55,7 @@ namespace Identity.API.Data
                     }
                 }
 
-                
+
                 foreach (var apiResource in Config.GetApiResources())
                 {
                     if (!context.ApiResources.Any(ar => ar.Name == apiResource.Name))

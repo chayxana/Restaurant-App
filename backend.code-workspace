@@ -38,5 +38,13 @@
 		{
 			"path": "./src/backend/scripts"
 		}
-	]
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.classpath": true,
+			"**/.project": true,
+			"**/.settings": true,
+			"**/.factorypath": true
+		}
+	}
 }

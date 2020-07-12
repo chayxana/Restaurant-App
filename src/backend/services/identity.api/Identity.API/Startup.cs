@@ -41,21 +41,11 @@ namespace Identity.API
             services.AddControllersWithViews();
             services.Configure<ForwardedHeadersOptions>(options =>
             {
-                if (IsK8S)
+                services.Configure<ForwardedHeadersOptions>(options =>
                 {
                     options.ForwardedHeaders =
                         ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-                }
-                else
-                {
-                    options.ForwardedHeaders =
-                        ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
-
-                    options.ForwardedHostHeaderName = "x-forwarded-host";
-                    options.ForwardedProtoHeaderName = "x-forwarded-proto";
-                    options.KnownNetworks.Clear();
-                    options.KnownProxies.Clear();
-                }
+                });
             });
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -131,29 +121,15 @@ namespace Identity.API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseForwardedHeaders();
-            app.UseMiddleware<RequestLoggerMiddleware>();
 
             var basePath = Configuration.GetBasePath();
-            if (IsK8S)
+            if (!string.IsNullOrEmpty(basePath))
             {
-                if (!string.IsNullOrEmpty(basePath))
-                {
-                    loggerFactory.CreateLogger<Startup>().LogDebug("Using PATH BASE '{pathBase}'", basePath);
-                    app.UsePathBase(basePath);
-                }
+                loggerFactory.CreateLogger<Startup>().LogDebug("Using PATH BASE '{pathBase}'", basePath);
+                app.UsePathBase(basePath);
             }
-            else // locally when we use Netflix Zull 
-            {
-                app.Use((context, next) =>
-                {
-                    if (context.Request.Headers.TryGetValue("x-forwarded-prefix", out var prefix))
-                    {
-                        loggerFactory.CreateLogger<Startup>().LogDebug("Using x-forwarded-prefix as a PREFIX '{pathBase}'", prefix);
-                        context.Request.PathBase = new PathString(prefix);
-                    }
-                    return next();
-                });
-            }
+            
+            app.UseMiddleware<RequestLoggerMiddleware>();
 
             if (env.IsDevelopment())
             {

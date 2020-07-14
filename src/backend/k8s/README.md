@@ -14,9 +14,11 @@ Prerequisites
 kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
 ```
 
-## Setup k8s ingress locally
+## How Setup k8s Ingress Controller
 
 ### k8s Ingress Docker Desktop
+
+In order to up in running ingress controller, we need deploy first Ingress controller related services to out k8s cluster
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml

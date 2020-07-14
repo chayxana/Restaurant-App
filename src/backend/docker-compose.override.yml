@@ -15,6 +15,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=Passw0rd!
       - IDENTITY_URL_PUB=http://localhost:8080/identity
+      - IDENTITY_URL=http://identity-api
       - BASKET_URL==http://basket-api:5200
 
   basket-api:

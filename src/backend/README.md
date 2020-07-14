@@ -8,7 +8,11 @@
 Use Docker Compose for running. Run following command from the root directory `cd src/backend` and `docker-compose up`
 
 ### Exposed endpoints
-When you are using `docker` all services url's will be exposed only via API Gateway using `Netflix Zuul` it can be accessed from `http://localhost:8080`
+When you are using `docker` all services url's will be exposed only via `nginx` reverse proxy, it can be accessed from `http://localhost:8080`
+
+**Dashboard Appp**
+
+```http://localhost:8080/dashboard```
 
 **Swagger API for Menu.API**
 
@@ -21,3 +25,5 @@ When you are using `docker` all services url's will be exposed only via API Gate
 **Swagger API for Basket.API**
 
 ```http://localhost:8080/basket/swagger/index.html```
+
+

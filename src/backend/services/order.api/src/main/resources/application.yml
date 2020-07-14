@@ -2,6 +2,7 @@ server:
   port: 8090
   tomcat:
     max-threads: 5
+  use-forward-headers: true
 
 # Spring Boot initialization time improvements
 spring:
@@ -29,7 +30,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: ${IDENTITY_URL_PUB:http://localhost:5100}
-          jwk-set-uri: ${IDENTITY_URL_PUB:http://localhost:5100}/.well-known/openid-configuration/jwks
+          jwk-set-uri: ${IDENTITY_URL:http://localhost:5100}/.well-known/openid-configuration/jwks
 logging:
   level:
     org:

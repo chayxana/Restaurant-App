@@ -50,6 +50,12 @@ services:
     build:
       context: ./web/web.admin/dashboard
       dockerfile: local.Dockerfile
+
+  # web-app:
+  #   image: restaurant/web
+  #   build:
+  #     context: ./web/web.client/web-app
+  #     dockerfile: local.Dockerfile
       
   pgsql:
     image: postgres:alpine

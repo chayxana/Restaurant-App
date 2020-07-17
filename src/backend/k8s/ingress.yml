@@ -9,10 +9,11 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/configuration-snippet: |
       rewrite ^/dashboard/(.*) /$1 break;
+      proxy_set_header    X-Forwarded-Prefix /order;
       
 spec:
   rules:
-    - host: api.restaurant.com
+    - host: api.restaurant.io
       http:
         paths:
           - path: /menu

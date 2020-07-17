@@ -22,7 +22,7 @@
 		},
 		{
 			"name": "gateway-api",
-			"path": "./src/backend/gateway/restaurant-gateway"
+			"path": "./src/backend/gateway"
 		},
 		{
 			"name": "dashboard-app",

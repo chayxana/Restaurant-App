@@ -201,11 +201,6 @@ spec:
             configMapKeyRef:
               name: internal-urls
               key: identity
-        # - name: Kestrel__EndPoints__Http__Url
-        #   valueFrom:
-        #     configMapKeyRef:
-        #       name: local-config
-        #       key: kestrel__Endpoint
         readinessProbe:
           httpGet:
             path: /hc
@@ -260,6 +255,11 @@ spec:
             configMapKeyRef:
               name: endpoints
               key: identity_pub
+        - name: IDENTITY_URL
+          valueFrom:
+            configMapKeyRef:
+              name: internal-urls
+              key: identity
         - name: BASKET_URL
           valueFrom:
             configMapKeyRef:

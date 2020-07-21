@@ -23,9 +23,10 @@ jobs:
     NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages
   steps:
   
-  - task: NuGetToolInstaller@0
+  - task: NuGetToolInstaller@1
   - task: NuGetCommand@2
     inputs:
+      command: 'restore'
       restoreSolution: '**/Restaurant.Client.sln'
   # - task: CacheBeta@0
   #   inputs:
@@ -46,7 +47,7 @@ jobs:
 
 - job: iOS
   pool:
-    vmImage: 'macOS-latest'
+    vmImage: 'macOS-10.14'
   variables:
     buildConfiguration: 'Release'
     NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages
@@ -68,9 +69,10 @@ jobs:
       packageType: 'sdk'
       version: '2.2.301'
     
-  - task: NuGetToolInstaller@0
+  - task: NuGetToolInstaller@1
   - task: NuGetCommand@2
     inputs:
+      command: 'restore'
       restoreSolution: '**/Restaurant.Client.sln'
   # - task: CacheBeta@0
   #   inputs:

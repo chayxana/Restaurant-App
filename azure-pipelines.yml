@@ -47,7 +47,7 @@ jobs:
 
 - job: iOS
   pool:
-    vmImage: 'macOS-latest'
+    vmImage: 'macOS-10.14'
   variables:
     buildConfiguration: 'Release'
     NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages

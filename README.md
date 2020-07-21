@@ -113,8 +113,8 @@ The architecture proposes a micro-service oriented architecture implementation w
 
 | Mobile              | Build status | Release |
 |---------------------|--------------|-------------------|
-| Android             |[![Build Status](https://jurabek.visualstudio.com/Restaurant-App/_apis/build/status/Jurabek.Restaurant-App?branchName=develop&jobName=Android)](https://jurabek.visualstudio.com/Restaurant-App/_build/latest?definitionId=10&branchName=develop)  | [Download Android]("/") |
-| iOS                 | [![Build Status](https://jurabek.visualstudio.com/Restaurant-App/_apis/build/status/Jurabek.Restaurant-App?branchName=develop&jobName=iOS)](https://jurabek.visualstudio.com/Restaurant-App/_build/latest?definitionId=10&branchName=develop) | [Download iOS]("/") |
+| Android             |[![Build Status](https://dev.azure.com/jurabek/Restaurant%20App/_apis/build/status/chayxana.Restaurant-App?branchName=develop&jobName=Android)](https://dev.azure.com/jurabek/Restaurant%20App/_build/latest?definitionId=11&branchName=develop)| [Download Android]("/") |
+| iOS                 |[![Build Status](https://dev.azure.com/jurabek/Restaurant%20App/_apis/build/status/chayxana.Restaurant-App?branchName=develop&jobName=iOS)](https://dev.azure.com/jurabek/Restaurant%20App/_build/latest?definitionId=11&branchName=develop)| [Download iOS]("/") |
 
 Mobile app developed by Xamarin.Forms and supports iOS and Android, here you can find how to develop cross-platform mobile apps using C#.
 The example shows how to develop beautiful user interfaces using Xamarin.Forms and how to manage your code with Clean Architecture on the mobile side and get a clean, maintainable, testable code.

@@ -50,6 +50,7 @@ ip_regex='([0-9]{1,3}\.){3}[0-9]{1,3}|[A-B]|[a-b]'
 echo "-------------------------------------------------------------------------------------------"
 echo "Please wait, retrieving ingress DNS/IP"
 while true; do
+    trap '' INT
     printf "."
     if [ "$K8S_PROFILE" = "minikube" ]; then
       ingressUrl=$(kubectl get ing restaurant-ingress -o=jsonpath="{.status.loadBalancer.ingress[0].ip}")

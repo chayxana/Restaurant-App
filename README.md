@@ -7,10 +7,10 @@ To getting started, simply fork this repository. Please refer to [CONTRIBUTING.m
 
 ## Motivation
 
-- Developing independently deployable and scalable micro-services
+- Developing independently deployable and scalable micro-services based on best practies using containerization🐳 and k8s☸
 - Developing cross-platform beautiful mobile apps using Xamarin.Forms
-- Configuring fully automated CI/CD pipelines using Github Actions to Mono Repo, Azure DevOps, automated deployments using k8s, Helm, Docker
-- Using modern technologies such as GraphQL, gRPC, Apache Kafka, Serverless, Service meshes
+- Configuring fully automated CI/CD pipelines using Github Actions to mono-repo and Azure Pipelines and AppCenter for mobile
+- Using modern technologies such as GraphQL, gRPC, Apache Kafka, Serverless, Istio
 - Writing clean, maintainable and fully testable code, Unit Testing, Integration Testing and Mocking practices
 - Using SOLID Design Principles
 - Using Design Patterns and Best practices in different programming languages

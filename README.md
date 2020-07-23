@@ -7,7 +7,7 @@ To getting started, simply fork this repository. Please refer to [CONTRIBUTING.m
 
 ## Motivation
 
-- Developing independently deployable and scalable micro-services based on best practies using containerization 🐳  and k8s ☸
+- Developing independently deployable and scalable micro-services based on best practies using containerization ☸ 🐳 
 - Developing cross-platform beautiful mobile apps using Xamarin.Forms
 - Developing Single Page applications using React and Angular including best practices
 - Configuring fully automated CI/CD pipelines using Github Actions to mono-repo and Azure Pipelines and AppCenter for mobile

@@ -10,7 +10,7 @@ Use Docker Compose for running. Run following command from the root directory `c
 ### Exposed endpoints
 When you are using `docker` all services url's will be exposed only via `nginx` reverse proxy, it can be accessed from `http://localhost:8080`
 
-**Dashboard Appp**
+**Dashboard App**
 
 ```http://localhost:8080/dashboard```
 

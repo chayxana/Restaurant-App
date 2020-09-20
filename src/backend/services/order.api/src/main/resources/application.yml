@@ -7,8 +7,7 @@ server:
 # Spring Boot initialization time improvements
 spring:
   main:
-    lazy:
-      initialization: true
+    lazy-initialization: true
   jmx:
     enabled: true
   application:
@@ -31,11 +30,13 @@ spring:
         jwt:
           issuer-uri: ${IDENTITY_URL_PUB:http://localhost:5100}
           jwk-set-uri: ${IDENTITY_URL:http://localhost:5100}/.well-known/openid-configuration/jwks
-logging:
-  level:
-    org:
-      springframework:
-        security: DEBUG
+# logging:
+#   level:
+#     org:
+#       springframework:
+#         web: DEBUG
+#         boot:
+#           autoconfigure: DEBUG
 
 management:
   endpoints:

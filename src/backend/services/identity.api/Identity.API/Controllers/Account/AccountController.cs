@@ -11,6 +11,8 @@ using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 using Identity.API.Utils;
 using Microsoft.Extensions.Configuration;
 
+using IdentityServer4.Models;
+
 namespace Identity.API.Controllers.Account
 {
     [SecurityHeaders]
@@ -74,11 +76,11 @@ namespace Identity.API.Controllers.Account
                 var basePath = _configuration.GetBasePath();
                 if (context != null)
                 {
-                    if (await _clientStore.IsPkceClientAsync(context.ClientId))
+                    if (context.IsNativeClient())
                     {
-                        // if the client is PKCE then we assume it's native, so this change in how to
+                        // The client is native, so this change in how to
                         // return the response is for better UX for the end user.
-                        return View("Redirect", new RedirectViewModel { RedirectUrl = model.ReturnUrl });
+                        return this.LoadingPage("Redirect", model.ReturnUrl);
                     }
                     // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
                     return Redirect(model.ReturnUrl);

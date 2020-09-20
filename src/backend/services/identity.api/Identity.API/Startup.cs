@@ -50,12 +50,12 @@ namespace Identity.API
 
             services.Configure<CookiePolicyOptions>(options =>
             {
-                options.MinimumSameSitePolicy = SameSiteMode.None;
+                options.MinimumSameSitePolicy = SameSiteMode.Lax;
             });
 
             var connectionString = Configuration.GetConnectionString("IdentityConnectionString");
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-
+            
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseNpgsql(connectionString);
@@ -156,6 +156,7 @@ namespace Identity.API
             {
                 c.SwaggerEndpoint($"{basePath}/swagger/v1/swagger.json", "Identity.API V1");
                 c.OAuthClientId("menu-api-swagger-ui");
+                c.OAuthClientSecret("client-secret");
                 c.OAuthAppName("Menu API Swagger UI");
             });
 

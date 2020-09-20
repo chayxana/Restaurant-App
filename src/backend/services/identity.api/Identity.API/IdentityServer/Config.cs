@@ -19,13 +19,13 @@ namespace Identity.API.IdentityServer
             };
         }
 
-        public static IEnumerable<ApiResource> GetApiResources()
+        public static IEnumerable<ApiScope> GetApiScopes()
         {
             return new[]
             {
-                new ApiResource("menu-api", "Restaurant Menu Api") { UserClaims = { "role" } },
-                new ApiResource("order-api", "Restaurant Order Api") { UserClaims = { "role" } },
-                new ApiResource("basket-api", "Restaurant Basket Api") { UserClaims = { "role" } }
+                new ApiScope("menu-api", "Restaurant Menu Api") { UserClaims = { "role" } },
+                new ApiScope("order-api", "Restaurant Order Api") { UserClaims = { "role" } },
+                new ApiScope("basket-api", "Restaurant Basket Api") { UserClaims = { "role" } }
             };
         }
 

@@ -1,10 +1,10 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+﻿﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using System.Collections.Generic;
+ using System.Collections.Generic;
 
-namespace Identity.API.Controllers.Consent
+ namespace Identity.API.Controllers.Consent
 {
     public class ConsentViewModel : ConsentInputModel
     {
@@ -14,6 +14,6 @@ namespace Identity.API.Controllers.Consent
         public bool AllowRememberConsent { get; set; }
 
         public IEnumerable<ScopeViewModel> IdentityScopes { get; set; }
-        public IEnumerable<ScopeViewModel> ResourceScopes { get; set; }
+        public IEnumerable<ScopeViewModel> ApiScopes { get; set; }
     }
 }

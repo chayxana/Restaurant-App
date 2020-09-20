@@ -34,24 +34,9 @@ namespace Identity.API.Providers
         public async Task<SignInResult> LoginUser(LoginInputModel model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);
-            if (result == SignInResult.Success)
-            {
-                var user = await _userManager.FindByNameAsync(model.Username);
-                await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName));
-
-                AuthenticationProperties props = null;
-                if (AccountOptions.AllowRememberLogin && model.RememberLogin)
-                {
-                    props = new AuthenticationProperties
-                    {
-                        IsPersistent = true,
-                        ExpiresUtc = DateTimeOffset.UtcNow.Add(AccountOptions.RememberMeLoginDuration)
-                    };
-                }
-                // issue authentication cookie with subject ID and username
-                await _httpContextAccessor.HttpContext.SignInAsync(user.Id, user.UserName, props);
-            }
-
+            if (result != SignInResult.Success) return result;
+            var user = await _userManager.FindByNameAsync(model.Username);
+            await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName));
             return result;
         }
 

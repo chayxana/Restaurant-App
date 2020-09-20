@@ -56,12 +56,12 @@ namespace Identity.API.Data
                 }
 
 
-                foreach (var apiResource in Config.GetApiResources())
+                foreach (var apiScope in Config.GetApiScopes())
                 {
-                    if (!context.ApiResources.Any(ar => ar.Name == apiResource.Name))
+                    if (!context.ApiScopes.Any(ar => ar.Name == apiScope.Name))
                     {
-                        logger.LogInformation($"Resource Api: {apiResource.Name} not found, and creating it..");
-                        await context.ApiResources.AddAsync(apiResource.ToEntity());
+                        logger.LogInformation($"Resource Api: {apiScope.Name} not found, and creating it..");
+                        await context.ApiScopes.AddAsync(apiScope.ToEntity());
                     }
                 }
 

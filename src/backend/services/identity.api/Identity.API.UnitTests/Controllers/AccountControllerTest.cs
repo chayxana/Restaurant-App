@@ -153,12 +153,15 @@ namespace Identity.API.UnitTests.Controllers
 
             var authContext = new AuthorizationRequest()
             {
-                ClientId = "my_client_id"
+                Client = new Client
+                {
+                    ClientId = "my_client_id"
+                }
             };
 
-            var identityClient = new Client() 
+            var identityClient = new Client()
             {
-                 RequirePkce = true
+                RequirePkce = true
             };
 
             GetMock<IIdentityServerInteractionService>()
@@ -174,16 +177,12 @@ namespace Identity.API.UnitTests.Controllers
                 .Returns(Task.FromResult(Microsoft.AspNetCore.Identity.SignInResult.Success));
 
             GetMock<IClientStore>()
-                .Setup(x => x.FindClientByIdAsync(authContext.ClientId))
+                .Setup(x => x.FindClientByIdAsync(authContext.Client.ClientId))
                 .Returns(Task.FromResult(identityClient));
 
             var result = await ClassUnderTest.Login(loginInputViewModel);
 
-            Assert.IsType<ViewResult>(result);
-
-            var viewResult = ((ViewResult)result);
-
-            Assert.Equal("Redirect", viewResult.ViewName);
+            Assert.IsType<RedirectResult>(result);
         }
 
         [Fact]
@@ -206,12 +205,16 @@ namespace Identity.API.UnitTests.Controllers
 
             var authContext = new AuthorizationRequest()
             {
-                ClientId = "my_client_id"
+                Client = new Client
+                {
+                    ClientId = "my_client_id"
+
+                }
             };
 
-            var identityClient = new Client() 
+            var identityClient = new Client()
             {
-                 RequirePkce = false
+                RequirePkce = false
             };
 
             GetMock<IIdentityServerInteractionService>()
@@ -227,7 +230,7 @@ namespace Identity.API.UnitTests.Controllers
                 .Returns(Task.FromResult(Microsoft.AspNetCore.Identity.SignInResult.Success));
 
             GetMock<IClientStore>()
-                .Setup(x => x.FindClientByIdAsync(authContext.ClientId))
+                .Setup(x => x.FindClientByIdAsync(authContext.Client.ClientId))
                 .Returns(Task.FromResult(identityClient));
 
             var result = await ClassUnderTest.Login(loginInputViewModel);
@@ -301,7 +304,7 @@ namespace Identity.API.UnitTests.Controllers
             GetMock<ILoginProvider>()
                 .Setup(x => x.LoginUser(loginInputViewModel))
                 .Returns(Task.FromResult(Microsoft.AspNetCore.Identity.SignInResult.Success));
-            
+
             urlHelperMock.Setup(x => x.IsLocalUrl(returnUrl))
                 .Returns(true);
 
@@ -342,7 +345,7 @@ namespace Identity.API.UnitTests.Controllers
             GetMock<ILoginProvider>()
                 .Setup(x => x.LoginUser(loginInputViewModel))
                 .Returns(Task.FromResult(Microsoft.AspNetCore.Identity.SignInResult.Success));
-            
+
             urlHelperMock.Setup(x => x.IsLocalUrl(returnUrl))
                 .Returns(false);
 

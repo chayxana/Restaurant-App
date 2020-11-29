@@ -12,8 +12,8 @@ namespace Identity.API.Controllers.Account
     /// <returns></returns>
     public static bool IsNativeClient(this AuthorizationRequest context)
     {
-      return !context.RedirectUri.StartsWith("https", StringComparison.Ordinal)
-             && !context.RedirectUri.StartsWith("http", StringComparison.Ordinal);
+      return !context?.RedirectUri?.StartsWith("https", StringComparison.Ordinal) == true
+             && !context?.RedirectUri?.StartsWith("http", StringComparison.Ordinal) == true;
     }
 
     public static IActionResult LoadingPage(this Controller controller, string viewName, string redirectUri)

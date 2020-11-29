@@ -8,12 +8,12 @@ import { NgForm } from '@angular/forms';
 import * as uuid from 'uuid';
 import { MatProgressButtonOptions } from 'mat-progress-buttons';
 import { AuthService } from 'app/services/auth.service';
-import { MatSnackBar } from '@angular/material';
 import { Observable, from } from 'rxjs';
 import { switchMap, filter, map, tap } from 'rxjs/operators';
 import { FoodPicture } from 'app/models/foodPicture';
 import { environment } from 'environments/environment';
 import { getFoodInstance, getProgressButtonOptions } from 'app/models/instances';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-food',

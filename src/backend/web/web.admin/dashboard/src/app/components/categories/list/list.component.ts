@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Category } from 'app/models/category';
 import { CategoryService } from 'app/services/category.service';
 import { AuthService } from 'app/services/auth.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'app/components/confirmation-dialog/confirmation-dialog.component';
 import { DialogData } from 'app/models/dialog-data';
 import { filter, switchMap } from 'rxjs/operators';

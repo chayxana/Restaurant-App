@@ -4,7 +4,7 @@ import { Food } from 'app/models/food';
 import { AuthService } from 'app/services/auth.service';
 import { Observable } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'app/components/confirmation-dialog/confirmation-dialog.component';
 import { DialogData } from 'app/models/dialog-data';
 

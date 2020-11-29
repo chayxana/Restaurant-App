@@ -4,7 +4,7 @@ import * as uuid from 'uuid';
 
 export function getFoodInstance(): Food {
   return <Food>{
-    id: uuid(),
+    id: uuid.v4(),
     name: '',
     description: '',
     price: null,

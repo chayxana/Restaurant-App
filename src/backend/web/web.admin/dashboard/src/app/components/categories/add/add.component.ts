@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import * as uuid from 'uuid';
 import { MatProgressButtonOptions } from 'mat-progress-buttons';
 import { AuthService } from 'app/services/auth.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-categories',
@@ -36,7 +36,7 @@ export class AddCategoryComponent implements OnInit {
   isLoading: boolean;
 
   category: Category = {
-    id: uuid(),
+    id: uuid.v4(),
     color: '',
     name: ''
   };

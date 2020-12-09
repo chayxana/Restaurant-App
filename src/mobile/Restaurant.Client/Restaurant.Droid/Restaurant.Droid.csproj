@@ -84,7 +84,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Autofac" Version="6.1.0" />
-        <PackageReference Include="IdentityModel" Version="4.5.0" />
+        <PackageReference Include="IdentityModel" Version="3.10.10" />
         <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
         <PackageReference Include="Refractored.Controls.CircleImageView" Version="1.0.1" />
         <PackageReference Include="Square.OkHttp" Version="2.7.5.1" />

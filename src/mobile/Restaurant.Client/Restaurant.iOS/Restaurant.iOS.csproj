@@ -211,7 +211,7 @@
       <Version>4.0.8</Version>
     </PackageReference>
     <PackageReference Include="IdentityModel">
-      <Version>4.5.0</Version>
+      <Version>3.10.10</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities">
       <Version>2.2.0</Version>

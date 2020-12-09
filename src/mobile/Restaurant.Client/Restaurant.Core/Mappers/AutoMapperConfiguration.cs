@@ -11,8 +11,9 @@ namespace Restaurant.Core.Mappers
         {
             var configurationExpression = new MapperConfigurationExpression();
             configurationExpression.AddProfile<ViewModelToDataTransferObjectsProfile>();
-            Mapper.Initialize(configurationExpression);
-            return Mapper.Instance;
+
+            var configuration = new MapperConfiguration(configurationExpression);
+            return new Mapper(configuration);
         }
     }
 }

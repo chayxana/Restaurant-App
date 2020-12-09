@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using ReactiveUI;
 using Restaurant.Abstractions.Factories;
-using Restaurant.Core.ViewModels;
+using Restaurant.Core.ViewModels.Food;
 using Restaurant.Core.ViewModels.iOS;
 using Xamarin.Forms;
 

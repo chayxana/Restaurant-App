@@ -5,7 +5,7 @@ using Xamarin.Forms.Xaml;
 namespace Restaurant.Mobile.UI.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class VerticalStepperView : ContentView
+    public partial class VerticalStepperView
     {
         public static readonly BindableProperty MaxValueProperty =
             BindableProperty.Create(nameof(MaxValue), typeof(int), typeof(StepperView), int.MaxValue);

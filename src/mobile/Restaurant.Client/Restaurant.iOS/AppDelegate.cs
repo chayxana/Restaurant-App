@@ -2,7 +2,6 @@
 using Autofac;
 using Foundation;
 using ImageCircle.Forms.Plugin.iOS;
-using Lottie.Forms.Platforms.Ios;
 using Restaurant.Abstractions.Services;
 using Restaurant.Mobile.UI;
 using UIKit;

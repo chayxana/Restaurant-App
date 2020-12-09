@@ -79,7 +79,7 @@ namespace Restaurant.Droid.Renderers
 
         private void UpdateImage()
         {
-			Picasso.With(Context)
+			Picasso.Get()
 				.Load(Uri.Parse(Element.UserPicture))
 				.Into(_profileImage);
 

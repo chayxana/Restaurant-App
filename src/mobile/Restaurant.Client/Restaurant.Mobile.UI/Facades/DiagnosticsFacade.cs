@@ -3,7 +3,6 @@ using Microsoft.AppCenter.Crashes;
 using Restaurant.Abstractions.Facades;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Restaurant.Mobile.UI.Facades
 {

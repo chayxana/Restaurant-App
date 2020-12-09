@@ -3,7 +3,6 @@ using ReactiveUI;
 using Restaurant.Abstractions.ViewModels;
 using System;
 using System.Reactive.Linq;
-using Restaurant.Core.ViewModels.Food;
 
 namespace Restaurant.Core.ViewModels
 {

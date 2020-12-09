@@ -5,11 +5,10 @@ using Microsoft.AppCenter.Crashes;
 using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Core;
-using Restaurant.Core.Mappers;
 using Restaurant.Mobile.UI.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
+using System;
 namespace Restaurant.Mobile.UI
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]

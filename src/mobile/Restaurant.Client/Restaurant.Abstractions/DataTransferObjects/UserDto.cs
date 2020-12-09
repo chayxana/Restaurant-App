@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Restaurant.Abstractions.DataTransferObjects
+﻿namespace Restaurant.Abstractions.DataTransferObjects
 {
     public class UserDto
     {

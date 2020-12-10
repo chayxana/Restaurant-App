@@ -63,54 +63,49 @@ namespace Identity.API.Controllers.Account
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginInputModel model)
         {
-            var vm = await BuildLoginViewModel(model);
+            var viewModel = await _loginViewModelBuilder.Build(model.ReturnUrl);
+            viewModel.Username = model.Username;
+            viewModel.RememberLogin = model.RememberLogin;
+
             if (!ModelState.IsValid)
             {
-                return View(vm);
+                return View(viewModel);
             }
 
             var result = await _loginProvider.LoginUser(model);
-            if (result == SignInResult.Success)
+            if (result != SignInResult.Success)
             {
-                var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
-                var basePath = _configuration.GetBasePath();
-                if (context != null)
-                {
-                    if (context.IsNativeClient())
-                    {
-                        // The client is native, so this change in how to
-                        // return the response is for better UX for the end user.
-                        return this.LoadingPage("Redirect", model.ReturnUrl);
-                    }
-                    // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
-                    return Redirect(model.ReturnUrl);
-                }
-
-                if (string.IsNullOrEmpty(model.ReturnUrl))
-                {
-                    return Redirect("~/");
-                }
-
-                // request for a local page
-                if (Url.IsLocalUrl(model.ReturnUrl))
-                {
-                    return Redirect(model.ReturnUrl);
-                }
-
-                // user might have clicked on a malicious link - should be logged
-                throw new Exception("invalid return URL");
+                ModelState.AddModelError("", "Invalid username or password");
+                return View(viewModel);
             }
 
-            ModelState.AddModelError("", "Invalid username or password");
-            return View(vm);
-        }
+            var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
+            var basePath = _configuration.GetBasePath();
+            if (context != null)
+            {
+                if (context.IsNativeClient())
+                {
+                    // The client is native, so this change in how to
+                    // return the response is for better UX for the end user.
+                    return this.LoadingPage("Redirect", model.ReturnUrl);
+                }
+                // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
+                return Redirect(model.ReturnUrl);
+            }
 
-        private async Task<LoginViewModel> BuildLoginViewModel(LoginInputModel model)
-        {
-            var vm = await _loginViewModelBuilder.Build(model.ReturnUrl);
-            vm.Username = model.Username;
-            vm.RememberLogin = model.RememberLogin;
-            return vm;
+            if (string.IsNullOrEmpty(model.ReturnUrl))
+            {
+                return Redirect("~/");
+            }
+
+            // request for a local page
+            if (Url.IsLocalUrl(model.ReturnUrl))
+            {
+                return Redirect(model.ReturnUrl);
+            }
+
+            // user might have clicked on a malicious link - should be logged
+            throw new Exception("invalid return URL");
         }
 
         [HttpGet]

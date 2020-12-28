@@ -16,7 +16,7 @@ namespace Restaurant.Mobile.UI.Pages.Android
         {
         }
 
-        public MainPageAndroid(IContainer container)
+        public MainPageAndroid(ILifetimeScope container)
         {
             var viewFactory = container.Resolve<IViewFactory>();
             var masterPage = viewFactory.ResolveView<IMasterViewModel>() as Page;

@@ -25,12 +25,10 @@ namespace Restaurant.Core.Mappers
                 .ForMember(x => x.Quantity, map => map.MapFrom(x => x.Quantity))
                 .ForMember(x => x.FoodId, map => map.MapFrom(x => x.Food.Id));
 
-            CreateMap<UserProfileDto, UserInfoViewModel>();
-            CreateMap<UserDto, UserViewModel>()
-                .ForMember(x => x.UserInfoViewModel, map => map
-                    .MapFrom(dto => dto.Profile)); //TODO: check if this works
-            // .MapFrom(x => Mapper.Map<UserInfoViewModel>(x.Profile)));
-
+	        CreateMap<UserProfileDto, IUserInfoViewModel>();
+	        CreateMap<IUserInfoViewModel, UserProfileDto>();
+	        CreateMap<UserDto, UserViewModel>()
+		        .ForMember(x => x.UserInfoViewModel, map => map.MapFrom(x => x.Profile));
 
             CreateMap<FoodDto, FoodViewModel>().ForMember(x => x.Picture,
                 map => map.MapFrom(dto => CorePlatformInitializer.MockData

@@ -10,11 +10,11 @@ namespace Restaurant.Core.Factories
     [ExcludeFromCodeCoverage]
     public class ViewModelFactory : IViewModelFactory
     {
-        private readonly IContainer _container;
+        private readonly ILifetimeScope _container;
         private readonly IDiagnosticsFacade _diagnosticsFacade;
 
         public ViewModelFactory(
-            IContainer container,
+            ILifetimeScope container,
             IDiagnosticsFacade diagnosticsFacade)
         {
             _container = container;

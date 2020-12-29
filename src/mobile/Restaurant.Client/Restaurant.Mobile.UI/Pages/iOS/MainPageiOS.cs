@@ -9,7 +9,7 @@ namespace Restaurant.Mobile.UI.Pages.iOS
 {
     public class MainPageiOS : TabbedPage, IViewFor<TabbedMainViewModel>
     {
-        public MainPageiOS(IContainer container)
+        public MainPageiOS(ILifetimeScope container)
         {
             NavigationPage.SetHasNavigationBar(this, false);
             var viewFactory = container.Resolve<IViewFactory>();

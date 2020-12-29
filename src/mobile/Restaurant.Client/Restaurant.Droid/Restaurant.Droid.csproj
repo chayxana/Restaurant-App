@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -14,7 +14,7 @@
         <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
         <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
         <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-        <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
         <AndroidStoreUncompressedFileExtensions />
         <MandroidI18n />
         <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
@@ -32,11 +32,11 @@
         <DefineConstants>DEBUG;TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>3</WarningLevel>
+        <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
         <Debugger>Xamarin</Debugger>
         <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
         <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
         <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
-        <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <DebugType>pdbonly</DebugType>
@@ -62,6 +62,9 @@
         <Reference Include="System.Runtime.Serialization" />
         <Reference Include="System.Xml.Linq" />
         <Reference Include="System.Xml" />
+        <Reference Include="Xamarin.Google.Android.Material, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\..\..\..\..\..\.nuget\packages\xamarin.google.android.material\1.2.1.1\lib\monoandroid90\Xamarin.Google.Android.Material.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Effects\ListViewScrollEffect.cs" />
@@ -84,21 +87,7 @@
         <Compile Include="Providers\ActionBarProvider.cs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Autofac" Version="6.1.0" />
-        <PackageReference Include="IdentityModel" Version="3.10.10" />
-        <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
-        <PackageReference Include="Refractored.Controls.CircleImageView" Version="1.0.1" />
-        <PackageReference Include="Square.OkHttp" Version="2.7.5.1" />
-        <PackageReference Include="Square.OkIO" Version="2.8.0" />
-        <PackageReference Include="Square.Picasso" Version="2.71828.0" />
-        <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
-        <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
-        <PackageReference Include="Xamarin.Android.Arch.Core.Common" Version="1.1.1.3" />
-        <PackageReference Include="Xamarin.Android.Arch.Lifecycle.Common" Version="1.1.1.3" />
-        <PackageReference Include="Xamarin.Android.Arch.Lifecycle.Runtime" Version="1.1.1.3" />
-        <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
-    </ItemGroup>
-    <ItemGroup>
+        <None Include="app.config" />
         <AndroidResource Include="Resources\layout\nav_drawer.axml">
             <SubType>Designer</SubType>
         </AndroidResource>
@@ -203,6 +192,287 @@
         <AndroidResource Include="Resources\drawable\check.xml" />
         <AndroidResource Include="Resources\drawable\heart.xml" />
         <AndroidResource Include="Resources\drawable\heart_outline_white.xml" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Autofac">
+            <Version>6.1.0</Version>
+        </PackageReference>
+        <PackageReference Include="AutoMapper">
+            <Version>10.1.1</Version>
+        </PackageReference>
+        <PackageReference Include="IdentityModel">
+            <Version>4.6.0</Version>
+        </PackageReference>
+        <PackageReference Include="Microsoft.AspNetCore.WebUtilities">
+            <Version>2.2.0</Version>
+        </PackageReference>
+        <PackageReference Include="Microsoft.NETCore.Platforms">
+            <Version>5.0.0</Version>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Win32.Primitives">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="NETStandard.Library">
+            <Version>2.0.3</Version>
+        </PackageReference>
+        <PackageReference Include="NLog">
+            <Version>4.7.6</Version>
+        </PackageReference>
+        <PackageReference Include="NLog.Config">
+            <Version>4.7.6</Version>
+        </PackageReference>
+        <PackageReference Include="ReactiveUI">
+            <Version>13.0.27</Version>
+        </PackageReference>
+        <PackageReference Include="ReactiveUI.AndroidSupport">
+          <Version>13.0.27</Version>
+        </PackageReference>
+        <PackageReference Include="Refit">
+            <Version>5.2.4</Version>
+        </PackageReference>
+        <PackageReference Include="Refractored.Controls.CircleImageView">
+            <Version>1.0.1</Version>
+        </PackageReference>
+        <PackageReference Include="Square.OkHttp">
+            <Version>2.7.5.1</Version>
+        </PackageReference>
+        <PackageReference Include="Square.OkIO">
+            <Version>2.8.0</Version>
+        </PackageReference>
+        <PackageReference Include="Square.Picasso">
+            <Version>2.71828.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.AppContext">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Collections">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Collections.Concurrent">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Collections.Specialized">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.ComponentModel">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.ComponentModel.TypeConverter">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Console">
+            <Version>4.3.1</Version>
+        </PackageReference>
+        <PackageReference Include="System.Diagnostics.Contracts">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Diagnostics.Debug">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Diagnostics.Tools">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Diagnostics.Tracing">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Dynamic.Runtime">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Globalization">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Globalization.Calendars">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.IO">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.IO.Compression">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.IO.Compression.ZipFile">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.IO.FileSystem">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.IO.FileSystem.Primitives">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Linq">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Linq.Expressions">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Linq.Queryable">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Net.Http">
+            <Version>4.3.4</Version>
+        </PackageReference>
+        <PackageReference Include="System.Net.Primitives">
+            <Version>4.3.1</Version>
+        </PackageReference>
+        <PackageReference Include="System.Net.Sockets">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.ObjectModel">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Reflection">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Reflection.Emit">
+            <Version>4.7.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Reflection.Extensions">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Reflection.Primitives">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Resources.ResourceManager">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Runtime">
+            <Version>4.3.1</Version>
+        </PackageReference>
+        <PackageReference Include="System.Runtime.Extensions">
+            <Version>4.3.1</Version>
+        </PackageReference>
+        <PackageReference Include="System.Runtime.Handles">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Runtime.InteropServices">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Runtime.Numerics">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Runtime.Serialization.Formatters">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Runtime.Serialization.Primitives">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Security.Cryptography.Algorithms">
+            <Version>4.3.1</Version>
+        </PackageReference>
+        <PackageReference Include="System.Security.Cryptography.Encoding">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Security.Cryptography.Primitives">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Security.Cryptography.X509Certificates">
+            <Version>4.3.2</Version>
+        </PackageReference>
+        <PackageReference Include="System.Text.Encoding">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Text.Encoding.Extensions">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Text.RegularExpressions">
+            <Version>4.3.1</Version>
+        </PackageReference>
+        <PackageReference Include="System.Threading">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Threading.Tasks">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Threading.Timer">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Xml.ReaderWriter">
+            <Version>4.3.1</Version>
+        </PackageReference>
+        <PackageReference Include="System.Xml.XDocument">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="System.Xml.XmlDocument">
+            <Version>4.3.0</Version>
+        </PackageReference>
+        <PackageReference Include="Xam.Plugins.Forms.ImageCircle">
+            <Version>3.0.0.5</Version>
+        </PackageReference>
+        <PackageReference Include="Xam.Plugins.Settings">
+            <Version>3.1.1</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.Arch.Core.Common">
+            <Version>2.1.0.7</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.Lifecycle.Common">
+            <Version>2.2.0.4</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.Lifecycle.Runtime">
+            <Version>2.2.0.4</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.Preference">
+          <Version>1.1.1.6</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.VectorDrawable.Animated">
+            <Version>1.1.0.6</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.Annotation">
+            <Version>1.1.0.8</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.Core">
+            <Version>1.3.2.1</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.Legacy.Support.Core.UI">
+            <Version>1.0.0.7</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.Legacy.Support.Core.Utils">
+            <Version>1.0.0.6</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.Google.Android.Material">
+            <Version>1.2.1.1</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.Fragment">
+            <Version>1.2.5.4</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.Media">
+            <Version>1.2.1.1</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.Transition">
+            <Version>1.3.1.6</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4">
+            <Version>1.0.0.6</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.AppCompat">
+            <Version>1.2.0.6</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.CardView">
+            <Version>1.0.0.6</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.MediaRouter">
+            <Version>1.2.0.1</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.Palette">
+            <Version>1.0.0.6</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.RecyclerView">
+            <Version>1.1.0.6</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.VectorDrawable">
+            <Version>1.1.0.6</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.Forms">
+            <Version>4.8.0.1821</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.8" />
+        <PackageReference Include="Xamarin.AndroidX.Browser">
+            <Version>1.3.0.4</Version>
+        </PackageReference>
+        <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.2.0.4" />
+        <PackageReference Include="Xamarin.AndroidX.ExifInterface" Version="1.3.2.1" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Restaurant.Abstractions\Restaurant.Abstractions.csproj">

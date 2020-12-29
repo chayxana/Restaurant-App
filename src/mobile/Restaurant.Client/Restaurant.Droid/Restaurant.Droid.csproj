@@ -32,10 +32,11 @@
         <DefineConstants>DEBUG;TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>3</WarningLevel>
-        <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
         <Debugger>Xamarin</Debugger>
         <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
         <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
+        <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
+        <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <DebugType>pdbonly</DebugType>
@@ -95,7 +96,7 @@
         <PackageReference Include="Xamarin.Android.Arch.Core.Common" Version="1.1.1.3" />
         <PackageReference Include="Xamarin.Android.Arch.Lifecycle.Common" Version="1.1.1.3" />
         <PackageReference Include="Xamarin.Android.Arch.Lifecycle.Runtime" Version="1.1.1.3" />
-        <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
+        <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
     </ItemGroup>
     <ItemGroup>
         <AndroidResource Include="Resources\layout\nav_drawer.axml">

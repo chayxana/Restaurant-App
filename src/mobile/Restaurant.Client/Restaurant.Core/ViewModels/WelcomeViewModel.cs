@@ -11,18 +11,13 @@ namespace Restaurant.Core.ViewModels
     [UsedImplicitly]
     public class WelcomeViewModel : IWelcomeViewModel
     {
-        private readonly INavigationService _navigationService;
-
         public WelcomeViewModel(INavigationService navigationService)
         {
-            _navigationService = navigationService;
-            GoLogin = ReactiveCommand.CreateFromTask(GotoSignin);
+            GoLogin = ReactiveCommand.CreateFromTask(() => navigationService.NavigateAsync(typeof(ISignInViewModel)));
 
             GoRegister = ReactiveCommand.CreateFromTask(async () =>
                 await navigationService.NavigateAsync(typeof(ISignUpViewModel)));
         }
-
-        private Task GotoSignin() => _navigationService.NavigateAsync(typeof(ISignInViewModel));
 
         public string Title => "Welcome page";
 
@@ -36,6 +31,6 @@ namespace Restaurant.Core.ViewModels
         ///     Gets and sets OpenLogin
         ///     Command thats opens login page
         /// </summary>
-        public ReactiveCommand<Unit, Unit> GoLogin { get; }
+        public ICommand GoLogin { get; }
     }
 }

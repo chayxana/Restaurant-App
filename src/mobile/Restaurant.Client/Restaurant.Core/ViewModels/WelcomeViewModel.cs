@@ -22,8 +22,8 @@ namespace Restaurant.Core.ViewModels
         public string Title => "Welcome page";
 
         /// <summary>
-        ///     Gets and sets Open regester,
-        ///     Command that opens regester page
+        ///     Gets and sets Open register,
+        ///     Command that opens register page
         /// </summary>
         public ICommand GoRegister { get; }
 

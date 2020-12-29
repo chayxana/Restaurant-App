@@ -6,7 +6,7 @@ namespace Restaurant.Abstractions.ViewModels
 {
     public interface IWelcomeViewModel : INavigatableViewModel
     {
-        ReactiveCommand<Unit, Unit> GoLogin { get; }
+        ICommand GoLogin { get; }
         ICommand GoRegister { get; }
     }
 }

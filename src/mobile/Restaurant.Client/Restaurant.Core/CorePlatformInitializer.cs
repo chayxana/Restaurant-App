@@ -27,6 +27,7 @@ namespace Restaurant.Core
     public abstract class CorePlatformInitializer : IPlatformInitializer
     {
         public static bool MockData = true;
+        public static IContainer Container;
 
         public IContainer Build()
         {
@@ -82,9 +83,9 @@ namespace Restaurant.Core
 
         private static void RegisterSelf(ContainerBuilder builder)
         {
-            IContainer container = null;
-            builder.Register(c => container).AsSelf();
-            builder.RegisterBuildCallback(c => container = (IContainer) c);
+            // IContainer container = null;
+            builder.Register(c => Container).AsSelf();
+            builder.RegisterBuildCallback(c => Container = (IContainer) c);
         }
     }
 }

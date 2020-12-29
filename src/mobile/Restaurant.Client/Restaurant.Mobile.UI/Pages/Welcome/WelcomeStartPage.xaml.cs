@@ -28,12 +28,6 @@ namespace Restaurant.Mobile.UI.Pages.Welcome
             await buttonStack.ScaleTo(1, AppConstants.AnimationSpeed, Easing.SinIn);
             await signUpStack.ScaleTo(1, AppConstants.AnimationSpeed, Easing.SinIn);
         }
-
-        private async void Button_OnClicked(object sender, EventArgs e)
-        {
-            await CorePlatformInitializer.Container.Resolve<INavigationService>()
-                .NavigateAsync(typeof(ISignInViewModel));
-        }
     }
 
     public abstract class WelcomeStartPageXaml : BaseContentPage<WelcomeViewModel>

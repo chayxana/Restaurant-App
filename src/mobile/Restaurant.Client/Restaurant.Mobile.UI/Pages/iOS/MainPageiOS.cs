@@ -15,7 +15,7 @@ namespace Restaurant.Mobile.UI.Pages.iOS
             var viewFactory = container.Resolve<IViewFactory>();
             var foodsPage = viewFactory.ResolveView<FoodsViewModel>() as Page;
 
-            Children.Add(new CustomNavigationPage(foodsPage) { Title = "Foods", Icon = "foods" });
+            Children.Add(new CustomNavigationPage(foodsPage) {Title = "Foods", IconImageSource = ImageSource.FromFile("foods")});
             Children.Add(new ChatPage());
             Children.Add(new OrdersPage());
         }
@@ -28,7 +28,7 @@ namespace Restaurant.Mobile.UI.Pages.iOS
         object IViewFor.ViewModel
         {
             get => ViewModel;
-            set => ViewModel = (TabbedMainViewModel)value;
+            set => ViewModel = (TabbedMainViewModel) value;
         }
 
         public TabbedMainViewModel ViewModel { get; set; }

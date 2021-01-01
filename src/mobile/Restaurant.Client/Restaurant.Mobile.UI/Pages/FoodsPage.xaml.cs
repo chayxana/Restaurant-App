@@ -23,6 +23,7 @@ namespace Restaurant.Mobile.UI.Pages
         protected override async void OnLoaded()
         {
             base.OnLoaded();
+            BindingContext = ViewModel;
             await ViewModel.LoadFoods();
         }
     }

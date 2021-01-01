@@ -5,7 +5,8 @@ using Xamarin.Forms.Xaml;
 namespace Restaurant.Mobile.UI.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class StepperView
+    // ReSharper disable once RedundantExtendsListEntry
+    public partial class StepperView : ContentView
     {
         public static readonly BindableProperty MaxValueProperty =
             BindableProperty.Create(nameof(MaxValue), typeof(int), typeof(StepperView), int.MaxValue);

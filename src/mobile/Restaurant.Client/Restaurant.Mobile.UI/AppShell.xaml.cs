@@ -1,9 +1,11 @@
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Restaurant.Mobile.UI
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AppShell
+    // ReSharper disable once RedundantExtendsListEntry
+    public partial class AppShell : Shell
     {
         public AppShell()
         {

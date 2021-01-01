@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using ReactiveUI;
 using Restaurant.Abstractions.ViewModels;
 

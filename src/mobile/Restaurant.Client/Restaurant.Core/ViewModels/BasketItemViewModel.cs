@@ -3,7 +3,6 @@ using ReactiveUI;
 using Restaurant.Abstractions.ViewModels;
 using System;
 using System.Reactive.Linq;
-using Restaurant.Core.ViewModels.Food;
 
 namespace Restaurant.Core.ViewModels
 {
@@ -16,11 +15,11 @@ namespace Restaurant.Core.ViewModels
 		{
 			Food = food;
 
+			// Animating Total Price in UI
 			this.WhenAnyValue(x => x.Quantity)
 				.Select(_ => TotalPrice)
 				.Subscribe(async totalPrice =>
 				{
-					// Animating Total Price in UI
 					var j = totalPrice - 15;
 					j = j <= 0 ? 0 : j;
 					for (var i = j; i <= totalPrice; i++)

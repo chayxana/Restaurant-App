@@ -1,4 +1,6 @@
-﻿using System.Windows.Input;
+﻿using System.Reactive;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.Services;
@@ -11,8 +13,7 @@ namespace Restaurant.Core.ViewModels
     {
         public WelcomeViewModel(INavigationService navigationService)
         {
-            GoLogin = ReactiveCommand.CreateFromTask(async () =>
-                await navigationService.NavigateAsync(typeof(ISignInViewModel)));
+            GoLogin = ReactiveCommand.CreateFromTask(() => navigationService.NavigateAsync(typeof(ISignInViewModel)));
 
             GoRegister = ReactiveCommand.CreateFromTask(async () =>
                 await navigationService.NavigateAsync(typeof(ISignUpViewModel)));
@@ -21,8 +22,8 @@ namespace Restaurant.Core.ViewModels
         public string Title => "Welcome page";
 
         /// <summary>
-        ///     Gets and sets Open regester,
-        ///     Command that opens regester page
+        ///     Gets and sets Open register,
+        ///     Command that opens register page
         /// </summary>
         public ICommand GoRegister { get; }
 

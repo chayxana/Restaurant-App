@@ -5,11 +5,10 @@ using Microsoft.AppCenter.Crashes;
 using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.ViewModels;
 using Restaurant.Core;
-using Restaurant.Core.Mappers;
 using Restaurant.Mobile.UI.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
+using System;
 namespace Restaurant.Mobile.UI
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -24,12 +23,15 @@ namespace Restaurant.Mobile.UI
             SetupMainPage();
         }
 
+        public static IContainer Container;
+        
         private void SetupMainPage()
         {
             var container = _platformInitializer.Build();
+            Container = container;
             var viewFactory = container.Resolve<IViewFactory>();
             var welcomePage = viewFactory.ResolveView<IWelcomeViewModel>() as Page;
-            MainPage = new CustomNavigationPage(welcomePage);
+            MainPage = new AppShell();
         }
 
         public new static App Current => (App)Application.Current;

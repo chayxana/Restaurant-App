@@ -3,9 +3,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Reactive.Subjects;
-using Restaurant.Abstractions.Publishers;
 using Restaurant.Abstractions.Services;
-using Restaurant.Abstractions.Subscribers;
 using Restaurant.Abstractions.ViewModels;
 
 namespace Restaurant.Core.Services

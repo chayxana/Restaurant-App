@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using AutoMapper;
-using AutoMapper.Configuration;
 
 namespace Restaurant.Core.Mappers
 {
@@ -9,10 +8,11 @@ namespace Restaurant.Core.Mappers
     {
         public static IMapper Configure()
         {
-            var configurationExpression = new MapperConfigurationExpression();
-            configurationExpression.AddProfile<ViewModelToDataTransferObjectsProfile>();
-            Mapper.Initialize(configurationExpression);
-            return Mapper.Instance;
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<ViewModelToDataTransferObjectsProfile>();
+            });
+            return new Mapper(configuration);
         }
     }
 }

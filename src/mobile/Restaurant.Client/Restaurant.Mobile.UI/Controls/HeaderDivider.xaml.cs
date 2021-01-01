@@ -1,8 +1,6 @@
-﻿using Xamarin.Forms;
-
-namespace Restaurant.Mobile.UI.Controls
+﻿namespace Restaurant.Mobile.UI.Controls
 {
-    public partial class HeaderDivider : ContentView
+    public partial class HeaderDivider
     {
         public HeaderDivider()
         {

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Windows.Input;
 using AutoMapper;
 using JetBrains.Annotations;
 using ReactiveUI;
 using Restaurant.Abstractions.DataTransferObjects;
-using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Providers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;

@@ -1,12 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>Exe</OutputType>
     <IsPackable>false</IsPackable>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <AssemblyName>Restaurant.Core.UnitTests</AssemblyName>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

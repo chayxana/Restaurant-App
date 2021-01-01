@@ -2,6 +2,10 @@
 
 <Shell xmlns="http://xamarin.com/schemas/2014/forms"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:pages="clr-namespace:Restaurant.Mobile.UI.Pages;assembly=Restaurant.Mobile.UI"
        x:Class="Restaurant.Mobile.UI.AppShell">
-
+    <TabBar>
+        <ShellContent Title="Foods" ContentTemplate="{DataTemplate pages:FoodsPage}" />
+        <ShellContent Title="Orders" ContentTemplate="{DataTemplate pages:OrdersPage} " />
+    </TabBar>
 </Shell>

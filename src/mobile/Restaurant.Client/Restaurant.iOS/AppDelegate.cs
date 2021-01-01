@@ -2,7 +2,6 @@
 using Autofac;
 using Foundation;
 using ImageCircle.Forms.Plugin.iOS;
-using Lottie.Forms.iOS.Renderers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Mobile.UI;
 using UIKit;
@@ -22,11 +21,10 @@ namespace Restaurant.iOS
 //            UINavigationBar.Appearance.ShadowImage = new UIImage();
 //            UINavigationBar.Appearance.BackgroundColor = new UIColor(0, 0, 0, 0);
 //            UINavigationBar.Appearance.Translucent = true;
-            
+
             Forms.SetFlags("CollectionView_Experimental");
 
             Forms.Init();
-            AnimationViewRenderer.Init();
             ImageCircleRenderer.Init();
 
             LoadApplication(new App(new iOSPlatformInitializer()));

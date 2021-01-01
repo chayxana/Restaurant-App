@@ -1,25 +1,53 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls"
-             xmlns:effects="clr-namespace:Restaurant.Mobile.UI.Effects"
-             xmlns:system="clr-namespace:System;assembly=netstandard"
-             x:Class="Restaurant.Mobile.UI.App">
+<Application
+    x:Class="Restaurant.Mobile.UI.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls"
+    xmlns:effects="clr-namespace:Restaurant.Mobile.UI.Effects"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Application.Resources>
         <ResourceDictionary>
-            
-            <OnPlatform x:TypeArguments="Thickness" Android="12,8" iOS="0, 0, 0, 10" WinPhone="0,0,0,16"
-                        x:Key="CardPadding" />
 
-            <OnPlatform x:TypeArguments="Thickness" Android="15" iOS="15" WinPhone="20" x:Key="FoodDetailtPadding" />
+            <OnPlatform
+                Android="12,8"
+                WinPhone="0,0,0,16"
+                iOS="0, 0, 0, 10"
+                x:Key="CardPadding"
+                x:TypeArguments="Thickness" />
 
-            <OnPlatform x:TypeArguments="x:Double" Android="14" iOS="0" WinPhone="0" x:Key="CardSpacing" />
+            <OnPlatform
+                Android="15"
+                WinPhone="20"
+                iOS="15"
+                x:Key="FoodDetailtPadding"
+                x:TypeArguments="Thickness" />
 
-            <OnPlatform x:TypeArguments="Color" Android="#F5F5F5" iOS="#EFEFF4" WinPhone="#EFEFF4"
-                        x:Key="WindowBackgroundTable" />
-            <OnPlatform x:TypeArguments="Color" Android="#F5F5F5" iOS="White" WinPhone="White" x:Key="WindowBackground" />
-            <OnPlatform x:TypeArguments="Color" Android="#ECECEC" iOS="#C8C7CC" WinPhone="#C8C7CC" x:Key="Divider" />
+            <OnPlatform
+                Android="14"
+                WinPhone="0"
+                iOS="0"
+                x:Key="CardSpacing"
+                x:TypeArguments="x:Double" />
+
+            <OnPlatform
+                Android="#F5F5F5"
+                WinPhone="#EFEFF4"
+                iOS="#EFEFF4"
+                x:Key="WindowBackgroundTable"
+                x:TypeArguments="Color" />
+            <OnPlatform
+                Android="#F5F5F5"
+                WinPhone="White"
+                iOS="White"
+                x:Key="WindowBackground"
+                x:TypeArguments="Color" />
+            <OnPlatform
+                Android="#ECECEC"
+                WinPhone="#C8C7CC"
+                iOS="#C8C7CC"
+                x:Key="Divider"
+                x:TypeArguments="Color" />
 
             <Color x:Key="asphaltPrimary">#365271</Color>
             <Color x:Key="asphaltLight">#889DB5</Color>
@@ -73,63 +101,74 @@
             <Color x:Key="bluePinkDark">#1976D2</Color>
             <Color x:Key="bluePinkLight">#BBDEFB</Color>
 
-            <Style x:Key="labelStyle" TargetType="Label">
+            <Style TargetType="Label" x:Key="labelStyle">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="FontSize">
                     <Setter.Value>
-                        <OnPlatform x:TypeArguments="x:Double" iOS="14" Android="11" />
+                        <OnPlatform
+                            Android="11"
+                            iOS="14"
+                            x:TypeArguments="x:Double" />
                     </Setter.Value>
                 </Setter>
                 <Setter Property="FontFamily" Value="SegoeUI" />
             </Style>
-            <Style x:Key="header" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+            <Style
+                BasedOn="{StaticResource labelStyle}"
+                TargetType="Label"
+                x:Key="header">
                 <Setter Property="FontFamily" Value="SegoeUI" />
                 <Setter Property="TextColor" Value="{StaticResource asphaltPrimary}" />
             </Style>
-            <Style TargetType="Label" BasedOn="{StaticResource labelStyle}" />
-            <Style x:Key="whiteLabelStyle" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+            <Style BasedOn="{StaticResource labelStyle}" TargetType="Label" />
+            <Style
+                BasedOn="{StaticResource labelStyle}"
+                TargetType="Label"
+                x:Key="whiteLabelStyle">
                 <Setter Property="TextColor" Value="#FFFFFF" />
             </Style>
-            <Style x:Key="sub" TargetType="Label" BasedOn="{StaticResource labelStyle}">
+            <Style
+                BasedOn="{StaticResource labelStyle}"
+                TargetType="Label"
+                x:Key="sub">
                 <Setter Property="TextColor" Value="{StaticResource grayDark}" />
                 <Setter Property="FontSize" Value="Small" />
             </Style>
 
-            <Style x:Key="buttonStyle" TargetType="Button">
+            <Style TargetType="Button" x:Key="buttonStyle">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="BorderRadius" Value="4" />
                 <Setter Property="FontSize" Value="Medium" />
                 <Setter Property="BackgroundColor" Value="{StaticResource grayPrimary}" />
                 <Style.Triggers>
-                    <Trigger TargetType="Button" Property="IsEnabled" Value="False">
+                    <Trigger Property="IsEnabled" TargetType="Button" Value="False">
                         <Setter Property="TextColor" Value="#BBDEFB" />
                         <Setter Property="BackgroundColor" Value="#B6B6B6" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
-            <Style TargetType="controls:AnimateButton" BasedOn="{StaticResource buttonStyle}" />
-            <Style x:Key="deleteButtonStyle" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
+            <Style BasedOn="{StaticResource buttonStyle}" TargetType="controls:AnimateButton" />
+            <Style
+                BasedOn="{StaticResource buttonStyle}"
+                TargetType="Button"
+                x:Key="deleteButtonStyle">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="BackgroundColor" Value="{StaticResource redPrimary}" />
             </Style>
 
-            <Style x:Key="flatButtonStyle" TargetType="Button">
+            <Style TargetType="Button" x:Key="flatButtonStyle">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="FontSize" Value="Medium" />
             </Style>
 
-            <Style x:Key="FoodsListDescriptionLabelStyle" TargetType="{x:Type Label}">
-                <Setter Property="effects:NumberOfLinesEffect.ApplyNumberOfLines"
-                        Value="True" />
-                <Setter Property="effects:NumberOfLinesEffect.NumberOfLines"
-                        Value="3" />
+            <Style TargetType="{x:Type Label}" x:Key="FoodsListDescriptionLabelStyle">
+                <Setter Property="effects:NumberOfLinesEffect.ApplyNumberOfLines" Value="True" />
+                <Setter Property="effects:NumberOfLinesEffect.NumberOfLines" Value="3" />
             </Style>
-         
-            <Style x:Key="BasketFoodsDescriptionLabelStyle" TargetType="{x:Type Label}">
-                <Setter Property="effects:NumberOfLinesEffect.ApplyNumberOfLines"
-                        Value="True" />
-                <Setter Property="effects:NumberOfLinesEffect.NumberOfLines"
-                        Value="2" />
+
+            <Style TargetType="{x:Type Label}" x:Key="BasketFoodsDescriptionLabelStyle">
+                <Setter Property="effects:NumberOfLinesEffect.ApplyNumberOfLines" Value="True" />
+                <Setter Property="effects:NumberOfLinesEffect.NumberOfLines" Value="2" />
             </Style>
 
         </ResourceDictionary>

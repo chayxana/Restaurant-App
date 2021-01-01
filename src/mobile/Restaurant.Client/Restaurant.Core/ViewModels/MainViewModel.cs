@@ -1,7 +1,5 @@
-﻿using System.Threading.Tasks;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using ReactiveUI;
-using Restaurant.Abstractions.Providers;
 using Restaurant.Abstractions.ViewModels;
 
 namespace Restaurant.Core.ViewModels

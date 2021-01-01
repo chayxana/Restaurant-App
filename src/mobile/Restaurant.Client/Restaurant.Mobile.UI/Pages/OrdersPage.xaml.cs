@@ -1,5 +1,4 @@
 ﻿using Restaurant.Core.ViewModels;
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Restaurant.Mobile.UI.Pages

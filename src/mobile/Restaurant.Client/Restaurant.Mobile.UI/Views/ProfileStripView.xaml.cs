@@ -1,8 +1,9 @@
-﻿using Xamarin.Forms;
+﻿using Xamarin.Forms.Xaml;
 
 namespace Restaurant.Mobile.UI.Views
 {
-    public partial class ProfileStripView : ContentView
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ProfileStripView
     {
         public ProfileStripView()
         {

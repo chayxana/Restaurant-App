@@ -28,5 +28,5 @@ runs:
         echo ::set-output name=next-number::${NEW_VER}
 
       shell: bash
-      working-directory: ./services
+      working-directory: ./src/backend/services
       

@@ -13,6 +13,5 @@ runs:
         cd ${{ inputs.service-name }}
         go build
         go test ./...
-        cd ..
       shell: bash
-      working-directory: ./services
+      working-directory: ./src/backend/services

@@ -19,6 +19,5 @@ runs:
         GIT_COMMIT="${{ inputs.commit-sha }}"
         VERSION="${{ inputs.app-version }}"
         CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s -X main.GitCommit=$GIT_COMMIT -X main.Version=$VERSION"
-        cd ..
       shell: bash
-      working-directory: ./services
+      working-directory: ./src/backend/services

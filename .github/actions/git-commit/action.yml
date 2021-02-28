@@ -1,0 +1,29 @@
+name: Config git global for Actions
+description: 'Commits git changes'
+
+inputs:
+  git-message:
+    description: "Message for git commit"
+    required: true
+  directory:
+    description: "Folder Path which contains changes"
+    default: "."
+    required: false
+  origin-branch:
+    description: "Origin branch for pull"
+    default: master
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        cd ${{ inputs.directory }}
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git status
+        git pull origin ${{ inputs.origin-branch }} --autostash --rebase -X ours
+        git add .
+        git status
+        git commit -a -m "${{ inputs.git-message }}"
+      shell: bash

@@ -1,0 +1,55 @@
+name: "Release docker image"
+description: 'Releases docker image'
+inputs:
+  tag: 
+    description: 'Image tag'
+    required: true
+  
+  registry: 
+    description: 'Docker registry name for each region'
+    required: true
+  
+  image: 
+    description: 'Docker image name'
+    required: true
+  
+  source-file:
+    description: 'Source file path for copy, it will passed as docker ARG'
+    required: true
+
+  docker-file: 
+    description: 'Docker file path'
+    required: true
+    default: ./Dockerfile
+
+  docker-build-context:
+    description: 'Docker build context path'
+    required: true
+    default: "./"
+
+  directory:
+    description: "Current directory for building docker image"
+    required: true
+    default: "."
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        cd ${{ inputs.directory }}
+        chmod +x $SOURCE_FILE
+        docker build \
+          --build-arg sourceFilePath=$SOURCE_FILE \
+          -t $REGISTRY/$IMAGE:$TAG \
+          -t $REGISTRY/$IMAGE:latest \
+          -f $DOCKER_FILE $CONTEXT
+          
+        docker push $REGISTRY/$IMAGE:$TAG
+        docker push $REGISTRY/$IMAGE:latest
+      shell: bash
+      env:
+        REGISTRY: ${{ inputs.registry }}
+        TAG: ${{ inputs.tag }}
+        DOCKER_FILE: ${{ inputs.docker-file }}
+        CONTEXT: ${{ inputs.docker-build-context }}
+        IMAGE: ${{ inputs.image }}
+        SOURCE_FILE: ${{ inputs.source-file }}

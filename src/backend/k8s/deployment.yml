@@ -28,49 +28,7 @@ spec:
           limits:
             memory: "64Mi"
             cpu: "100m"
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: basket-api
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: basket-api
-  template:
-    metadata:
-      labels:
-        app: basket-api
-    spec:
-      containers:
-      - image: jurabek/basket
-        imagePullPolicy: IfNotPresent
-        name: basket-api
-        ports:
-        - containerPort: 5200
-        env:
-        - name: IDENTITY_URL
-          valueFrom:
-            configMapKeyRef:
-              name: internal-urls
-              key: identity
-        - name: IDENTITY_URL_PUB
-          valueFrom:
-            configMapKeyRef:
-              name: endpoints
-              key: identity_pub
-        - name: REDIS_HOST
-          value: redis-data:6379
-        - name: BASE_PATH
-          value: /basket
-        resources:
-          requests:
-            memory: "32Mi"
-            cpu: "60m"
-          limits:
-            memory: "128Mi"
-            cpu: "100m"
+
 ---
 apiVersion: apps/v1
 kind: Deployment

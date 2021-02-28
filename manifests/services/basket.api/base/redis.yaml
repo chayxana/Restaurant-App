@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: basket-cache
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: basket-cache
+    spec:
+      containers:
+      - image: redis:alpine
+        name: cache-data
+        imagePullPolicy: IfNotPresent
+        resources:
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: basket-cache
+  name: redis-data
+spec:
+  ports:
+  - port: 6379
+  selector:
+    app: basket-cache

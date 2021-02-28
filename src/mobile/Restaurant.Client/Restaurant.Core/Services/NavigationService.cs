@@ -35,7 +35,7 @@ namespace Restaurant.Core.Services
 
         public IViewFor CurrentView { get; private set; }
 
-        public Task NavigateAsync(INavigatableViewModel viewModel)
+        public Task NavigateAsync(IRouteViewModel viewModel)
         {
             CurrentView = _viewFactory.ResolveView(viewModel);
 
@@ -54,7 +54,7 @@ namespace Restaurant.Core.Services
             return _navigationFacade.PushAsync(CurrentView);
         }
 
-        public Task NavigateModalAsync(INavigatableViewModel viewModel)
+        public Task NavigateModalAsync(IRouteViewModel viewModel)
         {
             CurrentView = _viewFactory.ResolveView(viewModel);
 
@@ -80,7 +80,7 @@ namespace Restaurant.Core.Services
             return _navigationFacade.PopModalAsync(animated);
         }
 
-        public Task NavigateToMainPage(INavigatableViewModel viewModel)
+        public Task NavigateToMainPage(IRouteViewModel viewModel)
         {
             CurrentView = _viewFactory.ResolveView(viewModel);
 
@@ -99,7 +99,7 @@ namespace Restaurant.Core.Services
             return _navigationFacade.NavigateToMainPage(CurrentView);
         }
 
-        public Task NavigateToMainPageContent(INavigatableViewModel viewModel)
+        public Task NavigateToMainPageContent(IRouteViewModel viewModel)
         {
             CurrentView = _viewFactory.ResolveView(viewModel);
 

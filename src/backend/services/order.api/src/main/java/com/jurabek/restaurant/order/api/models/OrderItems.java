@@ -1,113 +1,90 @@
 package com.jurabek.restaurant.order.api.models;
 
 import java.util.UUID;
-
 import javax.persistence.*;
 
 @Entity
-@Table(name="OrderItems")
+@Table(name = "OrderItems")
 public class OrderItems extends AuditModel {
 
-    private static final long serialVersionUID = -4611751218470604041L;
+  private static final long serialVersionUID = -4611751218470604041L;
 
-    @Id
-    @Column(nullable = false)
-    private UUID id;
-    
-    @Column(nullable = false)
-    private UUID foodId;
+  @Id
+  @Column(nullable = false)
+  private UUID id;
 
-    private float unitPrice;
+  @Column(nullable = false)
+  private UUID foodId;
 
-    private float units;
+  private float unitPrice;
 
-    private String foodName;
+  private float units;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = com.jurabek.restaurant.order.api.models.Order.class)
-    @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+  private String foodName;
 
-    /**
-     * @return the foodId
-     */
-    public UUID getFoodId() {
-        return foodId;
-    }
+  @ManyToOne(
+      fetch = FetchType.EAGER,
+      targetEntity = com.jurabek.restaurant.order.api.models.Order.class)
+  @JoinColumn(name = "order_id", nullable = false)
+  private Order order;
 
-    /**
-     * @return the order
-     */
-    public Order getOrder() {
-        return order;
-    }
+  /** @return the foodId */
+  public UUID getFoodId() {
+    return foodId;
+  }
 
-    /**
-     * @param order the order to set
-     */
-    public void setOrder(Order order) {
-        this.order = order;
-    }
+  /** @return the order */
+  public Order getOrder() {
+    return order;
+  }
 
-    /**
-     * @return the id
-     */
-    public UUID getId() {
-        return id;
-    }
+  /** @param order the order to set */
+  public void setOrder(Order order) {
+    this.order = order;
+  }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(UUID id) {
-        this.id = id;
-    }
+  /** @return the id */
+  public UUID getId() {
+    return id;
+  }
 
-    /**
-     * @return the foodName
-     */
-    public String getFoodName() {
-        return foodName;
-    }
+  /** @param id the id to set */
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
-    /**
-     * @param foodName the foodName to set
-     */
-    public void setFoodName(String foodName) {
-        this.foodName = foodName;
-    }
+  /** @return the foodName */
+  public String getFoodName() {
+    return foodName;
+  }
 
-    /**
-     * @return the units
-     */
-    public float getUnits() {
-        return units;
-    }
+  /** @param foodName the foodName to set */
+  public void setFoodName(String foodName) {
+    this.foodName = foodName;
+  }
 
-    /**
-     * @param units the units to set
-     */
-    public void setUnits(float units) {
-        this.units = units;
-    }
+  /** @return the units */
+  public float getUnits() {
+    return units;
+  }
 
-    /**
-     * @return the unitPrice
-     */
-    public float getUnitPrice() {
-        return unitPrice;
-    }
+  /** @param units the units to set */
+  public void setUnits(float units) {
+    this.units = units;
+  }
 
-    /**
-     * @param unitPrice the unitPrice to set
-     */
-    public void setUnitPrice(float unitPrice) {
-        this.unitPrice = unitPrice;
-    }
+  /** @return the unitPrice */
+  public float getUnitPrice() {
+    return unitPrice;
+  }
 
-    /**
-     * @param foodId the foodId to set
-     */
-    public void setFoodId(UUID foodId) {
-        this.foodId = foodId;
-    }
+  /** @param unitPrice the unitPrice to set */
+  public void setUnitPrice(float unitPrice) {
+    this.unitPrice = unitPrice;
+  }
+
+  /** @param foodId the foodId to set */
+  public void setFoodId(UUID foodId) {
+    this.foodId = foodId;
+  }
 }

@@ -9,7 +9,12 @@
     <Application.Resources>
         <ResourceDictionary>
             
-           
+            <x:String x:Key="IconCoffee">&#xf0f4;</x:String>
+            
+            <OnPlatform x:Key="Material" x:TypeArguments="x:String">
+                <On Platform="iOS" Value="Material Design Icons" />
+                <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons" />
+            </OnPlatform>
 
             <OnPlatform
                 Android="12,8"

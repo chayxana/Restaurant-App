@@ -2,17 +2,17 @@ package com.jurabek.restaurant.order.api.services;
 
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 import com.jurabek.restaurant.order.api.dtos.CustomerBasketDto;
 import com.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
 import com.jurabek.restaurant.order.api.models.Order;
 import com.jurabek.restaurant.order.api.models.OrderItems;
 import com.jurabek.restaurant.order.api.repostitories.OrdersRepository;
-
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsSame;
 import org.junit.Test;
@@ -23,103 +23,98 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
-import java.lang.reflect.Type;
-
 @RunWith(MockitoJUnitRunner.class)
 public class OrdersServiceTests {
 
-    @Mock
-    private OrdersRepository ordersRepository;
+  @Mock private OrdersRepository ordersRepository;
 
-    @Mock
-    private ModelMapper modelMapper;
+  @Mock private ModelMapper modelMapper;
 
-    @InjectMocks
-    private OrdersServicesIml ordersService;
+  @InjectMocks private OrdersServicesIml ordersService;
 
-    @Test
-    public void CreateShouldCreateWhenCustomerBasketDto() {
-        var customerBasketDto = new CustomerBasketDto();
-        var order = new Order();
-        var orderItems = new ArrayList<OrderItems>();
-        orderItems.add(new OrderItems());
-        order.setOrderItems(orderItems);
+  @Test
+  public void CreateShouldCreateWhenCustomerBasketDto() {
+    var customerBasketDto = new CustomerBasketDto();
+    var order = new Order();
+    var orderItems = new ArrayList<OrderItems>();
+    orderItems.add(new OrderItems());
+    order.setOrderItems(orderItems);
 
-        when(modelMapper.map(customerBasketDto, Order.class)).thenReturn(order);
+    when(modelMapper.map(customerBasketDto, Order.class)).thenReturn(order);
 
-        ordersService.Create(customerBasketDto);
+    ordersService.Create(customerBasketDto);
 
-        verify(ordersRepository, times(1)).save(order);
-    }
+    verify(ordersRepository, times(1)).save(order);
+  }
 
-    @Test
-    public void GetAllShouldReturnAllOrderDtos() {
-        List<Order> orders = new ArrayList<>();
-        orders.add(new Order());
+  @Test
+  public void GetAllShouldReturnAllOrderDtos() {
+    List<Order> orders = new ArrayList<>();
+    orders.add(new Order());
 
-        List<CustomerOrderDto> dtos = new ArrayList<>();
-        dtos.add(new CustomerOrderDto());
+    List<CustomerOrderDto> dtos = new ArrayList<>();
+    dtos.add(new CustomerOrderDto());
 
-        Type orderDtoType = new TypeToken<ArrayList<CustomerOrderDto>>() {
-        }.getType();
+    Type orderDtoType = new TypeToken<ArrayList<CustomerOrderDto>>() {}.getType();
 
-        when(ordersRepository.findAll()).thenReturn(orders);
-        when(modelMapper.map(orders, orderDtoType)).thenReturn(dtos);
+    when(ordersRepository.findAll()).thenReturn(orders);
+    when(modelMapper.map(orders, orderDtoType)).thenReturn(dtos);
 
-        List<CustomerOrderDto> result = ordersService.getAll();
+    List<CustomerOrderDto> result = ordersService.getAll();
 
-        assertThat(result.size(), Is.is(1));
-        assertThat(result.get(0), IsSame.sameInstance(dtos.get(0)));
-    }
+    assertThat(result.size(), Is.is(1));
+    assertThat(result.get(0), IsSame.sameInstance(dtos.get(0)));
+  }
 
-    @Test
-    public void GivenCustomerIdReturnOrder() {
-        List<Order> orders = new ArrayList<>();
-        orders.add(new Order());
-        String customerId = UUID.randomUUID().toString();
-        List<CustomerOrderDto> dtos = new ArrayList<>();
-        dtos.add(new CustomerOrderDto());
+  @Test
+  public void GivenCustomerIdReturnOrder() {
+    List<Order> orders = new ArrayList<>();
+    orders.add(new Order());
+    String customerId = UUID.randomUUID().toString();
+    List<CustomerOrderDto> dtos = new ArrayList<>();
+    dtos.add(new CustomerOrderDto());
 
-        Type orderDtoType = new TypeToken<ArrayList<CustomerOrderDto>>() {
-        }.getType();
+    Type orderDtoType = new TypeToken<ArrayList<CustomerOrderDto>>() {}.getType();
 
-        when(ordersRepository.getByBuyerId(UUID.fromString(customerId))).thenReturn(orders);
+    when(ordersRepository.getByBuyerId(UUID.fromString(customerId))).thenReturn(orders);
 
-        when(modelMapper.map(orders, orderDtoType)).thenReturn(dtos);
+    when(modelMapper.map(orders, orderDtoType)).thenReturn(dtos);
 
-        List<CustomerOrderDto> result = ordersService.getOrderByCustomerId(customerId);
+    List<CustomerOrderDto> result = ordersService.getOrderByCustomerId(customerId);
 
-        assertThat(result.size(), Is.is(1));
-        assertThat(result.get(0), IsSame.sameInstance(dtos.get(0)));
-    }
+    assertThat(result.size(), Is.is(1));
+    assertThat(result.get(0), IsSame.sameInstance(dtos.get(0)));
+  }
 
-    @Test
-    public void delete_test() {
-        // arrange
-        String id = UUID.randomUUID().toString();
-        UUID idUUID = UUID.fromString(id);
-        doNothing().when(ordersRepository).deleteById(idUUID);
+  @Test
+  public void delete_test() {
+    // arrange
+    String id = UUID.randomUUID().toString();
+    UUID idUUID = UUID.fromString(id);
+    doNothing().when(ordersRepository).deleteById(idUUID);
 
-        // act
-        ordersService.Delete(id);
+    // act
+    ordersService.Delete(id);
 
-        // assert
-        verify(ordersRepository, times(1)).deleteById(idUUID);
-    }
+    // assert
+    verify(ordersRepository, times(1)).deleteById(idUUID);
+  }
 
-    @Test
-    public void getById_test() {
-        // arrange
-        var orderId = UUID.randomUUID().toString();
-        var order = new Order();
-        var orderDto = new CustomerOrderDto();
-        when(ordersRepository.findById(UUID.fromString(orderId))).thenReturn(Optional.of(order));
-        when(modelMapper.map(order, CustomerOrderDto.class)).thenReturn(orderDto);
+  @Test
+  public void getById_test() {
+    // new comment
+    
+    // arrange
+    var orderId = UUID.randomUUID().toString();
+    var order = new Order();
+    var orderDto = new CustomerOrderDto();
+    when(ordersRepository.findById(UUID.fromString(orderId))).thenReturn(Optional.of(order));
+    when(modelMapper.map(order, CustomerOrderDto.class)).thenReturn(orderDto);
 
-        // act
-        var result = ordersService.getById(orderId);
+    // act
+    var result = ordersService.getById(orderId);
 
-        // assert
-        assertThat(result, IsSame.sameInstance(orderDto));
-    }
+    // assert
+    assertThat(result, IsSame.sameInstance(orderDto));
+  }
 }

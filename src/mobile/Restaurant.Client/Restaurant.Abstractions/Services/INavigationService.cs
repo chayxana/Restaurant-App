@@ -8,21 +8,21 @@ namespace Restaurant.Abstractions.Services
     {
         IViewFor CurrentView { get; }
 
-        Task NavigateAsync(INavigatableViewModel viewModel);
+        Task NavigateAsync(IRouteViewModel viewModel);
 
         Task NavigateAsync(Type viewModelType);
 
-        Task NavigateModalAsync(INavigatableViewModel viewModel);
+        Task NavigateModalAsync(IRouteViewModel viewModel);
 
         Task NavigateModalAsync(Type viewModelType);
 
         Task CloseModalAsync(bool animated);
 
-        Task NavigateToMainPage(INavigatableViewModel viewModel);
+        Task NavigateToMainPage(IRouteViewModel viewModel);
 
         Task NavigateToMainPage(Type viewModelType);
 
-        Task NavigateToMainPageContent(INavigatableViewModel viewModel);
+        Task NavigateToMainPageContent(IRouteViewModel viewModel);
 
         Task NavigateToRoot();
     }

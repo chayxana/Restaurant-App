@@ -4,6 +4,6 @@ namespace Restaurant.Abstractions.Adapters
 {
     public interface INavigationItemAdapter
     {
-        INavigatableViewModel GetViewModelFromNavigationItem(NavigationItem navigationItem);
+        IRouteViewModel GetViewModelFromNavigationItem(NavigationItem navigationItem);
     }
 }

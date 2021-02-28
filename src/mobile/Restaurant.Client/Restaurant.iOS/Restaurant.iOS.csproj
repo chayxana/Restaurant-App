@@ -125,6 +125,7 @@
     <BundleResource Include="Resources\like_empty.png" />
     <BundleResource Include="Resources\like_filled.png" />
     <BundleResource Include="Resources\arrow_down.png" />
+    <BundleResource Include="Resources\materialdesignicons-webfont.ttf" />
     <BundleResource Include="Resources\up_arrow.png" />
     <Compile Include="Renderers\AnimatedIconButton.cs" />
     <Compile Include="Renderers\CustomTabbedPageRenderer.cs" />

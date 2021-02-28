@@ -2,7 +2,7 @@
 
 namespace Restaurant.Abstractions.ViewModels
 {
-    public interface IFoodDetailViewModel : INavigatableViewModel
+    public interface IFoodDetailViewModel : IRouteViewModel
     {
         ICommand AddToBasket { get; }
         ICommand GoToBasket { get; }

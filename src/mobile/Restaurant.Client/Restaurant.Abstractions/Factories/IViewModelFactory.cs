@@ -4,8 +4,8 @@ namespace Restaurant.Abstractions.Factories
 {
     public interface IViewModelFactory
     {
-        INavigatableViewModel GetViewModel(Type viewModelType);
+        IRouteViewModel GetViewModel(Type viewModelType);
 
-        INavigatableViewModel GetMainViewModel(Type viewModelType, string platform);
+        IRouteViewModel GetMainViewModel(Type viewModelType, string platform);
     }
 }

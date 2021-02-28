@@ -2,7 +2,7 @@
 
 namespace Restaurant.Abstractions.ViewModels
 {
-    public interface IMasterViewModel : INavigatableViewModel
+    public interface IMasterViewModel : IRouteViewModel
     {
         NavigationItem SelectedNavigationItem { get; set; }
 

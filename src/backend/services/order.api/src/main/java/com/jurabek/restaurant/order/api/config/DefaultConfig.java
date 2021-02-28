@@ -8,13 +8,13 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class DefaultConfig {
-    @Bean
-    HttpClient defaultHttpClient() {
-        return HttpClients.createDefault();
-    }
+  @Bean
+  HttpClient defaultHttpClient() {
+    return HttpClients.createDefault();
+  }
 
-    @Bean
-    RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+  @Bean
+  RestTemplate restTemplate() {
+    return new RestTemplate();
+  }
 }

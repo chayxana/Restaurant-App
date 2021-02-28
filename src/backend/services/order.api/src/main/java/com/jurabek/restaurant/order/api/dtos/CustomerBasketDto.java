@@ -3,42 +3,30 @@ package com.jurabek.restaurant.order.api.dtos;
 import java.util.List;
 import java.util.UUID;
 
-
-/**
- * CustomerBasketDto
- */
-
+/** CustomerBasketDto */
 public class CustomerBasketDto {
 
-    private UUID customerId;
-    
-    private List<CustomerBasketItemDto> items;
+  private UUID customerId;
 
-    /**
-     * @return the items
-     */
-    public List<CustomerBasketItemDto> getItems() {
-        return items;
-    }
+  private List<CustomerBasketItemDto> items;
 
-    /**
-     * @return the customerId
-     */
-    public UUID getCustomerId() {
-        return customerId;
-    }
+  /** @return the items */
+  public List<CustomerBasketItemDto> getItems() {
+    return items;
+  }
 
-    /**
-     * @param customerId the customerId to set
-     */
-    public void setCustomerId(UUID customerId) {
-        this.customerId = customerId;
-    }
+  /** @return the customerId */
+  public UUID getCustomerId() {
+    return customerId;
+  }
 
-    /**
-     * @param items the items to set
-     */
-    public void setItems(List<CustomerBasketItemDto> items) {
-        this.items = items;
-    }
+  /** @param customerId the customerId to set */
+  public void setCustomerId(UUID customerId) {
+    this.customerId = customerId;
+  }
+
+  /** @param items the items to set */
+  public void setItems(List<CustomerBasketItemDto> items) {
+    this.items = items;
+  }
 }

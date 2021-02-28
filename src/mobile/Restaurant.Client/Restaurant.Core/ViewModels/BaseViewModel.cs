@@ -5,11 +5,13 @@ using Restaurant.Abstractions;
 namespace Restaurant.Core.ViewModels
 {
     [ExcludeFromCodeCoverage]
-    public abstract class BaseViewModel : ReactiveObject, INavigatableViewModel
+    public abstract class BaseViewModel : ReactiveObject, IRouteViewModel
     {
         private bool _isLoading;
 
         private string _title;
+
+        private string _route;
 
         /// <summary>
         /// Get and sets IsLoading
@@ -28,6 +30,12 @@ namespace Restaurant.Core.ViewModels
         {
             get => _title;
             protected set => this.RaiseAndSetIfChanged(ref _title, value);
+        }
+
+        public string Route
+        {
+            get => _route;
+            protected set => this.RaiseAndSetIfChanged(ref _route, value);
         }
     }
 }

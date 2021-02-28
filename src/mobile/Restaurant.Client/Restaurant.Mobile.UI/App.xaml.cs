@@ -9,6 +9,9 @@ using Restaurant.Mobile.UI.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System;
+
+[assembly: ExportFont("materialdesignicons-webfont.ttf", Alias = "md-icons")]
+
 namespace Restaurant.Mobile.UI
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]

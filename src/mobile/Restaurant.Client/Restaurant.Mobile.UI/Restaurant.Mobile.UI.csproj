@@ -26,4 +26,7 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Fonts\materialdesignicons-webfont.ttf" />
+  </ItemGroup>
 </Project>

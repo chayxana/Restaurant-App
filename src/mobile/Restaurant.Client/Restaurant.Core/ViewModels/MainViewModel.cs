@@ -8,5 +8,7 @@ namespace Restaurant.Core.ViewModels
     public class MainViewModel : ReactiveObject, IMainViewModel
     {
         public virtual string Title => "Main";
+        
+        public string Route { get; } = null;
     }
 }

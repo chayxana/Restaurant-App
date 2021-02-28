@@ -21,7 +21,7 @@ namespace Restaurant.Mobile.UI.Factories
             _diagnosticsFacade = diagnosticsFacade;
         }
 
-        public IViewFor ResolveView<TNavigatableViewModel>() where  TNavigatableViewModel : INavigatableViewModel
+        public IViewFor ResolveView<TNavigatableViewModel>() where  TNavigatableViewModel : IRouteViewModel
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Restaurant.Mobile.UI.Factories
             return null;
         }
 
-        public IViewFor ResolveView(INavigatableViewModel vm)
+        public IViewFor ResolveView(IRouteViewModel vm)
         {
 	        try
 	        {
@@ -77,7 +77,7 @@ namespace Restaurant.Mobile.UI.Factories
             return null;
         }
 
-        public IViewFor ResolveView(INavigatableViewModel vm, string name)
+        public IViewFor ResolveView(IRouteViewModel vm, string name)
         {
             var viewType = typeof(IViewFor<>).MakeGenericType(vm.GetType());
             var view = _container.ResolveNamed(name, viewType) as Page;

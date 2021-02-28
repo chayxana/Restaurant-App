@@ -4,11 +4,15 @@ buildscript {
     }
     repositories {
         mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath('com.github.ksoichiro:gradle-console-reporter:0.6.2')
         classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7.1"
+         classpath "gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:0.9"
     }
 }
 
@@ -19,7 +23,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.ksoichiro.console.reporter'
 apply plugin: 'org.sonarqube'
-
+apply plugin: "com.github.sherter.google-java-format"
 
 group = 'com.jurabek.restaurant'
 version = version
@@ -56,6 +60,7 @@ dependencies {
     compile('org.postgresql:postgresql:42.2.5')
     compile('io.springfox:springfox-swagger2:2.9.2')
     compile('io.springfox:springfox-swagger-ui:2.9.2')
+    compile('com.google.googlejavaformat:google-java-format:1.9')
 
 
     compile('org.projectlombok:lombok:1.18.12')

@@ -4,7 +4,7 @@ using ReactiveUI;
 
 namespace Restaurant.Abstractions.ViewModels
 {
-    public interface IWelcomeViewModel : INavigatableViewModel
+    public interface IWelcomeViewModel : IRouteViewModel
     {
         ICommand GoLogin { get; }
         ICommand GoRegister { get; }

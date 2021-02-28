@@ -21,11 +21,11 @@ namespace Restaurant.Core.Factories
             _diagnosticsFacade = diagnosticsFacade;
         }
 
-        public INavigatableViewModel GetViewModel(Type viewModelType)
+        public IRouteViewModel GetViewModel(Type viewModelType)
         {
             try
             {
-                return _container.Resolve(viewModelType) as INavigatableViewModel;
+                return _container.Resolve(viewModelType) as IRouteViewModel;
             }
             catch (Exception e)
             {
@@ -40,11 +40,11 @@ namespace Restaurant.Core.Factories
 #pragma warning restore CS0162 // Unreachable code detected
         }
 
-        public INavigatableViewModel GetMainViewModel(Type viewModelType, string platform)
+        public IRouteViewModel GetMainViewModel(Type viewModelType, string platform)
         {
             try
             {
-                return _container.ResolveNamed(platform, viewModelType) as INavigatableViewModel;
+                return _container.ResolveNamed(platform, viewModelType) as IRouteViewModel;
             }
             catch (Exception ex)
             {

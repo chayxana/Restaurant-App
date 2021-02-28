@@ -20,7 +20,20 @@
         </ResourceDictionary>
     </Shell.Resources>
     <TabBar>
-        <ShellContent Title="Foods" ContentTemplate="{DataTemplate pages:FoodsPage}" />
-        <ShellContent Title="Orders" ContentTemplate="{DataTemplate pages:OrdersPage} " />
+        <ShellContent Title="Foods" ContentTemplate="{DataTemplate pages:FoodsPage}" >
+            <ShellContent.Icon>
+                <FontImageSource>
+                    
+                </FontImageSource>
+            </ShellContent.Icon>
+        </ShellContent>
+        <ShellContent Title="Orders" ContentTemplate="{DataTemplate pages:OrdersPage}">
+            <ShellContent.Icon>
+                <FontImageSource>
+                    
+                </FontImageSource>
+            </ShellContent.Icon>
+        </ShellContent>
+        <ShellContent Title="About" ContentTemplate="{DataTemplate pages:AboutPage}" />
     </TabBar>
 </Shell>

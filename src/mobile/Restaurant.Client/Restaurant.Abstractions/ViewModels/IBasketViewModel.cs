@@ -2,7 +2,7 @@
 
 namespace Restaurant.Abstractions.ViewModels
 {
-    public interface IBasketViewModel : INavigatableViewModel
+    public interface IBasketViewModel : IRouteViewModel
     {
         ObservableCollection<IBasketItemViewModel> Items { get; }
 

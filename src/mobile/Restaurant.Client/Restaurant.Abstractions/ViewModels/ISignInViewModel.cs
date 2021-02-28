@@ -2,7 +2,7 @@
 
 namespace Restaurant.Abstractions.ViewModels
 {
-    public interface ISignInViewModel : INavigatableViewModel
+    public interface ISignInViewModel : IRouteViewModel
     {
         string Email { get; set; }
         string Password { get; set; }

@@ -4,10 +4,10 @@ namespace Restaurant.Abstractions.Factories
 {
     public interface IViewFactory
     {
-        IViewFor ResolveView<TNavigatableViewModel>() where TNavigatableViewModel : INavigatableViewModel;
+        IViewFor ResolveView<TNavigatableViewModel>() where TNavigatableViewModel : IRouteViewModel;
 
-        IViewFor ResolveView(INavigatableViewModel vm);
+        IViewFor ResolveView(IRouteViewModel vm);
 
-        IViewFor ResolveView(INavigatableViewModel vm, string name);
+        IViewFor ResolveView(IRouteViewModel vm, string name);
     }
 }

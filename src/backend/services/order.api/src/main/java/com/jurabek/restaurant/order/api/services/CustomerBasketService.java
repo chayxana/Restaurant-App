@@ -1,8 +1,6 @@
 package com.jurabek.restaurant.order.api.services;
 
-/**
- * CustomerBasketService
- */
+/** CustomerBasketService */
 public interface CustomerBasketService {
-    void clearCustomerBasket(String customerId);
+  void clearCustomerBasket(String customerId);
 }

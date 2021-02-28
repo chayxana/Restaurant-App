@@ -20,6 +20,8 @@ namespace Restaurant.Core.ViewModels
         }
 
         public string Title => "Welcome page";
+        
+        public string Route { get; } = null;
 
         /// <summary>
         ///     Gets and sets Open register,
@@ -29,7 +31,7 @@ namespace Restaurant.Core.ViewModels
 
         /// <summary>
         ///     Gets and sets OpenLogin
-        ///     Command thats opens login page
+        ///     Command that opens login page
         /// </summary>
         public ICommand GoLogin { get; }
     }

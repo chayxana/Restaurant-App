@@ -16,7 +16,7 @@ namespace Restaurant.Core.Adapters
             _viewModelFactory = viewModelFactory;
         }
 
-        public INavigatableViewModel GetViewModelFromNavigationItem(NavigationItem navigationItem)
+        public IRouteViewModel GetViewModelFromNavigationItem(NavigationItem navigationItem)
         {
             switch (navigationItem)
             {

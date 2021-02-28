@@ -99,6 +99,7 @@
         <AndroidResource Include="Resources\drawable-xxxhdpi\icon.png" />
     </ItemGroup>
     <ItemGroup>
+        <AndroidAsset Include="Assets\materialdesignicons-webfont.ttf" />
         <AndroidAsset Include="Assets\NLog.config" />
         <AndroidAsset Include="Assets\NLog.xsd">
             <SubType>Designer</SubType>

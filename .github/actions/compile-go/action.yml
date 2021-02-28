@@ -1,0 +1,17 @@
+name: "Building golang app"
+description: "Builds specific go application within the given folder"
+inputs:
+  service-name: 
+    description: 'Service name'
+    required: true
+    default: .
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        cd ${{ inputs.service-name }}
+        go build
+        go test ./...
+      shell: bash
+      working-directory: ./src/backend/services

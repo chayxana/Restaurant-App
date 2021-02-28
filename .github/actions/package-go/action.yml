@@ -1,0 +1,23 @@
+name: "package-golang-app"
+description: 'Packages golang app with specific version and git sha'
+inputs:
+  service-name: 
+    description: 'Service name'
+    required: true
+  app-version:
+    description: 'Application version'
+    required: false
+  commit-sha:
+    description: 'Git commit sha'
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        cd ${{ inputs.service-name }}
+        GIT_COMMIT="${{ inputs.commit-sha }}"
+        VERSION="${{ inputs.app-version }}"
+        CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s -X main.GitCommit=$GIT_COMMIT -X main.Version=$VERSION"
+      shell: bash
+      working-directory: ./src/backend/services

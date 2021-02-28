@@ -1,0 +1,37 @@
+name: Git push
+description: 'Pushes git changes into origin with retry avoiding from race condition'
+
+inputs:
+  origin-branch:
+    description: "Origin branch for push/pull"
+    default: master
+    required: false
+  directory:
+    description: "Folder Path which contains changes"
+    default: "."
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        cd ${{ inputs.directory }}
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        BRANCH=${{ inputs.origin-branch }}
+        for number in {1..10}
+        do
+          git push origin $BRANCH --force-with-lease
+          EXIT_CODE=$?
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "Git changes pushed into origin/$BRANCH"
+            break
+          else
+            echo "Git push failed!"
+            echo "Pulling from origin after 5 seconds"
+            sleep 5
+            git pull origin $BRANCH --autostash --rebase -X ours
+            echo "Pulled and rebased from origin now try to push again!"
+          fi
+        done
+      shell: bash

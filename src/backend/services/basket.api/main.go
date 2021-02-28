@@ -24,6 +24,11 @@ import (
 	"github.com/Jurabek/gin-swagger/swaggerFiles" // swagger embed files
 )
 
+var (
+	GitCommit string
+	Version   string
+)
+
 // @title Basket API
 // @version 1.0
 // @description This is a rest api for basket which saves items to redis server

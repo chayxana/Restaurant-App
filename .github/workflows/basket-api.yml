@@ -107,7 +107,7 @@ jobs:
     - name: Copy artifact to working directory
       shell: bash
       run: |
-        cp basket_api/basket.api ./src/backend/services/basket.api/
+        cp ${{ env.ARTIFACT_NAME }}/basket.api ./src/backend/services/basket.api/
     - name: Publish docker image
       uses: elgohr/Publish-Docker-Github-Action@master
       with:

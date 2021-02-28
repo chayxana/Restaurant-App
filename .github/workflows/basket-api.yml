@@ -51,7 +51,7 @@ jobs:
           ${{ runner.os }}-go-
     
     - name: "Bump Version"
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/develop'
       id: version
       uses: ./.github/actions/bump-go-version
       with:
@@ -63,7 +63,7 @@ jobs:
         service-name: ${{ env.SERVICE_NAME }}
 
     - name: "📦 Package go app"
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/develop'
       uses: ./.github/actions/package-go
       with:
         service-name: ${{ env.SERVICE_NAME }}
@@ -71,14 +71,14 @@ jobs:
         commit-sha: ${{ github.sha }}
 
     - name: "📤 Upload artifact"
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/develop'
       uses: actions/upload-artifact@v1
       with:
         name: ${{ env.ARTIFACT_NAME }}
         path: ./src/backend/services/${{ env.SERVICE_NAME }}/${{ env.SERVICE_NAME }}
     
     - name: "Commit bumped version"
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/develop'
       uses: ./.github/actions/git-commit
       with:
         git-message: Bumped ${{ env.SERVICE_NAME }} version from  ${{ steps.version.outputs.current-version }} to ${{ steps.version.outputs.new-version }}
@@ -86,13 +86,13 @@ jobs:
         origin-branch: ${{ github.ref }}
         
     - name: "Push changes into master"
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/develop'
       uses: ./.github/actions/git-push
       with:
         origin-branch: ${{ github.ref }}
   
   release:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/develop'
     outputs:
       new-version: ${{ needs.build.outputs.new-version }}
       current-version: ${{ needs.build.outputs.current-version }}
@@ -119,7 +119,7 @@ jobs:
         tags: ${{ needs.build.outputs.new-version }}
 
   update-manifests:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/develop'
     needs: release
     runs-on: ubuntu-latest
     steps:

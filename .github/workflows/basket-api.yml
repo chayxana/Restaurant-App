@@ -132,10 +132,10 @@ jobs:
       
       - name: Change manifests
         env:
-          KUSTOMIZE_IMAGE_NAME: ${{ env.SERVICE_NAME }}
+          KUSTOMIZE_IMAGE_NAME: basket-api
           IMG: ${{ env.IMAGE_NAME }}:${{ needs.release.outputs.new-version }}
         run: |
-          cd ./manifests/${{ env.SERVICE_NAME }}/base
+          cd ./manifests/services/${{ env.SERVICE_NAME }}/base
           kustomize edit set image $KUSTOMIZE_IMAGE_NAME=$IMG
           cat kustomization.yaml
 
@@ -143,7 +143,7 @@ jobs:
         uses: ./.github/actions/git-commit
         with:
           git-message: Deploying ${{ env.SERVICE_NAME }}:${{ needs.release.outputs.new-version }}  
-          directory: ./manifests/${{ env.SERVICE_NAME }}/base
+          directory: ./manifests/services/${{ env.SERVICE_NAME }}/base
           origin-branch: develop
 
       - name: "Push changes into develop"

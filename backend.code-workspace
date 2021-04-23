@@ -21,8 +21,8 @@
 			"path": "./src/backend/services/order.api"
 		},
 		{
-			"name": "gateway-api",
-			"path": "./src/backend/gateway"
+			"name": "nginx",
+			"path": "./src/backend/nginx"
 		},
 		{
 			"name": "dashboard-app",

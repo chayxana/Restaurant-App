@@ -1,3 +1,6 @@
+## Outdated 
+## Currently for CI used GithubActions checkout https://github.com/chayxana/Restaurant-App/tree/develop/.github
+
 
 image: docker:stable
 services:

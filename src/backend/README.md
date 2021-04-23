@@ -27,3 +27,13 @@ When you are using `docker` all services url's will be exposed only via `nginx` 
 ```http://localhost:8080/basket/swagger/index.html```
 
 
+## ELK
+
+Kibana dashboard URL:`http://localhost:5601`
+
+### Setup Kibana log indexing
+
+Browse to http://localhost:5601/app/management/kibana/indexPatterns and set up the index name pattern for Kibana. Specify fluentd-* to Index name or pattern and click Create.
+
+
+for more information check it out [here](https://docs.fluentd.org/container-deployment/docker-compose)

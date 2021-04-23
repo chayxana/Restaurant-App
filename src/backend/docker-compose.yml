@@ -1,10 +1,10 @@
 version: '3'
 
 services:
-  gateway-api:
-    image: restaurant/gateway
+  nginx:
+    image: restaurant/nginx
     build: 
-      context: ./gateway
+      context: ./nginx
       dockerfile: Dockerfile
     ports: 
       - "8080:8080"

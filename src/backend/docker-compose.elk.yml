@@ -1,6 +1,50 @@
 version: '3.4'
 
 services:
+  nginx:
+    links:
+      - fluentd
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: nginx
+  
+  order-api:
+    links:
+      - fluentd
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: order-api
+
+  basket-api:
+    links:
+      - fluentd
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: basket-api
+
+  menu-api:
+    links:
+      - fluentd
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: menu-api
+
+  identity-api:
+    links:
+      - fluentd
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: identity-api
 
   elasticsearch:
     build:
@@ -13,25 +57,23 @@ services:
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
 
-  logstash:
-    build:
-      context: elk/logstash/
+  fluentd:
+    build: 
+      context: ./elk/fluentd/
     volumes:
-      - ./elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
-      - ./elk/logstash/pipeline:/usr/share/logstash/pipeline:ro
-    ports:
-      - "8080:8080"
-    environment:
-      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      - ./elk/fluentd/conf:/fluentd/etc
+    links:
+      - "elasticsearch"
     depends_on:
       - elasticsearch
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
 
   kibana:
-    build:
-      context: elk/kibana/
-    volumes:
-      - ./elk/kibana/config/:/usr/share/kibana/config:ro
+    image: kibana:7.10.1
+    links:
+      - "elasticsearch"
     ports:
       - "5601:5601"
-    depends_on:
-      - elasticsearch
+      

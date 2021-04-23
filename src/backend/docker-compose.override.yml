@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  gateway-api:
+  nginx:
     environment: 
       - IDENTITY_URL=http://identity-api
       - BASKET_URL=http://basket-api:5200

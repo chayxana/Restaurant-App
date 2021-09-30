@@ -21,9 +21,8 @@ runs:
         BRANCH=${{ inputs.origin-branch }}
         for number in {1..10}
         do
-          git push origin $BRANCH --force-with-lease
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -eq 0 ]; then
+          (git push origin $BRANCH --force-with-lease) || exitCode=$?
+          if [ $exitCode -eq 0 ]; then
             echo "Git changes pushed into origin/$BRANCH"
             break
           else
@@ -31,7 +30,7 @@ runs:
             echo "Pulling from origin after 5 seconds"
             sleep 5
             git pull origin $BRANCH --autostash --rebase -X ours
-            echo "Pulled and rebased from origin now try to push again!"
+            echo "rebase from origin now trying to push again!"
           fi
         done
       shell: bash

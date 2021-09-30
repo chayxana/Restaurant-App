@@ -3,7 +3,22 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:pages="clr-namespace:Restaurant.Mobile.UI.Pages;assembly=Restaurant.Mobile.UI"
+       BackgroundColor="{StaticResource orangePrimary}"
        x:Class="Restaurant.Mobile.UI.AppShell">
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TabBar">
+                <Setter Property="Shell.BackgroundColor" Value="Transparent" />
+                <!-- <Setter Property="Shell.ForegroundColor" Value="Blue" /> -->
+                <!-- <Setter Property="Shell.TabBarBackgroundColor" -->
+                <!--         Value="{StaticResource orangePrimary}" /> -->
+                <Setter Property="Shell.TabBarTitleColor"
+                        Value="Black" />
+                <Setter Property="Shell.TabBarUnselectedColor"
+                        Value="AntiqueWhite" />
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
     <TabBar>
         <ShellContent Title="Foods" ContentTemplate="{DataTemplate pages:FoodsPage}" />
         <ShellContent Title="Orders" ContentTemplate="{DataTemplate pages:OrdersPage} " />

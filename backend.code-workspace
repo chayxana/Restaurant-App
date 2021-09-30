@@ -1,7 +1,16 @@
 {
 	"folders": [
+		
 		{
-			"name": "root",
+			"name": ".github",
+			"path": "./.github"
+		},
+		{
+			"name": "manifests",
+			"path": "./manifests"
+		},
+		{
+			"name": "backend-root",
 			"path": "./src/backend/"
 		},
 		{

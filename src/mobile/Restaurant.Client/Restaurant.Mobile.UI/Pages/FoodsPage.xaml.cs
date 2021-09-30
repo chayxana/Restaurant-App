@@ -2,6 +2,7 @@
 using System.Reactive.Linq;
 using Autofac;
 using Restaurant.Core.ViewModels;
+using Restaurant.Core.ViewModels.Food;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,6 +17,7 @@ namespace Restaurant.Mobile.UI.Pages
             InitializeComponent();
             ViewModel = App.Container.Resolve<FoodsViewModel>();
             FoodsList.SelectionChanged += (s, e) => { FoodsList.SelectedItem = null; };
+            BindingContext = ViewModel;
         }
 
         protected override async void OnLoaded()

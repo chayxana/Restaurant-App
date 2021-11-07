@@ -113,7 +113,7 @@ jobs:
       uses: ./.github/actions/docker-release
       with:
         tag: ${{ needs.build.outputs.new-version }}
-        registry: ghcr.io/${{ github.repository }}
+        registry: ghcr.io/chayxana
         image: ${{ env.IMAGE_NAME }}
         docker-file: ./src/backend/services/${{ env.SERVICE_NAME }}/release.Dockerfile
         source-file: ${{ env.ARTIFACT_NAME }}/${{ env.SERVICE_NAME }}-${{ needs.build.outputs.new-version }}.jar

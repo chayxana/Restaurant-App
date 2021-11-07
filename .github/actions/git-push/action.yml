@@ -19,18 +19,20 @@ runs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         BRANCH=${{ inputs.origin-branch }}
+        exitCode=0
         for number in {1..10}
         do
           (git push origin $BRANCH --force-with-lease) || exitCode=$?
+          echo $exitCode
           if [ $exitCode -eq 0 ]; then
             echo "Git changes pushed into origin/$BRANCH"
-            break
+            exit 0
           else
             echo "Git push failed!"
             echo "Pulling from origin after 5 seconds"
             sleep 5
             git pull origin $BRANCH --autostash --rebase -X ours
-            echo "rebase from origin now trying to push again!"
+            echo "Pulled and rebased from origin now try to push again!"
           fi
         done
       shell: bash

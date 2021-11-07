@@ -13,6 +13,9 @@ configMapGenerator:
   name: order-api
 
 images:
+- name: basket-api
+  newName: order
+  newTag: 1.0.1
 - name: order-api
   newName: order
   newTag: 0.0.0

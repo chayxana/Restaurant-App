@@ -14,5 +14,5 @@ configMapGenerator:
 
 images:
 - name: order-api
-  newName: jurabek/order
+  newName: order
   newTag: 0.0.0

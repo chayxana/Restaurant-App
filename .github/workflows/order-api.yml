@@ -17,7 +17,7 @@ on:
 env:
   SERVICE_NAME: order.api
   ARTIFACT_NAME: order-api-artifact
-  IMAGE_NAME: jurabek/order
+  IMAGE_NAME: order
 
 jobs:
   build:
@@ -57,7 +57,7 @@ jobs:
     
     - name: "📦 Assemble gradle app"
       if: github.ref == 'refs/heads/develop'
-      uses: ./.github/actions/assembly-gradle
+      uses: ./.github/actions/assemble-gradle
       with:
         service-name: ./src/backend/services/${{ env.SERVICE_NAME }}
         app-version: ${{ steps.version.outputs.new-version }}

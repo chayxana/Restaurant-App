@@ -14,5 +14,5 @@ configMapGenerator:
 
 images:
 - name: basket-api
-  newName: jurabek/basket
+  newName: basket
   newTag: 0.0.3

@@ -67,7 +67,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: ${{ env.ARTIFACT_NAME }}
-        path: ./src/backend/services/${{ env.SERVICE_NAME }}/build/libs/order.api-${{ env.SERVICE_NAME }}.jar
+        path: ./src/backend/services/${{ env.SERVICE_NAME }}/build/libs/order.api-${{ env.VERSION }}.jar
       env:
         VERSION: ${{ steps.version.outputs.new-version }}
 

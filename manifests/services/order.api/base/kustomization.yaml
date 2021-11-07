@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- deployment.yaml
+- service.yaml
+- order-pgsql.yaml
+- virtual-service.yaml
+
+configMapGenerator:
+- envs:
+  - config.env
+  name: order-api
+
+images:
+- name: order-api
+  newName: jurabek/order
+  newTag: 0.0.0

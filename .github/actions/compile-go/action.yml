@@ -14,4 +14,3 @@ runs:
         go build
         go test ./...
       shell: bash
-      working-directory: ./src/backend/services

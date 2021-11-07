@@ -22,6 +22,7 @@ apply plugin: 'org.sonarqube'
 
 
 group = 'com.jurabek.restaurant'
+version = version
 sourceCompatibility = 11
 
 jacocoTestReport {

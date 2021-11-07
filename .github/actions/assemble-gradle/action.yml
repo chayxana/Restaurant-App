@@ -1,0 +1,24 @@
+name: "Building gradle"
+description: "Builds gradle application within the given folder"
+inputs:
+  service-name:
+    description: "Service name"
+    required: true
+    default: .
+  app-version:
+    description: 'Application version'
+    required: false
+  commit-sha:
+    description: 'Git commit sha'
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        cd ${{ inputs.service-name }}
+        VERSION=${{ inputs.app-version }}
+        SHA=${{ inputs.commit-sha }}
+        ./gradlew clean
+        ./gradlew assemble -Pversion=$VERSION -PgitCommitSha=$SHA
+      shell: bash

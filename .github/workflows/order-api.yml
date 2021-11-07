@@ -14,13 +14,18 @@ on:
     - 'src/backend/services/order.api/**'
     - '.github/workflows/order-api.yml'
 
+env:
+  SERVICE_NAME: order.api
+  ARTIFACT_NAME: order-api-artifact
+  IMAGE_NAME: jurabek/order
+
 jobs:
-  build-and-test:
-    name: build and test
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macOS-latest, ubuntu-latest]
+  build:
+    outputs:
+      new-version: ${{ steps.version.outputs.new-version }}
+      current-version:  ${{ steps.version.outputs.current-version }}
+
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
       with:
@@ -38,42 +43,110 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-
     
-    - name: Build & QA
-      run: |
-        echo $PATH
-        chmod -R +x scripts/
-        scripts/build.sh order_api
-        scripts/qa.sh order_api
-      working-directory: ./src/backend/
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: "🎉 Bump Version"
+      if: github.ref == 'refs/heads/develop'
+      id: version
+      uses: ./.github/actions/bump-version
+      with:
+        service-name: ./src/backend/services/${{ env.SERVICE_NAME }}
 
-    - name: Upload order-api artifact
+    - name: "🚀 Build & Test"
+      uses: ./.github/actions/compile-gradle
+      with:
+        service-name: ./src/backend/services/${{ env.SERVICE_NAME }}
+    
+    - name: "📦 Assemble gradle app"
+      if: github.ref == 'refs/heads/develop'
+      uses: ./.github/actions/assembly-gradle
+      with:
+        service-name: ./src/backend/services/${{ env.SERVICE_NAME }}
+        app-version: ${{ steps.version.outputs.new-version }}
+        commit-sha: ${{ github.sha }}
+
+    - name: "📤 Upload artifact"
       uses: actions/upload-artifact@v1
       with:
-        name: order_api
-        path: ./src/backend/services/order.api/build/libs/order.api.jar
-      if: matrix.os == 'ubuntu-latest'
+        name: ${{ env.ARTIFACT_NAME }}
+        path: ./src/backend/services/${{ env.SERVICE_NAME }}/build/libs/order.api-${{ env.SERVICE_NAME }}.jar
+      env:
+        VERSION: ${{ steps.version.outputs.new-version }}
+
+    - name: "💾 Commit bumped version"
+      if: github.ref == 'refs/heads/develop'
+      uses: ./.github/actions/git-commit
+      with:
+        git-message: Bumped ${{ env.SERVICE_NAME }} version from  ${{ steps.version.outputs.current-version }} to ${{ steps.version.outputs.new-version }}
+        directory: ./src/backend/services/${{ env.SERVICE_NAME }}
+        origin-branch: ${{ github.ref }}
+        
+    - name: "🔥 Push changes into master"
+      if: github.ref == 'refs/heads/develop'
+      uses: ./.github/actions/git-push
+      with:
+        origin-branch: ${{ github.ref }}
 
 
-  docker-push:
-      needs: build-and-test
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@v1
-      - name: Download basket-api artifact
-        uses: actions/download-artifact@v1
+  release:
+    if: github.ref == 'refs/heads/develop'
+    outputs:
+      new-version: ${{ needs.build.outputs.new-version }}
+      current-version: ${{ needs.build.outputs.current-version }}
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    
+    - name: Download artifact
+      uses: actions/download-artifact@v1
+      with:
+        name: ${{ env.ARTIFACT_NAME }}
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build, tag, and push image to Docker Registry
+      uses: ./.github/actions/docker-release
+      with:
+        tag: ${{ needs.build.outputs.new-version }}
+        registry: ghcr.io/${{ github.repository }}
+        image: ${{ env.IMAGE_NAME }}
+        docker-file: ./src/backend/services/${{ env.SERVICE_NAME }}/release.Dockerfile
+        source-file: ${{ env.ARTIFACT_NAME }}/${{ env.SERVICE_NAME }}-${{ needs.build.outputs.new-version }}.jar
+
+  update-manifests:
+    if: github.ref == 'refs/heads/develop'
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v2
+
+      - uses: imranismail/setup-kustomize@v1
         with:
-          name: order_api
-      - name: Copy artifact to working directory
-        shell: bash
+          kustomize-version: "3.9.2"
+      
+      - name: Change manifests
+        env:
+          KUSTOMIZE_IMAGE_NAME: basket-api
+          IMG: ${{ env.IMAGE_NAME }}:${{ needs.release.outputs.new-version }}
         run: |
-          cp order_api/order.api.jar ./src/backend/services/order.api/
-      - name: Publish docker image
-        uses: elgohr/Publish-Docker-Github-Action@master
+          cd ./manifests/services/${{ env.SERVICE_NAME }}/base
+          kustomize edit set image $KUSTOMIZE_IMAGE_NAME=$IMG
+          cat kustomization.yaml
+
+      - name: Commit manifest deploy changes
+        uses: ./.github/actions/git-commit
         with:
-          name: jurabek/order
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          dockerfile: release.Dockerfile
-          workdir: ./src/backend/services/order.api
+          git-message: Deploying ${{ env.SERVICE_NAME }}:${{ needs.release.outputs.new-version }}  
+          directory: ./manifests/services/${{ env.SERVICE_NAME }}/base
+          origin-branch: develop
+
+      - name: "Push changes into develop"
+        uses: ./.github/actions/git-push
+        with:
+          origin-branch: ${{ github.ref }}

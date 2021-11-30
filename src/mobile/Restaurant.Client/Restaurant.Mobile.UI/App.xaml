@@ -8,8 +8,6 @@
              x:Class="Restaurant.Mobile.UI.App">
     <Application.Resources>
         <ResourceDictionary>
-            
-           
 
             <OnPlatform x:TypeArguments="Thickness" Android="15" iOS="15" WinPhone="20" x:Key="FoodDetailtPadding" />
 

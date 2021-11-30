@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
+using ReactiveUI;
 using Restaurant.Abstractions.Adapters;
 using Restaurant.Abstractions.DataTransferObjects;
 using Restaurant.Abstractions.Facades;

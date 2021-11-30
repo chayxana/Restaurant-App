@@ -11,8 +11,9 @@ using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
+using Restaurant.Core.ViewModels.Food;
 
-namespace Restaurant.Core.ViewModels.Food
+namespace Restaurant.Core.ViewModels
 {
     public class FoodsViewModel : BaseViewModel
     {

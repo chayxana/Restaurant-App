@@ -4,6 +4,7 @@ using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using Restaurant.Abstractions.DataTransferObjects;
+using Restaurant.Abstractions.Facades;
 using Restaurant.Abstractions.Providers;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;

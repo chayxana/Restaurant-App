@@ -10,11 +10,11 @@ namespace Restaurant.Mobile.UI.Factories
 {
     public class ViewFactory : IViewFactory
     {
-        private readonly ILifetimeScope _container;
+        private readonly IContainer _container;
         private readonly IDiagnosticsFacade _diagnosticsFacade;
 
         public ViewFactory(
-            ILifetimeScope container,
+            IContainer container,
             IDiagnosticsFacade diagnosticsFacade)
         {
             _container = container;

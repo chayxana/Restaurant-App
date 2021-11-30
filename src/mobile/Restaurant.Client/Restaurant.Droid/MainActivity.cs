@@ -4,9 +4,12 @@ using Android.OS;
 using Android.Support.V7.App;
 using Android.Util;
 using Android.Views;
+using Android.Widget;
 using Autofac;
+using ImageCircle.Forms.Plugin.Abstractions;
 using ImageCircle.Forms.Plugin.Droid;
 using Restaurant.Abstractions.Services;
+using Restaurant.Droid.Renderers;
 using Restaurant.Mobile.UI;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -15,11 +18,12 @@ using AColor = Android.Graphics.Color;
 namespace Restaurant.Droid
 {
     [Activity(
-        Label = "Restaurant-App",
+        Label = "Restaurant-App", 
         Icon = "@drawable/icon",
         Theme = "@style/MainTheme",
         MainLauncher = true,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    
     public class MainActivity : FormsAppCompatActivity
     {
         static MainActivity()
@@ -38,7 +42,7 @@ namespace Restaurant.Droid
             ImageCircleRenderer.Init();
             MakeStatusBarTranslucent(false);
             LoadApplication(new App(new AndroidPlatformInitializer()));
-        }
+        }       
 
         internal void MakeStatusBarTranslucent(bool makeTranslucent)
         {
@@ -47,12 +51,11 @@ namespace Restaurant.Droid
                 SetStatusBarColor(AColor.Transparent);
                 if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
                 {
-                    Window.DecorView.SystemUiVisibility =
-                        (StatusBarVisibility) (SystemUiFlags.LayoutFullscreen | SystemUiFlags.LayoutStable);
+                    Window.DecorView.SystemUiVisibility = (StatusBarVisibility)(SystemUiFlags.LayoutFullscreen | SystemUiFlags.LayoutStable);
                 }
             }
             else
-            {
+            {                
                 SetStatusBarColor(GetColorPrimaryDark());
                 if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
                 {

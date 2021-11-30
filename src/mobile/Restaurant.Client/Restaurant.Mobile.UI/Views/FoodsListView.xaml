@@ -5,6 +5,7 @@
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                 mc:Ignorable="d"
+                xmlns:effects="clr-namespace:Restaurant.Mobile.UI.Effects;assembly=Restaurant.Mobile.UI"
                 xmlns:views="clr-namespace:Restaurant.Mobile.UI.Views;assembly=Restaurant.Mobile.UI"
                 xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls;assembly=Restaurant.Mobile.UI"
                 xmlns:converters="clr-namespace:Restaurant.Mobile.UI.Converters;assembly=Restaurant.Mobile.UI"

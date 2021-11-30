@@ -3,7 +3,6 @@ using Restaurant.Abstractions.Enums;
 using Restaurant.Abstractions.Factories;
 using Restaurant.Core.Adapters;
 using Restaurant.Core.ViewModels;
-using Restaurant.Core.ViewModels.Food;
 
 namespace Restaurant.Core.UnitTests.Adapters
 {

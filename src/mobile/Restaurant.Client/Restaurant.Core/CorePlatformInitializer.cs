@@ -73,10 +73,18 @@ namespace Restaurant.Core
                 builder.RegisterType<AuthenticationProvider>().As<IAuthenticationProvider>().SingleInstance();
             }
 
+            RegisterSelf(builder);
             RegisterTypes(builder);
             return builder.Build();
         }
 
         protected abstract void RegisterTypes(ContainerBuilder builder);
+
+        private static void RegisterSelf(ContainerBuilder builder)
+        {
+            IContainer container = null;
+            builder.Register(c => container).AsSelf();
+            builder.RegisterBuildCallback(c => container = c);
+        }
     }
 }

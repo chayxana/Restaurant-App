@@ -16,13 +16,13 @@ using View = Android.Views.View;
 
 namespace Restaurant.Droid.Renderers
 {
-    public class DrawerNavigationViewRenderer : ViewRenderer<NavigationView, Google.Android.Material.Navigation.NavigationView>
+    public class DrawerNavigationViewRenderer : ViewRenderer<NavigationView, Android.Support.Design.Widget.NavigationView>
     {
 	    public DrawerNavigationViewRenderer(Context context) : base(context)
 	    {	
 	    }
 
-        private Google.Android.Material.Navigation.NavigationView _navView;
+        private Android.Support.Design.Widget.NavigationView _navView;
 
         private IMenuItem _previousItem;
         private ImageView _profileImage;
@@ -36,9 +36,9 @@ namespace Restaurant.Droid.Renderers
             if (e.OldElement != null || Element == null)
                 return;
 
-            
+
             var view = Inflate(Context, Resource.Layout.nav_drawer, null);
-            _navView = view.JavaCast<Google.Android.Material.Navigation.NavigationView>();
+            _navView = view.JavaCast<Android.Support.Design.Widget.NavigationView>();
 
             _navView.NavigationItemSelected += NavView_NavigationItemSelected;
 
@@ -79,7 +79,7 @@ namespace Restaurant.Droid.Renderers
 
         private void UpdateImage()
         {
-			Picasso.Get()
+			Picasso.With(Context)
 				.Load(Uri.Parse(Element.UserPicture))
 				.Into(_profileImage);
 
@@ -93,7 +93,7 @@ namespace Restaurant.Droid.Renderers
         }
 
         private void NavView_NavigationItemSelected(object sender,
-            Google.Android.Material.Navigation.NavigationView.NavigationItemSelectedEventArgs e)
+            Android.Support.Design.Widget.NavigationView.NavigationItemSelectedEventArgs e)
         {
             _previousItem?.SetChecked(false);
 

@@ -8,7 +8,7 @@
     <None Remove="Managers\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ReactiveUI" Version="13.0.27" />
-    <PackageReference Include="Refit" Version="5.2.4" />
+    <PackageReference Include="ReactiveUI" Version="9.19.5" />
+    <PackageReference Include="Refit" Version="4.7.9" />
   </ItemGroup>
 </Project>

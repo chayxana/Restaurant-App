@@ -1,53 +1,44 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
-<pages:FoodDetailPageXaml
-    d:DataContext="{d:DesignInstance food:FoodDetailViewModel}"
-    mc:Ignorable="d"
-    x:Class="Restaurant.Mobile.UI.Pages.FoodDetailPage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls;assembly=Restaurant.Mobile.UI"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:food="clr-namespace:Restaurant.Core.ViewModels.Food;assembly=Restaurant.Core"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:pages="clr-namespace:Restaurant.Mobile.UI.Pages;assembly=Restaurant.Mobile.UI"
-    xmlns:views="clr-namespace:Restaurant.Mobile.UI.Views;assembly=Restaurant.Mobile.UI"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+<pages:FoodDetailPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                          xmlns:viewModels="clr-namespace:Restaurant.Core.ViewModels;assembly=Restaurant.Core"
+                          xmlns:pages="clr-namespace:Restaurant.Mobile.UI.Pages;assembly=Restaurant.Mobile.UI"
+                          xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls;assembly=Restaurant.Mobile.UI"
+                          xmlns:views="clr-namespace:Restaurant.Mobile.UI.Views;assembly=Restaurant.Mobile.UI"
+                          xmlns:food="clr-namespace:Restaurant.Core.ViewModels.Food;assembly=Restaurant.Core"
+                          x:Class="Restaurant.Mobile.UI.Pages.FoodDetailPage"
+                          mc:Ignorable="d"
+                          d:DataContext="{d:DesignInstance food:FoodDetailViewModel}">
 
     <pages:FoodDetailPage.ToolbarItems>
-        <controls:BadgeToolbarItem
-            BadgeColor="{StaticResource badgeColor}"
-            BadgePressedColor="{StaticResource badgeColor}"
-            BadgeText="{Binding BasketItemsCount}"
-            Command="{Binding GoToBasket}"
-            Icon="ic_shopping_cart_white" />
+        <controls:BadgeToolbarItem Icon="ic_shopping_cart_white" Command="{Binding GoToBasket}"
+                                   BadgeColor="{StaticResource badgeColor}"
+                                   BadgePressedColor="{StaticResource badgeColor}"
+                                   BadgeText="{Binding BasketItemsCount}" />
     </pages:FoodDetailPage.ToolbarItems>
 
     <AbsoluteLayout>
 
-        <Grid
-            AbsoluteLayout.LayoutBounds="0,0,1,.5"
-            AbsoluteLayout.LayoutFlags="All"
-            ColumnSpacing="0"
-            RowSpacing="0">
-            <Image
-                Aspect="AspectFill"
-                HorizontalOptions="FillAndExpand"
-                Source="{Binding SelectedFood.Picture}"
-                VerticalOptions="FillAndExpand" />
+        <Grid RowSpacing="0" ColumnSpacing="0"
+              AbsoluteLayout.LayoutBounds="0,0,1,.5"
+              AbsoluteLayout.LayoutFlags="All">
+            <Image HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand"
+                   Source="{Binding SelectedFood.Picture}"
+                   Aspect="AspectFill" />
 
-            <Grid
-                BackgroundColor="{StaticResource asphaltDark}"
-                HorizontalOptions="FillAndExpand"
-                Opacity=".5"
-                VerticalOptions="FillAndExpand" />
+            <Grid Opacity=".5" BackgroundColor="{StaticResource asphaltDark}" HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand" />
 
-            <StackLayout Padding="10,10,10,35" VerticalOptions="EndAndExpand">
-                <StackLayout Padding="10" Spacing="0">
+            <StackLayout Padding="10, 10, 10, 35" VerticalOptions="EndAndExpand">
+                <StackLayout Spacing="0" Padding="10">
                     <StackLayout Orientation="Horizontal">
-                        <Label
-                            FontSize="18"
-                            Text="{Binding SelectedFood.Name}"
-                            TextColor="White">
+                        <Label Text="{Binding SelectedFood.Name}"
+                               FontSize="18"
+                               TextColor="White">
                             <Label.FontFamily>
                                 <OnPlatform x:TypeArguments="x:String">
                                     <On Platform="iOS">HelveticaNeue-Light</On>
@@ -55,70 +46,51 @@
                                 </OnPlatform>
                             </Label.FontFamily>
                         </Label>
-                        <Label
-                            FontSize="18"
-                            Text="{Binding SelectedFood.Price, StringFormat='{0:C}'}"
-                            TextColor="{StaticResource grayLight}"
-                            VerticalOptions="CenterAndExpand" />
+                        <Label Text="{Binding SelectedFood.Price, StringFormat='{0:C}'}" FontSize="18"
+                               TextColor="{StaticResource  grayLight}" VerticalOptions="CenterAndExpand" />
                     </StackLayout>
 
-                    <StackLayout Padding="0,8">
-                        <Label
-                            FontSize="12"
-                            Text="{Binding SelectedFood.Description}"
-                            TextColor="{StaticResource grayLight}" />
+                    <StackLayout Padding="0, 8">
+                        <Label Text="{Binding SelectedFood.Description}"
+                               FontSize="12"
+                               TextColor="{StaticResource grayLight}" />
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
         </Grid>
 
 
-        <StackLayout AbsoluteLayout.LayoutBounds="0, 0.75, 1,AutoSize" AbsoluteLayout.LayoutFlags="XProportional,YProportional, WidthProportional">
+        <StackLayout AbsoluteLayout.LayoutBounds="0, 0.75, 1,AutoSize"
+                     AbsoluteLayout.LayoutFlags="XProportional,YProportional, WidthProportional">
 
-            <StackLayout
-                HorizontalOptions="Center"
-                Margin="{StaticResource FoodDetailtPadding}"
-                Orientation="Horizontal">
-                <Label
-                    FontSize="16"
-                    HorizontalOptions="Center"
-                    Text="Total price: "
-                    TextColor="{StaticResource grayDark}"
-                    VerticalOptions="Center" />
-                <Label
-                    FontSize="16"
-                    HorizontalOptions="Center"
-                    Text="{Binding CurrentBasketItem.TotalPriceAnimated}"
-                    TextColor="{StaticResource grayDark}"
-                    VerticalOptions="Center" />
+            <StackLayout HorizontalOptions="Center" Orientation="Horizontal"
+                         Margin="{StaticResource FoodDetailtPadding}">
+                <Label TextColor="{StaticResource grayDark}" VerticalOptions="Center" HorizontalOptions="Center"
+                       FontSize="16" Text="Total price: " />
+                <Label TextColor="{StaticResource grayDark}" VerticalOptions="Center" HorizontalOptions="Center"
+                       Text="{Binding CurrentBasketItem.TotalPriceAnimated}" FontSize="16" />
             </StackLayout>
 
             <controls:Divider />
 
-            <views:StepperView
-                HorizontalOptions="Center"
-                Margin="{StaticResource FoodDetailtPadding}"
-                MinValue="0"
-                Value="{Binding CurrentBasketItem.Quantity}" />
+            <views:StepperView Margin="{StaticResource FoodDetailtPadding}" MinValue="0" HorizontalOptions="Center"
+                               Value="{Binding CurrentBasketItem.Quantity}" />
 
             <controls:Divider />
         </StackLayout>
 
-        <Button
-            AbsoluteLayout.LayoutBounds=".5, 1, AutoSize, AutoSize"
-            AbsoluteLayout.LayoutFlags="PositionProportional"
-            Command="{Binding AddToBasket}"
-            HorizontalOptions="Center"
-            Margin="0,0,0,10"
-            Text="Add to card"
-            VerticalOptions="EndAndExpand"
-            WidthRequest="300" />
+        <Button AbsoluteLayout.LayoutBounds=".5, 1, AutoSize, AutoSize" WidthRequest="300"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                HorizontalOptions="Center"
+                Command="{Binding AddToBasket}"
+                VerticalOptions="EndAndExpand"
+                Margin="0, 0, 0, 10"
+                Text="Add to card" />
 
-        <controls:FloatingActionButton
-            AbsoluteLayout.LayoutBounds=".9, .5, 50, 50"
-            AbsoluteLayout.LayoutFlags="PositionProportional"
-            Image="heart_outline_white"
-            RippleColor="{StaticResource primaryColorLight}" />
+        <controls:FloatingActionButton AbsoluteLayout.LayoutBounds=".9, .5, 50, 50"
+                                       AbsoluteLayout.LayoutFlags="PositionProportional"
+                                       RippleColor="{StaticResource primaryColorLight}"
+                                       Image="heart_outline_white" />
 
 
     </AbsoluteLayout>

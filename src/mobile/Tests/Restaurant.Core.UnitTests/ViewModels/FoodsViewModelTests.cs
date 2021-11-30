@@ -3,11 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
+using Restaurant.Abstractions.Adapters;
 using Restaurant.Abstractions.Api;
 using Restaurant.Abstractions.DataTransferObjects;
+using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.Services;
 using Restaurant.Abstractions.ViewModels;
-using Restaurant.Core.ViewModels.Food;
+using Restaurant.Core.ViewModels;
 
 namespace Restaurant.Core.UnitTests.ViewModels
 {

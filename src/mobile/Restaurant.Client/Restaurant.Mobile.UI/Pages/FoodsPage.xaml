@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <pages:FoodsXamlPage xmlns="http://xamarin.com/schemas/2014/forms"
                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -13,7 +13,7 @@
                      BackgroundColor="{StaticResource WindowBackgroundTable}"
                      mc:Ignorable="d"
                      d:DataContext="{d:DesignInstance viewModels:FoodsViewModel}"
-                     IconImageSource="restaurant"
+                     Icon="restaurant"
                      Title="Foods">
 
     <pages:FoodsPage.Resources>
@@ -22,26 +22,25 @@
         </ResourceDictionary>
     </pages:FoodsPage.Resources>
 
-    <!-- <pages:FoodsXamlPage.ToolbarItems> -->
-    <!--     <controls:BadgeToolbarItem Icon="ic_shopping_cart_white" -->
-    <!--                                Command="{Binding GoToBasket}" -->
-    <!--                                BadgeText="{Binding BasketItemsCount}" -->
-    <!--                                BadgeColor="{StaticResource badgeColor}" -->
-    <!--                                BadgePressedColor="{StaticResource badgeColor}" /> -->
-    <!-- </pages:FoodsXamlPage.ToolbarItems> -->
+    <pages:FoodsXamlPage.ToolbarItems>
+        <controls:BadgeToolbarItem Icon="ic_shopping_cart_white"
+                                   Command="{Binding GoToBasket}"
+                                   BadgeText="{Binding BasketItemsCount}"
+                                   BadgeColor="{StaticResource badgeColor}"
+                                   BadgePressedColor="{StaticResource badgeColor}" />
+    </pages:FoodsXamlPage.ToolbarItems>
 
     <pages:FoodsXamlPage.Content>
-        <views:FoodsListView
-            IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
-            ItemsSource="{Binding Foods}"
-            SelectedItem="{Binding SelectedFood}"
-            SelectionMode="Single"
-            x:Name="FoodsList" />
+        <views:FoodsListView ItemsSource="{Binding Foods}"
+                             IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
+                             SelectedItem="{Binding SelectedFood}"
+                             SelectionMode="Single"
+                             x:Name="FoodsList" />
 
         <!-- <StackLayout IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center"> -->
-        <!--  <ActivityIndicator IsRunning="{Binding IsLoading}"  -->
-        <!--  HorizontalOptions="Center"  -->
-        <!--  VerticalOptions="EndAndExpand">  -->
+        <!--     <ActivityIndicator IsRunning="{Binding IsLoading}" -->
+        <!--                        HorizontalOptions="Center" -->
+        <!--                        VerticalOptions="EndAndExpand"> -->
         <!--         <ActivityIndicator.Color> -->
         <!--             <OnPlatform x:TypeArguments="Color"> -->
         <!--                 <On Platform="Android" Value="{StaticResource primaryColor}" /> -->

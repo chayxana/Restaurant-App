@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="Restaurant.Restaurant"
-          android:installLocation="auto">
-    <uses-sdk android:minSdkVersion="22" android:targetSdkVersion="30"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <application android:label="Restaurant-App" android:icon="@drawable/icon"></application>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="Restaurant.Restaurant" android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="22" android:targetSdkVersion="28" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<application android:label="Restaurant-App" android:icon="@drawable/icon"></application>
 </manifest>

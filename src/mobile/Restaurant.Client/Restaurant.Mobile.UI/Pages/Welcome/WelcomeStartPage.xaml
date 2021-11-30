@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <welcome:WelcomeStartPageXaml xmlns="http://xamarin.com/schemas/2014/forms"
-                              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                              xmlns:welcome="clr-namespace:Restaurant.Mobile.UI.Pages.Welcome;assembly=Restaurant.Mobile.UI"
-                              xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls;assembly=Restaurant.Mobile.UI"
-                              x:Class="Restaurant.Mobile.UI.Pages.Welcome.WelcomeStartPage"
-                              BackgroundColor="{StaticResource primaryColor}">
+                               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                               xmlns:welcome="clr-namespace:Restaurant.Mobile.UI.Pages.Welcome;assembly=Restaurant.Mobile.UI"
+                               xmlns:controls="clr-namespace:Restaurant.Mobile.UI.Controls;assembly=Restaurant.Mobile.UI"
+                               x:Class="Restaurant.Mobile.UI.Pages.Welcome.WelcomeStartPage"
+                               BackgroundColor="{StaticResource primaryColor}">
 
     <welcome:WelcomeStartPageXaml.Content>
         <Grid>
@@ -38,14 +38,13 @@
                 </Grid.ColumnDefinitions>
 
                 <StackLayout x:Name="buttonStack" Spacing="0" Grid.Column="0" Scale="0">
-                    <Button StyleId="authButton" Text="Sign In"
-                            Command="{Binding GoLogin}"
-                            BackgroundColor="Transparent" TextColor="White" />
+                    <controls:FlatButton StyleId="authButton" Text="Sign In"
+                                          Command="{Binding GoLogin}" BackgroundColor="Transparent" TextColor="White" />
                 </StackLayout>
 
                 <StackLayout Grid.Column="1" x:Name="signUpStack" Scale="0">
                     <controls:FlatButton x:Name="SignUpButton" Text="Sign Up" Command="{Binding GoRegister}"
-                                         TextColor="White" BackgroundColor="Transparent" />
+                                          TextColor="White" BackgroundColor="Transparent" />
                 </StackLayout>
             </Grid>
         </Grid>

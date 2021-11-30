@@ -13,11 +13,11 @@ namespace Restaurant.Core.Mappers
     {
         public ViewModelToDataTransferObjectsProfile()
         {
-            CreateMap<SignUpViewModel, RegisterDto>()
-                .ForMember(x => x.Email, map => map.MapFrom(x => x.Email))
-                .ForMember(x => x.Password, map => map.MapFrom(vm => vm.Password));
+	        CreateMap<SignUpViewModel, RegisterDto>()
+		        .ForMember(x => x.Email, map => map.MapFrom(x => x.Email))
+		        .ForMember(x => x.Password, map => map.MapFrom(vm => vm.Password));
 
-            CreateMap<SignInViewModel, LoginDto>()
+			CreateMap<SignInViewModel, LoginDto>()
                 .ForMember(x => x.Login, map => map.MapFrom(vm => vm.Email))
                 .ForMember(x => x.Password, map => map.MapFrom(vm => vm.Password));
 
@@ -25,15 +25,14 @@ namespace Restaurant.Core.Mappers
                 .ForMember(x => x.Quantity, map => map.MapFrom(x => x.Quantity))
                 .ForMember(x => x.FoodId, map => map.MapFrom(x => x.Food.Id));
 
-	        CreateMap<UserProfileDto, IUserInfoViewModel>();
-	        CreateMap<IUserInfoViewModel, UserProfileDto>();
-	        CreateMap<UserDto, UserViewModel>()
-		        .ForMember(x => x.UserInfoViewModel, map => map.MapFrom(x => x.Profile));
+	        CreateMap<UserProfileDto, UserInfoViewModel>();
+	        CreateMap<UserDto, UserViewModel>().ForMember(x => x.UserInfoViewModel, 
+				map => map.MapFrom(x => Mapper.Map<UserInfoViewModel>(x.Profile)));
 
-            CreateMap<FoodDto, FoodViewModel>().ForMember(x => x.Picture,
-                map => map.MapFrom(dto => CorePlatformInitializer.MockData
-                    ? dto.Picture
-                    : ApiConstants.ApiClientUrl + dto.Picture));
+	        CreateMap<FoodDto, FoodViewModel>().ForMember(x => x.Picture, 
+			  map => map.MapFrom(dto => CorePlatformInitializer.MockData 
+				  ? dto.Picture 
+				  : ApiConstants.ApiClientUrl + dto.Picture));
         }
     }
 }

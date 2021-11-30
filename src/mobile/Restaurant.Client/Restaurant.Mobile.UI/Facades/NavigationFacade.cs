@@ -21,19 +21,13 @@ namespace Restaurant.Mobile.UI.Facades
                     var detailNavigationPage = new CustomNavigationPage(masterDetailPage);
                     return detailNavigationPage.Navigation;
                 }
-
-                if (App.Current.MainPage is CustomNavigationPage customNavigationPage)
-                {
-                    return customNavigationPage.CurrentPage.Navigation;
-                }
-
                 return App.Current.MainPage.Navigation;
             }
         }
 
         public Task PushAsync(IViewFor page)
         {
-            return Navigation.PushAsync(page as Page);
+            return Navigation.PushAsync(page as Page, true);
         }
 
         public Task PushModalAsync(IViewFor page)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using Restaurant.Abstractions.Subscribers;
 using Restaurant.Abstractions.ViewModels;
 
 namespace Restaurant.Abstractions.Services

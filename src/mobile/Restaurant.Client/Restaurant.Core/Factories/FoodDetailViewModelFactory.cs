@@ -9,9 +9,9 @@ namespace Restaurant.Core.Factories
     [ExcludeFromCodeCoverage]
     public class FoodDetailViewModelFactory : IFoodDetailViewModelFactory
     {
-        private readonly ILifetimeScope _container;
+        private readonly IContainer _container;
 
-        public FoodDetailViewModelFactory(ILifetimeScope container)
+        public FoodDetailViewModelFactory(IContainer container)
         {
             _container = container;
         }

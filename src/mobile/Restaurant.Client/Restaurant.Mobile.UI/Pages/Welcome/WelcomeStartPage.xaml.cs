@@ -1,9 +1,3 @@
-using System;
-using Autofac;
-using ReactiveUI;
-using Restaurant.Abstractions.Services;
-using Restaurant.Abstractions.ViewModels;
-using Restaurant.Core;
 using Restaurant.Core.ViewModels;
 using Restaurant.Mobile.UI.Constants;
 using Xamarin.Forms;
@@ -11,9 +5,9 @@ using Xamarin.Forms.Xaml;
 
 namespace Restaurant.Mobile.UI.Pages.Welcome
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    // ReSharper disable once RedundantExtendsListEntry
-    public partial class WelcomeStartPage : WelcomeStartPageXaml
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	// ReSharper disable once RedundantExtendsListEntry
+	public partial class WelcomeStartPage : WelcomeStartPageXaml
     {
         public WelcomeStartPage()
         {

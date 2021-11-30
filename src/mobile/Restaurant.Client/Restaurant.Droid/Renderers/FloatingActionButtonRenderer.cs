@@ -7,7 +7,7 @@ using Restaurant.Droid.Renderers;
 using Restaurant.Mobile.UI.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using FAB = Google.Android.Material.FloatingActionButton.FloatingActionButton;
+using FAB = Android.Support.Design.Widget.FloatingActionButton;
 
 
 [assembly: ExportRenderer(typeof(FloatingActionButton), typeof(FloatingActionButtonRenderer))]

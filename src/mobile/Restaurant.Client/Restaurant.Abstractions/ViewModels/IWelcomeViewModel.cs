@@ -1,6 +1,4 @@
-﻿using System.Reactive;
-using System.Windows.Input;
-using ReactiveUI;
+﻿using System.Windows.Input;
 
 namespace Restaurant.Abstractions.ViewModels
 {

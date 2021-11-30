@@ -3,10 +3,10 @@ using Autofac;
 using ReactiveUI;
 using Restaurant.Abstractions.Factories;
 using Restaurant.Abstractions.ViewModels;
+using Restaurant.Core.ViewModels;
 using Restaurant.Core.ViewModels.Android;
 using Xamarin.Forms;
 using System;
-using Restaurant.Core.ViewModels.Food;
 
 namespace Restaurant.Mobile.UI.Pages.Android
 {
@@ -16,7 +16,7 @@ namespace Restaurant.Mobile.UI.Pages.Android
         {
         }
 
-        public MainPageAndroid(ILifetimeScope container)
+        public MainPageAndroid(IContainer container)
         {
             var viewFactory = container.Resolve<IViewFactory>();
             var masterPage = viewFactory.ResolveView<IMasterViewModel>() as Page;

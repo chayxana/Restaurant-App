@@ -1,9 +1,8 @@
-﻿using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 
 namespace Restaurant.Mobile.UI.Pages
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AboutPage
+    public partial class AboutPage : ContentPage
     {
         public AboutPage()
         {

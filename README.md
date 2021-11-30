@@ -113,6 +113,7 @@ The architecture proposes a micro-service oriented architecture implementation w
 </table>
 
 ## Mobile app
+[Unfortunately I no longer be able to maintain Xamarin(mobile) part](https://github.com/chayxana/Restaurant-App/issues/81)
 
 | Mobile              | Build status | Release |
 |---------------------|--------------|-------------------|

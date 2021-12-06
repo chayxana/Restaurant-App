@@ -223,3 +223,4 @@ src/backend/web/web.admin/dashboard/package-lock.json
 
 
 *.sonarqube
+src/backend/services/basket.api/basket.api

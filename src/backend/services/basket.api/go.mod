@@ -16,4 +16,4 @@ require (
 	github.com/swaggo/swag v1.6.2
 )
 
-go 1.13
+go 1.17

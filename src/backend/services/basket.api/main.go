@@ -10,10 +10,10 @@ import (
 
 	"github.com/jurabek/basket.api/database"
 	"github.com/jurabek/basket.api/docs"
+	"github.com/jurabek/basket.api/handlers"
 
 	"github.com/jurabek/basket.api/middlewares"
 
-	"github.com/jurabek/basket.api/controllers"
 	"github.com/jurabek/basket.api/repositories"
 
 	"github.com/gin-gonic/gin"
@@ -62,7 +62,7 @@ func main() {
 	}
 
 	basketRepository := repositories.NewRedisBasketRepository(&connectionProvider)
-	controller := controllers.NewBasketController(basketRepository)
+	controller := handlers.NewBasketHandler(basketRepository)
 
 	auth := middlewares.CreateAuth()
 	router.Use(auth.AuthMiddleware())

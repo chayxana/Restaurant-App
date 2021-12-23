@@ -5,6 +5,10 @@
 			"path": "./src/backend/"
 		},
 		{
+			"name": "github",
+			"path": ".github"
+		},
+		{
 			"name": "basket-api",
 			"path": "./src/backend/services/basket.api"
 		},

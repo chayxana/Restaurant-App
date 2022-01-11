@@ -13,7 +13,7 @@ spec:
         app: order-api
     spec:
       containers:
-      - image: jurabek/order
+      - image: order-api # must much from ./kustomization.yaml -> images[0].name
         imagePullPolicy: IfNotPresent
         name: order-api
         ports:
@@ -24,33 +24,33 @@ spec:
         - name: IDENTITY_URL_PUB
           valueFrom:
             configMapKeyRef:
-              name: endpoints
-              key: identity_pub
+              name: order-api
+              key: identity.public.url
         - name: IDENTITY_URL
           valueFrom:
             configMapKeyRef:
-              name: internal-urls
+              name: order-api
               key: identity
         - name: BASKET_URL
           valueFrom:
             configMapKeyRef:
-              name: internal-urls
-              key: basket
-        - name: SPRING_DATASOURCE_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: local-config
-              key: order__DataSourcePassword
+              name: order-api
+              key: basket.url
         - name: SPRING_DATASOURCE_URL
           valueFrom:
             configMapKeyRef:
-              name: local-config
-              key: order__DataSourceUrl
+              name: order-api
+              key: datasource.url
         - name: SPRING_DATASOURCE_USERNAME
           valueFrom:
-            configMapKeyRef:
-              name: local-config
-              key: order__DataSourceUserName
+            secretKeyRef:
+              name: order-api
+              key: db.username
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: order-api
+              key: db.password
         readinessProbe:
           httpGet:
             path: /order/health
@@ -72,7 +72,7 @@ spec:
         resources:
           requests:
             memory: "128Mi"
-            cpu: "200m"
+            cpu: "300m"
           limits:
-            memory: "512Mi"
-            cpu: "500m"
+            memory: "256Mi"
+            cpu: "400m"

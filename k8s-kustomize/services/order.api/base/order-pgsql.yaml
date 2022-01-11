@@ -34,9 +34,15 @@ spec:
         - name: POSTGRES_DB
           value: orderdb
         - name: POSTGRES_PASSWORD
-          value: Passw0rd!
+          valueFrom:
+            secretKeyRef:
+              name: order-api
+              key: db.password
         - name: POSTGRES_USER
-          value: admin
+          valueFrom:
+            secretKeyRef:
+              name: order-api
+              key: db.username
         image: postgres:alpine
         imagePullPolicy: IfNotPresent
         name: pgsql
@@ -56,6 +62,7 @@ metadata:
     app: order-pgsql-database
   name: order-pgsql-database
 spec:
+  type: LoadBalancer
   ports:
   - port: 5432
     targetPort: 5432

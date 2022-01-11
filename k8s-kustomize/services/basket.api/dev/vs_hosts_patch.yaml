@@ -4,4 +4,4 @@ metadata:
   name: basket-api
 spec:
   hosts:
-    - "api-staging.restaurant.io"
+    - "api-dev.restaurant.io"

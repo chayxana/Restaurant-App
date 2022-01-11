@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: menu-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: menu-api
+  template:
+    metadata:
+      labels:
+        app: menu-api
+    spec:
+      containers:
+      - name: menu-api
+        image: menu-api # must much from ./kustomization.yaml -> images[0].name
+        imagePullPolicy: Always 
+        ports:
+          - containerPort: 80
+        env:
+        - name: ORCHESTRATION_TYPE
+          value: k8s
+        - name: ASPNETCORE_ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: menu-api
+              key: env
+        - name: PATH_BASE
+          valueFrom:
+            configMapKeyRef:
+              name: menu-api
+              key: base.path
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: menu-db
+              key: db.host
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: menu-db
+              key: db.name
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: menu-db
+              key: db.username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: menu-db
+              key: db.password
+        - name: AUTH_URL
+          valueFrom:
+            configMapKeyRef:
+              name: menu-api
+              key: auth.url
+        - name: AUTH_AUTHORITY
+          valueFrom:
+            configMapKeyRef:
+              name: menu-api
+              key: auth.authority
+        readinessProbe:
+          httpGet:
+            path: /hc
+            port: 80
+          initialDelaySeconds: 60
+          timeoutSeconds: 5
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 5
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 15
+          successThreshold: 1
+          failureThreshold: 5
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"

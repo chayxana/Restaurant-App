@@ -9,6 +9,10 @@
 			"path": ".github"
 		},
 		{
+			"name": "k8s-kustomize",
+			"path": "./k8s-kustomize"
+		},	
+		{
 			"name": "basket-api",
 			"path": "./src/backend/services/basket.api"
 		},

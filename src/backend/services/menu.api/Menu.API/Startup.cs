@@ -49,7 +49,7 @@ namespace Menu.API
 
         public IConfiguration Configuration { get; }
 
-        public bool IsK8S => Configuration.GetValue<string>("OrchestrationType").ToUpper().Equals("K8S");
+        public bool IsK8S => Configuration.GetValue<string>("ORCHESTRATION_TYPE").ToUpper().Equals("K8S");
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -73,8 +73,8 @@ namespace Menu.API
             });
             services.AddAuthorization();
 
-            var identityUrl = Configuration["IDENTITY_URL"];
-            var publicIdentityUrl = Configuration["IDENTITY_URL_PUB"];
+            var identityUrl = Configuration["AUTH_AUTHORITY"];
+            var publicIdentityUrl = Configuration["AUTH_URL"];
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services.AddAuthentication(options =>
@@ -93,8 +93,13 @@ namespace Menu.API
                     ValidateIssuer = false
                 };
             });
+            var dbHost = Configuration["DB_HOST"];
+            var dbName = Configuration["DB_NAME"];
+            var dbUser = Configuration["DB_USER"];
+            var dbPassword = Configuration["DB_PASSWORD"];
+            var connectionString = 
+                $"Host={dbHost};Database={dbName};Username={dbUser};Password={dbPassword}";
 
-            var connectionString = Configuration.GetConnectionString("MenuDatabaseConnectionString");
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseNpgsql(connectionString);

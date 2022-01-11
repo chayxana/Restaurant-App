@@ -13,22 +13,22 @@ spec:
         app: basket-api
     spec:
       containers:
-      - image: basket-api
+      - image: basket-api # must much from ./kustomization.yaml -> images[0].name
         imagePullPolicy: IfNotPresent
         name: basket-api
         ports:
         - containerPort: 5200
         env:
-        - name: IDENTITY_URL
+        - name: AUTH_AUTHORITY 
           valueFrom:
             configMapKeyRef:
               name: basket-api
-              key: identity.internal.url
-        - name: IDENTITY_URL_PUB
+              key: auth.authority 
+        - name: AUTH_URL 
           valueFrom:
             configMapKeyRef:
               name: basket-api
-              key: identity.public.url
+              key: auth.url 
         - name: REDIS_HOST
           valueFrom:
             configMapKeyRef:

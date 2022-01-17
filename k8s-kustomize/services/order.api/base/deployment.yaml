@@ -21,16 +21,11 @@ spec:
         env:
         - name: SERVER_SERVLET_CONTEXT_PATH
           value: /order
-        - name: IDENTITY_URL_PUB
+        - name: AUTH_URL 
           valueFrom:
             configMapKeyRef:
               name: order-api
-              key: identity.public.url
-        - name: IDENTITY_URL
-          valueFrom:
-            configMapKeyRef:
-              name: order-api
-              key: identity
+              key: auth.url 
         - name: BASKET_URL
           valueFrom:
             configMapKeyRef:

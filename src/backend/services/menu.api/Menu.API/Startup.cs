@@ -73,8 +73,8 @@ namespace Menu.API
             });
             services.AddAuthorization();
 
-            var identityUrl = Configuration["AUTH_AUTHORITY"];
-            var publicIdentityUrl = Configuration["AUTH_URL"];
+            var authAuthority = Configuration["AUTH_AUTHORITY"];
+            var authUrl = Configuration["AUTH_URL"];
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services.AddAuthentication(options =>
@@ -83,7 +83,7 @@ namespace Menu.API
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.Authority = identityUrl;
+                options.Authority = authAuthority;
                 options.RequireHttpsMetadata = false;
                 options.Audience = "menu-api";
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -131,8 +131,8 @@ namespace Menu.API
                     {
                         Implicit = new OpenApiOAuthFlow()
                         {
-                            AuthorizationUrl = new Uri($"{publicIdentityUrl}/connect/authorize"),
-                            TokenUrl = new Uri($"{publicIdentityUrl}/connect/token"),
+                            AuthorizationUrl = new Uri($"{authUrl}/connect/authorize"),
+                            TokenUrl = new Uri($"{authUrl}/connect/token"),
                             Scopes = new Dictionary<string, string>()
                             {
                                 { "menu-api", "Restaurant Menu Api" }

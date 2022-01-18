@@ -65,6 +65,7 @@ jobs:
         commit-sha: ${{ github.sha }}
 
     - name: "📤 Upload artifact"
+      if: github.ref == 'refs/heads/develop'
       uses: actions/upload-artifact@v1
       with:
         name: ${{ env.ARTIFACT_NAME }}

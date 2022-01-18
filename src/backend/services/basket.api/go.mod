@@ -3,8 +3,8 @@ module github.com/jurabek/basket.api
 require (
 	github.com/Jurabek/gin-swagger v1.2.2
 	github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.7.0
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/uuid v1.1.1
 	github.com/lestrrat-go/jwx v0.0.0-20190412050905-88d7d7d2ef64

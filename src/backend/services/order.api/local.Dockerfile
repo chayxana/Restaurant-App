@@ -10,7 +10,7 @@ RUN gradle build
 
 FROM adoptopenjdk/openjdk11-openj9:alpine-jre
 WORKDIR /root/
-COPY --from=builder /usr/src/ordering_api/build/libs/order.api.jar .
+COPY --from=builder /usr/src/ordering_api/build/libs/order.api-1.0.0.jar .
 
 EXPOSE 8090
-CMD java $JAVA_OPTS -Xshareclasses -Xquickstart -jar ./order.api.jar
+CMD java $JAVA_OPTS -Xshareclasses -Xquickstart -jar ./order.api-1.0.0.jar

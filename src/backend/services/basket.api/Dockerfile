@@ -14,7 +14,7 @@ RUN go mod download
 COPY ./ ./
 
 RUN CGO_ENABLED=0 go build -installsuffix 'static'
-RUN CGO_ENABLED=0 go test -c ./controllers -o controllers.test -cover
+RUN CGO_ENABLED=0 go test -c ./handlers -o handlers.test -cover
 
 #final stage
 FROM alpine:latest

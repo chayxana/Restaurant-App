@@ -15,4 +15,4 @@ configMapGenerator:
 images:
 - name: basket-api
   newName: basket
-  newTag: 0.0.7
+  newTag: 0.0.8

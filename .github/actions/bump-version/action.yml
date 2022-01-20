@@ -4,6 +4,9 @@ inputs:
   service-name: 
     description: 'Service name'
     required: true
+  service-type:
+    description: 'Service type, e.g (gradle, dotnet, golang)'
+    required: false
 
 outputs:
   current-version: 
@@ -19,9 +22,15 @@ runs:
     - id: version
       run: | 
         CURR_VER=$(cat ${{ inputs.service-name }}/version)
+        SERVICE_TYPE=${{ inputs.service-type }}
 
         chmod +x ./src/scripts/semver
         NEW_VER=$(./src/scripts/semver bump patch $CURR_VER)
+
+        if [ "$SERVICE_TYPE" == "gradle" ]; then
+          echo version=$NEW_VER > ${{ inputs.service-name }}/gradle.properties
+        fi
+
         echo $NEW_VER > ${{ inputs.service-name }}/version
 
         echo ::set-output name=current-number::${CURR_VER}

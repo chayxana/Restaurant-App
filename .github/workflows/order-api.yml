@@ -49,6 +49,7 @@ jobs:
       uses: ./.github/actions/bump-version
       with:
         service-name: ./src/backend/services/${{ env.SERVICE_NAME }}
+        service-type: gradle
 
     - name: "🚀 Build & Test"
       uses: ./.github/actions/compile-gradle

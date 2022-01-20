@@ -1,5 +1,5 @@
 #build stage
-FROM golang:1.13.4-alpine AS builder
+FROM golang:1.17-alpine AS builder
 
 RUN apk add --no-cache git
 
@@ -14,7 +14,7 @@ RUN go mod download
 COPY ./ ./
 
 RUN CGO_ENABLED=0 go build -installsuffix 'static'
-RUN CGO_ENABLED=0 go test -c ./controllers -o controllers.test -cover
+RUN CGO_ENABLED=0 go test -c ./handlers -o handlers.test -cover
 
 #final stage
 FROM alpine:latest

@@ -5,7 +5,7 @@ bases:
 - ../base
 
 patchesStrategicMerge:
-- vs_hosts_patch.yaml
+- http_route_patch.yaml
 
 configMapGenerator:
 - name: basket-api

@@ -1,21 +1,11 @@
----
 apiVersion: v1
 kind: Service
 metadata:
-  name: dashboard-app
+  name: identity-api
 spec:
   type: ClusterIP
   ports:
   - port: 80
     name: http
   selector:
-    app: dashboard-app
----
-
-
-
-
----
-
-
----
+    app: identity-api

@@ -1,7 +1,0 @@
-apiVersion: networking.istio.io/v1beta1
-kind: VirtualService
-metadata:
-  name: menu-api
-spec:
-  hosts:
-    - "api-dev.restaurant.io"

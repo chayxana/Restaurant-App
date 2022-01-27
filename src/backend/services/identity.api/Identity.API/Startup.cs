@@ -37,13 +37,6 @@ namespace Identity.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            string[] s = new[] {"a", "b"};
-
-            foreach (var s1 in s)
-            {
-                s[1] = "q";
-            }
-
             services.AddControllers();
             services.AddControllersWithViews();
             services.Configure<ForwardedHeadersOptions>(options =>

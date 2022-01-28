@@ -1,0 +1,70 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: order-database-data
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-pgsql-database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-pgsql-database
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: order-pgsql-database
+    spec:
+      containers:
+      - env:
+        - name: PGDATA
+          value: /pg
+        - name: POSTGRES_DB
+          value: orderdb
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: order-api
+              key: db.password
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: order-api
+              key: db.username
+        image: postgres:alpine
+        imagePullPolicy: IfNotPresent
+        name: pgsql
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: order-database-data
+      restartPolicy: Always
+      volumes:
+      - name: order-database-data
+        persistentVolumeClaim:
+          claimName: order-database-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: order-pgsql-database
+  name: order-pgsql-database
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5432
+    targetPort: 5432
+  selector:
+    app: order-pgsql-database

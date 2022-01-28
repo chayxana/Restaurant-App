@@ -1,0 +1,67 @@
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: identity-pgsql-database
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: identity-pgsql-database # has to match .spec.template.metadata.labels
+  serviceName: "identity-pgsql-database"
+  replicas: 1 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: identity-pgsql-database # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: identity-pgsql-database
+        image: postgres:alpine
+        env:
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: identity-api
+              key: db.name
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: identity-api
+              key: db.password
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: identity-api
+              key: db.username
+        volumeMounts:
+          - mountPath: /var/lib/postgresql/data/pgdata
+            name: order-database-data
+            subPath: postgres-db
+
+  volumeClaimTemplates:
+  - metadata:
+      name: order-database-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 100Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: identity-pgsql-database
+  name: identity-pgsql-database
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5432
+    targetPort: 5432
+  selector:
+    app: identity-pgsql-database

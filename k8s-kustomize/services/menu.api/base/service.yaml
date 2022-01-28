@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: menu-api
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    name: http
+  selector:
+    app: menu-api

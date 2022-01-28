@@ -14,7 +14,7 @@ import (
 // CreateAuth creates new instance of Auth
 func CreateAuth() *Auth {
 
-	authority, ok := os.LookupEnv("IDENTITY_URL")
+	authority, ok := os.LookupEnv("AUTH_AUTHORITY")
 	if !ok {
 		authority = "http://localhost:5000"
 	}

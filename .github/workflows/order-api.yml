@@ -17,7 +17,7 @@ on:
 env:
   SERVICE_NAME: order.api
   ARTIFACT_NAME: order-api-artifact
-  IMAGE_NAME: order
+  IMAGE_NAME: order-api
 
 jobs:
   build:
@@ -65,6 +65,7 @@ jobs:
         commit-sha: ${{ github.sha }}
 
     - name: "📤 Upload artifact"
+      if: github.ref == 'refs/heads/develop'
       uses: actions/upload-artifact@v1
       with:
         name: ${{ env.ARTIFACT_NAME }}
@@ -133,7 +134,7 @@ jobs:
       
       - name: Change manifests
         env:
-          KUSTOMIZE_IMAGE_NAME: basket-api
+          KUSTOMIZE_IMAGE_NAME: order-api
           IMG: ${{ env.IMAGE_NAME }}:${{ needs.release.outputs.new-version }}
         run: |
           cd ./manifests/services/${{ env.SERVICE_NAME }}/base

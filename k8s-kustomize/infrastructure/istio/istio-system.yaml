@@ -1,0 +1,14 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  namespace: istio-system
+  name: istio-controlplane
+spec:
+  profile: default
+  hub: gcr.io/istio-release
+  meshConfig:
+    accessLogFile: /dev/stdout
+  components:
+    ingressGateways:
+      - name: istio-ingressgateway
+        enabled: false

@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+resources:
+  - "deployment.yaml"
+  - "service.yaml"
+  - "http-route.yaml"
+  - "identity-pgsql.yaml"
+
+secretGenerator:
+  - name: identity-api
+    envs: [".env.secret"]
+
+configMapGenerator:
+  - name: identity-api
+    envs: ["config.env"]

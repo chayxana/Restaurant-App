@@ -48,18 +48,18 @@ namespace Identity.API
                 });
             });
 
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                options.MinimumSameSitePolicy = SameSiteMode.Lax;
-            });
+            services.Configure<CookiePolicyOptions>(options => { options.MinimumSameSitePolicy = SameSiteMode.Lax; });
 
-            var connectionString = Configuration.GetConnectionString("IdentityConnectionString");
+            var dbHost = Configuration["DB_HOST"];
+            var dbName = Configuration["DB_NAME"];
+            var dbUser = Configuration["DB_USER"];
+            var dbPassword = Configuration["DB_PASSWORD"];
+            var connectionString =
+                $"Host={dbHost};Database={dbName};Username={dbUser};Password={dbPassword}";
+
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-            
-            services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseNpgsql(connectionString);
-            });
+
+            services.AddDbContext<ApplicationDbContext>(options => { options.UseNpgsql(connectionString); });
 
             services.AddHealthChecks()
                 .AddCheck("self", () => HealthCheckResult.Healthy())
@@ -128,7 +128,7 @@ namespace Identity.API
                 loggerFactory.CreateLogger<Startup>().LogDebug("Using PATH BASE '{pathBase}'", basePath);
                 app.UsePathBase(basePath);
             }
-            
+
             app.UseMiddleware<RequestLoggerMiddleware>();
 
             if (env.IsDevelopment())

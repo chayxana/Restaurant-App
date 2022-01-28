@@ -19,7 +19,7 @@ on:
 env:
   SERVICE_NAME: basket.api
   ARTIFACT_NAME: basket-api-artifact
-  IMAGE_NAME: basket
+  IMAGE_NAME: basket-api
 
 jobs:
   build:

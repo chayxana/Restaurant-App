@@ -4,7 +4,7 @@ import { CardActionArea, CardMedia, CardContent, CardActions, Button, Tooltip, I
 
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import { IFoodDto } from 'src/api/dtos/FoodDto';
-import { RouteComponentProps } from 'react-router';
+import { NavigateFunction } from 'react-router';
 
 const styles = (_: Theme) => createStyles({
   item: {
@@ -35,8 +35,9 @@ const styles = (_: Theme) => createStyles({
   }
 });
 
-interface Props extends RouteComponentProps<{}> {
+interface Props {
   item: IFoodDto;
+  navigate: NavigateFunction;
 }
 
 const FoodItem: React.FC<Props & WithStyles<typeof styles>> = props => {
@@ -44,7 +45,7 @@ const FoodItem: React.FC<Props & WithStyles<typeof styles>> = props => {
     <Card className={props.classes.cardStyle}>
       <CardActionArea
         onClick={() => {
-          props.history.push("/details/" + props.item.id);
+          props.navigate("/details/" + props.item.id);
         }}
       >
         <CardMedia
@@ -64,7 +65,7 @@ const FoodItem: React.FC<Props & WithStyles<typeof styles>> = props => {
           size="small"
           style={{ marginRight: 60 }}
           onClick={() => {
-            props.history.push("/details/" + props.item.id);
+            props.navigate("/details/" + props.item.id);
           }}>{" "}Details
         </Button>
         <Tooltip title="Add to cart">

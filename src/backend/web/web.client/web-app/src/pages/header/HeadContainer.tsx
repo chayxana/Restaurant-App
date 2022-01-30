@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RouteComponentProps, withRouter } from "react-router";
+import { NavigateFunction, useNavigate } from "react-router";
 import { RootState } from 'src/store/reducers/redusers';
 import { toggleMenu } from 'src/store/actions/utils';
 import { connect } from 'react-redux';
@@ -8,11 +8,11 @@ import { logOut } from 'src/store/actions/user';
 import HeaderComponent from './Header';
 
 
-type OwnProps = RouteComponentProps<{}>;
 
 interface StateProps {
     cartItemsCount: number;
     loggedIn: boolean;
+	navigate: NavigateFunction;
 }
 
 interface DispatchProps {
@@ -21,7 +21,7 @@ interface DispatchProps {
     logOut(): void;
 }
 
-class HeaderContainer extends React.PureComponent<StateProps & DispatchProps & OwnProps> {
+class HeaderContainer extends React.PureComponent<StateProps & DispatchProps> {
     public render() {
         return (
             <HeaderComponent {... this.props}/>
@@ -31,7 +31,8 @@ class HeaderContainer extends React.PureComponent<StateProps & DispatchProps & O
 
 const mapStateToProps = (state: RootState): StateProps => ({
     cartItemsCount: state.cart.cartItems.length,
-    loggedIn: state.auth.loggedIn
+    loggedIn: state.auth.loggedIn,
+    navigate : useNavigate()
 });
 
 const mapDispatchProps = {
@@ -40,9 +41,9 @@ const mapDispatchProps = {
     logOut: logOut
 };
 
-const Header = withRouter(connect<StateProps, DispatchProps, OwnProps>(
+const Header = connect<StateProps, DispatchProps>(
 	mapStateToProps,
 	mapDispatchProps
-)(HeaderContainer));
+)(HeaderContainer);
 
 export default Header;

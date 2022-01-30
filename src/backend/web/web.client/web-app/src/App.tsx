@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
 
-import { Switch, Route } from 'react-router';
+import { Routes, Route } from 'react-router';
 import FoodsListContainer from './pages/food/FoodsListContainer';
 import Header from './pages/header/HeadContainer';
 // import { RouteComponentProps } from 'react-router';
@@ -16,9 +16,9 @@ class App extends React.PureComponent {
         <Header />
         <div className="app-body">
           <div className="content">
-            <Switch>
-              <Route path="/foods/" component={FoodsListContainer} />
-            </Switch>
+            <Routes>
+              <Route path="/foods/" element={FoodsListContainer} />
+            </Routes>
           </div>
         </div>
       </div>

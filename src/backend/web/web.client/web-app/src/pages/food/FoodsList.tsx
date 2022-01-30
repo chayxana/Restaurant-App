@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
+import { NavigateFunction } from 'react-router';
 import { IFoodDto } from 'src/api/dtos/FoodDto';
 import FoodItem from './FoodItem';
 
-interface Props extends RouteComponentProps<{}> {
+interface Props {
   foods: IFoodDto[];
+  navigate: NavigateFunction;
 }
 
 const FoodsList: React.FC<Props> = props => {

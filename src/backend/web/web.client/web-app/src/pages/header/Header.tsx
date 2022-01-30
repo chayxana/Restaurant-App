@@ -6,7 +6,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Badge from "@material-ui/core/Badge";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { RouteComponentProps } from "react-router-dom";
 import Person from "@material-ui/icons/PersonOutline";
 import Avatar from "@material-ui/core/Avatar";
 import Menu from "@material-ui/core/Menu";
@@ -14,6 +13,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import { NavigateFunction } from "react-router";
 
 
 const categories = [
@@ -45,12 +45,13 @@ const categoryOptions = categories.map(x => {
 });
 
 
-interface Props extends RouteComponentProps<{}> {
+interface Props {
   toggleMenu(): void;
   showCartDialog(show: boolean): void;
   logOut(): void;
   cartItemsCount: number;
   loggedIn: boolean;
+	navigate: NavigateFunction;
 }
 
 interface State {
@@ -120,7 +121,7 @@ class HeaderComponent extends React.Component<Props, State> {
               variant="outlined"
               color="primary"
               onClick={() => {
-                this.props.history.push(
+                this.props.navigate(
                   "/?category=" +
                   this.state.categoryFilterValue +
                   "&term=" +
@@ -139,7 +140,7 @@ class HeaderComponent extends React.Component<Props, State> {
                 style={{ marginRight: 20 }}
                 color="primary"
                 onClick={() => {
-                  this.props.history.push("/login");
+                  this.props.navigate("/login");
                 }}
               >
                 Log in
@@ -174,7 +175,7 @@ class HeaderComponent extends React.Component<Props, State> {
               <MenuItem
                 onClick={() => {
                   this.setState({ anchorEl: null });
-                  this.props.history.push("/order");
+                  this.props.navigate("/order");
                 }}
               >
                 Checkout page

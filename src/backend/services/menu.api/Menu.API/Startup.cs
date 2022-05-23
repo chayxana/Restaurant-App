@@ -49,7 +49,7 @@ namespace Menu.API
 
         public IConfiguration Configuration { get; }
 
-        public bool IsK8S => Configuration.GetValue<string>("OrchestrationType").ToUpper().Equals("K8S");
+        public bool IsK8S => Configuration.GetValue<string>("ORCHESTRATION_TYPE").ToUpper().Equals("K8S");
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -73,8 +73,8 @@ namespace Menu.API
             });
             services.AddAuthorization();
 
-            var identityUrl = Configuration["IDENTITY_URL"];
-            var publicIdentityUrl = Configuration["IDENTITY_URL_PUB"];
+            var authAuthority = Configuration["AUTH_AUTHORITY"];
+            var authUrl = Configuration["AUTH_URL"];
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services.AddAuthentication(options =>
@@ -83,7 +83,7 @@ namespace Menu.API
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.Authority = identityUrl;
+                options.Authority = authAuthority;
                 options.RequireHttpsMetadata = false;
                 options.Audience = "menu-api";
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -93,8 +93,13 @@ namespace Menu.API
                     ValidateIssuer = false
                 };
             });
+            var dbHost = Configuration["DB_HOST"];
+            var dbName = Configuration["DB_NAME"];
+            var dbUser = Configuration["DB_USER"];
+            var dbPassword = Configuration["DB_PASSWORD"];
+            var connectionString = 
+                $"Host={dbHost};Database={dbName};Username={dbUser};Password={dbPassword}";
 
-            var connectionString = Configuration.GetConnectionString("MenuDatabaseConnectionString");
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseNpgsql(connectionString);
@@ -126,8 +131,8 @@ namespace Menu.API
                     {
                         Implicit = new OpenApiOAuthFlow()
                         {
-                            AuthorizationUrl = new Uri($"{publicIdentityUrl}/connect/authorize"),
-                            TokenUrl = new Uri($"{publicIdentityUrl}/connect/token"),
+                            AuthorizationUrl = new Uri($"{authUrl}/connect/authorize"),
+                            TokenUrl = new Uri($"{authUrl}/connect/token"),
                             Scopes = new Dictionary<string, string>()
                             {
                                 { "menu-api", "Restaurant Menu Api" }

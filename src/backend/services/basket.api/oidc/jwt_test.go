@@ -11,9 +11,8 @@ import (
 
 	"github.com/lestrrat-go/jwx/jwk"
 
+	"github.com/golang-jwt/jwt"
 	"github.com/jurabek/basket.api/mock"
-
-	"github.com/dgrijalva/jwt-go"
 	"github.com/stretchr/testify/assert"
 )
 

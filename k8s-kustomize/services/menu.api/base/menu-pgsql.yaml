@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: menu-pgsql-database
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: menu-pgsql-database # has to match .spec.template.metadata.labels
+  serviceName: "menu-pgsql-database"
+  replicas: 1 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: menu-pgsql-database # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: menu-pgsql-database
+        image: postgres:alpine
+        env:
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: menu-api
+              key: db.name
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: menu-api
+              key: db.password
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: menu-api
+              key: db.username
+        volumeMounts:
+          - mountPath: /var/lib/postgresql/data/pgdata
+            name: order-database-data
+            subPath: postgres-db
+
+  volumeClaimTemplates:
+  - metadata:
+      name: order-database-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 100Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: menu-pgsql-database
+  name: menu-pgsql-database
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5432
+    targetPort: 5432
+  selector:
+    app: menu-pgsql-database

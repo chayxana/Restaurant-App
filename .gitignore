@@ -224,3 +224,7 @@ src/backend/web/web.admin/dashboard/package-lock.json
 
 *.sonarqube
 src/backend/services/basket.api/basket.api
+*.gradle
+src/backend/.gradle
+src/backend/services/menu.api/menu-api-release
+src/backend/services/identity.api/identity-api-release

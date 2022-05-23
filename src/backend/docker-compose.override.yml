@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   nginx:
@@ -35,7 +35,10 @@ services:
   menu-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__MenuDatabaseConnectionString=Host=pgsql;Database=menu_database;Username=admin;Password=Passw0rd!
+      - DB_HOST=pgsql
+      - DB_USER=admin
+      - DB_PASSWORD=Passw0rd!
+      - DB_NAME=menu_database
       - PATH_BASE=/menu
       - IDENTITY_URL_PUB=http://localhost:8080/identity
       - IDENTITY_URL=http://identity-api
@@ -43,7 +46,10 @@ services:
   identity-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__IdentityConnectionString=Host=pgsql;Database=identity_database;Username=admin;Password=Passw0rd!
+      - DB_HOST=pgsql
+      - DB_NAME=identity_database
+      - DB_USER=admin
+      - DB_PASSWORD=Passw0rd!
       - PATH_BASE=/identity
       - MENU_API_URL=http://localhost:8080/menu
       - ORDER_API_URL=http://localhost:8080/order

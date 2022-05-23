@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identity-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: identity-api
+  template:
+    metadata:
+      labels:
+        app: identity-api
+    spec:
+      containers:
+      - name: identity-api
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        image: jurabek/identity
+        env:
+        - name: OrchestrationType
+          value: k8s
+        - name: ASPNETCORE_ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: identity-api
+              key: env
+        - name: PATH_BASE
+          valueFrom:
+            configMapKeyRef:
+              name: identity-api
+              key: base.path
+        - name: BASKET_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: identity-api
+              key: basket.url
+        - name: MENU_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: identity-api
+              key: menu.url
+        - name: ORDER_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: identity-api
+              key: order.url
+        - name: DASHBOARD_APP_URL
+          valueFrom:
+            configMapKeyRef:
+              name: identity-api
+              key: dashboard.url
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: identity-api
+              key: db.host
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: identity-api
+              key: db.name
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: identity-api
+              key: db.username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: identity-api
+              key: db.password
+        readinessProbe:
+          httpGet:
+            path: /hc
+            port: 80
+          initialDelaySeconds: 60
+          timeoutSeconds: 5
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 5
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 15
+          successThreshold: 1
+          failureThreshold: 5
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"

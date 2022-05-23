@@ -3,7 +3,19 @@ import { NavLink } from "react-router-dom";
 import "./Footer.css";
 
 class Footer extends React.Component {
+  
+
   public render() {
+    const activeStyle = {
+      color: "#4282ad",
+      textDecoration: "underline"
+    };
+
+    const defaultStyle = {
+      textDecoration: "none",
+      color: "rgb(32, 32, 34)"
+    };
+
     return (
       <div
         style={{
@@ -24,28 +36,16 @@ class Footer extends React.Component {
           </div>
           <NavLink
             to={"/payment"}
-            exact
-            style={{
-              textDecoration: "none",
-              color: "rgb(32, 32, 34)"
-            }}
-            activeStyle={{
-              color: "#4282ad",
-              textDecoration: "underline"
+            style={(isActive) => {
+              return isActive ? activeStyle : defaultStyle;
             }}
           >
             <div className="footerItem">Terms of payment</div>
           </NavLink>
           <NavLink
             to={"/delivery"}
-            exact
-            style={{
-              textDecoration: "none",
-              color: "rgb(32, 32, 34)"
-            }}
-            activeStyle={{
-              color: "#4282ad",
-              textDecoration: "underline"
+            style={(isActive) => {
+              return isActive ? activeStyle : defaultStyle;
             }}
           >
             <div className="footerItem">Delivery</div>
@@ -59,14 +59,8 @@ class Footer extends React.Component {
           </div>
           <NavLink
             to={"/info"}
-            exact
-            style={{
-              textDecoration: "none",
-              color: "rgb(32, 32, 34)"
-            }}
-            activeStyle={{
-              color: "#4282ad",
-              textDecoration: "underline"
+            style={(isActive) => {
+              return isActive ? activeStyle : defaultStyle;
             }}
           >
             <div className="footerItem">Company Info</div>
@@ -81,10 +75,7 @@ class Footer extends React.Component {
           <a
             href="http://www.facebook.com"
             target="blank"
-            style={{
-              textDecoration: "none",
-              color: "rgb(32, 32, 34)"
-            }}
+            style= {defaultStyle}
           >
             <div className="footerItem">Facebook</div>
           </a>

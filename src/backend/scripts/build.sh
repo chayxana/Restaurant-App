@@ -23,27 +23,32 @@ main () {
 build_gateway_api(){
     cd ./gateway/restaurant-gateway/
     sh build.sh
+    cd -
 }
 
 build_order_api(){
     cd ./services/order.api/
     sh build.sh
+    cd -
 }
 
 build_basket_api() {
     cd ./services/basket.api/
     echo "#### Building Basket API"
     sh build.sh
+    cd -
 }
 
 build_identity_api() {
     cd ./services/identity.api/
     sh build.sh
+    cd -
 }
 
 build_menu_api() {
     cd ./services/menu.api/
     sh build.sh
+    cd -
 }
 
 main "$@"

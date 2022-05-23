@@ -77,7 +77,7 @@ func main() {
 			basket.DELETE(":id", controller.Delete)
 		}
 	}
-	authURL, _ := os.LookupEnv("IDENTITY_URL_PUB")
+	authURL, _ := os.LookupEnv("AUTH_URL")
 	authorizeURL := authURL + "/connect/authorize"
 	fmt.Fprintf(os.Stderr, "[DEBUG] Using Authorize URL: %s\r\n", authorizeURL)
 	docs.OverrideAuthURL(authorizeURL)

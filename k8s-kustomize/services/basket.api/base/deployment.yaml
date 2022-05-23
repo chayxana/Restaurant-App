@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: basket-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: basket-api
+  template:
+    metadata:
+      labels:
+        app: basket-api
+    spec:
+      containers:
+      - image: basket-api # must much from ./kustomization.yaml -> images[0].name
+        imagePullPolicy: IfNotPresent
+        name: basket-api
+        ports:
+        - containerPort: 5200
+        env:
+        - name: AUTH_AUTHORITY 
+          valueFrom:
+            configMapKeyRef:
+              name: basket-api
+              key: auth.authority 
+        - name: AUTH_URL 
+          valueFrom:
+            configMapKeyRef:
+              name: basket-api
+              key: auth.url 
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: basket-api
+              key: redis.host
+        - name: BASE_PATH
+          valueFrom:
+            configMapKeyRef:
+              name: basket-api
+              key: base.path
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "60m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"

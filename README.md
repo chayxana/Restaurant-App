@@ -1,5 +1,5 @@
 # Restaurant App 
-if you have any questions, don't hesitate to ask @jurabek0 on twitter.
+if you have any questions, don't hesitate to ask [me on twitter](https://twitter.com/jurabek0).
 
 [![Gitter](https://badges.gitter.im/Restaurant-App-Community/community.svg)](https://gitter.im/Restaurant-App-Community/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 

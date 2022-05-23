@@ -23,7 +23,9 @@ class RestApiClient {
 		});
 
 		instance.interceptors.request.use(config => {
-			config.headers.Authorization = `Bearer ${this.AccessToken}`;
+			if (config && config.headers) {
+				config.headers.Authorization = `Bearer ${this.AccessToken}`;
+			}
 			return config;
 		}, error => Promise.reject(error));
 

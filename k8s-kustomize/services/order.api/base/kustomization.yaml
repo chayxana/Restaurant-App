@@ -13,10 +13,11 @@ configMapGenerator:
   name: order-api
 
 secretGenerator:
-- name: order-api
-  envs: [".env.secret"]
+- envs:
+  - .env.secret
+  name: order-api
 
 images:
 - name: order-api
-  newName: ghcr.io/chayxana/order
-  newTag: 1.0.1
+  newName: ghcr.io/chayxana/order-api
+  newTag: 1.0.6

@@ -22,6 +22,14 @@ env:
   IMAGE_NAME: basket-api
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0                # fetch the whole repo history
+
   build:
     outputs:
       new-version: ${{ steps.version.outputs.new-version }}
@@ -134,7 +142,7 @@ jobs:
       - name: Change manifests
         env:
           KUSTOMIZE_IMAGE_NAME: basket-api
-          IMG: ${{ env.IMAGE_NAME }}:${{ needs.release.outputs.new-version }}
+          IMG: ghcr.io/chayxana/${{ env.IMAGE_NAME }}:${{ needs.release.outputs.new-version }}
         run: |
           cd ./manifests/services/${{ env.SERVICE_NAME }}/base
           kustomize edit set image $KUSTOMIZE_IMAGE_NAME=$IMG

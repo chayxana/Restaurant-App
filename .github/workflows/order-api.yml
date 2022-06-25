@@ -135,7 +135,7 @@ jobs:
       - name: Change manifests
         env:
           KUSTOMIZE_IMAGE_NAME: order-api
-          IMG: ${{ env.IMAGE_NAME }}:${{ needs.release.outputs.new-version }}
+          IMG: ghcr.io/chayxana/${{ env.IMAGE_NAME }}:${{ needs.release.outputs.new-version }}
         run: |
           cd ./manifests/services/${{ env.SERVICE_NAME }}/base
           kustomize edit set image $KUSTOMIZE_IMAGE_NAME=$IMG

@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - namespaces.yaml
   - istio
+  - github.com/kubernetes-sigs/gateway-api/config/crd?ref=v0.4.3

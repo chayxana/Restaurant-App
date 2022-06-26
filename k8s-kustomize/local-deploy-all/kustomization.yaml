@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - ../infrastructure
   - ../services/basket.api/dev
+  - ../services/order.api/dev

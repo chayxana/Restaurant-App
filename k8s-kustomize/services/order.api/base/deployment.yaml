@@ -50,7 +50,7 @@ spec:
           httpGet:
             path: /order/health
             port: 8090
-          initialDelaySeconds: 30
+          initialDelaySeconds: 60
           timeoutSeconds: 3
           periodSeconds: 30
           successThreshold: 1
@@ -66,8 +66,8 @@ spec:
           failureThreshold: 5
         resources:
           requests:
-            memory: "128Mi"
-            cpu: "300m"
+            memory: "512Mi"
+            cpu: "1"
           limits:
-            memory: "256Mi"
-            cpu: "400m"
+            memory: "1Gi"
+            cpu: "2"

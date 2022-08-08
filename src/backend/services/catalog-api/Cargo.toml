@@ -8,3 +8,4 @@ version = "0.1.0"
 [dependencies]
 rocket = {version = "0.5.0-rc.2", features = ["json"]}
 serde = {version = "1.0.137"}
+rand = {version = "0.8"}

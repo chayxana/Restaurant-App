@@ -16,8 +16,39 @@ pub struct CatalogReq {
 pub struct CatalogIn {
     pub id: String,
     pub name: String,
+    pub description: String,
+    pub image: String,
+    pub price: f32,
+    pub currency: String,
+    pub category: Option<String>,
 }
 pub type Catalogs = Vec<CatalogIn>;
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Category {
+    pub id: String,
+    pub name: String,
+}
+
+pub type Categories = Vec<Category>;
+
+pub struct CategoriesData {
+    pub data: Arc<Mutex<Categories>>,
+}
+
+impl CategoriesData {
+    pub fn new(items: Vec<String>) -> CategoriesData {
+        let mut vec: Vec<Category> = Categories::new();
+        vec.extend(items.into_iter().map(|x| Category {
+            id: "".to_string(),
+            name: x,
+        }));
+
+        CategoriesData {
+            data: Arc::new(Mutex::new(vec))
+        }
+    }
+}
 
 pub struct CatalogsData {
     pub data: Arc<Mutex<Catalogs>>,
@@ -31,3 +62,4 @@ impl CatalogsData {
         }
     }
 }
+

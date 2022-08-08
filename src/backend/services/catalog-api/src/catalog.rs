@@ -1,7 +1,8 @@
-use std::sync::Arc;
 use crate::models::{CatalogIn, Catalogs, CatalogsData};
-use rocket::serde::json::{Json};
+
+use rocket::serde::json::Json;
 use rocket::State;
+use std::sync::Arc;
 
 #[get("/")]
 pub fn index() -> &'static str {

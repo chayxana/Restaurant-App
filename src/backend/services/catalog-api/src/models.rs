@@ -13,7 +13,7 @@ pub struct CatalogReq {
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(crate = "rocket::serde")]
-pub struct CatalogIn {
+pub struct Catalog {
     pub id: String,
     pub name: String,
     pub description: String,
@@ -22,7 +22,7 @@ pub struct CatalogIn {
     pub currency: String,
     pub category: Option<String>,
 }
-pub type Catalogs = Vec<CatalogIn>;
+pub type Catalogs = Vec<Catalog>;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Category {
@@ -55,8 +55,9 @@ pub struct CatalogsData {
 }
 
 impl CatalogsData {
-    pub fn new() -> CatalogsData {
-        let vec: Vec<CatalogIn> = Catalogs::new();
+    pub fn new(items: Vec<Catalog>) -> CatalogsData {
+        let mut vec: Vec<Catalog> = Catalogs::new();
+        vec.extend(items);
         CatalogsData {
             data: Arc::new(Mutex::new(vec))
         }

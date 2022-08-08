@@ -12,12 +12,9 @@ mod upload;
 #[launch]
 async fn rocket() -> _ {
     let categories = seed::Seed::get_categories().await;
-    // print!("{:?}", categories);
-
     let dishes = seed::Seed::get_dishes(&categories).await;
-    print!("Len {:?}", dishes);
 
-    let catalogs = CatalogsData::new();
+    let catalogs = CatalogsData::new(dishes);
     let category_data = CategoriesData::new(categories);
 
     rocket::build()
@@ -29,6 +26,5 @@ async fn rocket() -> _ {
             routes![catalog::create, catalog::update, catalog::delete],
         )
         .mount("/catalogs", routes![catalog::get_catalogs])
-        .mount("/upload", routes![upload::upload])
-        .mount("/retrieve", routes![upload::retrieve])
+        .mount("/file", routes![upload::upload, upload::retrieve],)
 }

@@ -150,6 +150,7 @@ dependencies = [
  "rand",
  "rocket",
  "serde",
+ "uuid",
 ]
 
 [[package]]
@@ -1363,6 +1364,16 @@ checksum = "9f214e8f697e925001e66ec2c6e37a4ef93f0f78c2eed7814394e10c62025b05"
 dependencies = [
  "generic-array",
  "subtle",
+]
+
+[[package]]
+name = "uuid"
+version = "1.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dd6469f4314d5f1ffec476e05f17cc9a78bc7a27a6a857842170bdf8d6f98d2f"
+dependencies = [
+ "getrandom",
+ "serde",
 ]
 
 [[package]]

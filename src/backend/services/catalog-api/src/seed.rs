@@ -1,7 +1,8 @@
 use rocket::tokio::fs;
+use uuid::Uuid;
 use std::path::{Path, PathBuf};
 
-use crate::models::{CatalogIn};
+use crate::models::{Catalog};
 
 pub struct Seed;
 
@@ -22,7 +23,7 @@ impl Seed {
         result
     }
 
-    pub async fn get_dishes(categories: &Vec<String>) -> Vec<CatalogIn> {
+    pub async fn get_dishes(categories: &Vec<String>) -> Vec<Catalog> {
         let contents = fs::read(file_path(String::from("dishes.csv")))
             .await
             .unwrap();
@@ -34,15 +35,15 @@ impl Seed {
             .map(|i| get_dish(i.collect::<Vec<_>>(), categories))
             .collect::<Vec<_>>();
 
-        let mut result: Vec<CatalogIn> = vec![];
+        let mut result: Vec<Catalog> = vec![];
         result.extend(v.drain(..));
         result
     }
 }
 
-fn get_dish(columns: Vec<&str>, categories: &Vec<String>) -> CatalogIn {
-    CatalogIn {
-        id: "".to_string(),
+fn get_dish(columns: Vec<&str>, categories: &Vec<String>) -> Catalog {
+    Catalog {
+        id: Uuid::new_v4().to_string(),
         name: columns[2].to_string(),
         description: columns[3].to_string().replace(":", ","),
         image: columns[0].to_string() + ".jpg",

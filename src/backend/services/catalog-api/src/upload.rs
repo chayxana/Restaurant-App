@@ -12,7 +12,7 @@ use crate::paste_id::PasteId;
 const HOST: Absolute<'static> = uri!("http://localhost:8000");
 const ID_LENGTH: usize = 3;
 
-#[post("/", data = "<paste>")]
+#[post("/upload", data = "<paste>")]
 pub async fn upload(paste: Data<'_>) -> io::Result<String> {
     let id = PasteId::new(ID_LENGTH);
     paste
@@ -22,7 +22,7 @@ pub async fn upload(paste: Data<'_>) -> io::Result<String> {
     Ok(uri!(HOST, retrieve(id)).to_string())
 }
 
-#[get("/<id>")]
+#[get("/retrieve/<id>")]
 pub async fn retrieve(id: PasteId<'_>) -> Option<RawText<File>> {
     File::open(id.file_path()).await.map(RawText).ok()
 }

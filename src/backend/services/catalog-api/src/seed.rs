@@ -46,7 +46,7 @@ fn get_dish(columns: Vec<&str>, categories: &Vec<String>) -> Catalog {
         id: Uuid::new_v4().to_string(),
         name: columns[2].to_string(),
         description: columns[3].to_string().replace(":", ","),
-        image: columns[0].to_string() + ".jpg",
+        image: format!("/pictures/{}.jpg", columns[0].to_string()),
         price: columns[4].parse::<f32>().unwrap(),
         currency: "USD".to_string(),
         category: categories

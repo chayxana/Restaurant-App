@@ -1,6 +1,7 @@
 #[macro_use]
 extern crate rocket;
 
+use rocket::fs::{FileServer, relative};
 use crate::models::{CatalogsData, CategoriesData};
 
 mod catalog;
@@ -26,5 +27,6 @@ async fn rocket() -> _ {
             routes![catalog::create, catalog::update, catalog::delete],
         )
         .mount("/catalogs", routes![catalog::get_catalogs])
-        .mount("/file", routes![upload::upload, upload::retrieve],)
+        .mount("/file", routes![upload::upload, upload::retrieve])
+        .mount("/pictures", FileServer::from(relative!("pictures")))
 }

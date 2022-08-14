@@ -4,14 +4,12 @@ import com.jurabek.restaurant.order.api.dtos.CustomerBasketDto;
 import com.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
 import com.jurabek.restaurant.order.api.services.OrdersService;
 
-import org.hamcrest.core.IsSame;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import static org.junit.Assert.*;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +20,7 @@ import static org.mockito.Mockito.*;
 /**
  * OrdersControllerTests
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class OrdersControllerTests {
 
     @Mock
@@ -72,7 +70,7 @@ public class OrdersControllerTests {
 
         when(ordersService.getAll()).thenReturn(mockResults);
         List<CustomerOrderDto> result = ordersController.getData();
-        assertEquals(mockResults, result);
+        Assertions.assertEquals(mockResults, result);
         verify(ordersService, times(1)).getAll();
     }
 
@@ -86,6 +84,6 @@ public class OrdersControllerTests {
 
         List<CustomerOrderDto> result = ordersController.getOrderByCustomerId(customerId);
 
-        Assert.assertThat(customerOrderDtos.get(0), IsSame.sameInstance(result.get(0)));
+        Assertions.assertEquals(customerOrderDtos.get(0), result.get(0));
     }
 }

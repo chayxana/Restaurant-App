@@ -5,13 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.hamcrest.core.IsEqual;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-@RunWith(MockitoJUnitRunner.class)
 public class OrderTest {
     @Test
     public void TestGetAndSetOrderEntity() {
@@ -32,12 +28,12 @@ public class OrderTest {
         order.setCreatedAt(orderDate);
         order.setUpdatedAt(orderDate);
 
-        Assert.assertThat(buyerId, IsEqual.equalTo((order.getBuyerId())));
-        Assert.assertThat(orderId, IsEqual.equalTo((order.getId())));
-        Assert.assertThat(orderDate, IsEqual.equalTo((order.getOrderedDate())));
-        Assert.assertThat(orderDate, IsEqual.equalTo((order.getCreatedAt())));
-        Assert.assertThat(orderDate, IsEqual.equalTo((order.getUpdatedAt())));
-        Assert.assertThat(orderDate, IsEqual.equalTo((order.getUpdatedAt())));
-        Assert.assertTrue(order.getOrderItems().contains(orderItem));
+        Assertions.assertEquals(buyerId, order.getBuyerId());
+        Assertions.assertEquals(orderId, order.getId());
+        Assertions.assertEquals(orderDate, order.getOrderedDate());
+        Assertions.assertEquals(orderDate, order.getCreatedAt());
+        Assertions.assertEquals(orderDate, order.getUpdatedAt());
+        Assertions.assertEquals(orderDate, order.getUpdatedAt());
+        Assertions.assertTrue(order.getOrderItems().contains(orderItem));
     }
 }

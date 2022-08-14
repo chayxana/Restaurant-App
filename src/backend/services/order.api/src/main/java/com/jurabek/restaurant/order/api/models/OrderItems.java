@@ -23,7 +23,7 @@ public class OrderItems extends AuditModel {
 
     private String foodName;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = com.jurabek.restaurant.order.api.models.Order.class)
+    @ManyToOne(targetEntity = com.jurabek.restaurant.order.api.models.Order.class)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 

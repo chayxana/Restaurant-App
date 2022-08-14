@@ -1,32 +1,33 @@
 package com.jurabek.restaurant.order.api.controllers;
 
-import com.jurabek.restaurant.order.api.Application;
-
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.jurabek.restaurant.order.api.Application;
 
 /**
  * OrdersControllerIntegrationTests
  */
-@RunWith(SpringRunner.class)
+@Disabled
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = Application.class)
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class OrdersControllerIntegrationTests {
     // @Autowired
     // private TestRestTemplate restTemplate;
-    
-    @LocalServerPort
+
+    @Value("${local.server.port}")
     private int port;
 
     @Test
-    @Ignore
+    @Disabled
     public void greetingShouldReturnDefaultMessage() throws Exception {
-        
+
     }
 }

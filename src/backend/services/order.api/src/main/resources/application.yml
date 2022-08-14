@@ -6,10 +6,11 @@ server:
 
 # Spring Boot initialization time improvements
 spring:
+
   main:
-    lazy-initialization: true
-  jmx:
-    enabled: true
+    # lazy-initialization: true
+  # jmx:
+  #   enabled: true
   application:
     name: order-service
   jpa:
@@ -23,6 +24,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/restaurant_orders_database
     username: jurabek
     password:
+    initialization-mode: never
 
   security:
     oauth2:

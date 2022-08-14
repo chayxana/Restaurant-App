@@ -7,15 +7,15 @@ import static org.mockito.Mockito.when;
 
 import com.jurabek.restaurant.order.api.config.EndpointsConfiguration;
 
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestTemplate;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class CustomerBasketServiceTests {
     @Mock
     EndpointsConfiguration configuration;
@@ -27,7 +27,7 @@ public class CustomerBasketServiceTests {
     CustomerBasketServiceIml customerBasketService;
 
     @Test
-    @Ignore
+    @Disabled
     public void clearCustomerBasket_Should_Send_Http_Request_to_Basket_API_and_clean_basket_by_customer_id() {
         // Arrange
         when(configuration.getBasketUrl()).thenReturn("http://basket_url");

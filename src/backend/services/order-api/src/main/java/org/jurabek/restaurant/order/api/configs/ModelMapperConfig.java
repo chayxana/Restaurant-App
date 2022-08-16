@@ -1,5 +1,7 @@
 package org.jurabek.restaurant.order.api.configs;
 
+import java.util.Random;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 
@@ -20,6 +22,8 @@ import org.modelmapper.convention.MatchingStrategies;
 @ApplicationScoped
 public class ModelMapperConfig {
 
+    static Random random = new Random();
+    
     @Produces
     public ModelMapper modelMapper() {
         var modelMapper = new ModelMapper();

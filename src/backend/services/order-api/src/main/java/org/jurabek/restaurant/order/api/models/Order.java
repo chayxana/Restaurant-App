@@ -5,13 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,14 +16,17 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
  */
 @Entity
 @Table(name = "orders")
+@NamedQueries(value = {
+        @NamedQuery(name = "Orders.fetchAll", query = "SELECT o FROM Order o LEFT JOIN FETCH o.orderItems")
+})
 public class Order extends PanacheEntityBase {
     @Column(nullable = false)
     @Id
-    @GeneratedValue( generator = "UUID" )
-    @GenericGenerator(
-        name = "UUID",
-        strategy = "org.hibernate.id.UUIDGenerator"
-    )
+//    @GeneratedValue( generator = "UUID" )
+//    @GenericGenerator(
+//        name = "UUID",
+//        strategy = "org.hibernate.id.UUIDGenerator"
+//    )
     private UUID id;
     
     @Column(nullable = false)
@@ -51,7 +48,7 @@ public class Order extends PanacheEntityBase {
         this.orderedDate = orderedDate;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order", orphanRemoval = true)
     private List<OrderItems> orderItems;
 
     /**

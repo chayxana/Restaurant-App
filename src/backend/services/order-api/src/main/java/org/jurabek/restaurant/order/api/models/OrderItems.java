@@ -2,13 +2,7 @@ package org.jurabek.restaurant.order.api.models;
 
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -19,11 +13,11 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 public class OrderItems  extends PanacheEntityBase { 
     @Column(nullable = false)
     @Id
-    @GeneratedValue( generator = "UUID" )
-    @GenericGenerator(
-        name = "UUID",
-        strategy = "org.hibernate.id.UUIDGenerator"
-    )
+//    @GeneratedValue( generator = "UUID" )
+//    @GenericGenerator(
+//        name = "UUID",
+//        strategy = "org.hibernate.id.UUIDGenerator"
+//    )
     private UUID id;
     
     @Column(nullable = false)
@@ -35,8 +29,8 @@ public class OrderItems  extends PanacheEntityBase {
 
     private String foodName;
 
-    @ManyToOne(targetEntity = org.jurabek.restaurant.order.api.models.Order.class)
-    @JoinColumn(name = "order_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "order_id_fk"))
     private Order order;
 
     /**

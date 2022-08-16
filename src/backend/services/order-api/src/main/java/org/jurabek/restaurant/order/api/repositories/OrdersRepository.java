@@ -17,4 +17,8 @@ public class OrdersRepository implements PanacheRepositoryBase<Order, UUID> {
     public List<Order> getByBuyerId(UUID buyerId) {
         return find("buyerId", buyerId).firstResult();
     }
+
+    public List<Order> fetchAll() {
+      return find("#Orders.fetchAll").list();
+    }
 }

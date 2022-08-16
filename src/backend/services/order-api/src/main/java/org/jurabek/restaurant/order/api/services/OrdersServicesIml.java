@@ -2,19 +2,18 @@ package org.jurabek.restaurant.order.api.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 import org.jurabek.restaurant.order.api.dtos.CustomerBasketDto;
 import org.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
 import org.jurabek.restaurant.order.api.models.Order;
 import org.jurabek.restaurant.order.api.models.OrderItems;
 import org.jurabek.restaurant.order.api.repositories.OrdersRepository;
-
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import java.util.UUID;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 /**
  * OrdersServicesIml
@@ -22,9 +21,8 @@ import javax.inject.Inject;
 @ApplicationScoped
 public class OrdersServicesIml implements OrdersService {
 
-    
-    private OrdersRepository ordersRepository;
-    private ModelMapper modelMapper;
+    private final OrdersRepository ordersRepository;
+    private final ModelMapper modelMapper;
 
     @Inject
     public OrdersServicesIml(OrdersRepository ordersRepository, ModelMapper modelMapper) {
@@ -43,7 +41,7 @@ public class OrdersServicesIml implements OrdersService {
 
     @Override
     public List<CustomerOrderDto> getAll() {
-        var orders = this.ordersRepository.findAll();
+        var orders = this.ordersRepository.fetchAll();
         var orderDtoType = new TypeToken<ArrayList<CustomerOrderDto>>() {}.getType();
         return modelMapper.map(orders, orderDtoType);
 	}

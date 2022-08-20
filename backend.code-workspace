@@ -1,16 +1,12 @@
 {
 	"folders": [
 		{
-			"name": "root",
-			"path": "./src/backend/"
-		},
-		{
 			"name": "github",
 			"path": ".github"
 		},
 		{
 			"name": "k8s-kustomize",
-			"path": "./k8s-kustomize"
+			"path": "./k8s-kustomize", 
 		},	
 		{
 			"name": "basket-api",
@@ -25,8 +21,16 @@
 			"path": "./src/backend/services/menu.api"
 		},
 		{
+			"name": "catalog-api",
+			"path": "./src/backend/services/catalog-api"
+		},
+		{
 			"name": "order-api",
 			"path": "./src/backend/services/order.api"
+		},
+		{
+			"name": "order-api-quarkus",
+			"path": "./src/backend/services/order-api"
 		},
 		{
 			"name": "nginx",
@@ -41,9 +45,6 @@
 			"path": "./src/backend/web/web.client/web-app"
 		},
 		{
-			"path": "./src/backend/k8s"
-		},
-		{
 			"path": "./src/backend/scripts"
 		}
 	],
@@ -53,6 +54,7 @@
 			"**/.project": true,
 			"**/.settings": true,
 			"**/.factorypath": true
-		}
+		},
+		"java.configuration.updateBuildConfiguration": "interactive"
 	}
 }

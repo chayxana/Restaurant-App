@@ -13,5 +13,4 @@ runs:
         cd ${{ inputs.service-name }}
         ./gradlew clean
         ./gradlew build
-        ./gradlew test jacocoTestReport
       shell: bash

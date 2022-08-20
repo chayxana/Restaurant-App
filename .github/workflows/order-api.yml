@@ -37,6 +37,9 @@ jobs:
         java-version: '17'
         components: 'native-image'
         github-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
     
     - uses: actions/cache@v1
       with:

@@ -5,17 +5,17 @@ on:
     branches:
       - develop
     paths:
-      - 'src/backend/services/order.api/**'
+      - 'src/backend/services/order-api/**'
       - '.github/workflows/order-api.yml'
   pull_request:
     branches:
     - develop
     paths:
-    - 'src/backend/services/order.api/**'
+    - 'src/backend/services/order-api/**'
     - '.github/workflows/order-api.yml'
 
 env:
-  SERVICE_NAME: order.api
+  SERVICE_NAME: order-api
   ARTIFACT_NAME: order-api-artifact
   IMAGE_NAME: order-api
 
@@ -30,16 +30,18 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: '0'
-
-    - name: Set up JDK
-      uses: actions/setup-java@v1
+      
+    - uses: graalvm/setup-graalvm@v1
       with:
-        java-version: 11
+        version: '22.2.0'
+        java-version: '17'
+        components: 'native-image'
+        github-token: ${{ secrets.GITHUB_TOKEN }}
     
     - uses: actions/cache@v1
       with:
         path: ~/.gradle/caches
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/order.api/build.gradle') }}
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/order-api/build.gradle') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
     
@@ -69,7 +71,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: ${{ env.ARTIFACT_NAME }}
-        path: ./src/backend/services/${{ env.SERVICE_NAME }}/build/libs/order.api-${{ env.VERSION }}.jar
+        path: ./src/backend/services/${{ env.SERVICE_NAME }}/build/order-api-${{ env.VERSION }}-runner
       env:
         VERSION: ${{ steps.version.outputs.new-version }}
 

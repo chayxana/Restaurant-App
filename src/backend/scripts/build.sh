@@ -8,8 +8,6 @@ main () {
         order_api) build_order_api ;;
         identity_api) build_identity_api ;;
         menu_api) build_menu_api ;;
-        gateway_api) build_gateway_api ;;
-        service_discovery) build_service_discovery ;;
         all)
             build_basket_api
             build_order_api
@@ -20,14 +18,8 @@ main () {
     esac
 }
 
-build_gateway_api(){
-    cd ./gateway/restaurant-gateway/
-    sh build.sh
-    cd -
-}
-
 build_order_api(){
-    cd ./services/order.api/
+    cd ./services/order-api/
     sh build.sh
     cd -
 }

@@ -15,7 +15,7 @@ on:
     - '.github/workflows/order-api.yml'
 
 env:
-  SERVICE_NAME: order.api
+  SERVICE_NAME: order-api
   ARTIFACT_NAME: order-api-artifact
   IMAGE_NAME: order-api
 
@@ -35,13 +35,13 @@ jobs:
       with:
         version: '22.2.0'
         java-version: '17'
-        components: 'native-image'
+        components: 'native-image
         github-token: ${{ secrets.GITHUB_TOKEN }}
     
     - uses: actions/cache@v1
       with:
         path: ~/.gradle/caches
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/order.api/build.gradle') }}
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/order-api/build.gradle') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
     
@@ -71,7 +71,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: ${{ env.ARTIFACT_NAME }}
-        path: ./src/backend/services/${{ env.SERVICE_NAME }}/build/order.api-${{ env.VERSION }}-runner
+        path: ./src/backend/services/${{ env.SERVICE_NAME }}/build/order-api-${{ env.VERSION }}-runner
       env:
         VERSION: ${{ steps.version.outputs.new-version }}
 

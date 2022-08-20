@@ -1,6 +1,5 @@
 package org.jurabek.restaurant.order.api.services;
 
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

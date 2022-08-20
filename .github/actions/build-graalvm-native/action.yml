@@ -19,6 +19,5 @@ runs:
         cd ${{ inputs.service-name }}
         VERSION=${{ inputs.app-version }}
         SHA=${{ inputs.commit-sha }}
-        ./gradlew clean
-        ./gradlew assemble -Pversion=$VERSION -PgitCommitSha=$SHA
+        ./gradlew build -Dquarkus.package.type=native -Pversion=$VERSION -PgitCommitSha=$SHA 
       shell: bash

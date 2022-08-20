@@ -61,10 +61,26 @@ jobs:
     # ✏️ If the Autobuild fails above, remove it and uncomment the following three lines
     #    and modify them (or add more) to build your code if your project
     #    uses a compiled language
+    
+    - if: matrix.language == 'javascript' 
+      name: Autobuild
+      uses: github/codeql-action/autobuild@v2
 
-    - run: |
-        cd ./src/backend/ 
-        sh ./scripts/build.sh all
+    - if: matrix.language = 'go'
+      name: Build Go
+      run: |
+       bash ./src/backend/services/basket.api/build.sh 
+
+    - if: matrix.language == 'csharp'
+      name: Build C#
+      run: |
+        bash ./src/backend/services/identity.api/build.sh
+
+    - if: matrix.language == 'java' 
+      name: Build Java
+      run: |
+       bash ./src/backend/services/order-api/build.sh 
+        
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1

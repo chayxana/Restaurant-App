@@ -1,5 +1,8 @@
 #!/bin/sh
 
+srcdir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )
+cd $srcdir
+
 echo "Restoring Menu.API"
 dotnet restore Menu.API/Menu.API.csproj
 

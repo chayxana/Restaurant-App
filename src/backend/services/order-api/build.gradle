@@ -29,7 +29,7 @@ dependencies {
 }
 
 group = 'org.jurabek'
-version = '1.0.0' 
+version = version 
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17

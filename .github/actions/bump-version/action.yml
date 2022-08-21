@@ -27,10 +27,6 @@ runs:
         chmod +x ./src/scripts/semver
         NEW_VER=$(./src/scripts/semver bump patch $CURR_VER)
 
-        if [ "$SERVICE_TYPE" == "gradle" ]; then
-          echo version=$NEW_VER > ${{ inputs.service-name }}/gradle.properties
-        fi
-
         echo $NEW_VER > ${{ inputs.service-name }}/version
 
         echo ::set-output name=current-number::${CURR_VER}

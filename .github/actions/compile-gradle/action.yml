@@ -11,6 +11,6 @@ runs:
   steps:
     - run: |
         cd ${{ inputs.service-name }}
-        ./gradlew clean
-        ./gradlew build
+        gradle clean
+        gradle build
       shell: bash

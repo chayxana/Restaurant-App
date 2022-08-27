@@ -90,7 +90,7 @@ jobs:
         origin-branch: ${{ github.ref }}
 
   analyze:
-    name: Analyze
+    name: analyze
     runs-on: ubuntu-latest
     permissions:
       actions: read

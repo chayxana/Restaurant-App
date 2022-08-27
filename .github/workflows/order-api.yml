@@ -89,13 +89,41 @@ jobs:
       with:
         origin-branch: ${{ github.ref }}
 
+  analyze:
+    name: analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin' # See 'Supported distributions' for available options
+        java-version: '17' # See 'Supported Java versions' for available options
+    
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: java
+    
+    - name: Build Java
+      run: |
+       bash ./src/backend/services/order-api/build.sh
+    
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
 
   release:
     if: github.ref == 'refs/heads/develop'
     outputs:
       new-version: ${{ needs.build.outputs.new-version }}
       current-version: ${{ needs.build.outputs.current-version }}
-    needs: build
+    needs: 
+      - build
     runs-on: ubuntu-latest
     
     steps:
@@ -120,7 +148,7 @@ jobs:
         registry: ghcr.io/chayxana
         image: ${{ env.IMAGE_NAME }}
         docker-file: ./src/backend/services/${{ env.SERVICE_NAME }}/release.Dockerfile
-        source-file: ${{ env.ARTIFACT_NAME }}/${{ env.SERVICE_NAME }}-${{ needs.build.outputs.new-version }}.jar
+        source-file: ${{ env.ARTIFACT_NAME }}/${{ env.SERVICE_NAME }}-${{ needs.build.outputs.new-version }}-runner
 
   update-manifests:
     if: github.ref == 'refs/heads/develop'

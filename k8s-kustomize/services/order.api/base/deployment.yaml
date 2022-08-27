@@ -19,36 +19,35 @@ spec:
         ports:
           - containerPort: 8090
         env:
-        - name: SERVER_SERVLET_CONTEXT_PATH
-          value: /order
-        - name: AUTH_URL 
-          valueFrom:
-            configMapKeyRef:
-              name: order-api
-              key: auth.url 
         - name: BASKET_URL
           valueFrom:
             configMapKeyRef:
               name: order-api
               key: basket.url
-        - name: SPRING_DATASOURCE_URL
+        - name: QUARKUS_PROFILE
+          valueFrom:
+            configMapKeyRef:
+              name: order-api
+              key: env.var
+
+        - name: QUARKUS_DATASOURCE_JDBC_URL
           valueFrom:
             configMapKeyRef:
               name: order-api
               key: datasource.url
-        - name: SPRING_DATASOURCE_USERNAME
+        - name: QUARKUS_DATASOURCE_USERNAME
           valueFrom:
             secretKeyRef:
               name: order-api
               key: db.username
-        - name: SPRING_DATASOURCE_PASSWORD
+        - name: QUARKUS_DATASOURCE_PASSWORD
           valueFrom:
             secretKeyRef:
               name: order-api
               key: db.password
         readinessProbe:
           httpGet:
-            path: /order/health
+            path: /q/health/ready
             port: 8090
           initialDelaySeconds: 60
           timeoutSeconds: 3
@@ -57,7 +56,7 @@ spec:
           failureThreshold: 5
         livenessProbe:
           httpGet:
-            path: /order/health
+            path: /q/health/live 
             port: 8090
           initialDelaySeconds: 60
           timeoutSeconds: 3
@@ -66,8 +65,8 @@ spec:
           failureThreshold: 5
         resources:
           requests:
-            memory: "512Mi"
-            cpu: "1"
+            memory: "128Mi"
+            cpu: ".3"
           limits:
-            memory: "1Gi"
-            cpu: "2"
+            memory: "256Mi"
+            cpu: ".5"

@@ -12,7 +12,7 @@ When you are using `docker` all services url's will be exposed only via `nginx` 
 
 - [Dashboard App](http://localhost:8080/dashboard)
 - [Swagger API for Menu.API](http://localhost:8080/menu/swagger/index.html)
-- [Swagger API for Order.API](http://localhost:8080/order/swagger-ui.html)
+- [Swagger API for Order.API](http://localhost:8080/order/q/swagger-ui/)
 - [Swagger API for Basket.API](http://localhost:8080/basket/swagger/index.html)
 
 

@@ -1,14 +1,20 @@
 package org.jurabek.restaurant.order.api.models;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,31 +31,12 @@ import lombok.Setter;
 public class Order extends PanacheEntityBase {
     @Column(nullable = false)
     @Id
-//    @GeneratedValue( generator = "UUID" )
-//    @GenericGenerator(
-//        name = "UUID",
-//        strategy = "org.hibernate.id.UUIDGenerator"
-//    )
     private UUID id;
-    
+
     @Column(nullable = false)
     private UUID buyerId;
 
     private Date orderedDate;
-
-    /**
-     * @return the orderedDate
-     */
-    public Date getOrderedDate() {
-        return orderedDate;
-    }
-
-    /**
-     * @param orderedDate the orderedDate to set
-     */
-    public void setOrderedDate(Date orderedDate) {
-        this.orderedDate = orderedDate;
-    }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order", orphanRemoval = true)
     private List<OrderItems> orderItems;

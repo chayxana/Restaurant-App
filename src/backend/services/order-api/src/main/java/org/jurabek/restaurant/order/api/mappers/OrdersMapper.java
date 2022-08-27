@@ -21,9 +21,8 @@ public class OrdersMapper {
         var order = new Order();
         var items = source.getItems()
                 .stream()
-                .map(i -> mapDtoToOrderItems(i))
+                .map(this::mapDtoToOrderItems)
                 .collect(Collectors.toList());
-        
                 order.setOrderItems(items);
         order.setId(UUID.randomUUID());
         order.setOrderedDate(new Date());
@@ -47,7 +46,7 @@ public class OrdersMapper {
 
         var orderItems = order.getOrderItems()
                 .stream()
-                .map(items -> mapOrderItemsToDto(items))
+                .map(this::mapOrderItemsToDto)
                 .collect(Collectors.toList());
 
         dto.setOrderItems(orderItems);
@@ -56,7 +55,7 @@ public class OrdersMapper {
     }
 
     public List<CustomerOrderDto> mapOrdersToDtos(List<Order> orders) {
-        return orders.stream().map(o -> mapOrderToDto(o)).collect(Collectors.toList());
+        return orders.stream().map(this::mapOrderToDto).collect(Collectors.toList());
     }
 
     public CustomerOrderItemsDto mapOrderItemsToDto(OrderItems source) {

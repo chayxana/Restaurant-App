@@ -29,8 +29,6 @@ spec:
     spec:
       containers:
       - env:
-        - name: PGDATA
-          value: /pg
         - name: POSTGRES_DB
           value: orderdb
         - name: POSTGRES_PASSWORD
@@ -49,6 +47,13 @@ spec:
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           name: order-database-data
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: ".5"
+          limits:
+            memory: "1Gi"
+            cpu: 1
       restartPolicy: Always
       volumes:
       - name: order-database-data

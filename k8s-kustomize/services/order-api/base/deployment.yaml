@@ -45,28 +45,24 @@ spec:
             secretKeyRef:
               name: order-api
               key: db.password
+        - name: QUARKUS_HTTP_ROOT_PATH
+          value: /order
         readinessProbe:
           httpGet:
             path: /q/health/ready
             port: 8090
-          initialDelaySeconds: 60
-          timeoutSeconds: 3
-          periodSeconds: 30
-          successThreshold: 1
-          failureThreshold: 5
+          initialDelaySeconds: 3
+          periodSeconds: 10
         livenessProbe:
           httpGet:
             path: /q/health/live 
             port: 8090
-          initialDelaySeconds: 60
-          timeoutSeconds: 3
-          periodSeconds: 30
-          successThreshold: 1
-          failureThreshold: 5
+          initialDelaySeconds: 3
+          periodSeconds: 10
         resources:
           requests:
-            memory: "128Mi"
-            cpu: ".3"
+            memory: "32Mi"
+            cpu: "60m"
           limits:
-            memory: "256Mi"
-            cpu: ".5"
+            memory: "128Mi"
+            cpu: "100m"

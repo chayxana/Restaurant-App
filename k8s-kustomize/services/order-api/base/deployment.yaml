@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-api
+  template:
+    metadata:
+      labels:
+        app: order-api
+    spec:
+      containers:
+      - image: order-api # must much from ./kustomization.yaml -> images[0].name
+        imagePullPolicy: IfNotPresent
+        name: order-api
+        ports:
+          - containerPort: 8090
+        env:
+        - name: BASKET_URL
+          valueFrom:
+            configMapKeyRef:
+              name: order-api
+              key: basket.url
+        - name: QUARKUS_PROFILE
+          valueFrom:
+            configMapKeyRef:
+              name: order-api
+              key: env.var
+
+        - name: QUARKUS_DATASOURCE_JDBC_URL
+          valueFrom:
+            configMapKeyRef:
+              name: order-api
+              key: datasource.url
+        - name: QUARKUS_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: order-api
+              key: db.username
+        - name: QUARKUS_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: order-api
+              key: db.password
+        readinessProbe:
+          httpGet:
+            path: /q/health/ready
+            port: 8090
+          initialDelaySeconds: 60
+          timeoutSeconds: 3
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 5
+        livenessProbe:
+          httpGet:
+            path: /q/health/live 
+            port: 8090
+          initialDelaySeconds: 60
+          timeoutSeconds: 3
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 5
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: ".3"
+          limits:
+            memory: "256Mi"
+            cpu: ".5"

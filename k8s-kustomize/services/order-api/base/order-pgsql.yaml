@@ -5,7 +5,7 @@ metadata:
   name: order-database-data
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 100Mi
@@ -28,37 +28,37 @@ spec:
         app: order-pgsql-database
     spec:
       containers:
-      - env:
-        - name: POSTGRES_DB
-          value: orderdb
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: order-api
-              key: db.password
-        - name: POSTGRES_USER
-          valueFrom:
-            secretKeyRef:
-              name: order-api
-              key: db.username
-        image: postgres:alpine
-        imagePullPolicy: IfNotPresent
-        name: pgsql
-        volumeMounts:
-        - mountPath: /var/lib/postgresql/data
-          name: order-database-data
-        resources:
-          requests:
-            memory: "512Mi"
-            cpu: ".5"
-          limits:
-            memory: "1Gi"
-            cpu: "1"
+        - env:
+            - name: POSTGRES_DB
+              value: orderdb
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: order-api
+                  key: db.password
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: order-api
+                  key: db.username
+          image: postgres:alpine
+          imagePullPolicy: IfNotPresent
+          name: pgsql
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: order-database-data
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: ".5"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
       restartPolicy: Always
       volumes:
-      - name: order-database-data
-        persistentVolumeClaim:
-          claimName: order-database-data
+        - name: order-database-data
+          persistentVolumeClaim:
+            claimName: order-database-data
 ---
 apiVersion: v1
 kind: Service
@@ -69,7 +69,7 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 5432
-    targetPort: 5432
+    - port: 5432
+      targetPort: 5432
   selector:
     app: order-pgsql-database

@@ -9,6 +9,7 @@ mod models;
 mod paste_id;
 mod seed;
 mod upload;
+mod category;
 
 #[launch]
 async fn rocket() -> _ {
@@ -22,6 +23,7 @@ async fn rocket() -> _ {
         .manage(catalogs)
         .manage(category_data)
         .mount("/", routes![catalog::index])
+        .mount("/categories", routes![category::get_categories])
         .mount(
             "/catalog",
             routes![catalog::create, catalog::update, catalog::delete],

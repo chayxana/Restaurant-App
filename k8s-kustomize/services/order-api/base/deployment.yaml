@@ -13,56 +13,56 @@ spec:
         app: order-api
     spec:
       containers:
-      - image: order-api # must much from ./kustomization.yaml -> images[0].name
-        imagePullPolicy: IfNotPresent
-        name: order-api
-        ports:
-          - containerPort: 8090
-        env:
-        - name: BASKET_URL
-          valueFrom:
-            configMapKeyRef:
-              name: order-api
-              key: basket.url
-        - name: QUARKUS_PROFILE
-          valueFrom:
-            configMapKeyRef:
-              name: order-api
-              key: env.var
+        - image: order-api # must much from ./kustomization.yaml -> images[0].name
+          imagePullPolicy: IfNotPresent
+          name: order-api
+          ports:
+            - containerPort: 8090
+          env:
+            - name: BASKET_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: order-api
+                  key: basket.url
+            - name: QUARKUS_PROFILE
+              valueFrom:
+                configMapKeyRef:
+                  name: order-api
+                  key: env.var
 
-        - name: QUARKUS_DATASOURCE_JDBC_URL
-          valueFrom:
-            configMapKeyRef:
-              name: order-api
-              key: datasource.url
-        - name: QUARKUS_DATASOURCE_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: order-api
-              key: db.username
-        - name: QUARKUS_DATASOURCE_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: order-api
-              key: db.password
-        - name: QUARKUS_HTTP_ROOT_PATH
-          value: /order
-        readinessProbe:
-          httpGet:
-            path: /q/health/ready
-            port: 8090
-          initialDelaySeconds: 3
-          periodSeconds: 10
-        livenessProbe:
-          httpGet:
-            path: /q/health/live 
-            port: 8090
-          initialDelaySeconds: 3
-          periodSeconds: 10
-        resources:
-          requests:
-            memory: "32Mi"
-            cpu: "60m"
-          limits:
-            memory: "128Mi"
-            cpu: "100m"
+            - name: QUARKUS_DATASOURCE_JDBC_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: order-api
+                  key: datasource.url
+            - name: QUARKUS_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: order-api
+                  key: db.username
+            - name: QUARKUS_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: order-api
+                  key: db.password
+            - name: QUARKUS_HTTP_ROOT_PATH
+              value: /order
+          readinessProbe:
+            httpGet:
+              path: /order/q/health/ready
+              port: 8090
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /order/q/health/live
+              port: 8090
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "60m"
+            limits:
+              memory: "128Mi"
+              cpu: "100m"

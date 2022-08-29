@@ -4,14 +4,14 @@ metadata:
   name: order-api
 spec:
   parentRefs:
-  - kind: Gateway
-    name: gateway
-    namespace: istio-system
+    - kind: Gateway
+      name: gateway
+      namespace: istio-system
   rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /order
-    backendRefs:
-    - name: order-api
-      port: 80
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /order
+      backendRefs:
+        - name: order-api
+          port: 80

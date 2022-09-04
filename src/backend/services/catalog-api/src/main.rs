@@ -13,12 +13,13 @@ mod category;
 
 #[launch]
 async fn rocket() -> _ {
+    println!("manifest dir: {}", env!("CARGO_MANIFEST_DIR"));
+
     let categories = seed::Seed::get_categories().await;
     let dishes = seed::Seed::get_dishes(&categories).await;
-
     let catalogs = CatalogsData::new(dishes);
     let category_data = CategoriesData::new(categories);
-
+    
     rocket::build()
         .manage(catalogs)
         .manage(category_data)

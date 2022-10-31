@@ -51,6 +51,7 @@
 			"**/.settings": true,
 			"**/.factorypath": true
 		},
-		"java.configuration.updateBuildConfiguration": "interactive"
+		"java.configuration.updateBuildConfiguration": "interactive",
+		"dotenv.enableAutocloaking": false
 	}
 }

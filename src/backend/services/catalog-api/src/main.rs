@@ -1,28 +1,58 @@
 #[macro_use]
 extern crate rocket;
 
-use rocket::fs::{FileServer, relative};
-use crate::models::{CatalogsData, CategoriesData};
+#[macro_use]
+extern crate diesel;
 
-mod catalog;
+use std::error::Error;
+
+use crate::handlers::catalog;
+use crate::handlers::category;
+use crate::handlers::upload;
+use crate::seeder::seed::Seed;
+use diesel::pg::Pg;
+use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
+use rocket::fairing::AdHoc;
+use rocket::fs::{relative, FileServer};
+use rocket::Build;
+use rocket::Rocket;
+
+use rocket_okapi::okapi::schemars;
+use rocket_okapi::okapi::schemars::JsonSchema;
+use rocket_okapi::settings::UrlObject;
+use rocket_okapi::{openapi, openapi_get_routes, swagger_ui::*};
+
+mod db;
+mod handlers;
 mod models;
 mod paste_id;
-mod seed;
-mod upload;
-mod category;
+mod schema;
+mod seeder;
+
+
+pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!("migrations");
+
+async fn run_migrations(rocket: Rocket<Build>) -> Rocket<Build> {
+    let connection = &mut crate::db::db::establish_connection();
+    run_migrations_pending_migrations(connection).unwrap();
+    Seed::seed_categories(connection).await;
+    Seed::seed_catalogs(connection).await;
+    rocket
+}
+
+fn run_migrations_pending_migrations(
+    connection: &mut impl MigrationHarness<Pg>,
+) -> Result<(), Box<dyn Error + Send + Sync + 'static>> {
+    connection.run_pending_migrations(MIGRATIONS)?;
+    Ok(())
+}
 
 #[launch]
 async fn rocket() -> _ {
     println!("manifest dir: {}", env!("CARGO_MANIFEST_DIR"));
 
-    let categories = seed::Seed::get_categories().await;
-    let dishes = seed::Seed::get_dishes(&categories).await;
-    let catalogs = CatalogsData::new(dishes);
-    let category_data = CategoriesData::new(categories);
-    
     rocket::build()
-        .manage(catalogs)
-        .manage(category_data)
+        .attach(AdHoc::on_ignite("Diesel Migrations", run_migrations))
         .mount("/", routes![catalog::index])
         .mount("/categories", routes![category::get_categories])
         .mount(

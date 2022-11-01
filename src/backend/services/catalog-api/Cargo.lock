@@ -179,10 +179,12 @@ dependencies = [
  "diesel 2.0.2",
  "diesel_migrations",
  "dotenvy",
+ "okapi",
  "rand",
  "rocket",
  "rocket_okapi",
  "rocket_sync_db_pools",
+ "schemars",
  "serde",
  "uuid",
 ]

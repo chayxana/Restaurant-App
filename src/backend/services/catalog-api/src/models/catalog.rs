@@ -2,7 +2,7 @@ use crate::schema::catalog;
 use bigdecimal::BigDecimal;
 use rocket::serde::{Deserialize, Serialize};
 use chrono;
-use rocket_okapi::okapi::schemars::JsonSchema;
+use rocket_okapi::{JsonSchema};
 
 #[diesel(table_name = catalog)]
 #[derive(Debug, Clone, PartialEq, Queryable, AsChangeset)]
@@ -43,7 +43,7 @@ pub struct NewCatalog {
     pub updated_at: chrono::NaiveDateTime,
 }
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, JsonSchema)]
 #[serde(crate = "rocket::serde")]
 pub struct CatalogRequest {
     pub name: String,
@@ -54,7 +54,7 @@ pub struct CatalogRequest {
     pub category: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, JsonSchema)]
 #[serde(crate = "rocket::serde")]
 pub struct CatalogResponse {
     pub id: i32,

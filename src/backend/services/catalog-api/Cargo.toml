@@ -15,4 +15,6 @@ bigdecimal = { version = "0.3.0", features = ["serde"] }
 dotenvy = "0.15"
 chrono = "0.4.22"
 rocket_sync_db_pools =  {version = "0.1.0-rc.2", features = ["diesel_postgres_pool"] }
-rocket_okapi =  { version = "0.8.0-rc.2", features = ["swagger"]}
+schemars = "0.8.10"
+okapi = { version = "0.7.0-rc.1" }
+rocket_okapi = { version = "0.8.0-rc.2", features = ["swagger"] }

@@ -48,7 +48,16 @@ fn get_docs() -> SwaggerUIConfig {
     use rocket_okapi::settings::UrlObject;
 
     SwaggerUIConfig {
-        url: "/catalog/openapi.json".to_string(),
+        urls: vec![
+            UrlObject {
+                name: "catalog".to_string(),
+                url: "/catalog/openapi.json".to_string(),
+            },
+            UrlObject {
+                name: "categories".to_string(),
+                url: "/categories/openapi.json".to_string(),
+            },
+        ],
         ..Default::default()
     }
 }
@@ -60,13 +69,18 @@ async fn rocket() -> _ {
     rocket::build()
         .attach(AdHoc::on_ignite("Diesel Migrations", run_migrations))
         .mount("/", routes![catalog::index])
-        .mount("/categories", routes![category::get_categories])
         .mount("/swagger", make_swagger_ui(&get_docs()))
+        .mount("/categories", openapi_get_routes![category::get_categories])
         .mount(
             "/catalog",
-            openapi_get_routes![catalog::create, catalog::update, catalog::delete],
+            openapi_get_routes![
+                catalog::get_catalogs,
+                catalog::get_catalog,
+                catalog::create,
+                catalog::update,
+                catalog::delete
+            ],
         )
-        .mount("/catalogs", openapi_get_routes![catalog::get_catalogs])
         .mount("/file", routes![upload::upload, upload::retrieve])
         .mount("/pictures", FileServer::from(relative!("pictures")))
 }

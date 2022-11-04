@@ -1,12 +1,12 @@
 use crate::models::catalog::{Catalog, CatalogRequest, CatalogResponse, NewCatalog, UpdateCatalog};
 
+use crate::db::db::establish_connection;
 use crate::schema::{self};
 use bigdecimal::ToPrimitive;
 use diesel::prelude::*;
 use rocket::response::Debug;
 use rocket::serde::json::Json;
-use crate::db::db::establish_connection;
-use rocket_okapi::{openapi};
+use rocket_okapi::openapi;
 
 type Result<T, E = Debug<diesel::result::Error>> = std::result::Result<T, E>;
 
@@ -75,7 +75,7 @@ pub fn delete(catalog_id: i32) {
 }
 
 #[openapi]
-#[get("/", format = "json")]
+#[get("/all", format = "json")]
 pub fn get_catalogs() -> Result<Json<Vec<CatalogResponse>>> {
     use schema::catalog::dsl::*;
 
@@ -93,6 +93,29 @@ pub fn get_catalogs() -> Result<Json<Vec<CatalogResponse>>> {
             currency: c.currency,
         })
         .collect();
+
+    return Ok(Json(res));
+}
+
+#[openapi]
+#[get("/<catalog_id>", format = "json")]
+pub fn get_catalog(catalog_id: i32) -> Result<Json<CatalogResponse>> {
+    use schema::catalog::dsl::*;
+
+    let connection = &mut establish_connection();
+    let c = catalog
+        .filter(id.eq(catalog_id))
+        .first::<Catalog>(connection)
+        .expect("failed to loading catalogs");
+
+    let res = CatalogResponse {
+        id: c.id,
+        name: c.name,
+        description: c.description,
+        image: c.image,
+        price: c.price.to_f64().unwrap(),
+        currency: c.currency,
+    };
 
     return Ok(Json(res));
 }

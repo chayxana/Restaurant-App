@@ -4,8 +4,8 @@ use rocket::serde::{Deserialize, Serialize};
 use chrono;
 use rocket_okapi::{JsonSchema};
 
-#[diesel(table_name = catalog)]
 #[derive(Debug, Clone, PartialEq, Queryable, AsChangeset)]
+#[diesel(table_name = catalog)]
 pub struct Catalog {
     pub id: i32,
     pub name: String,
@@ -18,8 +18,8 @@ pub struct Catalog {
     pub updated_at: chrono::NaiveDateTime,
 }
 
-#[diesel(table_name = catalog)]
 #[derive(Debug, Clone, AsChangeset)]
+#[diesel(table_name = catalog)]
 pub struct UpdateCatalog {
     pub name: String,
     pub description: Option<String>,
@@ -30,8 +30,8 @@ pub struct UpdateCatalog {
     pub updated_at: chrono::NaiveDateTime,
 }
 
-#[diesel(table_name = catalog)]
 #[derive(Insertable)]
+#[diesel(table_name = catalog)]
 pub struct NewCatalog {
     pub name: String,
     pub description: Option<String>,

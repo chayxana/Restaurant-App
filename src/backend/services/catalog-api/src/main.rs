@@ -18,7 +18,7 @@ use rocket::Build;
 use rocket::Rocket;
 
 use rocket_okapi::swagger_ui::{make_swagger_ui, SwaggerUIConfig};
-use rocket_okapi::{openapi, openapi_get_routes, JsonSchema};
+use rocket_okapi::{openapi_get_routes};
 
 mod db;
 mod handlers;

@@ -2,46 +2,50 @@
 	"folders": [
 		{
 			"name": "github",
-			"path": ".github"
+			"path": "../../.github"
 		},
+		
 		{
 			"name": "k8s-kustomize",
-			"path": "./k8s-kustomize"
+			"path": "../../k8s-kustomize"
+		},
+		{
+			"path": "./dockerfiles"
 		},
 		{
 			"name": "basket-api",
-			"path": "./src/backend/services/basket.api"
+			"path": "./services/basket.api"
 		},
 		{
 			"name": "identity-api",
-			"path": "./src/backend/services/identity.api"
+			"path": "./services/identity.api"
 		},
 		{
 			"name": "menu-api",
-			"path": "./src/backend/services/menu.api"
+			"path": "./services/menu.api"
 		},
 		{
 			"name": "catalog-api",
-			"path": "./src/backend/services/catalog-api"
+			"path": "./services/catalog-api"
 		},
 		{
 			"name": "order-api-quarkus",
-			"path": "./src/backend/services/order-api"
+			"path": "./services/order-api"
 		},
 		{
 			"name": "nginx",
-			"path": "./src/backend/nginx"
+			"path": "./nginx"
 		},
 		{
 			"name": "dashboard-app",
-			"path": "./src/backend/web/web.admin/dashboard"
+			"path": "./web/web.admin/dashboard"
 		},
 		{
 			"name": "react-web",
-			"path": "./src/backend/web/web.client/web-app"
+			"path": "./web/web.client/web-app"
 		},
 		{
-			"path": "./src/backend/scripts"
+			"path": "./scripts"
 		}
 	],
 	"settings": {

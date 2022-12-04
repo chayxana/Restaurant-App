@@ -19,18 +19,19 @@ COPY . .
 RUN touch src/main.rs
 RUN cargo build --release
 
-FROM debian:buster-slim
+FROM ubuntu:20.04
 
-RUN apt-get update \
-    && apt-get install -y ca-certificates tzdata \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt update
+RUN apt-get remove libpq5
+RUN apt-get install libpq-dev -y
 
 WORKDIR /usr/src/catalog-api
 
 COPY --from=builder /usr/src/catalog-api/target/release/catalog-api ./catalog-api
 COPY --from=builder /usr/src/catalog-api/data ./data
 COPY --from=builder /usr/src/catalog-api/pictures ./pictures
+COPY --from=builder /usr/src/catalog-api/migrations ./migrations
 
-EXPOSE 8000
+EXPOSE 8080
 
 ENTRYPOINT ["./catalog-api"]

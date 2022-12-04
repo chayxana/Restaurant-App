@@ -3,7 +3,6 @@ version: '3.7'
 services:
   nginx:
     image: restaurant/nginx
-    platform: linux/arm64/v8
     build: 
       context: ./nginx
       dockerfile: Dockerfile
@@ -17,7 +16,6 @@ services:
       - order-api
 
   identity-api:
-    platform: linux/arm64/v8
     image: restaurant/identity
     build: ./services/identity.api/
     depends_on:
@@ -26,7 +24,6 @@ services:
       - "5000:80"
 
   menu-api:
-    platform: linux/arm64/v8
     image: restaurant/menu
     build: 
       context: ./services/menu.api/
@@ -36,14 +33,12 @@ services:
 
   basket-api:
     image: restaurant/basket
-    platform: linux/arm64/v8
     build: ./services/basket.api/
     depends_on:
       - redis
 
   order-api:
     image: restaurant/order
-    platform: linux/arm64/v8
     build: 
       context: ./services/order.api
       dockerfile: local.Dockerfile
@@ -52,7 +47,6 @@ services:
 
   dashboard-app:
     image: restaurant/dashboard
-    platform: linux/arm64/v8
     build:
       context: ./web/web.admin/dashboard
       dockerfile: local.Dockerfile
@@ -65,7 +59,6 @@ services:
       
   pgsql:
     image: postgres:alpine
-    platform: linux/arm64/v8
     volumes: 
       - database-data:/var/lib/postgresql/data
     ports: 

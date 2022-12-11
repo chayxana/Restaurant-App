@@ -6,8 +6,8 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from 'app/services/auth.service';
 import { StorageService } from 'app/services/storage.service';
 import { MatProgressButtonsModule } from 'mat-progress-buttons';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 
 @NgModule({
   declarations: [

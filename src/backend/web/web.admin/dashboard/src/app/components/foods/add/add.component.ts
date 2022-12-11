@@ -13,7 +13,7 @@ import { switchMap, filter, map, tap } from 'rxjs/operators';
 import { FoodPicture } from 'app/models/foodPicture';
 import { environment } from 'environments/environment';
 import { getFoodInstance, getProgressButtonOptions } from 'app/models/instances';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 
 @Component({
   selector: 'app-add-food',

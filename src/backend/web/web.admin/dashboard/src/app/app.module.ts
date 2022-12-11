@@ -16,23 +16,20 @@ import { SharedModule } from './shared.module';
 import { StorageService } from './services/storage.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavMenuComponent,
-    AuthCallbackComponent,
-    ConfirmationDialogComponent
-  ],
-  entryComponents: [
-    ConfirmationDialogComponent
-  ],
-  imports: [
-    routes,
-    SharedModule,
-    CategoriesModule,
-    AccountModule,
-    FoodsModule
-  ],
-  providers: [AuthGuard, StorageService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        NavMenuComponent,
+        AuthCallbackComponent,
+        ConfirmationDialogComponent
+    ],
+    imports: [
+        routes,
+        SharedModule,
+        CategoriesModule,
+        AccountModule,
+        FoodsModule
+    ],
+    providers: [AuthGuard, StorageService],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

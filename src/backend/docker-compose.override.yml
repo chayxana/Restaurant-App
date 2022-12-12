@@ -2,13 +2,13 @@ version: '3.7'
 
 services:
   nginx:
-    environment: 
+    environment:
       - IDENTITY_URL=http://identity-api
       - BASKET_URL=http://basket-api:5200
       - ORDER_URL=http://order-api:8090
-      - MENU_URL=http://menu-api
+      - CATALOG_URL=http://catalog-api:8000
       - DASHBOARD_URL=http://dashboard-app
-  
+
   order-api:
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://pgsql:5432/orderdb
@@ -24,7 +24,13 @@ services:
       - IDENTITY_URL=http://identity-api
       - IDENTITY_URL_PUB=http://localhost:8080/identity
       - BASE_PATH=/basket
-  
+
+  # catalog-api:
+  #   environment:
+  #     - DATABASE_URL=postgres://admin:Passw0rd!@catalog-db:5432/catalogdb
+  #     - ROCKET_ADDRESS=0.0.0.0
+  #     - ROCKET_PORT=8000
+
   pgsql:
     environment:
       - POSTGRES_PASSWORD=Passw0rd!
@@ -32,17 +38,12 @@ services:
       - PGDATA=/pg
       - POSTGRES_DB=orderdb
 
-  menu-api:
+  catalog-db:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - DB_HOST=pgsql
-      - DB_USER=admin
-      - DB_PASSWORD=Passw0rd!
-      - DB_NAME=menu_database
-      - PATH_BASE=/menu
-      - IDENTITY_URL_PUB=http://localhost:8080/identity
-      - IDENTITY_URL=http://identity-api
-  
+      - POSTGRES_PASSWORD=Passw0rd!
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=catalogdb
+
   identity-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development

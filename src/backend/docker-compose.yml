@@ -2,51 +2,55 @@ version: '3.7'
 
 services:
   nginx:
-    image: restaurant/nginx
+    image: restaurant/nginx-proxy
     build: 
       context: ./nginx
       dockerfile: Dockerfile
     ports: 
       - "8080:8080"
     depends_on:
-      - menu-api
+      # - catalog-api
       - dashboard-app
       - identity-api
       - basket-api
       - order-api
 
   identity-api:
-    image: restaurant/identity
+    image: restaurant/identity-api
     build: ./services/identity.api/
     depends_on:
        - pgsql
     ports: 
       - "5000:80"
 
-  menu-api:
-    image: restaurant/menu
-    build: 
-      context: ./services/menu.api/
-      dockerfile: local.Dockerfile
-    depends_on:
-       - pgsql
+  # catalog-api:
+  #   image: catalog-api
+  #   build: 
+  #     context: ./services/catalog.api/
+  #   depends_on:
+  #      - catalog-db
+  #   ports:
+  #     - 8000:8000
+  
+  catalog-db:
+    image: postgres
 
   basket-api:
-    image: restaurant/basket
+    image: restaurant/basket-api
     build: ./services/basket.api/
     depends_on:
       - redis
 
   order-api:
-    image: restaurant/order
+    image: restaurant/order-api
     build: 
-      context: ./services/order.api
+      context: ./services/order-api
       dockerfile: local.Dockerfile
     depends_on:
       - pgsql
 
   dashboard-app:
-    image: restaurant/dashboard
+    image: restaurant/dashboard-app
     build:
       context: ./web/web.admin/dashboard
       dockerfile: local.Dockerfile

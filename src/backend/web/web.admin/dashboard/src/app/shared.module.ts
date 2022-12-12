@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
 import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatProgressButtonsModule } from 'mat-progress-buttons';
+// import { MatProgressButtonsModule } from 'mat-progress-buttons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ColorPickerModule } from 'ngx-color-picker';
 
@@ -67,7 +67,7 @@ import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/lega
     MatToolbarModule,
     BrowserAnimationsModule,
     LayoutModule,
-    MatProgressButtonsModule,
+    // MatProgressButtonsModule,
     ColorPickerModule,
     MatSnackBarModule,
     MatMenuModule,

@@ -4,13 +4,9 @@
 			"name": "github",
 			"path": "../../.github"
 		},
-		
 		{
 			"name": "k8s-kustomize",
 			"path": "../../k8s-kustomize"
-		},
-		{
-			"path": "./dockerfiles"
 		},
 		{
 			"name": "basket-api",

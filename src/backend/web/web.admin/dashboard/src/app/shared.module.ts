@@ -42,7 +42,7 @@ import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/lega
     MatToolbarModule,
     BrowserAnimationsModule,
     LayoutModule,
-    MatProgressButtonsModule.forRoot(),
+    // MatProgressButtonsModule.forRoot(),
     ColorPickerModule,
     MatSnackBarModule,
     MatMenuModule,

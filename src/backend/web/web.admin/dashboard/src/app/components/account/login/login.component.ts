@@ -5,7 +5,7 @@ import { filter, tap, map } from 'rxjs/operators';
 import { StorageService } from 'app/services/storage.service';
 import { REDIRECT_URL_KEY } from 'app/config/constants';
 import { getProgressButtonOptions } from 'app/models/instances';
-import { MatProgressButtonOptions } from 'mat-progress-buttons';
+// import { MatProgressButtonOptions } from 'mat-progress-buttons';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ import { MatProgressButtonOptions } from 'mat-progress-buttons';
   styleUrls: ['login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginButtonsOpts: MatProgressButtonOptions = getProgressButtonOptions('Login with IdentityServer');
+  // loginButtonsOpts: MatProgressButtonOptions = getProgressButtonOptions('Login with IdentityServer');
   title = 'Login';
   redirectUrl = '';
   constructor(
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 
 
   async login() {
-    this.loginButtonsOpts.active = true;
+    // this.loginButtonsOpts.active = true;
     if (await this.authService.hasSession()) {
       await this.authService.loginSilent();
       if (this.redirectUrl) {
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/']);
       }
     } else {
-      this.loginButtonsOpts.active = true;
+      // this.loginButtonsOpts.active = true;
       this.authService.login();
     }
   }

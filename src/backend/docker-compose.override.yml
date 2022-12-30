@@ -1,22 +1,11 @@
 version: '3.7'
 
 services:
-  nginx:
-    environment:
-      - IDENTITY_URL=http://identity-api
-      - BASKET_URL=http://basket-api:5200
-      - ORDER_URL=http://order-api:8090
-      - CATALOG_URL=http://catalog-api:8000
-      - DASHBOARD_URL=http://dashboard-app
-
   order-api:
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://pgsql:5432/orderdb
-      - SPRING_DATASOURCE_USERNAME=admin
-      - SPRING_DATASOURCE_PASSWORD=Passw0rd!
-      - IDENTITY_URL_PUB=http://localhost:8080/identity
-      - IDENTITY_URL=http://identity-api
-      - BASKET_URL==http://basket-api:5200
+      - QUARKUS_DATASOURCE_JDBC_URL=jdbc:postgresql://order-db:5432/orderdb
+      - QUARKUS_DATASOURCE_USERNAME=admin
+      - QUARKUS_DATASOURCE_PASSWORD=Passw0rd!
 
   basket-api:
     environment:
@@ -25,29 +14,17 @@ services:
       - IDENTITY_URL_PUB=http://localhost:8080/identity
       - BASE_PATH=/basket
 
-  # catalog-api:
-  #   environment:
-  #     - DATABASE_URL=postgres://admin:Passw0rd!@catalog-db:5432/catalogdb
-  #     - ROCKET_ADDRESS=0.0.0.0
-  #     - ROCKET_PORT=8000
-
-  pgsql:
+  catalog-api:
     environment:
-      - POSTGRES_PASSWORD=Passw0rd!
-      - POSTGRES_USER=admin
-      - PGDATA=/pg
-      - POSTGRES_DB=orderdb
-
-  catalog-db:
-    environment:
-      - POSTGRES_PASSWORD=Passw0rd!
-      - POSTGRES_USER=admin
-      - POSTGRES_DB=catalogdb
+      - DATABASE_URL=postgres://admin:Passw0rd!@catalog-db:5432/catalogdb
+      - ROCKET_ADDRESS=0.0.0.0
+      - ROCKET_PORT=8000
+      - BASE_URL=/catalog
 
   identity-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - DB_HOST=pgsql
+      - DB_HOST=identity-db
       - DB_NAME=identity_database
       - DB_USER=admin
       - DB_PASSWORD=Passw0rd!
@@ -57,3 +34,24 @@ services:
       - BASKET_API_URL=http://localhost:8080/basket
       - DASHBOARD_APP_URL=http://localhost:8080/dashboard
       - IDENTITY_URL_PUB=http://localhost:8080/identity
+
+  order-db:
+    environment:
+      - POSTGRES_PASSWORD=Passw0rd!
+      - POSTGRES_USER=admin
+      - PGDATA=/pg
+      - POSTGRES_DB=orderdb
+
+  identity-db:
+    environment:
+      - POSTGRES_PASSWORD=Passw0rd!
+      - POSTGRES_USER=admin
+      - PGDATA=/pg
+      - POSTGRES_DB=identity_database
+
+
+  catalog-db:
+    environment:
+      - POSTGRES_PASSWORD=Passw0rd!
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=catalogdb

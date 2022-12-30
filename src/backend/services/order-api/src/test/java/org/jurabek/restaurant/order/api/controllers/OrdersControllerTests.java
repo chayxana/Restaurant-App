@@ -45,19 +45,19 @@ public class OrdersControllerTests {
         verify(ordersService, times(1)).Create(customerBasketDto);
     }
 
-    @Test
-    public void UpdateShouldUpdate() {
+    // @Test
+    // public void UpdateShouldUpdate() {
         
-        // Arrange
-        CustomerBasketDto customerBasketDto = new CustomerBasketDto();
-        doNothing().when(ordersService).Update(customerBasketDto);
+    //     // Arrange
+    //     CustomerBasketDto customerBasketDto = new CustomerBasketDto();
+    //     doNothing().when(ordersService).Update(customerBasketDto);
 
-        // Act
-        ordersController.update(customerBasketDto);
+    //     // Act
+    //     ordersController.update(customerBasketDto);
 
-        // Assert
-        verify(ordersService, times(1)).Update(customerBasketDto);
-    }
+    //     // Assert
+    //     verify(ordersService, times(1)).Update(customerBasketDto);
+    // }
 
     @Test
     public void DeleteShouldRemove() {

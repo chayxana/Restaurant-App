@@ -46,10 +46,6 @@ public class OrdersServicesIml implements OrdersService {
     }
 
     @Override
-    public void Update(CustomerBasketDto customerBasketDto) {
-    }
-
-    @Override
     public List<CustomerOrderDto> getOrderByCustomerId(String customerId) {
         return ordersRepository.getByBuyerId(UUID.fromString(customerId))
                 .stream()

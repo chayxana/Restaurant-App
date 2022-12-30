@@ -12,11 +12,11 @@ use diesel::prelude::*;
 pub struct Seed;
 
 impl Seed {
-    pub async fn seed_catalogs(connection: &mut PgConnection) {
+    pub async fn seed_catalogs(connection: &mut PgConnection, base_url: &String) {
         use schema::catalog::dsl::*;
     
         let categories = Seed::get_categories().await;
-        let dishes = Seed::get_dishes(&categories).await;
+        let dishes = Seed::get_dishes(&categories, base_url).await;
     
         let catalogs = catalog
             .limit(1)
@@ -72,7 +72,7 @@ impl Seed {
         result
     }
 
-    async fn get_dishes(categories: &Vec<String>) -> Vec<NewCatalog> {
+    async fn get_dishes(categories: &Vec<String>, base_url: &String) -> Vec<NewCatalog> {
         let contents = fs::read(file_path(String::from("dishes.csv")))
             .await
             .unwrap();
@@ -81,7 +81,7 @@ impl Seed {
             .lines()
             .skip(1)
             .map(|x| x.split(","))
-            .map(|i| get_dish(i.collect::<Vec<_>>(), categories))
+            .map(|i| get_dish(i.collect::<Vec<_>>(), categories, base_url))
             .collect::<Vec<_>>();
 
         let mut result: Vec<NewCatalog> = vec![];
@@ -90,11 +90,11 @@ impl Seed {
     }
 }
 
-fn get_dish(columns: Vec<&str>, categories: &Vec<String>) -> NewCatalog {
+fn get_dish(columns: Vec<&str>, categories: &Vec<String>, base_url: &String) -> NewCatalog {
     NewCatalog {
         name: columns[2].to_string(),
         description: Some(columns[3].to_string().replace(":", ",")),
-        image: format!("/pictures/{}.jpg", columns[0].to_string()),
+        image: format!("{}/pictures/{}.jpg", base_url, columns[0].to_string()),
         price: columns[4].parse::<bigdecimal::BigDecimal>().unwrap(),
         currency: "USD".to_string(),
         category: categories

@@ -9,6 +9,10 @@
 			"path": "../../k8s-kustomize"
 		},
 		{
+			"name": "payment-api",
+			"path": "./services/payment-api"
+		},	
+		{
 			"name": "basket-api",
 			"path": "./services/basket.api"
 		},
@@ -17,15 +21,11 @@
 			"path": "./services/identity.api"
 		},
 		{
-			"name": "menu-api",
-			"path": "./services/menu.api"
-		},
-		{
 			"name": "catalog-api",
 			"path": "./services/catalog-api"
 		},
 		{
-			"name": "order-api-quarkus",
+			"name": "order-api",
 			"path": "./services/order-api"
 		},
 		{
@@ -52,6 +52,7 @@
 			"**/.factorypath": true
 		},
 		"java.configuration.updateBuildConfiguration": "interactive",
-		"dotenv.enableAutocloaking": false
+		"dotenv.enableAutocloaking": false,
+		"java.compile.nullAnalysis.mode": "automatic"
 	}
 }

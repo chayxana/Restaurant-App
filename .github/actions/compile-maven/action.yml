@@ -1,5 +1,5 @@
-name: "Building gradle"
-description: "Builds gradle application within the given folder"
+name: "Building maven"
+description: "Builds maven application within the given folder"
 inputs:
   service-name: 
     description: 'Service name'
@@ -11,6 +11,5 @@ runs:
   steps:
     - run: |
         cd ${{ inputs.service-name }}
-        ./gradlew clean
-        ./gradlew build
+        ./mvnw install -DskipTests
       shell: bash

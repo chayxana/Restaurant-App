@@ -33,17 +33,17 @@ jobs:
       
     - uses: graalvm/setup-graalvm@v1
       with:
-        version: '22.2.0'
+        version: '22.3.0'
         java-version: '17'
         components: 'native-image'
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
-    - uses: actions/cache@v1
+    - uses: actions/cache@v3
       with:
-        path: ~/.gradle/caches
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/order-api/build.gradle') }}
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/order-api/pom.xml') }}
         restore-keys: |
-          ${{ runner.os }}-gradle-
+          ${{ runner.os }}-maven-
     
     - name: "🎉 Bump Version"
       if: github.ref == 'refs/heads/develop'
@@ -51,10 +51,10 @@ jobs:
       uses: ./.github/actions/bump-version
       with:
         service-name: ./src/backend/services/${{ env.SERVICE_NAME }}
-        service-type: gradle
+        service-type: maven
 
     - name: "🚀 Build & Test"
-      uses: ./.github/actions/compile-gradle
+      uses: ./.github/actions/compile-maven
       with:
         service-name: ./src/backend/services/${{ env.SERVICE_NAME }}
     
@@ -68,10 +68,10 @@ jobs:
 
     - name: "📤 Upload artifact"
       if: github.ref == 'refs/heads/develop'
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: ${{ env.ARTIFACT_NAME }}
-        path: ./src/backend/services/${{ env.SERVICE_NAME }}/build/order-api-${{ env.VERSION }}-runner
+        path: ./src/backend/services/${{ env.SERVICE_NAME }}/target/order-api-${{ env.VERSION }}-runner
       env:
         VERSION: ${{ steps.version.outputs.new-version }}
 
@@ -127,15 +127,15 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     
     - name: Download artifact
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v3
       with:
         name: ${{ env.ARTIFACT_NAME }}
 
     - name: Login to GitHub Container Registry
-      uses: docker/login-action@v1
+      uses: docker/login-action@v3
       with:
         registry: ghcr.io
         username: ${{ github.actor }}

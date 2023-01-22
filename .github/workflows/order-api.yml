@@ -148,7 +148,7 @@ jobs:
         registry: ghcr.io/chayxana
         image: ${{ env.IMAGE_NAME }}
         docker-file: ./src/backend/services/${{ env.SERVICE_NAME }}/release.Dockerfile
-        source-file: ${{ env.ARTIFACT_NAME }}/${{ env.SERVICE_NAME }}-${{ needs.build.outputs.new-version }}-runner
+        source-file: ${{ env.SERVICE_NAME }}-${{ needs.build.outputs.new-version }}-runner
 
   update-manifests:
     if: github.ref == 'refs/heads/develop'

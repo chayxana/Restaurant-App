@@ -1,17 +1,17 @@
 package grpc
 
 import (
-	context "context"
+	"context"
 	"errors"
 	"strconv"
 
-	v1 "github.com/chayxana/payment-api/pb/v1"
+	pbv1 "github.com/chayxana/payment-api/pb/v1"
 	"github.com/google/uuid"
 	"github.com/rs/zerolog/log"
 	"github.com/sgumirov/go-cards-validation"
 )
 
-var _ v1.PaymentServiceServer = (*PaymentServiceGrpc)(nil)
+var _ pbv1.PaymentServiceServer = (*PaymentServiceGrpc)(nil)
 
 type PaymentServiceGrpc struct {
 	enableTestCards bool
@@ -27,7 +27,7 @@ var ErrUnsupportedCardType = errors.New("card type unsupported")
 var ErrInvalidCardInfo = errors.New("invalid card information")
 
 // Payment implements v1.PaymentServiceServer
-func (p *PaymentServiceGrpc) Payment(ctx context.Context, req *v1.PaymentRequest) (*v1.PaymentResponse, error) {
+func (p *PaymentServiceGrpc) Payment(ctx context.Context, req *pbv1.PaymentRequest) (*pbv1.PaymentResponse, error) {
 	card := cards.Card{
 		Number: req.GetCreditCard().CreditCardNumber,
 		Cvv:    strconv.Itoa(int(req.GetCreditCard().CreditCardCvv)),
@@ -57,7 +57,7 @@ func (p *PaymentServiceGrpc) Payment(ctx context.Context, req *v1.PaymentRequest
 		Str("ending", lastFour).
 		Msg("Transaction processed")
 
-	return &v1.PaymentResponse{
+	return &pbv1.PaymentResponse{
 		TransactionId: uuid.New().String(),
 	}, nil
 }

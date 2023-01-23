@@ -5,7 +5,6 @@ import { AccountRoutingModule } from './account-routing.module';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from 'app/services/auth.service';
 import { StorageService } from 'app/services/storage.service';
-import { MatProgressButtonsModule } from 'mat-progress-buttons';
 import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 
@@ -18,7 +17,6 @@ import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-c
     AccountRoutingModule,
     MatCardModule,
     MatButtonModule,
-    MatProgressButtonsModule.forRoot(),
   ],
   providers: [AuthService, StorageService]
 })

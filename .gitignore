@@ -228,3 +228,4 @@ src/backend/.gradle
 src/backend/services/menu.api/menu-api-release
 src/backend/services/identity.api/identity-api-release
 src/backend/services/catalog-api/target
+src/backend/web/web.admin/dashboard/.angular

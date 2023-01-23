@@ -4,7 +4,6 @@ import { CategoryService } from 'app/services/category.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import * as uuid from 'uuid';
-import { MatProgressButtonOptions } from 'mat-progress-buttons';
 import { AuthService } from 'app/services/auth.service';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 
@@ -15,21 +14,6 @@ import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack
 })
 
 export class AddCategoryComponent implements OnInit {
-
-  saveButtonsOpts: MatProgressButtonOptions = {
-    active: false,
-    text: 'Save',
-    spinnerSize: 19,
-    raised: false,
-    stroked: true,
-    flat: false,
-    fab: false,
-    buttonColor: 'primary',
-    spinnerColor: 'accent',
-    fullWidth: false,
-    disabled: false,
-    mode: 'indeterminate',
-  };
 
   saving = false;
   isEditMode: boolean;
@@ -63,7 +47,6 @@ export class AddCategoryComponent implements OnInit {
   }
 
   async onSubmit(form: NgForm) {
-    this.saveButtonsOpts.active = true;
     if (this.isEditMode) {
       await this.categoryService.update(this.category, this.authService.authHeader).toPromise();
       this.showMessage('Category updated successfully!');
@@ -72,7 +55,6 @@ export class AddCategoryComponent implements OnInit {
       this.showMessage('Category created successfully!');
       form.reset();
     }
-    this.saveButtonsOpts.active = false;
   }
 
   onCancel() {

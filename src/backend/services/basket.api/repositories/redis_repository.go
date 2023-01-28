@@ -16,12 +16,12 @@ type RedisBasketRepository struct {
 }
 
 // NewRedisBasketRepository creates new instance of repository
-func NewRedisBasketRepository(conn database.ConnectionProvider) BasketRepository {
+func NewRedisBasketRepository(conn database.ConnectionProvider) *RedisBasketRepository {
 	return &RedisBasketRepository{Conn: conn}
 }
 
-// GetBasket returns CustomerBasket otherwise nill
-func (r *RedisBasketRepository) GetBasket(customerID string) (*models.CustomerBasket, error) {
+// Get returns CustomerBasket otherwise nill
+func (r *RedisBasketRepository) Get(customerID string) (*models.CustomerBasket, error) {
 
 	conn := r.Conn.Get()
 	defer conn.Close()

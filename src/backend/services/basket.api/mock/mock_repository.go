@@ -10,8 +10,8 @@ type BasketRepositoryMock struct {
 	mock.Mock
 }
 
-// GetBasket mock
-func (r *BasketRepositoryMock) GetBasket(customerID string) (*models.CustomerBasket, error) {
+// Get mock
+func (r *BasketRepositoryMock) Get(customerID string) (*models.CustomerBasket, error) {
 	args := r.Called(customerID)
 	return args.Get(0).(*models.CustomerBasket), args.Error(1)
 }

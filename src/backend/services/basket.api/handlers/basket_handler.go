@@ -5,16 +5,21 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jurabek/basket.api/models"
-	"github.com/jurabek/basket.api/repositories"
 )
+
+type CustomerBasketCreateDeleteGetter interface {
+	Get(customerID string) (*models.CustomerBasket, error)
+	Update(item *models.CustomerBasket) error
+	Delete(id string) error
+}
 
 // BasketHandler is router initializer for http
 type BasketHandler struct {
-	BasketRepository repositories.BasketRepository
+	BasketRepository CustomerBasketCreateDeleteGetter
 }
 
 // NewBasketHandler creates new instance of BasketController with BasketRepository
-func NewBasketHandler(r repositories.BasketRepository) *BasketHandler {
+func NewBasketHandler(r CustomerBasketCreateDeleteGetter) *BasketHandler {
 	return &BasketHandler{BasketRepository: r}
 }
 
@@ -41,7 +46,7 @@ func (bc *BasketHandler) Create(c *gin.Context) {
 		return
 	}
 
-	result, err := bc.BasketRepository.GetBasket(entity.CustomerID.String())
+	result, err := bc.BasketRepository.Get(entity.CustomerID.String())
 
 	if err != nil {
 		httpError := models.NewHTTPError(http.StatusBadRequest, err)
@@ -66,7 +71,7 @@ func (bc *BasketHandler) Create(c *gin.Context) {
 func (bc *BasketHandler) Get(c *gin.Context) {
 	id := c.Param("id")
 
-	result, err := bc.BasketRepository.GetBasket(id)
+	result, err := bc.BasketRepository.Get(id)
 
 	if err != nil {
 		httpError := models.NewHTTPError(http.StatusBadRequest, err)

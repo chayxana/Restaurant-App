@@ -1,0 +1,31 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: "Payment API"
+    before: |
+      cd src/backend/services/payment-api
+    init: |
+      go mod tidy
+    command: |
+
+
+  - name: "Basket API"
+    before: |
+      cd src/backend/services/basket.api
+    init: |
+      go mod tidy
+
+
+  - name: "Order API"
+    before: |
+      cd src/backend/services/order-api
+    init: |
+      mvn package
+
+
+
+vscode:
+  extensions:
+    - golang.go
+    - vscjava.vscode-java-pack

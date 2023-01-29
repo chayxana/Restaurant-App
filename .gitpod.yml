@@ -29,5 +29,3 @@ vscode:
   extensions:
     - golang.go
     - vscjava.vscode-java-pack
-    - rust-lang.rust-analyzer
-

@@ -13,8 +13,10 @@ RUN apt-get install -y apt-transport-https
 RUN apt-get update
 RUN apt-get install -y dotnet-sdk-3.1
 
-# Install Rust
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+# Installing Docker-compose
+RUN sudo apt-get update && \
+    sudo apt-get install -y docker.io && \
+    sudo apt-get install -y docker-compose
 
 # Installing GraalVm
 RUN bash -c ". /home/gitpod/.sdkman/bin/sdkman-init.sh && \

@@ -1,4 +1,4 @@
-FROM quay.io/quarkus/ubi-quarkus-graalvmce-builder-image:22.3.0-java17-arm64 AS build
+FROM quay.io/quarkus/ubi-quarkus-graalvmce-builder-image:22.3.0-java17 AS build
 
 USER root
 RUN microdnf install findutils

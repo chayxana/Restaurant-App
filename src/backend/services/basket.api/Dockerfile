@@ -13,14 +13,15 @@ RUN go mod download
 
 COPY ./ ./
 
-RUN CGO_ENABLED=0 go build -installsuffix 'static'
-RUN CGO_ENABLED=0 go test -c ./handlers -o handlers.test -cover
+RUN CGO_ENABLED=0 go build -installsuffix 'static' -o basket-api cmd/api/main.go 
+RUN CGO_ENABLED=0 go test -c ./internal/handlers -o handlers.test -cover
 
 #final stage
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
+
 COPY --from=builder /src ./
-CMD ["./basket.api"] 
+CMD ["./basket-api"] 
 LABEL Name=basket.api Version=0.0.1
 EXPOSE 5200
 ENV PORT 5200

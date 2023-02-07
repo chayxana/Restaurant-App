@@ -1,0 +1,79 @@
+version: '3.7'
+
+services:
+  nginx:
+    links:
+      - fluentd
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: nginx
+  
+  order-api:
+    links:
+      - fluentd
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: order-api
+
+  basket-api:
+    links:
+      - fluentd
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: basket-api
+
+  # catlog-api:
+  #   links:
+  #     - fluentd
+  #   logging:
+  #     driver: "fluentd"
+  #     options:
+  #       fluentd-address: localhost:24224
+  #       tag: catalog-api
+
+  identity-api:
+    links:
+      - fluentd
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: identity-api
+
+  elasticsearch:
+    build:
+      context: elk/elasticsearch/
+    volumes:
+      - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+
+  fluentd:
+    build: 
+      context: ./elk/fluentd/
+    volumes:
+      - ./elk/fluentd/conf:/fluentd/etc
+    links:
+      - "elasticsearch"
+    depends_on:
+      - elasticsearch
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+
+  kibana:
+    image: kibana:7.10.1
+    links:
+      - "elasticsearch"
+    ports:
+      - "5601:5601"
+      

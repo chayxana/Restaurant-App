@@ -13,7 +13,7 @@ type Configuration struct {
 }
 
 // Init initializes environment variables into config
-func (c *Configuration) Init() *Configuration {
+func Init() *Configuration {
 	_ = os.Getenv("PORT")
 	var cfg Configuration
 	if redisHost, ok := os.LookupEnv("REDIS_HOST"); ok {

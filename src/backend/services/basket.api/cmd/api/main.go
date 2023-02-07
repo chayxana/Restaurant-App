@@ -52,22 +52,29 @@ func main() {
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 	gin.SetMode(gin.DebugMode)
 
+	basePath, _ := os.LookupEnv("BASE_PATH")
+
+	authURL, _ := os.LookupEnv("AUTH_URL")
+	authorizeURL := authURL + "/connect/authorize"
+	fmt.Fprintf(os.Stderr, "[DEBUG] Using Authorize URL: %s\r\n", authorizeURL)
+
+	docs.SwaggerInfo.BasePath = basePath
+	docs.SwaggerInfo.SwaggerTemplate = docs.OverrideAuthURL(authorizeURL)
+
 	handleSigterm()
 	router := gin.Default()
 	router.Use(middlewares.RequestMiddleware())
 
-	cfg := config.Configuration{}
-	cfg.Init()
+	cfg := config.Init()
 
 	redisPool, err := initRedis(cfg.RedisHost)
-
 	if err != nil {
 		fmt.Print(err)
 	}
 
-	p, err := sarama.NewSyncProducer([]string{"localhost:9092"}, nil)
+	p, err := sarama.NewSyncProducer([]string{cfg.KafkaBroker}, nil)
 	if err != nil {
-		log.Printf("")
+		log.Fatal().Err(err).Msg("new producer failed!")
 	}
 	defer p.Close()
 
@@ -82,7 +89,6 @@ func main() {
 
 	auth := middlewares.CreateAuth()
 	router.Use(auth.AuthMiddleware())
-	basePath, _ := os.LookupEnv("BASE_PATH")
 
 	api := router.Group(basePath + "/api/v1/")
 	{
@@ -98,10 +104,6 @@ func main() {
 			checkout.POST("", checkoutHandler.Checkout)
 		}
 	}
-	authURL, _ := os.LookupEnv("AUTH_URL")
-	authorizeURL := authURL + "/connect/authorize"
-	fmt.Fprintf(os.Stderr, "[DEBUG] Using Authorize URL: %s\r\n", authorizeURL)
-	docs.OverrideAuthURL(authorizeURL)
 
 	// Home page should be redirected to swagger page
 	router.GET(basePath+"/", func(c *gin.Context) {

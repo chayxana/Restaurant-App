@@ -3,7 +3,7 @@ package docs
 
 import "github.com/swaggo/swag"
 
-var docTemplate = `{
+const docTemplate = `{
     "schemes": {{ marshal .Schemes }},
     "swagger": "2.0",
     "info": {

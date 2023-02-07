@@ -9,11 +9,11 @@ services:
 
   basket-api:
     environment:
-      - REDIS_HOST=redis
+      - REDIS_HOST=redis:6379
       - KAFKA_BROKER=kafka:29092
       - CHECKOUT_TOPIC=checkout
       - IDENTITY_URL=http://identity-api
-      - IDENTITY_URL_PUB=http://localhost:8080/identity
+      - AUTH_URL=http://localhost/identity
       - BASE_PATH=/basket
 
   catalog-api:

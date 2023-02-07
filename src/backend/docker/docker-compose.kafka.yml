@@ -1,6 +1,11 @@
 ---
 version: "3.7"
 services:
+  basket-api:
+    depends_on:
+      kafka:
+         condition: service_healthy
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.0
     container_name: zookeeper
@@ -31,6 +36,11 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_JMX_PORT: 9997
       KAFKA_JMX_HOSTNAME: kafka
+    healthcheck:
+      test: ["CMD", "cub",  "kafka-ready", "-b", "kafka:29092", "1", "10"]
+      interval: 3s
+      timeout: 5s
+      retries: 5
 
   kafka-init-topics:
     image: confluentinc/cp-kafka:7.2.1

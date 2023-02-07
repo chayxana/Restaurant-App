@@ -16,6 +16,13 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
+  
+  identity-api:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.catalog.rule=PathPrefix(`/identity/`)"
+      - "traefik.port=5001"
+    
   catalog-api:
     labels:
       - "traefik.enable=true"

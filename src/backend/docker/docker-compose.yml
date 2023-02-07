@@ -1,0 +1,75 @@
+version: '3.7'
+
+services:
+  identity-api:
+    image: restaurant/identity-api
+    build: ./services/identity.api/
+    depends_on:
+       - identity-db
+    ports: 
+      - "5001:80"
+
+  catalog-api:
+    image: catalog-api
+    container_name: catalog
+    build: 
+      context: ./services/catalog-api/
+    depends_on:
+       - catalog-db
+    ports:
+      - 8000:8000
+
+  basket-api:
+    image: restaurant/basket-api
+    container_name: basket
+    build: ./services/basket.api/
+    depends_on:
+      - redis
+
+  order-api:
+    image: restaurant/order-api
+    container_name: order
+    build: 
+      platforms:
+        - "linux/arm64"
+      context: ./services/order-api
+      dockerfile: local.Dockerfile
+    depends_on:
+      - order-db
+   
+
+  # dashboard-app:
+  #   image: restaurant/dashboard-app
+  #   build:
+  #     context: ./web/web.admin/dashboard
+  #     dockerfile: local.Dockerfile
+
+  # web-app:
+  #   image: restaurant/web
+  #   build:
+  #     context: ./web/web.client/web-app
+  #     dockerfile: local.Dockerfile
+      
+  order-db:
+    image: postgres:alpine
+    volumes: 
+      - database-data:/var/lib/postgresql/data
+    ports: 
+      - "5433:5432"
+  
+  catalog-db:
+    image: postgres:alpine
+    ports:
+      - "5434:5432"
+
+  identity-db:
+    image: postgres:alpine
+    ports:
+      - "5435:5432"
+
+  redis:
+    platform: linux/arm64/v8
+    image: redis:alpine
+    
+volumes:
+  database-data:

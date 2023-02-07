@@ -9,6 +9,10 @@
 			"path": "../../k8s-kustomize"
 		},
 		{
+			"name": "docker-compose-files",
+			"path": "./docker"
+		},
+		{
 			"name": "payment-api",
 			"path": "./services/payment-api"
 		},	

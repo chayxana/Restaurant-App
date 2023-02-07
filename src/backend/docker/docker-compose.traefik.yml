@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+  traefik:
+    image: "traefik:v2.4"
+    container_name: "traefik"
+    command:
+      # - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "81:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  catalog-api:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.catalog.rule=PathPrefix(`/catalog/`)"
+      - "traefik.port=8000"
+  
+  basket-api:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.basket.rule=PathPrefix(`/basket/`)"
+      - "traefik.port=5200"
+
+  order-api:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.order.rule=PathPrefix(`/order/`)"
+      - "traefik.port=8080"

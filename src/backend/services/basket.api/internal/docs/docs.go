@@ -26,11 +26,6 @@ const docTemplate = `{
     "paths": {
         "/checkout": {
             "post": {
-                "security": [
-                    {
-                        "OAuth": []
-                    }
-                ],
                 "description": "Start checkout",
                 "consumes": [
                     "application/json"
@@ -68,11 +63,6 @@ const docTemplate = `{
         },
         "/items": {
             "post": {
-                "security": [
-                    {
-                        "OAuth": []
-                    }
-                ],
                 "description": "add by json new CustomerBasket",
                 "consumes": [
                     "application/json"
@@ -113,11 +103,6 @@ const docTemplate = `{
         },
         "/items/{id}": {
             "get": {
-                "security": [
-                    {
-                        "OAuth": []
-                    }
-                ],
                 "description": "Get CustomerBasket by ID",
                 "consumes": [
                     "application/json"
@@ -154,11 +139,6 @@ const docTemplate = `{
                 }
             },
             "delete": {
-                "security": [
-                    {
-                        "OAuth": []
-                    }
-                ],
                 "description": "Deletes CustomerBasket by ID",
                 "consumes": [
                     "application/json"
@@ -302,16 +282,6 @@ const docTemplate = `{
                     "type": "string",
                     "example": "status bad request"
                 }
-            }
-        }
-    },
-    "securityDefinitions": {
-        "OAuth": {
-            "type": "oauth2",
-            "flow": "implicit",
-            "authorizationUrl": "{{.AuthUrl}}",
-            "scopes": {
-                "basket-api": "\t\t\t\t\t\tAccess to basket-api"
             }
         }
     }

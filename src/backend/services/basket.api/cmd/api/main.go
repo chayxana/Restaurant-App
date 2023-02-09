@@ -44,22 +44,12 @@ var (
 
 //	@license.name	Apache 2.0
 //	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
-
-//	@securitydefinitions.oauth2.implicit	OAuth
-//	@authorizationUrl						{{.AuthUrl}}
-//	@scope.basket-api						Access to basket-api
 func main() {
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 	gin.SetMode(gin.DebugMode)
 
 	basePath, _ := os.LookupEnv("BASE_PATH")
-
-	authURL, _ := os.LookupEnv("AUTH_URL")
-	authorizeURL := authURL + "/connect/authorize"
-	fmt.Fprintf(os.Stderr, "[DEBUG] Using Authorize URL: %s\r\n", authorizeURL)
-
 	docs.SwaggerInfo.BasePath = basePath
-	docs.SwaggerInfo.SwaggerTemplate = docs.OverrideAuthURL(authorizeURL)
 
 	handleSigterm()
 	router := gin.Default()
@@ -86,9 +76,6 @@ func main() {
 	basketRepository := repositories.NewRedisBasketRepository(&connectionProvider)
 	basketHandler := handlers.NewBasketHandler(basketRepository)
 	checkoutHandler := handlers.NewCheckOutHandler(basketRepository, kafkaProducer)
-
-	auth := middlewares.CreateAuth()
-	router.Use(auth.AuthMiddleware())
 
 	api := router.Group(basePath + "/api/v1/")
 	{

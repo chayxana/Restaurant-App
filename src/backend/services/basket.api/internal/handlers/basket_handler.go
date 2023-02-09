@@ -33,7 +33,6 @@ func NewBasketHandler(r CustomerBasketCreateDeleteGetter) *BasketHandler {
 //	@Success		200				{object}	models.CustomerBasket
 //	@Failure		400				{object}	models.HTTPError
 //	@Router			/items [post]
-//	@Security		OAuth
 func (bc *BasketHandler) Create(c *gin.Context) {
 	var entity models.CustomerBasket
 	if err := c.BindJSON(&entity); err != nil {
@@ -70,7 +69,6 @@ func (bc *BasketHandler) Create(c *gin.Context) {
 //	@Success		200	{object}	models.CustomerBasket
 //	@Failure		400	{object}	models.HTTPError
 //	@Router			/items/{id} [get]
-//	@Security		OAuth
 func (bc *BasketHandler) Get(c *gin.Context) {
 	id := c.Param("id")
 
@@ -94,7 +92,6 @@ func (bc *BasketHandler) Get(c *gin.Context) {
 //	@Success		200	""
 //	@Failure		400	{object}	models.HTTPError
 //	@Router			/items/{id} [delete]
-//	@Security		OAuth
 func (bc *BasketHandler) Delete(c *gin.Context) {
 	id := c.Param("id")
 

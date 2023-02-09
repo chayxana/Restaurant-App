@@ -105,8 +105,6 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/models.HTTPError'
-      security:
-      - OAuth: []
       summary: Starts checkout for the entered card and basket items
       tags:
       - Checkout
@@ -133,8 +131,6 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/models.HTTPError'
-      security:
-      - OAuth: []
       summary: Add a CustomerBasket
       tags:
       - CustomerBasket
@@ -158,8 +154,6 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/models.HTTPError'
-      security:
-      - OAuth: []
       summary: Deletes a CustomerBasket
       tags:
       - CustomerBasket
@@ -184,16 +178,7 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/models.HTTPError'
-      security:
-      - OAuth: []
       summary: Gets a CustomerBasket
       tags:
       - CustomerBasket
-securityDefinitions:
-  OAuth:
-    authorizationUrl: '{{.AuthUrl}}'
-    flow: implicit
-    scopes:
-      basket-api: "\t\t\t\t\t\tAccess to basket-api"
-    type: oauth2
 swagger: "2.0"

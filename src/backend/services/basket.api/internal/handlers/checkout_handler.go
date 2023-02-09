@@ -42,7 +42,6 @@ func NewCheckOutHandler(
 //	@Success		200			""
 //	@Failure		400			{object}	models.HTTPError
 //	@Router			/checkout [post]
-//	@Security		OAuth
 func (h *CheckOutHandler) Checkout(c *gin.Context) {
 	var checkout models.Checkout
 	err := c.BindJSON(&checkout)

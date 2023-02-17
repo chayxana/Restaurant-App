@@ -2,6 +2,7 @@ module github.com/jurabek/basket.api
 
 require (
 	github.com/Jurabek/gin-swagger v1.2.2
+	github.com/Shopify/sarama v1.38.1
 	github.com/gin-gonic/gin v1.8.2
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/gomodule/redigo v2.0.0+incompatible
@@ -13,7 +14,6 @@ require (
 )
 
 require (
-	github.com/Shopify/sarama v1.38.1 // indirect
 	github.com/eapache/go-resiliency v1.3.0 // indirect
 	github.com/eapache/go-xerial-snappy v0.0.0-20230111030713-bf00bc1b83b6 // indirect
 	github.com/eapache/queue v1.1.0 // indirect
@@ -59,9 +59,9 @@ require (
 	github.com/swaggo/files v1.0.0
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	golang.org/x/crypto v0.5.0 // indirect
-	golang.org/x/net v0.5.0 // indirect
-	golang.org/x/sys v0.4.0 // indirect
-	golang.org/x/text v0.6.0 // indirect
+	golang.org/x/net v0.7.0 // indirect
+	golang.org/x/sys v0.5.0 // indirect
+	golang.org/x/text v0.7.0 // indirect
 	golang.org/x/tools v0.5.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect

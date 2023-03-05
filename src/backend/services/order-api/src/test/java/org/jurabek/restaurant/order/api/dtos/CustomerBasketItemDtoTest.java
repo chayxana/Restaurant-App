@@ -6,11 +6,12 @@ import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
+import org.jurabek.restaurant.order.api.events.CustomerBasketItem;
 
 public class CustomerBasketItemDtoTest {
     @Test
     public void testGetterAndSetters() {
-        assertThat(CustomerBasketItemDto.class, allOf(
+        assertThat(CustomerBasketItem.class, allOf(
                 hasValidGettersAndSetters()
         ));
     }

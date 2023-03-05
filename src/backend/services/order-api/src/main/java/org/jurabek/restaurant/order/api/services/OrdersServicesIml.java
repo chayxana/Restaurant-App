@@ -7,10 +7,8 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import org.jurabek.restaurant.order.api.dtos.CustomerBasketDto;
 import org.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
 import org.jurabek.restaurant.order.api.mappers.OrdersMapper;
-import org.jurabek.restaurant.order.api.models.OrderItems;
 import org.jurabek.restaurant.order.api.repositories.OrdersRepository;
 
 /**
@@ -26,15 +24,6 @@ public class OrdersServicesIml implements OrdersService {
     public OrdersServicesIml(OrdersRepository ordersRepository, OrdersMapper mapper) {
         this.ordersRepository = ordersRepository;
         this.mapper = mapper;
-    }
-
-    @Override
-    public void Create(CustomerBasketDto customerBasketDto) {
-        var order = mapper.mapDtoToOrder(customerBasketDto);
-        for (OrderItems orderItems : order.getOrderItems()) {
-            orderItems.setOrder(order);
-        }
-        ordersRepository.persist(order);
     }
 
     @Override

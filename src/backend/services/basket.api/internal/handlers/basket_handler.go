@@ -7,7 +7,7 @@ import (
 	"github.com/jurabek/basket.api/internal/models"
 )
 
-type CustomerBasketCreateDeleteGetter interface {
+type GetCreateDeleter interface {
 	Get(customerID string) (*models.CustomerBasket, error)
 	Update(item *models.CustomerBasket) error
 	Delete(id string) error
@@ -15,11 +15,11 @@ type CustomerBasketCreateDeleteGetter interface {
 
 // BasketHandler is router initializer for http
 type BasketHandler struct {
-	BasketRepository CustomerBasketCreateDeleteGetter
+	BasketRepository GetCreateDeleter
 }
 
 // NewBasketHandler creates new instance of BasketController with BasketRepository
-func NewBasketHandler(r CustomerBasketCreateDeleteGetter) *BasketHandler {
+func NewBasketHandler(r GetCreateDeleter) *BasketHandler {
 	return &BasketHandler{BasketRepository: r}
 }
 

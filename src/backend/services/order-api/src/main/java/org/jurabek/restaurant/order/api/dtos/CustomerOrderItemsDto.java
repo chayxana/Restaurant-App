@@ -2,14 +2,12 @@ package org.jurabek.restaurant.order.api.dtos;
 
 import java.util.UUID;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * OrderItemsDto
  */
-@Getter
-@Setter
+@Data
 public class CustomerOrderItemsDto {
     private UUID id;
     private UUID foodId;

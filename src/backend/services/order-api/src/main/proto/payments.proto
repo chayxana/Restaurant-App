@@ -5,8 +5,8 @@ package payments;
 option go_package = "/v1";
 
 option java_multiple_files = true;
-option java_package = "org.jurabek";
-option java_outer_classname = "PaymentService";
+option java_package = "org.jurabek.payment";
+option java_outer_classname = "PaymentServiceProto";
 
 service PaymentService {
     rpc Payment(PaymentRequest) returns (PaymentResponse) {}

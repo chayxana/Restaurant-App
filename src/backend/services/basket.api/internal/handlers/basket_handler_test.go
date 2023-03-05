@@ -18,7 +18,6 @@ import (
 )
 
 var items = []models.BasketItem{{
-	ID:           uuid.New(),
 	FoodID:       uuid.New(),
 	UnitPrice:    20,
 	OldUnitPrice: 10,
@@ -37,8 +36,8 @@ func TestBasketController(t *testing.T) {
 
 	var mockedBasketRepository = &repositories.BasketRepositoryMock{}
 
-	mockedBasketRepository.On("GetBasket", "abcd").Return(&customerBasket, nil).Once()
-	mockedBasketRepository.On("GetBasket", "invalid").Return(&customerBasket, fmt.Errorf("Not found item with id: %s", "invalid")).Once()
+	mockedBasketRepository.On("Get", "abcd").Return(&customerBasket, nil).Once()
+	mockedBasketRepository.On("Get", "invalid").Return(&customerBasket, fmt.Errorf("Not found item with id: %s", "invalid")).Once()
 	mockedBasketRepository.On("Update", &customerBasket).Return(nil)
 	var controller = NewBasketHandler(mockedBasketRepository)
 
@@ -64,7 +63,7 @@ func TestBasketController(t *testing.T) {
 	})
 
 	t.Run("Create should create item and return ok", func(t *testing.T) {
-		mockedBasketRepository.On("GetBasket", customerBasket.CustomerID.String()).Return(&customerBasket, nil)
+		mockedBasketRepository.On("Get", customerBasket.CustomerID.String()).Return(&customerBasket, nil)
 
 		body, _ := json.Marshal(customerBasket)
 
@@ -100,7 +99,7 @@ func TestBasketController(t *testing.T) {
 			CustomerID: uuid.New(),
 		}
 		mockedBasketRepository.On("Update", &invalidCustomerBasket).Return(nil)
-		mockedBasketRepository.On("GetBasket", invalidCustomerBasket.CustomerID.String()).Return(
+		mockedBasketRepository.On("Get", invalidCustomerBasket.CustomerID.String()).Return(
 			&invalidCustomerBasket,
 			fmt.Errorf("could not found created item with id: %s", invalidCustomerBasket.CustomerID))
 		body, _ := json.Marshal(invalidCustomerBasket)

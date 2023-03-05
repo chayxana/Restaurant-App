@@ -11,6 +11,6 @@ runs:
   steps:
     - run: |
         cd ${{ inputs.service-name }}
-        go build
+        go install ./... 
         go test ./...
       shell: bash

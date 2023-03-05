@@ -1,1 +1,1 @@
-## Kustomize deplouyment
+## Kustomize deployment

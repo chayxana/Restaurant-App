@@ -3,5 +3,7 @@
 # go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
 
 protodir=./pb
-protoc --go_out=$protodir --go-grpc_out=require_unimplemented_servers=false:$protodir -I $protodir $protodir/payments.proto
+protoc --go_out=$protodir \
+    --go-grpc_out=require_unimplemented_servers=false:$protodir \
+    -I $protodir $protodir/payments.proto
 

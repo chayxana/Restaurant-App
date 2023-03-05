@@ -197,16 +197,13 @@ const docTemplate = `{
         "models.BasketItem": {
             "type": "object",
             "properties": {
-                "foodId": {
+                "food_id": {
                     "type": "string"
                 },
-                "foodName": {
+                "food_name": {
                     "type": "string"
                 },
-                "id": {
-                    "type": "string"
-                },
-                "oldUnitPrice": {
+                "old_unit_price": {
                     "type": "number"
                 },
                 "picture": {
@@ -215,7 +212,7 @@ const docTemplate = `{
                 "quantity": {
                     "type": "integer"
                 },
-                "unitPrice": {
+                "unit_price": {
                     "type": "number"
                 }
             }
@@ -260,7 +257,7 @@ const docTemplate = `{
         "models.CustomerBasket": {
             "type": "object",
             "properties": {
-                "customerId": {
+                "customer_id": {
                     "type": "string"
                 },
                 "items": {

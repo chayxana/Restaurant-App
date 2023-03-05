@@ -18,12 +18,12 @@ type EventPublisher interface {
 }
 
 type CheckOutHandler struct {
-	customerBasketGetter CustomerBasketCreateDeleteGetter
+	customerBasketGetter GetCreateDeleter
 	publisher            EventPublisher
 }
 
 func NewCheckOutHandler(
-	customerBasketGetter CustomerBasketCreateDeleteGetter,
+	customerBasketGetter GetCreateDeleter,
 	publisher EventPublisher,
 ) *CheckOutHandler {
 	return &CheckOutHandler{

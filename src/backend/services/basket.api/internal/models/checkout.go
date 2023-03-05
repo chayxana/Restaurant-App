@@ -1,8 +1,8 @@
 package models
 
 type UserCheckoutEvent struct {
-	CheckOutInfo   *Checkout
-	CustomerBasket *CustomerBasket
+	CheckOutInfo   *Checkout       `json:"checkout_info"`
+	CustomerBasket *CustomerBasket `json:"customer_basket"`
 }
 
 type Checkout struct {

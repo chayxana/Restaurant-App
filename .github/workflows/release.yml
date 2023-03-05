@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  workflow_call:
+    inputs:
+      artifact-name:
+        required: true
+        type: string 
+      tag:
+        required: true
+        type: string
+      registry:
+        required: true
+        type: string
+      image-name:
+        required: true
+        type: string
+      docker-file:
+        required: true
+        type: string
+      assembly-source-file:
+        required: true
+        type: string
+
+concurrency:
+  group: update-infra-manifest
+  cancel-in-progress: false
+
+jobs:
+  release-docker:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Download artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: ${{ inputs.artifact-name }}
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build, tag, and push image to Docker Registry
+      uses: ./.github/actions/docker-release
+      with:
+        tag: ${{ inputs.tag }}
+        registry: ghcr.io/chayxana
+        image: ${{ inputs.image-name }}
+        docker-file: ${{ inputs.docker-file }} 
+        source-file: ${{ inputs.assembly-source-file }} 

@@ -36,6 +36,9 @@ public class Order extends PanacheEntityBase {
     @Column(nullable = false)
     private UUID buyerId;
 
+    @Column(nullable = false)
+    private UUID transactionID;
+
     private Date orderedDate;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order", orphanRemoval = true)

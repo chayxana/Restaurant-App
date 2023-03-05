@@ -11,8 +11,8 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
     ports:
-      - "80:80"
-      - "81:8080"
+      - "8080:80"
+      - "8081:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
@@ -20,7 +20,7 @@ services:
   identity-api:
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.catalog.rule=PathPrefix(`/identity/`)"
+      - "traefik.http.routers.identity.rule=PathPrefix(`/identity/`)"
       - "traefik.port=5001"
     
   catalog-api:
@@ -39,4 +39,4 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.order.rule=PathPrefix(`/order/`)"
-      - "traefik.port=8080"
+      - "traefik.port=8082"

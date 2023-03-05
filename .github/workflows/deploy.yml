@@ -1,0 +1,46 @@
+name: Deploy
+
+on:
+  workflow_call:
+    inputs:
+      service-name:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+
+concurrency:
+  group: update-infra-manifest
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v3
+
+      - uses: imranismail/setup-kustomize@v1
+        with:
+          kustomize-version: "3.9.2"
+
+      - name: Change manifests
+        env:
+          IMG: ghcr.io/chayxana/${{ inputs.service-name }}:${{ inputs.version }}
+        run: |
+          cd ./k8s-kustomize/services/${{ env.SERVICE_NAME }}/base
+          kustomize edit set image ${{ inputs.service-name }}=$IMG
+          cat kustomization.yaml
+
+      - name: Commit manifest deploy changes
+        uses: ./.github/actions/git-commit
+        with:
+          git-message: Deploying ${{ inputs.service-name }}:${{ inputs.version }}
+          directory: ./k8s-kustomize/services/${{ inputs.service-name }}/base
+          origin-branch: develop
+
+      - name: "Push changes into develop"
+        uses: ./.github/actions/git-push
+        with:
+          origin-branch: ${{ github.ref }}

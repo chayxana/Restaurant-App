@@ -14,19 +14,17 @@ definitions:
     type: object
   models.BasketItem:
     properties:
-      foodId:
+      food_id:
         type: string
-      foodName:
+      food_name:
         type: string
-      id:
-        type: string
-      oldUnitPrice:
+      old_unit_price:
         type: number
       picture:
         type: string
       quantity:
         type: integer
-      unitPrice:
+      unit_price:
         type: number
     type: object
   models.Checkout:
@@ -55,7 +53,7 @@ definitions:
     type: object
   models.CustomerBasket:
     properties:
-      customerId:
+      customer_id:
         type: string
       items:
         items:

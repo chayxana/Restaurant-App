@@ -4,14 +4,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * OrderDto
  */
-@Getter
-@Setter
+@Data
 public class CustomerOrderDto {
     private UUID id;
     private Date orderedDate;

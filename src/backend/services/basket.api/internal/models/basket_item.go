@@ -6,11 +6,10 @@ import (
 
 // BasketItem items for users basket
 type BasketItem struct {
-	ID           uuid.UUID `json:"id"`
-	FoodID       uuid.UUID `json:"foodId"`
-	UnitPrice    float32   `json:"unitPrice"`
-	OldUnitPrice float32   `json:"oldUnitPrice"`
+	FoodID       uuid.UUID `json:"food_id"`
+	UnitPrice    float32   `json:"unit_price"`
+	OldUnitPrice float32   `json:"old_unit_price"`
 	Quantity     int       `json:"quantity"`
 	Picture      string    `json:"picture"`
-	FoodName     string    `json:"foodName"`
+	FoodName     string    `json:"food_name"`
 }

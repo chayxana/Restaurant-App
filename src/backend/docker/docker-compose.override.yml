@@ -6,6 +6,9 @@ services:
       - QUARKUS_DATASOURCE_JDBC_URL=jdbc:postgresql://order-db:5432/orderdb
       - QUARKUS_DATASOURCE_USERNAME=admin
       - QUARKUS_DATASOURCE_PASSWORD=Passw0rd!
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - QUARKUS_GRPC_CLIENTS_PAYMENTSERVICE_HOST=payment-api
+      - QUARKUS_GRPC_CLIENTS_PAYMENTSERVICE_PORT=8080
 
   basket-api:
     environment:
@@ -13,7 +16,7 @@ services:
       - KAFKA_BROKER=kafka:29092
       - CHECKOUT_TOPIC=checkout
       - IDENTITY_URL=http://identity-api
-      - AUTH_URL=http://localhost/identity
+      - AUTH_URL=http://localhost:8080/identity
       - BASE_PATH=/basket
 
   catalog-api:

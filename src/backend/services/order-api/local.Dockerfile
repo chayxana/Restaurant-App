@@ -1,24 +1,18 @@
-FROM quay.io/quarkus/ubi-quarkus-graalvmce-builder-image:22.3.0-java17 AS build
+FROM maven:3.8.3-openjdk-17-slim AS build
 
-USER root
-RUN microdnf install findutils
+WORKDIR /app
 
-COPY --chown=quarkus:quarkus mvnw /code/mvnw
-COPY --chown=quarkus:quarkus .mvn /code/.mvn
-COPY --chown=quarkus:quarkus pom.xml /code/
+COPY pom.xml .
+RUN mvn dependency:go-offline
 
-USER quarkus
+COPY src src
 
-WORKDIR /code
-RUN ./mvnw -B org.apache.maven.plugins:maven-dependency-plugin:3.1.2:go-offline
-COPY src /code/src
-
-RUN ./mvnw package -Pnative -DskipTests -Dquarkus.package.type=native -Dquarkus.native.native-image-xmx=8g -Dquarkus.profile=local
+RUN mvn package -Dquarkus.package.type=uber-jar -DskipTests -Dquarkus.profile=local
 
 ## Stage 2 : create the docker final image
-FROM quay.io/quarkus/quarkus-micro-image:2.0
+FROM eclipse-temurin:17
 WORKDIR /work/
-COPY --from=build /code/target/*-runner /work/application
-RUN chmod 775 /work
+COPY --from=build /app/target/*-runner.jar /work/application
+
 EXPOSE 8080
-CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
+CMD ["java","-Dquarkus.http.host=0.0.0.0", "-jar", "./application"]

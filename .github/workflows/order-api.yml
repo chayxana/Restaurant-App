@@ -119,66 +119,26 @@ jobs:
 
   release:
     if: github.ref == 'refs/heads/develop'
-    outputs:
-      new-version: ${{ needs.build.outputs.new-version }}
-      current-version: ${{ needs.build.outputs.current-version }}
-    needs: 
+    needs:
       - build
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Download artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: ${{ env.ARTIFACT_NAME }}
-
-    - name: Login to GitHub Container Registry
-      uses: docker/login-action@v2
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Build, tag, and push image to Docker Registry
-      uses: ./.github/actions/docker-release
-      with:
-        tag: ${{ needs.build.outputs.new-version }}
-        registry: ghcr.io/chayxana
-        image: ${{ env.IMAGE_NAME }}
-        docker-file: ./src/backend/services/${{ env.SERVICE_NAME }}/release.Dockerfile
-        source-file: ${{ env.SERVICE_NAME }}-${{ needs.build.outputs.new-version }}-runner
+    uses: "./.github/workflows/release.yml"
+    with:
+      artifact-name: ${{ env.ARTIFACT_NAME }}
+      tag: ${{ needs.build.outputs.new-version }}
+      registry: ghcr.io/chayxana
+      image-name: ${{ env.IMAGE_NAME }}
+      docker-file: ./src/backend/services/${{ env.SERVICE_NAME }}/release.Dockerfile
+      assembly-source-file: ${{ env.SERVICE_NAME }}-${{ needs.build.outputs.new-version }}-runner
 
   update-manifests:
     if: github.ref == 'refs/heads/develop'
-    needs: release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout main repo
-        uses: actions/checkout@v2
+    needs: 
+      - release
+      - build
+    uses: "./.github/workflows/deploy.yml"
+    with:
+      service-name: ${{ env.SERVICE_NAME }}
+      version: ${{ needs.build.outputs.new-version }}
 
-      - uses: imranismail/setup-kustomize@v1
-        with:
-          kustomize-version: "3.9.2"
-      
-      - name: Change manifests
-        env:
-          KUSTOMIZE_IMAGE_NAME: order-api
-          IMG: ghcr.io/chayxana/${{ env.IMAGE_NAME }}:${{ needs.release.outputs.new-version }}
-        run: |
-          cd ./k8s-kustomize/services/${{ env.SERVICE_NAME }}/base
-          kustomize edit set image $KUSTOMIZE_IMAGE_NAME=$IMG
-          cat kustomization.yaml
 
-      - name: Commit manifest deploy changes
-        uses: ./.github/actions/git-commit
-        with:
-          git-message: Deploying ${{ env.SERVICE_NAME }}:${{ needs.release.outputs.new-version }}  
-          directory: ./k8s-kustomize/services/${{ env.SERVICE_NAME }}/base
-          origin-branch: develop
-
-      - name: "Push changes into develop"
-        uses: ./.github/actions/git-push
-        with:
-          origin-branch: ${{ github.ref }}
+  

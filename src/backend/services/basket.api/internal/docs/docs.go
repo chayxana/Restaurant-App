@@ -198,7 +198,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "food_id": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "food_name": {
                     "type": "string"

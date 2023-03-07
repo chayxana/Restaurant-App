@@ -6,12 +6,13 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import io.quarkus.grpc.GrpcClient;
+import io.smallrye.common.annotation.Blocking;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.jboss.logging.Logger;
 import org.jurabek.payment.CreditCardInfo;
 import org.jurabek.payment.PaymentRequest;
-import org.jurabek.payment.PaymentService;
+import org.jurabek.payment.PaymentServiceGrpc;
 import org.jurabek.restaurant.order.api.services.CheckoutService;
 
 @ApplicationScoped
@@ -20,7 +21,7 @@ public class UserCheckoutEventHandler {
     private static final Logger log = Logger.getLogger(UserCheckoutEventHandler.class);
 
     @GrpcClient(value = "paymentservice")
-    PaymentService paymentService;
+    PaymentServiceGrpc.PaymentServiceBlockingStub paymentService;
 
     private final CheckoutService checkout;
 
@@ -30,6 +31,7 @@ public class UserCheckoutEventHandler {
     }
 
     @Incoming("checkout")
+    @Blocking
     public void Handle(UserCheckoutEvent in) {
         log.info("received user checkout event: " + in);
 
@@ -59,11 +61,8 @@ public class UserCheckoutEventHandler {
 
         log.info("payment req:" + request);
 
-        paymentService.payment(request)
-                .onItem().transform(r -> r.getTransactionId())
-                .subscribe().with(r -> {
-                    in.setTransactionId(UUID.fromString(r));
-                    checkout.Checkout(in);
-                });
+        var response = paymentService.payment(request);
+        in.setTransactionId(UUID.fromString(response.getTransactionId()));
+        checkout.Checkout(in);
     }
 }

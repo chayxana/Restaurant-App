@@ -15,4 +15,4 @@ WORKDIR /work/
 COPY --from=build /app/target/*-runner.jar /work/application
 
 EXPOSE 8080
-CMD ["java","-Dquarkus.http.host=0.0.0.0", "-jar", "./application"]
+CMD ["java","-Dquarkus.http.host=0.0.0.0", "-Djava.util.logging.manager=org.jboss.logmanager.LogManager", "-jar", "./application"]

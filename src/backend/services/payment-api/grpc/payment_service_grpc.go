@@ -2,11 +2,11 @@ package grpc
 
 import (
 	"context"
-	"errors"
 	"strconv"
 
 	pbv1 "github.com/chayxana/payment-api/pb/v1"
 	"github.com/google/uuid"
+	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
 	"github.com/sgumirov/go-cards-validation"
 )
@@ -36,7 +36,7 @@ func (p *PaymentServiceGrpc) Payment(ctx context.Context, req *pbv1.PaymentReque
 	}
 	err := card.Brand()
 	if err != nil {
-		return nil, ErrInvalidCardInfo
+		return nil, errors.Wrap(err, ErrInvalidCardInfo.Error())
 	}
 	cardType := card.Company.Code
 	if !(cardType == "visa" || cardType == "mastercard") {
@@ -44,7 +44,7 @@ func (p *PaymentServiceGrpc) Payment(ctx context.Context, req *pbv1.PaymentReque
 	}
 
 	if err := card.Validate(p.enableTestCards); err != nil {
-		return nil, ErrInvalidCardInfo
+		return nil, errors.Wrap(err, ErrInvalidCardInfo.Error())
 	}
 
 	lastFour, _ := card.LastFour()

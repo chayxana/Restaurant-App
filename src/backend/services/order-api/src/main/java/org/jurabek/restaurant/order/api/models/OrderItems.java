@@ -18,7 +18,7 @@ public class OrderItems  extends PanacheEntityBase {
     private UUID id;
     
     @Column(nullable = false)
-    private UUID foodId;
+    private int foodId;
 
     private float unitPrice;
 

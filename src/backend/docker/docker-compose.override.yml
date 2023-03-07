@@ -9,6 +9,7 @@ services:
       - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
       - QUARKUS_GRPC_CLIENTS_PAYMENTSERVICE_HOST=payment-api
       - QUARKUS_GRPC_CLIENTS_PAYMENTSERVICE_PORT=8080
+      - QUARKUS_LOG_CONSOLE_JSON=true
 
   basket-api:
     environment:

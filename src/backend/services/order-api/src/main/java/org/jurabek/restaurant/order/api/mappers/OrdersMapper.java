@@ -32,7 +32,7 @@ public class OrdersMapper {
 
     public OrderItems mapDtoToOrderItems(CustomerBasketItem source) {
         var orderItems = new OrderItems();
-        orderItems.setId(source.getId());
+        orderItems.setId(UUID.randomUUID());
         orderItems.setFoodId(source.getFoodId());
         orderItems.setUnitPrice(source.getUnitPrice());
         orderItems.setUnits(source.getQuantity());

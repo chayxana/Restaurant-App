@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class CustomerOrderItemsDto {
     private UUID id;
-    private UUID foodId;
+    private int foodId;
     private float unitPrice;
     private float units;
     private String foodName;

@@ -3,6 +3,8 @@ package main
 import (
 	"log"
 	"net"
+	"os"
+	"strconv"
 
 	grpcsvc "github.com/chayxana/payment-api/grpc"
 	v1 "github.com/chayxana/payment-api/pb/v1"
@@ -21,10 +23,28 @@ func main() {
 
 	s := grpc.NewServer()
 	reflection.Register(s)
-	v1.RegisterPaymentServiceServer(s, grpcsvc.NewPaymentServiceGrpc(true))
+
+	enableTestCards, err := getenvBool("ENABLE_TEST_CARDS")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	v1.RegisterPaymentServiceServer(s, grpcsvc.NewPaymentServiceGrpc(enableTestCards))
 
 	log.Println("Starting gRPC server on port 8080...")
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
 	}
+}
+
+func getenvBool(key string) (bool, error) {
+	s, ok := os.LookupEnv(key)
+	if !ok {
+		return false, nil
+	}
+	v, err := strconv.ParseBool(s)
+	if err != nil {
+		return false, err
+	}
+	return v, nil
 }

@@ -46,6 +46,8 @@ services:
     build: ./services/payment-api
     ports:
       - 8083:8080
+    environment:
+      - ENABLE_TEST_CARDS=true
    
 
   # dashboard-app:

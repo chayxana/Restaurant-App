@@ -123,10 +123,10 @@ jobs:
       - build
     uses: ./.github/workflows/release.yml
     with:
-      artifact-name: ${{ env.ARTIFACT_NAME }}
+      artifact-name: "1"
       tag: "1"
       registry: ghcr.io/chayxana
-      image-name: ${{ env.IMAGE_NAME }}
+      image-name: "1"
       docker-file: ./src/backend/services/${{ env.SERVICE_NAME }}/release.Dockerfile
       assembly-source-file: ${{ env.SERVICE_NAME }}-${{ needs.build.outputs.new-version }}-runner
 

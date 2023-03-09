@@ -117,27 +117,27 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
 
-  release:
-    if: github.ref == 'refs/heads/develop'
-    name: "Release"
-    needs:
-      - build
-    uses: ./.github/workflows/release.yml
-    with:
-      artifact-name: ${{ env.ARTIFACT_NAME }}
-      tag: ${{ needs.build.outputs.new-version }}
-      registry: ghcr.io/chayxana
-      image-name: ${{ env.IMAGE_NAME }}
-      docker-file: ./src/backend/services/${{ env.SERVICE_NAME }}/release.Dockerfile
-      assembly-source-file: ${{ env.SERVICE_NAME }}-${{ needs.build.outputs.new-version }}-runner
+  # release:
+  #   if: github.ref == 'refs/heads/develop'
+  #   name: "Release"
+  #   needs:
+  #     - build
+  #   uses: ./.github/workflows/release.yml
+  #   with:
+  #     artifact-name: ${{ env.ARTIFACT_NAME }}
+  #     tag: ${{ needs.build.outputs.new-version }}
+  #     registry: ghcr.io/chayxana
+  #     image-name: ${{ env.IMAGE_NAME }}
+  #     docker-file: ./src/backend/services/${{ env.SERVICE_NAME }}/release.Dockerfile
+  #     assembly-source-file: ${{ env.SERVICE_NAME }}-${{ needs.build.outputs.new-version }}-runner
 
-  update-manifests:
-    if: github.ref == 'refs/heads/develop'
-    needs:
-      - release
-      - build
-    name: "Deploy"
-    uses: ./.github/workflows/deploy.yml
-    with:
-      service-name: ${{ env.SERVICE_NAME }}
-      version: ${{ needs.build.outputs.new-version }}
+  # update-manifests:
+  #   if: github.ref == 'refs/heads/develop'
+  #   needs:
+  #     - release
+  #     - build
+  #   name: "Deploy"
+  #   uses: ./.github/workflows/deploy.yml
+  #   with:
+  #     service-name: ${{ env.SERVICE_NAME }}
+  #     version: ${{ needs.build.outputs.new-version }}

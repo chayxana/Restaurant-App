@@ -134,7 +134,6 @@ jobs:
   update-manifests:
     if: github.ref == 'refs/heads/develop'
     needs:
-      - release
       - build
     name: "Deploy"
     uses: ./.github/workflows/deploy.yml

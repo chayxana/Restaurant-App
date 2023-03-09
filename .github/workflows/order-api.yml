@@ -117,26 +117,27 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
 
-  release:
-    name: "Release"
-    needs:
-      - build
-    uses: ./.github/workflows/release.yml
-    with:
-      artifact-name: "1"
-      tag: "1"
-      registry: ghcr.io/chayxana
-      image-name: "1"
-      docker-file: ./src/backend/services/${{ env.SERVICE_NAME }}/release.Dockerfile
-      assembly-source-file: ${{ env.SERVICE_NAME }}-${{ needs.build.outputs.new-version }}-runner
-
-  # update-manifests:
+  # release:
   #   if: github.ref == 'refs/heads/develop'
+  #   name: "Release"
   #   needs:
-  #     - release
   #     - build
-  #   name: "Deploy"
-  #   uses: ./.github/workflows/deploy.yml
+  #   uses: ./.github/workflows/release.yml
   #   with:
-  #     service-name: ${{ env.SERVICE_NAME }}
-  #     version: ${{ needs.build.outputs.new-version }}
+  #     artifact-name: ${{ env.ARTIFACT_NAME }}
+  #     tag: ${{ needs.build.outputs.new-version }}
+  #     registry: ghcr.io/chayxana
+  #     image-name: ${{ env.IMAGE_NAME }}
+  #     docker-file: ./src/backend/services/${{ env.SERVICE_NAME }}/release.Dockerfile
+  #     assembly-source-file: ${{ env.SERVICE_NAME }}-${{ needs.build.outputs.new-version }}-runner
+
+  update-manifests:
+    if: github.ref == 'refs/heads/develop'
+    needs:
+      - release
+      - build
+    name: "Deploy"
+    uses: ./.github/workflows/deploy.yml
+    with:
+      service-name: order-api 
+      version: 1.0.0

@@ -122,7 +122,7 @@ jobs:
     name: "Release"
     needs:
       - build
-    uses: "./.github/workflows/release.yml"
+    uses: ./.github/workflows/release.yml
     with:
       artifact-name: ${{ env.ARTIFACT_NAME }}
       tag: ${{ needs.build.outputs.new-version }}
@@ -137,7 +137,7 @@ jobs:
       - release
       - build
     name: "Deploy"
-    uses: ".github/workflows/deploy.yml"
+    uses: ./.github/workflows/deploy.yml
     with:
       service-name: ${{ env.SERVICE_NAME }}
       version: ${{ needs.build.outputs.new-version }}

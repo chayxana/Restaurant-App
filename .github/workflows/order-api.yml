@@ -124,7 +124,7 @@ jobs:
     uses: ./.github/workflows/release.yml
     with:
       artifact-name: ${{ env.ARTIFACT_NAME }}
-      tag: ${{ needs.build.outputs.new-version }}
+      tag: "1"
       registry: ghcr.io/chayxana
       image-name: ${{ env.IMAGE_NAME }}
       docker-file: ./src/backend/services/${{ env.SERVICE_NAME }}/release.Dockerfile

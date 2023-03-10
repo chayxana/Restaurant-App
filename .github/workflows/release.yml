@@ -22,10 +22,6 @@ on:
         required: true
         type: string
 
-concurrency:
-  group: update-infra-manifest
-  cancel-in-progress: false
-
 jobs:
   release-docker:
     runs-on: ubuntu-latest

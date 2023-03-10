@@ -16,7 +16,6 @@ concurrency:
 
 jobs:
   deploy:
-    if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main repo
@@ -30,7 +29,7 @@ jobs:
         env:
           IMG: ghcr.io/chayxana/${{ inputs.service-name }}:${{ inputs.version }}
         run: |
-          cd ./k8s-kustomize/services/${{ env.SERVICE_NAME }}/base
+          cd ./k8s-kustomize/services/${{ inputs.SERVICE_NAME }}/base
           kustomize edit set image ${{ inputs.service-name }}=$IMG
           cat kustomization.yaml
 

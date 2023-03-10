@@ -29,7 +29,7 @@ jobs:
         env:
           IMG: ghcr.io/chayxana/${{ inputs.service-name }}:${{ inputs.version }}
         run: |
-          cd ./k8s-kustomize/services/${{ inputs.SERVICE_NAME }}/base
+          cd ./k8s-kustomize/services/${{ inputs.service-name }}/base
           kustomize edit set image ${{ inputs.service-name }}=$IMG
           cat kustomization.yaml
 

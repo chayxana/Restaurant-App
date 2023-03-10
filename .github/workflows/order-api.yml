@@ -122,12 +122,12 @@ jobs:
       - build
     uses: ./.github/workflows/release.yml
     with:
-      artifact-name: ${{ env.ARTIFACT_NAME }}
+      artifact-name: order-api-artifact 
       tag: ${{ needs.build.outputs.new-version }}
       registry: ghcr.io/chayxana
-      image-name: ${{ env.IMAGE_NAME }}
-      docker-file: ./src/backend/services/${{ env.SERVICE_NAME }}/release.Dockerfile
-      assembly-source-file: ${{ env.SERVICE_NAME }}-${{ needs.build.outputs.new-version }}-runner
+      image-name: order-api 
+      docker-file: ./src/backend/services/order-api/release.Dockerfile
+      assembly-source-file: order-api-${{ needs.build.outputs.new-version }}-runner
 
   update-manifests:
     needs:
@@ -135,5 +135,5 @@ jobs:
       - build
     uses: ./.github/workflows/deploy.yml
     with:
-      service-name: ${{ env.SERVICE_NAME }}
+      service-name: order-api
       version: ${{ needs.build.outputs.new-version }}

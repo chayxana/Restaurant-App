@@ -118,7 +118,6 @@ jobs:
         uses: github/codeql-action/analyze@v2
 
   release:
-    if: github.ref == 'refs/heads/develop'
     needs:
       - build
     uses: ./.github/workflows/release.yml
@@ -131,7 +130,6 @@ jobs:
       assembly-source-file: ${{ env.SERVICE_NAME }}-${{ needs.build.outputs.new-version }}-runner
 
   update-manifests:
-    if: github.ref == 'refs/heads/develop'
     needs:
       - release
       - build

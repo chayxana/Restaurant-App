@@ -121,6 +121,7 @@ jobs:
     if: github.ref == 'refs/heads/develop'
     needs:
       - build
+      - analyze
     uses: ./.github/workflows/release.yml
     with:
       artifact-name: order-api-artifact 

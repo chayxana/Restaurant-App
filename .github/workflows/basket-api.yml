@@ -70,7 +70,9 @@ jobs:
       if: github.ref == 'refs/heads/develop'
       uses: ./.github/actions/package-go
       with:
-        service-name: ./src/backend/services/${{ env.SERVICE_NAME }}
+        service-path: ./src/backend/services/${{ env.SERVICE_NAME }}
+        artifact-name: ${{ env.SERVICE_NAME }}
+        main-file-path: ./cmd/api/main.go
         app-version: ${{ steps.version.outputs.new-version }}
         commit-sha: ${{ github.sha }}
 

@@ -132,7 +132,7 @@ jobs:
       - analyze
     uses: ./.github/workflows/release.yml
     with:
-      artifact-name: order-api-artifact 
+      artifact-name: basket-api-artifact 
       tag: ${{ needs.build.outputs.new-version }}
       registry: ghcr.io/chayxana
       image-name: basket-api

@@ -137,7 +137,7 @@ jobs:
       registry: ghcr.io/chayxana
       image-name: basket-api
       docker-file: ./src/backend/services/basket-api/release.Dockerfile
-      assembly-source-file: basket-api-artifact/basket-api 
+      assembly-source-file: basket-api 
 
   update-manifests:
     if: github.ref == 'refs/heads/develop'

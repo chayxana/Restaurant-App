@@ -1,9 +1,18 @@
 name: "package-golang-app"
 description: 'Packages golang app with specific version and git sha'
 inputs:
-  service-name: 
-    description: 'Service name'
+  service-path: 
+    description: 'Service path'
     required: true
+  
+  artifact-name: 
+    description: 'artifact name'
+    required: true
+
+  main-file-path:
+    description: 'path to main.go'
+    required: true 
+
   app-version:
     description: 'Application version'
     required: false
@@ -15,8 +24,8 @@ runs:
   using: "composite"
   steps:
     - run: |
-        cd ${{ inputs.service-name }}
+        cd ${{ inputs.service-path }}
         GIT_COMMIT="${{ inputs.commit-sha }}"
         VERSION="${{ inputs.app-version }}"
-        CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s -X main.GitCommit=$GIT_COMMIT -X main.Version=$VERSION"
+        CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s -X main.GitCommit=$GIT_COMMIT -X main.Version=$VERSION" -o ${{ inputs.artifact-name }} ${{ inputs.main-file-path }}
       shell: bash

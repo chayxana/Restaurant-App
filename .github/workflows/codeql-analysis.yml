@@ -70,7 +70,7 @@ jobs:
     - if: matrix.language == 'go'
       name: Build Go
       run: |
-       bash ./src/backend/services/basket.api/build.sh 
+       bash ./src/backend/services/basket-api/build.sh 
 
     - if: matrix.language == 'csharp'
       name: Build C#

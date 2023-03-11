@@ -13,11 +13,11 @@ on:
     branches:
     - develop
     paths:
-    - 'src/backend/services/basket.api/**'
+    - 'src/backend/services/basket-api/**'
     - '.github/workflows/basket-api.yml'
 
 env:
-  SERVICE_NAME: basket.api
+  SERVICE_NAME: basket-api
   ARTIFACT_NAME: basket-api-artifact
   IMAGE_NAME: basket-api
 
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0                # fetch the whole repo history
 
@@ -37,20 +37,20 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: '0'
 
     - name: Install Go
-      uses: actions/setup-go@v1
+      uses: actions/setup-go@v3
       with:
-        go-version: 1.17.x
+        go-version: 1.18.x
 
     - name: Setup cache
-      uses: actions/cache@v1
+      uses: actions/cache@v3
       with:
         path: ~/go/pkg/mod
-        key: ${{ runner.os }}-go-${{ hashFiles('**/basket.api/go.sum') }}
+        key: ${{ runner.os }}-go-${{ hashFiles('**/basket-api/go.sum') }}
         restore-keys: |
           ${{ runner.os }}-go-
     
@@ -76,7 +76,7 @@ jobs:
 
     - name: "📤 Upload artifact"
       if: github.ref == 'refs/heads/develop'
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: ${{ env.ARTIFACT_NAME }}
         path: ./src/backend/services/${{ env.SERVICE_NAME }}/${{ env.SERVICE_NAME }}
@@ -94,69 +94,56 @@ jobs:
       uses: ./.github/actions/git-push
       with:
         origin-branch: ${{ github.ref }}
-  
+
+  analyze:
+    name: analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18.x
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: go
+
+      - name: Build Go
+        run: |
+          bash ./src/backend/services/basket-api/build.sh
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+
   release:
     if: github.ref == 'refs/heads/develop'
-    outputs:
-      new-version: ${{ needs.build.outputs.new-version }}
-      current-version: ${{ needs.build.outputs.current-version }}
-    needs: build
-    
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    
-    - name: Download basket-api artifact
-      uses: actions/download-artifact@v1
-      with:
-        name: ${{ env.ARTIFACT_NAME }}
-
-    - name: Login to GitHub Container Registry
-      uses: docker/login-action@v1
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Build, tag, and push image to Docker Registry
-      uses: ./.github/actions/docker-release
-      with:
-        tag: ${{ needs.build.outputs.new-version }}
-        registry: ghcr.io/chayxana
-        image: ${{ env.IMAGE_NAME }}
-        docker-file: ./src/backend/services/${{ env.SERVICE_NAME }}/release.Dockerfile
-        source-file: ${{ env.ARTIFACT_NAME }}/${{ env.SERVICE_NAME }}
+    needs:
+      - build
+      - analyze
+    uses: ./.github/workflows/release.yml
+    with:
+      artifact-name: order-api-artifact 
+      tag: ${{ needs.build.outputs.new-version }}
+      registry: ghcr.io/chayxana
+      image-name: basket-api
+      docker-file: ./src/backend/services/basket-api/release.Dockerfile
+      assembly-source-file: basket-api-artifact/basket-api 
 
   update-manifests:
     if: github.ref == 'refs/heads/develop'
-    needs: release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout main repo
-        uses: actions/checkout@v2
-
-      - uses: imranismail/setup-kustomize@v1
-        with:
-          kustomize-version: "3.9.2"
-      
-      - name: Change manifests
-        env:
-          KUSTOMIZE_IMAGE_NAME: basket-api
-          IMG: ghcr.io/chayxana/${{ env.IMAGE_NAME }}:${{ needs.release.outputs.new-version }}
-        run: |
-          cd ./k8s-kustomize/services/${{ env.SERVICE_NAME }}/base
-          kustomize edit set image $KUSTOMIZE_IMAGE_NAME=$IMG
-          cat kustomization.yaml
-
-      - name: Commit manifest deploy changes
-        uses: ./.github/actions/git-commit
-        with:
-          git-message: Deploying ${{ env.SERVICE_NAME }}:${{ needs.release.outputs.new-version }}  
-          directory: ./k8s-kustomize/services/${{ env.SERVICE_NAME }}/base
-          origin-branch: develop
-
-      - name: "Push changes into develop"
-        uses: ./.github/actions/git-push
-        with:
-          origin-branch: ${{ github.ref }}
+    needs:
+      - release
+      - build
+    uses: ./.github/workflows/deploy.yml
+    with:
+      service-name: basket-api
+      version: ${{ needs.build.outputs.new-version }}
 

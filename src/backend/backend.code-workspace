@@ -18,7 +18,7 @@
 		},	
 		{
 			"name": "basket-api",
-			"path": "./services/basket.api"
+			"path": "./services/basket-api"
 		},
 		{
 			"name": "identity-api",
@@ -57,6 +57,9 @@
 		},
 		"java.configuration.updateBuildConfiguration": "interactive",
 		"dotenv.enableAutocloaking": false,
-		"java.compile.nullAnalysis.mode": "automatic"
+		"java.compile.nullAnalysis.mode": "automatic",
+		"yaml.schemas": {
+			"https://json.schemastore.org/github-workflow.json": "file:///Users/jurabek/dev/Restaurant-App/.github/workflows/deploy.yml"
+		}
 	}
 }

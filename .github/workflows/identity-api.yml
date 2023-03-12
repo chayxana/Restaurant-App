@@ -17,12 +17,9 @@ on:
 jobs:
   build-and-test:
     name: build and test
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macOS-latest, ubuntu-latest]
+    runs-on:  ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: '0'
               
@@ -32,7 +29,7 @@ jobs:
           dotnet-version: 3.1.100
 
       - name: Setup cache
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/Identity.API/packages.lock.json') }}
@@ -52,15 +49,13 @@ jobs:
         working-directory: ./src/backend/
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: matrix.os == 'ubuntu-latest'
-
+    
       - name: Upload menu-api artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: identity_api
           path: ./src/backend/services/identity.api/identity-api-release
-        if: matrix.os == 'ubuntu-latest'
-
+      
   docker-push:
     needs: build-and-test
     runs-on: ubuntu-latest

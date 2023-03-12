@@ -156,6 +156,7 @@ jobs:
     needs:
       - release
       - build
+      - lint
     uses: ./.github/workflows/deploy.yml
     with:
       service-name: basket-api

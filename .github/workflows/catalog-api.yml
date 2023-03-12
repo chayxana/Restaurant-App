@@ -5,14 +5,14 @@ on:
     branches:
     - develop
     paths:
-    - 'src/backend/services/catalog.api/**'
-    - '.github/workflows/catalog-api.yml'
+    - "src/backend/services/catalog.api/**"
+    - ".github/workflows/catalog-api.yml"
   pull_request:
     branches:
     - develop
     paths:
-    - 'src/backend/services/catalog-api/**'
-    - '.github/workflows/catalog-api.yml'
+    - "src/backend/services/catalog-api/**"
+    - ".github/workflows/catalog-api.yml"
 
 env:
   SERVICE_NAME: catalog-api

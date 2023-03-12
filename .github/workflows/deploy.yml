@@ -40,7 +40,7 @@ jobs:
           directory: ./k8s-kustomize/services/${{ inputs.service-name }}/base
           origin-branch: develop
 
-      - name: "Push changes into develop"
-        uses: ./.github/actions/git-push
+      - name: "Push changes"
+        uses: ad-m/github-push-action@master
         with:
-          origin-branch: ${{ github.ref }}
+          branch: ${{ github.head_ref }}

@@ -5,7 +5,7 @@ on:
     branches:
     - develop
     paths:
-    - "src/backend/services/catalog.api/**"
+    - "src/backend/services/catalog-api/**"
     - ".github/workflows/catalog-api.yml"
   pull_request:
     branches:

@@ -35,12 +35,22 @@ jobs:
       uses: ./.github/actions/bump-version
       with:
         service-name: ./src/backend/services/${{ env.SERVICE_NAME }}
+
+    - name: Detect Pull Request
+      id: allow_push
+      run: |
+        BRANCH=${{ github.ref }}
+        if [ $BRANCH = 'refs/heads/develop' ]; then
+           echo "ALLOW_PUSH=true" >> $GITHUB_OUTPUT
+        else
+          echo "ALLOW_PUSH=false" >> $GITHUB_OUTPUT
+        fi
       
     - name: Build and push
       uses: docker/build-push-action@v4
       with:
         context: src/backend/services/catalog-api
-        push: github.ref == 'refs/heads/develop'
+        push: ${{ steps.allow_push.outputs.ALLOW_PUSH }}
         tags: ghcr.io/chayxana/catalog-api:${{ steps.version.outputs.new-version }}
         cache-from: type=gha
         cache-to: type=gha,mode=max

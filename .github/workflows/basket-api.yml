@@ -39,7 +39,7 @@ jobs:
         with:
           # Optional: version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
           version: v1.29
-          working-directory: /src/backend/services/${{ env.SERVICE_NAME }} 
+          working-directory: ./src/backend/services/${{ env.SERVICE_NAME }}
 
   build:
     outputs:
@@ -154,9 +154,8 @@ jobs:
   update-manifests:
     if: github.ref == 'refs/heads/develop'
     needs:
-      - release
       - build
-      - lint
+      - release
     uses: ./.github/workflows/deploy.yml
     with:
       service-name: basket-api

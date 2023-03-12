@@ -5,9 +5,9 @@ generatorOptions:
   disableNameSuffixHash: true
 
 resources:
-  - "deployment.yaml"
-  - "service.yaml"
-  - "virtual-service.yaml"
+- deployment.yaml
+- service.yaml
+- virtual-service.yaml
 
 configMapGenerator:
 - envs:
@@ -15,10 +15,14 @@ configMapGenerator:
   name: menu-api
 
 secretGenerator:
-- name: menu-api
-  envs: [".env.secret"]
+- envs:
+  - .env.secret
+  name: menu-api
 
 images:
+- name: catalog-api
+  newName: ghcr.io/chayxana/catalog-api
+  newTag: 0.0.2
 - name: menu-api
   newName: ghcr.io/chayxana/menu
   newTag: 1.0.1

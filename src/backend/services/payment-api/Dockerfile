@@ -13,8 +13,8 @@ RUN go mod download
 
 COPY ./ ./
 
-RUN CGO_ENABLED=0 go build -installsuffix 'static' -o payment-api main.go
 RUN CGO_ENABLED=0 go test ./...
+RUN CGO_ENABLED=0 go build -installsuffix 'static' -o payment-api main.go
 
 #final stage
 FROM alpine:latest

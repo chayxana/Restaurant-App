@@ -18,4 +18,4 @@ configMapGenerator:
 images:
 - name: basket-api
   newName: ghcr.io/chayxana/basket-api
-  newTag: 0.0.13
+  newTag: 0.0.18

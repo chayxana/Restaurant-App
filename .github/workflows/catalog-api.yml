@@ -55,12 +55,23 @@ jobs:
         else
           echo "ALLOW_PUSH=false" >> $GITHUB_OUTPUT
         fi
-      
-    - name: Build and push
+
+    - name: Build
+      if: github.ref != 'refs/heads/develop'
       uses: docker/build-push-action@v4
       with:
         context: src/backend/services/catalog-api
-        push: ${{ steps.allow_push.outputs.ALLOW_PUSH }}
+        push: false
+        tags: ghcr.io/chayxana/catalog-api:pr-build
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+      
+    - name: Build and push
+      if: github.ref == 'refs/heads/develop'
+      uses: docker/build-push-action@v4
+      with:
+        context: src/backend/services/catalog-api
+        push: true
         tags: ghcr.io/chayxana/catalog-api:${{ steps.version.outputs.new-version }}
         cache-from: type=gha
         cache-to: type=gha,mode=max

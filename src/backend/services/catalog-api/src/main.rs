@@ -57,7 +57,8 @@ async fn rocket() -> _ {
     dotenv().ok();
 
     let base_url = env::var("BASE_URL").unwrap_or_else(|_| "/".to_string());
-    
+    println!("base_url: {}", base_url);
+     
     let open_api_json_url = if base_url == "/" {
         "../openapi.json".to_string()
     } else {

@@ -22,7 +22,7 @@ secretGenerator:
 images:
 - name: catalog-api
   newName: ghcr.io/chayxana/catalog-api
-  newTag: 0.0.3
+  newTag: 0.0.4
 - name: menu-api
   newName: ghcr.io/chayxana/menu
   newTag: 1.0.1

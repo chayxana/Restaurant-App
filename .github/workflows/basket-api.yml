@@ -16,128 +16,20 @@ on:
     - 'src/backend/services/basket-api/**'
     - '.github/workflows/basket-api.yml'
 
-env:
-  SERVICE_NAME: basket-api
-  ARTIFACT_NAME: basket-api-artifact
-  IMAGE_NAME: basket-api
 
 jobs:
-  build:
-    outputs:
-      new-version: ${{ steps.version.outputs.new-version }}
-      current-version:  ${{ steps.version.outputs.current-version }}
-
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: '0'
-
-    - name: Install Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: 1.18.x
-
-    - name: Setup cache
-      uses: actions/cache@v3
-      with:
-        path: ~/go/pkg/mod
-        key: ${{ runner.os }}-go-${{ hashFiles('**/basket-api/go.sum') }}
-        restore-keys: |
-          ${{ runner.os }}-go-
-    
-    - name: "Bump Version"
-      if: github.ref == 'refs/heads/develop'
-      id: version
-      uses: ./.github/actions/bump-version
-      with:
-        service-name: ./src/backend/services/${{ env.SERVICE_NAME }}
-    
-    - name: "🚀 Build & Test"
-      uses: ./.github/actions/compile-go
-      with:
-        service-name: ./src/backend/services/${{ env.SERVICE_NAME }}
-
-    - name: "📦 Package go app"
-      if: github.ref == 'refs/heads/develop'
-      uses: ./.github/actions/package-go
-      with:
-        service-path: ./src/backend/services/${{ env.SERVICE_NAME }}
-        artifact-name: ${{ env.SERVICE_NAME }}
-        main-file-path: ./cmd/api/main.go
-        app-version: ${{ steps.version.outputs.new-version }}
-        commit-sha: ${{ github.sha }}
-
-    - name: "📤 Upload artifact"
-      if: github.ref == 'refs/heads/develop'
-      uses: actions/upload-artifact@v3
-      with:
-        name: ${{ env.ARTIFACT_NAME }}
-        path: ./src/backend/services/${{ env.SERVICE_NAME }}/${{ env.SERVICE_NAME }}
-    
-    - name: "Commit bumped version"
-      if: github.ref == 'refs/heads/develop'
-      uses: ./.github/actions/git-commit
-      with:
-        git-message: Bumped ${{ env.SERVICE_NAME }} version from  ${{ steps.version.outputs.current-version }} to ${{ steps.version.outputs.new-version }}
-        directory: ./src/backend/services/${{ env.SERVICE_NAME }}
-        origin-branch: ${{ github.ref }}
-        
-    - name: "Push changes"
-      if: github.ref == 'refs/heads/develop'
-      uses: ad-m/github-push-action@master
-      with:
-        branch: ${{ github.head_ref }}
-
-  analyze:
-    name: analyze
-    runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Install Go
-        uses: actions/setup-go@v3
-        with:
-          go-version: 1.18.x
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: go
-
-      - name: Build Go
-        run: |
-          bash ./src/backend/services/basket-api/build.sh
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-
-  release:
-    if: github.ref == 'refs/heads/develop'
-    needs:
-      - build
-      - analyze
-    uses: ./.github/workflows/release.yml
+  build-release:
+    uses: ./.github/workflows/build-release.yml
     with:
-      artifact-name: basket-api-artifact 
-      tag: ${{ needs.build.outputs.new-version }}
-      registry: ghcr.io/chayxana
-      image-name: basket-api
-      docker-file: ./src/backend/services/basket-api/release.Dockerfile
-      assembly-source-file: basket-api 
+      service-name: basket-api
+    secrets: inherit
 
-  update-manifests:
+  deploy:
     if: github.ref == 'refs/heads/develop'
     needs:
-      - build
-      - release
+      - build-release
     uses: ./.github/workflows/deploy.yml
     with:
       service-name: basket-api
-      version: ${{ needs.build.outputs.new-version }}
+      version: ${{ needs.build-release.outputs.new-version }}
 

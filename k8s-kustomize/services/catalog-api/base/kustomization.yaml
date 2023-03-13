@@ -12,12 +12,12 @@ resources:
 configMapGenerator:
 - envs:
   - config.env
-  name: menu-api
+  name: catalog-api
 
 secretGenerator:
 - envs:
   - .env.secret
-  name: menu-api
+  name: catalog-api
 
 images:
 - name: catalog-api

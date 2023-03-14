@@ -6,7 +6,7 @@ on:
     branches:
     - develop
     paths:
-    - 'src/backend/services/order.api/**'
+    - 'src/backend/services/basket-api/**'
     - '.github/workflows/basket-api.yml'
 
   pull_request:

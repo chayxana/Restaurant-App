@@ -3,11 +3,11 @@ FROM maven:3.8.3-openjdk-17-slim AS build
 WORKDIR /app
 
 COPY pom.xml .
-RUN mvn dependency:go-offline
+RUN --mount=type=cache,target=/root/.m2 mvn dependency:go-offline
 
 COPY src src
 
-RUN mvn package -Dquarkus.package.type=uber-jar -DskipTests -Dquarkus.profile=local
+RUN --mount=type=cache,target=/root/.m2 mvn package -Dquarkus.package.type=uber-jar -Dquarkus.profile=local
 
 ## Stage 2 : create the docker final image
 FROM eclipse-temurin:17

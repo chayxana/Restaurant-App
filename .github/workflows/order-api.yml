@@ -14,129 +14,29 @@ on:
       - "src/backend/services/order-api/**"
       - ".github/workflows/order-api.yml"
 
-env:
-  SERVICE_NAME: order-api
-  ARTIFACT_NAME: order-api-artifact
-  IMAGE_NAME: order-api
 
 jobs:
-  build:
-    outputs:
-      new-version: ${{ steps.version.outputs.new-version }}
-      current-version: ${{ steps.version.outputs.current-version }}
-
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: "0"
-
-      - uses: graalvm/setup-graalvm@v1
-        with:
-          version: "22.3.0"
-          java-version: "17"
-          components: "native-image"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/order-api/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
-      - name: "🎉 Bump Version"
-        if: github.ref == 'refs/heads/develop'
-        id: version
-        uses: ./.github/actions/bump-version
-        with:
-          service-name: ./src/backend/services/${{ env.SERVICE_NAME }}
-          service-type: maven
-
-      - name: "🚀 Build & Test"
-        uses: ./.github/actions/compile-maven
-        with:
-          service-name: ./src/backend/services/${{ env.SERVICE_NAME }}
-
-      - name: "📦 Build graalvm native"
-        if: github.ref == 'refs/heads/develop'
-        uses: ./.github/actions/build-graalvm-native
-        with:
-          service-name: ./src/backend/services/${{ env.SERVICE_NAME }}
-          app-version: ${{ steps.version.outputs.new-version }}
-          commit-sha: ${{ github.sha }}
-
-      - name: "📤 Upload artifact"
-        if: github.ref == 'refs/heads/develop'
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.ARTIFACT_NAME }}
-          path: ./src/backend/services/${{ env.SERVICE_NAME }}/target/order-api-${{ env.VERSION }}-runner
-        env:
-          VERSION: ${{ steps.version.outputs.new-version }}
-
-      - name: "💾 Commit bumped version"
-        if: github.ref == 'refs/heads/develop'
-        uses: ./.github/actions/git-commit
-        with:
-          git-message: Bumped ${{ env.SERVICE_NAME }} version from  ${{ steps.version.outputs.current-version }} to ${{ steps.version.outputs.new-version }}
-          directory: ./src/backend/services/${{ env.SERVICE_NAME }}
-          origin-branch: ${{ github.ref }}
-
-      - name: "Push changes"
-        if: github.ref == 'refs/heads/develop'
-        uses: ad-m/github-push-action@master
-        with:
-          branch: ${{ github.head_ref }}
-
-  analyze:
-    name: analyze
-    runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - uses: actions/setup-java@v3
-        with:
-          distribution: "temurin" # See 'Supported distributions' for available options
-          java-version: "17" # See 'Supported Java versions' for available options
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: java
-
-      - name: Build Java
-        run: |
-          bash ./src/backend/services/order-api/build.sh
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-
-  release:
-    if: github.ref == 'refs/heads/develop'
-    needs:
-      - build
-      - analyze
-    uses: ./.github/workflows/release.yml
+  pull-request-build:
+    if: github.ref != 'refs/heads/develop'
+    uses: ./.github/workflows/build-release.yml
     with:
-      artifact-name: order-api-artifact 
-      tag: ${{ needs.build.outputs.new-version }}
-      registry: ghcr.io/chayxana
-      image-name: order-api 
-      docker-file: ./src/backend/services/order-api/release.Dockerfile
-      assembly-source-file: order-api-${{ needs.build.outputs.new-version }}-runner
+      service-name: order-api
+    secrets: inherit
 
-  update-manifests:
+  build-release:
+    if: github.ref == 'refs/heads/develop'
+    uses: ./.github/workflows/build-release.yml
+    with:
+      service-name: order-api
+      docker-file: native.Dockerfile
+    secrets: inherit
+
+
+  deploy:
     if: github.ref == 'refs/heads/develop'
     needs:
-      - release
-      - build
+      - build-release
     uses: ./.github/workflows/deploy.yml
     with:
       service-name: order-api
-      version: ${{ needs.build.outputs.new-version }}
+      version: ${{ needs.build-release.outputs.new-version }}

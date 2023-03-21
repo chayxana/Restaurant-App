@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -28,6 +29,8 @@ var items = []models.BasketItem{{
 }
 
 func TestBasketController(t *testing.T) {
+	ctx := context.TODO()
+
 	gin.SetMode(gin.TestMode)
 	customerBasket := models.CustomerBasket{
 		CustomerID: uuid.New(),
@@ -36,9 +39,9 @@ func TestBasketController(t *testing.T) {
 
 	var mockedBasketRepository = &repositories.BasketRepositoryMock{}
 
-	mockedBasketRepository.On("Get", "abcd").Return(&customerBasket, nil).Once()
-	mockedBasketRepository.On("Get", "invalid").Return(&customerBasket, fmt.Errorf("Not found item with id: %s", "invalid")).Once()
-	mockedBasketRepository.On("Update", &customerBasket).Return(nil)
+	mockedBasketRepository.On("Get", ctx, "abcd").Return(&customerBasket, nil).Once()
+	mockedBasketRepository.On("Get", ctx, "invalid").Return(&customerBasket, fmt.Errorf("Not found item with id: %s", "invalid")).Once()
+	mockedBasketRepository.On("Update", ctx, &customerBasket).Return(nil)
 	var controller = NewBasketHandler(mockedBasketRepository)
 
 	router := gin.Default()
@@ -63,7 +66,7 @@ func TestBasketController(t *testing.T) {
 	})
 
 	t.Run("Create should create item and return ok", func(t *testing.T) {
-		mockedBasketRepository.On("Get", customerBasket.CustomerID.String()).Return(&customerBasket, nil)
+		mockedBasketRepository.On("Get", ctx, customerBasket.CustomerID.String()).Return(&customerBasket, nil)
 
 		body, _ := json.Marshal(customerBasket)
 
@@ -84,7 +87,7 @@ func TestBasketController(t *testing.T) {
 		invalidCustomerBasket := models.CustomerBasket{
 			CustomerID: uuid.New(),
 		}
-		mockedBasketRepository.On("Update", &invalidCustomerBasket).Return(fmt.Errorf("could not update item id: %s", customerBasket.CustomerID))
+		mockedBasketRepository.On("Update", ctx, &invalidCustomerBasket).Return(fmt.Errorf("could not update item id: %s", customerBasket.CustomerID))
 
 		body, _ := json.Marshal(invalidCustomerBasket)
 
@@ -98,8 +101,8 @@ func TestBasketController(t *testing.T) {
 		invalidCustomerBasket := models.CustomerBasket{
 			CustomerID: uuid.New(),
 		}
-		mockedBasketRepository.On("Update", &invalidCustomerBasket).Return(nil)
-		mockedBasketRepository.On("Get", invalidCustomerBasket.CustomerID.String()).Return(
+		mockedBasketRepository.On("Update", ctx, &invalidCustomerBasket).Return(nil)
+		mockedBasketRepository.On("Get", ctx, invalidCustomerBasket.CustomerID.String()).Return(
 			&invalidCustomerBasket,
 			fmt.Errorf("could not found created item with id: %s", invalidCustomerBasket.CustomerID))
 		body, _ := json.Marshal(invalidCustomerBasket)

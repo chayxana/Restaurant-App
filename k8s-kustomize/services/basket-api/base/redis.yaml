@@ -18,7 +18,6 @@ spec:
       - image: redis:alpine
         name: cache-data
         imagePullPolicy: IfNotPresent
-        resources:
 
 ---
 apiVersion: v1

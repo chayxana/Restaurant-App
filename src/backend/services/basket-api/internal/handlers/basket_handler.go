@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -8,9 +9,9 @@ import (
 )
 
 type GetCreateDeleter interface {
-	Get(customerID string) (*models.CustomerBasket, error)
-	Update(item *models.CustomerBasket) error
-	Delete(id string) error
+	Get(ctx context.Context, customerID string) (*models.CustomerBasket, error)
+	Update(ctx context.Context, item *models.CustomerBasket) error
+	Delete(ctx context.Context, id string) error
 }
 
 // BasketHandler is router initializer for http
@@ -40,7 +41,7 @@ func (bc *BasketHandler) Create(c *gin.Context) {
 		return
 	}
 
-	err := bc.BasketRepository.Update(&entity)
+	err := bc.BasketRepository.Update(c.Request.Context(), &entity)
 
 	if err != nil {
 		httpError := models.NewHTTPError(http.StatusBadRequest, err)
@@ -48,8 +49,7 @@ func (bc *BasketHandler) Create(c *gin.Context) {
 		return
 	}
 
-	result, err := bc.BasketRepository.Get(entity.CustomerID.String())
-
+	result, err := bc.BasketRepository.Get(c.Request.Context(), entity.CustomerID.String())
 	if err != nil {
 		httpError := models.NewHTTPError(http.StatusBadRequest, err)
 		c.JSON(http.StatusBadRequest, httpError)
@@ -72,7 +72,7 @@ func (bc *BasketHandler) Create(c *gin.Context) {
 func (bc *BasketHandler) Get(c *gin.Context) {
 	id := c.Param("id")
 
-	result, err := bc.BasketRepository.Get(id)
+	result, err := bc.BasketRepository.Get(c.Request.Context(), id)
 
 	if err != nil {
 		httpError := models.NewHTTPError(http.StatusBadRequest, err)
@@ -95,7 +95,7 @@ func (bc *BasketHandler) Get(c *gin.Context) {
 func (bc *BasketHandler) Delete(c *gin.Context) {
 	id := c.Param("id")
 
-	err := bc.BasketRepository.Delete(id)
+	err := bc.BasketRepository.Delete(c.Request.Context(), id)
 
 	if err != nil {
 		httpError := models.NewHTTPError(http.StatusBadRequest, err)

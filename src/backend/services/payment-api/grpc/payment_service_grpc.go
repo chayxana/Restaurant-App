@@ -9,6 +9,9 @@ import (
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
 	"github.com/sgumirov/go-cards-validation"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 )
 
 var _ pbv1.PaymentServiceServer = (*PaymentServiceGrpc)(nil)
@@ -26,28 +29,44 @@ func NewPaymentServiceGrpc(enableTestCards bool) *PaymentServiceGrpc {
 var ErrUnsupportedCardType = errors.New("card type unsupported")
 var ErrInvalidCardInfo = errors.New("invalid card information")
 
+var tracer = otel.Tracer("payment-api")
+
 // Payment implements v1.PaymentServiceServer
-func (p *PaymentServiceGrpc) Payment(ctx context.Context, req *pbv1.PaymentRequest) (*pbv1.PaymentResponse, error) {
+func (p *PaymentServiceGrpc) Payment(ctx context.Context, req *pbv1.PaymentRequest) (res *pbv1.PaymentResponse, err error) {
+	_, span := tracer.Start(ctx, "Payment",
+		trace.WithAttributes(
+			attribute.String("order_id", req.OrderId),
+			attribute.String("user_id", req.UserId),
+			attribute.Float64("amount", float64(req.Amount)),
+		),
+	)
+	defer span.End()
+
 	card := cards.Card{
 		Number: req.GetCreditCard().CreditCardNumber,
 		Cvv:    strconv.Itoa(int(req.GetCreditCard().CreditCardCvv)),
 		Month:  strconv.Itoa(int(req.CreditCard.CreditCardExpirationMonth)),
 		Year:   strconv.Itoa(int(req.CreditCard.CreditCardExpirationYear)),
 	}
-	err := card.Brand()
+	err = card.Brand()
 	if err != nil {
+		span.RecordError(err)
 		return nil, errors.Wrap(err, ErrInvalidCardInfo.Error())
 	}
 	cardType := card.Company.Code
 	if !(cardType == "visa" || cardType == "mastercard") {
+		span.RecordError(ErrUnsupportedCardType)
 		return nil, ErrUnsupportedCardType
 	}
 
 	if err := card.Validate(p.enableTestCards); err != nil {
+		span.RecordError(ErrInvalidCardInfo)
 		return nil, errors.Wrap(err, ErrInvalidCardInfo.Error())
 	}
 
 	lastFour, _ := card.LastFour()
+	traceID := span.SpanContext().TraceID().String()
+	spanID := span.SpanContext().SpanID().String()
 
 	log.Info().
 		Str("card_type", cardType).
@@ -55,9 +74,14 @@ func (p *PaymentServiceGrpc) Payment(ctx context.Context, req *pbv1.PaymentReque
 		Str("order_id", req.OrderId).
 		Str("user_id", req.UserId).
 		Str("ending", lastFour).
+		Str("trace_id", traceID).
+		Str("span_id", spanID).
 		Msg("Transaction processed")
 
+	transactionID := uuid.New().String()
+	span.SetAttributes(attribute.String("transactionID", transactionID))
+
 	return &pbv1.PaymentResponse{
-		TransactionId: uuid.New().String(),
+		TransactionId: transactionID,
 	}, nil
 }

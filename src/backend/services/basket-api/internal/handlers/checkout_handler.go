@@ -50,7 +50,7 @@ func (h *CheckOutHandler) Checkout(c *gin.Context) {
 		return
 	}
 
-	customerBasket, err := h.customerBasketGetter.Get(checkout.CustomerID)
+	customerBasket, err := h.customerBasketGetter.Get(c.Request.Context(), checkout.CustomerID)
 	if err != nil {
 		httpError := models.NewHTTPError(http.StatusNotFound, err)
 		c.JSON(http.StatusNotFound, httpError)

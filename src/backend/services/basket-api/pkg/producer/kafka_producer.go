@@ -5,6 +5,8 @@ import (
 
 	"github.com/Shopify/sarama"
 	"github.com/rs/zerolog/log"
+	"go.opentelemetry.io/contrib/instrumentation/github.com/Shopify/sarama/otelsarama"
+	"go.opentelemetry.io/otel"
 )
 
 type KafkaEventProducer struct {
@@ -20,10 +22,13 @@ func NewKafkaEventProducer(producer sarama.SyncProducer, topic string) *KafkaEve
 }
 
 func (k *KafkaEventProducer) Publish(ctx context.Context, data []byte) error {
-	partition, offset, err := k.producer.SendMessage(&sarama.ProducerMessage{
+	msg := &sarama.ProducerMessage{
 		Topic: k.topic,
 		Value: sarama.ByteEncoder(data),
-	})
+	}
+	otel.GetTextMapPropagator().Inject(ctx, otelsarama.NewProducerMessageCarrier(msg))
+
+	partition, offset, err := k.producer.SendMessage(msg)
 	if err != nil {
 		log.Printf("FAILED to send message: %s\n", err)
 	} else {

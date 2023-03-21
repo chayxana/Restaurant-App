@@ -5,9 +5,11 @@ import java.util.UUID;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.Tracer;
+import io.opentelemetry.context.Context;
 import io.quarkus.grpc.GrpcClient;
 import io.smallrye.common.annotation.Blocking;
-
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.jboss.logging.Logger;
 import org.jurabek.payment.CreditCardInfo;
@@ -25,14 +27,19 @@ public class UserCheckoutEventHandler {
 
     private final CheckoutService checkout;
 
+    private final Tracer tracer;
+
     @Inject
-    public UserCheckoutEventHandler(CheckoutService checkout) {
+    public UserCheckoutEventHandler(CheckoutService checkout, Tracer tracer) {
         this.checkout = checkout;
+        this.tracer = tracer;
     }
 
     @Incoming("checkout")
     @Blocking
     public void Handle(UserCheckoutEvent in) {
+        var span = tracer.spanBuilder("checkout-handler").setParent(Context.current().with(Span.current())).startSpan();
+
         log.info("received user checkout event: " + in);
 
         var orderId = UUID.randomUUID().toString();
@@ -64,5 +71,6 @@ public class UserCheckoutEventHandler {
         var response = paymentService.payment(request);
         in.setTransactionId(UUID.fromString(response.getTransactionId()));
         checkout.Checkout(in);
+        span.end();
     }
 }

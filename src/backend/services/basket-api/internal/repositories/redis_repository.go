@@ -1,35 +1,32 @@
 package repositories
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
-	"github.com/gomodule/redigo/redis"
-	"github.com/jurabek/basket.api/internal/database"
 	"github.com/jurabek/basket.api/internal/models"
+	"github.com/redis/go-redis/v9"
 )
 
 // RedisBasketRepository implementation of BasketRepository
 type RedisBasketRepository struct {
-	Conn database.ConnectionProvider
+	client *redis.Client
 }
 
 // NewRedisBasketRepository creates new instance of repository
-func NewRedisBasketRepository(conn database.ConnectionProvider) *RedisBasketRepository {
-	return &RedisBasketRepository{Conn: conn}
+func NewRedisBasketRepository(client *redis.Client) *RedisBasketRepository {
+	return &RedisBasketRepository{client: client}
 }
 
 // Get returns CustomerBasket otherwise nill
-func (r *RedisBasketRepository) Get(customerID string) (*models.CustomerBasket, error) {
-
-	conn := r.Conn.Get()
-	defer conn.Close()
-
+func (r *RedisBasketRepository) Get(ctx context.Context, customerID string) (*models.CustomerBasket, error) {
 	var (
 		result models.CustomerBasket
 		data   []byte
 	)
-	data, err := redis.Bytes(conn.Do("GET", customerID))
+
+	data, err := r.client.Get(ctx, customerID).Bytes()
 	if err != nil {
 		return nil, fmt.Errorf("error getting key %s: %v", customerID, err)
 	}
@@ -43,17 +40,14 @@ func (r *RedisBasketRepository) Get(customerID string) (*models.CustomerBasket, 
 }
 
 // Update updates or creates new CustomerBasket
-func (r *RedisBasketRepository) Update(item *models.CustomerBasket) error {
+func (r *RedisBasketRepository) Update(ctx context.Context, item *models.CustomerBasket) error {
 	value, err := json.Marshal(item)
 
 	if err != nil {
 		return fmt.Errorf("error marshalling %v", item)
 	}
 
-	conn := r.Conn.Get()
-	defer conn.Close()
-
-	_, err = conn.Do("SET", item.CustomerID, value)
+	err = r.client.Set(ctx, item.CustomerID.String(), value, 0).Err()
 	if err != nil {
 		v := string(value)
 		if len(v) > 15 {
@@ -65,39 +59,6 @@ func (r *RedisBasketRepository) Update(item *models.CustomerBasket) error {
 }
 
 // Delete removes existing CustomerBasket
-func (r *RedisBasketRepository) Delete(id string) error {
-	conn := r.Conn.Get()
-	defer conn.Close()
-
-	_, err := conn.Do("DEL", id)
-	return err
-}
-
-func (r *RedisBasketRepository) getKeys(pattern string) ([]string, error) {
-
-	conn := r.Conn.Get()
-	defer conn.Close()
-
-	iter := 0
-	keys := []string{}
-	for {
-		arr, err := redis.Values(conn.Do("SCAN", iter, "MATCH", pattern))
-		if err != nil {
-			return keys, fmt.Errorf("error retrieving '%s' keys", pattern)
-		}
-
-		iter, _ = redis.Int(arr[0], nil)
-		k, _ := redis.Strings(arr[1], nil)
-		keys = append(keys, k...)
-
-		if iter == 0 {
-			break
-		}
-	}
-
-	return keys, nil
-}
-
-func (r *RedisBasketRepository) getAll() ([]string, error) {
-	return nil, nil
+func (r *RedisBasketRepository) Delete(ctx context.Context, id string) error {
+	return r.client.Del(ctx, id).Err()
 }

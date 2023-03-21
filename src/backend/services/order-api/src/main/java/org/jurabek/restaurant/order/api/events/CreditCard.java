@@ -3,6 +3,8 @@ package org.jurabek.restaurant.order.api.events;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
 public class CreditCard {
 
     @JsonProperty("credit_card_number")

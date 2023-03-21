@@ -3,13 +3,15 @@ version: '3.7'
 services:
   order-api:
     environment:
-      - QUARKUS_DATASOURCE_JDBC_URL=jdbc:postgresql://order-db:5432/orderdb
+      - QUARKUS_DATASOURCE_JDBC_URL=jdbc:otel:postgresql://order-db:5432/orderdb
       - QUARKUS_DATASOURCE_USERNAME=admin
       - QUARKUS_DATASOURCE_PASSWORD=Passw0rd!
       - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
       - QUARKUS_GRPC_CLIENTS_PAYMENTSERVICE_HOST=payment-api
       - QUARKUS_GRPC_CLIENTS_PAYMENTSERVICE_PORT=8080
       - QUARKUS_LOG_CONSOLE_JSON=true
+      - QUARKUS_OPENTELEMETRY_TRACER_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - QUARKUS_OPENTELEMETRY_PROPAGATORS=ottrace
 
   basket-api:
     environment:
@@ -19,6 +21,12 @@ services:
       - IDENTITY_URL=http://identity-api
       - AUTH_URL=http://localhost:8080/identity
       - BASE_PATH=/basket
+      - OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector:4317
+  
+  payment-api:
+    environment:
+      - ENABLE_TEST_CARDS=true
+      - OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector:4317
 
   catalog-api:
     environment:

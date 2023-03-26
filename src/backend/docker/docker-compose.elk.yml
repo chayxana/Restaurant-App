@@ -28,14 +28,14 @@ services:
         fluentd-address: localhost:24224
         tag: basket-api
 
-  # catlog-api:
-  #   links:
-  #     - fluentd
-  #   logging:
-  #     driver: "fluentd"
-  #     options:
-  #       fluentd-address: localhost:24224
-  #       tag: catalog-api
+  catlog-api:
+    links:
+      - fluentd
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: catalog-api
 
   identity-api:
     links:

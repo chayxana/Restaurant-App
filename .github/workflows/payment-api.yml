@@ -19,3 +19,12 @@ jobs:
     uses: ./.github/workflows/build-release.yml
     with:
       service-name: payment-api
+
+  deploy:
+    if: github.ref == 'refs/heads/develop'
+    needs:
+      - build-release
+    uses: ./.github/workflows/deploy.yml
+    with:
+      service-name: payment-api
+      version: ${{ needs.build-release.outputs.new-version }}

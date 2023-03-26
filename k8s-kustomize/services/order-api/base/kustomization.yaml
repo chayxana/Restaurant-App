@@ -20,4 +20,4 @@ secretGenerator:
 images:
 - name: order-api
   newName: ghcr.io/chayxana/order-api
-  newTag: 1.0.12
+  newTag: 1.0.13

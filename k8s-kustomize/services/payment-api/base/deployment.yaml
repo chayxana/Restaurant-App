@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment-api
+  template:
+    metadata:
+      labels:
+        app: payment-api
+    spec:
+      containers:
+      - image: payment-api # must much from ./kustomization.yaml -> images[0].name
+        imagePullPolicy: IfNotPresent
+        name: payment-api
+        ports:
+        - containerPort: 8080
+        env:
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              name: payment-api
+              key: redis.host
+        - name: ENABLE_TEST_CARDS
+          valueFrom:
+            configMapKeyRef:
+              name: payment-api
+              key: enable_test_cards
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "60m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"

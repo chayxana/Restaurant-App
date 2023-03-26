@@ -9,7 +9,7 @@
 			"path": "../../k8s-kustomize"
 		},
 		{
-			"name": "docker-compose-files",
+			"name": "docker",
 			"path": "./docker"
 		},
 		{

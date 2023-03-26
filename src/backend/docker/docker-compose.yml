@@ -1,6 +1,7 @@
 version: '3.7'
 
 services:
+
   identity-api:
     image: restaurant/identity-api
     build: ./services/identity.api/
@@ -24,7 +25,6 @@ services:
     container_name: basket
     build: ./services/basket-api/
     depends_on:
-      - otel-collector
       - redis
 
   order-api:
@@ -40,7 +40,7 @@ services:
       - payment-api
     ports:
       - 8082:8080
-
+  
   payment-api:
     image: restaurant/payment-api
     container_name: payment

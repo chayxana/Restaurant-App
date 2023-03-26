@@ -27,19 +27,15 @@ public class UserCheckoutEventHandler {
 
     private final CheckoutService checkout;
 
-    private final Tracer tracer;
 
     @Inject
-    public UserCheckoutEventHandler(CheckoutService checkout, Tracer tracer) {
+    public UserCheckoutEventHandler(CheckoutService checkout) {
         this.checkout = checkout;
-        this.tracer = tracer;
     }
 
     @Incoming("checkout")
     @Blocking
     public void Handle(UserCheckoutEvent in) {
-        var span = tracer.spanBuilder("checkout-handler").setParent(Context.current().with(Span.current())).startSpan();
-
         log.info("received user checkout event: " + in);
 
         var orderId = UUID.randomUUID().toString();
@@ -71,6 +67,5 @@ public class UserCheckoutEventHandler {
         var response = paymentService.payment(request);
         in.setTransactionId(UUID.fromString(response.getTransactionId()));
         checkout.Checkout(in);
-        span.end();
     }
 }

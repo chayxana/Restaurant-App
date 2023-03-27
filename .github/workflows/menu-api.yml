@@ -80,7 +80,7 @@ jobs:
         ls -a
         cp -r menu_api/ ./src/backend/services/menu.api/menu-api-release
     - name: Publish docker image
-      uses: elgohr/Publish-Docker-Github-Action@master
+      uses: elgohr/Publish-Docker-Github-Action@v5
       with:
         name: jurabek/menu
         username: ${{ secrets.DOCKER_USERNAME }}

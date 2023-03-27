@@ -75,7 +75,7 @@ jobs:
       run: |
         cp -r identity_api/ ./src/backend/services/identity.api/identity-api-release
     - name: Publish docker image
-      uses: elgohr/Publish-Docker-Github-Action@master
+      uses: elgohr/Publish-Docker-Github-Action@v5
       with:
         name: jurabek/menu
         username: ${{ secrets.DOCKER_USERNAME }}

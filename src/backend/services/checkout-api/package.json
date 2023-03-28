@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "card-validator": "^8.1.1",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "pino": "^8.11.0"
   }
 }

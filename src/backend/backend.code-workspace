@@ -13,6 +13,10 @@
 			"path": "./docker"
 		},
 		{
+			"name": "checkout-api",
+			"path": "./services/checkout-api"
+		},
+		{
 			"name": "payment-api",
 			"path": "./services/payment-api"
 		},	

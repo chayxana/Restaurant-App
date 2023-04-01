@@ -14,23 +14,13 @@ on:
       - "src/backend/services/order-api/**"
       - ".github/workflows/order-api.yml"
 
-
 jobs:
-  pull-request-build:
-    if: github.ref != 'refs/heads/develop'
-    uses: ./.github/workflows/build-release.yml
-    with:
-      service-name: order-api
-    secrets: inherit
-
   build-release:
-    if: github.ref == 'refs/heads/develop'
     uses: ./.github/workflows/build-release.yml
     with:
       service-name: order-api
       docker-file: native.Dockerfile
     secrets: inherit
-
 
   deploy:
     if: github.ref == 'refs/heads/develop'

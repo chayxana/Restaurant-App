@@ -4,9 +4,9 @@
 
 mkdir -p pb
 
-cp -r ../protobuff/payments.proto ./pb
+cp -r ../protobuff/cart.proto ./pb
 
 protodir=./pb
 protoc --go_out=$protodir \
     --go-grpc_out=require_unimplemented_servers=false:$protodir \
-    -I $protodir $protodir/payments.proto
+    -I $protodir $protodir/cart.proto

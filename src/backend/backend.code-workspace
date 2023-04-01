@@ -50,6 +50,9 @@
 		},
 		{
 			"path": "./scripts"
+		},
+		{
+			"path": "./services/protobuff"
 		}
 	],
 	"settings": {

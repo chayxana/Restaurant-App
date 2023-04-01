@@ -1,0 +1,1 @@
+cp -r ../protobuff/payments.proto ./src/main/proto

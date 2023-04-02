@@ -10,14 +10,6 @@ use rocket_okapi::openapi;
 
 type Result<T, E = Debug<diesel::result::Error>> = std::result::Result<T, E>;
 
-#[get("/")]
-pub fn health() -> &'static str {
-    let connection = &mut establish_connection();
-    let res = connection.begin_test_transaction();
-    res.expect("begin transaction failed!");
-    return "Ok";
-}
-
 #[openapi]
 #[post("/", format = "json", data = "<catalog_create>")]
 pub async fn create(catalog_create: Json<CatalogRequest>) {

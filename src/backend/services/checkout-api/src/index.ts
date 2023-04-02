@@ -1,16 +1,18 @@
-import express, { Express, Request, Response } from 'express';
-import dotenv from 'dotenv';
+import { tracer } from './tracer';
+import { logger } from './logger';
 import { UserCheckout } from './model';
-import pino from 'pino'
-import path, { resolve } from 'path'
-import * as grpc from '@grpc/grpc-js'
-import * as protoLoader from '@grpc/proto-loader'
 import { ProtoGrpcType } from './gen/cart';
 import { GetCustomerCartResponse } from './gen/cart/GetCustomerCartResponse';
 
+import dotenv from 'dotenv';
+import path from 'path'
+import express, { Express, Request, Response } from 'express';
+
+import * as api from '@opentelemetry/api';
+import * as grpc from '@grpc/grpc-js'
+import * as protoLoader from '@grpc/proto-loader'
 
 dotenv.config();
-
 const app: Express = express();
 const port = process.env.PORT ? process.env.PORT : "8080";
 const host = process.env.HOST ? process.env.HOST : "127.0.0.1";
@@ -22,24 +24,13 @@ const client = new proto.cart.CartService(
   grpc.credentials.createInsecure()
 );
 
-const logger = pino({
-  level: process.env.LOG_LEVEL || 'info',
-  formatters: {
-    level: (label) => {
-      return { level: label.toUpperCase() };
-    },
-  },
-});
-
 app.use(express.json());
 app.post('/api/v1/checkout', async (req: Request<{}, {}, UserCheckout>, res: Response) => {
   logger.info(req.body)
-
   const response = await getCustomerCartItems(req.body.customer_id)
   logger.info(response);
   res.send('Checkout OK');
 });
-
 
 
 process.on('SIGINT', function () {
@@ -54,14 +45,18 @@ app.listen(Number(port), host, () => {
 
 function getCustomerCartItems(customer_id: string) {
   return new Promise<GetCustomerCartResponse>((resolve, reject) => {
-    client.GetCustomerCart({ customerId: customer_id },
-      (error?: grpc.ServiceError | null, serverMessage?: GetCustomerCartResponse) => {
-        if (error) {
-          reject(error);
-        } else if (serverMessage) {
-          resolve(serverMessage);
-        }
-      });
+    const span = tracer.startSpan('cart.CartService.GetCustomerCart');
+    api.context.with(api.trace.setSpan(api.ROOT_CONTEXT, span), () => {
+      client.GetCustomerCart({ customerId: customer_id },
+        (error: grpc.ServiceError | null, resp?: GetCustomerCartResponse) => {
+          if (error) {
+            reject(error);
+          } else if (resp) {
+            resolve(resp);
+            span.end();
+          }
+        });
+    })
   });
 }
 

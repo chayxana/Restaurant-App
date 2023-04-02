@@ -67,6 +67,9 @@
 		"java.compile.nullAnalysis.mode": "automatic",
 		"yaml.schemas": {
 			"https://json.schemastore.org/github-workflow.json": "file:///Users/jurabek/dev/Restaurant-App/.github/workflows/deploy.yml"
-		}
+		},
+		"cSpell.words": [
+			"pino"
+		]
 	}
 }

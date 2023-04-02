@@ -35,7 +35,7 @@ func NewCartServiceClient(cc grpc.ClientConnInterface) CartServiceClient {
 
 func (c *cartServiceClient) GetCustomerCart(ctx context.Context, in *GetCustomerCartRequest, opts ...grpc.CallOption) (*GetCustomerCartResponse, error) {
 	out := new(GetCustomerCartResponse)
-	err := c.cc.Invoke(ctx, "/restaurantapp.CartService/GetCustomerCart", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/cart.CartService/GetCustomerCart", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func _CartService_GetCustomerCart_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/restaurantapp.CartService/GetCustomerCart",
+		FullMethod: "/cart.CartService/GetCustomerCart",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CartServiceServer).GetCustomerCart(ctx, req.(*GetCustomerCartRequest))
@@ -90,7 +90,7 @@ func _CartService_GetCustomerCart_Handler(srv interface{}, ctx context.Context, 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var CartService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "restaurantapp.CartService",
+	ServiceName: "cart.CartService",
 	HandlerType: (*CartServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

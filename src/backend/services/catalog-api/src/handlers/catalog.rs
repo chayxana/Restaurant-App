@@ -11,8 +11,11 @@ use rocket_okapi::openapi;
 type Result<T, E = Debug<diesel::result::Error>> = std::result::Result<T, E>;
 
 #[get("/")]
-pub fn index() -> &'static str {
-    "Hello, world!"
+pub fn health() -> &'static str {
+    let connection = &mut establish_connection();
+    let res = connection.begin_test_transaction();
+    res.expect("begin transaction failed!");
+    return "Ok";
 }
 
 #[openapi]

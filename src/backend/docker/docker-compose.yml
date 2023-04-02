@@ -10,6 +10,14 @@ services:
     ports: 
       - "5001:80"
 
+  checkout-api:
+    image: restaurant/checkout-api
+    build: ./services/checkout-api/
+    depends_on:
+      - basket-api
+      - payment-api
+    ports:
+      - 30001:30001
   catalog-api:
     image: catalog-api
     container_name: catalog

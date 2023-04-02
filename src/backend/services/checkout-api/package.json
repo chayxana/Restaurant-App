@@ -16,7 +16,11 @@
     "typescript": "^5.0.2"
   },
   "dependencies": {
-    "card-validator": "^8.1.1",
+    "@grpc/grpc-js": "^1.8.13",
+    "@grpc/proto-loader": "^0.7.6",
+    "@opentelemetry/auto-instrumentations-node": "^0.36.4",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.37.0",
+    "@opentelemetry/sdk-node": "^0.37.0",
     "dotenv": "^16.0.3",
     "pino": "^8.11.0"
   }

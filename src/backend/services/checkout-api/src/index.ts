@@ -1,15 +1,26 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { UserCheckout } from './model';
-import valid from 'card-validator'
 import pino from 'pino'
+import path, { resolve } from 'path'
+import * as grpc from '@grpc/grpc-js'
+import * as protoLoader from '@grpc/proto-loader'
+import { ProtoGrpcType } from './gen/cart';
+import { GetCustomerCartResponse } from './gen/cart/GetCustomerCartResponse';
+
 
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT;
+const port = process.env.PORT ? process.env.PORT : "8080";
+const host = process.env.HOST ? process.env.HOST : "127.0.0.1";
+const packageDefinition = protoLoader.loadSync(path.resolve(__dirname, '../pb/cart.proto'));
+const proto = grpc.loadPackageDefinition(packageDefinition) as unknown as ProtoGrpcType;
 
-app.use(express.json());
+const client = new proto.cart.CartService(
+  process.env.CART_URL ? process.env.CART_URL : "localhost:50003",
+  grpc.credentials.createInsecure()
+);
 
 const logger = pino({
   level: process.env.LOG_LEVEL || 'info',
@@ -20,29 +31,37 @@ const logger = pino({
   },
 });
 
-app.post('/checkout', (req: Request<{}, {}, UserCheckout>, res: Response) => {
-  const card = req.body.credit_card;
-  console.log(card)
+app.use(express.json());
+app.post('/api/v1/checkout', async (req: Request<{}, {}, UserCheckout>, res: Response) => {
+  logger.info(req.body)
 
-  if (!valid.number(card.credit_card_number).isPotentiallyValid) {
-    res.sendStatus(400);
-    logger.warn("invalid Card Number");
-    return
-  }
-
-  if (!valid.cvv(card.credit_card_cvv, 5).isPotentiallyValid) {
-    res.sendStatus(400);
-    logger.warn("invalid card CVV");
-    return
-  }
-  if (!valid.expirationMonth(card.credit_card_expiration_year)) {
-    res.sendStatus(400);
-    logger.warn("invalid card expiration year");
-    return
-  }
-  res.send('User created successfully');
+  const response = await getCustomerCartItems(req.body.customer_id)
+  logger.info(response);
+  res.send('Checkout OK');
 });
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+
+
+process.on('SIGINT', function () {
+  logger.info("Gracefully shutting down from SIGINT (Ctrl-C)");
+  // some other closing procedures go here
+  process.exit(0);
 });
+
+app.listen(Number(port), host, () => {
+  logger.info(`⚡️[server]: Server is running at http://${host}:${port}`);
+});
+
+function getCustomerCartItems(customer_id: string) {
+  return new Promise<GetCustomerCartResponse>((resolve, reject) => {
+    client.GetCustomerCart({ customerId: customer_id },
+      (error?: grpc.ServiceError | null, serverMessage?: GetCustomerCartResponse) => {
+        if (error) {
+          reject(error);
+        } else if (serverMessage) {
+          resolve(serverMessage);
+        }
+      });
+  });
+}
+

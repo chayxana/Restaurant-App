@@ -9,6 +9,7 @@ import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-grpc';
 import { Resource } from "@opentelemetry/resources";
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
 import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
+import { KafkaJsInstrumentation } from 'opentelemetry-instrumentation-kafkajs';
 
 function createTracer(serviceName: string) {
   diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
@@ -21,7 +22,7 @@ function createTracer(serviceName: string) {
   );
 
   const provider = new NodeTracerProvider({
-    resource: resource,
+    resource,
   });
 
   const processor = new BatchSpanProcessor(new OTLPTraceExporter({
@@ -36,7 +37,8 @@ function createTracer(serviceName: string) {
     instrumentations: [
       new GrpcInstrumentation(),
       new HttpInstrumentation(),
-      new ExpressInstrumentation()
+      new ExpressInstrumentation(),
+      new KafkaJsInstrumentation()
     ],
   });
 

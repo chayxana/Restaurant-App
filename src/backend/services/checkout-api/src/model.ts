@@ -21,7 +21,19 @@ export interface CreditCard {
     credit_card_number: string;
 }
 
+export interface CustomerCart {
+    customer_id: string;
+    items?: Array<CartItem>;
+}
+
+export interface CartItem {
+    item_id: string;
+    price: number;
+    quantity: string;
+}
+
 export interface CheckoutEvent {
-    transaction_id: string;
+    transaction_id?: string;
     user_checkout: UserCheckout;
+    customer_cart: CustomerCart
 }

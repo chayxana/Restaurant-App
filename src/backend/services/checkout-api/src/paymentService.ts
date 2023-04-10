@@ -46,9 +46,9 @@ export default function Payment(
 function pay(cartItems: CartItem[], userCheckout: UserCheckout, orderId: string): Promise<PaymentResponse> {
   let amount = 0;
   for (const cartItem of cartItems) {
-    amount += Number(cartItem.price);
+    const totalPrice = Number(cartItem.price) * Number(cartItem.quantity); 
+    amount += totalPrice;
   }
-
   const userId = userCheckout.customer_id;
   const creditCard = {
     creditCardNumber: userCheckout.credit_card.credit_card_number,

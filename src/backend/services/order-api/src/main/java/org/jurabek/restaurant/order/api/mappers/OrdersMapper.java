@@ -33,10 +33,9 @@ public class OrdersMapper {
     public OrderItems mapDtoToOrderItems(CustomerBasketItem source) {
         var orderItems = new OrderItems();
         orderItems.setId(UUID.randomUUID());
-        orderItems.setFoodId(source.getFoodId());
-        orderItems.setUnitPrice(source.getUnitPrice());
+        orderItems.setItemId(source.getItemId());
+        orderItems.setUnitPrice(source.getPrice());
         orderItems.setUnits(source.getQuantity());
-        orderItems.setFoodName(source.getFoodName());
         return orderItems;
     }
 
@@ -60,8 +59,8 @@ public class OrdersMapper {
 
     public CustomerOrderItemsDto mapOrderItemsToDto(OrderItems source) {
         var dto = new CustomerOrderItemsDto();
-        dto.setFoodId(source.getFoodId());
-        dto.setFoodName(source.getFoodName());
+        dto.setFoodId(source.getItemId());
+        dto.setFoodName(source.getItemName());
         dto.setId(source.getId());
         dto.setUnitPrice(source.getUnitPrice());
         dto.setUnits(source.getUnits());

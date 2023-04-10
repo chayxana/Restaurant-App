@@ -42,30 +42,30 @@ public class UserCheckoutEventHandler {
 
         var card = in.getCheckOutInfo().getCreditCard();
 
-        CreditCardInfo cardInfo = CreditCardInfo.newBuilder()
-                .setCreditCardNumber(card.getCreditCardNumber())
-                .setCreditCardCvv((int) card.getCreditCardCvv())
-                .setCreditCardExpirationMonth((int) card.getCreditCardExpirationMonth())
-                .setCreditCardExpirationYear((int) card.getCreditCardExpirationYear())
-                .build();
+        // CreditCardInfo cardInfo = CreditCardInfo.newBuilder()
+        //         .setCreditCardNumber(card.getCreditCardNumber())
+        //         .setCreditCardCvv((int) card.getCreditCardCvv())
+        //         .setCreditCardExpirationMonth((int) card.getCreditCardExpirationMonth())
+        //         .setCreditCardExpirationYear((int) card.getCreditCardExpirationYear())
+        //         .build();
 
-        float total = 0;
-        for (CustomerBasketItem item : in.getCustomerBasket().getItems()) {
-            var multiplePrice = item.getUnitPrice() * item.getQuantity();
-            total += multiplePrice;
-        }
+        // float total = 0;
+        // for (CustomerBasketItem item : in.getCustomerBasket().getItems()) {
+        //     var multiplePrice = item.getPrice() * item.getQuantity();
+        //     total += multiplePrice;
+        // }
 
-        var request = PaymentRequest.newBuilder()
-                .setAmount(total)
-                .setUserId(in.getCheckOutInfo().getCustomerId())
-                .setOrderId(orderId)
-                .setCreditCard(cardInfo)
-                .build();
+        // var request = PaymentRequest.newBuilder()
+        //         .setAmount(total)
+        //         .setUserId(in.getCheckOutInfo().getCustomerId())
+        //         .setOrderId(orderId)
+        //         .setCreditCard(cardInfo)
+        //         .build();
 
-        log.info("payment req:" + request);
+        // log.info("payment req:" + request);
 
-        var response = paymentService.payment(request);
-        in.setTransactionId(UUID.fromString(response.getTransactionId()));
+        // var response = paymentService.payment(request);
+        // in.setTransactionId(UUID.fromString(response.getTransactionId()));
         checkout.Checkout(in);
     }
 }

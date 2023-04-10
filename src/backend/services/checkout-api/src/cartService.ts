@@ -6,7 +6,6 @@ import * as protoLoader from '@grpc/proto-loader'
 import { ProtoGrpcType } from './gen/cart';
 import path from 'path'
 import { GetCustomerCartResponse } from './gen/cart/GetCustomerCartResponse';
-import { promisify } from 'util';
 import { GetCustomerCartRequest } from './gen/cart/GetCustomerCartRequest';
 import { logger } from './logger';
 

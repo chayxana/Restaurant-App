@@ -1,12 +1,10 @@
-import { Kafka, Message, Producer, ProducerBatch, TopicMessages } from 'kafkajs'
+import { Kafka, Producer, ProducerRecord } from 'kafkajs'
+import { config } from './config'
 
-
-interface CustomMessageFormat { a: string }
-
-export default class ProducerFactory {
+export class Publisher {
   private producer: Producer
 
-  constructor() {
+  constructor(private topic: string, private brokers: Array<string>, private clientId: string) {
     this.producer = this.createProducer()
   }
 
@@ -17,36 +15,30 @@ export default class ProducerFactory {
       console.log('Error connecting the producer: ', error)
     }
   }
-
+  
   public async shutdown(): Promise<void> {
     await this.producer.disconnect()
   }
 
-  public async sendBatch(messages: Array<CustomMessageFormat>): Promise<void> {
-    const kafkaMessages: Array<Message> = messages.map((message) => {
-      return {
-        value: JSON.stringify(message)
-      }
-    })
-
-    const topicMessages: TopicMessages = {
-      topic: 'producer-topic',
-      messages: kafkaMessages
+  public async Publish(message: any): Promise<void> {
+    const record: ProducerRecord = {
+     topic: this.topic,
+     messages: [{value: JSON.stringify(message)}],
     }
-
-    const batch: ProducerBatch = {
-      topicMessages: [topicMessages]
-    }
-
-    await this.producer.sendBatch(batch)
+    await this.producer.send(record)
   }
 
   private createProducer() : Producer {
     const kafka = new Kafka({
-      clientId: 'producer-client',
-      brokers: ['localhost:9092'],
+      clientId: this.clientId,
+      brokers: this.brokers,
     })
-
     return kafka.producer()
   }
 }
+
+
+const checkoutPublisher = new Publisher(config.checkoutTopic, [config.checkoutKafkaBroker], "checkout-api")
+checkoutPublisher.start().catch(console.error)
+
+export default checkoutPublisher;

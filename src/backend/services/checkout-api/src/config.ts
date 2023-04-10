@@ -15,7 +15,7 @@ export interface Config {
 function getConfig(): Config {
     const host = process.env.HOST || "127.0.0.1";
     const port = process.env.PORT ? Number(process.env.PORT) : 8080;
-    const checkoutKafkaBroker = process.env.KAFKA_BROKE || ""
+    const checkoutKafkaBroker = process.env.KAFKA_BROKER || ""
     const checkoutTopic = process.env.CHECKOUT_TOPIC || ""
     const paymentAPIGrpcUrl = process.env.PAYMENT_API_URL || "localhost:50004"
     const cartAPIGrpcUrl = process.env.CART_URL || "localhost:50003"

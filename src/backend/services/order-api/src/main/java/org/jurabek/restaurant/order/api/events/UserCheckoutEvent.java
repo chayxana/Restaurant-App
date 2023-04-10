@@ -11,7 +11,7 @@ public class UserCheckoutEvent {
     @JsonProperty("checkout_info")
     private CheckOutInfo checkOutInfo;
    
-    @JsonProperty("customer_basket")
+    @JsonProperty("customer_cart")
     private CustomerBasket customerBasket;
 
     @JsonProperty("transaction_id")

@@ -1,10 +1,11 @@
 import { Kafka, Producer, ProducerRecord } from 'kafkajs'
 import { config } from './config'
+import { logger } from './logger'
 
 export class Publisher {
   private producer: Producer
 
-  constructor(private topic: string, private brokers: Array<string>, private clientId: string) {
+  constructor(private topic: string, private brokers: string[], private clientId: string) {
     this.producer = this.createProducer()
   }
 
@@ -12,10 +13,9 @@ export class Publisher {
     try {
       await this.producer.connect()
     } catch (error) {
-      console.log('Error connecting the producer: ', error)
+      logger.error('Error connecting the producer: ', error)
     }
   }
-  
   public async shutdown(): Promise<void> {
     await this.producer.disconnect()
   }
@@ -39,6 +39,6 @@ export class Publisher {
 
 
 const checkoutPublisher = new Publisher(config.checkoutTopic, [config.checkoutKafkaBroker], "checkout-api")
-checkoutPublisher.start().catch(console.error)
+checkoutPublisher.start().catch(logger.error)
 
 export default checkoutPublisher;

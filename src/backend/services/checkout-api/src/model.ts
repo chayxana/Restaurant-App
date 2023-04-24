@@ -23,7 +23,7 @@ export interface CreditCard {
 
 export interface CustomerCart {
     customer_id: string;
-    items?: Array<CartItem>;
+    items?: CartItem[];
 }
 
 export interface CartItem {

@@ -16,7 +16,6 @@ app.listen(Number(config.port), config.host, () => {
 
 process.on('SIGINT', () => {
   logger.info("Gracefully shutting down from SIGINT (Ctrl-C)");
-  
   // some other closing procedures go here
   process.exit(0);
 });

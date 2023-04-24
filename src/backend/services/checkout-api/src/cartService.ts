@@ -35,8 +35,6 @@ export default function getCustomerCartItems(customerId: string): Promise<GetCus
   const span = tracer.startSpan('checkout-api.getCustomerCartItems');
   return api.context.with(api.trace.setSpan(api.ROOT_CONTEXT, span), () => {
     logger.child({ "customer_id": customerId }).info("retrieving cart items for customer");
-    
-    return asyncCustomerCartItems({ customerId })
+    return asyncCustomerCartItems({ customerId });
   });
 }
-

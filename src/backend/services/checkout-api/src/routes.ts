@@ -16,11 +16,11 @@ router.post('/api/v1/checkout', async (req: Request<{}, {}, UserCheckout>, res: 
         logger.info(pay?.transactionId)
 
         const cartItems = cart?.items?.map<CartItem>((i) => {
-            return <CartItem>{
+            return{
                 item_id: i.itemId?.toString(),
                 price: i.price,
                 quantity: i.quantity?.toString()
-            }
+            } as CartItem
         })
         const checkoutEvent: CheckoutEvent = {
             transaction_id: pay.transactionId,
@@ -33,7 +33,7 @@ router.post('/api/v1/checkout', async (req: Request<{}, {}, UserCheckout>, res: 
         logger.info("checkout-event: ", checkoutEvent)
         await checkoutPublisher.Publish(checkoutEvent)
     } catch (error) {
-        res.status(500).send({ error: error })
+        res.status(500).send({ error })
         return
     }
     res.send('Checkout OK');

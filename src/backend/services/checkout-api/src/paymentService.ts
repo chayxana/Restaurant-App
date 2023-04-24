@@ -20,7 +20,7 @@ const paymentService = new proto.payment.PaymentService(
   grpc.credentials.createInsecure()
 );
 
-const asyncPayment = (req: PaymentRequest) : Promise<PaymentResponse> => {
+const asyncPayment = (req: PaymentRequest): Promise<PaymentResponse> => {
   return new Promise<PaymentResponse>((resolve, reject) => {
     paymentService.Payment(req, (err: grpc.ServiceError | null, value?: PaymentResponse) => {
       if (err) {
@@ -46,7 +46,7 @@ export default function Payment(
 function pay(cartItems: CartItem[], userCheckout: UserCheckout, orderId: string): Promise<PaymentResponse> {
   let amount = 0;
   for (const cartItem of cartItems) {
-    const totalPrice = Number(cartItem.price) * Number(cartItem.quantity); 
+    const totalPrice = Number(cartItem.price) * Number(cartItem.quantity);
     amount += totalPrice;
   }
   const userId = userCheckout.customer_id;

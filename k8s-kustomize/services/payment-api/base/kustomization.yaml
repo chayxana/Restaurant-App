@@ -16,4 +16,4 @@ configMapGenerator:
 images:
 - name: payment-api
   newName: ghcr.io/chayxana/payment-api
-  newTag: 0.0.7
+  newTag: 0.0.8

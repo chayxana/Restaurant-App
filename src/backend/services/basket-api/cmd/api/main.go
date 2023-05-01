@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"net"
 	"net/http"
 	"os"
 	"os/signal"
@@ -13,16 +14,19 @@ import (
 	"github.com/jurabek/basket.api/cmd/config"
 	"github.com/jurabek/basket.api/internal/database"
 	"github.com/jurabek/basket.api/internal/docs"
+	grpcsvc "github.com/jurabek/basket.api/internal/grpc"
 	"github.com/jurabek/basket.api/internal/handlers"
 	"github.com/jurabek/basket.api/internal/middlewares"
-	"github.com/jurabek/basket.api/pkg/producer"
+	pbv1 "github.com/jurabek/basket.api/pb/v1"
 	"github.com/redis/go-redis/v9"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/reflection"
 
 	"github.com/redis/go-redis/extra/redisotel/v9"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/Shopify/sarama/otelsarama"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
+	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
 	"go.opentelemetry.io/otel/propagation"
@@ -94,11 +98,10 @@ func main() {
 	tracedProducer := otelsarama.WrapSyncProducer(nil, p)
 	defer tracedProducer.Close()
 
-	kafkaProducer := producer.NewKafkaEventProducer(tracedProducer, cfg.CheckoutTopic)
-
 	basketRepository := repositories.NewRedisBasketRepository(redisClient)
 	basketHandler := handlers.NewBasketHandler(basketRepository)
-	checkoutHandler := handlers.NewCheckOutHandler(basketRepository, kafkaProducer)
+
+	go grpcServer(grpcsvc.NewCartGrpcService(basketRepository))
 
 	api := router.Group(basePath + "/api/v1/")
 	{
@@ -107,11 +110,6 @@ func main() {
 			basket.GET(":id", basketHandler.Get)
 			basket.POST("", basketHandler.Create)
 			basket.DELETE(":id", basketHandler.Delete)
-		}
-
-		checkout := api.Group("checkout")
-		{
-			checkout.POST("", checkoutHandler.Checkout)
 		}
 	}
 
@@ -126,6 +124,26 @@ func main() {
 		}))
 
 	_ = router.Run()
+}
+
+func grpcServer(svc pbv1.CartServiceServer) {
+	lis, err := net.Listen("tcp", ":8081")
+	if err != nil {
+		log.Fatal().Err(err)
+	}
+
+	server := grpc.NewServer(
+		grpc.UnaryInterceptor(otelgrpc.UnaryServerInterceptor()),
+		grpc.StreamInterceptor(otelgrpc.StreamServerInterceptor()),
+	)
+	reflection.Register(server)
+
+	pbv1.RegisterCartServiceServer(server, svc)
+
+	log.Info().Msg("Starting gRPC server on port 8081...")
+	if err := server.Serve(lis); err != nil {
+		log.Fatal().Err(err)
+	}
 }
 
 func handleSigterm() {

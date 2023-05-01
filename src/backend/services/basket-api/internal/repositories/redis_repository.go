@@ -25,7 +25,6 @@ func (r *RedisBasketRepository) Get(ctx context.Context, customerID string) (*mo
 		result models.CustomerBasket
 		data   []byte
 	)
-
 	data, err := r.client.Get(ctx, customerID).Bytes()
 	if err != nil {
 		return nil, fmt.Errorf("error getting key %s: %v", customerID, err)

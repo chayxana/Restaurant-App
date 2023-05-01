@@ -13,6 +13,10 @@
 			"path": "./docker"
 		},
 		{
+			"name": "checkout-api",
+			"path": "./services/checkout-api"
+		},
+		{
 			"name": "payment-api",
 			"path": "./services/payment-api"
 		},	
@@ -46,6 +50,9 @@
 		},
 		{
 			"path": "./scripts"
+		},
+		{
+			"path": "./services/protobuff"
 		}
 	],
 	"settings": {
@@ -60,6 +67,9 @@
 		"java.compile.nullAnalysis.mode": "automatic",
 		"yaml.schemas": {
 			"https://json.schemastore.org/github-workflow.json": "file:///Users/jurabek/dev/Restaurant-App/.github/workflows/deploy.yml"
-		}
+		},
+		"cSpell.words": [
+			"pino"
+		]
 	}
 }

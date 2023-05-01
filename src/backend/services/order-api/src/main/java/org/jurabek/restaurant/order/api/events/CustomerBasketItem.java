@@ -13,19 +13,12 @@ import lombok.Data;
 public class CustomerBasketItem {
     private UUID id;
 
-    @JsonProperty("food_id")
-    private int foodId;
-   
-    @JsonProperty("unit_price")
-    private float unitPrice;
+    @JsonProperty("item_id")
+    private String itemId;
 
-    @JsonProperty("old_unit_price")
-    private float oldUnitPrice;
+    @JsonProperty("price")
+    private float price;
 
+    @JsonProperty("quantity")
     private int quantity;
-
-    private String picture;
-   
-    @JsonProperty("food_name")
-    private String foodName;
 }

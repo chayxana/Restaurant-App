@@ -7,6 +7,7 @@ require (
 	github.com/rs/zerolog v1.28.0
 	github.com/sgumirov/go-cards-validation v0.0.0-20191102204147-d5f054e8d29b
 	github.com/stretchr/testify v1.8.2
+	go.opentelemetry.io/otel/trace v1.14.0
 	google.golang.org/grpc v1.53.0
 	google.golang.org/protobuf v1.28.1
 )
@@ -19,7 +20,6 @@ require (
 	go.opentelemetry.io/otel/exporters/otlp/internal/retry v1.14.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.14.0 // indirect
 	go.opentelemetry.io/otel/metric v0.37.0 // indirect
-	go.opentelemetry.io/otel/trace v1.14.0 // indirect
 	go.opentelemetry.io/proto/otlp v0.19.0 // indirect
 )
 

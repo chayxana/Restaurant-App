@@ -18,13 +18,13 @@ public class OrderItems  extends PanacheEntityBase {
     private UUID id;
     
     @Column(nullable = false)
-    private int foodId;
+    private int itemId;
 
     private float unitPrice;
 
     private float units;
 
-    private String foodName;
+    private String itemName;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "order_id_fk"))

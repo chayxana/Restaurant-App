@@ -10,11 +10,6 @@ use rocket_okapi::openapi;
 
 type Result<T, E = Debug<diesel::result::Error>> = std::result::Result<T, E>;
 
-#[get("/")]
-pub fn index() -> &'static str {
-    "Hello, world!"
-}
-
 #[openapi]
 #[post("/", format = "json", data = "<catalog_create>")]
 pub async fn create(catalog_create: Json<CatalogRequest>) {

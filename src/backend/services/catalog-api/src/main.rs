@@ -6,7 +6,7 @@ extern crate diesel;
 
 use std::error::Error;
 
-use crate::handlers::catalog;
+use crate::handlers::{catalog, health};
 use crate::handlers::category;
 use crate::handlers::upload;
 use crate::seeder::seed::Seed;
@@ -64,6 +64,7 @@ async fn rocket() -> _ {
     } else {
         format!("../..{}/openapi.json", base_url)
     };
+
     let mut rocket = rocket::build();
     let settings = OpenApiSettings::default();
     mount_endpoints_and_merged_docs! {
@@ -85,7 +86,7 @@ async fn rocket() -> _ {
 
     rocket
         .attach(AdHoc::on_ignite("Diesel Migrations", run_migrations))
-        .mount(&base_url, routes![catalog::index])
+        .mount("/health", routes![health::ready, health::live])
         .mount(
             format!("{}{}", &base_url, "/swagger/"),
             make_swagger_ui(&SwaggerUIConfig {

@@ -76,13 +76,12 @@ jobs:
           fi
 
       - name: Build and Push
-        if: github.ref == 'refs/heads/develop'
         uses: docker/build-push-action@v4
         with:
           context: src/backend/services/${{ inputs.service-name }}
           file: src/backend/services/${{ inputs.service-name }}/${{ inputs.docker-file }}
           push: ${{ steps.build-metadata.outputs.push }}
-          tags: ghcr.io/chayxana/${{ inputs.service-name }}:${{ steps.version.outputs.new-version }}
+          tags: ${{ steps.metadata.outputs.tags }} 
           cache-from: type=registry,ref=ghcr.io/chayxana/${{ inputs.service-name }}:build-cache
           cache-to: ${{ steps.build-metadata.outputs.cache-to }}
 

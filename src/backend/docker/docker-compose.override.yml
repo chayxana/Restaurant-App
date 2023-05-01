@@ -28,6 +28,16 @@ services:
       - ENABLE_TEST_CARDS=true
       - OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector:4317
 
+  checkout-api:
+    environment:
+      - PORT=30001
+      - HOST=0.0.0.0
+      - CART_URL=basket-api:8081
+      - PAYMENT_API_URL=payment-api:8080
+      - KAFKA_BROKER=kafka:29092
+      - CHECKOUT_TOPIC=checkout
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+
   catalog-api:
     environment:
       - DATABASE_URL=postgres://admin:Passw0rd!@catalog-db:5432/catalogdb

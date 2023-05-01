@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package payment;
+
+option go_package = "/v1";
+option java_multiple_files = true;
+option java_outer_classname = "PaymentServiceProto";
+option java_package = "org.jurabek.payment";
+
+service PaymentService {
+  rpc Payment(PaymentRequest) returns (PaymentResponse) {}
+}
+
+message CreditCardInfo {
+  string credit_card_number = 1;
+  int32 credit_card_cvv = 2;
+  int32 credit_card_expiration_year = 3;
+  int32 credit_card_expiration_month = 4;
+}
+
+message PaymentRequest {
+  float amount = 1;
+  string user_id = 2;
+  string order_id = 3;
+  CreditCardInfo credit_card = 4;
+}
+
+message PaymentResponse {
+  string transaction_id = 1;
+}

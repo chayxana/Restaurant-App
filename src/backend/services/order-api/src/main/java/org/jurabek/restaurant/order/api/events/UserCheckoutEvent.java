@@ -2,19 +2,18 @@ package org.jurabek.restaurant.order.api.events;
 
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 @lombok.Data
 public class UserCheckoutEvent {
 
-    @JsonProperty("checkout_info")
+    @JsonProperty("user_checkout")
     private CheckOutInfo checkOutInfo;
    
-    @JsonProperty("customer_basket")
+    @JsonProperty("customer_cart")
     private CustomerBasket customerBasket;
 
-    @JsonIgnore
+    @JsonProperty("transaction_id")
     private UUID transactionId;
 }

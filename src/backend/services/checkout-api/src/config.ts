@@ -12,7 +12,7 @@ export interface Config {
     baseUrl: string
 }
 
-function getConfig(): Config {
+export function getConfig(): Config {
     const host = process.env.HOST || "127.0.0.1";
     const port = process.env.PORT ? Number(process.env.PORT) : 8080;
     const checkoutKafkaBroker = process.env.KAFKA_BROKER || ""

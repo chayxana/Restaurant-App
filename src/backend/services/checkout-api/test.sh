@@ -1,0 +1,1 @@
+npx mocha --require ts-node/register src/**/*.spec.ts

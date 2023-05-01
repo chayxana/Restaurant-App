@@ -14,7 +14,7 @@ const packageDefinition = protoLoader.loadSync(
 );
 const proto = grpc.loadPackageDefinition(packageDefinition) as unknown as ProtoGrpcType;
 
-const cartService = new proto.cart.CartService(
+export const cartService = new proto.cart.CartService(
   config.cartAPIGrpcUrl,
   grpc.credentials.createInsecure()
 );

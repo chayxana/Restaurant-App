@@ -15,7 +15,7 @@ const packageDefinition = protoLoader.loadSync(
 );
 const proto = grpc.loadPackageDefinition(packageDefinition) as unknown as ProtoGrpcType;
 
-const paymentService = new proto.payment.PaymentService(
+export const paymentService = new proto.payment.PaymentService(
   config.paymentAPIGrpcUrl,
   grpc.credentials.createInsecure()
 );
@@ -43,7 +43,7 @@ export default function Payment(
   })
 }
 
-function pay(cartItems: CartItem[], userCheckout: UserCheckout, orderId: string): Promise<PaymentResponse> {
+export function pay(cartItems: CartItem[], userCheckout: UserCheckout, orderId: string): Promise<PaymentResponse> {
   let amount = 0;
   for (const cartItem of cartItems) {
     const totalPrice = Number(cartItem.price) * Number(cartItem.quantity);

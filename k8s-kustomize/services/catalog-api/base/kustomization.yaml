@@ -22,4 +22,4 @@ secretGenerator:
 images:
 - name: catalog-api
   newName: ghcr.io/chayxana/catalog-api
-  newTag: 0.0.7
+  newTag: 0.0.8

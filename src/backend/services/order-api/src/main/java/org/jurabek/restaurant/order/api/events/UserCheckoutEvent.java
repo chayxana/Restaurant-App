@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @lombok.Data
 public class UserCheckoutEvent {
 
-    @JsonProperty("checkout_info")
+    @JsonProperty("user_checkout")
     private CheckOutInfo checkOutInfo;
    
     @JsonProperty("customer_cart")

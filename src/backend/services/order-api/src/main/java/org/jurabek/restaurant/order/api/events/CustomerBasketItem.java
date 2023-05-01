@@ -14,7 +14,7 @@ public class CustomerBasketItem {
     private UUID id;
 
     @JsonProperty("item_id")
-    private int itemId;
+    private String itemId;
 
     @JsonProperty("price")
     private float price;

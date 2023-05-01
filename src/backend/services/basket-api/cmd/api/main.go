@@ -18,7 +18,6 @@ import (
 	"github.com/jurabek/basket.api/internal/handlers"
 	"github.com/jurabek/basket.api/internal/middlewares"
 	pbv1 "github.com/jurabek/basket.api/pb/v1"
-	"github.com/jurabek/basket.api/pkg/producer"
 	"github.com/redis/go-redis/v9"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -99,11 +98,8 @@ func main() {
 	tracedProducer := otelsarama.WrapSyncProducer(nil, p)
 	defer tracedProducer.Close()
 
-	kafkaProducer := producer.NewKafkaEventProducer(tracedProducer, cfg.CheckoutTopic)
-
 	basketRepository := repositories.NewRedisBasketRepository(redisClient)
 	basketHandler := handlers.NewBasketHandler(basketRepository)
-	checkoutHandler := handlers.NewCheckOutHandler(basketRepository, kafkaProducer)
 
 	go grpcServer(grpcsvc.NewCartGrpcService(basketRepository))
 
@@ -114,11 +110,6 @@ func main() {
 			basket.GET(":id", basketHandler.Get)
 			basket.POST("", basketHandler.Create)
 			basket.DELETE(":id", basketHandler.Delete)
-		}
-
-		checkout := api.Group("checkout")
-		{
-			checkout.POST("", checkoutHandler.Checkout)
 		}
 	}
 

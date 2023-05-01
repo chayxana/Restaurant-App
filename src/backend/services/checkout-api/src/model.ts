@@ -29,7 +29,7 @@ export interface CustomerCart {
 export interface CartItem {
     item_id: string;
     price: number;
-    quantity: string;
+    quantity: number;
 }
 
 export interface CheckoutEvent {

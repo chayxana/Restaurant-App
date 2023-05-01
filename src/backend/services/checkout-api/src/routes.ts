@@ -16,12 +16,13 @@ router.post('/api/v1/checkout', async (req: Request<{}, {}, UserCheckout>, res: 
         logger.info(pay?.transactionId)
 
         const cartItems = cart?.items?.map<CartItem>((i) => {
-            return{
+            return {
                 item_id: i.itemId?.toString(),
                 price: i.price,
-                quantity: i.quantity?.toString()
+                quantity: Number(i.quantity)
             } as CartItem
         })
+
         const checkoutEvent: CheckoutEvent = {
             transaction_id: pay.transactionId,
             user_checkout: req.body,

@@ -23,7 +23,7 @@ public class OrdersMapper {
                 .stream()
                 .map(this::mapDtoToOrderItems)
                 .collect(Collectors.toList());
-                order.setOrderItems(items);
+        order.setOrderItems(items);
         order.setId(UUID.randomUUID());
         order.setOrderedDate(new Date());
         order.setBuyerId(source.getCustomerId());
@@ -33,7 +33,7 @@ public class OrdersMapper {
     public OrderItems mapDtoToOrderItems(CustomerBasketItem source) {
         var orderItems = new OrderItems();
         orderItems.setId(UUID.randomUUID());
-        orderItems.setItemId(source.getItemId());
+        orderItems.setItemId(Integer.valueOf(source.getItemId()));
         orderItems.setUnitPrice(source.getPrice());
         orderItems.setUnits(source.getQuantity());
         return orderItems;

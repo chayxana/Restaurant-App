@@ -1,0 +1,392 @@
+{
+	"info": {
+		"_postman_id": "89bac8f4-28f8-4f8b-9769-3978a1cd1744",
+		"name": "catalog-api",
+		"description": "Docs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26199757"
+	},
+	"item": [
+		{
+			"name": "items",
+			"item": [
+				{
+					"name": "{catalog_id}",
+					"item": [
+						{
+							"name": "get catalog",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/items/:catalog_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"items",
+										":catalog_id"
+									],
+									"variable": [
+										{
+											"key": "catalog_id",
+											"value": "99573042",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Untitled Example",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/items/:catalog_id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"items",
+												":catalog_id"
+											],
+											"variable": [
+												{
+													"key": "catalog_id",
+													"value": "99573042",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"currency\": \"adipisicing irure Excepteur exercitation\",\n  \"id\": 89944357,\n  \"image\": \"nostrud adipisicing minim mollit\",\n  \"name\": \"sed nostr\",\n  \"price\": 96529035.71711195,\n  \"description\": \"velit ut\"\n}"
+								},
+								{
+									"name": "Untitled Example",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/items/:catalog_id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"items",
+												":catalog_id"
+											],
+											"variable": [
+												{
+													"key": "catalog_id",
+													"value": "99573042",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "catalog update",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"currency\": \"nulla exercitation ve\",\n  \"image\": \"cupidatat eu esse aute\",\n  \"name\": \"minim\",\n  \"price\": 92452021.26268563,\n  \"description\": \"officia dolore laborum\",\n  \"category\": \"exercitation\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/items/:catalog_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"items",
+										":catalog_id"
+									],
+									"variable": [
+										{
+											"key": "catalog_id",
+											"value": "99573042",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Untitled Example",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"currency\": \"nulla exercitation ve\",\n  \"image\": \"cupidatat eu esse aute\",\n  \"name\": \"minim\",\n  \"price\": 92452021.26268563,\n  \"description\": \"officia dolore laborum\",\n  \"category\": \"exercitation\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/items/:catalog_id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"items",
+												":catalog_id"
+											],
+											"variable": [
+												{
+													"key": "catalog_id",
+													"value": "99573042",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "catalog delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/items/:catalog_id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"items",
+										":catalog_id"
+									],
+									"variable": [
+										{
+											"key": "catalog_id",
+											"value": "99573042",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Untitled Example",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/items/:catalog_id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"items",
+												":catalog_id"
+											],
+											"variable": [
+												{
+													"key": "catalog_id",
+													"value": "99573042",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "catalog create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"currency\": \"nulla exercitation ve\",\n  \"image\": \"cupidatat eu esse aute\",\n  \"name\": \"minim\",\n  \"price\": 92452021.26268563,\n  \"description\": \"officia dolore laborum\",\n  \"category\": \"exercitation\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/items/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"items",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Untitled Example",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"currency\": \"nulla exercitation ve\",\n  \"image\": \"cupidatat eu esse aute\",\n  \"name\": \"minim\",\n  \"price\": 92452021.26268563,\n  \"description\": \"officia dolore laborum\",\n  \"category\": \"exercitation\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/items/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"items",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "get all catalogs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/catalog/items/all",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"catalog",
+								"items",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "get categories",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/catalog/categories/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"catalog",
+						"categories",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/catalog",
+			"type": "string"
+		}
+	]
+}

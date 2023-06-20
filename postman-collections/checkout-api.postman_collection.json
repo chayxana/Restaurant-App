@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "1e6f6f59-1f08-4b49-84a3-715521b10e67",
+		"name": "checkout-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26199757"
+	},
+	"item": [
+		{
+			"name": "Starts checkout",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function generateCreditCardNumber() {",
+							"  let cardNumber = \"\";",
+							"  for (let i = 0; i < 16; i++) {",
+							"    cardNumber += Math.floor(Math.random() * 10);",
+							"  }",
+							"  return cardNumber;",
+							"}",
+							"",
+							"// Generates a random CVV number",
+							"function generateCVV() {",
+							"  return Math.floor(Math.random() * 900) + 100;",
+							"}",
+							"",
+							"let year = new Date().getFullYear() + Math.floor(Math.random() * 5).toString().substr(2, 2);",
+							"let month = Math.floor(Math.random() * 12) + 1",
+							"",
+							"pm.environment.set(\"creditCardNumber\", generateCreditCardNumber());",
+							"pm.environment.set(\"creditCardCVV\", generateCVV());",
+							"pm.environment.set(\"creditCardExpYear\", year);",
+							"pm.environment.set(\"creditCardExpMonth\", month);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"address\": {\n    \"city\": \"Test city\",\n    \"country\": \"TEST\",\n    \"state\": \"Test state\",\n    \"street_address\": \"Test Street XXX\",\n    \"zip_code\": 99892\n  },\n  \"credit_card\": {\n    \"credit_card_cvv\": {{creditCardCVV}},\n    \"credit_card_expiration_month\": {{creditCardExpMonth}},\n    \"credit_card_expiration_year\": {{creditCardExpYear}},\n    \"credit_card_number\": \"4111111111111111\"\n  },\n  \"customer_id\": \"{{customerID}}\",\n  \"email\": \"test@abc.com\",\n  \"user_currency\": \"{{catalogCurrency}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/checkout/api/v1/checkout",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"checkout",
+						"api",
+						"v1",
+						"checkout"
+					]
+				},
+				"description": "Start checkout"
+			},
+			"response": [
+				{
+					"name": "Untitled Example",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"address\": {\n    \"city\": \"occaecat ullamco ea irure\",\n    \"country\": \"in dolor labore\",\n    \"state\": \"irure est reprehenderit\",\n    \"street_address\": \"ipsum eiusmod sunt\",\n    \"zip_code\": 30898961\n  },\n  \"credit_card\": {\n    \"credit_card_cvv\": -73580214,\n    \"credit_card_expiration_month\": 39787843,\n    \"credit_card_expiration_year\": -87554788,\n    \"credit_card_number\": \"adipisicing ullamco qui\"\n  },\n  \"customer_id\": \"cillum\",\n  \"email\": \"nulla aute commodo\",\n  \"user_currency\": \"consectetur in e\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/checkout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"checkout"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Bad Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"address\": {\n    \"city\": \"occaecat ullamco ea irure\",\n    \"country\": \"in dolor labore\",\n    \"state\": \"irure est reprehenderit\",\n    \"street_address\": \"ipsum eiusmod sunt\",\n    \"zip_code\": 30898961\n  },\n  \"credit_card\": {\n    \"credit_card_cvv\": -73580214,\n    \"credit_card_expiration_month\": 39787843,\n    \"credit_card_expiration_year\": -87554788,\n    \"credit_card_number\": \"adipisicing ullamco qui\"\n  },\n  \"customer_id\": \"cillum\",\n  \"email\": \"nulla aute commodo\",\n  \"user_currency\": \"consectetur in e\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/checkout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"checkout"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": 400,\n  \"message\": \"status bad request\"\n}"
+				}
+			]
+		}
+	]
+}

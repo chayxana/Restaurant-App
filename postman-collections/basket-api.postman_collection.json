@@ -1,0 +1,372 @@
+{
+	"info": {
+		"_postman_id": "3585ff97-15b4-4950-808d-410f34b864f3",
+		"name": "basket-api",
+		"description": "This is a rest api for basket which saves items to redis server\n\nContact Support:\n Name: API Support\n Email: support@swagger.io",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26199757"
+	},
+	"item": [
+		{
+			"name": "items",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "Gets a CustomerBasket",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/basket/api/v1/items/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"basket",
+										"api",
+										"v1",
+										"items",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{customerID}}"
+										}
+									]
+								},
+								"description": "Get CustomerBasket by ID"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/items/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"items",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "pariatur aute cupidatat d",
+													"description": "(Required) CustomerBasket ID"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"customer_id\": \"adipisicing \",\n  \"items\": [\n    {\n      \"food_id\": \"laboris tempor\",\n      \"food_name\": \"veniam et ea nost\",\n      \"old_unit_price\": -39341047.50399467,\n      \"picture\": \"in ipsum mollit occaecat\",\n      \"quantity\": -75496960,\n      \"unit_price\": -96624799.23905928\n    },\n    {\n      \"food_id\": \"veniam aliquip\",\n      \"food_name\": \"anim ips\",\n      \"old_unit_price\": -36992792.548137344,\n      \"picture\": \"aliquip\",\n      \"quantity\": 96119729,\n      \"unit_price\": -25988969.618483096\n    }\n  ]\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/items/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"items",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "pariatur aute cupidatat d",
+													"description": "(Required) CustomerBasket ID"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": 400,\n  \"message\": \"status bad request\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Deletes a CustomerBasket",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/basket/api/v1/items/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"basket",
+										"api",
+										"v1",
+										"items",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{customerID}}",
+											"description": "(Required) CustomerBasket ID"
+										}
+									]
+								},
+								"description": "Deletes CustomerBasket by ID"
+							},
+							"response": [
+								{
+									"name": "Untitled Example",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/items/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"items",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "pariatur aute cupidatat d",
+													"description": "(Required) CustomerBasket ID"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/items/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"items",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "pariatur aute cupidatat d",
+													"description": "(Required) CustomerBasket ID"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": 400,\n  \"message\": \"status bad request\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Add a CustomerBasket",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest( pm.environment.get(\"baseUrl\")+\"/catalog/items/all\", function (err, response) {    ",
+									"    let food = response.json()[Math.floor(Math.random() * response.json().length)];",
+									"    pm.environment.set(\"catalogItemID\", food.id);",
+									"    pm.environment.set(\"catalogItemName\", food.name);",
+									"    pm.environment.set(\"catalogItemPrice\", food.price);",
+									"    pm.environment.set(\"catalogCurrency\", food.currency);",
+									"    pm.environment.set(\"catalogItemPicture\", food.image);",
+									"    ",
+									"    pm.environment.set(\"quantity\", Math.floor(Math.random() * 20));",
+									"",
+									"    console.log(food);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customer_id\": \"{{customerID}}\",\n  \"items\": [\n    {\n      \"food_id\": {{catalogItemID}},\n      \"food_name\": \"{{catalogItemName}}\",\n      \"old_unit_price\": 0,\n      \"picture\": \"{{catalogItemPicture}}\",\n      \"quantity\": {{quantity}},\n      \"unit_price\": {{catalogItemPrice}}\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/basket/api/v1/items",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"basket",
+								"api",
+								"v1",
+								"items"
+							]
+						},
+						"description": "add by json new CustomerBasket"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"customer_id\": \"adipisicing \",\n  \"items\": [\n    {\n      \"food_id\": \"laboris tempor\",\n      \"food_name\": \"veniam et ea nost\",\n      \"old_unit_price\": -39341047.50399467,\n      \"picture\": \"in ipsum mollit occaecat\",\n      \"quantity\": -75496960,\n      \"unit_price\": -96624799.23905928\n    },\n    {\n      \"food_id\": \"veniam aliquip\",\n      \"food_name\": \"anim ips\",\n      \"old_unit_price\": -36992792.548137344,\n      \"picture\": \"aliquip\",\n      \"quantity\": 96119729,\n      \"unit_price\": -25988969.618483096\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/items",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"items"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"customer_id\": \"adipisicing \",\n  \"items\": [\n    {\n      \"food_id\": \"laboris tempor\",\n      \"food_name\": \"veniam et ea nost\",\n      \"old_unit_price\": -39341047.50399467,\n      \"picture\": \"in ipsum mollit occaecat\",\n      \"quantity\": -75496960,\n      \"unit_price\": -96624799.23905928\n    },\n    {\n      \"food_id\": \"veniam aliquip\",\n      \"food_name\": \"anim ips\",\n      \"old_unit_price\": -36992792.548137344,\n      \"picture\": \"aliquip\",\n      \"quantity\": 96119729,\n      \"unit_price\": -25988969.618483096\n    }\n  ]\n}"
+						},
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"customer_id\": \"adipisicing \",\n  \"items\": [\n    {\n      \"food_id\": \"laboris tempor\",\n      \"food_name\": \"veniam et ea nost\",\n      \"old_unit_price\": -39341047.50399467,\n      \"picture\": \"in ipsum mollit occaecat\",\n      \"quantity\": -75496960,\n      \"unit_price\": -96624799.23905928\n    },\n    {\n      \"food_id\": \"veniam aliquip\",\n      \"food_name\": \"anim ips\",\n      \"old_unit_price\": -36992792.548137344,\n      \"picture\": \"aliquip\",\n      \"quantity\": 96119729,\n      \"unit_price\": -25988969.618483096\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/items",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"items"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"code\": 400,\n  \"message\": \"status bad request\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/",
+			"type": "string"
+		}
+	]
+}

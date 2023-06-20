@@ -40,3 +40,9 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.order.rule=PathPrefix(`/order/`)"
       - "traefik.port=8082"
+
+  checkout-api:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.order.rule=PathPrefix(`/checkout/`)"
+      - "traefik.port=30001"

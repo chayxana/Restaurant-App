@@ -34,11 +34,12 @@ services:
 
   # Collector
   otel-collector:
-    image: otel/opentelemetry-collector:0.73.0
+    image: otel/opentelemetry-collector-contrib:0.73.0
     restart: always
     command: ["--config=/etc/otel-collector-config.yaml", "${OTELCOL_ARGS}"]
     volumes:
       - ./otel-connector-config.yaml:/etc/otel-collector-config.yaml
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
     ports:
       - "1888:1888"   # pprof extension
       - "8888:8888"   # Prometheus metrics exposed by the collector

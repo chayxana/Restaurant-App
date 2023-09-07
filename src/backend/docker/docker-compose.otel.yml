@@ -15,7 +15,7 @@ services:
       - "4317"  # otlp grpc
       - "4318"  # otlp http
       - "9411"   # zipkin
-
+  
   # Jaeger
   jaeger-all-in-one:
     image: jaegertracing/all-in-one:latest
@@ -34,12 +34,11 @@ services:
 
   # Collector
   otel-collector:
-    image: otel/opentelemetry-collector-contrib:0.73.0
+    image: otel/opentelemetry-collector-contrib:0.84.0
     restart: always
     command: ["--config=/etc/otel-collector-config.yaml", "${OTELCOL_ARGS}"]
     volumes:
       - ./otel-connector-config.yaml:/etc/otel-collector-config.yaml
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
     ports:
       - "1888:1888"   # pprof extension
       - "8888:8888"   # Prometheus metrics exposed by the collector
@@ -48,10 +47,15 @@ services:
       - "4317:4317"   # OTLP gRPC receiver
       - "4318:4318"   # OTLP http receiver
       - "55679:55679" # zpages extension
+      - "3500:3500" # loki receiver HTTP
+      - "3600:3600" # loki receiver gRPC
     depends_on:
       - jaeger-all-in-one
       - zipkin-all-in-one
       - tempo
+    networks:
+      - loki
+      - default
 
   prometheus:
     container_name: prometheus

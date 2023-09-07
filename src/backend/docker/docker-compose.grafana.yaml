@@ -1,53 +1,30 @@
 ---
 version: "3"
 
+networks:
+  loki:
 
 services:
   loki:
-    image: grafana/loki:2.7.3
+    image: grafana/loki:latest
     ports:
       - "3100:3100"
-    command: "-config.file=/etc/loki/config.yaml"
-    volumes:
-      - ./loki-config.yaml:/etc/loki/config.yaml
-    healthcheck:
-      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3100/ready || exit 1" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    depends_on:
-      - minio
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+    - loki
+
+  flog:
+    image: mingrammer/flog
+    command: -f json -d 1s -l
 
   promtail:
-    image: grafana/promtail:2.7.1
+    image: grafana/promtail:2.8.0
     volumes:
       - ./promtail-local-config.yaml:/etc/promtail/config.yaml:ro
       - /var/run/docker.sock:/var/run/docker.sock
     command: -config.file=/etc/promtail/config.yaml
-
-  minio:
-    image: minio/minio
-    entrypoint:
-      - sh
-      - -euc
-      - |
-        mkdir -p /data/loki-data && \
-        mkdir -p /data/loki-ruler && \
-        minio server /data
-    environment:
-      - MINIO_ACCESS_KEY=loki
-      - MINIO_SECRET_KEY=supersecret
-      - MINIO_PROMETHEUS_AUTH_TYPE=public
-      - MINIO_UPDATE=off
-    ports:
-      - 9000
-    volumes:
-      - ./.data/minio:/data
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
-      interval: 15s
-      timeout: 20s
-      retries: 5
+    networks:
+      - loki
 
   grafana:
     image: grafana/grafana:9.4.3
@@ -67,3 +44,5 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - loki

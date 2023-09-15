@@ -3,9 +3,11 @@
     "sourceMap": true,
     "outDir": "dist",
     "strict": true,
-    "lib": ["esnext", "dom"],
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "lib": ["ESNext", "dom"],
+    "module": "nodenext",
+    "target": "esnext",
+    "types": ["bun-types"],
+    "moduleResolution": "nodenext",
+    "allowSyntheticDefaultImports": true
   }
 }

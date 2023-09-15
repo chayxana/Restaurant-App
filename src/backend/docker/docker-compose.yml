@@ -4,7 +4,7 @@ services:
 
   identity-api:
     image: restaurant/identity-api
-    build: ./services/identity.api/
+    build: ./services/identity-api
     depends_on:
        - identity-db
     ports: 
@@ -12,17 +12,17 @@ services:
 
   checkout-api:
     image: restaurant/checkout-api
-    build: ./services/checkout-api/
+    build: ./services/checkout-api
     depends_on:
       - basket-api
       - payment-api
     ports:
       - 30001:30001
+
   catalog-api:
     image: catalog-api
     container_name: catalog
-    build: 
-      context: ./services/catalog-api/
+    build: ./services/catalog-api
     depends_on:
        - catalog-db
     ports:
@@ -31,7 +31,7 @@ services:
   basket-api:
     image: restaurant/basket-api
     container_name: basket
-    build: ./services/basket-api/
+    build: ./services/basket-api
     depends_on:
       - redis
 

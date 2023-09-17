@@ -5,7 +5,6 @@ import { paymentService, pay } from "./paymentService";
 import { CartItem, UserCheckout } from "./model";
 import { PaymentResponse } from './gen/payment/PaymentResponse';
 import { PaymentRequest } from './gen/payment/PaymentRequest';
-import { beforeEach, afterEach, it, describe } from 'bun:test';
 
 
 describe("pay", () => {

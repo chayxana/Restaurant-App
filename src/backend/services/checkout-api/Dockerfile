@@ -1,11 +1,13 @@
-FROM oven/bun
+FROM node:19
 
 WORKDIR /usr/src/app
 
-COPY package.json bun.lockb ./
+COPY package.json ./
 
-RUN bun install
+RUN npm install
 
 COPY . .
 
-ENTRYPOINT [ "bun", "start" ]
+RUN npm run build
+
+ENTRYPOINT [ "node", "dist/index.js" ]

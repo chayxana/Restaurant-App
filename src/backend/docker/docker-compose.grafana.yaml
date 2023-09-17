@@ -20,7 +20,7 @@ services:
   promtail:
     image: grafana/promtail:2.8.0
     volumes:
-      - ./promtail-local-config.yaml:/etc/promtail/config.yaml:ro
+      - ./docker/promtail-local-config.yaml:/etc/promtail/config.yaml:ro
       - /var/run/docker.sock:/var/run/docker.sock
     command: -config.file=/etc/promtail/config.yaml
     networks:
@@ -36,7 +36,7 @@ services:
     depends_on:
       - tempo
     volumes:
-      - ./grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./docker/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
     ports:
       - "3000:3000"
     healthcheck:

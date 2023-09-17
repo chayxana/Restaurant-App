@@ -7,8 +7,8 @@ services:
     image: grafana/tempo:latest
     command: [ "-config.file=/etc/tempo.yaml" ]
     volumes:
-      - ./tempo.yaml:/etc/tempo.yaml
-      - ./.data/tempo:/tmp/tempo
+      - ./docker/tempo.yaml:/etc/tempo.yaml
+      - ./docker/.data/tempo:/tmp/tempo
     ports:
       - "14268"  # jaeger ingest
       - "3200"   # tempo
@@ -38,7 +38,7 @@ services:
     restart: always
     command: ["--config=/etc/otel-collector-config.yaml", "${OTELCOL_ARGS}"]
     volumes:
-      - ./otel-connector-config.yaml:/etc/otel-collector-config.yaml
+      - ./docker/otel-connector-config.yaml:/etc/otel-collector-config.yaml
     ports:
       - "1888:1888"   # pprof extension
       - "8888:8888"   # Prometheus metrics exposed by the collector
@@ -62,6 +62,6 @@ services:
     image: prom/prometheus:latest
     restart: always
     volumes:
-      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+      - ./docker/prometheus.yaml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"

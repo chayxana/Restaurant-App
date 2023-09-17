@@ -16,19 +16,18 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
-  
   identity-api:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.identity.rule=PathPrefix(`/identity/`)"
       - "traefik.port=5001"
-    
+
   catalog-api:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.catalog.rule=PathPrefix(`/catalog/`)"
       - "traefik.port=8000"
-  
+
   basket-api:
     labels:
       - "traefik.enable=true"
@@ -44,5 +43,5 @@ services:
   checkout-api:
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.order.rule=PathPrefix(`/checkout/`)"
+      - "traefik.http.routers.checkout.rule=PathPrefix(`/checkout/`)"
       - "traefik.port=30001"

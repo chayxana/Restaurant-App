@@ -6,12 +6,11 @@ const router = express.Router();
 
 router.post('/api/v1/checkout', async (req: Request<{}, {}, UserCheckout>, res: Response) => {
     try {
-      Checkout(req.body); 
+      Checkout(req.body);
+      res.send('Checkout OK');
     } catch (error) {
-        res.status(500).send({ error })
-        return
+      res.status(500).send({ error })
     }
-    res.send('Checkout OK');
 });
 
 export default router;

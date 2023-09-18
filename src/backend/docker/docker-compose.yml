@@ -4,41 +4,41 @@ services:
 
   identity-api:
     image: restaurant/identity-api
-    build: ./services/identity.api/
+    build: ./services/identity-api
     depends_on:
-      - identity-db
-    ports:
+       - identity-db
+    ports: 
       - "5001:80"
 
   checkout-api:
     image: restaurant/checkout-api
-    build: ./services/checkout-api/
+    build: ./services/checkout-api
     depends_on:
       - basket-api
       - payment-api
     ports:
       - 30001:30001
+
   catalog-api:
     image: catalog-api
     container_name: catalog
-    build: 
-      context: ./services/catalog-api/
+    build: ./services/catalog-api
     depends_on:
-      - catalog-db
+       - catalog-db
     ports:
       - 8000:8000
 
   basket-api:
     image: restaurant/basket-api
     container_name: basket
-    build: ./services/basket-api/
+    build: ./services/basket-api
     depends_on:
       - redis
 
   order-api:
     image: restaurant/order-api
     container_name: order
-    build:
+    build: 
       platforms:
         - "linux/arm64"
       context: ./services/order-api
@@ -48,7 +48,7 @@ services:
       - payment-api
     ports:
       - 8082:8080
-
+  
   payment-api:
     image: restaurant/payment-api
     container_name: payment
@@ -67,14 +67,14 @@ services:
   #   build:
   #     context: ./web/web.client/web-app
   #     dockerfile: local.Dockerfile
-
+      
   order-db:
     image: postgres:alpine
-    volumes:
+    volumes: 
       - database-data:/var/lib/postgresql/data
-    ports:
+    ports: 
       - "5433:5432"
-
+  
   catalog-db:
     image: postgres:alpine
     ports:
@@ -88,6 +88,6 @@ services:
   redis:
     platform: linux/arm64/v8
     image: redis:alpine
-
+    
 volumes:
   database-data:

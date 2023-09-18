@@ -5,7 +5,7 @@
 - or separate Development SDK's `.NET Core 3.1`, `openjdk64-1.8`, `go v1.13.5`, `postgresql`, `redis`, `node v13.11.0`
 
 ### How to Run
-Use Docker Compose for running. Run following command from the root directory `cd src/backend` and `sh docker-compose-up.sh`
+Use Docker Compose for running. Run following command from the root directory `cd src/backend` and `sh ./docker/run.sh`
 
 ### Exposed endpoints
 When you are using `docker` all services url's will be exposed only via `nginx` reverse proxy, it can be accessed via [localhost](http://localhost:8080)

@@ -24,15 +24,6 @@ exporters:
   logging:
     loglevel: debug
 
-  zipkin:
-    endpoint: "http://zipkin-all-in-one:9411/api/v2/spans"
-    format: proto
-
-  jaeger:
-    endpoint: jaeger-all-in-one:14250
-    tls:
-      insecure: true
-
   loki:
     endpoint: http://loki:3100/loki/api/v1/push
 
@@ -61,7 +52,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlp, zipkin, jaeger]
+      exporters: [otlp, debug]
 
     metrics:
       receivers: [otlp]

@@ -27,6 +27,7 @@ services:
        - catalog-db
     ports:
       - 8000:8000
+    restart: always
 
   basket-api:
     image: restaurant/basket-api

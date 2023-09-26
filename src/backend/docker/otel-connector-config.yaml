@@ -52,7 +52,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlp, debug]
+      exporters: [otlp]
 
     metrics:
       receivers: [otlp]

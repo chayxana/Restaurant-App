@@ -1,9 +1,11 @@
+import { tracer } from './tracer';
 import router from './routes';
 import { logger } from './logger';
 import { config } from './config';
 
 
 import express from 'express';
+
 
 const app = express();
 app.use(express.json());

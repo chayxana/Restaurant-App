@@ -1,6 +1,4 @@
-import { tracer } from './tracer';
 import { config } from './config';
-import * as api from '@opentelemetry/api';
 import * as grpc from '@grpc/grpc-js'
 import * as protoLoader from '@grpc/proto-loader'
 import { ProtoGrpcType } from './gen/payments';
@@ -37,10 +35,7 @@ export default function Payment(
   userCheckout: UserCheckout,
   cartItems: CartItem[],
 ): Promise<PaymentResponse> {
-  const span = tracer.startSpan('checkout-api.Payment');
-  return api.context.with(api.trace.setSpan(api.ROOT_CONTEXT, span), () => {
     return pay(cartItems, userCheckout, checkoutID);
-  })
 }
 
 export function pay(cartItems: CartItem[], userCheckout: UserCheckout, orderId: string): Promise<PaymentResponse> {

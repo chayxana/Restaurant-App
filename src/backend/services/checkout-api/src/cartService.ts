@@ -32,12 +32,6 @@ const asyncCustomerCartItems = (req: GetCustomerCartRequest) : Promise<GetCustom
 }
 
 export default function getCustomerCartItems(customerId: string): Promise<GetCustomerCartResponse | undefined> {
-  const span = tracer.startSpan('checkout-api.getCustomerCartItems');
-  const res = api.context.with(api.trace.setSpan(api.context.active(), span), () => {
     logger.child({ "customer_id": customerId }).info("retrieving cart items for customer");
     return asyncCustomerCartItems({ customerId });
-  });
-  span.end();
-
-  return res;
 }

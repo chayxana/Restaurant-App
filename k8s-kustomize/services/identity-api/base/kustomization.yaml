@@ -5,15 +5,21 @@ generatorOptions:
   disableNameSuffixHash: true
 
 resources:
-  - "deployment.yaml"
-  - "service.yaml"
-  - "http-route.yaml"
-  - "identity-pgsql.yaml"
+- deployment.yaml
+- service.yaml
+- http-route.yaml
+- identity-pgsql.yaml
 
 secretGenerator:
-  - name: identity-api
-    envs: [".env.secret"]
+- envs:
+  - .env.secret
+  name: identity-api
 
 configMapGenerator:
-  - name: identity-api
-    envs: ["config.env"]
+- envs:
+  - config.env
+  name: identity-api
+images:
+- name: identity-api
+  newName: ghcr.io/chayxana/identity-api
+  newTag: 0.0.2

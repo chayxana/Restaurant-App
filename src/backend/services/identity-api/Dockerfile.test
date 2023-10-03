@@ -1,5 +1,11 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine
+
+FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/core/sdk:3.1.426-buster-arm64v8 AS build
 WORKDIR /src
+COPY Identity.API.UnitTests ./tests
+
+RUN dotnet restore tests/Identity.API.UnitTests.csproj
+
 COPY . .
 
-ENTRYPOINT [ "/bin/sh" ]
+WORKDIR /src
+RUN dotnet test -t Identity.API.UnitTests/Identity.API.UnitTests.csproj

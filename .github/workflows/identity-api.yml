@@ -5,75 +5,27 @@ on:
     branches:
       - develop
     paths:
-      - 'src/backend/services/order.api/**'
-      - '.github/workflows/identity-api.yml'
+      - "src/backend/services/identity-api/**"
+      - ".github/workflows/identity-api.yml"
   pull_request:
     branches:
       - develop
     paths:
-      - 'src/backend/services/identity.api/**'
-      - '.github/workflows/identity-api.yml'
+      - "src/backend/services/identity-api/**"
+      - ".github/workflows/identity-api.yml"
 
 jobs:
-  build-and-test:
-    name: build and test
-    runs-on:  ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: '0'
-              
-      - name: Setup .NET Core SDK
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 3.1.100
+  build-release:
+    uses: ./.github/workflows/build-release.yml
+    with:
+      service-name: identity-api
+    secrets: inherit
 
-      - name: Setup cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/Identity.API/packages.lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
-      
-      - name: Build
-        run: | 
-          chmod -R +x scripts/
-          scripts/build.sh identity_api
-        working-directory: ./src/backend/
-
-      - name: Test & QA
-        run: |
-          chmod -R +x scripts/
-          scripts/qa.sh identity_api
-        working-directory: ./src/backend/
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
-      - name: Upload menu-api artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: identity_api
-          path: ./src/backend/services/identity.api/identity-api-release
-      
-  docker-push:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: Download basket-api artifact
-      uses: actions/download-artifact@v1
-      with:
-        name: identity_api
-    - name: Copy artifact to working directory
-      shell: bash
-      run: |
-        cp -r identity_api/ ./src/backend/services/identity.api/identity-api-release
-    - name: Publish docker image
-      uses: elgohr/Publish-Docker-Github-Action@master
-      with:
-        name: jurabek/menu
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        dockerfile: release.Dockerfile
-        workdir: ./src/backend/services/identity.api
+  deploy:
+    if: github.ref == 'refs/heads/develop'
+    needs:
+      - build-release
+    uses: ./.github/workflows/deploy.yml
+    with:
+      service-name: identity-api
+      version: ${{ needs.build-release.outputs.new-version }}

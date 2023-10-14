@@ -2,7 +2,7 @@
 version: "3"
 
 services:
-      # To eventually offload to Tempo...
+  # To eventually offload to Tempo...
   tempo:
     image: grafana/tempo:latest
     command: [ "-config.file=/etc/tempo.yaml" ]
@@ -10,12 +10,12 @@ services:
       - ./docker/tempo.yaml:/etc/tempo.yaml
       - ./docker/.data/tempo:/tmp/tempo
     ports:
-      - "14268"  # jaeger ingest
-      - "3200"   # tempo
-      - "4317"  # otlp grpc
-      - "4318"  # otlp http
-      - "9411"   # zipkin
-  
+      - "14268" # jaeger ingest
+      - "3200" # tempo
+      - "4317" # otlp grpc
+      - "4318" # otlp http
+      - "9411" # zipkin
+
   # Jaeger
   jaeger-all-in-one:
     image: jaegertracing/all-in-one:latest
@@ -36,16 +36,20 @@ services:
   otel-collector:
     image: otel/opentelemetry-collector-contrib:0.85.0
     restart: always
-    command: ["--config=/etc/otel-collector-config.yaml", "${OTELCOL_ARGS}"]
+    command:
+      [
+        "--config=/etc/otel-collector-config.yaml",
+        "${OTELCOL_ARGS}"
+      ]
     volumes:
       - ./docker/otel-connector-config.yaml:/etc/otel-collector-config.yaml
     ports:
-      - "1888:1888"   # pprof extension
-      - "8888:8888"   # Prometheus metrics exposed by the collector
-      - "8889:8889"   # Prometheus exporter metrics
+      - "1888:1888" # pprof extension
+      - "8888:8888" # Prometheus metrics exposed by the collector
+      - "8889:8889" # Prometheus exporter metrics
       - "13133:13133" # health_check extension
-      - "4317:4317"   # OTLP gRPC receiver
-      - "4318:4318"   # OTLP http receiver
+      - "4317:4317" # OTLP gRPC receiver
+      - "4318:4318" # OTLP http receiver
       - "55679:55679" # zpages extension
       - "3500:3500" # loki receiver HTTP
       - "3600:3600" # loki receiver gRPC

@@ -2,10 +2,10 @@ import { tracer } from './tracer';
 import router from './routes';
 import { logger } from './logger';
 import { config } from './config';
-
-
 import express from 'express';
 
+
+const _ = tracer; // tracer must be loaded before all other imports
 
 const app = express();
 app.use(express.json());

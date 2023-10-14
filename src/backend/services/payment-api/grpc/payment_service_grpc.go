@@ -31,7 +31,7 @@ var ErrInvalidCardInfo = errors.New("invalid card information")
 
 // Payment implements v1.PaymentServiceServer
 func (p *PaymentServiceGrpc) Payment(ctx context.Context, req *pbv1.PaymentRequest) (res *pbv1.PaymentResponse, err error) {
-	var tracer = otel.Tracer("grpc-payment-api")
+	var tracer = otel.Tracer("payment-api/grpc")
 	_, span := tracer.Start(ctx, "PaymentServiceGrpc",
 		trace.WithAttributes(
 			attribute.String("order_id", req.OrderId),
@@ -49,23 +49,23 @@ func (p *PaymentServiceGrpc) Payment(ctx context.Context, req *pbv1.PaymentReque
 	}
 	err = card.Brand()
 	if err != nil {
-		span.RecordError(err)
+		// span.RecordError(err)
 		return nil, errors.Wrap(err, ErrInvalidCardInfo.Error())
 	}
 	cardType := card.Company.Code
 	if !(cardType == "visa" || cardType == "mastercard") {
-		span.RecordError(ErrUnsupportedCardType)
+		// span.RecordError(ErrUnsupportedCardType)
 		return nil, ErrUnsupportedCardType
 	}
 
 	if err := card.Validate(p.enableTestCards); err != nil {
-		span.RecordError(ErrInvalidCardInfo)
+		// span.RecordError(ErrInvalidCardInfo)
 		return nil, errors.Wrap(err, ErrInvalidCardInfo.Error())
 	}
 
 	lastFour, _ := card.LastFour()
-	traceID := span.SpanContext().TraceID().String()
-	spanID := span.SpanContext().SpanID().String()
+	// traceID := span.SpanContext().TraceID().String()
+	// spanID := span.SpanContext().SpanID().String()
 
 	log.Info().
 		Str("card_type", cardType).
@@ -73,12 +73,12 @@ func (p *PaymentServiceGrpc) Payment(ctx context.Context, req *pbv1.PaymentReque
 		Str("order_id", req.OrderId).
 		Str("user_id", req.UserId).
 		Str("ending", lastFour).
-		Str("trace_id", traceID).
-		Str("span_id", spanID).
+		// Str("trace_id", traceID).
+		// Str("span_id", spanID).
 		Msg("Transaction processed")
 
 	transactionID := uuid.New().String()
-	span.SetAttributes(attribute.String("transactionID", transactionID))
+	// span.SetAttributes(attribute.String("transactionID", transactionID))
 
 	return &pbv1.PaymentResponse{
 		TransactionId: transactionID,

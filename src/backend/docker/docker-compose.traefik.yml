@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   traefik:
-    image: "traefik:v2.4"
+    image: "traefik:v3.0"
     container_name: "traefik"
     command:
       # - "--log.level=DEBUG"
@@ -10,6 +10,9 @@ services:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
+      - "--tracing.openTelemetry.address=otel-collector:4317"
+      - "--tracing.openTelemetry.insecure=true"
+      - "--tracing.openTelemetry.grpc=true"
     ports:
       - "8080:80"
       - "8081:8080"

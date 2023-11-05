@@ -230,6 +230,7 @@ dependencies = [
  "bigdecimal",
  "chrono",
  "diesel",
+ "diesel-tracing",
  "diesel_migrations",
  "dotenvy",
  "http",
@@ -237,6 +238,7 @@ dependencies = [
  "opentelemetry",
  "opentelemetry-http",
  "opentelemetry-otlp",
+ "opentelemetry-semantic-conventions",
  "opentelemetry-stdout",
  "rand",
  "rocket",
@@ -400,12 +402,25 @@ dependencies = [
  "byteorder",
  "chrono",
  "diesel_derives",
+ "ipnetwork",
  "itoa",
+ "libc",
  "num-bigint",
  "num-integer",
  "num-traits",
  "pq-sys",
  "r2d2",
+]
+
+[[package]]
+name = "diesel-tracing"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0cef84f1f78d0b40f587ddf36bb97750e698465cd2e3fc6a62e355b48e618a9e"
+dependencies = [
+ "diesel",
+ "ipnetwork",
+ "tracing",
 ]
 
 [[package]]
@@ -795,6 +810,15 @@ name = "inlinable_string"
 version = "0.1.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c8fae54786f62fb2918dcfae3d568594e50eb9b5c25bf04371af6fe7516452fb"
+
+[[package]]
+name = "ipnetwork"
+version = "0.18.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4088d739b183546b239688ddbc79891831df421773df95e236daf7867866d355"
+dependencies = [
+ "serde",
+]
 
 [[package]]
 name = "is-terminal"

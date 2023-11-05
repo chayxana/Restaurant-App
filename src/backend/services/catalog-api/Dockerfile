@@ -1,4 +1,4 @@
-FROM rust:1.62.0 as builder
+FROM rust:1.72.1 as builder
 
 # this useed for caching dependencies 
 # so basically it generates empty rust app with empty main.rs after that we copy catalog-api's Cargo.toml and download dependencies
@@ -19,7 +19,7 @@ COPY . .
 RUN touch src/main.rs
 RUN cargo build --release
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 RUN apt update
 RUN apt-get remove libpq5

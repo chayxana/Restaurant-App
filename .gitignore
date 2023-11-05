@@ -231,3 +231,4 @@ src/backend/services/catalog-api/target
 src/backend/web/web.admin/dashboard/.angular
 src/backend/docker/.data
 src/backend/services/basket-api/basket-api
+src/backend/services/.DS_Store

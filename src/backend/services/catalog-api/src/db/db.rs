@@ -1,4 +1,6 @@
 use diesel::prelude::*;
+
+use diesel::Connection;
 use diesel::pg::PgConnection;
 use dotenvy::dotenv;
 use std::env;
@@ -10,8 +12,3 @@ pub fn establish_connection() -> PgConnection {
     PgConnection::establish(&database_url)
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }
-
-// use rocket_sync_db_pools::diesel;
-
-// #[database("diesel")]
-// pub struct Db(diesel::PgConnection);

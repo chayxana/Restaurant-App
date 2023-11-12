@@ -24,6 +24,8 @@ services:
       - "16686:16686"
       - "14268"
       - "14250"
+      - "4317"
+      - "4318"
 
   # Zipkin
   zipkin-all-in-one:
@@ -41,6 +43,8 @@ services:
         "--config=/etc/otel-collector-config.yaml",
         "${OTELCOL_ARGS}"
       ]
+    environment:
+      - HS_API_TOKEN=${HS_API_TOKEN}
     volumes:
       - ./docker/otel-connector-config.yaml:/etc/otel-collector-config.yaml
     ports:

@@ -46,6 +46,7 @@ services:
       - ROCKET_PORT=8000
       - BASE_URL=/catalog
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - ENV=dev
 
   identity-api:
     environment:

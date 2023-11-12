@@ -30,7 +30,6 @@ use rocket_okapi::mount_endpoints_and_merged_docs;
 use rocket_okapi::openapi_get_routes_spec;
 use rocket_okapi::settings::OpenApiSettings;
 use std::env;
-// use opentelemetry_stdout::SpanExporter;
 
 use rocket_okapi::swagger_ui::{make_swagger_ui, SwaggerUIConfig};
 
@@ -47,7 +46,7 @@ pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!("migrations");
 async fn run_migrations(rocket: Rocket<Build>) -> Rocket<Build> {
     let base_url = env::var("BASE_URL").unwrap_or_default();
     let connection = &mut crate::db::db::establish_connection();
-    
+
     run_migrations_pending_migrations(connection).unwrap();
     Seed::seed_categories(connection).await;
     Seed::seed_catalogs(connection, &base_url).await;
@@ -124,23 +123,35 @@ fn init_tracer() {
     export_cfg.endpoint =
         env::var("OTEL_EXPORTER_OTLP_ENDPOINT").unwrap_or_else(|_| export_cfg.endpoint);
 
-    match SpanExporter::new_tonic(export_cfg, TonicConfig::default()) {
-        Ok(exporter) => {
-            let cfg = opentelemetry::sdk::trace::config().with_resource(Resource::new(vec![
-                KeyValue::new(
-                    opentelemetry_semantic_conventions::resource::SERVICE_NAME,
-                    "catalog-api",
-                ),
-            ]));
+    let env = env::var("ENV").unwrap_or_else(|_| "local".to_string());
+    if env == "local" {
+        let provider = TracerProvider::builder()
+            .with_simple_exporter(opentelemetry_stdout::SpanExporter::default())
+            .build();
+        global::set_tracer_provider(provider);
+    } else {
+        match SpanExporter::new_tonic(export_cfg, TonicConfig::default()) {
+            Ok(exporter) => {
+                let cfg = opentelemetry::sdk::trace::config().with_resource(Resource::new(vec![
+                    KeyValue::new(
+                        opentelemetry_semantic_conventions::resource::SERVICE_NAME,
+                        "catalog-api",
+                    ),
+                    KeyValue::new(
+                        opentelemetry_semantic_conventions::resource::SERVICE_VERSION,
+                        "1.0.0",
+                    ),
+                ]));
 
-            let provider = TracerProvider::builder()
-                .with_config(cfg)
-                .with_simple_exporter(exporter)
-                .build();
-            
-            global::set_tracer_provider(provider);
+                let provider = TracerProvider::builder()
+                    .with_config(cfg)
+                    .with_simple_exporter(exporter)
+                    .build();
+
+                global::set_tracer_provider(provider);
+            }
+            Err(why) => panic!("{:?}", why),
         }
-        Err(why) => panic!("{:?}", why),
     }
 }
 

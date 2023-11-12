@@ -236,6 +236,7 @@ dependencies = [
  "http",
  "okapi",
  "opentelemetry",
+ "opentelemetry-contrib",
  "opentelemetry-http",
  "opentelemetry-otlp",
  "opentelemetry-semantic-conventions",
@@ -1083,6 +1084,17 @@ checksum = "9591d937bc0e6d2feb6f71a559540ab300ea49955229c347a517a28d27784c54"
 dependencies = [
  "opentelemetry_api",
  "opentelemetry_sdk",
+]
+
+[[package]]
+name = "opentelemetry-contrib"
+version = "0.12.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4717e7a7b45ef1c0664715a85a8e91ff966b58ffaaccb4d4cc7ff8f15cffd98a"
+dependencies = [
+ "once_cell",
+ "opentelemetry",
+ "opentelemetry_api",
 ]
 
 [[package]]

@@ -32,6 +32,13 @@ exporters:
     traces_endpoint: "https://collector.gethelios.dev/v1/traces"
     headers:
       Authorization: ${env:HS_API_TOKEN}
+  
+  otlp/jaeger: # Jaeger supports OTLP directly
+    endpoint: jaeger-all-in-one:4317
+    tls:
+      insecure: true
+  zipkin:
+    endpoint: http://zipkin-all-in-one:9411/api/v2/spans
 
 processors:
   batch:
@@ -58,7 +65,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlp, otlphttp]
+      exporters: [otlp, otlphttp, otlp/jaeger, zipkin]
 
     metrics:
       receivers: [otlp]

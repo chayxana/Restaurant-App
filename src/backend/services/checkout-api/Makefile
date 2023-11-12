@@ -1,8 +1,11 @@
+install:
+	yarn install
+
 test:
 	npx mocha --require ts-node/register src/**/*.spec.ts
 
 build:
-	npm run build
+	yarn run build
 	
 run:
-	npm start
+	yarn start

@@ -4,6 +4,8 @@ use crate::db::db::establish_connection;
 use crate::schema::{self};
 use bigdecimal::ToPrimitive;
 use diesel::prelude::*;
+use opentelemetry::global::{self, ObjectSafeSpan};
+use opentelemetry::trace::Tracer;
 use rocket::response::Debug;
 use rocket::serde::json::Json;
 use rocket_okapi::openapi;
@@ -74,6 +76,10 @@ pub fn delete(catalog_id: i32) {
 pub fn get_catalogs() -> Result<Json<Vec<CatalogResponse>>> {
     use schema::catalog::dsl::*;
 
+
+    // let tracer = global::tracer("catalog_handler");
+    // let mut span = tracer.start("get_all_catalogs");
+
     let connection = &mut establish_connection();
     let res = catalog
         .load::<Catalog>(connection)
@@ -88,7 +94,7 @@ pub fn get_catalogs() -> Result<Json<Vec<CatalogResponse>>> {
             currency: c.currency,
         })
         .collect();
-
+    // span.end();
     return Ok(Json(res));
 }
 

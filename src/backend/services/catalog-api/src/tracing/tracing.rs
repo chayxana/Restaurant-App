@@ -1,13 +1,13 @@
-use http::header::InvalidHeaderValue;
 use http::{HeaderName, HeaderValue};
 use opentelemetry::global::{tracer, ObjectSafeSpan};
-use opentelemetry::trace::{SpanBuilder, SpanKind, TraceContextExt, Tracer};
+use opentelemetry::propagation::TextMapPropagator;
+use opentelemetry::trace::{get_active_span, SpanBuilder, SpanKind, TraceContextExt, Tracer, mark_span_as_active, Status, Span};
 use opentelemetry::{global, Context, Key, KeyValue, OrderMap, StringValue, Value};
 use opentelemetry_http::{HeaderExtractor, HeaderInjector};
-use rand::distributions::uniform::SampleBorrow;
+use opentelemetry_contrib::trace::propagator::trace_context_response::TraceContextResponsePropagator;
 use rocket::fairing::{Fairing, Info, Kind};
 use rocket::{Data, Request, Response};
-use std::fmt::Display;
+use std::borrow::Cow;
 use std::str::FromStr;
 use uuid::Uuid;
 
@@ -23,6 +23,10 @@ impl Fairing for Tracing {
     }
 
     async fn on_request(&self, _req: &mut Request<'_>, _data: &mut Data<'_>) {
+    }
+
+    async fn on_response<'r>(&self, _req: &'r Request<'_>, _res: &mut Response<'r>) {
+        println!("on_request");
         let req_headers = _req.headers();
 
         let parent_cx = global::get_text_map_propagator(|propagator| {
@@ -36,6 +40,7 @@ impl Fairing for Tracing {
             return propagator.extract(&HeaderExtractor(&headers));
         });
 
+        let _cx_guard = parent_cx.attach();
         let user_agent = req_headers
             .get_one("User-Agent")
             .map(|s| s.to_owned())
@@ -48,40 +53,29 @@ impl Fairing for Tracing {
 
         let req_uri_path = _req.uri().path().to_string();
         let trace_attr: Vec<KeyValue> = vec![
-            KeyValue {
-                key: Key::from("http.user_agent"),
-                value: Value::from(user_agent),
-            },
-            KeyValue {
-                key: Key::from("http.request_id"),
-                value: Value::from(request_id),
-            },
-            KeyValue {
-                key: Key::from("otel.name"),
-                value: Value::from(format!("{} {}", _req.method(), req_uri_path)),
-            },
-            KeyValue {
-                key: Key::from("http.method"),
-                value: Value::from(_req.method().as_str()),
-            },
-            KeyValue {
-                key: Key::from("http.uri"),
-                value: Value::from(req_uri_path),
-            },
+            KeyValue::new("http.user_agent", user_agent),
+            KeyValue::new("http.request_id", request_id),
+            KeyValue::new("otel.name", format!("{} {}", _req.method(), req_uri_path)),
+            KeyValue::new("http.method", _req.method().as_str()),
+            KeyValue::new("http.uri", req_uri_path),
+            KeyValue::new("http.status", _res.status().to_string())
         ];
-
-        // let _cx_guard = parent_cx.attach();
-
-        let tracer = global::tracer("example/server");
-        let span_builder = tracer
+        let mut status= Status::Ok;
+        if _res.status().code/100 == 5 {
+            status = Status::error(_res.status().to_string());
+        }
+        let tracer = global::tracer("rocket/response_handler");
+        let span = tracer
             .span_builder(format!("{} {}", _req.method(), _req.uri().path()))
             .with_attributes(trace_attr)
-            .with_kind(SpanKind::Server);
+            .with_kind(SpanKind::Server)
+            .with_status(status)
+            .start(&tracer);
+        let cx = Context::current_with_span(span);
+        cx.span().add_event("handling request", Vec::new());
 
-        let mut span = tracer.build_with_context(span_builder, &parent_cx);
+        // let response_propagator: &dyn TextMapPropagator = &TraceContextResponsePropagator::new();
+        // response_propagator.inject_context(&cx, &mut HeaderInjector(res.headers_mut()));
+
     }
-
-    // fn on_response<'r>(&self, _req: &'r Request<'_>, _res: &mut Response<'r>) {
-    //     todo!()
-    // }
 }

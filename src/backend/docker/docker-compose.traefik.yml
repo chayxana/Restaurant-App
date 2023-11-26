@@ -13,6 +13,8 @@ services:
       - "--tracing.openTelemetry.address=otel-collector:4317"
       - "--tracing.openTelemetry.insecure=true"
       - "--tracing.openTelemetry.grpc=true"
+      - "--metrics.openTelemetry.insecure=true"
+      - "--metrics.openTelemetry.address=otel-collector:4318"
     ports:
       - "8080:80"
       - "8081:8080"

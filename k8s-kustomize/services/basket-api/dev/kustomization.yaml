@@ -3,13 +3,12 @@ kind: Kustomization
 
 namespace: dev
 
-bases:
-- ../base
-
-patchesStrategicMerge:
-- http_route_patch.yaml
-
 configMapGenerator:
-- name: basket-api
-  envs: [config.env]
-  behavior: merge
+- behavior: merge
+  envs:
+  - config.env
+  name: basket-api
+resources:
+- ../base
+patches:
+- path: http_route_patch.yaml

@@ -3,13 +3,14 @@ kind: Kustomization
 
 namespace: dev
 
-bases:
-  - "../base"
 
-patchesStrategicMerge:
-  - "http_route_patch.yaml"
 
 configMapGenerator:
-  - name: catalog-api
-    envs: [config.env]
-    behavior: merge
+- behavior: merge
+  envs:
+  - config.env
+  name: catalog-api
+resources:
+- ../base
+patches:
+- path: http_route_patch.yaml

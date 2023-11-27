@@ -7,7 +7,8 @@ generatorOptions:
 resources:
 - deployment.yaml
 - service.yaml
-- virtual-service.yaml
+- http-route.yaml
+- menu-pgsql.yaml
 
 configMapGenerator:
 - envs:

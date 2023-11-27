@@ -10,9 +10,13 @@ import { Resource } from "@opentelemetry/resources";
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
 import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
 import { KafkaJsInstrumentation } from 'opentelemetry-instrumentation-kafkajs';
+import { NodeSDK } from '@opentelemetry/sdk-node';
+import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
+import { ConsoleMetricExporter, PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
+import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-proto';
 
-function createTracer(serviceName: string) {
-  diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
+export const InitOtel = (serviceName: string) => {
+  // diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
 
   const resource = Resource.default().merge(
     new Resource({
@@ -21,28 +25,25 @@ function createTracer(serviceName: string) {
     })
   );
 
-  const provider = new NodeTracerProvider({
-    resource,
-  });
-
   const processor = new BatchSpanProcessor(new OTLPTraceExporter({
     url: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
   }));
 
-  provider.addSpanProcessor(processor);
-  provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
-  provider.register();
-
-  registerInstrumentations({
+  return new NodeSDK({
+    resource,
+    spanProcessor: processor,
     instrumentations: [
-      new GrpcInstrumentation(),
-      new HttpInstrumentation(),
-      new ExpressInstrumentation(),
+      getNodeAutoInstrumentations({
+        '@opentelemetry/instrumentation-fs': {
+          enabled: false,
+        }
+      }),
       new KafkaJsInstrumentation()
     ],
-  });
-
-  return trace.getTracer('checkout-api-tracer');
+    metricReader: new PeriodicExportingMetricReader({
+      exporter: new OTLPMetricExporter({
+        url: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
+      }),
+    }),
+  })
 }
-
-export const tracer = createTracer("checkout-api")

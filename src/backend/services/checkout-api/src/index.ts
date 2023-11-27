@@ -1,11 +1,11 @@
-import { tracer } from './tracer';
+import { InitOtel } from './tracer';
+const otelSdk = InitOtel('checkout-api')
+otelSdk.start();
+
 import router from './routes';
 import { logger } from './logger';
 import { config } from './config';
 import express from 'express';
-
-
-const _ = tracer; // tracer must be loaded before all other imports
 
 const app = express();
 app.use(express.json());
@@ -16,7 +16,8 @@ app.listen(Number(config.port), config.host, () => {
   logger.info(`⚡️[server]: Server is running at http://${config.host}:${config.port}`);
 });
 
-process.on('SIGINT', () => {
+process.on('SIGINT', async () => {
+  await otelSdk.shutdown();
   logger.info("Gracefully shutting down from SIGINT (Ctrl-C)");
   // some other closing procedures go here
   process.exit(0);

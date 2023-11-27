@@ -1,4 +1,3 @@
-import { tracer } from './tracer';
 import { config } from './config';
 import * as grpc from '@grpc/grpc-js'
 import * as protoLoader from '@grpc/proto-loader'
@@ -8,8 +7,6 @@ import { UserCheckout } from './model';
 import { PaymentResponse } from './gen/payment/PaymentResponse';
 import { PaymentRequest } from './gen/payment/PaymentRequest';
 import { CartItem } from './gen/cart/CartItem';
-
-const _ = tracer; // tracer must be loaded before all other imports
 
 const packageDefinition = protoLoader.loadSync(
   path.resolve(__dirname, '../pb/payments.proto'),

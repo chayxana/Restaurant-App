@@ -1,12 +1,12 @@
-import { config } from './config';
+import { config } from '../config';
 import * as grpc from '@grpc/grpc-js'
 import * as protoLoader from '@grpc/proto-loader'
-import { ProtoGrpcType } from './gen/payments';
+import { ProtoGrpcType } from '../gen/payments';
 import path from 'path'
-import { UserCheckout } from './model';
-import { PaymentResponse } from './gen/payment/PaymentResponse';
-import { PaymentRequest } from './gen/payment/PaymentRequest';
-import { CartItem } from './gen/cart/CartItem';
+import { UserCheckout } from '../model';
+import { PaymentResponse } from '../gen/payment/PaymentResponse';
+import { PaymentRequest } from '../gen/payment/PaymentRequest';
+import { CartItem } from '../gen/cart/CartItem';
 
 const packageDefinition = protoLoader.loadSync(
   path.resolve(__dirname, '../pb/payments.proto'),

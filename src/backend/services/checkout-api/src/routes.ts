@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { UserCheckout } from "./model";
-import Checkout from "./checkout";
+import Checkout from "./usecases/checkout";
 
 const router = express.Router();
 

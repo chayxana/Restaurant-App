@@ -25,9 +25,11 @@ export default function () {
         picture: food.image,
         quantity: Math.floor(Math.random() * 20),
         unit_price: food.price,
-      }
+      }      
     ]
   }))
 
   sleep(1);
+
+  http.post(baseUrl + '')
 }

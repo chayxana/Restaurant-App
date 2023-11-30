@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import { GetCustomerCartRequest } from './gen/cart/GetCustomerCartRequest';
-import { GetCustomerCartResponse } from './gen/cart/GetCustomerCartResponse';
+import { GetCustomerCartRequest } from '../gen/cart/GetCustomerCartRequest';
+import { GetCustomerCartResponse } from '../gen/cart/GetCustomerCartResponse';
 import  { cartService } from './cartService';
 
 describe('CartService', () => {

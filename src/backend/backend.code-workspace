@@ -4,14 +4,7 @@
 			"name": "github",
 			"path": "../../.github"
 		},
-		{
-			"name": "k8s-kustomize",
-			"path": "../../k8s-kustomize"
-		},
-		{
-			"name": "docker",
-			"path": "./docker"
-		},
+		
 		{
 			"name": "checkout-api",
 			"path": "./services/checkout-api"
@@ -36,10 +29,7 @@
 			"name": "order-api",
 			"path": "./services/order-api"
 		},
-		{
-			"name": "nginx",
-			"path": "./nginx"
-		},
+
 		{
 			"name": "dashboard-app",
 			"path": "./web/web.admin/dashboard"
@@ -53,6 +43,21 @@
 		},
 		{
 			"path": "./services/protobuff"
+		},
+		{
+			"path": "./load-tests"
+		},
+		{
+			"name": "k8s-kustomize",
+			"path": "../../k8s-kustomize"
+		},
+		{
+			"name": "docker",
+			"path": "./docker"
+		},	
+		{
+			"name": "nginx",
+			"path": "./nginx"
 		}
 	],
 	"settings": {

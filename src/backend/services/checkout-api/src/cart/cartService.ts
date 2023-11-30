@@ -1,11 +1,11 @@
-import { config } from './config';
+import { config } from '../config';
 import * as grpc from '@grpc/grpc-js'
 import * as protoLoader from '@grpc/proto-loader'
-import { ProtoGrpcType } from './gen/cart';
+import { ProtoGrpcType } from '../gen/cart';
 import path from 'path'
-import { GetCustomerCartResponse } from './gen/cart/GetCustomerCartResponse';
-import { GetCustomerCartRequest } from './gen/cart/GetCustomerCartRequest';
-import { logger } from './logger';
+import { GetCustomerCartResponse } from '../gen/cart/GetCustomerCartResponse';
+import { GetCustomerCartRequest } from '../gen/cart/GetCustomerCartRequest';
+import { logger } from '../logger';
 
 
 const packageDefinition = protoLoader.loadSync(

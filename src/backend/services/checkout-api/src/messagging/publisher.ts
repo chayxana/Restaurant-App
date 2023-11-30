@@ -1,6 +1,6 @@
 import { Kafka, Producer, ProducerRecord } from 'kafkajs'
-import { config } from './config'
-import { logger } from './logger'
+import { config } from '../config'
+import { logger } from '../logger'
 
 export class Publisher {
   private producer: Producer

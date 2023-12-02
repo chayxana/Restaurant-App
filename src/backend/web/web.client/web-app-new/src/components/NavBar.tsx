@@ -2,7 +2,7 @@
 'use client'
 import React, { useState } from 'react';
 import Link from 'next/link';
-// import { SearchIcon, ShoppingBagIcon } from '@heroicons/react/outline';
+import { MagnifyingGlassIcon, ShoppingCartIcon } from '@heroicons/react/24/solid'
 
 const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -51,12 +51,12 @@ const Navbar: React.FC = () => {
                 type="submit"
                 className="p-2 bg-orange-500 text-white rounded-r-lg"
               >
-                {/* <SearchIcon className="h-5 w-5" /> */}
+                <MagnifyingGlassIcon className="h-5 w-5" />
               </button>
             </form>
-            <Link href="/basket">
+            <Link href="/cart">
               <div className="py-2 px-2 flex items-center">
-                {/* <ShoppingBagIcon className="h-6 w-6 text-gray-500 hover:text-orange-500" /> */}
+                <ShoppingCartIcon className="h-6 w-6 text-gray-500 hover:text-orange-500" />
                 {/* You might want to show the number of items in the basket */}
                 <span className="text-gray-500 text-sm ml-1">(0)</span>
               </div>

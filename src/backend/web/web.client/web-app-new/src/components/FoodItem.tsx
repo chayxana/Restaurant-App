@@ -1,13 +1,13 @@
 'use client'
 
+import { useCart } from '@/context/CartContext';
 import React, { useState } from 'react';
 
 type FoodItemProps = {
   title: string;
   description: string;
-  price: string;
+  price: number;
   imageUrl: string;
-  // onAddToCart: (id: string, quantity: number) => void; // Function to call when adding to cart
 };
 
 const FoodItem: React.FC<FoodItemProps> = ({
@@ -15,9 +15,9 @@ const FoodItem: React.FC<FoodItemProps> = ({
   description,
   price,
   imageUrl,
-  // onAddToCart,
 }) => {
   const [quantity, setQuantity] = useState(1);
+  const { addItem } = useCart();
 
   const handleQuantityChange = (newQuantity: number) => {
     if (newQuantity > 0) {
@@ -26,7 +26,13 @@ const FoodItem: React.FC<FoodItemProps> = ({
   };
 
   const addToCart = () => {
-    // onAddToCart(id, quantity);
+    const id = '123'
+    addItem({
+      id,
+      title,
+      quantity,
+      price,
+    });
   };
 
   return (

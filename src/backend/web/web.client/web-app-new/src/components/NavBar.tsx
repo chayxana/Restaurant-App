@@ -3,10 +3,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { MagnifyingGlassIcon, ShoppingCartIcon } from '@heroicons/react/24/solid'
+import { useCart } from '@/context/CartContext';
 
 const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
-
+  const { items } = useCart();
+  
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Implement the search functionality here
@@ -57,8 +59,7 @@ const Navbar: React.FC = () => {
             <Link href="/cart">
               <div className="py-2 px-2 flex items-center">
                 <ShoppingCartIcon className="h-6 w-6 text-gray-500 hover:text-orange-500" />
-                {/* You might want to show the number of items in the basket */}
-                <span className="text-gray-500 text-sm ml-1">(0)</span>
+                <span className="text-gray-500 text-sm ml-1">({items.length})</span>
               </div>
             </Link>
           </div>

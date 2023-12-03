@@ -15,7 +15,7 @@ import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentation
 import { ConsoleMetricExporter, PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
 import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-proto';
 
-export const InitOtel = (serviceName: string) => {
+export const OpenTelemetry = (serviceName: string) => {
   // diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
 
   const resource = Resource.default().merge(

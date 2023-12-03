@@ -1,6 +1,6 @@
-import { InitOtel } from './tracer';
-const otelSdk = InitOtel('checkout-api')
-otelSdk.start();
+import { OpenTelemetry } from './tracer';
+const otel = OpenTelemetry('checkout-api')
+otel.start();
 
 import router from './routes';
 import { logger } from './logger';
@@ -17,7 +17,7 @@ app.listen(Number(config.port), config.host, () => {
 });
 
 process.on('SIGINT', async () => {
-  await otelSdk.shutdown();
+  await otel.shutdown();
   logger.info("Gracefully shutting down from SIGINT (Ctrl-C)");
   // some other closing procedures go here
   process.exit(0);

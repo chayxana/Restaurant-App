@@ -1,4 +1,3 @@
-// pages/index.tsx
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
@@ -9,7 +8,7 @@ const HomePage = () => {
     router.replace('/foods');
   }, [router]);
 
-  return null; // render nothing or a loading spinner until redirect completes
+  return null; 
 };
 
 export default HomePage;

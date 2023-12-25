@@ -4,8 +4,8 @@ import React, { PropsWithChildren, createContext, useContext, useState } from "r
 
 // Define the shape of the context state
 interface CartItem {
-  id: string;
-  title: string;
+  id: number;
+  name: string;
   quantity: number;
   price: number;
 }
@@ -13,7 +13,7 @@ interface CartItem {
 interface CartContextType {
   items: CartItem[];
   addItem: (item: CartItem) => void;
-  removeItem: (itemId: string) => void;
+  removeItem: (itemId: number) => void;
   clearCart: () => void;
 }
 
@@ -40,7 +40,7 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
     });
   };
 
-  const removeItem = (itemId: string) => {
+  const removeItem = (itemId: number) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
   };
 

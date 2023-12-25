@@ -4,17 +4,19 @@ import { useCart } from '@/context/CartContext';
 import React, { useState } from 'react';
 
 type FoodItemProps = {
-  title: string;
+  id: number,
+  name: string;
   description: string;
   price: number;
-  imageUrl: string;
+  image: string;
 };
 
 const FoodItem: React.FC<FoodItemProps> = ({
-  title,
+  id,
+  name,
   description,
   price,
-  imageUrl,
+  image,
 }) => {
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
@@ -26,10 +28,9 @@ const FoodItem: React.FC<FoodItemProps> = ({
   };
 
   const addToCart = () => {
-    const id = '123'
     addItem({
       id,
-      title,
+      name,
       quantity,
       price,
     });
@@ -37,9 +38,9 @@ const FoodItem: React.FC<FoodItemProps> = ({
 
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg m-4">
-      <img className="w-full" src={imageUrl} alt={title} />
+      <img className="w-full" src={image} alt={name} />
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{title}</div>
+        <div className="font-bold text-xl mb-2">{name}</div>
         <p className="text-gray-700 text-base">{description}</p>
         <div className="flex justify-between items-center mt-4">
           <span className="text-lg font-bold">Rs. {price}</span>

@@ -58,7 +58,7 @@ metadata:
     app: catalog-pgsql-database
   name: catalog-pgsql-database
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 5432
     targetPort: 5432

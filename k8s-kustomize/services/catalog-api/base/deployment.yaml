@@ -17,40 +17,27 @@ spec:
         image: catalog-api # must much from ./kustomization.yaml -> images[0].name
         imagePullPolicy: Always 
         ports:
-          - containerPort: 80
+          - containerPort: 8000
         env:
-        - name: ORCHESTRATION_TYPE
-          value: k8s
-        - name: ASPNETCORE_ENVIRONMENT
+        - name: ROCKET_PORT
+          value: "8000"
+        - name: ROCKET_HOST
+          value: "0.0.0.0"
+        - name: ENV
           valueFrom:
             configMapKeyRef:
               name: catalog-api
               key: env
-        - name: PATH_BASE
+        - name: BASE_URL
           valueFrom:
             configMapKeyRef:
               name: catalog-api
               key: base.path
-        - name: DB_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: catalog-db
-              key: db.host
-        - name: DB_NAME
+        - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
-              name: catalog-db
-              key: db.name
-        - name: DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: catalog-db
-              key: db.username
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: catalog-db
-              key: db.password
+              name: catalog-api
+              key: db.url
         - name: AUTH_URL
           valueFrom:
             configMapKeyRef:
@@ -61,23 +48,23 @@ spec:
             configMapKeyRef:
               name: catalog-api
               key: auth.authority
-        readinessProbe:
-          httpGet:
-            path: /hc
-            port: 80
-          initialDelaySeconds: 60
-          timeoutSeconds: 5
-          periodSeconds: 30
-          successThreshold: 1
-          failureThreshold: 5
-        livenessProbe:
-          httpGet:
-            path: /liveness
-            port: 80
-          initialDelaySeconds: 10
-          periodSeconds: 15
-          successThreshold: 1
-          failureThreshold: 5
+        # readinessProbe:
+        #   httpGet:
+        #     path: /health/ready
+        #     port: 8000
+        #   initialDelaySeconds: 10
+        #   timeoutSeconds: 5
+        #   periodSeconds: 30
+        #   successThreshold: 1
+        #   failureThreshold: 5
+        # livenessProbe:
+        #   httpGet:
+        #     path: /health/live
+        #     port: 8000
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 15
+        #   successThreshold: 1
+        #   failureThreshold: 5
         resources:
           requests:
             memory: "64Mi"

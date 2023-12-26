@@ -32,6 +32,4 @@ COPY --from=builder /usr/src/catalog-api/data ./data
 COPY --from=builder /usr/src/catalog-api/pictures ./pictures
 COPY --from=builder /usr/src/catalog-api/migrations ./migrations
 
-EXPOSE 8080
-
 ENTRYPOINT ["./catalog-api"]

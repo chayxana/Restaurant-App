@@ -75,7 +75,7 @@ jobs:
     - if: matrix.language == 'csharp'
       name: Build C#
       run: |
-        bash ./src/backend/services/identity.api/build.sh
+        bash ./src/backend/services/identity-api/build.sh
 
     - if: matrix.language == 'java' 
       name: Build Java

@@ -25,6 +25,7 @@ func NewBasketHandler(r GetCreateDeleter) *BasketHandler {
 }
 
 // Create go doc
+//
 //	@Summary		Add a CustomerBasket
 //	@Description	add by json new CustomerBasket
 //	@Tags			CustomerBasket
@@ -60,6 +61,7 @@ func (bc *BasketHandler) Create(c *gin.Context) {
 }
 
 // Get go doc
+//
 //	@Summary		Gets a CustomerBasket
 //	@Description	Get CustomerBasket by ID
 //	@Tags			CustomerBasket
@@ -83,6 +85,7 @@ func (bc *BasketHandler) Get(c *gin.Context) {
 }
 
 // Delete go doc
+//
 //	@Summary		Deletes a CustomerBasket
 //	@Description	Deletes CustomerBasket by ID
 //	@Tags			CustomerBasket

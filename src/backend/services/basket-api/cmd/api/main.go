@@ -10,7 +10,6 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Shopify/sarama"
 	"github.com/jurabek/basket.api/cmd/config"
 	"github.com/jurabek/basket.api/internal/database"
 	"github.com/jurabek/basket.api/internal/docs"
@@ -24,7 +23,6 @@ import (
 	"google.golang.org/grpc/reflection"
 
 	"github.com/redis/go-redis/extra/redisotel/v9"
-	"go.opentelemetry.io/contrib/instrumentation/github.com/Shopify/sarama/otelsarama"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"go.opentelemetry.io/otel"
@@ -90,13 +88,13 @@ func main() {
 		fmt.Print(err)
 	}
 
-	p, err := sarama.NewSyncProducer([]string{cfg.KafkaBroker}, nil)
-	if err != nil {
-		log.Fatal().Err(err).Msg("new producer failed!")
-	}
+	// p, err := sarama.NewSyncProducer([]string{cfg.KafkaBroker}, nil)
+	// if err != nil {
+	// 	log.Fatal().Err(err).Msg("new producer failed!")
+	// }
 
-	tracedProducer := otelsarama.WrapSyncProducer(nil, p)
-	defer tracedProducer.Close()
+	// tracedProducer := otelsarama.WrapSyncProducer(nil, p)
+	// defer tracedProducer.Close()
 
 	basketRepository := repositories.NewRedisBasketRepository(redisClient)
 	basketHandler := handlers.NewBasketHandler(basketRepository)

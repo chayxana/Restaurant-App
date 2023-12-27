@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: dev
 
 
-
 configMapGenerator:
 - behavior: merge
   envs:
@@ -12,5 +11,3 @@ configMapGenerator:
   name: catalog-api
 resources:
 - ../base
-patches:
-- path: http_route_patch.yaml

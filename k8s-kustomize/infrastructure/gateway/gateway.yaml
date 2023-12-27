@@ -7,7 +7,6 @@ spec:
   gatewayClassName: istio
   listeners:
   - name: default
-    hostname: "*.restaurant.io"
     port: 80
     protocol: HTTP
     allowedRoutes:

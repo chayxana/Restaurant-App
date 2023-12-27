@@ -21,7 +21,7 @@ spec:
         env:
         - name: ROCKET_PORT
           value: "8000"
-        - name: ROCKET_HOST
+        - name: ROCKET_ADDRESS
           value: "0.0.0.0"
         - name: ENV
           valueFrom:
@@ -48,23 +48,23 @@ spec:
             configMapKeyRef:
               name: catalog-api
               key: auth.authority
-        # readinessProbe:
-        #   httpGet:
-        #     path: /health/ready
-        #     port: 8000
-        #   initialDelaySeconds: 10
-        #   timeoutSeconds: 5
-        #   periodSeconds: 30
-        #   successThreshold: 1
-        #   failureThreshold: 5
-        # livenessProbe:
-        #   httpGet:
-        #     path: /health/live
-        #     port: 8000
-        #   initialDelaySeconds: 10
-        #   periodSeconds: 15
-        #   successThreshold: 1
-        #   failureThreshold: 5
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 8000
+          initialDelaySeconds: 3
+          timeoutSeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 5
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 8000
+          initialDelaySeconds: 3
+          periodSeconds: 15
+          successThreshold: 1
+          failureThreshold: 5
         resources:
           requests:
             memory: "64Mi"

@@ -37,9 +37,8 @@ spec:
               name: catalog-api
               key: db.username
         volumeMounts:
-          - mountPath: /var/lib/postgresql/data/pgdata
+          - mountPath: /var/lib/postgresql/data
             name: order-database-data
-            subPath: postgres-db
 
   volumeClaimTemplates:
   - metadata:

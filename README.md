@@ -39,13 +39,8 @@ The architecture proposes a micro-service oriented architecture implementation w
         <td>Identity API (.NET Core + IdentityServer4)</td>
         <td>Identity management service, powered by OAuth2 and OpenID Connect</td>
         <td>
-            <a href="https://github.com/Jurabek/Restaurant-App/actions?query=workflow%3Aidentity-api">
-                <img src="https://github.com/Jurabek/Restaurant-App/workflows/identity-api/badge.svg">
-            </a>
-        </td>
-        <td>
-            <a href="https://sonarcloud.io/dashboard?id=restaurant-identity-api">
-                <img src="https://sonarcloud.io/api/project_badges/measure?project=restaurant-identity-api&metric=alert_status">
+            <a href="https://github.com/chayxana/Restaurant-App/actions/workflows/identity-api.yml">
+                <img src="https://github.com/chayxana/Restaurant-App/actions/workflows/identity-api.yml/badge.svg">
             </a>
         </td>
         <td>
@@ -57,13 +52,8 @@ The architecture proposes a micro-service oriented architecture implementation w
         <td>Basket API (Golang + Redis)</td>
         <td>Manages customer basket in order to keep items on in-memory cache using redis</td>
         <td>
-            <a href="https://github.com/Jurabek/Restaurant-App/actions?query=workflow%3Abasket-api">
-                <img src="https://github.com/Jurabek/Restaurant-App/workflows/basket-api/badge.svg">
-            </a>
-        </td>
-        <td>
-            <a href="https://sonarcloud.io/dashboard?id=restaurant-basket-api">
-                <img src="https://sonarcloud.io/api/project_badges/measure?project=restaurant-basket-api&metric=alert_status">
+            <a href="https://github.com/chayxana/Restaurant-App/actions/workflows/basket-api.yml">
+                <img src="https://github.com/chayxana/Restaurant-App/actions/workflows/basket-api.yml/badge.svg">
             </a>
         </td>
         <td>
@@ -73,16 +63,11 @@ The architecture proposes a micro-service oriented architecture implementation w
     </tr>
     <tr>
         <td align="center">3.</td>
-        <td>Menu API (.NET Core, PostgreSQL)</td>
+        <td>Catalog API (Rust + Rocket, PostgreSQL)</td>
         <td>Manages data for showing restaurant menu</td>
         <td>
-            <a href="https://github.com/Jurabek/Restaurant-App/actions?query=workflow%3Amenu-api">
-                <img src="https://github.com/Jurabek/Restaurant-App/workflows/menu-api/badge.svg">
-            </a>
-        </td>
-        <td>
-            <a href="https://sonarcloud.io/dashboard?id=restaurant-menu-api">
-                <img src="https://sonarcloud.io/api/project_badges/measure?project=restaurant-menu-api&metric=alert_status">
+            <a href="https://github.com/chayxana/Restaurant-App/actions/workflows/catalog-api.yml">
+                <img src="https://github.com/chayxana/Restaurant-App/actions/workflows/catalog-api.yml/badge.svg">
             </a>
         </td>
         <td>
@@ -95,13 +80,8 @@ The architecture proposes a micro-service oriented architecture implementation w
         <td>Order API (Java + Spring Boot)</td>
         <td>Manages customer orders</td>
         <td>
-            <a href="https://github.com/Jurabek/Restaurant-App/actions?query=workflow%3Aorder-api">
-                <img src="https://github.com/Jurabek/Restaurant-App/workflows/order-api/badge.svg">
-            </a>
-        </td>
-        <td>
-            <a href="https://sonarcloud.io/dashboard?id=restaurant-order-api">
-                <img src="https://sonarcloud.io/api/project_badges/measure?project=restaurant-order-api&metric=alert_status">
+            <a href="https://github.com/chayxana/Restaurant-App/actions/workflows/order-api.yml">
+                <img src="https://github.com/chayxana/Restaurant-App/actions/workflows/order-api.yml/badge.svg">
             </a>
         </td>
         <td>

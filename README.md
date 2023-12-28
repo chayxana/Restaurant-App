@@ -24,72 +24,15 @@ The architecture proposes a micro-service oriented architecture implementation w
 
 ## List of micro-services and infrastructure components
 
-<table>
-   <thead>
-    <th>№</th>
-    <th>Service</th>
-    <th>Description</th>
-    <th>Build status</th>
-    <th>Endpoints</th>
-  </thead>
-  <tbody>
-    <tr>
-        <td align="center">1.</td>
-        <td>Identity API (.NET Core + IdentityServer4)</td>
-        <td>Identity management service, powered by OAuth2 and OpenID Connect</td>
-        <td>
-            <a href="https://github.com/chayxana/Restaurant-App/actions/workflows/identity-api.yml">
-                <img src="https://github.com/chayxana/Restaurant-App/actions/workflows/identity-api.yml/badge.svg">
-            </a>
-        </td>
-        <td>
-            <a href="#">dev</a> | <a href="#">prod</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="center">2.</td>
-        <td>Basket API (Golang + Redis)</td>
-        <td>Manages customer basket in order to keep items on in-memory cache using redis</td>
-        <td>
-            <a href="https://github.com/chayxana/Restaurant-App/actions/workflows/basket-api.yml">
-                <img src="https://github.com/chayxana/Restaurant-App/actions/workflows/basket-api.yml/badge.svg">
-            </a>
-        </td>
-        <td>
-            <a href="#">dev</a> |
-            <a href="#">prod</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="center">3.</td>
-        <td>Catalog API (Rust + Rocket, PostgreSQL)</td>
-        <td>Manages data for showing restaurant menu</td>
-        <td>
-            <a href="https://github.com/chayxana/Restaurant-App/actions/workflows/catalog-api.yml">
-                <img src="https://github.com/chayxana/Restaurant-App/actions/workflows/catalog-api.yml/badge.svg">
-            </a>
-        </td>
-        <td>
-            <a href="#">dev</a> |
-            <a href="#">prod</a>
-        </td>
-    </tr>
-    <tr>
-        <td align="center">4.</td>
-        <td>Order API (Java + Spring Boot)</td>
-        <td>Manages customer orders</td>
-        <td>
-            <a href="https://github.com/chayxana/Restaurant-App/actions/workflows/order-api.yml">
-                <img src="https://github.com/chayxana/Restaurant-App/actions/workflows/order-api.yml/badge.svg">
-            </a>
-        </td>
-        <td>
-            <a href="#">dev</a> |
-            <a href="#">prod</a>
-        </td>
-    </tr>
-  </tbody>  
-</table>
+| №  | Service                                    | Description                                                                   | Build Status                                                                                               | Endpoints             |
+|----|--------------------------------------------|-------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|-----------------------|
+| 1. | Identity API (.NET Core + IdentityServer4) | Identity management service, powered by OAuth2 and OpenID Connect             | ![Build Status](https://github.com/chayxana/Restaurant-App/actions/workflows/identity-api.yml/badge.svg)   | [dev](#) \| [prod](#) |
+| 2. | Basket API (Golang + Redis)                | Manages customer basket in order to keep items on in-memory cache using redis | ![Build Status](https://github.com/chayxana/Restaurant-App/actions/workflows/basket-api.yml/badge.svg)     | [dev](#) \| [prod](#) |
+| 3. | Catalog API (Rust + Rocket, PostgreSQL)    | Manages data for showing restaurant menu                                      | ![Build Status](https://github.com/chayxana/Restaurant-App/actions/workflows/catalog-api.yml/badge.svg)    | [dev](#) \| [prod](#) |
+| 4. | Order API (Java + Spring Boot)             | Manages customer orders                                                       | ![Build Status](https://github.com/chayxana/Restaurant-App/actions/workflows/order-api.yml/badge.svg)      | [dev](#) \| [prod](#) |
+| 5. | Ceckout API (Node.js + Express)            | Responsible for checkout functionality                                        | ![Build Status](https://github.com/chayxana/Restaurant-App/actions/workflows/checkout-api.yml/badge.svg)   | [dev](#) \| [prod](#) |
+| 6. | Payment API (Golang)                       | Fake payment API (Payment service abstracting PSP)                            | ![Build Status](https://github.com/chayxana/Restaurant-App/actions/workflows/payment-api.yml/badge.svg)    | [dev](#) \| [prod](#) |
+
 
 ## Mobile app
 [Unfortunately I no longer be able to maintain Xamarin(mobile) part](https://github.com/chayxana/Restaurant-App/issues/81)

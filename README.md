@@ -30,7 +30,6 @@ The architecture proposes a micro-service oriented architecture implementation w
     <th>Service</th>
     <th>Description</th>
     <th>Build status</th>
-    <th>Quality</th>
     <th>Endpoints</th>
   </thead>
   <tbody>

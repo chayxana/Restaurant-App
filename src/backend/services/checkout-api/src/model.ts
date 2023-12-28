@@ -1,12 +1,12 @@
-export interface UserCheckout {
-    address: Address;
-    credit_card: CreditCard;
+export interface UserCheckoutReq {
+    address: AddressReq;
+    credit_card: CreditCardReq;
     customer_id: string;
     email: string;
     user_currency: string;
 }
 
-export interface Address {
+export interface AddressReq {
     city: string;
     country: string;
     state: string;
@@ -14,7 +14,7 @@ export interface Address {
     zip_code: number;
 }
 
-export interface CreditCard {
+export interface CreditCardReq {
     credit_card_cvv: number;
     credit_card_expiration_month: number;
     credit_card_expiration_year: number;
@@ -34,6 +34,6 @@ export interface CartItem {
 
 export interface CheckoutEvent {
     transaction_id?: string;
-    user_checkout: UserCheckout;
+    user_checkout: UserCheckoutReq;
     customer_cart: CustomerCart
 }

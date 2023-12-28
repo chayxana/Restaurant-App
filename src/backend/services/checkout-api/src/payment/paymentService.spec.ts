@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { expect } from "chai";
 import type * as grpc from '@grpc/grpc-js'
 import { paymentService, pay } from "./paymentService";
-import { CartItem, UserCheckout } from "../model";
+import { CartItem, UserCheckoutReq } from "../model";
 import { PaymentResponse } from '../gen/payment/PaymentResponse';
 import { PaymentRequest } from '../gen/payment/PaymentRequest';
 
@@ -26,7 +26,7 @@ describe("pay", () => {
       { item_id: "item1", price: 9.99, quantity: 2 },
       { item_id: "item2", price: 14.99, quantity: 1 },
     ];
-    const userCheckout: UserCheckout = {
+    const userCheckout: UserCheckoutReq = {
       address: {
         street_address: "123 Main St",
         city: "Anytown",

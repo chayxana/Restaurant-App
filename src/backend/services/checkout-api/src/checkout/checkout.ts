@@ -1,12 +1,12 @@
 import * as api from '@opentelemetry/api';
 import { randomUUID } from "crypto";
-import { CartItem, CheckoutEvent, UserCheckout } from "../model";
+import { CartItem, CheckoutEvent, UserCheckoutReq } from "../model";
 import getCustomerCartItems from "../cart/cartService";
 import Payment from "../payment/paymentService";
 import { logger } from "../logger";
 import checkoutPublisher from "../messagging/publisher";
 
-export default async function Checkout(checkout: UserCheckout) {
+export default async function Checkout(checkout: UserCheckoutReq) {
     const span = api.trace.getTracer('checkout-api').startSpan('checkout-api.Checkout');
     await api.context.with(api.trace.setSpan(api.ROOT_CONTEXT, span), async () => {
         try {

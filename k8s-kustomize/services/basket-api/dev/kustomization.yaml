@@ -10,5 +10,3 @@ configMapGenerator:
   name: basket-api
 resources:
 - ../base
-patches:
-- path: http_route_patch.yaml

@@ -1,0 +1,35 @@
+  
+name: checkout-api
+
+on:
+  push:
+    branches:
+    - develop
+    paths:
+    - 'src/backend/services/checkout-api/**'
+    - '.github/workflows/checkout-api.yml'
+
+  pull_request:
+    branches:
+    - develop
+    paths:
+    - 'src/backend/services/checkout-api/**'
+    - '.github/workflows/checkout-api.yml'
+
+
+jobs:
+  build-release:
+    uses: ./.github/workflows/build-release.yml
+    with:
+      service-name: checkout-api
+    secrets: inherit
+
+  deploy:
+    if: github.ref == 'refs/heads/develop'
+    needs:
+      - build-release
+    uses: ./.github/workflows/deploy.yml
+    with:
+      service-name: checkout-api
+      version: ${{ needs.build-release.outputs.new-version }}
+

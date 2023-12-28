@@ -3,7 +3,7 @@ import * as grpc from '@grpc/grpc-js'
 import * as protoLoader from '@grpc/proto-loader'
 import { ProtoGrpcType } from '../gen/payments';
 import path from 'path'
-import { UserCheckout } from '../model';
+import { UserCheckoutReq } from '../model';
 import { PaymentResponse } from '../gen/payment/PaymentResponse';
 import { PaymentRequest } from '../gen/payment/PaymentRequest';
 import { CartItem } from '../gen/cart/CartItem';
@@ -32,13 +32,13 @@ const asyncPayment = (req: PaymentRequest): Promise<PaymentResponse> => {
 
 export default function Payment(
   checkoutID: string,
-  userCheckout: UserCheckout,
+  userCheckout: UserCheckoutReq,
   cartItems: CartItem[],
 ): Promise<PaymentResponse> {
     return pay(cartItems, userCheckout, checkoutID);
 }
 
-export function pay(cartItems: CartItem[], userCheckout: UserCheckout, orderId: string): Promise<PaymentResponse> {
+export function pay(cartItems: CartItem[], userCheckout: UserCheckoutReq, orderId: string): Promise<PaymentResponse> {
   let amount = 0;
   for (const cartItem of cartItems) {
     const totalPrice = Number(cartItem.price) * Number(cartItem.quantity);

@@ -25,18 +25,18 @@ namespace Identity.API
                 .Enrich.FromLogContext()
                 .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Literate)
                 .CreateLogger();
-            
+
             CreateWebHostBuilder(args)
                 .Build()
-                .MigrateDbContext<ApplicationDbContext>((context, services) => 
+                .MigrateDbContext<ApplicationDbContext>((context, services) =>
                 {
                     var logger = services.GetRequiredService<ILogger<RestaurantDbContextSeed>>();
                     var configuration = services.GetRequiredService<IConfiguration>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();   
+                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     new RestaurantDbContextSeed().SeedAsync(logger, configuration, roleManager, userManager).Wait();
                 })
-                .MigrateDbContext<PersistedGrantDbContext>((c,s) => {})
+                .MigrateDbContext<PersistedGrantDbContext>((c, s) => { })
                 .MigrateDbContext<ConfigurationDbContext>((context, services) =>
                     {
                         var configuration = services.GetRequiredService<IConfiguration>();

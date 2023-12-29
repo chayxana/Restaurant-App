@@ -4,10 +4,10 @@ namespace Identity.API.Utils
 {
     public static class BasePathExtensions
     {
-        public static string GetBasePath(this IConfiguration configuration) 
+        public static string GetBasePath(this IConfiguration configuration)
         {
             var pathBase = configuration["PATH_BASE"];
-            if(!string.IsNullOrEmpty(pathBase)) 
+            if (!string.IsNullOrEmpty(pathBase))
             {
                 return pathBase;
             }

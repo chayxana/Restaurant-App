@@ -72,16 +72,16 @@ pub fn delete(catalog_id: i32) {
 }
 
 #[openapi]
-#[get("/all", format = "json")]
-pub fn get_catalogs() -> Result<Json<Vec<CatalogResponse>>> {
+#[get("/all?<category_name>", format = "json")]
+pub fn get_catalogs(category_name: Option<String>) -> Result<Json<Vec<CatalogResponse>>> {
     use schema::catalog::dsl::*;
-
-
-    // let tracer = global::tracer("catalog_handler");
-    // let mut span = tracer.start("get_all_catalogs");
-
     let connection = &mut establish_connection();
-    let res = catalog
+
+    let mut query = catalog.into_boxed();
+    if let Some(ref cat_name) = category_name {
+        query = query.filter(category.eq(cat_name));
+    }
+    let res = query
         .load::<Catalog>(connection)
         .expect("failed to loading catalogs")
         .into_iter()
@@ -92,9 +92,9 @@ pub fn get_catalogs() -> Result<Json<Vec<CatalogResponse>>> {
             image: c.image,
             price: c.price.to_f64().unwrap(),
             currency: c.currency,
+            category: c.category,
         })
         .collect();
-    // span.end();
     return Ok(Json(res));
 }
 
@@ -116,6 +116,7 @@ pub fn get_catalog(catalog_id: i32) -> Result<Json<CatalogResponse>> {
         image: c.image,
         price: c.price.to_f64().unwrap(),
         currency: c.currency,
+        category: c.category,
     };
 
     return Ok(Json(res));

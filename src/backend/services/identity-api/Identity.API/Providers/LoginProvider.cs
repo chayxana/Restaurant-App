@@ -30,7 +30,7 @@ namespace Identity.API.Providers
             _signInManager = signInManager;
             _events = events;
         }
-        
+
         public async Task<SignInResult> LoginUser(LoginInputModel model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);

@@ -63,4 +63,5 @@ pub struct CatalogResponse {
     pub image: String,
     pub price: f64,
     pub currency: String,
+    pub category: String,
 }

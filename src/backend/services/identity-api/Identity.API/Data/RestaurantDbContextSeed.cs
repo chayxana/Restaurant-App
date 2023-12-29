@@ -11,44 +11,44 @@ using static Identity.API.Utils.Retry;
 
 namespace Identity.API.Data
 {
-	[ExcludeFromCodeCoverage]
-	public class RestaurantDbContextSeed
-	{
-		public async Task SeedAsync(
-			ILogger<RestaurantDbContextSeed> logger,
-			IConfiguration configuration,
-			RoleManager<IdentityRole> roleManager, 
-			UserManager<ApplicationUser> userManager)
-		{
-			var policy = CreatePolicy(logger, nameof(RestaurantDbContextSeed));
+    [ExcludeFromCodeCoverage]
+    public class RestaurantDbContextSeed
+    {
+        public async Task SeedAsync(
+            ILogger<RestaurantDbContextSeed> logger,
+            IConfiguration configuration,
+            RoleManager<IdentityRole> roleManager,
+            UserManager<ApplicationUser> userManager)
+        {
+            var policy = CreatePolicy(logger, nameof(RestaurantDbContextSeed));
 
-			await policy.ExecuteAsync(async () =>
-			{
-				var roleNames = configuration.GetSection("UserSettings:DefaultRoles").Get<List<string>>();
-				foreach (var roleName in roleNames)
-				{
-					var roleExist = await roleManager.RoleExistsAsync(roleName);
-					if (!roleExist)
-						await roleManager.CreateAsync(new IdentityRole(roleName));
-				}
+            await policy.ExecuteAsync(async () =>
+            {
+                var roleNames = configuration.GetSection("UserSettings:DefaultRoles").Get<List<string>>();
+                foreach (var roleName in roleNames)
+                {
+                    var roleExist = await roleManager.RoleExistsAsync(roleName);
+                    if (!roleExist)
+                        await roleManager.CreateAsync(new IdentityRole(roleName));
+                }
 
-				var user = await userManager.FindByEmailAsync(configuration["UserSettings:AdminEmail"]);
+                var user = await userManager.FindByEmailAsync(configuration["UserSettings:AdminEmail"]);
 
-				if (user == null)
-				{
-					var admin = new ApplicationUser
-					{
-						UserName = configuration["UserSettings:AdminEmail"],
-						Email = configuration["UserSettings:AdminEmail"]
-					};
+                if (user == null)
+                {
+                    var admin = new ApplicationUser
+                    {
+                        UserName = configuration["UserSettings:AdminEmail"],
+                        Email = configuration["UserSettings:AdminEmail"]
+                    };
 
-					var password = configuration["UserSettings:AdminPassword"];
-					var createPowerUser = await userManager.CreateAsync(admin, password);
+                    var password = configuration["UserSettings:AdminPassword"];
+                    var createPowerUser = await userManager.CreateAsync(admin, password);
 
-					if (createPowerUser.Succeeded)
-						await userManager.AddToRoleAsync(admin, "Admin");
-				}
-			});
-		}
-	}
+                    if (createPowerUser.Succeeded)
+                        await userManager.AddToRoleAsync(admin, "Admin");
+                }
+            });
+        }
+    }
 }

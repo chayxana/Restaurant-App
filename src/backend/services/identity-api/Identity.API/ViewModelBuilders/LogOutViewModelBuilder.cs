@@ -11,7 +11,7 @@ namespace Identity.API.ViewModelBuilders
     {
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        
+
         public LogOutViewModelBuilder(
             IHttpContextAccessor httpContextAccessor,
             IIdentityServerInteractionService interaction)
@@ -19,7 +19,7 @@ namespace Identity.API.ViewModelBuilders
             _httpContextAccessor = httpContextAccessor;
             _interaction = interaction;
         }
-        
+
         public Task<LogoutViewModel> Build(string logoutId) => BuildLogoutViewModelAsync(logoutId);
 
         private async Task<LogoutViewModel> BuildLogoutViewModelAsync(string logoutId)
@@ -33,7 +33,7 @@ namespace Identity.API.ViewModelBuilders
                 vm.ShowLogoutPrompt = false;
                 return vm;
             }
-        
+
             var context = await _interaction.GetLogoutContextAsync(logoutId);
             if (context?.ShowSignoutPrompt == false)
             {

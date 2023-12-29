@@ -11,7 +11,6 @@ type CartItemProps = {
   quantity: number;
   price: number;
   imageUrl: string;
-  // Add more props as needed
 };
 
 // A single cart item component
@@ -52,9 +51,8 @@ const CartItem: React.FC<CartItemProps> = ({
   );
 };
 
-// The main cart page component
 const CartPage: React.FC = () => {
-  // Sample cart items data
+  // TODO: handle state management for cart items and total price
   const cartItems = [
     {
       id: "123",

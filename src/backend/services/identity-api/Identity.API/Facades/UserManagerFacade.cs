@@ -11,41 +11,41 @@ using Microsoft.EntityFrameworkCore;
 namespace Identity.API.Facades
 {
     [ExcludeFromCodeCoverage]
-	public class UserManagerFacade : IUserManagerFacade
-	{
-		private readonly UserManager<ApplicationUser> _userManager;
+    public class UserManagerFacade : IUserManagerFacade
+    {
+        private readonly UserManager<ApplicationUser> _userManager;
 
-		public UserManagerFacade(UserManager<ApplicationUser> userManager)
-		{
-			_userManager = userManager;
-		}
+        public UserManagerFacade(UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+        }
 
-		public Task<IdentityResult> Create(ApplicationUser applicationUser, string password)
-		{
-			return _userManager.CreateAsync(applicationUser, password);
-		}
+        public Task<IdentityResult> Create(ApplicationUser applicationUser, string password)
+        {
+            return _userManager.CreateAsync(applicationUser, password);
+        }
 
-		public async Task<ApplicationUser> GetAsync(ClaimsPrincipal principal)
-		{
-			var userId = principal.FindFirst(ClaimTypes.NameIdentifier).Value;
+        public async Task<ApplicationUser> GetAsync(ClaimsPrincipal principal)
+        {
+            var userId = principal.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-			var result = await _userManager.Users
-				.Include(x => x.UserProfile)
-				.SingleOrDefaultAsync(x => x.Id == userId);
+            var result = await _userManager.Users
+                .Include(x => x.UserProfile)
+                .SingleOrDefaultAsync(x => x.Id == userId);
 
-			return result;
-		}
+            return result;
+        }
 
-		public IEnumerable<ApplicationUser> GetAllUsers()
-		{
-			return _userManager.Users
-				.Include(x => x.UserProfile)
-				.ToList();
-		}
+        public IEnumerable<ApplicationUser> GetAllUsers()
+        {
+            return _userManager.Users
+                .Include(x => x.UserProfile)
+                .ToList();
+        }
 
-		public Task<IdentityResult> UpdateAsync(ApplicationUser applicationUser)
-		{
-			return _userManager.UpdateAsync(applicationUser);
-		}
-	}
+        public Task<IdentityResult> UpdateAsync(ApplicationUser applicationUser)
+        {
+            return _userManager.UpdateAsync(applicationUser);
+        }
+    }
 }

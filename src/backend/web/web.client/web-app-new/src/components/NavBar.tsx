@@ -1,4 +1,3 @@
-// components/Navbar.tsx
 'use client'
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -11,12 +10,12 @@ const Navbar: React.FC = () => {
   
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Implement the search functionality here
+    //TODO: Implement the search functionality here
     console.log(`Searching for: ${searchQuery}`);
   };
 
   return (
-    <nav className="bg-white shadow-lg">
+    <nav className="bg-white shadow-md fixed w-full z-30 top-0 left-0">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between">
           <div className="flex space-x-7">
@@ -25,19 +24,9 @@ const Navbar: React.FC = () => {
               <Link href="/">
                 <div className="flex items-center py-4 px-2">
                   {/* Insert your logo image or text here */}
-                  <span className="font-semibold text-gray-500 text-lg">Food & Drinks App</span>
+                  <span className="font-semibold text-gray-500 text-lg">Restaurant App</span>
                 </div>
               </Link>
-            </div>
-            {/* Primary Navbar items */}
-            <div className="hidden md:flex items-center space-x-1">
-              <Link href="/foods">
-                <div className="py-4 px-2 text-orange-500 border-b-4 border-orange-500 font-semibold ">Foods</div>
-              </Link>
-              <Link href="/drinks">
-                <div className="py-4 px-2 text-gray-500 font-semibold hover:text-orange-500 transition duration-300">Drinks</div>
-              </Link>
-              {/* Add other navigation items here */}
             </div>
           </div>
           {/* Secondary Navbar items */}

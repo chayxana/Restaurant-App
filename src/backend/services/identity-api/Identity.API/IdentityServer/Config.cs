@@ -23,9 +23,11 @@ namespace Identity.API.IdentityServer
         {
             return new[]
             {
-                new ApiScope("menu-api", "Restaurant Menu Api") { UserClaims = { "role" } },
+                new ApiScope("catalog-api", "Restaurant Catalog Api") { UserClaims = { "role" } },
                 new ApiScope("order-api", "Restaurant Order Api") { UserClaims = { "role" } },
-                new ApiScope("basket-api", "Restaurant Basket Api") { UserClaims = { "role" } }
+                new ApiScope("basket-api", "Restaurant Basket Api") { UserClaims = { "role" } },
+                new ApiScope("checkout-api", "Restaurant Checkout Api") { UserClaims = { "role" } },
+                new ApiScope("payment-api", "Restaurant Payment Api") { UserClaims = { "role" } }
             };
         }
 
@@ -100,23 +102,25 @@ namespace Identity.API.IdentityServer
                     PostLogoutRedirectUris = { $"{clientUrls["OrderApiUrl"]}/swagger/" },
                     AllowedScopes = { "order-api" }
                 },
-                // OpenID Connect hybrid flow and client credentials client (MVC)
+                // OpenID Connect for next.js web-app 
                 new Client
                 {
-                    ClientId = "spa-client",
-                    ClientName = "MVC Client",
-                    AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
+                    ClientId = "nextjs-web-app",
+                    ClientName = "Next.js Web-App",
+                    AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
                     RequireConsent = false,
                     ClientSecrets = {new Secret("secret".Sha256())},
-                    RedirectUris = {"http://localhost:5002/signin-oidc"},
+                    RedirectUris = {"http://localhost:3001/api/auth/callback/web-app"},
                     PostLogoutRedirectUris = {"http://localhost:5002/signout-callback-oidc"},
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "menu-api",
+                        "catalog-api",
                         "basket-api",
-                        "order-api"
+                        "order-api",
+                        "payment-api",
+                        "checkout-api"
                     },
                     AllowOfflineAccess = true
                 }

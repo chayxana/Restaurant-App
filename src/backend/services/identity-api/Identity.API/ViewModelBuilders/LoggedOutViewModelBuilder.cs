@@ -19,7 +19,7 @@ namespace Identity.API.ViewModelBuilders
             _httpContextAccessor = httpContextAccessor;
             _interaction = interaction;
         }
-        
+
         public async Task<LoggedOutViewModel> Build(string logoutId)
         {
             // get context information (client name, post logout redirect URI and iframe for federated signout)

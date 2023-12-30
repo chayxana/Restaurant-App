@@ -9,7 +9,7 @@ import { logger } from '../logger';
 
 
 const packageDefinition = protoLoader.loadSync(
-  path.resolve(__dirname, '../pb/cart.proto'),
+  path.resolve(__dirname, '../../pb/cart.proto'),
 );
 const proto = grpc.loadPackageDefinition(packageDefinition) as unknown as ProtoGrpcType;
 

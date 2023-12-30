@@ -9,7 +9,7 @@ import { PaymentRequest } from '../gen/payment/PaymentRequest';
 import { CartItem } from '../gen/cart/CartItem';
 
 const packageDefinition = protoLoader.loadSync(
-  path.resolve(__dirname, '../pb/payments.proto'),
+  path.resolve(__dirname, '../../pb/payments.proto'),
 );
 const proto = grpc.loadPackageDefinition(packageDefinition) as unknown as ProtoGrpcType;
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchFoodItemsByCategory } from "../fetch";
+import { fetchFoodItemsByCategory } from "../../../lib/fetch";
 import { FoodsPage } from "../foods";
 
 const Page = async ({ params }: { params: { category: string } }) => {

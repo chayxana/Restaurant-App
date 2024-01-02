@@ -1,14 +1,11 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
-import { CheckoutComponent } from "./checkout";
-import { redirect } from "next/navigation";
+"use client";
 
-const Page = async () => {
-  const session = await getServerSession(authOptions);
-  
-  return (
-    <>{session?.user ? <CheckoutComponent /> : redirect("api/auth/signin")}</>
-  );
+import { CheckoutComponent } from "./checkout";
+import { signIn, useSession } from "next-auth/react";
+
+const Page = () => {
+  const { status } = useSession();
+  return <>{status === "authenticated" ? <CheckoutComponent /> : signIn()}</>;
 };
 
 export default Page;

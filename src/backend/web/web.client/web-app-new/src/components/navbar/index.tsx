@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
 
         <div className="flex justify-end space-x-2 md:w-1/3">
           <Link href="/cart">
-            <OpenCart quantity={items.length} />
+            <OpenCart quantity={items.length} className="h-6 w-6" />
           </Link>
           <OpenUserProfile />
         </div>

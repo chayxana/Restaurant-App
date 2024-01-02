@@ -63,12 +63,18 @@ services:
   #     context: ./web/web.admin/dashboard
   #     dockerfile: local.Dockerfile
 
-  # web-app:
-  #   image: restaurant/web
-  #   build:
-  #     context: ./web/web.client/web-app
-  #     dockerfile: local.Dockerfile
-      
+  web-app:
+    image: restaurant/web-app
+    build:
+      context: ./web/web.client/web-app-new
+      dockerfile: Dockerfile
+    ports:
+      - 3001:3000
+    environment:
+      - BASE_URL=http://traefik:80
+      - NEXT_SHARP_PATH=./node_modules/sharp
+      - AUTH_ISSUER=http://traefik:80/identity
+
   order-db:
     image: postgres:alpine
     volumes: 

@@ -11,7 +11,7 @@ type CategoryProps = {
 const CategoryLink: React.FC<CategoryProps> = ({ name, link }) => {
   return (
     <Link href={link}>
-      <div className="block px-4 py-2 hover:bg-gray-100">{name}</div>
+      <li className="block px-4 py-2 hover:bg-gray-100">{name}</li>
     </Link>
   );
 };
@@ -20,8 +20,8 @@ const CategoriesSidebar: React.FC = async () => {
   const categories = await fetchCategories();
 
   return (
-    <aside className="pt-8 min-h-screen p-5 bg-gray-100">
-      <nav>
+    <nav>
+      <ul>
         {categories.map((category) => {
           const values = {
             id: category.id,
@@ -30,8 +30,8 @@ const CategoriesSidebar: React.FC = async () => {
           };
           return <CategoryLink key={category.id} {...values} />;
         })}
-      </nav>
-    </aside>
+      </ul>
+    </nav>
   );
 };
 
@@ -51,9 +51,7 @@ async function fetchCategories(): Promise<Categories> {
     throw new Error("Failed to fetch categories data");
   }
 
-  const categories: Categories = Categories.parse(
-    await res.json()
-  );
+  const categories: Categories = Categories.parse(await res.json());
   return categories;
 }
 

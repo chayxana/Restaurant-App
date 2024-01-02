@@ -1,11 +1,15 @@
 "use client";
 
 import { UserCircleIcon } from "@heroicons/react/24/solid";
+import { getProviders, signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function OpenUserProfile() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { status } = useSession();
+
+  getProviders().then((providers) => console.log("Providers", providers));
 
   return (
     <div className="relative">
@@ -20,17 +24,20 @@ export default function OpenUserProfile() {
 
       {isDropdownOpen && (
         <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl">
-          {/* Dropdown items */}
-          <Link href="/profile">
-            <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-              Profile
-            </div>
-          </Link>
-          <Link href="/api/auth/signin">
-            <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-              Login
-            </div>
-          </Link>
+          {status === "unauthenticated" && (
+            <button onClick={() => signIn('web-app')} className="w-full">
+              <div className="block text-left w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                Login
+              </div>
+            </button>
+          )}
+          {status === "authenticated" && (
+            <button onClick={() => signOut()} className="w-full">
+              <div className="block text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                Log Out
+              </div>
+            </button>
+          )}
         </div>
       )}
     </div>

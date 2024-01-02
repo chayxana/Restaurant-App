@@ -4,7 +4,7 @@ import { FoodsPage } from "./foods";
 
 
 const Page = async () => {
-  const foodItems = await fetchFoodItems(null);
+  const foodItems = await fetchFoodItems();
   return (
     <FoodsPage foodItems={foodItems} />
   );

@@ -2,7 +2,6 @@
 
 import React, { PropsWithChildren, createContext, useContext, useState } from "react";
 
-// Define the shape of the context state
 interface CartItem {
   id: number;
   name: string;
@@ -55,7 +54,6 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
   );
 };
 
-// Hook to use the cart context
 export const useCart = () => {
   const context = useContext(CartContext);
   if (context === undefined) {

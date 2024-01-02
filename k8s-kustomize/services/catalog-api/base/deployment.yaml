@@ -18,36 +18,17 @@ spec:
         imagePullPolicy: Always 
         ports:
           - containerPort: 8000
+        envFrom:
+          - configMapRef:
+              name: catalog-api
+          - secretRef:
+              name: catalog-api
         env:
         - name: ROCKET_PORT
           value: "8000"
         - name: ROCKET_ADDRESS
           value: "0.0.0.0"
-        - name: ENV
-          valueFrom:
-            configMapKeyRef:
-              name: catalog-api
-              key: env
-        - name: BASE_URL
-          valueFrom:
-            configMapKeyRef:
-              name: catalog-api
-              key: base.path
-        - name: DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: catalog-api
-              key: db.url
-        - name: AUTH_URL
-          valueFrom:
-            configMapKeyRef:
-              name: catalog-api
-              key: auth.url
-        - name: AUTH_AUTHORITY
-          valueFrom:
-            configMapKeyRef:
-              name: catalog-api
-              key: auth.authority
+
         readinessProbe:
           httpGet:
             path: /health/ready

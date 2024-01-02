@@ -18,24 +18,12 @@ spec:
       containers:
       - name: catalog-pgsql-database
         image: postgres:alpine
+        envFrom:
+          - secretRef:
+              name: catalog-api
         env:
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
-        - name: POSTGRES_DB
-          valueFrom:
-            secretKeyRef:
-              name: catalog-api
-              key: db.name
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: catalog-api
-              key: db.password
-        - name: POSTGRES_USER
-          valueFrom:
-            secretKeyRef:
-              name: catalog-api
-              key: db.username
         volumeMounts:
           - mountPath: /var/lib/postgresql/data
             name: order-database-data

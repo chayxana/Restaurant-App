@@ -1,7 +1,7 @@
 import CategoriesSidebar from "@/components/CategoriesSidebar";
 import FoodItem from "@/components/FoodItem";
-import { FoodItems } from "../../lib/fetch";
 import RightSidebar from "@/components/RightSidebar";
+import { FoodItems } from "@/lib/types";
 
 export const FoodsPage = ({ foodItems }: { foodItems: FoodItems }) => {
   return (

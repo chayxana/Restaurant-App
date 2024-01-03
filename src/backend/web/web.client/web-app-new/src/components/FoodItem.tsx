@@ -3,6 +3,7 @@
 import { useCart } from "@/context/CartContext";
 import React, { useState } from "react";
 import Image from "next/image";
+import { CartItemQuantity } from "./cart/CartItemQuantity";
 
 type FoodItemProps = {
   id: number;
@@ -19,21 +20,17 @@ const FoodItem: React.FC<FoodItemProps> = ({
   price,
   image,
 }) => {
-  const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
-
-  const handleQuantityChange = (newQuantity: number) => {
-    if (newQuantity > 0) {
-      setQuantity(newQuantity);
-    }
-  };
+  const [quantity, setQuantity] = useState(1);
 
   const addToCart = () => {
     addItem({
       id,
       name,
+      description,
       quantity,
       price,
+      image,
     });
   };
 
@@ -58,28 +55,7 @@ const FoodItem: React.FC<FoodItemProps> = ({
         <p className="text-gray-700 text-base">{description}</p>
         <div className="flex justify-between items-center mt-4">
           <span className="text-lg font-bold">Rs. {price}</span>
-          <div className="flex items-center">
-            <button
-              onClick={() => handleQuantityChange(quantity - 1)}
-              className="text-md bg-gray-200 text-gray-600 px-2 py-1 rounded-l"
-            >
-              -
-            </button>
-            <input
-              type="text"
-              className="w-12 text-center border-t border-b"
-              value={quantity}
-              onChange={(e) =>
-                handleQuantityChange(parseInt(e.target.value) || 0)
-              }
-            />
-            <button
-              onClick={() => handleQuantityChange(quantity + 1)}
-              className="text-md bg-gray-200 text-gray-600 px-2 py-1 rounded-r"
-            >
-              +
-            </button>
-          </div>
+          <CartItemQuantity quantity={quantity} onQuantityChange={setQuantity}  />
         </div>
       </div>
       <div className="px-6 pt-4 pb-2">

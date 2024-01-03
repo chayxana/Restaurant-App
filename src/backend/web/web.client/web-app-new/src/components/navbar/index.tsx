@@ -3,12 +3,14 @@ import React from "react";
 import Link from "next/link";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { useCart } from "@/context/CartContext";
-import OpenCart from "../cart/open-cart";
+import OpenCart from "../cart/OpenCart";
 import OpenUserProfile from "./user-profile";
 import Search from "./search";
+import { useSession } from "next-auth/react";
 
 const Navbar: React.FC = () => {
   const { items } = useCart();
+  const { status } = useSession();
 
   return (
     <nav className="bg-white shadow-md fixed w-full z-30 top-0 left-0">
@@ -32,7 +34,7 @@ const Navbar: React.FC = () => {
           <Link href="/cart">
             <OpenCart quantity={items.length} className="h-6 w-6" />
           </Link>
-          <OpenUserProfile />
+          <OpenUserProfile authStatus={status} />
         </div>
       </div>
     </nav>

@@ -1,12 +1,20 @@
-'use client'
+"use client";
 
-import React, { PropsWithChildren, createContext, useContext, useState } from "react";
+import React, {
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
-interface CartItem {
+export interface CartItem {
   id: number;
   name: string;
+  description: string;
   quantity: number;
   price: number;
+  image: string;
 }
 
 interface CartContextType {
@@ -14,6 +22,7 @@ interface CartContextType {
   addItem: (item: CartItem) => void;
   removeItem: (itemId: number) => void;
   clearCart: () => void;
+  setQuantity: (id: number, quantity: number) => void;
 }
 
 // Create the context
@@ -22,6 +31,23 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 // Define the provider component
 export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
   const [items, setItems] = useState<CartItem[]>([]);
+
+  useEffect(() => {
+    console.log("empty items effect");
+    const storedItems = localStorage.getItem("items");
+    if (storedItems) {
+      setItems(JSON.parse(storedItems));
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("has items effect");
+    if (items.length === 0) {
+      localStorage.removeItem("items");
+    } else {
+      localStorage.setItem("items", JSON.stringify(items));
+    }
+  }, [items]);
 
   const addItem = (newItem: CartItem) => {
     setItems((prevItems) => {
@@ -47,8 +73,16 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
     setItems([]);
   };
 
+  const setQuantity = (id: number, quantity: number) => {
+    setItems((prevItems) =>
+      prevItems.map((item) => (item.id === id ? { ...item, quantity } : item))
+    );
+  };
+
   return (
-    <CartContext.Provider value={{ items, addItem, removeItem, clearCart }}>
+    <CartContext.Provider
+      value={{ items, addItem, removeItem, clearCart, setQuantity: setQuantity }}
+    >
       {children}
     </CartContext.Provider>
   );

@@ -48,6 +48,12 @@ services:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
       - ENV=dev
 
+  web-app:
+    environment:
+      - API_BASE_URL=http://traefik:80
+      - NEXT_SHARP_PATH=./node_modules/sharp
+      - AUTH_ISSUER=http://host.docker.internal:8080/identity
+
   identity-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -62,6 +68,8 @@ services:
       - DASHBOARD_APP_URL=http://localhost:8080/dashboard
       - IDENTITY_URL_PUB=http://localhost:8080/identity
 
+  # connect: 
+  # pgcli 'postgresql://admin:Passw0rd!@localhost:5435/identity_database'
   order-db:
     environment:
       - POSTGRES_PASSWORD=Passw0rd!
@@ -69,6 +77,8 @@ services:
       - PGDATA=/pg
       - POSTGRES_DB=orderdb
 
+  # connect: 
+  # pgcli 'postgresql://admin:Passw0rd!@localhost:5435/identity_database'
   identity-db:
     environment:
       - POSTGRES_PASSWORD=Passw0rd!
@@ -76,7 +86,8 @@ services:
       - PGDATA=/pg
       - POSTGRES_DB=identity_database
 
-
+  # connect:
+  # pgcli 'postgresql://admin:Passw0rd!@localhost:5434/catalogdb'
   catalog-db:
     environment:
       - POSTGRES_PASSWORD=Passw0rd!

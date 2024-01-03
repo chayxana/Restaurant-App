@@ -70,10 +70,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3001:3000
-    environment:
-      - BASE_URL=http://traefik:80
-      - NEXT_SHARP_PATH=./node_modules/sharp
-      - AUTH_ISSUER=http://traefik:80/identity
+    extra_hosts:
+      - "host.docker.internal:host-gateway" # run in your host machine command:
+                                            # sudo sh -c "echo '127.0.0.1 \t host.docker.internal' >> /etc/hosts"
 
   order-db:
     image: postgres:alpine

@@ -20,6 +20,10 @@ const nextConfig = {
         protocol: "http",
         hostname: "traefik",
       },
+      {
+        protocol: "http",
+        hostname: "host.docker.internal"
+      }
     ],
   },
 

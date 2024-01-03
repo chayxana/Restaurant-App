@@ -14,13 +14,13 @@ const FoodItems = z.array(
 export type FoodItems = z.infer<typeof FoodItems>;
 
 export async function fetchFoodItems(): Promise<FoodItems> {
-  const apiUrl = process.env.BASE_URL + "/catalog/items/all";
+  const apiUrl = process.env.API_BASE_URL + "/catalog/items/all";
   return await fetchItems(apiUrl);
 }
 
 
 export async function fetchFoodItemsByCategory(category: string): Promise<FoodItems> {
-  const apiUrl = process.env.BASE_URL + `/catalog/items/all?category_name=${category}`;
+  const apiUrl = process.env.API_BASE_URL + `/catalog/items/all?category_name=${category}`;
   return await fetchItems(apiUrl);
 }
 
@@ -35,7 +35,7 @@ async function fetchItems(apiUrl: string) {
   const updatedItems = items.map((item) => {
     return {
       ...item,
-      image: process.env.BASE_URL + item.image,
+      image: process.env.API_BASE_URL + item.image,
     };
   });
 

@@ -45,7 +45,7 @@ const Categories = z.array(
 type Categories = z.infer<typeof Categories>;
 
 async function fetchCategories(): Promise<Categories> {
-  const apiUrl = process.env.BASE_URL + "/catalog/categories";
+  const apiUrl = process.env.API_BASE_URL + "/catalog/categories";
   const res = await fetch(apiUrl);
   if (!res.ok) {
     throw new Error("Failed to fetch categories data");

@@ -1,15 +1,12 @@
-import React from "react";
-import { fetchFoodItems } from "../../lib/fetch";
-import { FoodsPage } from "./foods";
-
+import React from 'react';
+import { fetchCategories, fetchFoodItems } from '../../lib/fetch';
+import { FoodsPage } from './foods';
 
 const Page = async () => {
-  const foodItems = await fetchFoodItems();
-  return (
-    <FoodsPage foodItems={foodItems} />
-  );
+  const [categories, foodItems] = await Promise.all([fetchCategories(), fetchFoodItems()]);
+  return <FoodsPage foodItems={foodItems} categories={categories} />;
 };
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic';
 
 export default Page;

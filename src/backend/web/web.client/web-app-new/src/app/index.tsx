@@ -8,7 +8,7 @@ const HomePage = () => {
     router.replace('/foods');
   }, [router]);
 
-  return null; 
+  return null;
 };
 
 export default HomePage;

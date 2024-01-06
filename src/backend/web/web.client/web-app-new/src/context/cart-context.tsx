@@ -1,12 +1,6 @@
-"use client";
+'use client';
 
-import React, {
-  PropsWithChildren,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { PropsWithChildren, createContext, useContext, useEffect, useState } from 'react';
 
 export interface CartItem {
   id: number;
@@ -19,10 +13,10 @@ export interface CartItem {
 
 interface CartContextType {
   items: CartItem[];
-  addItem: (item: CartItem) => void;
-  removeItem: (itemId: number) => void;
+  addItem: (_item: CartItem) => void;
+  removeItem: (_itemId: number) => void;
   clearCart: () => void;
-  setQuantity: (id: number, quantity: number) => void;
+  setQuantity: (_id: number, _quantity: number) => void;
 }
 
 // Create the context
@@ -33,19 +27,17 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
   const [items, setItems] = useState<CartItem[]>([]);
 
   useEffect(() => {
-    console.log("empty items effect");
-    const storedItems = localStorage.getItem("items");
+    const storedItems = localStorage.getItem('items');
     if (storedItems) {
       setItems(JSON.parse(storedItems));
     }
   }, []);
 
   useEffect(() => {
-    console.log("has items effect");
     if (items.length === 0) {
-      localStorage.removeItem("items");
+      localStorage.removeItem('items');
     } else {
-      localStorage.setItem("items", JSON.stringify(items));
+      localStorage.setItem('items', JSON.stringify(items));
     }
   }, [items]);
 
@@ -81,7 +73,13 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
 
   return (
     <CartContext.Provider
-      value={{ items, addItem, removeItem, clearCart, setQuantity: setQuantity }}
+      value={{
+        items,
+        addItem,
+        removeItem,
+        clearCart,
+        setQuantity: setQuantity
+      }}
     >
       {children}
     </CartContext.Provider>
@@ -91,7 +89,7 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
 export const useCart = () => {
   const context = useContext(CartContext);
   if (context === undefined) {
-    throw new Error("useCart must be used within a CartProvider");
+    throw new Error('useCart must be used within a CartProvider');
   }
   return context;
 };

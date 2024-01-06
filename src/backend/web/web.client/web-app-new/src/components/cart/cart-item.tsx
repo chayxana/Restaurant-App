@@ -1,7 +1,8 @@
-import Image from "next/image";
-import { TrashIcon } from "@heroicons/react/24/solid";
-import { useCart } from "@/context/CartContext";
-import { CartItemQuantity } from "./CartItemQuantity";
+import React from 'react';
+import Image from 'next/image';
+import { TrashIcon } from '@heroicons/react/24/solid';
+import { useCart } from '@/context/cart-context';
+import { CartItemQuantity } from './cart-item-quantity';
 
 // Type for the cart item
 type CartItemProps = {
@@ -20,7 +21,7 @@ export const CartItem: React.FC<CartItemProps> = ({
   description,
   quantity,
   price,
-  image,
+  image
 }) => {
   const { removeItem, setQuantity } = useCart();
   return (
@@ -42,16 +43,13 @@ export const CartItem: React.FC<CartItemProps> = ({
       </div>
       <div className="flex items-center">
         <CartItemQuantity
-          className="px-4 relative"
+          className="relative px-4"
           quantity={quantity}
           onQuantityChange={(newQuantity: number) => {
             setQuantity(id, newQuantity);
           }}
         />
-        <button
-          className="text-gray-500 hover:text-red-500"
-          onClick={() => removeItem(id)}
-        >
+        <button className="text-gray-500 hover:text-red-500" onClick={() => removeItem(id)}>
           <TrashIcon className="h-6 w-6" />
         </button>
       </div>

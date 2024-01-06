@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
@@ -6,7 +6,13 @@ const RightSidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedSort, setSelectedSort] = useState('Relevance');
 
-  const sortingOptions = ['Relevance', 'Trending', 'Latest arrivals', 'Price: Low to high', 'Price: High to low'];
+  const sortingOptions = [
+    'Relevance',
+    'Trending',
+    'Latest arrivals',
+    'Price: Low to high',
+    'Price: High to low'
+  ];
 
   const handleSortSelection = (option: string) => {
     setSelectedSort(option);
@@ -19,19 +25,21 @@ const RightSidebar: React.FC = () => {
       <div className="relative">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-white border border-gray-300 text-gray-700 py-2 px-4 flex items-center justify-between w-48 rounded-md shadow"
+          className="flex w-48 items-center justify-between rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 shadow"
         >
           <span>Sort by</span>
-          <ChevronDownIcon className={`w-5 h-5 ${isOpen ? 'rotate-180' : ''}`} />
+          <ChevronDownIcon className={`h-5 w-5 ${isOpen ? 'rotate-180' : ''}`} />
         </button>
 
         {isOpen && (
-          <div className="absolute right-0 w-48 bg-white border border-gray-300 rounded-md shadow mt-1 z-10">
+          <div className="absolute right-0 z-10 mt-1 w-48 rounded-md border border-gray-300 bg-white shadow">
             {sortingOptions.map((option) => (
               <div
                 key={option}
                 onClick={() => handleSortSelection(option)}
-                className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${selectedSort === option ? 'bg-gray-100' : ''}`}
+                className={`cursor-pointer px-4 py-2 hover:bg-gray-100 ${
+                  selectedSort === option ? 'bg-gray-100' : ''
+                }`}
               >
                 {option}
               </div>

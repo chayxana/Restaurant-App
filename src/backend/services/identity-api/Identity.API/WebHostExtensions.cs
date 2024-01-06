@@ -55,11 +55,8 @@ namespace Identity.API
                 }
                 catch (Exception ex)
                 {
-                    if (k8s)
-                    {
-                        throw ex;
-                    }
                     logger.LogError(ex, $"An error occurred while migrating the database used on context {typeof(TContext).Name}");
+                    throw ex;
                 }
             }
 

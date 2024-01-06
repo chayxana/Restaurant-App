@@ -1,19 +1,19 @@
-"use client";
-import React, { useState } from "react";
+'use client';
+import React, { useState } from 'react';
 
 export const CheckoutComponent: React.FC = () => {
   const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    street_address: "",
-    city: "",
-    state: "",
-    zip_code: "",
-    country: "",
-    credit_card_number: "",
-    credit_card_expiration_month: "",
-    credit_card_expiration_year: "",
-    credit_card_cvv: "",
+    fullName: '',
+    email: '',
+    street_address: '',
+    city: '',
+    state: '',
+    zip_code: '',
+    country: '',
+    credit_card_number: '',
+    credit_card_expiration_month: '',
+    credit_card_expiration_year: '',
+    credit_card_cvv: ''
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,11 +28,11 @@ export const CheckoutComponent: React.FC = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Checkout</h1>
-      <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
+      <h1 className="mb-6 text-3xl font-bold">Checkout</h1>
+      <form onSubmit={handleSubmit} className="mx-auto max-w-lg">
         {/* Customer Information */}
         <div className="mb-4">
-          <label htmlFor="fullName" className="block mb-2">
+          <label htmlFor="fullName" className="mb-2 block">
             Full Name
           </label>
           <input
@@ -41,12 +41,12 @@ export const CheckoutComponent: React.FC = () => {
             id="fullName"
             value={formData.fullName}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full rounded border border-gray-300 p-2"
             required
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="email" className="block mb-2">
+          <label htmlFor="email" className="mb-2 block">
             Email
           </label>
           <input
@@ -55,16 +55,16 @@ export const CheckoutComponent: React.FC = () => {
             id="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full rounded border border-gray-300 p-2"
             required
           />
         </div>
 
         {/* Address Details */}
         <fieldset className="mb-4">
-          <legend className="text-xl font-semibold mb-4">Address</legend>
+          <legend className="mb-4 text-xl font-semibold">Address</legend>
           <div className="mb-4">
-            <label htmlFor="street_address" className="block mb-2">
+            <label htmlFor="street_address" className="mb-2 block">
               Street Address
             </label>
             <input
@@ -73,7 +73,7 @@ export const CheckoutComponent: React.FC = () => {
               id="street_address"
               value={formData.street_address}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full rounded border border-gray-300 p-2"
               required
             />
           </div>
@@ -82,9 +82,9 @@ export const CheckoutComponent: React.FC = () => {
 
         {/* Credit Card Details */}
         <fieldset>
-          <legend className="text-xl font-semibold mb-4">Credit Card</legend>
+          <legend className="mb-4 text-xl font-semibold">Credit Card</legend>
           <div className="mb-4">
-            <label htmlFor="credit_card_number" className="block mb-2">
+            <label htmlFor="credit_card_number" className="mb-2 block">
               Card Number
             </label>
             <input
@@ -93,16 +93,13 @@ export const CheckoutComponent: React.FC = () => {
               id="credit_card_number"
               value={formData.credit_card_number}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full rounded border border-gray-300 p-2"
               required
             />
           </div>
-          <div className="flex gap-4 mb-4">
+          <div className="mb-4 flex gap-4">
             <div className="flex-1">
-              <label
-                htmlFor="credit_card_expiration_month"
-                className="block mb-2"
-              >
+              <label htmlFor="credit_card_expiration_month" className="mb-2 block">
                 Expiration Month
               </label>
               <input
@@ -111,15 +108,12 @@ export const CheckoutComponent: React.FC = () => {
                 id="credit_card_expiration_month"
                 value={formData.credit_card_expiration_month}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full rounded border border-gray-300 p-2"
                 required
               />
             </div>
             <div className="flex-1">
-              <label
-                htmlFor="credit_card_expiration_year"
-                className="block mb-2"
-              >
+              <label htmlFor="credit_card_expiration_year" className="mb-2 block">
                 Expiration Year
               </label>
               <input
@@ -128,12 +122,12 @@ export const CheckoutComponent: React.FC = () => {
                 id="credit_card_expiration_year"
                 value={formData.credit_card_expiration_year}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full rounded border border-gray-300 p-2"
                 required
               />
             </div>
             <div className="flex-1">
-              <label htmlFor="credit_card_cvv" className="block mb-2">
+              <label htmlFor="credit_card_cvv" className="mb-2 block">
                 CVV
               </label>
               <input
@@ -142,7 +136,7 @@ export const CheckoutComponent: React.FC = () => {
                 id="credit_card_cvv"
                 value={formData.credit_card_cvv}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full rounded border border-gray-300 p-2"
                 required
               />
             </div>
@@ -151,7 +145,7 @@ export const CheckoutComponent: React.FC = () => {
 
         <button
           type="submit"
-          className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded"
+          className="rounded bg-orange-500 px-4 py-2 font-bold text-white hover:bg-orange-600"
         >
           Complete
         </button>

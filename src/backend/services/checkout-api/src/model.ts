@@ -33,6 +33,7 @@ export interface CartItem {
 }
 
 export interface CheckoutEvent {
+    checkout_id: string;
     transaction_id?: string;
     user_checkout: UserCheckoutReq;
     customer_cart: CustomerCart

@@ -1,19 +1,19 @@
-import * as api from '@opentelemetry/api';
 import { randomUUID } from "crypto";
 import { CartItem, CheckoutEvent, UserCheckoutReq } from "../model";
 import getCustomerCartItems from "../cart/cartService";
 import Payment from "../payment/paymentService";
 import { logger } from "../logger";
 import checkoutPublisher from "../messagging/publisher";
+import { trace, context, ROOT_CONTEXT, SpanStatusCode } from "@opentelemetry/api";
 
-export default async function Checkout(checkout: UserCheckoutReq) {
-    const span = api.trace.getTracer('checkout-api').startSpan('checkout-api.Checkout');
-    await api.context.with(api.trace.setSpan(api.ROOT_CONTEXT, span), async () => {
+export default async function Checkout(checkout: UserCheckoutReq): Promise<CheckoutEvent> {
+    const span = trace.getTracer('checkout-api').startSpan('checkout-api.Checkout');
+    return await context.with(trace.setSpan(ROOT_CONTEXT, span), async () => {
         try {
             const checkoutID = randomUUID().toString();
             const cart = await getCustomerCartItems(checkout.customer_id)
             const pay = await Payment(checkoutID, checkout, cart!!.items!!)
-            logger.info(pay?.transactionId)
+            logger.debug('payment transaction succeded', { transaction_id: pay?.transactionId })
 
             const cartItems = cart?.items?.map<CartItem>((i) => {
                 return {
@@ -24,6 +24,7 @@ export default async function Checkout(checkout: UserCheckoutReq) {
             })
 
             const checkoutEvent: CheckoutEvent = {
+                checkout_id: checkoutID,
                 transaction_id: pay.transactionId,
                 user_checkout: checkout,
                 customer_cart: {
@@ -31,13 +32,15 @@ export default async function Checkout(checkout: UserCheckoutReq) {
                     items: cartItems,
                 }
             }
-            logger.info("checkout-event: ", checkoutEvent)
+            logger.debug("checkout-event", { event: checkoutEvent })
             await checkoutPublisher.Publish(checkoutEvent)
+            return checkoutEvent;
         } catch (error) {
+            span.recordException(error as Error);
             span.setStatus({
-                code: api.SpanStatusCode.ERROR,
+                code: SpanStatusCode.ERROR,
                 message: (error as Error)?.message,
-            })
+            });
             throw error
         } finally {
             span.end();

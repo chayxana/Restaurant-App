@@ -35,7 +35,7 @@ export default function Payment(
   userCheckout: UserCheckoutReq,
   cartItems: CartItem[],
 ): Promise<PaymentResponse> {
-    return pay(cartItems, userCheckout, checkoutID);
+  return pay(cartItems, userCheckout, checkoutID);
 }
 
 export function pay(cartItems: CartItem[], userCheckout: UserCheckoutReq, orderId: string): Promise<PaymentResponse> {
@@ -44,12 +44,12 @@ export function pay(cartItems: CartItem[], userCheckout: UserCheckoutReq, orderI
     const totalPrice = Number(cartItem.price) * Number(cartItem.quantity);
     amount += totalPrice;
   }
-  const userId = userCheckout.customer_id;
+  const { credit_card, customer_id: userId } = userCheckout;
   const creditCard = {
-    creditCardNumber: userCheckout.credit_card.credit_card_number,
-    creditCardCvv: userCheckout.credit_card.credit_card_cvv,
-    creditCardExpirationMonth: userCheckout.credit_card.credit_card_expiration_month,
-    creditCardExpirationYear: userCheckout.credit_card.credit_card_expiration_year,
+    creditCardNumber: credit_card.credit_card_number,
+    creditCardCvv: credit_card.credit_card_cvv,
+    creditCardExpirationMonth: credit_card.credit_card_expiration_month,
+    creditCardExpirationYear: credit_card.credit_card_expiration_year,
   };
 
   return asyncPayment({

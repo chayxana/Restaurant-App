@@ -5,12 +5,15 @@ import Checkout from "./checkout/checkout";
 const router = express.Router();
 
 router.post('/api/v1/checkout', async (req: Request<{}, {}, UserCheckoutReq>, res: Response) => {
-    try {
-      await Checkout(req.body);
-      res.send('Checkout OK');
-    } catch (error) {
-      res.status(500).send({ error })
-    }
+  try {
+    const checkout = await Checkout(req.body);
+    res.send({
+      checkout_id: checkout.checkout_id,
+      transaction_id: checkout.transaction_id,
+    });
+  } catch (error) {
+    res.status(500).send({ error_message: error })
+  }
 });
 
 export default router;

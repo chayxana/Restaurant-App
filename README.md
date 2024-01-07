@@ -33,6 +33,11 @@ The architecture proposes a micro-service oriented architecture implementation w
 | 5. | Ceckout API (Node.js + Express)            | Responsible for checkout functionality                                        | ![Build Status](https://github.com/chayxana/Restaurant-App/actions/workflows/checkout-api.yml/badge.svg)   | [dev](#) \| [prod](#) |
 | 6. | Payment API (Golang)                       | Fake payment API (Payment service abstracting PSP)                            | ![Build Status](https://github.com/chayxana/Restaurant-App/actions/workflows/payment-api.yml/badge.svg)    | [dev](#) \| [prod](#) |
 
+## Web App
+Web app developed using Next.js with SSR
+<img width="1828" alt="image" src="https://github.com/chayxana/Restaurant-App/assets/8397056/590a5fe5-58c6-425f-934c-54456a9257bf">
+
+
 
 ## Mobile app
 [Unfortunately I no longer be able to maintain Xamarin(mobile) part](https://github.com/chayxana/Restaurant-App/issues/81)

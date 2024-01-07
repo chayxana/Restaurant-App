@@ -21,3 +21,19 @@ export const Categories = z.array(
 );
 
 export type Categories = z.infer<typeof Categories>;
+
+export const CartItem = z.object({
+  food_id: z.number(),
+  food_name: z.string(),
+  old_unit_price: z.number(),
+  picture: z.string(),
+  quantity: z.number(),
+  unit_price: z.number(),
+})
+export type CartItem = z.infer<typeof CartItem>;
+
+export const Cart = z.object({
+  customer_id: z.string(),
+  items: z.array(CartItem),
+})
+export type Cart = z.infer<typeof Cart>;

@@ -2,7 +2,7 @@
 
 import React, { PropsWithChildren, createContext, useContext, useEffect, useState } from 'react';
 
-export interface CartItem {
+export interface SessionCartItem {
   id: number;
   name: string;
   description: string;
@@ -12,8 +12,8 @@ export interface CartItem {
 }
 
 interface CartContextType {
-  items: CartItem[];
-  addItem: (_item: CartItem) => void;
+  items: SessionCartItem[];
+  addItem: (_item: SessionCartItem) => void;
   removeItem: (_itemId: number) => void;
   clearCart: () => void;
   setQuantity: (_id: number, _quantity: number) => void;
@@ -24,7 +24,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 // Define the provider component
 export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<SessionCartItem[]>([]);
 
   useEffect(() => {
     const storedItems = localStorage.getItem('items');
@@ -41,7 +41,7 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
     }
   }, [items]);
 
-  const addItem = (newItem: CartItem) => {
+  const addItem = (newItem: SessionCartItem) => {
     setItems((prevItems) => {
       // Check if item is already in the cart
       const itemIndex = prevItems.findIndex((item) => item.id === newItem.id);
@@ -78,7 +78,7 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
         addItem,
         removeItem,
         clearCart,
-        setQuantity: setQuantity
+        setQuantity 
       }}
     >
       {children}

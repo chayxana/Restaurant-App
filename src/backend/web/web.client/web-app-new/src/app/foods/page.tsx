@@ -1,6 +1,6 @@
 import React from 'react';
-import { fetchCategories, fetchFoodItems } from '../../lib/fetch';
 import { FoodsPage } from './foods';
+import { fetchCategories, fetchFoodItems } from '@/lib/fetch';
 
 const Page = async () => {
   const [categories, foodItems] = await Promise.all([fetchCategories(), fetchFoodItems()]);

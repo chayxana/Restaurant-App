@@ -3,9 +3,9 @@ import React from 'react';
 import Link from 'next/link';
 import { UserCircleIcon } from '@heroicons/react/24/solid';
 import { useCart } from '@/context/cart-context';
+import Search from './search';
 import OpenCart from '../cart/open-cart';
 import OpenUserProfile from './user-profile';
-import Search from './search';
 
 const Navbar: React.FC = () => {
   const { items } = useCart();

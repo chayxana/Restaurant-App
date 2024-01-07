@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { CartItemQuantity } from './cart/cart-item-quantity';
 import { AddToCart } from './cart/add-to-cart';
-import { FoodItem } from '@/lib/types';
+import { FoodItem } from '@/lib/types/food-item';
 
 export const Item = ({ foodItem }: { foodItem: FoodItem }) => {
   const [quantity, setQuantity] = useState(1);

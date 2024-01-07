@@ -2,7 +2,7 @@
 
 import { SessionCartItem } from '@/context/cart-context';
 import { authOptions } from '@/lib/auth';
-import { Cart } from '@/lib/types';
+import { Cart } from '@/lib/types/cart';
 import { getServerSession } from 'next-auth';
 
 export async function addItemServer(customerId: string, cartItem: SessionCartItem) {

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Categories } from '@/lib/types';
+import { Categories } from '@/lib/types/food-item';
 
 type CategoryProps = {
   name: string;

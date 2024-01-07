@@ -1,4 +1,4 @@
-import { fetchCategories, fetchFoodItemsByCategory } from '../../../lib/fetch';
+import { fetchCategories, fetchFoodItemsByCategory } from '@/lib/fetch';
 import { FoodsPage } from '../foods';
 
 const Page = async ({ params }: { params: { category: string } }) => {

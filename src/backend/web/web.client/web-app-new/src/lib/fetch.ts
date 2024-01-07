@@ -1,4 +1,4 @@
-import { Categories, FoodItems } from './types';
+import { Categories, FoodItems } from "./types/food-item";
 
 export async function fetchFoodItems(): Promise<FoodItems> {
   const apiUrl = process.env.API_BASE_URL + '/catalog/items/all';

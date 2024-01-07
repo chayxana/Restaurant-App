@@ -1,7 +1,7 @@
 import CategoriesSidebar from '@/components/categories-sidebar';
 import { Item } from '@/components/food-item';
 import RightSidebar from '@/components/right-sidebar';
-import { Categories, FoodItems } from '@/lib/types';
+import { Categories, FoodItems } from '@/lib/types/food-item';
 
 export const FoodsPage = ({
   foodItems,

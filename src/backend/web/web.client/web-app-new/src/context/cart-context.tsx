@@ -78,7 +78,7 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
         addItem,
         removeItem,
         clearCart,
-        setQuantity 
+        setQuantity
       }}
     >
       {children}

@@ -1,5 +1,5 @@
 import CategoriesSidebar from '@/components/categories-sidebar';
-import FoodItem from '@/components/food-item';
+import { Item } from '@/components/food-item';
 import RightSidebar from '@/components/right-sidebar';
 import { Categories, FoodItems } from '@/lib/types';
 
@@ -18,7 +18,7 @@ export const FoodsPage = ({
       <div className="order-last min-h-screen w-full md:order-none">
         <div className="flex flex-wrap justify-center">
           {foodItems.map((item) => (
-            <FoodItem key={item.id} {...item} />
+            <Item foodItem={item} key={item.id} />
           ))}
         </div>
       </div>

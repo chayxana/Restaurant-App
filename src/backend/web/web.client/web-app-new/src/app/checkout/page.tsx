@@ -10,7 +10,7 @@ const Page = async () => {
   const session = await getServerSession(authOptions);
   if (!session?.user) {
     const headersList = headers();
-    const callbackUrl = headersList.get('referer') || "";; //after sign redirect into checkout page again
+    const callbackUrl = headersList.get('referer') || ''; //after sign redirect into checkout page again
     const urlParam = new URLSearchParams({ callbackUrl });
     return redirect(`api/auth/signin/web-app?${urlParam}`);
   }

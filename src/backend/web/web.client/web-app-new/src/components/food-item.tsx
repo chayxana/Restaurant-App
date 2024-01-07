@@ -1,39 +1,19 @@
 'use client';
 
-import { useCart } from '@/context/cart-context';
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { CartItemQuantity } from './cart/cart-item-quantity';
+import { AddToCart } from './cart/add-to-cart';
+import { FoodItem } from '@/lib/types';
 
-type FoodItemProps = {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-};
-
-const FoodItem: React.FC<FoodItemProps> = ({ id, name, description, price, image }) => {
-  const { addItem } = useCart();
+export const Item = ({ foodItem }: { foodItem: FoodItem }) => {
   const [quantity, setQuantity] = useState(1);
-
-  const addToCart = () => {
-    addItem({
-      id,
-      name,
-      description,
-      quantity,
-      price,
-      image
-    });
-  };
-
   return (
     <div className="m-4 max-w-sm overflow-hidden rounded shadow-lg">
       <div style={{ position: 'relative', height: '400px' }}>
         <Image
-          src={image}
-          alt={name}
+          src={foodItem.image}
+          alt={foodItem.name}
           placeholder="empty"
           loading="lazy"
           fill={true}
@@ -44,24 +24,15 @@ const FoodItem: React.FC<FoodItemProps> = ({ id, name, description, price, image
         />
       </div>
 
-      <div className="px-6 py-4">
-        <div className="mb-2 text-xl font-bold">{name}</div>
-        <p className="text-base text-gray-700">{description}</p>
+      <div className="px-6 py-2">
+        <div className="mb-2 text-xl font-bold">{foodItem.name}</div>
+        <p className="text-base text-gray-700">{foodItem.description}</p>
         <div className="mt-4 flex items-center justify-between">
-          <span className="text-lg font-bold">Rs. {price}</span>
+          <span className="text-lg font-bold">Rs. {foodItem.price}</span>
           <CartItemQuantity quantity={quantity} onQuantityChange={setQuantity} />
         </div>
       </div>
-      <div className="px-6 pb-2 pt-4">
-        <button
-          onClick={addToCart}
-          className="w-full rounded bg-orange-500 px-4 py-2 font-bold text-white hover:bg-orange-700"
-        >
-          Add to Cart
-        </button>
-      </div>
+      <AddToCart quantity={quantity} foodItem={foodItem} />
     </div>
   );
 };
-
-export default FoodItem;

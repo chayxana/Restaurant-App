@@ -6,11 +6,9 @@ import { useCart } from '@/context/cart-context';
 import OpenCart from '../cart/open-cart';
 import OpenUserProfile from './user-profile';
 import Search from './search';
-import { useSession } from 'next-auth/react';
 
 const Navbar: React.FC = () => {
   const { items } = useCart();
-  const { status } = useSession();
 
   return (
     <nav className="fixed left-0 top-0 z-30 w-full bg-white shadow-md">
@@ -32,7 +30,7 @@ const Navbar: React.FC = () => {
           <Link href="/cart">
             <OpenCart quantity={items.length} className="h-6 w-6" />
           </Link>
-          <OpenUserProfile authStatus={status} />
+          <OpenUserProfile />
         </div>
       </div>
     </nav>

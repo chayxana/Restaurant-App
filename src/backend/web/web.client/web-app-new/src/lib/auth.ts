@@ -18,8 +18,16 @@ export const authOptions: AuthOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
+    async jwt({ token, account }) {
+      if (account) {
+        console.log('has account: ' + account.access_token);
+        token.accessToken = account.access_token;
+      }
+      return token
+    },
     async session({ session, token }) {
-      session.user = token;
+      session.user.user_id = token.sub || 'empty user id, something went wrong';
+      session.user.token = token.accessToken as string;
       return session;
     }
   }

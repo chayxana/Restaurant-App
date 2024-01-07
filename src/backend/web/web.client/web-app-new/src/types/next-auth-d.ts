@@ -7,7 +7,8 @@ declare module 'next-auth' {
   // eslint-disable-next-line no-unused-vars
   interface Session {
     user: {
-      user_id?: string | null;
+      user_id: string;
+      token: string;
     } & DefaultSession['user'];
   }
 }

@@ -11,16 +11,18 @@ const OrderCompletionPage: React.FC = () => {
     paymentMethod: 'Master Card ending **** 0987',
     estimatedDeliveryTime: '11:53 AM',
     email: 'kaz@paviw.co.uk',
-    helpNumber: '+02 9629 4884',
+    helpNumber: '+02 9629 4884'
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white p-6 shadow-lg rounded-lg">
+    <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-lg">
       <div className="text-center">
-        <CheckCircleIcon className="h-12 w-12 text-green-500 mx-auto" />
-        <h2 className="text-lg font-semibold my-2">Order Submitted</h2>
-        <p className="text-gray-600">{orderDetails.orderTotal} Paid with {orderDetails.paymentMethod}</p>
-        <button className="bg-orange-500 text-white px-4 py-2 rounded my-4">Track order</button>
+        <CheckCircleIcon className="mx-auto h-12 w-12 text-green-500" />
+        <h2 className="my-2 text-lg font-semibold">Order Submitted</h2>
+        <p className="text-gray-600">
+          {orderDetails.orderTotal} Paid with {orderDetails.paymentMethod}
+        </p>
+        <button className="my-4 rounded bg-orange-500 px-4 py-2 text-white">Track order</button>
       </div>
       <div className="my-4">
         <h3 className="font-bold">Delivery Address</h3>
@@ -39,10 +41,11 @@ const OrderCompletionPage: React.FC = () => {
         <p>Need help with anything?</p>
         <p>Call {orderDetails.helpNumber}</p>
       </div>
-      <button className="w-full bg-gray-200 text-gray-800 px-4 py-2 rounded my-4">Start a new order</button>
+      <button className="my-4 w-full rounded bg-gray-200 px-4 py-2 text-gray-800">
+        Start a new order
+      </button>
     </div>
   );
 };
 
-
-export default OrderCompletionPage;;
+export default OrderCompletionPage;

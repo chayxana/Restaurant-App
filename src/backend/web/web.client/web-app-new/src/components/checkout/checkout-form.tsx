@@ -1,42 +1,22 @@
 'use client';
 import { PaymentDetails } from '@/components/checkout/payment-details';
 import { ShippingAddressDetails } from '@/components/checkout/shipping-address-details';
-import React, { useState } from 'react';
+import React from 'react';
+import { checkoutServer } from './actions';
+import { useFormState } from 'react-dom';
 
 export const CheckoutForm: React.FC = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    street_address: '',
-    city: '',
-    state: '',
-    zip_code: '',
-    country: '',
-    credit_card_number: '',
-    credit_card_expiration_month: '',
-    credit_card_expiration_year: '',
-    credit_card_cvv: ''
-  });
-
-  console.log(setFormData);
-
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // TODO: Implement the checkout functionality here
-    console.log(formData);
-  };
-
+  const [message, formAction] = useFormState(checkoutServer, null);
   return (
-    <form onSubmit={handleSubmit} className="mx-auto max-w-lg">
+    <form action={formAction} className="mx-auto max-w-lg">
       <PaymentDetails />
       <ShippingAddressDetails />
+      <p aria-live="polite">
+        {message?.errors.credit_card_cvv ? 'CVV:' + message?.errors.credit_card_cvv : ''}
+      </p>
       <button
         type="submit"
-        className="rounded w-full bg-orange-500 px-4 py-2 font-bold text-white hover:bg-orange-600"
+        className="w-full rounded bg-orange-500 px-4 py-2 font-bold text-white hover:bg-orange-600"
       >
         Complete
       </button>

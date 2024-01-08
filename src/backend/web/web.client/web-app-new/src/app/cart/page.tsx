@@ -21,7 +21,7 @@ const CartPage: React.FC = () => {
         ))}
         <Link href="/checkout">
           <div className="mt-6 flex justify-end">
-            <button className="rounded-full w-1/3 bg-orange-500 px-4 py-2 font-bold text-white hover:bg-orange-600">
+            <button className="w-1/3 rounded-full bg-orange-500 px-4 py-2 font-bold text-white hover:bg-orange-600">
               Checkout
             </button>
           </div>

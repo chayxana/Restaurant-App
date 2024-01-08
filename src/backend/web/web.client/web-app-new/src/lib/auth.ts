@@ -23,7 +23,7 @@ export const authOptions: AuthOptions = {
         console.log('has account: ' + account.access_token);
         token.accessToken = account.access_token;
       }
-      return token
+      return token;
     },
     async session({ session, token }) {
       session.user.user_id = token.sub || 'empty user id, something went wrong';

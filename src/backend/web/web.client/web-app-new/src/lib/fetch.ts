@@ -1,4 +1,4 @@
-import { Categories, FoodItems } from "./types/food-item";
+import { Categories, CategoriesScheme, FoodItems } from './types/food-item';
 
 export async function fetchFoodItems(): Promise<FoodItems> {
   const apiUrl = process.env.API_BASE_URL + '/catalog/items/all';
@@ -34,6 +34,6 @@ export async function fetchCategories(): Promise<Categories> {
     throw new Error('Failed to fetch categories data');
   }
 
-  const categories: Categories = Categories.parse(await res.json());
+  const categories: Categories = CategoriesScheme.parse(await res.json());
   return categories;
 }

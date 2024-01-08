@@ -8,12 +8,15 @@ const addressSchema = z.object({
   zip_code: z.number()
 });
 
-const creditCardSchema = z.object({
-  credit_card_cvv: z.string(),
-  credit_card_expiration_month: z.string(),
-  credit_card_expiration_year: z.string(),
+export const creditCardSchema = z.object({
+  name_on_card: z.string(),
+  credit_card_cvv: z.string().max(3),
+  credit_card_expiration_month: z.number().min(1).max(12),
+  credit_card_expiration_year: z.number(),
   credit_card_number: z.string()
 });
+
+export type CreditCard = z.infer<typeof creditCardSchema>;
 
 export const checkoutScheme = z.object({
   address: addressSchema,

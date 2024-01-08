@@ -32,8 +32,8 @@ export function ShippingAddressDetails() {
           type="text"
           name="city"
           placeholder="City"
-        //   value={formData.city}
-        //   onChange={handleChange}
+          //   value={formData.city}
+          //   onChange={handleChange}
           className="w-full rounded border border-gray-300 p-2"
           required
         />
@@ -41,8 +41,8 @@ export function ShippingAddressDetails() {
           type="text"
           name="state"
           placeholder="State / Province"
-        //   value={formData.state}
-        //   onChange={handleChange}
+          //   value={formData.state}
+          //   onChange={handleChange}
           className="w-full rounded border border-gray-300 p-2"
           required
         />
@@ -50,8 +50,8 @@ export function ShippingAddressDetails() {
           type="text"
           name="postalCode"
           placeholder="Postal code"
-        //   value={formData.postalCode}
-        //   onChange={handleChange}
+          //   value={formData.postalCode}
+          //   onChange={handleChange}
           className="w-full rounded border border-gray-300 p-2"
           required
         />

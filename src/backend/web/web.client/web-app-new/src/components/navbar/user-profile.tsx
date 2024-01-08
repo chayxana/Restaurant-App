@@ -26,7 +26,7 @@ export default function OpenUserProfile() {
           )}
           {status === 'authenticated' && (
             <div>
-              <ul className='x-4 py-2 text-left text-sm text-gray-700'>
+              <ul className="x-4 py-2 text-left text-sm text-gray-700">
                 <li>UserID: {data.user?.user_id}</li>
               </ul>
               <button onClick={() => signOut()} className="w-full">

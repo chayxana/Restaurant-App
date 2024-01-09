@@ -16,8 +16,6 @@ export const creditCardSchema = z.object({
   credit_card_number: z.string()
 });
 
-export type CreditCard = z.infer<typeof creditCardSchema>;
-
 export const checkoutScheme = z.object({
   address: addressSchema,
   credit_card: creditCardSchema,
@@ -26,4 +24,6 @@ export const checkoutScheme = z.object({
   user_currency: z.string()
 });
 
+export type Address = z.infer<typeof addressSchema>;
+export type CreditCard = z.infer<typeof creditCardSchema>;
 export type Checkout = z.infer<typeof checkoutScheme>;

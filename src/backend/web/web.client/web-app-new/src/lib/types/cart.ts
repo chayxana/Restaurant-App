@@ -8,10 +8,11 @@ export const CartItemScheme = z.object({
   quantity: z.number(),
   unit_price: z.number()
 });
-export type CartItem = z.infer<typeof CartItemScheme>;
 
 export const CartScheme = z.object({
   customer_id: z.string(),
   items: z.array(CartItemScheme)
 });
+
+export type CartItem = z.infer<typeof CartItemScheme>;
 export type Cart = z.infer<typeof CartScheme>;

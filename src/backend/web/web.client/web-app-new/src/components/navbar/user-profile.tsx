@@ -2,42 +2,43 @@
 
 import { UserCircleIcon } from '@heroicons/react/24/solid';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { useState } from 'react';
+import { Menu } from '@headlessui/react';
 
 export default function OpenUserProfile() {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { data, status } = useSession();
   return (
     <div className="relative">
-      <div className="flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors">
-        <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} type="button">
-          <UserCircleIcon className="h-6 w-6" />
-        </button>
-      </div>
-
-      {isDropdownOpen && (
-        <div className="absolute right-0 mt-2 w-48 rounded-md bg-white py-2 shadow-xl">
-          {status === 'unauthenticated' && (
-            <button onClick={() => signIn()} className="w-full">
-              <div className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
+      <Menu>
+        <Menu.Button>
+          <div className="flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black">
+            <UserCircleIcon className="h-6 w-6" />
+          </div>
+        </Menu.Button>
+        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+          <Menu.Item>
+            {status === 'unauthenticated' ? (
+              <button
+                onClick={() => signIn()}
+                className="group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900"
+              >
                 Login
-              </div>
-            </button>
-          )}
-          {status === 'authenticated' && (
-            <div>
-              <ul className="x-4 py-2 text-left text-sm text-gray-700">
-                <li>UserID: {data.user?.user_id}</li>
-              </ul>
-              <button onClick={() => signOut()} className="w-full">
-                <div className="block px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
-                  Log Out
-                </div>
               </button>
-            </div>
-          )}
-        </div>
-      )}
+            ) : (
+              <div className="p-2">
+                <ul className="x-4 group py-2 text-left text-sm text-gray-700">
+                  <li>UserID: {data?.user?.user_id}</li>
+                </ul>
+                <button
+                  onClick={() => signOut()}
+                  className="flex  w-full items-center rounded-md text-sm text-gray-900"
+                >
+                  Log Out
+                </button>
+              </div>
+            )}
+          </Menu.Item>
+        </Menu.Items>
+      </Menu>
     </div>
   );
 }

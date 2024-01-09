@@ -9,11 +9,7 @@ export const FoodItem = z.object({
   currency: z.string()
 });
 
-export type FoodItem = z.infer<typeof FoodItem>;
-
 export const FoodItems = z.array(FoodItem);
-
-export type FoodItems = z.infer<typeof FoodItems>;
 
 export const CategoriesScheme = z.array(
   z.object({
@@ -22,4 +18,6 @@ export const CategoriesScheme = z.array(
   })
 );
 
+export type FoodItem = z.infer<typeof FoodItem>;
+export type FoodItems = z.infer<typeof FoodItems>;
 export type Categories = z.infer<typeof CategoriesScheme>;

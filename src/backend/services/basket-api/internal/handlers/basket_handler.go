@@ -6,6 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jurabek/basket.api/internal/models"
+	"github.com/jurabek/basket.api/internal/repositories"
+	"github.com/pkg/errors"
 )
 
 type GetCreateDeleter interface {
@@ -75,8 +77,11 @@ func (bc *BasketHandler) Get(c *gin.Context) {
 	id := c.Param("id")
 
 	result, err := bc.BasketRepository.Get(c.Request.Context(), id)
-
 	if err != nil {
+		if errors.Is(err, repositories.ErrCartNotFound) {
+			c.JSON(http.StatusNotFound, models.NewHTTPError(http.StatusNotFound, errors.Wrap(err, "itemID: "+id)))
+			return
+		}
 		httpError := models.NewHTTPError(http.StatusBadRequest, err)
 		c.JSON(http.StatusBadRequest, httpError)
 		return

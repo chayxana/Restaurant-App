@@ -3,6 +3,7 @@ package repositories
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 
 	"github.com/jurabek/basket.api/internal/models"
@@ -19,6 +20,8 @@ func NewRedisBasketRepository(client *redis.Client) *RedisBasketRepository {
 	return &RedisBasketRepository{client: client}
 }
 
+var ErrCartNotFound = errors.New("cart not found");
+
 // Get returns CustomerBasket otherwise nill
 func (r *RedisBasketRepository) Get(ctx context.Context, customerID string) (*models.CustomerBasket, error) {
 	var (
@@ -27,6 +30,9 @@ func (r *RedisBasketRepository) Get(ctx context.Context, customerID string) (*mo
 	)
 	data, err := r.client.Get(ctx, customerID).Bytes()
 	if err != nil {
+		if(err == redis.Nil){
+			return nil, ErrCartNotFound
+		}
 		return nil, fmt.Errorf("error getting key %s: %v", customerID, err)
 	}
 

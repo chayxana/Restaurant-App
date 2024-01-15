@@ -1,4 +1,4 @@
-import { Categories, CategoriesScheme, FoodItems } from './types/food-item';
+import { Categories, CategoriesScheme, FoodItems, FoodItemsScheme } from './types/food-item';
 
 export async function fetchFoodItems(): Promise<FoodItems> {
   const apiUrl = process.env.API_BASE_URL + '/catalog/items/all';
@@ -16,7 +16,7 @@ async function fetchItems(apiUrl: string) {
     throw new Error('Failed to fetch catalog items data');
   }
 
-  const items: FoodItems = FoodItems.parse(await res.json());
+  const items: FoodItems = FoodItemsScheme.parse(await res.json());
   const updatedItems = items.map((item) => {
     return {
       ...item,

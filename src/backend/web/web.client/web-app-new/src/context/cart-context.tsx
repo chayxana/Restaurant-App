@@ -1,5 +1,6 @@
 'use client';
 
+// import { useSession } from 'next-auth/react';
 import React, { PropsWithChildren, createContext, useContext, useEffect, useState } from 'react';
 
 export interface SessionCartItem {
@@ -13,6 +14,7 @@ export interface SessionCartItem {
 
 interface CartContextType {
   items: SessionCartItem[];
+  customerId?: string;
   addItem: (_item: SessionCartItem) => void;
   removeItem: (_itemId: number) => void;
   clearCart: () => void;
@@ -41,19 +43,25 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
     }
   }, [items]);
 
+  const addOrUpdateQuantity = (
+    prevItems: SessionCartItem[],
+    newItem: SessionCartItem
+  ): SessionCartItem[] => {
+    const itemIndex = prevItems.findIndex((item) => item.id === newItem.id);
+    if (itemIndex > -1) {
+      // Update quantity if item exists
+      const newItems = [...prevItems];
+      newItems[itemIndex].quantity += newItem.quantity;
+      return newItems;
+    } else {
+      // Add new item to cart
+      return [...prevItems, newItem];
+    }
+  };
+
   const addItem = (newItem: SessionCartItem) => {
     setItems((prevItems) => {
-      // Check if item is already in the cart
-      const itemIndex = prevItems.findIndex((item) => item.id === newItem.id);
-      if (itemIndex > -1) {
-        // Update quantity if item exists
-        const newItems = [...prevItems];
-        newItems[itemIndex].quantity += newItem.quantity;
-        return newItems;
-      } else {
-        // Add new item to cart
-        return [...prevItems, newItem];
-      }
+      return addOrUpdateQuantity(prevItems, newItem);
     });
   };
 

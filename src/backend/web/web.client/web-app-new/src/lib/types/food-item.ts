@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const FoodItem = z.object({
+export const FoodItemScheme = z.object({
   id: z.number(),
   name: z.string(),
   description: z.string(),
@@ -9,7 +9,7 @@ export const FoodItem = z.object({
   currency: z.string()
 });
 
-export const FoodItems = z.array(FoodItem);
+export const FoodItemsScheme = z.array(FoodItemScheme);
 
 export const CategoriesScheme = z.array(
   z.object({
@@ -18,6 +18,6 @@ export const CategoriesScheme = z.array(
   })
 );
 
-export type FoodItem = z.infer<typeof FoodItem>;
-export type FoodItems = z.infer<typeof FoodItems>;
+export type FoodItem = z.infer<typeof FoodItemScheme>;
+export type FoodItems = z.infer<typeof FoodItemsScheme>;
 export type Categories = z.infer<typeof CategoriesScheme>;

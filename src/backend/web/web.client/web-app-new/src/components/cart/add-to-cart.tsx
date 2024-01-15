@@ -2,30 +2,37 @@
 
 import { SessionCartItem, useCart } from '@/context/cart-context';
 // import { useFormState } from 'react-dom';
-import { addItemServer } from './actions';
-import { SubmitButton } from './submit-button';
+import { addCartItem } from './actions';
 import { useSession } from 'next-auth/react';
-import { FoodItem } from '@/lib/types/food-item';
+import { useFormStatus } from 'react-dom';
 
-export function AddToCart({ quantity, foodItem }: { quantity: number; foodItem: FoodItem }) {
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <div className="px-6 pb-2 pt-4">
+      <button
+        onClick={(e: React.FormEvent<HTMLButtonElement>) => {
+          if (pending) e.preventDefault();
+        }}
+        className="w-full rounded bg-orange-500 px-4 py-2 font-bold text-white hover:bg-orange-700"
+      >
+        Add to Cart
+      </button>
+    </div>
+  );
+}
+
+export function AddToCart({ item }: { item: SessionCartItem }) {
   //   const [message, formAction] = useFormState(addItemServer, null);
   const { addItem } = useCart();
   const { status, data } = useSession();
 
-  const cartItemSession: SessionCartItem = {
-    id: foodItem.id,
-    name: foodItem.name,
-    description: foodItem.description,
-    quantity,
-    price: foodItem.price,
-    image: foodItem.image
-  };
   return (
     <form
       action={async (_formData: FormData) => {
-        addItem({ ...cartItemSession });
+        addItem({ ...item });
         if (status === 'authenticated') {
-          await addItemServer(data.user.user_id, { ...cartItemSession });
+          await addCartItem(data.user.user_id, { ...item });
         }
       }}
     >

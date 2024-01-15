@@ -5,9 +5,18 @@ import Image from 'next/image';
 import { CartItemQuantity } from './cart/cart-item-quantity';
 import { AddToCart } from './cart/add-to-cart';
 import { FoodItem } from '@/lib/types/food-item';
+import { SessionCartItem } from '@/context/cart-context';
 
 export const Item = ({ foodItem }: { foodItem: FoodItem }) => {
   const [quantity, setQuantity] = useState(1);
+  const cartItemSession: SessionCartItem = {
+    id: foodItem.id,
+    name: foodItem.name,
+    description: foodItem.description,
+    quantity,
+    price: foodItem.price,
+    image: foodItem.image
+  };
   return (
     <div className="m-4 max-w-sm overflow-hidden rounded shadow-lg">
       <div style={{ position: 'relative', height: '400px' }}>
@@ -32,7 +41,7 @@ export const Item = ({ foodItem }: { foodItem: FoodItem }) => {
           <CartItemQuantity quantity={quantity} onQuantityChange={setQuantity} />
         </div>
       </div>
-      <AddToCart quantity={quantity} foodItem={foodItem} />
+      <AddToCart item={cartItemSession} />
     </div>
   );
 };

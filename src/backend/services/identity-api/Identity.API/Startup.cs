@@ -166,7 +166,7 @@ namespace Identity.API
             app.UseRouting();
             app.UseCors("ServerPolicy");
             app.UseIdentityServer();
-
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

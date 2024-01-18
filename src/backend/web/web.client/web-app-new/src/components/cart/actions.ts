@@ -10,6 +10,8 @@ const cartUrl = `${process.env.API_BASE_URL}/basket/api/v1/items`
 
 export async function getCart(customerId: string): Promise<CustomerCart> {
   const session = await getServerSession(authOptions);
+  console.log(session?.user.token);
+
   const requestOptions: RequestInit = {
     method: 'GET',
     headers: {

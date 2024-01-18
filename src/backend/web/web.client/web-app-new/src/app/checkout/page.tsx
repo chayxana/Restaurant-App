@@ -26,7 +26,7 @@ const Page = async () => {
       <h1 className="mb-6 text-3xl font-bold">Checkout</h1>
       <div className="rounded-lg bg-white p-6 shadow-lg">
         <div className="flex">
-          <div className='className="mx-auto w-5/6"'>
+          <div className="mx-auto w-3/5">
             <CheckoutForm />
           </div>
           <div className="mx-auto w-3/4 p-5">

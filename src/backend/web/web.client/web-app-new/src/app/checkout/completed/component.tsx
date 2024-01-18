@@ -1,7 +1,7 @@
 import React from 'react';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
-const OrderCompletionPage: React.FC = () => {
+const OrderCompletion: React.FC = () => {
   // Replace with your actual data
   const orderDetails = {
     address: '24 Lexington Drive, Bella Vista, NSW 22353',
@@ -10,7 +10,7 @@ const OrderCompletionPage: React.FC = () => {
     orderTotal: '$33.89',
     paymentMethod: 'Master Card ending **** 0987',
     estimatedDeliveryTime: '11:53 AM',
-    email: 'kaz@paviw.co.uk',
+    email: 'some@paviw.co.uk',
     helpNumber: '+02 9629 4884'
   };
 
@@ -48,4 +48,4 @@ const OrderCompletionPage: React.FC = () => {
   );
 };
 
-export default OrderCompletionPage;
+export default OrderCompletion;

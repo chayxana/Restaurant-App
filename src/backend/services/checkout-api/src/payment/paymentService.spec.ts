@@ -35,13 +35,13 @@ describe("pay", () => {
         zip_code: 12345,
       },
       credit_card: {
+        name_on_card: "test name",
         credit_card_number: "1234567812345678",
         credit_card_cvv: 123,
         credit_card_expiration_month: 12,
         credit_card_expiration_year: 23,
       },
       customer_id: "user123",
-      email: "user@example.com",
       user_currency: "USD",
     };
     const orderId = "abc123";

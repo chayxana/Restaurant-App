@@ -19,13 +19,12 @@ export function ShippingAddressDetails() {
           className="w-full rounded border border-gray-300 p-2"
           required
         />
-        {/* <input
+        <input
           type="text"
           name="state"
-          placeholder="State / Province"
+          placeholder="State"
           className="w-full rounded border border-gray-300 p-2"
-          required
-        /> */}
+        />
         <input
           type="text"
           name="postalCode"

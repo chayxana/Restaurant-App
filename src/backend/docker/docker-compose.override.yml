@@ -25,7 +25,7 @@ services:
   
   payment-api:
     environment:
-      - ENABLE_TEST_CARDS=true
+      - ENABLE_TEST_CARDS=false
       - OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector:4317
 
   checkout-api:

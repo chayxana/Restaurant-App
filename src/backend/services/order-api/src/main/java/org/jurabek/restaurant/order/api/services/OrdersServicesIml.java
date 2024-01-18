@@ -52,4 +52,10 @@ public class OrdersServicesIml implements OrdersService {
         var order = ordersRepository.findById(UUID.fromString(orderId));
         return mapper.mapOrderToDto(order);
     }
+
+    @Override
+    public CustomerOrderDto getOrderByTransactionId(String transactionId) {
+        var order = ordersRepository.getByTransactionId(UUID.fromString(transactionId));
+        return mapper.mapOrderToDto(order);
+    }
 }

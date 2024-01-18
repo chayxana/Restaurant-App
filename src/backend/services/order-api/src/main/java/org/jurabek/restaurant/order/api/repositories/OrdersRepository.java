@@ -15,7 +15,11 @@ import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 @ApplicationScoped
 public class OrdersRepository implements PanacheRepositoryBase<Order, UUID> {
     public List<Order> getByBuyerId(UUID buyerId) {
-        return find("buyerId", buyerId).firstResult();
+      return find("buyerid", buyerId).firstResult();
+    }
+
+    public Order getByTransactionId(UUID transactionId) {
+      return find("transactionid", transactionId).firstResult();
     }
 
     public List<Order> fetchAll() {

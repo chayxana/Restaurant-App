@@ -46,7 +46,7 @@ export function pay(cartItems: CartItem[], userCheckout: UserCheckoutReq, orderI
   }
   const { credit_card, customer_id: userId } = userCheckout;
   const creditCard = {
-    creditCardNumber: credit_card.credit_card_number,
+    creditCardNumber: String(credit_card.credit_card_number),
     creditCardCvv: credit_card.credit_card_cvv,
     creditCardExpirationMonth: credit_card.credit_card_expiration_month,
     creditCardExpirationYear: credit_card.credit_card_expiration_year,

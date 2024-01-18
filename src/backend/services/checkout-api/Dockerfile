@@ -1,13 +1,13 @@
-FROM node:19
+FROM node:20
 
 WORKDIR /usr/src/app
 
-COPY package.json ./
+COPY package.json package-lock.json ./
 
-RUN yarn install
+RUN npm install
 
 COPY . .
 
-RUN yarn run build
+RUN npm run build
 
 ENTRYPOINT [ "node", "dist/index.js" ]

@@ -36,6 +36,7 @@
     "dotenv": "^16.0.3",
     "kafkajs": "^2.2.4",
     "opentelemetry-instrumentation-kafkajs": "^0.40.0",
-    "pino": "^8.11.0"
+    "pino": "^8.11.0",
+    "zod": "^3.22.4"
   }
 }

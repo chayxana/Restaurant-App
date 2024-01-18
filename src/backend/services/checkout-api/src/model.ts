@@ -1,25 +1,30 @@
-export interface UserCheckoutReq {
-    address: AddressReq;
-    credit_card: CreditCardReq;
-    customer_id: string;
-    email: string;
-    user_currency: string;
-}
+import { z } from 'zod';
 
-export interface AddressReq {
-    city: string;
-    country: string;
-    state: string;
-    street_address: string;
-    zip_code: number;
-}
+export const AddressSchema = z.object({
+    city: z.string().min(1, 'City is required'),
+    country: z.string(),
+    state: z.string(),
+    street_address: z.string().min(1, 'Address is required'),
+    zip_code: z.number(),
+})
 
-export interface CreditCardReq {
-    credit_card_cvv: number;
-    credit_card_expiration_month: number;
-    credit_card_expiration_year: number;
-    credit_card_number: string;
-}
+export const CreditCardSchema = z.object({
+    name_on_card: z.string().min(1, 'Name on card is required'),
+    credit_card_cvv: z.number(),
+    credit_card_expiration_month: z.number().min(1, 'Invalid month').max(12, 'Invalid month'),
+    credit_card_expiration_year: z.number().max(99),
+    credit_card_number: z.string(),
+})
+
+export const UserCheckoutSchema = z.object({
+    address: AddressSchema,
+    credit_card: CreditCardSchema,
+    customer_id: z.string().min(1, 'Customer ID cannot be empty'),
+    user_currency: z.string().default('EUR')
+})
+
+export type UserCheckoutReq = z.infer<typeof UserCheckoutSchema>;
+
 
 export interface CustomerCart {
     customer_id: string;

@@ -7,7 +7,6 @@ use crate::schema;
 use crate::models;
 
 use diesel::prelude::*;
-use diesel_tracing::pg::InstrumentedPgConnection;
 
 pub struct Seed;
 

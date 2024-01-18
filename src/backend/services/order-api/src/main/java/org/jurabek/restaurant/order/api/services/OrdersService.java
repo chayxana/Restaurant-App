@@ -9,6 +9,8 @@ import org.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
  */
 public interface OrdersService {
     List<CustomerOrderDto> getOrderByCustomerId(String customerId);
+
+    CustomerOrderDto getOrderByTransactionId(String transactionId);
     List<CustomerOrderDto> getAll();
     CustomerOrderDto getById(String orderId);
     void Delete(String orderId);

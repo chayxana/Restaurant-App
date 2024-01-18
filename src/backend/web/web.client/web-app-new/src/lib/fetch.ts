@@ -37,3 +37,14 @@ export async function fetchCategories(): Promise<Categories> {
   const categories: Categories = CategoriesScheme.parse(await res.json());
   return categories;
 }
+
+
+export async function getUserInfo(userId: string) {
+  const apiUrl = process.env.API_BASE_URL + `/users/${userId}`;
+  const res = await fetch(apiUrl);
+  if (!res.ok) {
+    throw new Error('Failed to fetch user info');
+  }
+
+  return await res.json();
+}

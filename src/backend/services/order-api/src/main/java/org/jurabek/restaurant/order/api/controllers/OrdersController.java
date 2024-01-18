@@ -37,6 +37,12 @@ public class OrdersController {
 	}
 
 	@GET
+	@Path("byTransaction/{transactionId}")
+	public CustomerOrderDto getOrderByTransactionId(String transactionId) {
+		return ordersService.getOrderByTransactionId(transactionId);
+	}
+
+	@GET
 	@Path("/customer/{customerId}")
 	public List<CustomerOrderDto> getOrderByCustomerId(String customerId) {
 		return ordersService.getOrderByCustomerId(customerId);

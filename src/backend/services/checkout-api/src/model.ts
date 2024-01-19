@@ -40,6 +40,6 @@ export interface CartItem {
 export interface CheckoutEvent {
     checkout_id: string;
     transaction_id?: string;
-    user_checkout: UserCheckoutReq;
+    user_checkout: Omit<UserCheckoutReq, "credit_card">;
     customer_cart: CustomerCart
 }

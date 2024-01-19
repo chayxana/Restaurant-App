@@ -16,7 +16,4 @@ public class CheckOutInfo {
 
     @JsonProperty("email")
     private String email;
-
-    @JsonProperty("credit_card")
-    private CreditCard creditCard;
 }

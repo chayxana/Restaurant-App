@@ -1,4 +1,5 @@
 import { Categories, CategoriesScheme, FoodItems, FoodItemsScheme } from './types/food-item';
+import { CustomerOrder, OrderSchema } from './types/order';
 
 export async function fetchFoodItems(): Promise<FoodItems> {
   const apiUrl = process.env.API_BASE_URL + '/catalog/items/all';
@@ -47,4 +48,27 @@ export async function getUserInfo(userId: string) {
   }
 
   return await res.json();
+}
+
+
+export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const retryCount = 5;
+
+export async function getOrderByTransactionID(transactioId: string): Promise<CustomerOrder> {
+  const apiUrl = process.env.API_BASE_URL + `/order/api/v1/orders/byTransaction/${transactioId}`;
+  const res = await fetch(apiUrl);
+  if (res.ok) {
+    return OrderSchema.parse(await res.json());
+  }
+
+  if (res.status == 500) {
+    for (let i = 0; i < retryCount; i++) {
+      await sleep(1000);
+      const res = await fetch(apiUrl);
+      if (res.ok) {
+        return OrderSchema.parse(await res.json());
+      }
+    }
+  }
+  throw new Error('Failed to fetch user orders');
 }

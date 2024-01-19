@@ -1,21 +1,40 @@
+'use client';
+
 import React from 'react';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { useCart } from '@/context/cart-context';
 
-const OrderCompletion: React.FC = () => {
+interface Props {
+  address: string;
+  orderDateTime: string;
+  orderNumber: string;
+  orderTotal: string;
+}
+
+const OrderCompletion: React.FC<Props> = ({
+  address,
+  orderDateTime,
+  orderNumber,
+  orderTotal
+}: Props) => {
+  const { clearCart } = useCart();
+  clearCart();
+
   // Replace with your actual data
   const orderDetails = {
-    address: '24 Lexington Drive, Bella Vista, NSW 22353',
-    deliveryTime: 'Ready at 2:20 PM 03 March 2020',
-    orderNumber: 45,
-    orderTotal: '$33.89',
+    address: address,
+    orderDateTime: orderDateTime,
+    orderNumber: orderNumber,
+    orderTotal: orderTotal,
+
     paymentMethod: 'Master Card ending **** 0987',
-    estimatedDeliveryTime: '11:53 AM',
+    estimatedDeliveryTime: 'XX:XX AM',
     email: 'some@paviw.co.uk',
     helpNumber: '+02 9629 4884'
   };
 
   return (
-    <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-lg">
+    <div className="mx-auto mt-10 max-w-md rounded-lg bg-white p-6 shadow-lg">
       <div className="text-center">
         <CheckCircleIcon className="mx-auto h-12 w-12 text-green-500" />
         <h2 className="my-2 text-lg font-semibold">Order Submitted</h2>
@@ -27,7 +46,7 @@ const OrderCompletion: React.FC = () => {
       <div className="my-4">
         <h3 className="font-bold">Delivery Address</h3>
         <p>{orderDetails.address}</p>
-        <p>{orderDetails.deliveryTime}</p>
+        <p>{orderDetails.orderDateTime}</p>
       </div>
       <div className="my-4">
         <h3 className="font-bold">Order Number</h3>

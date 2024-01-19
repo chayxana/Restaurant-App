@@ -83,5 +83,5 @@ export async function checkoutServer(prevState: any, formData: FormData): Promis
     checkoutId: checkouted.checkout_id
   });
 
-  redirect(createUrl(`/checkout/complete`, params));
+  redirect(createUrl(`/checkout/completed`, params));
 }

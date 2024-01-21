@@ -3,14 +3,22 @@ definitions:
     properties:
       currency:
         type: string
+      discount:
+        type: number
       id:
         type: string
       items:
         items:
           $ref: '#/definitions/models.LineItem'
         type: array
+      shipping:
+        type: number
+      shipping_method:
+        type: string
       status:
         type: string
+      tax:
+        type: number
       total:
         type: number
       user_id:

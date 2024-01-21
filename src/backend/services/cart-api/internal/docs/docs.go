@@ -173,6 +173,9 @@ const docTemplate = `{
                 "currency": {
                     "type": "string"
                 },
+                "discount": {
+                    "type": "number"
+                },
                 "id": {
                     "type": "string"
                 },
@@ -182,8 +185,17 @@ const docTemplate = `{
                         "$ref": "#/definitions/models.LineItem"
                     }
                 },
+                "shipping": {
+                    "type": "number"
+                },
+                "shipping_method": {
+                    "type": "string"
+                },
                 "status": {
                     "type": "string"
+                },
+                "tax": {
+                    "type": "number"
                 },
                 "total": {
                     "type": "number"

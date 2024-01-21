@@ -97,18 +97,14 @@ func main() {
 	// defer tracedProducer.Close()
 
 	basketRepository := repositories.NewCartRepository(redisClient)
-	basketHandler := handlers.NewBasketHandler(basketRepository)
+	cartHandler := handlers.NewCartHandler(basketRepository)
 
-	go grpcServer(grpcsvc.NewCartGrpcService(basketRepository))
-
-	api := router.Group(basePath + "/api/v1/")
+	api := router.Group(basePath + "/api/v1/cart")
 	{
-		basket := api.Group("items")
-		{
-			basket.GET(":id", basketHandler.Get)
-			basket.POST("", basketHandler.Create)
-			basket.DELETE(":id", basketHandler.Delete)
-		}
+		api.POST("", handlers.ErrorHandler(cartHandler.Create))
+		api.GET(":id", handlers.ErrorHandler(cartHandler.Get))
+		api.DELETE(":id", handlers.ErrorHandler(cartHandler.Delete))
+		api.PUT(":id/items", handlers.ErrorHandler(cartHandler.UpdateItem)) // updates line item by CartID
 	}
 
 	// Home page should be redirected to swagger page
@@ -121,6 +117,7 @@ func main() {
 			c.URL = basePath + "/swagger/doc.json"
 		}))
 
+	go grpcServer(grpcsvc.NewCartGrpcService(basketRepository))
 	_ = router.Run()
 }
 

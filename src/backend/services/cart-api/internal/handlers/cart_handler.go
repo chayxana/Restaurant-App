@@ -11,19 +11,34 @@ import (
 )
 
 type GetCreateDeleter interface {
-	Get(ctx context.Context, customerID string) (*models.Cart, error)
-	Update(ctx context.Context, item *models.Cart) error
+	Get(ctx context.Context, cartID string) (*models.Cart, error)
+	Update(ctx context.Context, cart *models.Cart) error
 	Delete(ctx context.Context, id string) error
+	UpdateItem(ctx context.Context, cartID string, item models.LineItem) error
 }
 
-// BasketHandler is router initializer for http
-type BasketHandler struct {
-	BasketRepository GetCreateDeleter
+// CartHandler is router initializer for http
+type CartHandler struct {
+	repository GetCreateDeleter
 }
 
-// NewBasketHandler creates new instance of BasketController with BasketRepository
-func NewBasketHandler(r GetCreateDeleter) *BasketHandler {
-	return &BasketHandler{BasketRepository: r}
+// NewCartHandler creates new instance of BasketController with BasketRepository
+func NewCartHandler(r GetCreateDeleter) *CartHandler {
+	return &CartHandler{repository: r}
+}
+
+func ErrorHandler(f func(c *gin.Context) error) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		err := f(c)
+		if err != nil {
+			var httpErr *models.HTTPError
+			if errors.As(err, &httpErr) {
+				c.JSON(httpErr.Code, httpErr)
+				c.Abort()
+			}
+		}
+		c.Next()
+	}
 }
 
 // Create go doc
@@ -39,29 +54,50 @@ func NewBasketHandler(r GetCreateDeleter) *BasketHandler {
 //	@Failure		404				{object}	models.HTTPError
 //	@Failure		500 			{object}	models.HTTPError
 //	@Router			/items [post]
-func (bc *BasketHandler) Create(c *gin.Context) {
+func (h *CartHandler) Create(c *gin.Context) error {
 	var entity models.Cart
 	if err := c.BindJSON(&entity); err != nil {
-		c.JSON(http.StatusBadRequest, models.NewHTTPError(http.StatusNotFound, err))
-		return
+		return models.NewHTTPError(http.StatusBadRequest, err)
 	}
 
-	err := bc.BasketRepository.Update(c.Request.Context(), &entity)
-
+	err := h.repository.Update(c.Request.Context(), &entity)
 	if err != nil {
-		httpError := models.NewHTTPError(http.StatusBadRequest, err)
-		c.JSON(http.StatusBadRequest, httpError)
-		return
+		return models.NewHTTPError(http.StatusBadRequest, err)
 	}
 
-	result, err := bc.BasketRepository.Get(c.Request.Context(), entity.ID.String())
+	result, err := h.repository.Get(c.Request.Context(), entity.ID.String())
 	if err != nil {
-		httpError := models.NewHTTPError(http.StatusBadRequest, err)
-		c.JSON(http.StatusBadRequest, httpError)
-		return
+		return models.NewHTTPError(http.StatusBadRequest, err)
 	}
 
 	c.JSON(http.StatusOK, result)
+	return nil
+}
+
+// Update line item doc
+//
+//	@Summary		Update a line item
+//	@Description	update by json new line item
+//	@Tags			CustomerBasket
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path		string		true	"Cart ID"
+//	@Param			lineItem		body		models.LineItem	true	"Update line item"
+//	@Success		200				{object}	models.Cart
+//	@Failure		400				{object}	models.HTTPError
+//	@Failure		404				{object}	models.HTTPError
+//	@Failure		500 			{object}	models.HTTPError
+
+func (h *CartHandler) UpdateItem(c *gin.Context) error {
+	cartID := c.Param("id")
+	var entity models.LineItem
+	if err := c.BindJSON(&entity); err != nil {
+		return models.NewHTTPError(http.StatusBadRequest, err)
+	}
+	if err := h.repository.UpdateItem(c.Request.Context(), cartID, entity); err != nil {
+		return models.NewHTTPError(http.StatusInternalServerError, err)
+	}
+	return nil
 }
 
 // Get go doc
@@ -76,20 +112,18 @@ func (bc *BasketHandler) Create(c *gin.Context) {
 //	@Failure		400	{object}	models.HTTPError
 //	@Failure		404 {object}	models.HTTPError
 //	@Router			/items/{id} [get]
-func (bc *BasketHandler) Get(c *gin.Context) {
+func (h *CartHandler) Get(c *gin.Context) error {
 	id := c.Param("id")
 
-	result, err := bc.BasketRepository.Get(c.Request.Context(), id)
+	result, err := h.repository.Get(c.Request.Context(), id)
 	if err != nil {
 		if errors.Is(err, repositories.ErrCartNotFound) {
-			c.JSON(http.StatusNotFound, models.NewHTTPError(http.StatusNotFound, errors.Wrap(err, "itemID: "+id)))
-			return
+			return models.NewHTTPError(http.StatusNotFound, errors.Wrap(err, "itemID: "+id))
 		}
-		httpError := models.NewHTTPError(http.StatusBadRequest, err)
-		c.JSON(http.StatusBadRequest, httpError)
-		return
+		return models.NewHTTPError(http.StatusInternalServerError, err)
 	}
 	c.JSON(http.StatusOK, result)
+	return nil
 }
 
 // Delete go doc
@@ -105,15 +139,13 @@ func (bc *BasketHandler) Get(c *gin.Context) {
 //	@Failure		404	{object}	models.HTTPError
 //	@Failure		500	{object}	models.HTTPError
 //	@Router			/items/{id} [delete]
-func (bc *BasketHandler) Delete(c *gin.Context) {
+func (h *CartHandler) Delete(c *gin.Context) error {
 	id := c.Param("id")
 
-	err := bc.BasketRepository.Delete(c.Request.Context(), id)
-
+	err := h.repository.Delete(c.Request.Context(), id)
 	if err != nil {
-		httpError := models.NewHTTPError(http.StatusBadRequest, err)
-		c.JSON(http.StatusBadRequest, httpError)
-		return
+		return models.NewHTTPError(http.StatusBadRequest, err)
 	}
 	c.Status(http.StatusOK)
+	return nil
 }

@@ -39,7 +39,6 @@ export async function fetchCategories(): Promise<Categories> {
   return categories;
 }
 
-
 export async function getUserInfo(userId: string) {
   const apiUrl = process.env.API_BASE_URL + `/users/${userId}`;
   const res = await fetch(apiUrl);
@@ -49,7 +48,6 @@ export async function getUserInfo(userId: string) {
 
   return await res.json();
 }
-
 
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const retryCount = 5;

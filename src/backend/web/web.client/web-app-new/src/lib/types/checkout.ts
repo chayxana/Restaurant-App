@@ -13,7 +13,10 @@ export const creditCardSchema = z.object({
   credit_card_cvv: z.number(),
   credit_card_expiration_month: z.number().min(1).max(12),
   credit_card_expiration_year: z.number().max(99),
-  credit_card_number: z.string().trim().regex(/^[0-9]{16}$/i, 'Invalid credit card number')
+  credit_card_number: z
+    .string()
+    .trim()
+    .regex(/^[0-9]{16}$/i, 'Invalid credit card number')
 });
 
 export const checkoutScheme = z.object({
@@ -25,8 +28,8 @@ export const checkoutScheme = z.object({
 
 export const CheckoutResponseScheme = z.object({
   checkout_id: z.string().uuid(),
-  transaction_id: z.string().uuid(),
-})
+  transaction_id: z.string().uuid()
+});
 
 export type Address = z.infer<typeof addressSchema>;
 export type CreditCard = z.infer<typeof creditCardSchema>;

@@ -9,7 +9,6 @@ export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyUR
   return `${pathname}${queryString}`;
 };
 
-
 export function mapCustomerCartItemToSessionCartItem(cartItem: CustomerCartItem): SessionCartItem {
   return {
     id: cartItem.food_id,

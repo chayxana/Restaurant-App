@@ -8,7 +8,7 @@ export const CartItemScheme = z.object({
   picture: z.string(),
   quantity: z.number(),
   unit_price: z.number()
-})
+});
 
 export const CartScheme = z.object({
   customer_id: z.string(),

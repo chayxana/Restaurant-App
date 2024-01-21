@@ -6,7 +6,7 @@ import { CustomerCart, CustomerCartItem, CartScheme } from '@/lib/types/cart';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 
-const cartUrl = `${process.env.API_BASE_URL}/basket/api/v1/items`
+const cartUrl = `${process.env.API_BASE_URL}/basket/api/v1/items`;
 
 export async function getCart(customerId: string): Promise<CustomerCart> {
   const session = await getServerSession(authOptions);
@@ -20,7 +20,7 @@ export async function getCart(customerId: string): Promise<CustomerCart> {
       Authorization: `Bearer ${session?.user.token}`
     },
     cache: 'no-store',
-    next: { tags: ['cart'] },
+    next: { tags: ['cart'] }
   };
 
   const getCartUrl = `${cartUrl}/${customerId}`;
@@ -29,7 +29,7 @@ export async function getCart(customerId: string): Promise<CustomerCart> {
     return {
       customer_id: customerId,
       items: []
-    }
+    };
   }
   if (!res.ok) {
     throw new Error('Failed to fetch cart data');
@@ -49,11 +49,15 @@ export async function addCartItem(customerId: string, cartItem: SessionCartItem)
     items: mergeCartItems(existingCart.items, newCartItem)
   };
 
-  await updateCart(newCart, session?.user.token)
+  await updateCart(newCart, session?.user.token);
   revalidateTag('cart');
 }
 
-export async function updateCartItemQuantity(customerId: string, itemId: number, newQuantity: number) {
+export async function updateCartItemQuantity(
+  customerId: string,
+  itemId: number,
+  newQuantity: number
+) {
   const session = await getServerSession(authOptions);
   const existingCart = await getCart(customerId);
 
@@ -64,7 +68,7 @@ export async function updateCartItemQuantity(customerId: string, itemId: number,
   }
   existingCart.items[itemIndex].quantity = newQuantity;
 
-  await updateCart(existingCart, session?.user.token)
+  await updateCart(existingCart, session?.user.token);
   revalidateTag('cart');
 }
 
@@ -73,14 +77,14 @@ export async function deleteCartItem(customerId: string, itemId: number) {
   const existingCart = await getCart(customerId);
 
   // Filter out the item to be deleted
-  const updatedCartItems = existingCart.items.filter(item => item.food_id !== itemId);
+  const updatedCartItems = existingCart.items.filter((item) => item.food_id !== itemId);
   if (updatedCartItems.length === 0) {
-    await deleteCart(customerId, session?.user.token)
+    await deleteCart(customerId, session?.user.token);
     revalidateTag('cart');
     return;
   }
 
-  await updateCart({ ...existingCart, items: updatedCartItems }, session?.user.token)
+  await updateCart({ ...existingCart, items: updatedCartItems }, session?.user.token);
   revalidateTag('cart');
 }
 
@@ -94,7 +98,7 @@ async function updateCart(cart: CustomerCart, token?: string) {
     },
     body: JSON.stringify(cart),
     cache: 'no-store',
-    next: { tags: ['cart'] },
+    next: { tags: ['cart'] }
   };
 
   try {
@@ -117,7 +121,7 @@ async function deleteCart(customerId: string, token?: string) {
       Authorization: `Bearer ${token}`
     },
     cache: 'no-store',
-    next: { tags: ['cart'] },
+    next: { tags: ['cart'] }
   };
 
   const deleteCartUrl = `${cartUrl}/${customerId}`;
@@ -150,7 +154,10 @@ export async function syncClientToBackend(
   }
 }
 
-function mergeCartItems(exitingItems: CustomerCartItem[], newCartItem: CustomerCartItem): CustomerCartItem[] {
+function mergeCartItems(
+  exitingItems: CustomerCartItem[],
+  newCartItem: CustomerCartItem
+): CustomerCartItem[] {
   const itemIndex = exitingItems.findIndex((item) => item.food_id === newCartItem.food_id);
   if (itemIndex > -1) {
     const newItems = [...exitingItems];

@@ -22,18 +22,18 @@ func NewRedisBasketRepository(client *redis.Client) *RedisBasketRepository {
 
 var ErrCartNotFound = errors.New("cart not found");
 
-// Get returns CustomerBasket otherwise nill
-func (r *RedisBasketRepository) Get(ctx context.Context, customerID string) (*models.CustomerBasket, error) {
+// Get returns cart otherwise nill
+func (r *RedisBasketRepository) Get(ctx context.Context, cartID string) (*models.Cart, error) {
 	var (
-		result models.CustomerBasket
+		result models.Cart
 		data   []byte
 	)
-	data, err := r.client.Get(ctx, customerID).Bytes()
+	data, err := r.client.Get(ctx, cartID).Bytes()
 	if err != nil {
 		if(err == redis.Nil){
 			return nil, ErrCartNotFound
 		}
-		return nil, fmt.Errorf("error getting key %s: %v", customerID, err)
+		return nil, fmt.Errorf("error getting key %s: %v", cartID, err)
 	}
 
 	err = json.Unmarshal(data, &result)
@@ -45,20 +45,20 @@ func (r *RedisBasketRepository) Get(ctx context.Context, customerID string) (*mo
 }
 
 // Update updates or creates new CustomerBasket
-func (r *RedisBasketRepository) Update(ctx context.Context, item *models.CustomerBasket) error {
+func (r *RedisBasketRepository) Update(ctx context.Context, item *models.Cart) error {
 	value, err := json.Marshal(item)
 
 	if err != nil {
 		return fmt.Errorf("error marshalling %v", item)
 	}
 
-	err = r.client.Set(ctx, item.CustomerID.String(), value, 0).Err()
+	err = r.client.Set(ctx, item.ID.String(), value, 0).Err()
 	if err != nil {
 		v := string(value)
 		if len(v) > 15 {
 			v = v[0:12] + "..."
 		}
-		return fmt.Errorf("error setting key %s to %s: %v", item.CustomerID, v, err)
+		return fmt.Errorf("error setting key %s to %s: %v", item.ID, v, err)
 	}
 	return err
 }

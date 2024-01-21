@@ -11,8 +11,8 @@ import (
 )
 
 type GetCreateDeleter interface {
-	Get(ctx context.Context, customerID string) (*models.CustomerBasket, error)
-	Update(ctx context.Context, item *models.CustomerBasket) error
+	Get(ctx context.Context, customerID string) (*models.Cart, error)
+	Update(ctx context.Context, item *models.Cart) error
 	Delete(ctx context.Context, id string) error
 }
 
@@ -38,7 +38,7 @@ func NewBasketHandler(r GetCreateDeleter) *BasketHandler {
 //	@Failure		400				{object}	models.HTTPError
 //	@Router			/items [post]
 func (bc *BasketHandler) Create(c *gin.Context) {
-	var entity models.CustomerBasket
+	var entity models.Cart
 	if err := c.BindJSON(&entity); err != nil {
 		c.JSON(http.StatusBadRequest, models.NewHTTPError(http.StatusNotFound, err))
 		return
@@ -52,7 +52,7 @@ func (bc *BasketHandler) Create(c *gin.Context) {
 		return
 	}
 
-	result, err := bc.BasketRepository.Get(c.Request.Context(), entity.CustomerID.String())
+	result, err := bc.BasketRepository.Get(c.Request.Context(), entity.ID.String())
 	if err != nil {
 		httpError := models.NewHTTPError(http.StatusBadRequest, err)
 		c.JSON(http.StatusBadRequest, httpError)

@@ -8,21 +8,20 @@ import (
 	"github.com/jurabek/cart-api/internal/models"
 )
 
-var items = []models.BasketItem{{
-	FoodID:       1,
+var items = []models.LineItem{{
+	ItemID:       1,
 	UnitPrice:    20,
-	OldUnitPrice: 10,
 	Quantity:     1,
-	Picture:      "picture",
-	FoodName:     "foodName",
+	Image:      "picture",
+	ProductName:     "foodName",
 },
 }
 
 func TestRedisRepository(t *testing.T) {
 
-	customerBasket := models.CustomerBasket{
-		CustomerID: uuid.New(),
-		Items:      &items,
+	customerBasket := models.Cart{
+		ID: uuid.New(),
+		LineItems:      &items,
 	}
 
 	mockConnectionProvider := RedisConnectionProviderMock{}
@@ -30,7 +29,7 @@ func TestRedisRepository(t *testing.T) {
 	// 	Conn: &mockConnectionProvider,
 	// }
 
-	customerID := customerBasket.CustomerID.String()
+	customerID := customerBasket.ID.String()
 
 	customerBasketString, _ := json.Marshal(&customerBasket)
 	mockConnectionProvider.On("Do", "GET", customerID).Return(customerBasketString)

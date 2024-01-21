@@ -10,7 +10,7 @@ import (
 var _ pbv1.CartServiceServer = (*cartGrpcService)(nil)
 
 type CartGetter interface {
-	Get(ctx context.Context, customerID string) (*models.CustomerBasket, error)
+	Get(ctx context.Context, customerID string) (*models.Cart, error)
 }
 
 type cartGrpcService struct {
@@ -23,18 +23,18 @@ func NewCartGrpcService(cartGetter CartGetter) pbv1.CartServiceServer {
 	}
 }
 
-func mapBasketToCartResponse(basket *models.CustomerBasket) *pbv1.GetCustomerCartResponse {
+func mapBasketToCartResponse(basket *models.Cart) *pbv1.GetCustomerCartResponse {
 	var cartItems []*pbv1.CartItem
-	for _, basketItem := range *basket.Items {
+	for _, basketItem := range *basket.LineItems {
 		cartItems = append(cartItems, &pbv1.CartItem{
-			ItemId:   int64(basketItem.FoodID),
+			ItemId:   int64(basketItem.ItemID),
 			Price:    basketItem.UnitPrice,
 			Quantity: int64(basketItem.Quantity),
 		})
 	}
 
 	return &pbv1.GetCustomerCartResponse{
-		CustomerId: basket.CustomerID.String(),
+		CustomerId: basket.ID.String(),
 		Items:      cartItems,
 	}
 }

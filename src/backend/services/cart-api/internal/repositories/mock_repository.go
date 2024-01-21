@@ -13,13 +13,13 @@ type BasketRepositoryMock struct {
 }
 
 // Get mock
-func (r *BasketRepositoryMock) Get(ctx context.Context, customerID string) (*models.CustomerBasket, error) {
+func (r *BasketRepositoryMock) Get(ctx context.Context, customerID string) (*models.Cart, error) {
 	args := r.Called(ctx, customerID)
-	return args.Get(0).(*models.CustomerBasket), args.Error(1)
+	return args.Get(0).(*models.Cart), args.Error(1)
 }
 
 // Update Mock
-func (r *BasketRepositoryMock) Update(ctx context.Context, item *models.CustomerBasket) error {
+func (r *BasketRepositoryMock) Update(ctx context.Context, item *models.Cart) error {
 	args := r.Called(ctx, item)
 	return args.Error(0)
 }

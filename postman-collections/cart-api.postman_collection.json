@@ -1,0 +1,1099 @@
+{
+	"info": {
+		"_postman_id": "4a5e8260-543c-476b-a26a-a2fc81b8176a",
+		"name": "cart-api",
+		"description": "This is a rest api for cart which saves items to redis server\n\nContact Support:\n Name: API Support\n Email: support@swagger.io",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26199757"
+	},
+	"item": [
+		{
+			"name": "cart",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "item",
+							"item": [
+								{
+									"name": "Update or add a line item",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"img\": \"<string>\",\n  \"item_id\": 1,\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": 2,\n  \"unit_price\": 10\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/shoppingcart/api/v1/cart/:id/item",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"shoppingcart",
+												"api",
+												"v1",
+												"cart",
+												":id",
+												"item"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "cc62e6b3-5fa3-4e8e-92ed-eeca37112090",
+													"description": "(Required) Cart ID"
+												}
+											]
+										},
+										"description": "update by json new line item"
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"attributes\": {\n    \"voluptate_edd\": \"dolore anim\",\n    \"ad_5_\": true,\n    \"ut0e5\": \"do laboris consequat\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/cart/:id/item",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"cart",
+														":id",
+														"item"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"currency\": \"<string>\",\n  \"discount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"items\": [\n    {\n      \"attributes\": {\n        \"dolore99f\": true,\n        \"ad_7\": -3487564.631276056,\n        \"occaecat_295\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"laborum5fa\": -93691888.65488262,\n        \"quis1\": \"irure dolor in\"\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"shipping\": \"<number>\",\n  \"shipping_method\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tax\": \"<number>\",\n  \"total\": \"<number>\",\n  \"user_id\": \"<string>\"\n}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"attributes\": {\n    \"voluptate_edd\": \"dolore anim\",\n    \"ad_5_\": true,\n    \"ut0e5\": \"do laboris consequat\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/cart/:id/item",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"cart",
+														":id",
+														"item"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+										},
+										{
+											"name": "Not Found",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"attributes\": {\n    \"voluptate_edd\": \"dolore anim\",\n    \"ad_5_\": true,\n    \"ut0e5\": \"do laboris consequat\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/cart/:id/item",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"cart",
+														":id",
+														"item"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+										},
+										{
+											"name": "Internal Server Error",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"attributes\": {\n    \"voluptate_edd\": \"dolore anim\",\n    \"ad_5_\": true,\n    \"ut0e5\": \"do laboris consequat\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/cart/:id/item",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"cart",
+														":id",
+														"item"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Gets a Cart",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/shoppingcart/api/v1/cart/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"shoppingcart",
+										"api",
+										"v1",
+										"cart",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "104f8069-74fa-465e-a5e8-41f7f0a5dbf2",
+											"description": "(Required) Cart ID"
+										}
+									]
+								},
+								"description": "Get Cart by ID"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cart/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cart",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"currency\": \"<string>\",\n  \"discount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"items\": [\n    {\n      \"attributes\": {\n        \"dolore99f\": true,\n        \"ad_7\": -3487564.631276056,\n        \"occaecat_295\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"laborum5fa\": -93691888.65488262,\n        \"quis1\": \"irure dolor in\"\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"shipping\": \"<number>\",\n  \"shipping_method\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tax\": \"<number>\",\n  \"total\": \"<number>\",\n  \"user_id\": \"<string>\"\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cart/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cart",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cart/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cart",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Update cart",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"items\": [],\n  \"user_id\": \"new\",\n  \"status\": \"completed\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/shoppingcart/api/v1/cart/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"shoppingcart",
+										"api",
+										"v1",
+										"cart",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "104f8069-74fa-465e-a5e8-41f7f0a5dbf2",
+											"description": "(Required) Cart ID"
+										}
+									]
+								},
+								"description": "update by json cart"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"quis_88d\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"adipisicing_92d\": -31493792.67772709\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/cart/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cart",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"currency\": \"<string>\",\n  \"discount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"items\": [\n    {\n      \"attributes\": {\n        \"dolore99f\": true,\n        \"ad_7\": -3487564.631276056,\n        \"occaecat_295\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"laborum5fa\": -93691888.65488262,\n        \"quis1\": \"irure dolor in\"\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"shipping\": \"<number>\",\n  \"shipping_method\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tax\": \"<number>\",\n  \"total\": \"<number>\",\n  \"user_id\": \"<string>\"\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"quis_88d\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"adipisicing_92d\": -31493792.67772709\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/cart/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cart",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"quis_88d\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"adipisicing_92d\": -31493792.67772709\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/cart/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cart",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+								},
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"quis_88d\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"adipisicing_92d\": -31493792.67772709\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/cart/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cart",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Deletes a Cart",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/cart/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cart",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<string>",
+											"description": "(Required) Cart ID"
+										}
+									]
+								},
+								"description": "Deletes Cart by ID"
+							},
+							"response": [
+								{
+									"name": "Untitled Example",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/cart/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cart",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": null
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cart/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cart",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cart/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cart",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+								},
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cart/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cart",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Creates new cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"items\": [],\n  \"user_id\": \"\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/shoppingcart/api/v1/cart",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"shoppingcart",
+								"api",
+								"v1",
+								"cart"
+							]
+						},
+						"description": "add by json new Cart"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"quis_88d\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"adipisicing_92d\": -31493792.67772709\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/cart",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cart"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"currency\": \"<string>\",\n  \"discount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"items\": [\n    {\n      \"attributes\": {\n        \"dolore99f\": true,\n        \"ad_7\": -3487564.631276056,\n        \"occaecat_295\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"laborum5fa\": -93691888.65488262,\n        \"quis1\": \"irure dolor in\"\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"shipping\": \"<number>\",\n  \"shipping_method\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tax\": \"<number>\",\n  \"total\": \"<number>\",\n  \"user_id\": \"<string>\"\n}"
+						},
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"quis_88d\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"adipisicing_92d\": -31493792.67772709\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/cart",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cart"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"quis_88d\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"adipisicing_92d\": -31493792.67772709\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/cart",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cart"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"quis_88d\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"adipisicing_92d\": -31493792.67772709\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/cart",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cart"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/"
+		}
+	]
+}

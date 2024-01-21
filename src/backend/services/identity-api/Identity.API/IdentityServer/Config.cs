@@ -25,7 +25,7 @@ namespace Identity.API.IdentityServer
             {
                 new ApiScope("catalog-api", "Restaurant Catalog Api") { UserClaims = { "role" } },
                 new ApiScope("order-api", "Restaurant Order Api") { UserClaims = { "role" } },
-                new ApiScope("basket-api", "Restaurant Basket Api") { UserClaims = { "role" } },
+                new ApiScope("cart-api", "Restaurant Basket Api") { UserClaims = { "role" } },
                 new ApiScope("checkout-api", "Restaurant Checkout Api") { UserClaims = { "role" } },
                 new ApiScope("payment-api", "Restaurant Payment Api") { UserClaims = { "role" } }
             };
@@ -45,7 +45,7 @@ namespace Identity.API.IdentityServer
                     AllowedScopes =
                     {
                         "menu-api",
-                        "basket-api",
+                        "cart-api",
                         "order-api"
                     },
                     AllowOfflineAccess = true
@@ -65,7 +65,7 @@ namespace Identity.API.IdentityServer
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
                         "menu-api",
-                        "basket-api",
+                        "cart-api",
                         "order-api"
                     },
                 },
@@ -82,14 +82,14 @@ namespace Identity.API.IdentityServer
                 },
                 new Client
                 {
-                    ClientId = "basket-api-swagger-ui",
+                    ClientId = "cart-api-swagger-ui",
                     ClientName = "Basket API Swagger UI",
                     RequireConsent = false,
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
                     RedirectUris = { $"{clientUrls["BasketApiUrl"]}/swagger/oauth2-redirect.html" ,"http://localhost:3200/oauth2-redirect.html" },
                     PostLogoutRedirectUris = { $"{clientUrls["BasketApiUrl"]}/swagger/" },
-                    AllowedScopes = { "basket-api" }
+                    AllowedScopes = { "cart-api" }
                 },
                 new Client
                 {
@@ -117,7 +117,7 @@ namespace Identity.API.IdentityServer
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         "catalog-api",
-                        "basket-api",
+                        "cart-api",
                         "order-api",
                         "payment-api",
                         "checkout-api"

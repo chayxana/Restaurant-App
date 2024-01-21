@@ -13,9 +13,9 @@ resources:
 configMapGenerator:
 - envs:
   - config.env
-  name: basket-api
+  name: cart-api
 
 images:
-- name: basket-api
-  newName: ghcr.io/chayxana/basket-api
+- name: cart-api
+  newName: ghcr.io/chayxana/cart-api
   newTag: 0.0.27

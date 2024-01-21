@@ -1,5 +1,7 @@
 package models
 
+import "github.com/google/uuid"
+
 // BasketItem items for users basket
 type BasketItem struct {
 	FoodID          int     `json:"food_id"`
@@ -9,4 +11,10 @@ type BasketItem struct {
 	Picture         string  `json:"picture"`
 	FoodName        string  `json:"food_name"`
 	FoodDescription string  `json:"food_description"`
+}
+
+// CustomerBasket relationship user and basket items
+type CustomerBasket struct {
+	CustomerID uuid.UUID     `json:"customer_id"`
+	Items      *[]BasketItem `json:"items"`
 }

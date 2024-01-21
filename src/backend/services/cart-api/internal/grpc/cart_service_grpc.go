@@ -3,8 +3,8 @@ package grpc
 import (
 	context "context"
 
-	"github.com/jurabek/basket.api/internal/models"
-	pbv1 "github.com/jurabek/basket.api/pb/v1"
+	"github.com/jurabek/cart-api/internal/models"
+	pbv1 "github.com/jurabek/cart-api/pb/v1"
 )
 
 var _ pbv1.CartServiceServer = (*cartGrpcService)(nil)

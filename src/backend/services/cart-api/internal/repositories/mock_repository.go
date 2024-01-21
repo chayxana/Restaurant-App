@@ -3,7 +3,7 @@ package repositories
 import (
 	"context"
 
-	"github.com/jurabek/basket.api/internal/models"
+	"github.com/jurabek/cart-api/internal/models"
 	"github.com/stretchr/testify/mock"
 )
 

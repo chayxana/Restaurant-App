@@ -1,4 +1,4 @@
-module github.com/jurabek/basket.api
+module github.com/jurabek/cart-api
 
 require (
 	github.com/Jurabek/gin-swagger v1.2.2

@@ -62,7 +62,7 @@ function getClientSettings(): UserManagerSettings {
       redirect_uri: window.location.origin + '/dashboard' + '/auth-callback',
       post_logout_redirect_uri: window.location.origin + '/dashboard',
       response_type: 'id_token token',
-      scope: 'openid profile menu-api order-api basket-api',
+    scope: 'openid profile menu-api order-api cart-api',
       filterProtocolClaims: true,
       loadUserInfo: true,
       automaticSilentRenew: true,

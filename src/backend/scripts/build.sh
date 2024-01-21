@@ -25,7 +25,7 @@ build_order_api(){
 }
 
 build_basket_api() {
-    cd ./services/basket.api/
+    cd ./services/cart-api/
     echo "#### Building Basket API"
     sh build.sh
     cd -

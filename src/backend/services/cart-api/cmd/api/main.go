@@ -10,13 +10,13 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/jurabek/basket.api/cmd/config"
-	"github.com/jurabek/basket.api/internal/database"
-	"github.com/jurabek/basket.api/internal/docs"
-	grpcsvc "github.com/jurabek/basket.api/internal/grpc"
-	"github.com/jurabek/basket.api/internal/handlers"
-	"github.com/jurabek/basket.api/internal/middlewares"
-	pbv1 "github.com/jurabek/basket.api/pb/v1"
+	"github.com/jurabek/cart-api/cmd/config"
+	"github.com/jurabek/cart-api/internal/database"
+	"github.com/jurabek/cart-api/internal/docs"
+	grpcsvc "github.com/jurabek/cart-api/internal/grpc"
+	"github.com/jurabek/cart-api/internal/handlers"
+	"github.com/jurabek/cart-api/internal/middlewares"
+	pbv1 "github.com/jurabek/cart-api/pb/v1"
 	"github.com/redis/go-redis/v9"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -32,7 +32,7 @@ import (
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	semconv "go.opentelemetry.io/otel/semconv/v1.17.0"
 
-	"github.com/jurabek/basket.api/internal/repositories"
+	"github.com/jurabek/cart-api/internal/repositories"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
@@ -48,9 +48,9 @@ var (
 	Version   string
 )
 
-//	@title			Basket API
+//	@title			Cart API
 //	@version		1.0
-//	@description	This is a rest api for basket which saves items to redis server
+//	@description	This is a rest api for cart which saves items to redis server
 //	@termsOfService	http://swagger.io/terms/
 
 //	@contact.name	API Support
@@ -79,7 +79,7 @@ func main() {
 	handleSigterm()
 	router := gin.Default()
 	router.Use(middlewares.RequestMiddleware())
-	router.Use(otelgin.Middleware("basket-api"))
+	router.Use(otelgin.Middleware("cart-api"))
 
 	cfg := config.Init()
 
@@ -146,7 +146,7 @@ func grpcServer(svc pbv1.CartServiceServer) {
 
 func handleSigterm() {
 	c := make(chan os.Signal, 1)
-	signal.Notify(c, syscall.SIGTERM, os.Kill, os.Interrupt)
+	signal.Notify(c, syscall.SIGTERM)
 	go func() {
 		<-c
 		time.Sleep(10 * time.Second)
@@ -160,7 +160,7 @@ func initTracer() (*sdktrace.TracerProvider, error) {
 	res, err := resource.New(ctx,
 		resource.WithAttributes(
 			// the service name used to display traces in backends
-			semconv.ServiceName("basket-api"),
+			semconv.ServiceName("cart-api"),
 		),
 	)
 	if err != nil {

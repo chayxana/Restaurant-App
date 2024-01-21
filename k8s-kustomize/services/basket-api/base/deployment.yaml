@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: basket-api
+  name: cart-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: basket-api
+      app: cart-api
   template:
     metadata:
       labels:
-        app: basket-api
+        app: cart-api
     spec:
       containers:
-        - image: basket-api # must much from ./kustomization.yaml -> images[0].name
+        - image: cart-api # must much from ./kustomization.yaml -> images[0].name
           imagePullPolicy: IfNotPresent
-          name: basket-api
+          name: cart-api
           ports:
             - containerPort: 5200
           envFrom:
             - configMapKeyRef:
-              name: basket-api
+              name: cart-api
           resources:
             requests:
               memory: "32Mi"

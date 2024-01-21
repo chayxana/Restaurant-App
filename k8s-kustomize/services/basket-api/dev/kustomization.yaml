@@ -7,6 +7,6 @@ configMapGenerator:
 - behavior: merge
   envs:
   - config.env
-  name: basket-api
+  name: cart-api
 resources:
 - ../base

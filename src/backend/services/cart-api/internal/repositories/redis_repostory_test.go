@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-	"github.com/jurabek/basket.api/internal/models"
+	"github.com/jurabek/cart-api/internal/models"
 )
 
 var items = []models.BasketItem{{

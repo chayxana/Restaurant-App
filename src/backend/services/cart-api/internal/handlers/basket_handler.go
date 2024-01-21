@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/jurabek/basket.api/internal/models"
-	"github.com/jurabek/basket.api/internal/repositories"
+	"github.com/jurabek/cart-api/internal/models"
+	"github.com/jurabek/cart-api/internal/repositories"
 	"github.com/pkg/errors"
 )
 

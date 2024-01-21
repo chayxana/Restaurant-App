@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/jurabek/basket.api/internal/docs"
+	"github.com/jurabek/cart-api/internal/docs"
 )
 
 // RequestMiddleware changes swagger Info on runtime

@@ -1,7 +1,7 @@
 ---
 version: "3.7"
 services:
-  basket-api:
+  cart-api:
     depends_on:
       kafka:
          condition: service_healthy

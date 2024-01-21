@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/jurabek/basket.api/internal/models"
+	"github.com/jurabek/cart-api/internal/models"
 	"github.com/redis/go-redis/v9"
 )
 

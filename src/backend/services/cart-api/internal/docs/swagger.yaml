@@ -24,6 +24,15 @@ definitions:
       user_id:
         type: string
     type: object
+  models.CreateCartReq:
+    properties:
+      items:
+        items:
+          $ref: '#/definitions/models.LineItem'
+        type: array
+      user_id:
+        type: string
+    type: object
   models.HTTPError:
     properties:
       code:
@@ -64,18 +73,18 @@ info:
   title: Cart API
   version: "1.0"
 paths:
-  /items:
+  /cart:
     post:
       consumes:
       - application/json
-      description: add by json new CustomerBasket
+      description: add by json new Cart
       parameters:
-      - description: Add CustomerBasket
+      - description: Creates new cart
         in: body
-        name: CustomerBasket
+        name: cart
         required: true
         schema:
-          $ref: '#/definitions/models.Cart'
+          $ref: '#/definitions/models.CreateCartReq'
       produces:
       - application/json
       responses:
@@ -95,16 +104,16 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.HTTPError'
-      summary: Add a CustomerBasket
+      summary: Creates new cart
       tags:
-      - CustomerBasket
-  /items/{id}:
+      - Cart
+  /cart/{id}:
     delete:
       consumes:
       - application/json
-      description: Deletes CustomerBasket by ID
+      description: Deletes Cart by ID
       parameters:
-      - description: CustomerBasket ID
+      - description: Cart ID
         in: path
         name: id
         required: true
@@ -126,15 +135,15 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.HTTPError'
-      summary: Deletes a CustomerBasket
+      summary: Deletes a Cart
       tags:
-      - CustomerBasket
+      - Cart
     get:
       consumes:
       - application/json
-      description: Get CustomerBasket by ID
+      description: Get Cart by ID
       parameters:
-      - description: CustomerBasket ID
+      - description: Cart ID
         in: path
         name: id
         required: true
@@ -154,7 +163,84 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/models.HTTPError'
-      summary: Gets a CustomerBasket
+      summary: Gets a Cart
       tags:
-      - CustomerBasket
+      - Cart
+    put:
+      consumes:
+      - application/json
+      description: update by json cart
+      parameters:
+      - description: Cart ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updates cart
+        in: body
+        name: update_cart
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateCartReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Cart'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.HTTPError'
+      summary: Update cart
+      tags:
+      - Cart
+  /cart/{id}/item:
+    put:
+      consumes:
+      - application/json
+      description: update by json new line item
+      parameters:
+      - description: Cart ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update line item
+        in: body
+        name: lineItem
+        required: true
+        schema:
+          $ref: '#/definitions/models.LineItem'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Cart'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.HTTPError'
+      summary: Update or add a line item
+      tags:
+      - Cart
 swagger: "2.0"

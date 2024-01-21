@@ -32,8 +32,8 @@ type CartRepositoryMock struct {
 	mock.Mock
 }
 
-// UpdateItem implements GetCreateDeleter.
-func (r *CartRepositoryMock) UpdateItem(ctx context.Context, cartID string, item models.LineItem) error {
+// SetItem implements GetCreateDeleter.
+func (r *CartRepositoryMock) SetItem(ctx context.Context, cartID string, item models.LineItem) error {
 	args := r.Called(ctx, cartID, item)
 	return args.Error(0)
 }

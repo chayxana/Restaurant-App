@@ -20,7 +20,7 @@ services:
       - CHECKOUT_TOPIC=checkout
       - IDENTITY_URL=http://identity-api
       - AUTH_URL=http://localhost:8080/identity
-      - BASE_PATH=/basket
+      - BASE_PATH=/shoppingcart
       - OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector:4317
   
   payment-api:

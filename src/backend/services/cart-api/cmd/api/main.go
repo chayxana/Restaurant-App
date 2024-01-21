@@ -99,12 +99,16 @@ func main() {
 	basketRepository := repositories.NewCartRepository(redisClient)
 	cartHandler := handlers.NewCartHandler(basketRepository)
 
-	api := router.Group(basePath + "/api/v1/cart")
+	apiV1 := router.Group(basePath + "/api/v1")
 	{
-		api.POST("", handlers.ErrorHandler(cartHandler.Create))
-		api.GET(":id", handlers.ErrorHandler(cartHandler.Get))
-		api.DELETE(":id", handlers.ErrorHandler(cartHandler.Delete))
-		api.PUT(":id/items", handlers.ErrorHandler(cartHandler.UpdateItem)) // updates line item by CartID
+		cart := apiV1.Group("/cart")
+		{
+			cart.POST("", handlers.ErrorHandler(cartHandler.Create))
+			cart.GET(":id", handlers.ErrorHandler(cartHandler.Get))
+			cart.DELETE(":id", handlers.ErrorHandler(cartHandler.Delete))
+			cart.PUT(":id", handlers.ErrorHandler(cartHandler.Update))
+			cart.PUT(":id/item", handlers.ErrorHandler(cartHandler.UpdateItem)) // updates line item by CartID
+		}
 	}
 
 	// Home page should be redirected to swagger page

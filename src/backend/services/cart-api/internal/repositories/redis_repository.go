@@ -44,7 +44,7 @@ func (r *CartRepository) Get(ctx context.Context, cartID string) (*models.Cart, 
 	return &result, err
 }
 
-func (r *CartRepository) UpdateItem(ctx context.Context, cartID string, item models.LineItem) error {
+func (r *CartRepository) SetItem(ctx context.Context, cartID string, item models.LineItem) error {
     // Fetch the existing cart
     existingCart, err := r.Get(ctx, cartID)
     if err != nil {

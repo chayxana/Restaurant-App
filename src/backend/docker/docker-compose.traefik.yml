@@ -36,7 +36,7 @@ services:
   cart-api:
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.basket.rule=PathPrefix(`/basket/`)"
+      - "traefik.http.routers.basket.rule=PathPrefix(`/shoppingcart/`)"
       - "traefik.port=5200"
 
   order-api:

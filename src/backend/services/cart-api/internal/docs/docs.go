@@ -24,9 +24,9 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/items": {
+        "/cart": {
             "post": {
-                "description": "add by json new CustomerBasket",
+                "description": "add by json new Cart",
                 "consumes": [
                     "application/json"
                 ],
@@ -34,17 +34,17 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "CustomerBasket"
+                    "Cart"
                 ],
-                "summary": "Add a CustomerBasket",
+                "summary": "Creates new cart",
                 "parameters": [
                     {
-                        "description": "Add CustomerBasket",
-                        "name": "CustomerBasket",
+                        "description": "Creates new cart",
+                        "name": "cart",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Cart"
+                            "$ref": "#/definitions/models.CreateCartReq"
                         }
                     }
                 ],
@@ -76,9 +76,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/items/{id}": {
+        "/cart/{id}": {
             "get": {
-                "description": "Get CustomerBasket by ID",
+                "description": "Get Cart by ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -86,13 +86,13 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "CustomerBasket"
+                    "Cart"
                 ],
-                "summary": "Gets a CustomerBasket",
+                "summary": "Gets a Cart",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "CustomerBasket ID",
+                        "description": "Cart ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -119,8 +119,8 @@ const docTemplate = `{
                     }
                 }
             },
-            "delete": {
-                "description": "Deletes CustomerBasket by ID",
+            "put": {
+                "description": "update by json cart",
                 "consumes": [
                     "application/json"
                 ],
@@ -128,13 +128,70 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "CustomerBasket"
+                    "Cart"
                 ],
-                "summary": "Deletes a CustomerBasket",
+                "summary": "Update cart",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "CustomerBasket ID",
+                        "description": "Cart ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Updates cart",
+                        "name": "update_cart",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateCartReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Cart"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.HTTPError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes Cart by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Deletes a Cart",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Cart ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -143,6 +200,65 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": ""
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/cart/{id}/item": {
+            "put": {
+                "description": "update by json new line item",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Update or add a line item",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Cart ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update line item",
+                        "name": "lineItem",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.LineItem"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Cart"
+                        }
                     },
                     "400": {
                         "description": "Bad Request",
@@ -199,6 +315,20 @@ const docTemplate = `{
                 },
                 "total": {
                     "type": "number"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CreateCartReq": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.LineItem"
+                    }
                 },
                 "user_id": {
                     "type": "string"

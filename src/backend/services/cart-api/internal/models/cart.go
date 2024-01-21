@@ -2,6 +2,26 @@ package models
 
 import "github.com/google/uuid"
 
+type CreateCartReq struct {
+	LineItems *[]LineItem `json:"items,omitempty"`
+	UserID    *string     `json:"user_id,omitempty"`
+}
+
+func MapCreateCartReqToCart(req CreateCartReq) *Cart {
+	if req.LineItems == nil {
+		req.LineItems = &[]LineItem{}
+	}
+	if req.UserID == nil || *req.UserID == "" {
+		*req.UserID = "anonymous"
+	}
+	cart := &Cart{
+		LineItems: *req.LineItems,
+		UserID:    req.UserID,
+		ID:        uuid.New(),
+	}
+	return cart
+}
+
 // LineItem
 type LineItem struct {
 	ItemID             int                    `json:"item_id"`
@@ -15,14 +35,15 @@ type LineItem struct {
 
 // Cart
 type Cart struct {
-	ID             uuid.UUID  `json:"id"`
-	LineItems      []LineItem `json:"items"`
-	UserID         *string    `json:"user_id"`
-	Total          float32    `json:"total"`
-	Discount       float32    `json:"discount"`
-	Tax            float32    `json:"tax"`
-	Shipping       float32    `json:"shipping"`
-	ShippingMethod string     `json:"shipping_method"`
-	Currency       string     `json:"currency"`
-	Status         string     `json:"status"`
+	ID        uuid.UUID  `json:"id"`
+	LineItems []LineItem `json:"items"`
+	Total     float32    `json:"total"`
+
+	UserID         *string  `json:"user_id,omitempty"`
+	Discount       *float32 `json:"discount,omitempty"`
+	Tax            *float32 `json:"tax,omitempty"`
+	Shipping       *float32 `json:"shipping,omitempty"`
+	ShippingMethod *string  `json:"shipping_method,omitempty"`
+	Currency       *string  `json:"currency,omitempty"`
+	Status         *string  `json:"status,omitempty"`
 }

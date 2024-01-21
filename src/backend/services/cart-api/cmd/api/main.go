@@ -96,7 +96,7 @@ func main() {
 	// tracedProducer := otelsarama.WrapSyncProducer(nil, p)
 	// defer tracedProducer.Close()
 
-	basketRepository := repositories.NewRedisBasketRepository(redisClient)
+	basketRepository := repositories.NewCartRepository(redisClient)
 	basketHandler := handlers.NewBasketHandler(basketRepository)
 
 	go grpcServer(grpcsvc.NewCartGrpcService(basketRepository))

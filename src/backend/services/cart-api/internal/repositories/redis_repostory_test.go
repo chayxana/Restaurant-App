@@ -19,9 +19,9 @@ var items = []models.LineItem{{
 
 func TestRedisRepository(t *testing.T) {
 
-	customerBasket := models.Cart{
+	cart := models.Cart{
 		ID: uuid.New(),
-		LineItems:      &items,
+		LineItems:      items,
 	}
 
 	mockConnectionProvider := RedisConnectionProviderMock{}
@@ -29,12 +29,12 @@ func TestRedisRepository(t *testing.T) {
 	// 	Conn: &mockConnectionProvider,
 	// }
 
-	customerID := customerBasket.ID.String()
+	customerID := cart.ID.String()
 
-	customerBasketString, _ := json.Marshal(&customerBasket)
+	customerBasketString, _ := json.Marshal(&cart)
 	mockConnectionProvider.On("Do", "GET", customerID).Return(customerBasketString)
 
-	t.Run("given existing customerID GetBasket should return object", func(t *testing.T) {
+	t.Run("given existing cart id Cart should return object", func(t *testing.T) {
 		// result, err := repository.GetBasket(customerID)
 
 		// assert.Nil(t, err)

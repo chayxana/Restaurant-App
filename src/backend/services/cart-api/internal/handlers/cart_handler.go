@@ -33,9 +33,11 @@ func NewBasketHandler(r GetCreateDeleter) *BasketHandler {
 //	@Tags			CustomerBasket
 //	@Accept			json
 //	@Produce		json
-//	@Param			CustomerBasket	body		models.CustomerBasket	true	"Add CustomerBasket"
-//	@Success		200				{object}	models.CustomerBasket
+//	@Param			CustomerBasket	body		models.Cart	true	"Add CustomerBasket"
+//	@Success		200				{object}	models.Cart
 //	@Failure		400				{object}	models.HTTPError
+//	@Failure		404				{object}	models.HTTPError
+//	@Failure		500 			{object}	models.HTTPError
 //	@Router			/items [post]
 func (bc *BasketHandler) Create(c *gin.Context) {
 	var entity models.Cart
@@ -70,8 +72,9 @@ func (bc *BasketHandler) Create(c *gin.Context) {
 //	@Accept			json
 //	@Produce		json
 //	@Param			id	path		string	true	"CustomerBasket ID"
-//	@Success		200	{object}	models.CustomerBasket
+//	@Success		200	{object}	models.Cart
 //	@Failure		400	{object}	models.HTTPError
+//	@Failure		404 {object}	models.HTTPError
 //	@Router			/items/{id} [get]
 func (bc *BasketHandler) Get(c *gin.Context) {
 	id := c.Param("id")
@@ -99,6 +102,8 @@ func (bc *BasketHandler) Get(c *gin.Context) {
 //	@Param			id	path	string	true	"CustomerBasket ID"
 //	@Success		200	""
 //	@Failure		400	{object}	models.HTTPError
+//	@Failure		404	{object}	models.HTTPError
+//	@Failure		500	{object}	models.HTTPError
 //	@Router			/items/{id} [delete]
 func (bc *BasketHandler) Delete(c *gin.Context) {
 	id := c.Param("id")

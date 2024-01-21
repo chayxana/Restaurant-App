@@ -33,7 +33,7 @@ func TestBasketController(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	customerBasket := models.Cart{
 		ID: uuid.New(),
-		LineItems:      &items,
+		LineItems:      items,
 	}
 
 	var mockedBasketRepository = &repositories.BasketRepositoryMock{}

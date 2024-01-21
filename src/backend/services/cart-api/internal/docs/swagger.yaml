@@ -1,64 +1,20 @@
 definitions:
-  models.Address:
+  models.Cart:
     properties:
-      city:
+      currency:
         type: string
-      country:
-        type: string
-      state:
-        type: string
-      street_address:
-        type: string
-      zip_code:
-        type: integer
-    type: object
-  models.BasketItem:
-    properties:
-      food_id:
-        type: integer
-      food_name:
-        type: string
-      old_unit_price:
-        type: number
-      picture:
-        type: string
-      quantity:
-        type: integer
-      unit_price:
-        type: number
-    type: object
-  models.Checkout:
-    properties:
-      address:
-        $ref: '#/definitions/models.Address'
-      credit_card:
-        $ref: '#/definitions/models.CreditCardInfo'
-      customer_id:
-        type: string
-      email:
-        type: string
-      user_currency:
-        type: string
-    type: object
-  models.CreditCardInfo:
-    properties:
-      credit_card_cvv:
-        type: integer
-      credit_card_expiration_month:
-        type: integer
-      credit_card_expiration_year:
-        type: integer
-      credit_card_number:
-        type: string
-    type: object
-  models.CustomerBasket:
-    properties:
-      customer_id:
+      id:
         type: string
       items:
         items:
-          $ref: '#/definitions/models.BasketItem'
+          $ref: '#/definitions/models.LineItem'
         type: array
+      status:
+        type: string
+      total:
+        type: number
+      user_id:
+        type: string
     type: object
   models.HTTPError:
     properties:
@@ -69,43 +25,37 @@ definitions:
         example: status bad request
         type: string
     type: object
+  models.LineItem:
+    properties:
+      attributes:
+        additionalProperties: true
+        type: object
+      img:
+        type: string
+      item_id:
+        type: integer
+      product_description:
+        type: string
+      product_name:
+        type: string
+      quantity:
+        type: integer
+      unit_price:
+        type: number
+    type: object
 info:
   contact:
     email: support@swagger.io
     name: API Support
     url: http://www.swagger.io/support
-  description: This is a rest api for basket which saves items to redis server
+  description: This is a rest api for cart which saves items to redis server
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: http://swagger.io/terms/
-  title: Basket API
+  title: Cart API
   version: "1.0"
 paths:
-  /checkout:
-    post:
-      consumes:
-      - application/json
-      description: Start checkout
-      parameters:
-      - description: Checkout
-        in: body
-        name: Checkout
-        required: true
-        schema:
-          $ref: '#/definitions/models.Checkout'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ""
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.HTTPError'
-      summary: Starts checkout for the entered card and basket items
-      tags:
-      - Checkout
   /items:
     post:
       consumes:
@@ -117,16 +67,24 @@ paths:
         name: CustomerBasket
         required: true
         schema:
-          $ref: '#/definitions/models.CustomerBasket'
+          $ref: '#/definitions/models.Cart'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.CustomerBasket'
+            $ref: '#/definitions/models.Cart'
         "400":
           description: Bad Request
+          schema:
+            $ref: '#/definitions/models.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.HTTPError'
+        "500":
+          description: Internal Server Error
           schema:
             $ref: '#/definitions/models.HTTPError'
       summary: Add a CustomerBasket
@@ -152,6 +110,14 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/models.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.HTTPError'
       summary: Deletes a CustomerBasket
       tags:
       - CustomerBasket
@@ -171,9 +137,13 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.CustomerBasket'
+            $ref: '#/definitions/models.Cart'
         "400":
           description: Bad Request
+          schema:
+            $ref: '#/definitions/models.HTTPError'
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/models.HTTPError'
       summary: Gets a CustomerBasket

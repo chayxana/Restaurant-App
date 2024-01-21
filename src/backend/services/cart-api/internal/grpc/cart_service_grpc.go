@@ -25,7 +25,7 @@ func NewCartGrpcService(cartGetter CartGetter) pbv1.CartServiceServer {
 
 func mapBasketToCartResponse(basket *models.Cart) *pbv1.GetCustomerCartResponse {
 	var cartItems []*pbv1.CartItem
-	for _, basketItem := range *basket.LineItems {
+	for _, basketItem := range basket.LineItems {
 		cartItems = append(cartItems, &pbv1.CartItem{
 			ItemId:   int64(basketItem.ItemID),
 			Price:    basketItem.UnitPrice,

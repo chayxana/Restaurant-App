@@ -10,20 +10,20 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
-// RedisBasketRepository implementation of BasketRepository
-type RedisBasketRepository struct {
+// CartRepository implementation of redis repositor
+type CartRepository struct {
 	client *redis.Client
 }
 
-// NewRedisBasketRepository creates new instance of repository
-func NewRedisBasketRepository(client *redis.Client) *RedisBasketRepository {
-	return &RedisBasketRepository{client: client}
+// NewCartRepository creates new instance of repository
+func NewCartRepository(client *redis.Client) *CartRepository {
+	return &CartRepository{client: client}
 }
 
 var ErrCartNotFound = errors.New("cart not found");
 
 // Get returns cart otherwise nill
-func (r *RedisBasketRepository) Get(ctx context.Context, cartID string) (*models.Cart, error) {
+func (r *CartRepository) Get(ctx context.Context, cartID string) (*models.Cart, error) {
 	var (
 		result models.Cart
 		data   []byte
@@ -44,8 +44,37 @@ func (r *RedisBasketRepository) Get(ctx context.Context, cartID string) (*models
 	return &result, err
 }
 
-// Update updates or creates new CustomerBasket
-func (r *RedisBasketRepository) Update(ctx context.Context, item *models.Cart) error {
+func (r *CartRepository) UpdateItem(ctx context.Context, cartID string, item models.LineItem) error {
+    // Fetch the existing cart
+    existingCart, err := r.Get(ctx, cartID)
+    if err != nil {
+        return err
+    }
+
+    // Update the item in the cart
+    updatedItems := []models.LineItem{}
+    itemUpdated := false
+    for _, bi := range existingCart.LineItems {
+        if bi.ItemID == item.ItemID {
+            updatedItems = append(updatedItems, item)
+            itemUpdated = true
+        } else {
+            updatedItems = append(updatedItems, bi)
+        }
+    }
+
+    // If the item was not found, add it to the cart
+    if !itemUpdated {
+        updatedItems = append(updatedItems, item)
+    }
+
+    // Update the cart in Redis
+    existingCart.LineItems = updatedItems
+    return r.Update(ctx, existingCart)
+}
+
+// Update updates or creates new Cart
+func (r *CartRepository) Update(ctx context.Context, item *models.Cart) error {
 	value, err := json.Marshal(item)
 
 	if err != nil {
@@ -63,7 +92,7 @@ func (r *RedisBasketRepository) Update(ctx context.Context, item *models.Cart) e
 	return err
 }
 
-// Delete removes existing CustomerBasket
-func (r *RedisBasketRepository) Delete(ctx context.Context, id string) error {
+// Delete removes existing Cart
+func (r *CartRepository) Delete(ctx context.Context, id string) error {
 	return r.client.Del(ctx, id).Err()
 }

@@ -3,6 +3,7 @@ package handlers
 import (
 	"context"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jurabek/cart-api/internal/models"
@@ -15,6 +16,7 @@ type GetCreateDeleter interface {
 	Update(ctx context.Context, cart *models.Cart) error
 	Delete(ctx context.Context, id string) error
 	SetItem(ctx context.Context, cartID string, item models.LineItem) error
+	DeleteItem(ctx context.Context, cartID string, itemID int) error
 }
 
 // CartHandler is router initializer for http
@@ -91,12 +93,12 @@ func (h *CartHandler) Create(c *gin.Context) error {
 //	@Router			/cart/{id}			[put]
 func (h *CartHandler) Update(c *gin.Context) error {
 	cartID := c.Param("id")
-	var entity models.CreateCartReq
-	if err := c.BindJSON(&entity); err != nil {
+	var updateReq models.UpdateCartReq
+	if err := c.BindJSON(&updateReq); err != nil {
 		return models.NewHTTPError(http.StatusBadRequest, err)
 	}
 
-	_, err := h.repository.Get(c.Request.Context(), cartID)
+	cart, err := h.repository.Get(c.Request.Context(), cartID)
 	if err != nil {
 		if errors.Is(err, repositories.ErrCartNotFound) {
 			return models.NewHTTPError(http.StatusNotFound, errors.Wrap(err, "cartID: "+cartID))
@@ -104,9 +106,8 @@ func (h *CartHandler) Update(c *gin.Context) error {
 		return models.NewHTTPError(http.StatusInternalServerError, err)
 	}
 
-	cart := models.MapCreateCartReqToCart(entity)
-
-	if err := h.repository.Update(c.Request.Context(), cart); err != nil {
+	cartForUpdate := models.MapUpdateCartReqToCart(cart, updateReq)
+	if err := h.repository.Update(c.Request.Context(), cartForUpdate); err != nil {
 		return models.NewHTTPError(http.StatusInternalServerError, err)
 	}
 	return nil
@@ -183,6 +184,38 @@ func (h *CartHandler) UpdateItem(c *gin.Context) error {
 		return models.NewHTTPError(http.StatusBadRequest, err)
 	}
 	if err := h.repository.SetItem(c.Request.Context(), cartID, entity); err != nil {
+		return models.NewHTTPError(http.StatusInternalServerError, err)
+	}
+	return nil
+}
+
+
+// Deletes line item doc
+//
+//	@Summary		Delete line item
+//	@Description	Delete line item by json
+//	@Tags			Cart
+//	@Accept			json
+//	@Produce		json
+//	@Param			id		path				string		true	"Cart ID"
+//	@Param			itemID	path				string		true	"Item ID"
+//	@Success		200							{object}	models.Cart
+//	@Failure		400							{object}	models.HTTPError
+//	@Failure		404							{object}	models.HTTPError
+//	@Failure		500 						{object}	models.HTTPError
+//	@Router			/cart/{id}/item/{itemID}	[delete]
+
+func (h *CartHandler) DeleteItem(c *gin.Context) error {
+	cartID := c.Param("id")
+	itemID := c.Param("itemID")
+
+	// convert itemID to int
+	itemIDInt, err := strconv.Atoi(itemID)	
+	if err != nil {
+		return models.NewHTTPError(http.StatusBadRequest, err)
+	}
+
+	if err := h.repository.DeleteItem(c.Request.Context(), cartID, itemIDInt); err != nil {
 		return models.NewHTTPError(http.StatusInternalServerError, err)
 	}
 	return nil

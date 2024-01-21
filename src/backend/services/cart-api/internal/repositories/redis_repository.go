@@ -73,6 +73,24 @@ func (r *CartRepository) SetItem(ctx context.Context, cartID string, item models
     return r.Update(ctx, existingCart)
 }
 
+func (r *CartRepository) DeleteItem(ctx context.Context, cartID string, itemID int) error {
+    // Fetch the existing cart
+    existingCart, err := r.Get(ctx, cartID)
+    if err != nil {
+        return err
+    }
+
+    // Update the cart in Redis
+    updatedItems := []models.LineItem{}
+    for _, bi := range existingCart.LineItems {
+        if bi.ItemID != itemID {
+            updatedItems = append(updatedItems, bi)
+        }
+    }
+    existingCart.LineItems = updatedItems
+    return r.Update(ctx, existingCart)
+}
+
 // Update updates or creates new Cart
 func (r *CartRepository) Update(ctx context.Context, item *models.Cart) error {
 	value, err := json.Marshal(item)

@@ -62,7 +62,7 @@ type LineItem struct {
 type Cart struct {
 	ID        uuid.UUID  `json:"id"`
 	LineItems []LineItem `json:"items"`
-	Total     float32    `json:"total"`
+	Total     float64    `json:"total"`
 
 	UserID         *string  `json:"user_id,omitempty"`
 	Discount       *float32 `json:"discount,omitempty"`

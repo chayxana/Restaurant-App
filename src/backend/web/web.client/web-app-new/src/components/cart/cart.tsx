@@ -6,9 +6,11 @@ import { CustomerCart } from '@/lib/types/cart';
 import { deleteCartItem, updateCartItemQuantity } from './actions';
 import { useCart } from '@/context/cart-context';
 
-export function Cart({ customerCart, userId }: { customerCart?: CustomerCart; userId?: string }) {
-  const { removeItem, items, setQuantity } = useCart();
-  if (items.length == 0) {
+export function Cart({ cart, userId }: { cart?: CustomerCart; userId?: string }) {
+  const { decrement } = useCart();
+  const items = cart?.items;
+
+  if (!items) {
     return (
       <div className="container mx-auto mt-10 p-6">
         <h1 className="mb-4 text-center text-3xl font-bold">Your cart is empty</h1>
@@ -16,21 +18,7 @@ export function Cart({ customerCart, userId }: { customerCart?: CustomerCart; us
     );
   }
 
-  if (userId && customerCart) {
-    // await syncClientToBackend(customerCart.items, items, userId);
-    // for (const customerCartItem of customerCart?.items || []) {
-    //   const clientItem = items.find((item) => item.id === customerCartItem.food_id);
-    //   if (!clientItem) {
-    //     addItem(mapCustomerCartItemToSessionCartItem(customerCartItem));
-    //   } else if (customerCartItem.quantity !== clientItem.quantity) {
-    //     // Update this item's quantity in client cart
-    //     setQuantity(customerCartItem.food_id, customerCartItem.quantity);
-    //   }
-    // }
-  }
-
-  // Remove items from client that are not in server cart
-  const totalPrice = items.reduce((total, item) => total + item.price * item.quantity, 0);
+  const totalPrice = cart.total;
   return (
     <div className="container mx-auto mt-10 p-6">
       <h1 className="mb-4 text-3xl font-bold">Your basket</h1>
@@ -39,19 +27,21 @@ export function Cart({ customerCart, userId }: { customerCart?: CustomerCart; us
         {items.map((item) => (
           <CartItem
             onQuantityChange={async (id, quantity) => {
-              setQuantity(id, quantity);
               if (userId) {
                 await updateCartItemQuantity(userId, id, quantity);
               }
             }}
             onRemoveItem={async (id) => {
-              removeItem(id);
-              if (userId) {
-                await deleteCartItem(userId, id);
-              }
+              await deleteCartItem(cart.id, id);
+              decrement();
             }}
-            key={item.id}
-            {...item}
+            key={item.item_id}
+            id={item.item_id}
+            name={item.product_name}
+            description={item.product_description}
+            price={item.unit_price}
+            image={item.img}
+            quantity={item.quantity}
           />
         ))}
         <Link href="/checkout">

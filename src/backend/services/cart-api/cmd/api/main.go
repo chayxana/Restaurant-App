@@ -108,6 +108,7 @@ func main() {
 			cart.DELETE(":id", handlers.ErrorHandler(cartHandler.Delete))
 			cart.PUT(":id", handlers.ErrorHandler(cartHandler.Update))
 			cart.PUT(":id/item", handlers.ErrorHandler(cartHandler.UpdateItem)) // updates line item by CartID
+			cart.DELETE(":id/item/:itemID", handlers.ErrorHandler(cartHandler.DeleteItem))
 		}
 	}
 

@@ -8,7 +8,7 @@ import OpenCart from '../cart/open-cart';
 import OpenUserProfile from './user-profile';
 
 const Navbar: React.FC = () => {
-  const { items } = useCart();
+  const { count } = useCart();
 
   return (
     <nav className="fixed left-0 top-0 z-30 w-full bg-white shadow-md">
@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
 
         <div className="flex justify-end space-x-2 md:w-1/3">
           <Link href="/cart">
-            <OpenCart quantity={items.length} className="h-6 w-6" />
+            <OpenCart quantity={count > 0 ? count : undefined} className="h-6 w-6" />
           </Link>
           <OpenUserProfile />
         </div>

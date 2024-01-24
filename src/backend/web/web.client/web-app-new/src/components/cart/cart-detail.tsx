@@ -3,11 +3,9 @@
 import { CartItem } from './cart-item';
 import Link from 'next/link';
 import { CustomerCart } from '@/lib/types/cart';
-import { deleteCartItem, updateCartItemQuantity } from './actions';
-import { useCart } from '@/context/cart-context';
+import { deleteCartItem, updateItem } from './actions';
 
-export function Cart({ cart, userId }: { cart?: CustomerCart; userId?: string }) {
-  const { decrement } = useCart();
+export function CartDetail({ cart }: { cart?: CustomerCart }) {
   const items = cart?.items;
 
   if (!items) {
@@ -27,13 +25,15 @@ export function Cart({ cart, userId }: { cart?: CustomerCart; userId?: string })
         {items.map((item) => (
           <CartItem
             onQuantityChange={async (id, quantity) => {
-              if (userId) {
-                await updateCartItemQuantity(userId, id, quantity);
+              const item = cart.items.find((i) => i.item_id === id);
+              if (!item) {
+                return;
               }
+              item.quantity = quantity;
+              await updateItem(cart.id, item);
             }}
             onRemoveItem={async (id) => {
               await deleteCartItem(cart.id, id);
-              decrement();
             }}
             key={item.item_id}
             id={item.item_id}

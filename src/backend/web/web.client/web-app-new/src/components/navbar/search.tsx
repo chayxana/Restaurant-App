@@ -1,3 +1,5 @@
+'use client';
+
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';

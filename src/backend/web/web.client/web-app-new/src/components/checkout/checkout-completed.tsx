@@ -1,8 +1,5 @@
-'use client';
-
 import React from 'react';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { useCart } from '@/context/cart-context';
 
 interface Props {
   address: string;
@@ -11,15 +8,12 @@ interface Props {
   orderTotal: string;
 }
 
-const OrderCompletion: React.FC<Props> = ({
+export default function CheckoutCompleted({
   address,
   orderDateTime,
   orderNumber,
   orderTotal
-}: Props) => {
-  const { clearCart } = useCart();
-  clearCart();
-
+}: Props) {
   // Replace with your actual data
   const orderDetails = {
     address: address,
@@ -65,6 +59,4 @@ const OrderCompletion: React.FC<Props> = ({
       </button>
     </div>
   );
-};
-
-export default OrderCompletion;
+}

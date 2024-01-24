@@ -1,7 +1,6 @@
 'use client';
 
-import { SessionCartItem, useCart } from '@/context/cart-context';
-// import { useFormState } from 'react-dom';
+import { CustomerCartItem } from '@/lib/types/cart';
 import { addCartItem } from './actions';
 import { useFormStatus } from 'react-dom';
 
@@ -21,13 +20,11 @@ function SubmitButton() {
   );
 }
 
-export function AddToCart({ item }: { item: SessionCartItem }) {
+export function AddToCart({ item }: { item: CustomerCartItem }) {
   //   const [message, formAction] = useFormState(addItemServer, null);
-  const { increment } = useCart();
   return (
     <form
       action={async (_formData: FormData) => {
-        increment();
         await addCartItem({ ...item });
       }}
     >

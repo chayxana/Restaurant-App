@@ -5,17 +5,17 @@ import Image from 'next/image';
 import { CartItemQuantity } from './cart/cart-item-quantity';
 import { AddToCart } from './cart/add-to-cart';
 import { FoodItem } from '@/lib/types/food-item';
-import { SessionCartItem } from '@/context/cart-context';
+import { CustomerCartItem } from '@/lib/types/cart';
 
 export const Item = ({ foodItem }: { foodItem: FoodItem }) => {
   const [quantity, setQuantity] = useState(1);
-  const cartItemSession: SessionCartItem = {
-    id: foodItem.id,
-    name: foodItem.name,
-    description: foodItem.description,
+  const cartItem: CustomerCartItem = {
+    item_id: foodItem.id,
+    product_name: foodItem.name,
+    product_description: foodItem.description,
     quantity,
-    price: foodItem.price,
-    image: foodItem.image
+    unit_price: foodItem.price,
+    img: foodItem.image
   };
   return (
     <div className="m-4 max-w-sm overflow-hidden rounded shadow-lg">
@@ -41,7 +41,7 @@ export const Item = ({ foodItem }: { foodItem: FoodItem }) => {
           <CartItemQuantity quantity={quantity} onQuantityChange={setQuantity} />
         </div>
       </div>
-      <AddToCart item={cartItemSession} />
+      <AddToCart item={cartItem} />
     </div>
   );
 };

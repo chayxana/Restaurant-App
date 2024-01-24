@@ -1,14 +1,14 @@
 'use server';
 
 import { getCart } from '@/components/cart/actions';
-import { Cart } from '@/components/cart/cart';
+import { CartDetail } from '@/components/cart/cart-detail';
 import { cookies } from 'next/headers';
 
 export default async function Page() {
   const cartId = cookies().get('cartId')?.value;
   if (cartId) {
     const cart = await getCart(cartId);
-    return <Cart cart={cart} />;
+    return <CartDetail cart={cart} />;
   }
-  return <Cart />;
+  return <CartDetail />;
 }

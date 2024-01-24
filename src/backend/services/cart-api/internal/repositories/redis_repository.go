@@ -52,7 +52,7 @@ func calculateTotalPrice(items []models.LineItem) float64 {
     return totalPrice
 }
 
-func (r *CartRepository) SetItem(ctx context.Context, cartID string, newItem models.LineItem) error {
+func (r *CartRepository) AddItem(ctx context.Context, cartID string, newItem models.LineItem) error {
     // Fetch the existing cart
     existingCart, err := r.Get(ctx, cartID)
     if err != nil {
@@ -71,6 +71,30 @@ func (r *CartRepository) SetItem(ctx context.Context, cartID string, newItem mod
 	} else {
 		existingCart.LineItems = append(existingCart.LineItems, newItem)
 	}
+	existingCart.Total = calculateTotalPrice(existingCart.LineItems)
+    return r.Update(ctx, existingCart)
+}
+
+func (r *CartRepository) UpdateItem(ctx context.Context, cartID string, itemID int, newLineItem models.LineItem) error {
+    // Fetch the existing cart
+    existingCart, err := r.Get(ctx, cartID)
+    if err != nil {
+        return err
+    }
+
+    // Update the cart in Redis
+    for i, bi := range existingCart.LineItems {
+        if bi.ItemID == itemID {
+			existingItem := existingCart.LineItems[i]
+			existingItem.Quantity = newLineItem.Quantity
+			existingItem.UnitPrice = newLineItem.UnitPrice
+			existingItem.Image = newLineItem.Image
+			existingItem.ProductName = newLineItem.ProductName
+			existingItem.ProductDescription = newLineItem.ProductDescription
+			existingItem.Attributes = newLineItem.Attributes
+			existingCart.LineItems[i] = existingItem
+        }
+    }
 	existingCart.Total = calculateTotalPrice(existingCart.LineItems)
     return r.Update(ctx, existingCart)
 }

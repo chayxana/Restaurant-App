@@ -15,7 +15,8 @@ type GetCreateDeleter interface {
 	Get(ctx context.Context, cartID string) (*models.Cart, error)
 	Update(ctx context.Context, cart *models.Cart) error
 	Delete(ctx context.Context, id string) error
-	SetItem(ctx context.Context, cartID string, item models.LineItem) error
+	AddItem(ctx context.Context, cartID string, item models.LineItem) error
+	UpdateItem(ctx context.Context, cartID string, itemID int, item models.LineItem) error
 	DeleteItem(ctx context.Context, cartID string, itemID int) error
 }
 
@@ -165,8 +166,8 @@ func (h *CartHandler) Delete(c *gin.Context) error {
 
 // Update line item doc
 //
-//	@Summary		Update or add a line item
-//	@Description	update by json new line item
+//	@Summary		Add a line item
+//	@Description	Adds item into cart, if item exists sums the quantity
 //	@Tags			Cart
 //	@Accept			json
 //	@Produce		json
@@ -176,14 +177,48 @@ func (h *CartHandler) Delete(c *gin.Context) error {
 //	@Failure		400					{object}	models.HTTPError
 //	@Failure		404					{object}	models.HTTPError
 //	@Failure		500 				{object}	models.HTTPError
-//	@Router			/cart/{id}/item		[put]
-func (h *CartHandler) UpdateItem(c *gin.Context) error {
+//	@Router			/cart/{id}/item		[post]
+func (h *CartHandler) AddItem(c *gin.Context) error {
 	cartID := c.Param("id")
 	var entity models.LineItem
 	if err := c.BindJSON(&entity); err != nil {
 		return models.NewHTTPError(http.StatusBadRequest, err)
 	}
-	if err := h.repository.SetItem(c.Request.Context(), cartID, entity); err != nil {
+	if err := h.repository.AddItem(c.Request.Context(), cartID, entity); err != nil {
+		return models.NewHTTPError(http.StatusInternalServerError, err)
+	}
+	return nil
+}
+
+// Update line item doc
+//
+//	@Summary		Updates a line item
+//	@Description	Updates item in the cart,
+//	@Tags			Cart
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path						string		true	"Cart ID"
+//	@Param			itemID	path				string		true	"Item ID"
+//	@Param			lineItem						body		models.LineItem	true	"Update line item"
+//	@Success		200								{object}	models.Cart
+//	@Failure		400								{object}	models.HTTPError
+//	@Failure		404								{object}	models.HTTPError
+//	@Failure		500 							{object}	models.HTTPError
+//	@Router			/cart/{id}/item/{itemID}		[put]
+func (h *CartHandler) UpdateItem(c *gin.Context) error {
+	cartID := c.Param("id")
+	itemID := c.Param("itemID")
+
+	itemIDInt, err := strconv.Atoi(itemID)	
+	if err != nil {
+		return models.NewHTTPError(http.StatusBadRequest, err)
+	}
+
+	var entity models.LineItem
+	if err := c.BindJSON(&entity); err != nil {
+		return models.NewHTTPError(http.StatusBadRequest, err)
+	}
+	if err := h.repository.UpdateItem(c.Request.Context(), cartID, itemIDInt, entity); err != nil {
 		return models.NewHTTPError(http.StatusInternalServerError, err)
 	}
 	return nil
@@ -204,12 +239,10 @@ func (h *CartHandler) UpdateItem(c *gin.Context) error {
 //	@Failure		404							{object}	models.HTTPError
 //	@Failure		500 						{object}	models.HTTPError
 //	@Router			/cart/{id}/item/{itemID}	[delete]
-
 func (h *CartHandler) DeleteItem(c *gin.Context) error {
 	cartID := c.Param("id")
 	itemID := c.Param("itemID")
 
-	// convert itemID to int
 	itemIDInt, err := strconv.Atoi(itemID)	
 	if err != nil {
 		return models.NewHTTPError(http.StatusBadRequest, err)

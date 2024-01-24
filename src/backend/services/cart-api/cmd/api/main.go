@@ -107,7 +107,8 @@ func main() {
 			cart.GET(":id", handlers.ErrorHandler(cartHandler.Get))
 			cart.DELETE(":id", handlers.ErrorHandler(cartHandler.Delete))
 			cart.PUT(":id", handlers.ErrorHandler(cartHandler.Update))
-			cart.PUT(":id/item", handlers.ErrorHandler(cartHandler.UpdateItem)) // updates line item by CartID
+			cart.POST(":id/item", handlers.ErrorHandler(cartHandler.AddItem)) // adds item or increments quantity by CartID
+			cart.PUT(":id/item/:itemID", handlers.ErrorHandler(cartHandler.UpdateItem)) // updates line item item_id is ignored
 			cart.DELETE(":id/item/:itemID", handlers.ErrorHandler(cartHandler.DeleteItem))
 		}
 	}

@@ -32,14 +32,20 @@ type CartRepositoryMock struct {
 	mock.Mock
 }
 
+// UpdateItem implements GetCreateDeleter.
+func (r *CartRepositoryMock) UpdateItem(ctx context.Context, cartID string, itemID int, item models.LineItem) error {
+	args := r.Called(ctx, cartID, itemID, item)
+	return args.Error(0)
+}
+
 // DeleteItem implements GetCreateDeleter.
 func (r *CartRepositoryMock) DeleteItem(ctx context.Context, cartID string, itemID int) error {
 	args := r.Called(ctx, cartID, itemID)
 	return args.Error(0)
 }
 
-// SetItem implements GetCreateDeleter.
-func (r *CartRepositoryMock) SetItem(ctx context.Context, cartID string, item models.LineItem) error {
+// AddItem implements GetCreateDeleter.
+func (r *CartRepositoryMock) AddItem(ctx context.Context, cartID string, item models.LineItem) error {
 	args := r.Called(ctx, cartID, item)
 	return args.Error(0)
 }

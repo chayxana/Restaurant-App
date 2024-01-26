@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
-import org.jurabek.restaurant.order.api.events.CustomerBasket;
+import org.jurabek.restaurant.order.api.events.Cart;
 import org.jurabek.restaurant.order.api.services.OrdersService;
 
 import io.quarkus.test.junit.QuarkusTest;

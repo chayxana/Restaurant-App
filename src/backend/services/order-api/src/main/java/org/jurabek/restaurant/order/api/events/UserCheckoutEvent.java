@@ -12,8 +12,11 @@ public class UserCheckoutEvent {
     private CheckOutInfo checkOutInfo;
    
     @JsonProperty("customer_cart")
-    private CustomerBasket customerBasket;
+    private Cart customerBasket;
 
     @JsonProperty("transaction_id")
     private UUID transactionId;
+
+    @JsonProperty("checkout_id")
+    private UUID checkoutId;
 }

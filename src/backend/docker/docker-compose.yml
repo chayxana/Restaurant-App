@@ -9,12 +9,13 @@ services:
        - identity-db
     ports: 
       - "5001:80"
+    restart: always
 
   checkout-api:
     image: restaurant/checkout-api
     build: ./services/checkout-api
     depends_on:
-      - basket-api
+      - cart-api
       - payment-api
     ports:
       - 30001:30001
@@ -29,10 +30,10 @@ services:
       - 8000:8000
     restart: always
 
-  basket-api:
-    image: restaurant/basket-api
+  cart-api:
+    image: restaurant/cart-api
     container_name: basket
-    build: ./services/basket-api
+    build: ./services/cart-api
     depends_on:
       - redis
 

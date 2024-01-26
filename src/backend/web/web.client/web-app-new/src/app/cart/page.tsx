@@ -1,15 +1,14 @@
 'use server';
 
 import { getCart } from '@/components/cart/actions';
-import { Cart } from '@/components/cart/cart';
-import { authOptions } from '@/lib/auth';
-import { getServerSession } from 'next-auth';
+import { CartDetail } from '@/components/cart/cart-detail';
+import { cookies } from 'next/headers';
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
-  if (session?.user) {
-    const cart = await getCart(session.user.user_id);
-    return <Cart customerCart={cart} userId={session.user.user_id} />;
+  const cartId = cookies().get('cartId')?.value;
+  if (cartId) {
+    const cart = await getCart(cartId);
+    return <CartDetail cart={cart} />;
   }
-  return <Cart />;
+  return <CartDetail />;
 }

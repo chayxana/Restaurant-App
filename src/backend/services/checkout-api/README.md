@@ -36,7 +36,7 @@ The response will be a plain text message, either "Checkout OK" or an error mess
 ## Implementation Details
 
 When a request is made to the API endpoint, the `Checkout()` function is called, which initiates the checkout process. 
-- The checkout process involves retrieving the customer's cart items using the grpc by calling basket-api.
+- The checkout process involves retrieving the customer's cart items using the grpc by calling cart-api.
 - After that it calculates amount that user has to pay and processes payment using the payment-api.
 - When payment is successful it creates a checkout event and publishes to a message broker (e.g Kafka).
 

@@ -9,7 +9,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 import org.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
 import org.jurabek.restaurant.order.api.dtos.CustomerOrderItemsDto;
-import org.jurabek.restaurant.order.api.events.CustomerBasket;
+import org.jurabek.restaurant.order.api.events.Cart;
 import org.jurabek.restaurant.order.api.events.CustomerBasketItem;
 import org.jurabek.restaurant.order.api.models.Order;
 import org.jurabek.restaurant.order.api.models.OrderItems;
@@ -17,7 +17,7 @@ import org.jurabek.restaurant.order.api.models.OrderItems;
 @ApplicationScoped
 public class OrdersMapper {
 
-    public Order mapDtoToOrder(CustomerBasket source) {
+    public Order mapDtoToOrder(Cart source) {
         var order = new Order();
         var items = source.getItems()
                 .stream()
@@ -26,7 +26,7 @@ public class OrdersMapper {
         order.setOrderItems(items);
         order.setId(UUID.randomUUID());
         order.setOrderedDate(new Date());
-        order.setBuyerId(source.getCustomerId());
+        order.setCartId(source.getCart_id());
         return order;
     }
 

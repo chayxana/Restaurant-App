@@ -3,10 +3,9 @@ import * as grpc from '@grpc/grpc-js'
 import * as protoLoader from '@grpc/proto-loader'
 import { ProtoGrpcType } from '../gen/cart';
 import path from 'path'
-import { GetCustomerCartResponse } from '../gen/cart/GetCustomerCartResponse';
-import { GetCustomerCartRequest } from '../gen/cart/GetCustomerCartRequest';
 import { logger } from '../logger';
-
+import { GetCartRequest } from '../gen/cart/GetCartRequest';
+import { GetCartResponse__Output } from '../gen/cart/GetCartResponse';
 
 const packageDefinition = protoLoader.loadSync(
   path.resolve(__dirname, '../../pb/cart.proto'),
@@ -18,19 +17,23 @@ export const cartService = new proto.cart.CartService(
   grpc.credentials.createInsecure()
 );
 
-const asyncCustomerCartItems = (req: GetCustomerCartRequest) : Promise<GetCustomerCartResponse> => {
-  return new Promise<GetCustomerCartResponse>((resolve, reject) => {
-    cartService.GetCustomerCart(req, (err: grpc.ServiceError | null, value?: GetCustomerCartResponse) => {
-      if (err){
+const asyncCustomerCartItems = (req: GetCartRequest): Promise<GetCartResponse__Output> => {
+  return new Promise<GetCartResponse__Output>((resolve, reject) => {
+    cartService.getCart(req, (err: grpc.ServiceError | null, value?: GetCartResponse__Output) => {
+      if (err) {
         reject(err);
       } else {
-        resolve(value!!);
+        if (value) {
+          resolve(value);
+        } else {
+          reject(new Error("GetCartResponse__Output is undifined"));
+        }
       }
     })
   })
 }
 
-export default function getCustomerCartItems(customerId: string): Promise<GetCustomerCartResponse | undefined> {
-    logger.child({ "customer_id": customerId }).info("retrieving cart items for customer");
-    return asyncCustomerCartItems({ customerId });
+export default function getCustomerCartItems(cartId: string): Promise<GetCartResponse__Output> {
+  logger.child({ cartId }).info("retrieving cart items for customer");
+  return asyncCustomerCartItems({ cartId });
 }

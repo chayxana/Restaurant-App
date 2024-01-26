@@ -1,15 +1,11 @@
-'use client';
-import React from 'react';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { UserCircleIcon } from '@heroicons/react/24/solid';
-import { useCart } from '@/context/cart-context';
 import Search from './search';
 import OpenCart from '../cart/open-cart';
 import OpenUserProfile from './user-profile';
 
-const Navbar: React.FC = () => {
-  const { items } = useCart();
-
+export default async function Navbar() {
   return (
     <nav className="fixed left-0 top-0 z-30 w-full bg-white shadow-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
@@ -28,13 +24,13 @@ const Navbar: React.FC = () => {
 
         <div className="flex justify-end space-x-2 md:w-1/3">
           <Link href="/cart">
-            <OpenCart quantity={items.length} className="h-6 w-6" />
+            <Suspense fallback={<div>loading</div>}>
+              <OpenCart />
+            </Suspense>
           </Link>
           <OpenUserProfile />
         </div>
       </div>
     </nav>
   );
-};
-
-export default Navbar;
+}

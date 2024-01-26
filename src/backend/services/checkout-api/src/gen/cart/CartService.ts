@@ -2,26 +2,26 @@
 
 import type * as grpc from '@grpc/grpc-js'
 import type { MethodDefinition } from '@grpc/proto-loader'
-import type { GetCustomerCartRequest as _cart_GetCustomerCartRequest, GetCustomerCartRequest__Output as _cart_GetCustomerCartRequest__Output } from '../cart/GetCustomerCartRequest';
-import type { GetCustomerCartResponse as _cart_GetCustomerCartResponse, GetCustomerCartResponse__Output as _cart_GetCustomerCartResponse__Output } from '../cart/GetCustomerCartResponse';
+import type { GetCartRequest as _cart_GetCartRequest, GetCartRequest__Output as _cart_GetCartRequest__Output } from '../cart/GetCartRequest';
+import type { GetCartResponse as _cart_GetCartResponse, GetCartResponse__Output as _cart_GetCartResponse__Output } from '../cart/GetCartResponse';
 
 export interface CartServiceClient extends grpc.Client {
-  GetCustomerCart(argument: _cart_GetCustomerCartRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_cart_GetCustomerCartResponse__Output>): grpc.ClientUnaryCall;
-  GetCustomerCart(argument: _cart_GetCustomerCartRequest, metadata: grpc.Metadata, callback: grpc.requestCallback<_cart_GetCustomerCartResponse__Output>): grpc.ClientUnaryCall;
-  GetCustomerCart(argument: _cart_GetCustomerCartRequest, options: grpc.CallOptions, callback: grpc.requestCallback<_cart_GetCustomerCartResponse__Output>): grpc.ClientUnaryCall;
-  GetCustomerCart(argument: _cart_GetCustomerCartRequest, callback: grpc.requestCallback<_cart_GetCustomerCartResponse__Output>): grpc.ClientUnaryCall;
-  getCustomerCart(argument: _cart_GetCustomerCartRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_cart_GetCustomerCartResponse__Output>): grpc.ClientUnaryCall;
-  getCustomerCart(argument: _cart_GetCustomerCartRequest, metadata: grpc.Metadata, callback: grpc.requestCallback<_cart_GetCustomerCartResponse__Output>): grpc.ClientUnaryCall;
-  getCustomerCart(argument: _cart_GetCustomerCartRequest, options: grpc.CallOptions, callback: grpc.requestCallback<_cart_GetCustomerCartResponse__Output>): grpc.ClientUnaryCall;
-  getCustomerCart(argument: _cart_GetCustomerCartRequest, callback: grpc.requestCallback<_cart_GetCustomerCartResponse__Output>): grpc.ClientUnaryCall;
+  GetCart(argument: _cart_GetCartRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_cart_GetCartResponse__Output>): grpc.ClientUnaryCall;
+  GetCart(argument: _cart_GetCartRequest, metadata: grpc.Metadata, callback: grpc.requestCallback<_cart_GetCartResponse__Output>): grpc.ClientUnaryCall;
+  GetCart(argument: _cart_GetCartRequest, options: grpc.CallOptions, callback: grpc.requestCallback<_cart_GetCartResponse__Output>): grpc.ClientUnaryCall;
+  GetCart(argument: _cart_GetCartRequest, callback: grpc.requestCallback<_cart_GetCartResponse__Output>): grpc.ClientUnaryCall;
+  getCart(argument: _cart_GetCartRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_cart_GetCartResponse__Output>): grpc.ClientUnaryCall;
+  getCart(argument: _cart_GetCartRequest, metadata: grpc.Metadata, callback: grpc.requestCallback<_cart_GetCartResponse__Output>): grpc.ClientUnaryCall;
+  getCart(argument: _cart_GetCartRequest, options: grpc.CallOptions, callback: grpc.requestCallback<_cart_GetCartResponse__Output>): grpc.ClientUnaryCall;
+  getCart(argument: _cart_GetCartRequest, callback: grpc.requestCallback<_cart_GetCartResponse__Output>): grpc.ClientUnaryCall;
   
 }
 
 export interface CartServiceHandlers extends grpc.UntypedServiceImplementation {
-  GetCustomerCart: grpc.handleUnaryCall<_cart_GetCustomerCartRequest__Output, _cart_GetCustomerCartResponse>;
+  GetCart: grpc.handleUnaryCall<_cart_GetCartRequest__Output, _cart_GetCartResponse>;
   
 }
 
 export interface CartServiceDefinition extends grpc.ServiceDefinition {
-  GetCustomerCart: MethodDefinition<_cart_GetCustomerCartRequest, _cart_GetCustomerCartResponse, _cart_GetCustomerCartRequest__Output, _cart_GetCustomerCartResponse__Output>
+  GetCart: MethodDefinition<_cart_GetCartRequest, _cart_GetCartResponse, _cart_GetCartRequest__Output, _cart_GetCartResponse__Output>
 }

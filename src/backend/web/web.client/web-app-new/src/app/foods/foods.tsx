@@ -1,6 +1,6 @@
 import CategoriesSidebar from '@/components/categories-sidebar';
 import { Item } from '@/components/food-item';
-import RightSidebar from '@/components/right-sidebar';
+// import RightSidebar from '@/components/right-sidebar';
 import { Categories, FoodItems } from '@/lib/types/food-item';
 
 export const FoodsPage = ({
@@ -22,7 +22,7 @@ export const FoodsPage = ({
           ))}
         </div>
       </div>
-      <RightSidebar />
+      {/* <RightSidebar /> */}
     </div>
   );
 };

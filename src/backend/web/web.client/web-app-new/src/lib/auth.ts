@@ -11,7 +11,7 @@ export const authOptions: AuthOptions = {
       issuer: process.env.AUTH_ISSUER,
       authorization: {
         params: {
-          scope: 'openid profile catalog-api order-api basket-api payment-api checkout-api'
+          scope: 'openid profile catalog-api order-api cart-api payment-api checkout-api'
         }
       }
     })

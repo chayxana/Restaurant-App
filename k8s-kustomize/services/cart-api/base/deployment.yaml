@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cart-api
+  template:
+    metadata:
+      labels:
+        app: cart-api
+    spec:
+      containers:
+        - image: cart-api # must much from ./kustomization.yaml -> images[0].name
+          imagePullPolicy: IfNotPresent
+          name: cart-api
+          ports:
+            - containerPort: 5200
+          envFrom:
+            - configMapKeyRef:
+              name: cart-api
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "60m"
+            limits:
+              memory: "128Mi"
+              cpu: "100m"

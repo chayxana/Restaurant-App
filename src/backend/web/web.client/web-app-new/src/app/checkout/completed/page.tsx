@@ -1,5 +1,5 @@
 import { getOrderByTransactionID, sleep } from '@/lib/fetch';
-import OrderCompletion from './component';
+import CheckoutCompleted from '../../../components/checkout/checkout-completed';
 
 export default async function Page({ searchParams }: { searchParams?: { [key: string]: string } }) {
   const address = '';
@@ -20,7 +20,7 @@ export default async function Page({ searchParams }: { searchParams?: { [key: st
   }
 
   return (
-    <OrderCompletion
+    <CheckoutCompleted
       orderTotal={orderTotal}
       address={address}
       orderNumber={orderNumber}

@@ -1,17 +1,15 @@
 'use server';
 
-import { SessionCartItem } from '@/context/cart-context';
 import { authOptions } from '@/lib/auth';
 import { CustomerCart, CustomerCartItem, CartScheme } from '@/lib/types/cart';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
+import { cookies } from 'next/headers';
 
-const cartUrl = `${process.env.API_BASE_URL}/basket/api/v1/items`;
+const cartUrl = `${process.env.API_BASE_URL}/shoppingcart/api/v1/cart`;
 
-export async function getCart(customerId: string): Promise<CustomerCart> {
+export async function getCart(cartID: string): Promise<CustomerCart | undefined> {
   const session = await getServerSession(authOptions);
-  console.log(session?.user.token);
-
   const requestOptions: RequestInit = {
     method: 'GET',
     headers: {
@@ -23,14 +21,12 @@ export async function getCart(customerId: string): Promise<CustomerCart> {
     next: { tags: ['cart'] }
   };
 
-  const getCartUrl = `${cartUrl}/${customerId}`;
+  const getCartUrl = `${cartUrl}/${cartID}`;
   const res = await fetch(getCartUrl, requestOptions);
   if (res.status === 404) {
-    return {
-      customer_id: customerId,
-      items: []
-    };
+    return undefined
   }
+
   if (!res.ok) {
     throw new Error('Failed to fetch cart data');
   }
@@ -39,70 +35,39 @@ export async function getCart(customerId: string): Promise<CustomerCart> {
   return cart;
 }
 
-export async function addCartItem(customerId: string, cartItem: SessionCartItem) {
+export async function addCartItem(cartItem: CustomerCartItem) {
   const session = await getServerSession(authOptions);
-  const existingCart = await getCart(customerId);
+  let cartId = cookies().get('cartId')?.value;
 
-  const newCartItem = mapSessionCartItemToCartItem(cartItem);
-  const newCart = {
-    customer_id: customerId,
-    items: mergeCartItems(existingCart.items, newCartItem)
-  };
-
-  await updateCart(newCart, session?.user.token);
-  revalidateTag('cart');
-}
-
-export async function updateCartItemQuantity(
-  customerId: string,
-  itemId: number,
-  newQuantity: number
-) {
-  const session = await getServerSession(authOptions);
-  const existingCart = await getCart(customerId);
-
-  // Check if the cart has the item
-  const itemIndex = existingCart.items.findIndex((item) => item.food_id === itemId);
-  if (itemIndex === -1) {
-    throw new Error('Item not found in cart');
-  }
-  existingCart.items[itemIndex].quantity = newQuantity;
-
-  await updateCart(existingCart, session?.user.token);
-  revalidateTag('cart');
-}
-
-export async function deleteCartItem(customerId: string, itemId: number) {
-  const session = await getServerSession(authOptions);
-  const existingCart = await getCart(customerId);
-
-  // Filter out the item to be deleted
-  const updatedCartItems = existingCart.items.filter((item) => item.food_id !== itemId);
-  if (updatedCartItems.length === 0) {
-    await deleteCart(customerId, session?.user.token);
-    revalidateTag('cart');
-    return;
+  let cart: CustomerCart | undefined;
+  if (cartId) {
+    cart = await getCart(cartId);
   }
 
-  await updateCart({ ...existingCart, items: updatedCartItems }, session?.user.token);
-  revalidateTag('cart');
+  if (!cartId || !cart) {
+    cart = await createCart();
+    cartId = cart.id;
+    cookies().set('cartId', cartId);
+  }
+  await addToCart(cartId, cartItem, session?.user.token);
 }
 
-async function updateCart(cart: CustomerCart, token?: string) {
+export async function deleteCartItem(cartId: string, itemId: number) {
+  const session = await getServerSession(authOptions);
   const requestOptions: RequestInit = {
-    method: 'POST',
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${session?.user.token}`
     },
-    body: JSON.stringify(cart),
     cache: 'no-store',
     next: { tags: ['cart'] }
   };
 
+  const cartItemUrl = `${cartUrl}/${cartId}/item/${itemId}`
   try {
-    const res = await fetch(cartUrl, requestOptions);
+    const res = await fetch(cartItemUrl, requestOptions);
     if (!res.ok) {
       return 'failed to add items into cart';
     }
@@ -110,9 +75,62 @@ async function updateCart(cart: CustomerCart, token?: string) {
     console.error(error);
     return 'failed to add items into cart';
   }
+  revalidateTag('cart');
 }
 
-async function deleteCart(customerId: string, token?: string) {
+async function addToCart(cartId: string, lineItem: CustomerCartItem, token?: string) {
+  const requestOptions: RequestInit = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(lineItem),
+    cache: 'no-store',
+    next: { tags: ['cart'] }
+  };
+
+  const cartItemUrl = `${cartUrl}/${cartId}/item`
+  try {
+    const res = await fetch(cartItemUrl, requestOptions);
+    if (!res.ok) {
+      return 'failed to add items into cart';
+    }
+  } catch (error) {
+    console.error(error);
+    return 'failed to add items into cart';
+  }
+  revalidateTag('cart');
+}
+
+export async function updateItem(cartId: string, lineItem: CustomerCartItem, token?: string) {
+  const requestOptions: RequestInit = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(lineItem),
+    cache: 'no-store',
+    next: { tags: ['cart'] }
+  };
+
+  const cartItemUrl = `${cartUrl}/${cartId}/item/${lineItem.item_id}`
+  try {
+    const res = await fetch(cartItemUrl, requestOptions);
+    if (!res.ok) {
+      return 'failed to add items into cart';
+    }
+  } catch (error) {
+    console.error(error);
+    return 'failed to add items into cart';
+  }
+  revalidateTag('cart');
+}
+
+export async function deleteCart(cartID: string, token?: string) {
   const requestOptions: RequestInit = {
     method: 'DELETE',
     headers: {
@@ -124,7 +142,7 @@ async function deleteCart(customerId: string, token?: string) {
     next: { tags: ['cart'] }
   };
 
-  const deleteCartUrl = `${cartUrl}/${customerId}`;
+  const deleteCartUrl = `${cartUrl}/${cartID}`;
   try {
     const res = await fetch(deleteCartUrl, requestOptions);
     if (!res.ok) {
@@ -134,48 +152,31 @@ async function deleteCart(customerId: string, token?: string) {
     console.error(error);
     return 'failed to delete cart';
   }
+  revalidateTag('cart');
 }
 
-export async function syncClientToBackend(
-  customerCartItems: CustomerCartItem[],
-  sessionCartItems: SessionCartItem[],
-  customerId: string
-) {
-  // Update server with items only in client cart
-  for (const clientItem of sessionCartItems) {
-    const serverItem = customerCartItems.find((item) => item.food_id === clientItem.id);
-    if (!serverItem) {
-      // Add this item to the server
-      await addCartItem(customerId, clientItem);
-    } else if (clientItem.quantity !== serverItem.quantity) {
-      // Update this item's quantity on the server
-      await updateCartItemQuantity(customerId, clientItem.id, clientItem.quantity);
-    }
-  }
-}
 
-function mergeCartItems(
-  exitingItems: CustomerCartItem[],
-  newCartItem: CustomerCartItem
-): CustomerCartItem[] {
-  const itemIndex = exitingItems.findIndex((item) => item.food_id === newCartItem.food_id);
-  if (itemIndex > -1) {
-    const newItems = [...exitingItems];
-    newItems[itemIndex].quantity += newCartItem.quantity;
-    return newItems;
-  } else {
-    return [...exitingItems, newCartItem];
-  }
-}
-
-function mapSessionCartItemToCartItem(cartItem: SessionCartItem): CustomerCartItem {
-  return {
-    food_id: cartItem.id,
-    food_name: cartItem.name,
-    food_description: cartItem.description,
-    picture: cartItem.image,
-    old_unit_price: 0,
-    unit_price: cartItem.price,
-    quantity: cartItem.quantity
+export async function createCart(token?: string): Promise<CustomerCart> {
+  const requestOptions: RequestInit = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    // empty cart request
+    body: JSON.stringify({
+      "items": [],
+      "user_id": ""
+    }),
+    cache: 'no-store',
+    next: { tags: ['cart'] }
   };
+  const res = await fetch(cartUrl, requestOptions);
+  if (!res.ok) {
+    throw new Error('Failed to fetch cart data');
+  }
+  const cart: CustomerCart = CartScheme.parse(await res.json());
+  return cart;
 }
+

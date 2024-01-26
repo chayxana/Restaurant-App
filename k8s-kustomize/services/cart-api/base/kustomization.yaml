@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+resources:
+- deployment.yaml
+- service.yaml
+- redis.yaml
+- http-route.yaml
+
+configMapGenerator:
+- envs:
+  - config.env
+  name: cart-api
+
+images:
+- name: cart-api
+  newName: ghcr.io/chayxana/cart-api
+  newTag: 0.0.27

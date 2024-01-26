@@ -1,5 +1,7 @@
 package org.jurabek.restaurant.order.api.services;
 
+import java.util.UUID;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -25,6 +27,8 @@ public class CheckoutService {
     public void Checkout(UserCheckoutEvent checkoutInfo) {
         var order = mapper.mapDtoToOrder(checkoutInfo.getCustomerBasket());
         order.setTransactionID(checkoutInfo.getTransactionId());
+        order.setBuyerId(UUID.fromString(checkoutInfo.getCheckOutInfo().getUserId()));
+        order.setCheckoutID(checkoutInfo.getCheckoutId());
         
         for (var orderItems : order.getOrderItems()) {
             orderItems.setOrder(order);

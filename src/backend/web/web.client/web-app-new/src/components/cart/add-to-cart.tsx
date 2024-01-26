@@ -1,9 +1,7 @@
 'use client';
 
-import { SessionCartItem, useCart } from '@/context/cart-context';
-// import { useFormState } from 'react-dom';
+import { CustomerCartItem } from '@/lib/types/cart';
 import { addCartItem } from './actions';
-import { useSession } from 'next-auth/react';
 import { useFormStatus } from 'react-dom';
 
 function SubmitButton() {
@@ -22,23 +20,14 @@ function SubmitButton() {
   );
 }
 
-export function AddToCart({ item }: { item: SessionCartItem }) {
+export function AddToCart({ item }: { item: CustomerCartItem }) {
   //   const [message, formAction] = useFormState(addItemServer, null);
-  const { addItem } = useCart();
-  const { status, data } = useSession();
-
   return (
     <form
       action={async (_formData: FormData) => {
-        addItem({ ...item });
-        if (status === 'authenticated') {
-          await addCartItem(data.user.user_id, { ...item });
-        }
+        await addCartItem({ ...item });
       }}
     >
-      {/* <p aria-live="polite" className="sr-only" role="status">
-        {message}
-      </p> */}
       <SubmitButton />
     </form>
   );

@@ -19,15 +19,16 @@ export const CreditCardSchema = z.object({
 export const UserCheckoutSchema = z.object({
     address: AddressSchema,
     credit_card: CreditCardSchema,
-    customer_id: z.string().min(1, 'Customer ID cannot be empty'),
-    user_currency: z.string().default('EUR')
+    cart_id: z.string().min(1, 'Cart ID cannot be empty'),
+    user_currency: z.string().default('EUR'),
+    user_id: z.string().min(1, 'User ID cannot be empty'),
 })
 
 export type UserCheckoutReq = z.infer<typeof UserCheckoutSchema>;
 
 
-export interface CustomerCart {
-    customer_id: string;
+export interface Cart {
+    cart_id: string;
     items?: CartItem[];
 }
 
@@ -37,9 +38,13 @@ export interface CartItem {
     quantity: number;
 }
 
+
+const CheckoutSchemaWithoutCreditCard = UserCheckoutSchema.omit({ credit_card: true })
+type CheckoutSchemaWithoutCreditCard = z.infer<typeof CheckoutSchemaWithoutCreditCard>
+
 export interface CheckoutEvent {
     checkout_id: string;
-    transaction_id?: string;
-    user_checkout: Omit<UserCheckoutReq, "credit_card">;
-    customer_cart: CustomerCart
+    transaction_id: string;
+    user_checkout: CheckoutSchemaWithoutCreditCard;
+    customer_cart: Cart
 }

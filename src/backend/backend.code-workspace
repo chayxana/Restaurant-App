@@ -14,8 +14,8 @@
 			"path": "./services/payment-api"
 		},	
 		{
-			"name": "basket-api",
-			"path": "./services/basket-api"
+			"name": "cart-api",
+			"path": "./services/cart-api"
 		},
 		{
 			"name": "identity-api",

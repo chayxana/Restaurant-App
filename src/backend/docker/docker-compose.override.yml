@@ -13,14 +13,14 @@ services:
       - QUARKUS_OPENTELEMETRY_TRACER_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
       - QUARKUS_OPENTELEMETRY_PROPAGATORS=ottrace
 
-  basket-api:
+  cart-api:
     environment:
       - REDIS_HOST=redis:6379
       - KAFKA_BROKER=kafka:29092
       - CHECKOUT_TOPIC=checkout
       - IDENTITY_URL=http://identity-api
       - AUTH_URL=http://localhost:8080/identity
-      - BASE_PATH=/basket
+      - BASE_PATH=/shoppingcart
       - OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector:4317
   
   payment-api:
@@ -32,7 +32,7 @@ services:
     environment:
       - PORT=30001
       - HOST=0.0.0.0
-      - CART_URL=basket-api:8081
+      - CART_URL=cart-api:8081
       - PAYMENT_API_URL=payment-api:8080
       - KAFKA_BROKER=kafka:29092
       - CHECKOUT_TOPIC=checkout
@@ -69,7 +69,7 @@ services:
       - IDENTITY_URL_PUB=http://localhost:8080/identity
 
   # connect: 
-  # pgcli 'postgresql://admin:Passw0rd!@localhost:5435/identity_database'
+  # pgcli 'postgresql://admin:Passw0rd!@localhost:5433/orderdb'
   order-db:
     environment:
       - POSTGRES_PASSWORD=Passw0rd!

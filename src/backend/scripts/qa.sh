@@ -19,7 +19,7 @@ main () {
 }
 
 qa_basket_api() {
-    cd ./services/basket.api
+    cd ./services/cart-api
     sh qa.sh
 }
 

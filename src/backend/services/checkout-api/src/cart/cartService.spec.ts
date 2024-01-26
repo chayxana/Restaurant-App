@@ -1,14 +1,13 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import { GetCustomerCartRequest } from '../gen/cart/GetCustomerCartRequest';
-import { GetCustomerCartResponse } from '../gen/cart/GetCustomerCartResponse';
 import  { cartService } from './cartService';
+import { GetCartResponse } from '../gen/cart/GetCartResponse';
 
 describe('CartService', () => {
   describe('getCustomerCartItems', () => {
     it('should retrieve cart items for a customer', async () => {
       const customerId = 'customer123';
-      const expectedResponse: GetCustomerCartResponse = {
+      const expectedResponse: GetCartResponse = {
         items: [
           {
             itemId: 'item1',

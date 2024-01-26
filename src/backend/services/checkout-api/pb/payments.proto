@@ -23,6 +23,7 @@ message PaymentRequest {
   string user_id = 2;
   string order_id = 3;
   CreditCardInfo credit_card = 4;
+  string cart_id = 5;
 }
 
 message PaymentResponse {

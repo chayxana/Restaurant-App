@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.jboss.resteasy.reactive.RestQuery;
 import org.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
 import org.jurabek.restaurant.order.api.services.OrdersService;
 
@@ -25,6 +26,18 @@ public class OrdersController {
 		this.ordersService = ordersService;
 	}
 
+	@GET()
+	@Path("/find")
+	public CustomerOrderDto find(@RestQuery String transactionId) {
+		if (transactionId != null && !transactionId.isEmpty()) {
+			CustomerOrderDto order = ordersService.getOrderByTransactionId(transactionId);
+			if (order == null)
+				throw new IllegalArgumentException("transactionId is not found");
+			return order;
+		}
+		return null;
+	}
+
 	@GET
 	public List<CustomerOrderDto> getData() {
 		return this.ordersService.getAll();
@@ -36,11 +49,6 @@ public class OrdersController {
 		return ordersService.getById(orderId);
 	}
 
-	@GET
-	@Path("byTransaction/{transactionId}")
-	public CustomerOrderDto getOrderByTransactionId(String transactionId) {
-		return ordersService.getOrderByTransactionId(transactionId);
-	}
 
 	@GET
 	@Path("/customer/{customerId}")
@@ -49,7 +57,7 @@ public class OrdersController {
 	}
 
 	@DELETE
-	public void delete(String orderId){
-	    ordersService.Delete(orderId);
-    }
+	public void delete(String orderId) {
+		ordersService.Delete(orderId);
+	}
 }

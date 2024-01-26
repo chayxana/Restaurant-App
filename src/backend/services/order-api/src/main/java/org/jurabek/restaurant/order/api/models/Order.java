@@ -37,7 +37,13 @@ public class Order extends PanacheEntityBase {
     private UUID buyerId;
 
     @Column(nullable = false)
+    private UUID cartId;
+
+    @Column(nullable = false)
     private UUID transactionID;
+
+    @Column(nullable = false)
+    private UUID checkoutID;
 
     private Date orderedDate;
 

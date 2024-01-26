@@ -22,8 +22,9 @@ export const creditCardSchema = z.object({
 export const checkoutScheme = z.object({
   address: addressSchema,
   credit_card: creditCardSchema,
-  customer_id: z.string(),
-  user_currency: z.string().default('EUR')
+  cart_id: z.string(),
+  user_currency: z.string().default('EUR'),
+  user_id: z.string(),
 });
 
 export const CheckoutResponseScheme = z.object({

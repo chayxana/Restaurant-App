@@ -22,4 +22,4 @@ configMapGenerator:
 images:
 - name: identity-api
   newName: ghcr.io/chayxana/identity-api
-  newTag: 0.0.5
+  newTag: 0.0.6

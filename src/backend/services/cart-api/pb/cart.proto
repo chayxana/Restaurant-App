@@ -8,15 +8,15 @@ option java_outer_classname = "CartService";
 option java_package = "org.jurabek";
 
 service CartService {
-  rpc GetCustomerCart(GetCustomerCartRequest) returns (GetCustomerCartResponse);
+  rpc GetCart(GetCartRequest) returns (GetCartResponse);
 }
 
-message GetCustomerCartRequest {
-  string customer_id = 1;
+message GetCartRequest {
+  string cart_id = 1;
 }
 
-message GetCustomerCartResponse {
-  string customer_id = 1;
+message GetCartResponse {
+  string cart_id = 1;
   repeated CartItem items = 2;
 }
 

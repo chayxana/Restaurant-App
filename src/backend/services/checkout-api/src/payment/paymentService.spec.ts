@@ -41,14 +41,15 @@ describe("pay", () => {
         credit_card_expiration_month: 12,
         credit_card_expiration_year: 23,
       },
-      customer_id: "user123",
+      cart_id: "cart123",
+      user_id: 'user123',
       user_currency: "USD",
     };
     const orderId = "abc123";
     // Set up the expected Payment request and response
     const expectedRequest: PaymentRequest = {
       amount: 34.97,
-      userId: userCheckout.customer_id,
+      userId: userCheckout.cart_id,
       orderId: orderId,
       creditCard: {
         creditCardNumber: userCheckout.credit_card.credit_card_number,
@@ -68,7 +69,7 @@ describe("pay", () => {
       callback(null, expectedResponse);
     });
 
-    const result = await pay(cartItems, userCheckout, orderId);
+    const result = await pay(cartItems, userCheckout, orderId, "some_user");
     expect(result).to.deep.equal(expectedResponse);
   });
 });

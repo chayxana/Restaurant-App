@@ -7,6 +7,7 @@ export interface PaymentRequest {
   'userId'?: (string);
   'orderId'?: (string);
   'creditCard'?: (_payment_CreditCardInfo | null);
+  'cartId'?: (string);
 }
 
 export interface PaymentRequest__Output {
@@ -14,4 +15,5 @@ export interface PaymentRequest__Output {
   'userId': (string);
   'orderId': (string);
   'creditCard': (_payment_CreditCardInfo__Output | null);
+  'cartId': (string);
 }

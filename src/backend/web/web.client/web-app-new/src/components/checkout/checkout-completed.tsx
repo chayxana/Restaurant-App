@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import Link from 'next/link';
 
 interface Props {
   address: string;
@@ -54,9 +55,11 @@ export default function CheckoutCompleted({
         <p>Need help with anything?</p>
         <p>Call {orderDetails.helpNumber}</p>
       </div>
-      <button className="my-4 w-full rounded bg-gray-200 px-4 py-2 text-gray-800">
-        Start a new order
-      </button>
+      <Link href="/foods">
+        <button className="my-4 w-full rounded bg-gray-200 px-4 py-2 text-gray-800">
+          Start a new order
+        </button>
+      </Link>
     </div>
   );
 }

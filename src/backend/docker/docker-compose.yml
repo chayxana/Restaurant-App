@@ -9,6 +9,7 @@ services:
        - identity-db
     ports: 
       - "5001:80"
+    restart: always
 
   checkout-api:
     image: restaurant/checkout-api

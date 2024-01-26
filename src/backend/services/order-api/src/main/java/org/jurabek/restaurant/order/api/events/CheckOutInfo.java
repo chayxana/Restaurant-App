@@ -5,8 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 // CheckOutInfo.java
 @lombok.Data
 public class CheckOutInfo {
-    @JsonProperty("customer_id")
-    private String customerId;
+    @JsonProperty("user_id")
+    private String userId;
+
+    @JsonProperty("cart_id")
+    private String cartId;
 
     @JsonProperty("user_currency")
     private String userCurrency;

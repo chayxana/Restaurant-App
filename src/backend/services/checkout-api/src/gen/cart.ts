@@ -11,8 +11,8 @@ export interface ProtoGrpcType {
   cart: {
     CartItem: MessageTypeDefinition
     CartService: SubtypeConstructor<typeof grpc.Client, _cart_CartServiceClient> & { service: _cart_CartServiceDefinition }
-    GetCustomerCartRequest: MessageTypeDefinition
-    GetCustomerCartResponse: MessageTypeDefinition
+    GetCartRequest: MessageTypeDefinition
+    GetCartResponse: MessageTypeDefinition
   }
 }
 

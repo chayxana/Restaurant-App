@@ -96,8 +96,8 @@ func main() {
 	// tracedProducer := otelsarama.WrapSyncProducer(nil, p)
 	// defer tracedProducer.Close()
 
-	basketRepository := repositories.NewCartRepository(redisClient)
-	cartHandler := handlers.NewCartHandler(basketRepository)
+	cartRepository := repositories.NewCartRepository(redisClient)
+	cartHandler := handlers.NewCartHandler(cartRepository)
 
 	apiV1 := router.Group(basePath + "/api/v1")
 	{
@@ -123,7 +123,7 @@ func main() {
 			c.URL = basePath + "/swagger/doc.json"
 		}))
 
-	go grpcServer(grpcsvc.NewCartGrpcService(basketRepository))
+	go grpcServer(grpcsvc.NewCartGrpcService(cartRepository))
 	_ = router.Run()
 }
 

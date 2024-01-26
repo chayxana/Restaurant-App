@@ -10,7 +10,7 @@ import (
 var _ pbv1.CartServiceServer = (*cartGrpcService)(nil)
 
 type CartGetter interface {
-	Get(ctx context.Context, customerID string) (*models.Cart, error)
+	Get(ctx context.Context, cartID string) (*models.Cart, error)
 }
 
 type cartGrpcService struct {
@@ -23,9 +23,9 @@ func NewCartGrpcService(cartGetter CartGetter) pbv1.CartServiceServer {
 	}
 }
 
-func mapBasketToCartResponse(basket *models.Cart) *pbv1.GetCustomerCartResponse {
+func mapBasketToCartResponse(cart *models.Cart) *pbv1.GetCartResponse {
 	var cartItems []*pbv1.CartItem
-	for _, basketItem := range basket.LineItems {
+	for _, basketItem := range cart.LineItems {
 		cartItems = append(cartItems, &pbv1.CartItem{
 			ItemId:   int64(basketItem.ItemID),
 			Price:    basketItem.UnitPrice,
@@ -33,18 +33,18 @@ func mapBasketToCartResponse(basket *models.Cart) *pbv1.GetCustomerCartResponse 
 		})
 	}
 
-	return &pbv1.GetCustomerCartResponse{
-		CustomerId: basket.ID.String(),
-		Items:      cartItems,
+	return &pbv1.GetCartResponse{
+		CartId: cart.ID.String(),
+		Items:  cartItems,
 	}
 }
 
 // GetCustomerCart implements v1.CartServiceServer
-func (s *cartGrpcService) GetCustomerCart(
+func (s *cartGrpcService) GetCart(
 	ctx context.Context,
-	req *pbv1.GetCustomerCartRequest,
-) (*pbv1.GetCustomerCartResponse, error) {
-	customerBasket, err := s.getter.Get(ctx, req.GetCustomerId())
+	req *pbv1.GetCartRequest,
+) (*pbv1.GetCartResponse, error) {
+	customerBasket, err := s.getter.Get(ctx, req.GetCartId())
 	if err != nil {
 		return nil, err
 	}

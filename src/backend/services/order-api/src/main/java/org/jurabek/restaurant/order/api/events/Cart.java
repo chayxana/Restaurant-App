@@ -11,11 +11,11 @@ import lombok.Data;
  * CustomerBasketDto
  */
 @Data
-public class CustomerBasket {
+public class Cart {
 
-    @JsonProperty("customer_id")
-    private UUID customerId;
-    
+    @JsonProperty("cart_id")
+    private UUID cart_id;
+
     @JsonProperty("items")
     private List<CustomerBasketItem> items;
 }

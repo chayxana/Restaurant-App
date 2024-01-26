@@ -10,6 +10,7 @@ import {
 } from '@/lib/types/checkout';
 import { createUrl } from '@/lib/utils';
 import { getServerSession } from 'next-auth';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { ZodIssue } from 'zod';
 
@@ -23,6 +24,11 @@ export type CheckoutError = {
 };
 
 export async function checkoutServer(prevState: any, formData: FormData): Promise<CheckoutError> {
+  const cartId = cookies().get('cartId')?.value;
+  if (!cartId) {
+    return { backend_error: { error_message: 'Cart is empty' } };
+  }
+
   // payment data
   const expiration =
     formData.get('cardExpiration')?.toString()?.split('/') || 'invalid expiration date';
@@ -55,7 +61,8 @@ export async function checkoutServer(prevState: any, formData: FormData): Promis
   const checkout = checkoutScheme.parse({
     address: addresDetailsValidated.data,
     credit_card: creditCardInfoValidated.data,
-    customer_id: session?.user.user_id
+    cart_id: cartId,
+    user_id: session?.user.user_id
   });
 
   const requestOptions: RequestInit = {
@@ -71,13 +78,14 @@ export async function checkoutServer(prevState: any, formData: FormData): Promis
   };
 
   const res = await fetch(checkoutUrl, requestOptions);
+  const body = await res.json();
+  console.log(body);
   if (!res.ok) {
-    const body = JSON.stringify(await res.json());
-    console.log(body);
-    return { backend_error: { error_message: body } };
+    const error = JSON.stringify(body);
+    return { backend_error: { error_message: error } };
   }
 
-  const checkouted: CheckoutResponse = CheckoutResponseScheme.parse(await res.json());
+  const checkouted: CheckoutResponse = CheckoutResponseScheme.parse(body);
   const params = new URLSearchParams({
     transactionId: checkouted.transaction_id,
     checkoutId: checkouted.checkout_id

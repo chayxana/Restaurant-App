@@ -53,7 +53,7 @@ export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve
 const retryCount = 5;
 
 export async function getOrderByTransactionID(transactioId: string): Promise<CustomerOrder> {
-  const apiUrl = process.env.API_BASE_URL + `/order/api/v1/orders/byTransaction/${transactioId}`;
+  const apiUrl = process.env.API_BASE_URL + `/order/api/v1/orders/find?transactionId=${transactioId}`;
   const res = await fetch(apiUrl);
   if (res.ok) {
     return OrderSchema.parse(await res.json());

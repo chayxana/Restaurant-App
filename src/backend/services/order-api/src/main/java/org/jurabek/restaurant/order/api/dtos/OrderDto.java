@@ -10,8 +10,8 @@ import lombok.Data;
  * OrderDto
  */
 @Data
-public class CustomerOrderDto {
+public class OrderDto {
     private UUID id;
     private Date orderedDate;
-    private List<CustomerOrderItemsDto> orderItems;
+    private List<OrderItemDto> orderItems;
 }

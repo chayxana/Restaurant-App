@@ -6,6 +6,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
+import org.jurabek.restaurant.order.api.events.OrderCompleted;
 import org.jurabek.restaurant.order.api.events.UserCheckoutEvent;
 import org.jurabek.restaurant.order.api.mappers.OrdersMapper;
 import org.jurabek.restaurant.order.api.repositories.OrdersRepository;
@@ -16,7 +19,11 @@ public class CheckoutService {
    
     private final OrdersRepository ordersRepository;
     private final OrdersMapper mapper;
-    
+
+    @Inject
+    @Channel("order-completed")
+    private Emitter<OrderCompleted> orderCompletedEventEmitter;
+
     @Inject
     public CheckoutService(OrdersRepository ordersRepository, OrdersMapper mapper) {
         this.ordersRepository = ordersRepository;
@@ -34,6 +41,11 @@ public class CheckoutService {
             orderItems.setOrder(order);
         }
         ordersRepository.persist(order);
+
+        var event = new OrderCompleted(order.getId(), order.getCartId(), order.getBuyerId(), order.getTransactionID(),
+                order.getOrderedDate());
+
+        orderCompletedEventEmitter.send(event);
     }
 
 }

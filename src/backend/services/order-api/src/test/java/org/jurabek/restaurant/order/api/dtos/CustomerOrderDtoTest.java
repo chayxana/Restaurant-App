@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class CustomerOrderDtoTest {
     @Test
     public void testGetterAndSetters() {
-        assertThat(CustomerOrderDto.class, allOf(
+        assertThat(OrderDto.class, allOf(
                 hasValidGettersAndSetters()
         ));
     }

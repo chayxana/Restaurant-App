@@ -18,4 +18,4 @@ configMapGenerator:
 images:
 - name: cart-api
   newName: ghcr.io/chayxana/cart-api
-  newTag: 0.0.28
+  newTag: 0.0.29

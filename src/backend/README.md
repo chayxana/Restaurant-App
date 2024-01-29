@@ -1,4 +1,4 @@
-# Outdated!
+# This README is outdated!
 
 # Getting started 
 

@@ -10,13 +10,17 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/IBM/sarama"
+	"github.com/dnwe/otelsarama"
 	"github.com/jurabek/cart-api/cmd/config"
 	"github.com/jurabek/cart-api/internal/database"
 	"github.com/jurabek/cart-api/internal/docs"
+	"github.com/jurabek/cart-api/internal/events"
 	grpcsvc "github.com/jurabek/cart-api/internal/grpc"
 	"github.com/jurabek/cart-api/internal/handlers"
 	"github.com/jurabek/cart-api/internal/middlewares"
 	pbv1 "github.com/jurabek/cart-api/pb/v1"
+	"github.com/jurabek/cart-api/pkg/reciever"
 	"github.com/redis/go-redis/v9"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -87,18 +91,27 @@ func main() {
 	if err != nil {
 		fmt.Print(err)
 	}
-
-	// p, err := sarama.NewSyncProducer([]string{cfg.KafkaBroker}, nil)
-	// if err != nil {
-	// 	log.Fatal().Err(err).Msg("new producer failed!")
-	// }
-
-	// tracedProducer := otelsarama.WrapSyncProducer(nil, p)
-	// defer tracedProducer.Close()
-
 	cartRepository := repositories.NewCartRepository(redisClient)
-	cartHandler := handlers.NewCartHandler(cartRepository)
 
+	config := sarama.NewConfig()
+	config.Consumer.Offsets.AutoCommit.Enable = true
+	config.Consumer.Offsets.AutoCommit.Interval = 1 * time.Second
+
+	kafkaConsumer, error := sarama.NewConsumer([]string{cfg.KafkaBroker}, config)
+	if error != nil {
+		log.Fatal().Err(error).Msg("new consumer failed!")
+	}
+	kafkaConsumer = otelsarama.WrapConsumer(kafkaConsumer)
+
+	msgReciever := reciever.NewMessageReciever(kafkaConsumer, cfg.OrdersTopic)
+	go func() {
+		recieveErr := msgReciever.Recieve(events.NewOrderCompletedEventHandler(cartRepository))
+		log.Error().Err(recieveErr).Msg("Error recieving messages")
+	}()
+
+	go grpcServer(grpcsvc.NewCartGrpcService(cartRepository))
+
+	cartHandler := handlers.NewCartHandler(cartRepository)
 	apiV1 := router.Group(basePath + "/api/v1")
 	{
 		cart := apiV1.Group("/cart")
@@ -107,7 +120,7 @@ func main() {
 			cart.GET(":id", handlers.ErrorHandler(cartHandler.Get))
 			cart.DELETE(":id", handlers.ErrorHandler(cartHandler.Delete))
 			cart.PUT(":id", handlers.ErrorHandler(cartHandler.Update))
-			cart.POST(":id/item", handlers.ErrorHandler(cartHandler.AddItem)) // adds item or increments quantity by CartID
+			cart.POST(":id/item", handlers.ErrorHandler(cartHandler.AddItem))           // adds item or increments quantity by CartID
 			cart.PUT(":id/item/:itemID", handlers.ErrorHandler(cartHandler.UpdateItem)) // updates line item item_id is ignored
 			cart.DELETE(":id/item/:itemID", handlers.ErrorHandler(cartHandler.DeleteItem))
 		}
@@ -122,8 +135,6 @@ func main() {
 		func(c *ginSwagger.Config) {
 			c.URL = basePath + "/swagger/doc.json"
 		}))
-
-	go grpcServer(grpcsvc.NewCartGrpcService(cartRepository))
 	_ = router.Run()
 }
 
@@ -134,8 +145,7 @@ func grpcServer(svc pbv1.CartServiceServer) {
 	}
 
 	server := grpc.NewServer(
-		grpc.UnaryInterceptor(otelgrpc.UnaryServerInterceptor()),
-		grpc.StreamInterceptor(otelgrpc.StreamServerInterceptor()),
+		grpc.StatsHandler(otelgrpc.NewServerHandler()),
 	)
 	reflection.Register(server)
 

@@ -1,5 +1,6 @@
 import { getOrderByTransactionID, sleep } from '@/lib/fetch';
 import CheckoutCompleted from '../../../components/checkout/checkout-completed';
+import { revalidateTag } from 'next/cache';
 
 export default async function Page({ searchParams }: { searchParams?: { [key: string]: string } }) {
   const address = '';
@@ -18,6 +19,7 @@ export default async function Page({ searchParams }: { searchParams?: { [key: st
     );
     orderTotal = `${totalPrice.toFixed(2)} Eur`;
   }
+  revalidateTag('cart');
 
   return (
     <CheckoutCompleted

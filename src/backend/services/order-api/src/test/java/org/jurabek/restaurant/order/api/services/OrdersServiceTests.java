@@ -11,7 +11,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
+import org.jurabek.restaurant.order.api.dtos.OrderDto;
 import org.jurabek.restaurant.order.api.events.Cart;
 import org.jurabek.restaurant.order.api.mappers.OrdersMapper;
 import org.jurabek.restaurant.order.api.models.Order;
@@ -60,12 +60,12 @@ public class OrdersServiceTests {
         var order = new Order();
         var orders = List.of(order);
 
-        var dto = new CustomerOrderDto();
+        var dto = new OrderDto();
 
         when(ordersRepository.fetchAll()).thenReturn(orders);
         when(mapper.mapOrderToDto(order)).thenReturn(dto);
 
-        List<CustomerOrderDto> result = ordersService.getAll();
+        List<OrderDto> result = ordersService.getAll();
 
         Assertions.assertEquals(1, result.size());
         Assertions.assertEquals(result.get(0), dto);
@@ -76,13 +76,13 @@ public class OrdersServiceTests {
         var order = new Order();
         var orders = List.of(order);
         String customerId = UUID.randomUUID().toString();
-        var dto = new CustomerOrderDto();
+        var dto = new OrderDto();
 
         when(ordersRepository.getByBuyerId(UUID.fromString(customerId))).thenReturn(orders);
 
         when(mapper.mapOrderToDto(order)).thenReturn(dto);
 
-        List<CustomerOrderDto> result = ordersService.getOrderByCustomerId(customerId);
+        List<OrderDto> result = ordersService.getOrderByCustomerId(customerId);
 
         Assertions.assertEquals(result.size(), 1);
         Assertions.assertEquals(result.get(0), dto);
@@ -107,7 +107,7 @@ public class OrdersServiceTests {
         // arrange
         var orderId = UUID.randomUUID().toString();
         var order = new Order();
-        var orderDto = new CustomerOrderDto();
+        var orderDto = new OrderDto();
         when(ordersRepository.findById(UUID.fromString(orderId))).thenReturn(order);
         when(mapper.mapOrderToDto(order)).thenReturn(orderDto);
 

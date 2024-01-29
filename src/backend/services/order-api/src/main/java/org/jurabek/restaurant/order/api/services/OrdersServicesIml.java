@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import org.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
+import org.jurabek.restaurant.order.api.dtos.OrderDto;
 import org.jurabek.restaurant.order.api.mappers.OrdersMapper;
 import org.jurabek.restaurant.order.api.repositories.OrdersRepository;
 
@@ -27,7 +27,7 @@ public class OrdersServicesIml implements OrdersService {
     }
 
     @Override
-    public List<CustomerOrderDto> getAll() {
+    public List<OrderDto> getAll() {
         return this.ordersRepository.fetchAll()
                 .stream()
                 .map(o -> mapper.mapOrderToDto(o))
@@ -35,7 +35,7 @@ public class OrdersServicesIml implements OrdersService {
     }
 
     @Override
-    public List<CustomerOrderDto> getOrderByCustomerId(String customerId) {
+    public List<OrderDto> getOrderByCustomerId(String customerId) {
         return ordersRepository.getByBuyerId(UUID.fromString(customerId))
                 .stream()
                 .map(o -> mapper.mapOrderToDto(o))
@@ -48,13 +48,13 @@ public class OrdersServicesIml implements OrdersService {
     }
 
     @Override
-    public CustomerOrderDto getById(String orderId) {
+    public OrderDto getById(String orderId) {
         var order = ordersRepository.findById(UUID.fromString(orderId));
         return mapper.mapOrderToDto(order);
     }
 
     @Override
-    public CustomerOrderDto getOrderByTransactionId(String transactionId) {
+    public OrderDto getOrderByTransactionId(String transactionId) {
         var order = ordersRepository.getByTransactionId(UUID.fromString(transactionId));
         return mapper.mapOrderToDto(order);
     }

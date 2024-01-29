@@ -20,7 +20,7 @@ func NewCartRepository(client *redis.Client) *CartRepository {
 	return &CartRepository{client: client}
 }
 
-var ErrCartNotFound = errors.New("cart not found");
+var ErrCartNotFound = errors.New("cart not found")
 
 // Get returns cart otherwise nill
 func (r *CartRepository) Get(ctx context.Context, cartID string) (*models.Cart, error) {
@@ -30,7 +30,7 @@ func (r *CartRepository) Get(ctx context.Context, cartID string) (*models.Cart, 
 	)
 	data, err := r.client.Get(ctx, cartID).Bytes()
 	if err != nil {
-		if(err == redis.Nil){
+		if err == redis.Nil {
 			return nil, ErrCartNotFound
 		}
 		return nil, fmt.Errorf("error getting key %s: %v", cartID, err)
@@ -41,50 +41,61 @@ func (r *CartRepository) Get(ctx context.Context, cartID string) (*models.Cart, 
 		return nil, fmt.Errorf("error marshalling %v to %v", data, result)
 	}
 
+	if r.isCartCompleted(result) {
+		return nil, ErrCartNotFound
+	}
+
 	return &result, err
 }
 
+func (r *CartRepository) isCartCompleted(cart models.Cart) bool {
+	if cart.Status == models.CartStatusCompleted || cart.Status == models.CartStatusCancelled {
+		return true
+	}
+	return false
+}
+
 func calculateTotalPrice(items []models.LineItem) float64 {
-    var totalPrice float64
-    for _, item := range items {
-        totalPrice += float64(item.UnitPrice) * float64(item.Quantity)
-    }
-    return totalPrice
+	var totalPrice float64
+	for _, item := range items {
+		totalPrice += float64(item.UnitPrice) * float64(item.Quantity)
+	}
+	return totalPrice
 }
 
 func (r *CartRepository) AddItem(ctx context.Context, cartID string, newItem models.LineItem) error {
-    // Fetch the existing cart
-    existingCart, err := r.Get(ctx, cartID)
-    if err != nil {
-        return err
-    }
+	// Fetch the existing cart
+	existingCart, err := r.Get(ctx, cartID)
+	if err != nil {
+		return err
+	}
 
 	foundIndex := -1
 	for i, item := range existingCart.LineItems {
-        if item.ItemID == newItem.ItemID {
-			foundIndex = i; 
+		if item.ItemID == newItem.ItemID {
+			foundIndex = i
 			break
-        }
-    }
+		}
+	}
 	if foundIndex > -1 {
 		existingCart.LineItems[foundIndex].Quantity += newItem.Quantity
 	} else {
 		existingCart.LineItems = append(existingCart.LineItems, newItem)
 	}
 	existingCart.Total = calculateTotalPrice(existingCart.LineItems)
-    return r.Update(ctx, existingCart)
+	return r.Update(ctx, existingCart)
 }
 
 func (r *CartRepository) UpdateItem(ctx context.Context, cartID string, itemID int, newLineItem models.LineItem) error {
-    // Fetch the existing cart
-    existingCart, err := r.Get(ctx, cartID)
-    if err != nil {
-        return err
-    }
+	// Fetch the existing cart
+	existingCart, err := r.Get(ctx, cartID)
+	if err != nil {
+		return err
+	}
 
-    // Update the cart in Redis
-    for i, bi := range existingCart.LineItems {
-        if bi.ItemID == itemID {
+	// Update the cart in Redis
+	for i, bi := range existingCart.LineItems {
+		if bi.ItemID == itemID {
 			existingItem := existingCart.LineItems[i]
 			existingItem.Quantity = newLineItem.Quantity
 			existingItem.UnitPrice = newLineItem.UnitPrice
@@ -93,29 +104,29 @@ func (r *CartRepository) UpdateItem(ctx context.Context, cartID string, itemID i
 			existingItem.ProductDescription = newLineItem.ProductDescription
 			existingItem.Attributes = newLineItem.Attributes
 			existingCart.LineItems[i] = existingItem
-        }
-    }
+		}
+	}
 	existingCart.Total = calculateTotalPrice(existingCart.LineItems)
-    return r.Update(ctx, existingCart)
+	return r.Update(ctx, existingCart)
 }
 
 func (r *CartRepository) DeleteItem(ctx context.Context, cartID string, itemID int) error {
-    // Fetch the existing cart
-    existingCart, err := r.Get(ctx, cartID)
-    if err != nil {
-        return err
-    }
+	// Fetch the existing cart
+	existingCart, err := r.Get(ctx, cartID)
+	if err != nil {
+		return err
+	}
 
-    // Update the cart in Redis
-    updatedItems := []models.LineItem{}
-    for _, bi := range existingCart.LineItems {
-        if bi.ItemID != itemID {
-            updatedItems = append(updatedItems, bi)
-        }
-    }
-    existingCart.LineItems = updatedItems
+	// Update the cart in Redis
+	updatedItems := []models.LineItem{}
+	for _, bi := range existingCart.LineItems {
+		if bi.ItemID != itemID {
+			updatedItems = append(updatedItems, bi)
+		}
+	}
+	existingCart.LineItems = updatedItems
 	existingCart.Total = calculateTotalPrice(existingCart.LineItems)
-    return r.Update(ctx, existingCart)
+	return r.Update(ctx, existingCart)
 }
 
 // Update updates or creates new Cart

@@ -91,5 +91,6 @@ export async function checkoutServer(prevState: any, formData: FormData): Promis
     checkoutId: checkouted.checkout_id
   });
 
+  cookies().delete('cartId');
   redirect(createUrl(`/checkout/completed`, params));
 }

@@ -1,5 +1,6 @@
 package org.jurabek.restaurant.order.api.mappers;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -7,8 +8,8 @@ import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import org.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
-import org.jurabek.restaurant.order.api.dtos.CustomerOrderItemsDto;
+import org.jurabek.restaurant.order.api.dtos.OrderDto;
+import org.jurabek.restaurant.order.api.dtos.OrderItemDto;
 import org.jurabek.restaurant.order.api.events.Cart;
 import org.jurabek.restaurant.order.api.events.CustomerBasketItem;
 import org.jurabek.restaurant.order.api.models.Order;
@@ -39,8 +40,8 @@ public class OrdersMapper {
         return orderItems;
     }
 
-    public CustomerOrderDto mapOrderToDto(Order order) {
-        var dto = new CustomerOrderDto();
+    public OrderDto mapOrderToDto(Order order) {
+        var dto = new OrderDto();
         dto.setId(order.getId());
 
         var orderItems = order.getOrderItems()
@@ -53,16 +54,16 @@ public class OrdersMapper {
         return dto;
     }
 
-    public List<CustomerOrderDto> mapOrdersToDtos(List<Order> orders) {
+    public List<OrderDto> mapOrdersToDtos(List<Order> orders) {
         return orders.stream().map(this::mapOrderToDto).collect(Collectors.toList());
     }
 
-    public CustomerOrderItemsDto mapOrderItemsToDto(OrderItems source) {
-        var dto = new CustomerOrderItemsDto();
-        dto.setFoodId(source.getItemId());
-        dto.setFoodName(source.getItemName());
+    public OrderItemDto mapOrderItemsToDto(OrderItems source) {
+        var dto = new OrderItemDto();
+        dto.setProductId(source.getItemId());
+        dto.setProductName(source.getItemName());
         dto.setId(source.getId());
-        dto.setUnitPrice(source.getUnitPrice());
+        dto.setUnitPrice(new BigDecimal((source.getUnitPrice())));
         dto.setUnits(source.getUnits());
         return dto;
     }

@@ -2,16 +2,18 @@ package org.jurabek.restaurant.order.api.services;
 
 import java.util.List;
 
-import org.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
+import org.jurabek.restaurant.order.api.dtos.OrderDto;
 
 /**
  * OrdersService
  */
 public interface OrdersService {
-    List<CustomerOrderDto> getOrderByCustomerId(String customerId);
+    List<OrderDto> getOrderByCustomerId(String customerId);
 
-    CustomerOrderDto getOrderByTransactionId(String transactionId);
-    List<CustomerOrderDto> getAll();
-    CustomerOrderDto getById(String orderId);
+    OrderDto getOrderByTransactionId(String transactionId);
+
+    List<OrderDto> getAll();
+
+    OrderDto getById(String orderId);
     void Delete(String orderId);
 }

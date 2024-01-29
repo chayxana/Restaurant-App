@@ -11,7 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.reactive.RestQuery;
-import org.jurabek.restaurant.order.api.dtos.CustomerOrderDto;
+import org.jurabek.restaurant.order.api.dtos.OrderDto;
 import org.jurabek.restaurant.order.api.services.OrdersService;
 
 @Path("api/v1/orders")
@@ -28,9 +28,9 @@ public class OrdersController {
 
 	@GET()
 	@Path("/find")
-	public CustomerOrderDto find(@RestQuery String transactionId) {
+	public OrderDto find(@RestQuery String transactionId) {
 		if (transactionId != null && !transactionId.isEmpty()) {
-			CustomerOrderDto order = ordersService.getOrderByTransactionId(transactionId);
+			OrderDto order = ordersService.getOrderByTransactionId(transactionId);
 			if (order == null)
 				throw new IllegalArgumentException("transactionId is not found");
 			return order;
@@ -39,20 +39,20 @@ public class OrdersController {
 	}
 
 	@GET
-	public List<CustomerOrderDto> getData() {
+	public List<OrderDto> getData() {
 		return this.ordersService.getAll();
 	}
 
 	@GET
 	@Path("/{orderId}")
-	public CustomerOrderDto get(String orderId) {
+	public OrderDto get(String orderId) {
 		return ordersService.getById(orderId);
 	}
 
 
 	@GET
 	@Path("/customer/{customerId}")
-	public List<CustomerOrderDto> getOrderByCustomerId(String customerId) {
+	public List<OrderDto> getOrderByCustomerId(String customerId) {
 		return ordersService.getOrderByCustomerId(customerId);
 	}
 

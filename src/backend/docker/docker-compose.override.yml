@@ -17,7 +17,7 @@ services:
     environment:
       - REDIS_HOST=redis:6379
       - KAFKA_BROKER=kafka:29092
-      - CHECKOUT_TOPIC=checkout
+      - ORDERS_TOPIC=orders
       - IDENTITY_URL=http://identity-api
       - AUTH_URL=http://localhost:8080/identity
       - BASE_PATH=/shoppingcart

@@ -6,10 +6,10 @@ import (
 
 // Configuration injects all environment variables into object
 type Configuration struct {
-	ServerPort    string
-	RedisHost     string
-	KafkaBroker   string
-	CheckoutTopic string
+	ServerPort  string
+	RedisHost   string
+	KafkaBroker string
+	OrdersTopic string
 }
 
 // Init initializes environment variables into config
@@ -24,8 +24,8 @@ func Init() *Configuration {
 		cfg.KafkaBroker = kafkaBroker
 	}
 
-	if checkoutTopic, ok := os.LookupEnv("CHECKOUT_TOPIC"); ok {
-		cfg.CheckoutTopic = checkoutTopic
+	if ordersTopic, ok := os.LookupEnv("ORDERS_TOPIC"); ok {
+		cfg.OrdersTopic = ordersTopic
 	}
 
 	return &cfg

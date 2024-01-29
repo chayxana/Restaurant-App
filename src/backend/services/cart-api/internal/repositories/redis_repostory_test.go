@@ -59,19 +59,19 @@ func (r *RedisConnMock) Receive() (reply interface{}, err error) {
 }
 
 var items = []models.LineItem{{
-	ItemID:       1,
-	UnitPrice:    20,
-	Quantity:     1,
-	Image:      "picture",
-	ProductName:     "foodName",
+	ItemID:      1,
+	UnitPrice:   20,
+	Quantity:    1,
+	Image:       "picture",
+	ProductName: "foodName",
 },
 }
 
 func TestRedisRepository(t *testing.T) {
 
 	cart := models.Cart{
-		ID: uuid.New(),
-		LineItems:      items,
+		ID:        uuid.New(),
+		LineItems: items,
 	}
 
 	mockConnectionProvider := RedisConnectionProviderMock{}

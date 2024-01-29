@@ -209,7 +209,7 @@ func (h *CartHandler) UpdateItem(c *gin.Context) error {
 	cartID := c.Param("id")
 	itemID := c.Param("itemID")
 
-	itemIDInt, err := strconv.Atoi(itemID)	
+	itemIDInt, err := strconv.Atoi(itemID)
 	if err != nil {
 		return models.NewHTTPError(http.StatusBadRequest, err)
 	}
@@ -223,7 +223,6 @@ func (h *CartHandler) UpdateItem(c *gin.Context) error {
 	}
 	return nil
 }
-
 
 // Deletes line item doc
 //
@@ -243,7 +242,7 @@ func (h *CartHandler) DeleteItem(c *gin.Context) error {
 	cartID := c.Param("id")
 	itemID := c.Param("itemID")
 
-	itemIDInt, err := strconv.Atoi(itemID)	
+	itemIDInt, err := strconv.Atoi(itemID)
 	if err != nil {
 		return models.NewHTTPError(http.StatusBadRequest, err)
 	}

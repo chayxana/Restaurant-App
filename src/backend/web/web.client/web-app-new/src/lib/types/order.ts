@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const OrderItemSchema = z.object({
   id: z.string().uuid(),
-  foodId: z.number(),
+  productId: z.number(),
   unitPrice: z.number(),
   units: z.number()
 });

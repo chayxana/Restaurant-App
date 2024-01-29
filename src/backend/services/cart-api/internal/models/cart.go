@@ -105,4 +105,5 @@ type Cart struct {
 	Currency       *string  `json:"currency,omitempty"`
 	Status         Status   `json:"status,omitempty"`
 	OrderID        *string  `json:"order_id,omitempty"`
+	TransactionID  *string  `json:"transaction_id,omitempty"`
 }

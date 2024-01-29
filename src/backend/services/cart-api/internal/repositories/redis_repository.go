@@ -41,7 +41,7 @@ func (r *CartRepository) Get(ctx context.Context, cartID string) (*models.Cart, 
 		return nil, fmt.Errorf("error marshalling %v to %v", data, result)
 	}
 
-	if(r.isCartCompleted(result)) {
+	if r.isCartCompleted(result) {
 		return nil, ErrCartNotFound
 	}
 

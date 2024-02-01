@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "tsc ./src/instrumentation.ts && NODE_OPTIONS='-r ./src/instrumentation.js' next dev -p 3001",
     "build": "next build",
-    "start": "next start -p 3001",
+    "start": "tsc ./src/instrumentation.ts && NODE_OPTIONS='-r ./src/instrumentation.js' next start -p 3001",
     "lint": "next lint",
     "format": "prettier --write .",
     "prettier": "prettier --write --ignore-unknown .",
@@ -14,6 +14,11 @@
   "dependencies": {
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.0.18",
+    "@opentelemetry/api": "^1.7.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.48.0",
+    "@opentelemetry/sdk-node": "^0.48.0",
+    "@opentelemetry/sdk-trace-node": "^1.21.0",
+    "@opentelemetry/semantic-conventions": "^1.21.0",
     "next": "14.0.3",
     "next-auth": "^4.24.5",
     "next-themes": "^0.2.1",

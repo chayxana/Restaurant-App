@@ -17,4 +17,4 @@ configMapGenerator:
 images:
 - name: checkout-api
   newName: ghcr.io/chayxana/checkout-api
-  newTag: 0.0.6
+  newTag: 0.0.7

@@ -17,7 +17,7 @@ spec:
           imagePullPolicy: IfNotPresent
           name: order-api
           ports:
-            - containerPort: 8090
+            - containerPort: 8080
           env:
             - name: QUARKUS_HTTP_ROOT_PATH
               value: /order
@@ -28,20 +28,20 @@ spec:
                 name: order-api
           readinessProbe:
             httpGet:
-              path: /order/q/health/ready
-              port: 8090
+              path: /order/health/ready
+              port: 8080
             initialDelaySeconds: 3
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /order/q/health/live
-              port: 8090
+              path: /order/health/live
+              port: 8080
             initialDelaySeconds: 3
             periodSeconds: 10
           resources:
             requests:
-              memory: "32Mi"
-              cpu: "60m"
+              memory: "512Mi"
+              cpu: "600m"
             limits:
-              memory: "128Mi"
-              cpu: "100m"
+              memory: "1G"
+              cpu: "1000m"

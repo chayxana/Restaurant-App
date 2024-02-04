@@ -3,7 +3,7 @@ version: '3.7'
 services:
   order-api:
     environment:
-      - QUARKUS_DATASOURCE_JDBC_URL=jdbc:otel:postgresql://order-db:5432/orderdb
+      - QUARKUS_DATASOURCE_JDBC_URL=jdbc:postgresql://order-db:5432/orderdb
       - QUARKUS_DATASOURCE_USERNAME=admin
       - QUARKUS_DATASOURCE_PASSWORD=Passw0rd!
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092

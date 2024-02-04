@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kafka-init-topics
+spec:
+  template:
+    spec:
+      containers:
+      - name: kafka-init-topics
+        image: confluentinc/cp-kafka:7.2.1
+        command: ["/bin/bash", "-c"]
+        args:
+        - |
+          echo Waiting for Kafka to be ready... &&
+          cub kafka-ready -b kafka-broker.kafka.svc.cluster.local:9092 1 30 &&
+          kafka-topics --create --topic checkout --partitions 3 --replication-factor 1 --if-not-exists --bootstrap-server kafka-broker.kafka.svc.cluster.local:9092 &&
+          kafka-topics --create --topic orders --partitions 3 --replication-factor 1 --if-not-exists --bootstrap-server kafka-broker.kafka.svc.cluster.local:9092
+      restartPolicy: OnFailure

@@ -12,6 +12,7 @@ resources:
   - namespace.yaml
   - pvc.yaml
   - kafka-ui.yaml
+  - init-topics-job.yaml
 
 configMapGenerator:
 - envs:

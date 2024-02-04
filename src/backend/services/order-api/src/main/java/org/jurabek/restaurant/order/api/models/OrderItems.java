@@ -2,7 +2,7 @@ package org.jurabek.restaurant.order.api.models;
 
 import java.util.UUID;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import lombok.Getter;

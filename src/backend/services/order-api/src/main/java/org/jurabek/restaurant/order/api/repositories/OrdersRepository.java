@@ -3,7 +3,7 @@ package org.jurabek.restaurant.order.api.repositories;
 import java.util.List;
 import java.util.UUID;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import org.jurabek.restaurant.order.api.models.Order;
 

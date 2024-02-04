@@ -1,7 +1,7 @@
 package org.jurabek.restaurant.order.api.events;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import io.quarkus.grpc.GrpcClient;
 import io.smallrye.common.annotation.Blocking;

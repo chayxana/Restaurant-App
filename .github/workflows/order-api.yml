@@ -19,7 +19,7 @@ jobs:
     uses: ./.github/workflows/build-release.yml
     with:
       service-name: order-api
-      docker-file: native.Dockerfile
+      docker-file: Dockerfile
     secrets: inherit
 
   deploy:

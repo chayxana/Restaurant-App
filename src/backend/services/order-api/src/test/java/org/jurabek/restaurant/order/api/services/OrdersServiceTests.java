@@ -18,10 +18,10 @@ import org.jurabek.restaurant.order.api.models.Order;
 import org.jurabek.restaurant.order.api.models.OrderItems;
 import org.jurabek.restaurant.order.api.repositories.OrdersRepository;
 
-import com.google.inject.Inject;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
+import jakarta.inject.Inject;
 
 @QuarkusTest
 public class OrdersServiceTests {

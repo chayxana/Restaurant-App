@@ -9,3 +9,6 @@ build:
 	
 run:
 	yarn start
+
+gen-proto:
+	./genproto.sh

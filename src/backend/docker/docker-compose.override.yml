@@ -6,7 +6,7 @@ services:
       - QUARKUS_DATASOURCE_JDBC_URL=jdbc:otel:postgresql://order-db:5432/orderdb
       - QUARKUS_DATASOURCE_USERNAME=admin
       - QUARKUS_DATASOURCE_PASSWORD=Passw0rd!
-      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - QUARKUS_GRPC_CLIENTS_PAYMENTSERVICE_HOST=payment-api
       - QUARKUS_GRPC_CLIENTS_PAYMENTSERVICE_PORT=8080
       - QUARKUS_LOG_CONSOLE_JSON=true
@@ -34,7 +34,7 @@ services:
       - HOST=0.0.0.0
       - CART_URL=cart-api:8081
       - PAYMENT_API_URL=payment-api:8080
-      - KAFKA_BROKER=kafka:29092
+      - KAFKA_BROKER=kafka:9092
       - CHECKOUT_TOPIC=checkout
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
       - BASE_URL=/checkout

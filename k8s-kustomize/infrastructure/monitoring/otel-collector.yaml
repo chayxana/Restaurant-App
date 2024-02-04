@@ -1,0 +1,87 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: simplest
+spec:
+  config: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: ${env:MY_POD_IP}:4317
+          http:
+            endpoint: ${env:MY_POD_IP}:4318
+      # loki:
+      #   protocols:
+      #     http:
+      #       endpoint: 0.0.0.0:3500
+      #     grpc:
+      #       endpoint: 0.0.0.0:3600
+      #   use_incoming_timestamp: true
+
+    exporters:
+      prometheus:
+        endpoint: "0.0.0.0:8889"
+        const_labels:
+          env: local
+
+      otlp:
+        endpoint: tempo:4317
+        tls:
+          insecure: true
+
+      logging:
+        loglevel: debug
+
+      loki:
+        endpoint: http://loki:3100/loki/api/v1/push
+
+      otlphttp:
+        endpoint: "https://collector.gethelios.dev"
+        traces_endpoint: "https://collector.gethelios.dev/v1/traces"
+        headers:
+          Authorization: ${env:HS_API_TOKEN}
+
+      otlp/jaeger: # Jaeger supports OTLP directly
+        endpoint: jaeger-all-in-one:4317
+        tls:
+          insecure: true
+      zipkin:
+        endpoint: http://zipkin-all-in-one:9411/api/v2/spans
+
+    processors:
+      batch:
+
+      attributes:
+        actions:
+          - action: insert
+            key: loki.attribute.labels
+            value: container
+          - action: insert
+            key: loki.format
+            value: raw
+
+    extensions:
+      health_check:
+      pprof:
+        endpoint: :1888
+      zpages:
+        endpoint: :55679
+
+    service:
+      extensions: [pprof, zpages, health_check]
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [otlp, otlphttp, otlp/jaeger, zipkin]
+
+        metrics:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [logging, prometheus]
+
+        logs:
+          receivers: [loki]
+          processors: [attributes]
+          exporters: [loki]

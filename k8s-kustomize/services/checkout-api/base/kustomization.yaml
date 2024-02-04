@@ -7,20 +7,14 @@ generatorOptions:
 resources:
 - deployment.yaml
 - service.yaml
-- order-pgsql.yaml
 - http-route.yaml
 
 configMapGenerator:
 - envs:
   - config.env
-  name: order-api
-
-secretGenerator:
-- envs:
-  - .env.secret
-  name: order-api
+  name: checkout-api
 
 images:
-- name: order-api
-  newName: ghcr.io/chayxana/order-api
-  newTag: 1.0.19
+- name: checkout-api
+  newName: ghcr.io/chayxana/checkout-api
+  newTag: 0.0.6

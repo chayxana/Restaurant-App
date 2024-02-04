@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkout-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: checkout-api
+  template:
+    metadata:
+      labels:
+        app: checkout-api
+    spec:
+      containers:
+        - image: checkout-api # must much from ./kustomization.yaml -> images[0].name
+          imagePullPolicy: IfNotPresent
+          name: checkout-api
+          ports:
+            - containerPort: 5200
+          envFrom:
+            - configMapRef:
+                name: checkout-api
+          resources:
+            requests:
+              memory: "122Mi"
+              cpu: "200m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"

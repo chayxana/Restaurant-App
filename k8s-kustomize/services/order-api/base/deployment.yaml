@@ -19,34 +19,13 @@ spec:
           ports:
             - containerPort: 8090
           env:
-            - name: BASKET_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: order-api
-                  key: basket.url
-            - name: QUARKUS_PROFILE
-              valueFrom:
-                configMapKeyRef:
-                  name: order-api
-                  key: env.var
-
-            - name: QUARKUS_DATASOURCE_JDBC_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: order-api
-                  key: datasource.url
-            - name: QUARKUS_DATASOURCE_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: order-api
-                  key: db.username
-            - name: QUARKUS_DATASOURCE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: order-api
-                  key: db.password
             - name: QUARKUS_HTTP_ROOT_PATH
               value: /order
+          envFrom:
+            - configMapRef:
+                name: order-api
+            - secretRef:
+                name: order-api
           readinessProbe:
             httpGet:
               path: /order/q/health/ready

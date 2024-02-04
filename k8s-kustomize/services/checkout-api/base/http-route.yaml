@@ -1,7 +1,7 @@
 apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: HTTPRoute
 metadata:
-  name: cart-api
+  name: checkout-api
 spec:
   parentRefs:
   - kind: Gateway
@@ -11,7 +11,7 @@ spec:
   - matches:
     - path:
         type: PathPrefix
-        value: /shoppingcart
+        value: /checkout
     backendRefs:
-    - name: cart-api
+    - name: checkout-api
       port: 80

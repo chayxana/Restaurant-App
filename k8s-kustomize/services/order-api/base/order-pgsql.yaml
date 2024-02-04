@@ -28,19 +28,9 @@ spec:
         app: order-pgsql-database
     spec:
       containers:
-        - env:
-            - name: POSTGRES_DB
-              value: orderdb
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: order-api
-                  key: db.password
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: order-api
-                  key: db.username
+        - envFrom:
+            - secretRef:
+                name: order-api
           image: postgres:alpine
           imagePullPolicy: IfNotPresent
           name: pgsql
@@ -67,7 +57,7 @@ metadata:
     app: order-pgsql-database
   name: order-pgsql-database
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 5432
       targetPort: 5432

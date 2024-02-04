@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: dev
 
 resources:
-- ../base
+  - ../base

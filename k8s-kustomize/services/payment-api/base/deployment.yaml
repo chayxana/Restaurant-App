@@ -19,11 +19,6 @@ spec:
         ports:
         - containerPort: 8080
         env:
-        - name: OTEL_EXPORTER_OTLP_ENDPOINT
-          valueFrom:
-            configMapKeyRef:
-              name: payment-api
-              key: redis.host
         - name: ENABLE_TEST_CARDS
           valueFrom:
             configMapKeyRef:

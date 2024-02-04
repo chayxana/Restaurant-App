@@ -19,8 +19,8 @@ spec:
           ports:
             - containerPort: 5200
           envFrom:
-            - configMapKeyRef:
-              name: cart-api
+            - configMapRef:
+                name: cart-api
           resources:
             requests:
               memory: "32Mi"

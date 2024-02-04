@@ -5,3 +5,4 @@ resources:
   - namespaces.yaml
   - istio-profile
   - gateway
+  - kafka

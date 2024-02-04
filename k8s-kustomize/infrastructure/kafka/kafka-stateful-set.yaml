@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kafka-broker
+spec:
+  serviceName: "kafka-broker"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-broker
+  template:
+    metadata:
+      labels:
+        app: kafka-broker
+    spec:
+      containers:
+        - name: kafka
+          image: docker.io/bitnami/kafka:3.6
+          envFrom:
+            - configMapRef:
+                name: kafka-broker-config
+          ports:
+            - containerPort: 9092
+              name: kafka
+            - containerPort: 9093
+              name: controller
+          volumeMounts:
+            - name: kafka-broker-data
+              mountPath: /bitnami
+
+      volumes:
+        - name: kafka-broker-data
+          persistentVolumeClaim:
+            claimName: kafka-broker-data-pvc

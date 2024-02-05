@@ -18,6 +18,10 @@ spec:
         name: payment-api
         ports:
         - containerPort: 8080
+      
+        envFrom:
+          - configMapRef:
+              name: payment-api
         env:
         - name: ENABLE_TEST_CARDS
           valueFrom:

@@ -6,3 +6,5 @@ resources:
   - istio-profile
   - gateway
   - kafka
+  - minio
+  - monitoring

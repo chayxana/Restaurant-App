@@ -1,53 +1,31 @@
 apiVersion: opentelemetry.io/v1alpha1
 kind: OpenTelemetryCollector
 metadata:
-  name: simplest
+  name: otel 
 spec:
+  mode: daemonset
   config: |
     receivers:
       otlp:
         protocols:
           grpc:
-            endpoint: ${env:MY_POD_IP}:4317
           http:
-            endpoint: ${env:MY_POD_IP}:4318
-      # loki:
-      #   protocols:
-      #     http:
-      #       endpoint: 0.0.0.0:3500
-      #     grpc:
-      #       endpoint: 0.0.0.0:3600
-      #   use_incoming_timestamp: true
 
     exporters:
-      prometheus:
-        endpoint: "0.0.0.0:8889"
-        const_labels:
-          env: local
-
       otlp:
-        endpoint: tempo:4317
+        endpoint: tempo-tempostack-distributor.monitoring.svc.cluster.local:4317
         tls:
           insecure: true
 
       logging:
         loglevel: debug
 
-      loki:
-        endpoint: http://loki:3100/loki/api/v1/push
 
       otlphttp:
         endpoint: "https://collector.gethelios.dev"
         traces_endpoint: "https://collector.gethelios.dev/v1/traces"
         headers:
           Authorization: ${env:HS_API_TOKEN}
-
-      otlp/jaeger: # Jaeger supports OTLP directly
-        endpoint: jaeger-all-in-one:4317
-        tls:
-          insecure: true
-      zipkin:
-        endpoint: http://zipkin-all-in-one:9411/api/v2/spans
 
     processors:
       batch:
@@ -74,14 +52,24 @@ spec:
         traces:
           receivers: [otlp]
           processors: [batch]
-          exporters: [otlp, otlphttp, otlp/jaeger, zipkin]
+          exporters: [otlp, otlphttp]
 
         metrics:
           receivers: [otlp]
           processors: [batch]
-          exporters: [logging, prometheus]
-
-        logs:
-          receivers: [loki]
-          processors: [attributes]
-          exporters: [loki]
+          exporters: [logging]
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: generate-traces
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: tracegen
+          image: ghcr.io/grafana/xk6-client-tracing:v0.0.2
+          env:
+            - name: ENDPOINT
+              value: otel-collector.monitoring.svc.cluster.local:4317

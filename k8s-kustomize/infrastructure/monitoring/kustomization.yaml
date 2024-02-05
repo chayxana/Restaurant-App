@@ -8,3 +8,6 @@ generatorOptions:
 
 resources:
   - "namespace.yaml"
+  - "tempo.yaml"
+  - "otel-collector.yaml"
+  - "grafana.yaml"

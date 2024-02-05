@@ -16,7 +16,7 @@ services:
   cart-api:
     environment:
       - REDIS_HOST=redis:6379
-      - KAFKA_BROKER=kafka:29092
+      - KAFKA_BROKER=kafka:9092
       - ORDERS_TOPIC=orders
       - IDENTITY_URL=http://identity-api
       - AUTH_URL=http://localhost:8080/identity
@@ -48,11 +48,11 @@ services:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
       - ENV=dev
 
-  web-app:
-    environment:
-      - API_BASE_URL=http://traefik:80
-      - NEXT_SHARP_PATH=./node_modules/sharp
-      - AUTH_ISSUER=http://host.docker.internal:8080/identity
+  # web-app:
+  #   environment:
+  #     - API_BASE_URL=http://traefik:80
+  #     - NEXT_SHARP_PATH=./node_modules/sharp
+  #     - AUTH_ISSUER=http://host.docker.internal:8080/identity
 
   identity-api:
     environment:

@@ -64,16 +64,16 @@ services:
   #     context: ./web/web.admin/dashboard
   #     dockerfile: local.Dockerfile
 
-  web-app:
-    image: restaurant/web-app
-    build:
-      context: ./web/web.client/web-app-new
-      dockerfile: Dockerfile
-    ports:
-      - 3001:3000
-    extra_hosts:
-      - "host.docker.internal:host-gateway" # run in your host machine command:
-                                            # sudo sh -c "echo '127.0.0.1 \t host.docker.internal' >> /etc/hosts"
+  # web-app:
+  #   image: restaurant/web-app
+  #   build:
+  #     context: ./web/web.client/web-app-new
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 3001:3000
+  #   extra_hosts:
+  #     - "host.docker.internal:host-gateway" # run in your host machine command:
+  #                                           # sudo sh -c "echo '127.0.0.1 \t host.docker.internal' >> /etc/hosts"
 
   order-db:
     image: postgres:alpine

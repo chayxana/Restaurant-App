@@ -8,8 +8,8 @@ import { Resource } from '@opentelemetry/resources';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
 
-import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
-diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
+// import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
+// diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
 
 const sdk = new NodeSDK({
     resource: new Resource({

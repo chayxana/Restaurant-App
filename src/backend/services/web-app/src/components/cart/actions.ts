@@ -6,7 +6,7 @@ import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 
-const cartUrl = `${process.env.API_BASE_URL}/shoppingcart/api/v1/cart`;
+const cartUrl = `${process.env.INTERNAL_API_BASE_URL}/shoppingcart/api/v1/cart`;
 
 export async function getCart(cartID: string): Promise<CustomerCart | undefined> {
   const session = await getServerSession(authOptions);

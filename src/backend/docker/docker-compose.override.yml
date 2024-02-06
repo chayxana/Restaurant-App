@@ -50,7 +50,7 @@ services:
 
   # web-app:
   #   environment:
-  #     - API_BASE_URL=http://traefik:80
+  #     - INTERNAL_API_BASE_URL=http://traefik:80
   #     - NEXT_SHARP_PATH=./node_modules/sharp
   #     - AUTH_ISSUER=http://host.docker.internal:8080/identity
 

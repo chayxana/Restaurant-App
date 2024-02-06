@@ -2,12 +2,12 @@ import { Categories, CategoriesScheme, FoodItems, FoodItemsScheme } from './type
 import { CustomerOrder, OrderSchema } from './types/order';
 
 export async function fetchFoodItems(): Promise<FoodItems> {
-  const apiUrl = process.env.API_BASE_URL + '/catalog/items/all';
+  const apiUrl = process.env.INTERNAL_API_BASE_URL + '/catalog/items/all';
   return await fetchItems(apiUrl);
 }
 
 export async function fetchFoodItemsByCategory(category: string): Promise<FoodItems> {
-  const apiUrl = process.env.API_BASE_URL + `/catalog/items/all?category_name=${category}`;
+  const apiUrl = process.env.INTERNAL_API_BASE_URL + `/catalog/items/all?category_name=${category}`;
   return await fetchItems(apiUrl);
 }
 
@@ -21,7 +21,7 @@ async function fetchItems(apiUrl: string) {
   const updatedItems = items.map((item) => {
     return {
       ...item,
-      image: process.env.API_BASE_URL + item.image
+      image: process.env.PUBLIC_API_BASE_URL_PUBLIC + item.image
     };
   });
 
@@ -29,7 +29,7 @@ async function fetchItems(apiUrl: string) {
 }
 
 export async function fetchCategories(): Promise<Categories> {
-  const apiUrl = process.env.API_BASE_URL + '/catalog/categories';
+  const apiUrl = process.env.INTERNAL_API_BASE_URL + '/catalog/categories';
   const res = await fetch(apiUrl);
   if (!res.ok) {
     throw new Error('Failed to fetch categories data');
@@ -40,7 +40,7 @@ export async function fetchCategories(): Promise<Categories> {
 }
 
 export async function getUserInfo(userId: string) {
-  const apiUrl = process.env.API_BASE_URL + `/users/${userId}`;
+  const apiUrl = process.env.INTERNAL_API_BASE_URL + `/users/${userId}`;
   const res = await fetch(apiUrl);
   if (!res.ok) {
     throw new Error('Failed to fetch user info');
@@ -53,7 +53,7 @@ export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve
 const retryCount = 2;
 
 export async function getOrderByTransactionID(transactioId: string): Promise<CustomerOrder> {
-  const apiUrl = process.env.API_BASE_URL + `/order/api/v1/orders/find?transactionId=${transactioId}`;
+  const apiUrl = process.env.INTERNAL_API_BASE_URL + `/order/api/v1/orders/find?transactionId=${transactioId}`;
   const res = await fetch(apiUrl);
   if (res.ok) {
     return OrderSchema.parse(await res.json());

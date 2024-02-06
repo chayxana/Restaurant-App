@@ -1,80 +1,78 @@
 {
-	"folders": [
-		{
-			"name": "github",
-			"path": "../../.github"
-		},
-		
-		{
-			"name": "checkout-api",
-			"path": "./services/checkout-api"
-		},
-		{
-			"name": "payment-api",
-			"path": "./services/payment-api"
-		},	
-		{
-			"name": "cart-api",
-			"path": "./services/cart-api"
-		},
-		{
-			"name": "identity-api",
-			"path": "./services/identity-api"
-		},
-		{
-			"name": "catalog-api",
-			"path": "./services/catalog-api"
-		},
-		{
-			"name": "order-api",
-			"path": "./services/order-api"
-		},
+  "folders": [
+    {
+      "name": "github",
+      "path": "../../.github"
+    },
 
-		{
-			"name": "dashboard-app",
-			"path": "./web/web.admin/dashboard"
-		},
-		{
-			"name": "react-web",
-			"path": "./web/web.client"
-		},
-		{
-			"path": "./scripts"
-		},
-		{
-			"path": "./services/protobuff"
-		},
-		{
-			"path": "./load-tests"
-		},
-		{
-			"name": "k8s-kustomize",
-			"path": "../../k8s-kustomize"
-		},
-		{
-			"name": "docker",
-			"path": "./docker"
-		},	
-		{
-			"name": "nginx",
-			"path": "./nginx"
-		}
-	],
-	"settings": {
-		"files.exclude": {
-			"**/.classpath": true,
-			"**/.project": true,
-			"**/.settings": true,
-			"**/.factorypath": true
-		},
-		"java.configuration.updateBuildConfiguration": "interactive",
-		"dotenv.enableAutocloaking": false,
-		"java.compile.nullAnalysis.mode": "automatic",
-		"yaml.schemas": {
-			"https://json.schemastore.org/github-workflow.json": "file:///Users/jurabek/dev/Restaurant-App/.github/workflows/deploy.yml"
-		},
-		"cSpell.words": [
-			"pino"
-		]
-	}
+    {
+      "name": "checkout-api",
+      "path": "./services/checkout-api"
+    },
+    {
+      "name": "payment-api",
+      "path": "./services/payment-api"
+    },
+    {
+      "name": "cart-api",
+      "path": "./services/cart-api"
+    },
+    {
+      "name": "identity-api",
+      "path": "./services/identity-api"
+    },
+    {
+      "name": "catalog-api",
+      "path": "./services/catalog-api"
+    },
+    {
+      "name": "order-api",
+      "path": "./services/order-api"
+    },
+
+    {
+      "name": "dashboard-app",
+      "path": "./web/web.admin/dashboard"
+    },
+    {
+      "name": "frontend",
+      "path": "./services/web-app"
+    },
+    {
+      "path": "./scripts"
+    },
+    {
+      "path": "./services/protobuff"
+    },
+    {
+      "path": "./load-tests"
+    },
+    {
+      "name": "k8s-kustomize",
+      "path": "../../k8s-kustomize"
+    },
+    {
+      "name": "docker",
+      "path": "./docker"
+    },
+    {
+      "name": "nginx",
+      "path": "./nginx"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.classpath": true,
+      "**/.project": true,
+      "**/.settings": true,
+      "**/.factorypath": true
+    },
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "dotenv.enableAutocloaking": false,
+    "java.compile.nullAnalysis.mode": "automatic",
+    "yaml.schemas": {
+      "https://json.schemastore.org/github-workflow.json": "file:///Users/jurabek/dev/Restaurant-App/.github/workflows/deploy.yml"
+    },
+    "cSpell.words": ["pino"]
+  }
 }

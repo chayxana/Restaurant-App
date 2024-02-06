@@ -17,4 +17,4 @@ secretGenerator:
 images:
 - name: web-app
   newName: ghcr.io/chayxana/web-app
-  newTag: 0.0.0
+  newTag: 0.0.2

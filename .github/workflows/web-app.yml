@@ -1,40 +1,35 @@
+  
 name: web-app
 
 on:
   push:
     branches:
-      - develop
+    - develop
     paths:
-      - 'src/backend/web/web.client/web-app/**'
-      - '.github/workflows/web-app.yml'
+    - 'src/backend/services/web-app/**'
+    - '.github/workflows/web-app.yml'
+
   pull_request:
     branches:
-      - develop
+    - develop
     paths:
-      - 'src/backend/web/web.client/web-app/**'
-      - '.github/workflows/web-app.yml'
+    - 'src/backend/services/web-app/**'
+    - '.github/workflows/web-app.yml'
+
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build-release:
+    uses: ./.github/workflows/build-release.yml
+    with:
+      service-name: web-app
+    secrets: inherit
 
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: '0'
+  deploy:
+    if: github.ref == 'refs/heads/develop'
+    needs:
+      - build-release
+    uses: ./.github/workflows/deploy.yml
+    with:
+      service-name: web-app
+      version: ${{ needs.build-release.outputs.new-version }}
 
-    - name: Use Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: '8.x'
-    
-    - name: Install Packages
-      run: npm install
-      working-directory: ./src/backend/web/web.client/web-app/
-
-    - name: Build
-      run: npm run build --if-present
-      working-directory: ./src/backend/web/web.client/web-app/
-      
-      env:
-        CI: true

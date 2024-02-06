@@ -3,5 +3,5 @@ kind: Kustomization
 
 namespace: dev
 
-bases:
+resources:
 - ../base

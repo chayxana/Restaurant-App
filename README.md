@@ -29,9 +29,10 @@ The architecture proposes a micro-service oriented architecture implementation w
 | 1. | Identity API (.NET Core + IdentityServer4) | Identity management service, powered by OAuth2 and OpenID Connect             | ![Build Status](https://github.com/chayxana/Restaurant-App/actions/workflows/identity-api.yml/badge.svg)   | [dev](#) \| [prod](#) |
 | 2. | Cart API (Golang + Redis)                  | Manages customer basket in order to keep items on in-memory cache using redis | ![Build Status](https://github.com/chayxana/Restaurant-App/actions/workflows/cart-api.yml/badge.svg)       | [dev](#) \| [prod](#) |
 | 3. | Catalog API (Rust + Rocket, PostgreSQL)    | Manages data for showing restaurant menu                                      | ![Build Status](https://github.com/chayxana/Restaurant-App/actions/workflows/catalog-api.yml/badge.svg)    | [dev](#) \| [prod](#) |
-| 4. | Order API (Java + Spring Boot)             | Manages customer orders                                                       | ![Build Status](https://github.com/chayxana/Restaurant-App/actions/workflows/order-api.yml/badge.svg)      | [dev](#) \| [prod](#) |
+| 4. | Order API (Java + Quarkus + Native Build)  | Manages customer orders                                                       | ![Build Status](https://github.com/chayxana/Restaurant-App/actions/workflows/order-api.yml/badge.svg)      | [dev](#) \| [prod](#) |
 | 5. | Ceckout API (Node.js + Express)            | Responsible for checkout functionality                                        | ![Build Status](https://github.com/chayxana/Restaurant-App/actions/workflows/checkout-api.yml/badge.svg)   | [dev](#) \| [prod](#) |
 | 6. | Payment API (Golang)                       | Fake payment API (Payment service abstracting PSP)                            | ![Build Status](https://github.com/chayxana/Restaurant-App/actions/workflows/payment-api.yml/badge.svg)    | [dev](#) \| [prod](#) |
+| 6. | Web App (Typescript + Next.js ❤️ )          | Frontend application                                                          | ![Build Status](https://github.com/chayxana/Restaurant-App/actions/workflows/web-app.yml/badge.svg)        | [dev](#) \| [prod](#) |
 
 ## Web App
 Web app developed using Next.js with SSR

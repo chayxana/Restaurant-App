@@ -43,7 +43,6 @@ COPY --from=builder /app/.next/static ./.next/static
 
 RUN ls -a
 
-
 EXPOSE 3000
 
 ENV PORT 3000

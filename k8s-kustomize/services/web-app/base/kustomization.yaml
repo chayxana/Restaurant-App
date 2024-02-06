@@ -1,17 +1,20 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+resources:
+  - "deployment.yaml"
+
 generatorOptions:
   disableNameSuffixHash: true
 
 configMapGenerator:
-- envs:
-  - config.env
+- files:
+  - config-file=config.env
   name: web-app
 
 secretGenerator:
-- envs:
-  - .secret
+- files:
+  - secret-file=.secret.env
   name: web-app
 
 images:

@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+  namespace: default
+  labels:
+    app: web-app
+spec:
+  selector:
+    matchLabels:
+      app: web-app
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+        - name: web-app
+          image: web-app
+          resources:
+            requests:
+              cpu: 300m
+              memory: 300Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+          envFrom:
+            - configMapRef:
+                name: web-app
+            - secretRef:
+                name: web-app
+          ports:
+            - containerPort: 3000
+              name: web-app
+          volumeMounts:
+            - name: localtime
+              mountPath: /etc/localtime
+
+            - name: config
+              mountPath: /app/.env.local
+              readOnly: true
+              subPath: .env.local
+
+            - name: secret
+              mountPath: /app/.env.production
+              readOnly: true
+              subPath: .env.production
+
+      volumes:
+        - name: localtime
+          hostPath:
+            path: /usr/share/zoneinfo/Asia/Shanghai
+
+        - name: config
+          configMap:
+            name: web-app
+            items:
+              - key: config-file
+                path: .env.local
+
+        - name: secret
+          secret:
+            secretName: web-app
+            items:
+              - key: secret-file
+                path: .env.production
+      restartPolicy: Always

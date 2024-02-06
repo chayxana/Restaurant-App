@@ -3,13 +3,13 @@ kind: Kustomization
 
 namespace: dev
 
-bases:
+resources:
   - "../base"
 
-patchesStrategicMerge:
-  - http_route_patch.yaml
+# patchesStrategicMerge:
+#   - http_route_patch.yaml
 
-configMapGenerator:
-  - name: identity-api
-    envs: [config.env]
-    behavior: merge
+# configMapGenerator:
+#   - name: identity-api
+#     envs: [config.env]
+#     behavior: merge

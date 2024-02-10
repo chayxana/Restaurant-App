@@ -15,13 +15,13 @@ use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 use dotenvy::dotenv;
 use okapi::openapi3::Info;
 use okapi::openapi3::OpenApi;
-use opentelemetry::global;
-use opentelemetry::sdk::propagation::TraceContextPropagator;
-use opentelemetry::sdk::trace::Config;
-use opentelemetry::sdk::trace::TracerProvider;
-use opentelemetry::sdk::Resource;
-use opentelemetry::KeyValue;
-use opentelemetry_otlp::{ExportConfig, SpanExporter, TonicConfig};
+// use opentelemetry::global;
+// use opentelemetry::sdk::propagation::TraceContextPropagator;
+// use opentelemetry::sdk::trace::Config;
+// use opentelemetry::sdk::trace::TracerProvider;
+// use opentelemetry::sdk::Resource;
+// use opentelemetry::KeyValue;
+// use opentelemetry_otlp::{ExportConfig, SpanExporter, TonicConfig};
 use rocket::fairing::AdHoc;
 use rocket::fs::{relative, FileServer};
 use rocket::Build;
@@ -65,7 +65,7 @@ async fn rocket() -> _ {
     println!("manifest dir: {}", env!("CARGO_MANIFEST_DIR"));
     dotenv().ok();
 
-    init_tracer();
+    // init_tracer();
 
     let base_url = env::var("BASE_URL").unwrap_or_else(|_| "/".to_string());
     println!("base_url: {}", base_url);
@@ -94,10 +94,10 @@ async fn rocket() -> _ {
             category::get_categories
         )
     };
-    let tracing_fairing = tracing::tracing::Tracing {};
+    // let tracing_fairing = tracing::tracing::Tracing {};
 
     rocket
-        .attach(tracing_fairing)
+        // .attach(tracing_fairing)
         .attach(AdHoc::on_ignite("Diesel Migrations", run_migrations))
         .mount("/health", routes![health::ready, health::live])
         .mount(
@@ -117,43 +117,43 @@ async fn rocket() -> _ {
         )
 }
 
-fn init_tracer() {
-    global::set_text_map_propagator(TraceContextPropagator::new());
-    let mut export_cfg = ExportConfig::default();
-    export_cfg.endpoint =
-        env::var("OTEL_EXPORTER_OTLP_ENDPOINT").unwrap_or_else(|_| export_cfg.endpoint);
+// fn init_tracer() {
+//     global::set_text_map_propagator(TraceContextPropagator::new());
+//     let mut export_cfg = ExportConfig::default();
+//     export_cfg.endpoint =
+//         env::var("OTEL_EXPORTER_OTLP_ENDPOINT").unwrap_or_else(|_| export_cfg.endpoint);
 
-    let env = env::var("ENV").unwrap_or_else(|_| "local".to_string());
-    if env == "local" {
-        let provider = TracerProvider::builder()
-            .with_simple_exporter(opentelemetry_stdout::SpanExporter::default())
-            .build();
-        global::set_tracer_provider(provider);
-    } else {
-        match SpanExporter::new_tonic(export_cfg, TonicConfig::default()) {
-            Ok(exporter) => {
-                let cfg = opentelemetry::sdk::trace::config().with_resource(Resource::new(vec![
-                    KeyValue::new(
-                        opentelemetry_semantic_conventions::resource::SERVICE_NAME,
-                        "catalog-api",
-                    ),
-                    KeyValue::new(
-                        opentelemetry_semantic_conventions::resource::SERVICE_VERSION,
-                        "1.0.0",
-                    ),
-                ]));
+//     let env = env::var("ENV").unwrap_or_else(|_| "local".to_string());
+//     if env == "local" {
+//         let provider = TracerProvider::builder()
+//             .with_simple_exporter(opentelemetry_stdout::SpanExporter::default())
+//             .build();
+//         global::set_tracer_provider(provider);
+//     } else {
+//         match SpanExporter::new_tonic(export_cfg, TonicConfig::default()) {
+//             Ok(exporter) => {
+//                 let cfg = opentelemetry::sdk::trace::config().with_resource(Resource::new(vec![
+//                     KeyValue::new(
+//                         opentelemetry_semantic_conventions::resource::SERVICE_NAME,
+//                         "catalog-api",
+//                     ),
+//                     KeyValue::new(
+//                         opentelemetry_semantic_conventions::resource::SERVICE_VERSION,
+//                         "1.0.0",
+//                     ),
+//                 ]));
 
-                let provider = TracerProvider::builder()
-                    .with_config(cfg)
-                    .with_simple_exporter(exporter)
-                    .build();
+//                 let provider = TracerProvider::builder()
+//                     .with_config(cfg)
+//                     .with_simple_exporter(exporter)
+//                     .build();
 
-                global::set_tracer_provider(provider);
-            }
-            Err(why) => panic!("{:?}", why),
-        }
-    }
-}
+//                 global::set_tracer_provider(provider);
+//             }
+//             Err(why) => panic!("{:?}", why),
+//         }
+//     }
+// }
 
 fn custom_openapi_spec() -> OpenApi {
     OpenApi {

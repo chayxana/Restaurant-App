@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: catalog-api
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: catalog-api
@@ -23,12 +23,6 @@ spec:
               name: catalog-api
           - secretRef:
               name: catalog-api
-        env:
-        - name: ROCKET_PORT
-          value: "8000"
-        - name: ROCKET_ADDRESS
-          value: "0.0.0.0"
-
         readinessProbe:
           httpGet:
             path: /health/ready

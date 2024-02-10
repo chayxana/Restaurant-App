@@ -29,10 +29,9 @@
       "name": "order-api",
       "path": "./services/order-api"
     },
-
     {
       "name": "dashboard-app",
-      "path": "./web/web.admin/dashboard"
+      "path": "./services/web.admin/dashboard"
     },
     {
       "name": "frontend",

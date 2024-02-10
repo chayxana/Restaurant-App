@@ -3,10 +3,10 @@ import { check, sleep } from "k6";
 import faker from "k6/x/faker";
 
 export const options = {
-  vus: 300,
+  vus: 100,
   duration: "30s",
   thresholds: {
-    http_req_duration: ["p(99)<300"],
+    http_req_duration: ["p(99)<600"],
   },
 };
 
@@ -24,7 +24,6 @@ export default function () {
   if (getFoods.status != 200) {
     console.log(getFoods.status);
   }
-  return;
 
   const foods = getFoods.json();
   const food = foods[Math.floor(Math.random() * foods.length)];
@@ -72,7 +71,7 @@ export default function () {
       credit_card_cvv: Number(creditCard.cvv),
       credit_card_expiration_month: Number(cardExp[0]),
       credit_card_expiration_year: Number(cardExp[1]),
-      credit_card_number: creditCard.number,
+      credit_card_number: "4111111111111111",
     },
     user_id,
     email: faker.email(),

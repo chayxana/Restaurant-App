@@ -8,5 +8,8 @@ spec:
   - port: 80
     name: http
     targetPort: 5200
+  - port: 81
+    name: grpc
+    targetPort: 8081
   selector:
     app: cart-api

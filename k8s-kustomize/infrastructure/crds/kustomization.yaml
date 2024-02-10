@@ -6,3 +6,4 @@ resources:
   - istio-operator
   - open-telemetry-operator
   - tempo-operator
+  - k6-operator

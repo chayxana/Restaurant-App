@@ -1,5 +1,6 @@
 import http from "k6/http";
-import { sleep } from "k6";
+import { check, sleep } from "k6";
+import faker from "k6/x/faker";
 
 export const options = {
   vus: 300,
@@ -9,32 +10,84 @@ export const options = {
   },
 };
 
-const baseUrl = "http://localhost:8080";
-const catalogItems = baseUrl + "/cart/api/v1/items/all";
+const baseUrl = "http://localhost";
+const cartUrl = baseUrl + "/shoppingcart";
+const catalogUrl = baseUrl + "/catalog";
+const checkoutUrl = baseUrl + "/checkout";
 
 export default function () {
-  const customer_id = "dfdee7b6-04d3-4d77-89a9-6542a4f2f31a";
-  const foods = http.get(baseUrl + "/catalog/items/all").json();
+  const getFoods = http.get(catalogUrl + "/items/all");
+  check(getFoods, {
+    "get catalog items status was 200": (r) => r.status == 200,
+  });
+
+  if (getFoods.status != 200) {
+    console.log(getFoods.status);
+  }
+  return;
+
+  const foods = getFoods.json();
   const food = foods[Math.floor(Math.random() * foods.length)];
 
-  http.post(
-    catalogItems,
+  const user_id = faker.uuid();
+  // create new cart
+  const createCart = http.post(
+    cartUrl + "/api/v1/cart",
     JSON.stringify({
-      customer_id,
       items: [
         {
-          food_id: food.id,
-          food_name: food.name,
-          old_unit_price: 0,
-          picture: food.image,
-          quantity: Math.floor(Math.random() * 20),
+          img: food.image,
+          item_id: food.id,
+          product_description: food.description,
+          product_name: food.name,
+          quantity: faker.number(1, 40),
           unit_price: food.price,
         },
       ],
+      user_id,
     })
   );
 
-  sleep(1);
+  check(createCart, {
+    "create new cart was 200": (r) => r.status == 200,
+  });
 
-  http.post(baseUrl + "");
+  // checkout
+  const newCart = createCart.json();
+  const creditCard = faker.creditCard();
+  const cardExp = creditCard.exp.split("/");
+
+  const address = faker.address();
+
+  const checkoutBody = JSON.stringify({
+    address: {
+      city: address.city,
+      country: address.country,
+      state: address.state,
+      street_address: address.address,
+      zip_code: Number(address.zip),
+    },
+    credit_card: {
+      name_on_card: faker.name(),
+      credit_card_cvv: Number(creditCard.cvv),
+      credit_card_expiration_month: Number(cardExp[0]),
+      credit_card_expiration_year: Number(cardExp[1]),
+      credit_card_number: creditCard.number,
+    },
+    user_id,
+    email: faker.email(),
+    user_currency: faker.currency().short,
+    cart_id: newCart.id,
+  });
+
+  const checkout = http.post(checkoutUrl + "/api/v1/checkout", checkoutBody, {
+    headers: { "Content-Type": "application/json" },
+  });
+  check(checkout, {
+    "checkout was 200": (r) => r.status == 200,
+  });
+
+  console.log(checkout.json());
+
+  sleep(1);
 }

@@ -6,8 +6,15 @@ namespace: monitoring
 generatorOptions:
   disableNameSuffixHash: true
 
+configMapGenerator:
+- files:
+  - datasource.yaml=grafana-datasources.yaml
+  name: grafana-datasource-config
+
 resources:
   - "namespace.yaml"
   - "tempo.yaml"
   - "otel-collector.yaml"
   - "grafana.yaml"
+  - "jaeger.yaml"
+  - "zipkin.yaml"

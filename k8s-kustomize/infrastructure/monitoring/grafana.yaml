@@ -59,13 +59,22 @@ spec:
             requests:
               cpu: 250m
               memory: 750Mi
+            limits:
+              cpu: 250m
+              memory: 750Mi
           volumeMounts:
             - mountPath: /var/lib/grafana
               name: grafana-pv
+            - mountPath: /etc/grafana/provisioning/datasources
+              name: grafana-datasources
+
       volumes:
         - name: grafana-pv
           persistentVolumeClaim:
             claimName: grafana-pvc
+        - name: grafana-datasources
+          configMap:
+            name: grafana-datasource-config
 ---
 apiVersion: v1
 kind: Service

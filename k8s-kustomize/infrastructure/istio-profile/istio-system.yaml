@@ -8,6 +8,15 @@ spec:
   hub: gcr.io/istio-release
   meshConfig:
     accessLogFile: /dev/stdout
+    defaultProviders:
+      tracing:
+        - opentelemetry
+    extensionProviders:
+      - name: "opentelemetry"
+        opentelemetry:
+          service: "otel-collector.monitoring.svc.cluster.local"
+          port: 4317
+    enablePrometheusMerge: true 
   components:
     ingressGateways:
       - name: istio-ingressgateway

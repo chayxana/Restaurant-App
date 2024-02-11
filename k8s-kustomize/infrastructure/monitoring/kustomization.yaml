@@ -17,4 +17,5 @@ resources:
   - "otel-collector.yaml"
   - "grafana.yaml"
   - "jaeger.yaml"
+  - "prometheus.yaml"
   - "zipkin.yaml"

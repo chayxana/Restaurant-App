@@ -1,13 +1,15 @@
 apiVersion: opentelemetry.io/v1alpha1
 kind: OpenTelemetryCollector
 metadata:
-  name: otel 
+  name: otel
 spec:
   mode: daemonset
+  observability:
+    metrics:
+      enableMetrics: true
+
   config: |
     receivers:
-      opencensus:
-        endpoint: 0.0.0.0:55678
       otlp:
         protocols:
           grpc:

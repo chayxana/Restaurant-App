@@ -11,11 +11,15 @@ spec:
     defaultProviders:
       tracing:
         - opentelemetry
+      metrics:
+        - prometheus 
     extensionProviders:
       - name: "opentelemetry"
         opentelemetry:
           service: "otel-collector.monitoring.svc.cluster.local"
           port: 4317
+      - name: "prometheus"
+
     enablePrometheusMerge: true 
   components:
     ingressGateways:

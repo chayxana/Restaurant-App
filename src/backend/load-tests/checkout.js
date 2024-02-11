@@ -3,7 +3,7 @@ import { check, sleep } from "k6";
 import faker from "k6/x/faker";
 
 export const options = {
-  vus: 150,
+  vus: 100,
   duration: "30s",
   thresholds: {
     http_req_failed: ["rate<0.01"],

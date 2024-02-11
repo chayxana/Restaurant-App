@@ -7,3 +7,4 @@ resources:
   - open-telemetry-operator
   - tempo-operator
   - k6-operator
+  - prometheus-operator

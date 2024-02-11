@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "4a5e8260-543c-476b-a26a-a2fc81b8176a",
-		"name": "cart-api",
+		"_postman_id": "dbd35062-eaac-454f-bf6d-8147960adcae",
+		"name": "Cart API",
 		"description": "This is a rest api for cart which saves items to redis server\n\nContact Support:\n Name: API Support\n Email: support@swagger.io",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "26199757"
@@ -17,9 +17,512 @@
 							"name": "item",
 							"item": [
 								{
-									"name": "Update or add a line item",
+									"name": "{itemID}",
+									"item": [
+										{
+											"name": "Updates a line item",
+											"request": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"attributes\": {\n    \"dolore_bbd\": 53588372,\n    \"anim_1\": \"ea irure\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/shoppingcart/api/v1/cart/:id/item/:itemID",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"shoppingcart",
+														"api",
+														"v1",
+														"cart",
+														":id",
+														"item",
+														":itemID"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<string>",
+															"description": "(Required) Cart ID"
+														},
+														{
+															"key": "itemID",
+															"value": "<string>",
+															"description": "(Required) Item ID"
+														}
+													]
+												},
+												"description": "Updates item in the cart,"
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"attributes\": {\n    \"dolore_bbd\": 53588372,\n    \"anim_1\": \"ea irure\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/cart/:id/item/:itemID",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"cart",
+																":id",
+																"item",
+																":itemID"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																},
+																{
+																	"key": "itemID"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"currency\": \"<string>\",\n  \"discount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"items\": [\n    {\n      \"attributes\": {\n        \"proidentd_\": 63701626.11787659\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"ea6f\": -89302523.87369756\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"shipping\": \"<number>\",\n  \"shipping_method\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tax\": \"<number>\",\n  \"total\": \"<number>\",\n  \"user_id\": \"<string>\"\n}"
+												},
+												{
+													"name": "Bad Request",
+													"originalRequest": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"attributes\": {\n    \"dolore_bbd\": 53588372,\n    \"anim_1\": \"ea irure\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/cart/:id/item/:itemID",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"cart",
+																":id",
+																"item",
+																":itemID"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																},
+																{
+																	"key": "itemID"
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+												},
+												{
+													"name": "Not Found",
+													"originalRequest": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"attributes\": {\n    \"dolore_bbd\": 53588372,\n    \"anim_1\": \"ea irure\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/cart/:id/item/:itemID",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"cart",
+																":id",
+																"item",
+																":itemID"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																},
+																{
+																	"key": "itemID"
+																}
+															]
+														}
+													},
+													"status": "Not Found",
+													"code": 404,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+												},
+												{
+													"name": "Internal Server Error",
+													"originalRequest": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"attributes\": {\n    \"dolore_bbd\": 53588372,\n    \"anim_1\": \"ea irure\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/cart/:id/item/:itemID",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"cart",
+																":id",
+																"item",
+																":itemID"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																},
+																{
+																	"key": "itemID"
+																}
+															]
+														}
+													},
+													"status": "Internal Server Error",
+													"code": 500,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+												}
+											]
+										},
+										{
+											"name": "Delete line item",
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/shoppingcart/api/v1/cart/:id/item/:itemID",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"shoppingcart",
+														"api",
+														"v1",
+														"cart",
+														":id",
+														"item",
+														":itemID"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<string>",
+															"description": "(Required) Cart ID"
+														},
+														{
+															"key": "itemID",
+															"value": "<string>",
+															"description": "(Required) Item ID"
+														}
+													]
+												},
+												"description": "Delete line item by json"
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/cart/:id/item/:itemID",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"cart",
+																":id",
+																"item",
+																":itemID"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																},
+																{
+																	"key": "itemID"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"currency\": \"<string>\",\n  \"discount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"items\": [\n    {\n      \"attributes\": {\n        \"proidentd_\": 63701626.11787659\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"ea6f\": -89302523.87369756\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"shipping\": \"<number>\",\n  \"shipping_method\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tax\": \"<number>\",\n  \"total\": \"<number>\",\n  \"user_id\": \"<string>\"\n}"
+												},
+												{
+													"name": "Bad Request",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/cart/:id/item/:itemID",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"cart",
+																":id",
+																"item",
+																":itemID"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																},
+																{
+																	"key": "itemID"
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+												},
+												{
+													"name": "Not Found",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/cart/:id/item/:itemID",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"cart",
+																":id",
+																"item",
+																":itemID"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																},
+																{
+																	"key": "itemID"
+																}
+															]
+														}
+													},
+													"status": "Not Found",
+													"code": 404,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+												},
+												{
+													"name": "Internal Server Error",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/cart/:id/item/:itemID",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"cart",
+																":id",
+																"item",
+																":itemID"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																},
+																{
+																	"key": "itemID"
+																}
+															]
+														}
+													},
+													"status": "Internal Server Error",
+													"code": 500,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\"\n}"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Add a line item",
 									"request": {
-										"method": "PUT",
+										"method": "POST",
 										"header": [
 											{
 												"key": "Content-Type",
@@ -32,7 +535,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"img\": \"<string>\",\n  \"item_id\": 1,\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": 2,\n  \"unit_price\": 10\n}",
+											"raw": "{\n  \"attributes\": {\n    \"dolore_bbd\": 53588372,\n    \"anim_1\": \"ea irure\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -56,18 +559,18 @@
 											"variable": [
 												{
 													"key": "id",
-													"value": "cc62e6b3-5fa3-4e8e-92ed-eeca37112090",
+													"value": "<string>",
 													"description": "(Required) Cart ID"
 												}
 											]
 										},
-										"description": "update by json new line item"
+										"description": "Adds item into cart, if item exists sums the quantity"
 									},
 									"response": [
 										{
 											"name": "OK",
 											"originalRequest": {
-												"method": "PUT",
+												"method": "POST",
 												"header": [
 													{
 														"key": "Content-Type",
@@ -80,7 +583,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"attributes\": {\n    \"voluptate_edd\": \"dolore anim\",\n    \"ad_5_\": true,\n    \"ut0e5\": \"do laboris consequat\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
+													"raw": "{\n  \"attributes\": {\n    \"dolore_bbd\": 53588372,\n    \"anim_1\": \"ea irure\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -115,12 +618,12 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n  \"currency\": \"<string>\",\n  \"discount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"items\": [\n    {\n      \"attributes\": {\n        \"dolore99f\": true,\n        \"ad_7\": -3487564.631276056,\n        \"occaecat_295\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"laborum5fa\": -93691888.65488262,\n        \"quis1\": \"irure dolor in\"\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"shipping\": \"<number>\",\n  \"shipping_method\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tax\": \"<number>\",\n  \"total\": \"<number>\",\n  \"user_id\": \"<string>\"\n}"
+											"body": "{\n  \"currency\": \"<string>\",\n  \"discount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"items\": [\n    {\n      \"attributes\": {\n        \"proidentd_\": 63701626.11787659\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"ea6f\": -89302523.87369756\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"shipping\": \"<number>\",\n  \"shipping_method\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tax\": \"<number>\",\n  \"total\": \"<number>\",\n  \"user_id\": \"<string>\"\n}"
 										},
 										{
 											"name": "Bad Request",
 											"originalRequest": {
-												"method": "PUT",
+												"method": "POST",
 												"header": [
 													{
 														"key": "Content-Type",
@@ -133,7 +636,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"attributes\": {\n    \"voluptate_edd\": \"dolore anim\",\n    \"ad_5_\": true,\n    \"ut0e5\": \"do laboris consequat\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
+													"raw": "{\n  \"attributes\": {\n    \"dolore_bbd\": 53588372,\n    \"anim_1\": \"ea irure\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -173,7 +676,7 @@
 										{
 											"name": "Not Found",
 											"originalRequest": {
-												"method": "PUT",
+												"method": "POST",
 												"header": [
 													{
 														"key": "Content-Type",
@@ -186,7 +689,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"attributes\": {\n    \"voluptate_edd\": \"dolore anim\",\n    \"ad_5_\": true,\n    \"ut0e5\": \"do laboris consequat\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
+													"raw": "{\n  \"attributes\": {\n    \"dolore_bbd\": 53588372,\n    \"anim_1\": \"ea irure\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -226,7 +729,7 @@
 										{
 											"name": "Internal Server Error",
 											"originalRequest": {
-												"method": "PUT",
+												"method": "POST",
 												"header": [
 													{
 														"key": "Content-Type",
@@ -239,7 +742,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"attributes\": {\n    \"voluptate_edd\": \"dolore anim\",\n    \"ad_5_\": true,\n    \"ut0e5\": \"do laboris consequat\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
+													"raw": "{\n  \"attributes\": {\n    \"dolore_bbd\": 53588372,\n    \"anim_1\": \"ea irure\"\n  },\n  \"img\": \"<string>\",\n  \"item_id\": \"<integer>\",\n  \"product_description\": \"<string>\",\n  \"product_name\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"unit_price\": \"<number>\"\n}",
 													"options": {
 														"raw": {
 															"headerFamily": "json",
@@ -305,7 +808,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "104f8069-74fa-465e-a5e8-41f7f0a5dbf2",
+											"value": "<string>",
 											"description": "(Required) Cart ID"
 										}
 									]
@@ -349,7 +852,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n  \"currency\": \"<string>\",\n  \"discount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"items\": [\n    {\n      \"attributes\": {\n        \"dolore99f\": true,\n        \"ad_7\": -3487564.631276056,\n        \"occaecat_295\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"laborum5fa\": -93691888.65488262,\n        \"quis1\": \"irure dolor in\"\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"shipping\": \"<number>\",\n  \"shipping_method\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tax\": \"<number>\",\n  \"total\": \"<number>\",\n  \"user_id\": \"<string>\"\n}"
+									"body": "{\n  \"currency\": \"<string>\",\n  \"discount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"items\": [\n    {\n      \"attributes\": {\n        \"proidentd_\": 63701626.11787659\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"ea6f\": -89302523.87369756\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"shipping\": \"<number>\",\n  \"shipping_method\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tax\": \"<number>\",\n  \"total\": \"<number>\",\n  \"user_id\": \"<string>\"\n}"
 								},
 								{
 									"name": "Bad Request",
@@ -445,7 +948,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"items\": [],\n  \"user_id\": \"new\",\n  \"status\": \"completed\"\n}",
+									"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"in_bf4\": 6071451,\n        \"ut07\": -29121628.367309287\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"mollit_68e\": 60484087\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -468,7 +971,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "104f8069-74fa-465e-a5e8-41f7f0a5dbf2",
+											"value": "<string>",
 											"description": "(Required) Cart ID"
 										}
 									]
@@ -492,7 +995,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"quis_88d\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"adipisicing_92d\": -31493792.67772709\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
+											"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"in_bf4\": 6071451,\n        \"ut07\": -29121628.367309287\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"mollit_68e\": 60484087\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -526,7 +1029,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n  \"currency\": \"<string>\",\n  \"discount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"items\": [\n    {\n      \"attributes\": {\n        \"dolore99f\": true,\n        \"ad_7\": -3487564.631276056,\n        \"occaecat_295\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"laborum5fa\": -93691888.65488262,\n        \"quis1\": \"irure dolor in\"\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"shipping\": \"<number>\",\n  \"shipping_method\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tax\": \"<number>\",\n  \"total\": \"<number>\",\n  \"user_id\": \"<string>\"\n}"
+									"body": "{\n  \"currency\": \"<string>\",\n  \"discount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"items\": [\n    {\n      \"attributes\": {\n        \"proidentd_\": 63701626.11787659\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"ea6f\": -89302523.87369756\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"shipping\": \"<number>\",\n  \"shipping_method\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tax\": \"<number>\",\n  \"total\": \"<number>\",\n  \"user_id\": \"<string>\"\n}"
 								},
 								{
 									"name": "Bad Request",
@@ -544,7 +1047,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"quis_88d\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"adipisicing_92d\": -31493792.67772709\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
+											"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"in_bf4\": 6071451,\n        \"ut07\": -29121628.367309287\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"mollit_68e\": 60484087\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -596,7 +1099,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"quis_88d\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"adipisicing_92d\": -31493792.67772709\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
+											"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"in_bf4\": 6071451,\n        \"ut07\": -29121628.367309287\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"mollit_68e\": 60484087\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -648,7 +1151,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"quis_88d\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"adipisicing_92d\": -31493792.67772709\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
+											"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"in_bf4\": 6071451,\n        \"ut07\": -29121628.367309287\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"mollit_68e\": 60484087\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -697,11 +1200,14 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/cart/:id",
+									"raw": "{{baseUrl}}/shoppingcart/api/v1/cart/:id",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
+										"shoppingcart",
+										"api",
+										"v1",
 										"cart",
 										":id"
 									],
@@ -717,7 +1223,7 @@
 							},
 							"response": [
 								{
-									"name": "Untitled Example",
+									"name": "Untitled Response",
 									"originalRequest": {
 										"method": "DELETE",
 										"header": [],
@@ -742,7 +1248,7 @@
 									"_postman_previewlanguage": "text",
 									"header": [],
 									"cookie": [],
-									"body": null
+									"body": ""
 								},
 								{
 									"name": "Bad Request",
@@ -878,7 +1384,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"items\": [],\n  \"user_id\": \"\"\n}",
+							"raw": "{\n  \"items\": [\n    {\n      \"img\": \"<string>\",\n      \"item_id\": 1,\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": 10,\n      \"unit_price\": 10\n    },\n    {\n      \"attributes\": {\n        \"mollit_68e\": 60484087\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
@@ -917,7 +1423,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"quis_88d\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"adipisicing_92d\": -31493792.67772709\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
+									"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"in_bf4\": 6071451,\n        \"ut07\": -29121628.367309287\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"mollit_68e\": 60484087\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -945,7 +1451,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n  \"currency\": \"<string>\",\n  \"discount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"items\": [\n    {\n      \"attributes\": {\n        \"dolore99f\": true,\n        \"ad_7\": -3487564.631276056,\n        \"occaecat_295\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"laborum5fa\": -93691888.65488262,\n        \"quis1\": \"irure dolor in\"\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"shipping\": \"<number>\",\n  \"shipping_method\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tax\": \"<number>\",\n  \"total\": \"<number>\",\n  \"user_id\": \"<string>\"\n}"
+							"body": "{\n  \"currency\": \"<string>\",\n  \"discount\": \"<number>\",\n  \"id\": \"<string>\",\n  \"items\": [\n    {\n      \"attributes\": {\n        \"proidentd_\": 63701626.11787659\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"ea6f\": -89302523.87369756\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"shipping\": \"<number>\",\n  \"shipping_method\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tax\": \"<number>\",\n  \"total\": \"<number>\",\n  \"user_id\": \"<string>\"\n}"
 						},
 						{
 							"name": "Bad Request",
@@ -963,7 +1469,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"quis_88d\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"adipisicing_92d\": -31493792.67772709\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
+									"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"in_bf4\": 6071451,\n        \"ut07\": -29121628.367309287\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"mollit_68e\": 60484087\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -1009,7 +1515,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"quis_88d\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"adipisicing_92d\": -31493792.67772709\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
+									"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"in_bf4\": 6071451,\n        \"ut07\": -29121628.367309287\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"mollit_68e\": 60484087\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -1055,7 +1561,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"quis_88d\": true\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"adipisicing_92d\": -31493792.67772709\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
+									"raw": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"in_bf4\": 6071451,\n        \"ut07\": -29121628.367309287\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    },\n    {\n      \"attributes\": {\n        \"mollit_68e\": 60484087\n      },\n      \"img\": \"<string>\",\n      \"item_id\": \"<integer>\",\n      \"product_description\": \"<string>\",\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unit_price\": \"<number>\"\n    }\n  ],\n  \"user_id\": \"<string>\"\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",

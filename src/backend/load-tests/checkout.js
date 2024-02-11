@@ -1,11 +1,12 @@
-import http from "k6/http";
+import http, { get } from "k6/http";
 import { check, sleep } from "k6";
 import faker from "k6/x/faker";
 
 export const options = {
-  vus: 100,
+  vus: 150,
   duration: "30s",
   thresholds: {
+    http_req_failed: ["rate<0.01"],
     http_req_duration: ["p(99)<600"],
   },
 };
@@ -22,7 +23,7 @@ export default function () {
   });
 
   if (getFoods.status != 200) {
-    console.log(getFoods.status);
+    return;
   }
 
   const foods = getFoods.json();

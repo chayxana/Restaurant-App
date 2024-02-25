@@ -1,5 +1,5 @@
 import { getOrderByTransactionID, sleep } from '@/lib/fetch';
-import CheckoutCompleted from '../../../components/checkout/checkout-completed';
+import CheckoutCompleted from '../../components/checkout/checkout-completed';
 import { revalidateTag } from 'next/cache';
 
 export default async function Page({ searchParams }: { searchParams?: { [key: string]: string } }) {

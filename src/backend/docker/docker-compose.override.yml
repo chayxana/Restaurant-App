@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 
 services:
   order-api:
@@ -22,7 +22,7 @@ services:
       - AUTH_URL=http://localhost:8080/identity
       - BASE_PATH=/shoppingcart
       - OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector:4317
-  
+
   payment-api:
     environment:
       - ENABLE_TEST_CARDS=false
@@ -48,11 +48,11 @@ services:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
       - ENV=dev
 
-  # web-app:
-  #   environment:
-  #     - INTERNAL_API_BASE_URL=http://traefik:80
-  #     - NEXT_SHARP_PATH=./node_modules/sharp
-  #     - AUTH_ISSUER=http://host.docker.internal:8080/identity
+  web-app:
+    environment:
+      - INTERNAL_API_BASE_URL=http://traefik:80
+      - NEXT_SHARP_PATH=./node_modules/sharp
+      - AUTH_ISSUER=http://host.docker.internal:8080/identity
 
   identity-api:
     environment:
@@ -68,7 +68,7 @@ services:
       - DASHBOARD_APP_URL=http://localhost:8080/dashboard
       - IDENTITY_URL_PUB=http://localhost:8080/identity
 
-  # connect: 
+  # connect:
   # pgcli 'postgresql://admin:Passw0rd!@localhost:5433/orderdb'
   order-db:
     environment:
@@ -77,7 +77,7 @@ services:
       - PGDATA=/pg
       - POSTGRES_DB=orderdb
 
-  # connect: 
+  # connect:
   # pgcli 'postgresql://admin:Passw0rd!@localhost:5435/identity_database'
   identity-db:
     environment:

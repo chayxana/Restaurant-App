@@ -9,6 +9,21 @@ option java_package = "org.jurabek.payment";
 
 service PaymentService {
   rpc Payment(PaymentRequest) returns (PaymentResponse) {}
+  rpc GetPaymentMethods(GetPaymentMethodsRequest) returns (GetPaymentMethodsResponse) {}
+}
+
+message GetPaymentMethodsRequest {}
+
+message PaymentMethod {
+  string name = 1;
+  string type = 2;
+}
+
+message StoredPaymentMethod {}
+
+message GetPaymentMethodsResponse {
+  repeated PaymentMethod payment_methods = 1;
+  repeated StoredPaymentMethod stored_payment_requests = 2;
 }
 
 message CreditCardInfo {

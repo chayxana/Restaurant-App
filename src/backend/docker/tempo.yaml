@@ -2,6 +2,8 @@ server:
   http_listen_port: 3200
 
 distributor:
+  # extraArgs:
+  #   "distributor.log-received-traces": true
   receivers: # this configuration will listen on all ports and protocols that tempo is capable of.
     jaeger: # the receives all come from the OpenTelemetry collector.  more configuration information can
       protocols: # be found there: https://github.com/open-telemetry/opentelemetry-collector/tree/main/receiver

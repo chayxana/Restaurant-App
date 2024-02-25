@@ -1,4 +1,4 @@
-import http, { get } from "k6/http";
+import http from "k6/http";
 import { check, sleep } from "k6";
 import faker from "k6/x/faker";
 
@@ -28,7 +28,7 @@ export default function () {
 
   const foods = getFoods.json();
   const food = foods[Math.floor(Math.random() * foods.length)];
-
+  
   const user_id = faker.uuid();
   // create new cart
   const createCart = http.post(
@@ -86,8 +86,6 @@ export default function () {
   check(checkout, {
     "checkout was 200": (r) => r.status == 200,
   });
-
-  console.log(checkout.json());
 
   sleep(1);
 }

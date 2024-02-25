@@ -1,13 +1,12 @@
-version: '3.7'
+version: "3.7"
 
 services:
-
   identity-api:
     image: restaurant/identity-api
     build: ./services/identity-api
     depends_on:
-       - identity-db
-    ports: 
+      - identity-db
+    ports:
       - "5001:80"
     restart: always
 
@@ -25,7 +24,7 @@ services:
     container_name: catalog
     build: ./services/catalog-api
     depends_on:
-       - catalog-db
+      - catalog-db
     ports:
       - 8000:8000
     restart: always
@@ -40,7 +39,7 @@ services:
   order-api:
     image: restaurant/order-api
     container_name: order
-    build: 
+    build:
       platforms:
         - "linux/arm64"
       context: ./services/order-api
@@ -50,7 +49,7 @@ services:
       - payment-api
     ports:
       - 8082:8080
-  
+
   payment-api:
     image: restaurant/payment-api
     container_name: payment
@@ -64,24 +63,24 @@ services:
   #     context: ./web/web.admin/dashboard
   #     dockerfile: local.Dockerfile
 
-  # web-app:
-  #   image: restaurant/web-app
-  #   build:
-  #     context: ./web/web.client/web-app-new
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 3001:3000
-  #   extra_hosts:
-  #     - "host.docker.internal:host-gateway" # run in your host machine command:
-  #                                           # sudo sh -c "echo '127.0.0.1 \t host.docker.internal' >> /etc/hosts"
+  web-app:
+    image: restaurant/web-app
+    build:
+      context: ./services/web-app
+      dockerfile: local.Dockerfile
+    ports:
+      - 3001:3000
+    extra_hosts:
+      - "host.docker.internal:host-gateway" # run in your host machine command:
+        # sudo sh -c "echo '127.0.0.1 \t host.docker.internal' >> /etc/hosts"
 
   order-db:
     image: postgres:alpine
-    volumes: 
+    volumes:
       - database-data:/var/lib/postgresql/data
-    ports: 
+    ports:
       - "5433:5432"
-  
+
   catalog-db:
     image: postgres:alpine
     ports:
@@ -95,6 +94,6 @@ services:
   redis:
     platform: linux/arm64/v8
     image: redis:alpine
-    
+
 volumes:
   database-data:

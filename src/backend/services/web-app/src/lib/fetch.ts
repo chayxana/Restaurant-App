@@ -21,7 +21,7 @@ async function fetchItems(apiUrl: string) {
   const updatedItems = items.map((item) => {
     return {
       ...item,
-      image: process.env.PUBLIC_API_BASE_URL_PUBLIC + item.image
+      image: process.env.INTERNAL_API_BASE_URL + item.image
     };
   });
 

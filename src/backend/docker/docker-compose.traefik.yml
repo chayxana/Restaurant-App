@@ -21,6 +21,12 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
+  web-app:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=PathPrefix(`/`)"
+      - "traefik.port=3001"
+
   identity-api:
     labels:
       - "traefik.enable=true"

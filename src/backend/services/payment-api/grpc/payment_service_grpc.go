@@ -29,6 +29,9 @@ func NewPaymentServiceGrpc(enableTestCards bool) *PaymentServiceGrpc {
 var ErrUnsupportedCardType = errors.New("card type unsupported")
 var ErrInvalidCardInfo = errors.New("invalid card information")
 
+func (p *PaymentServiceGrpc) GetPaymentMethods(context.Context, *pbv1.GetPaymentMethodsRequest) (*pbv1.GetPaymentMethodsResponse, error) {
+  return nil, nil
+}
 // Payment implements v1.PaymentServiceServer
 func (p *PaymentServiceGrpc) Payment(ctx context.Context, req *pbv1.PaymentRequest) (res *pbv1.PaymentResponse, err error) {
 	var tracer = otel.Tracer("payment-api/grpc")

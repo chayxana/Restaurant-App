@@ -1,0 +1,1 @@
+FROM grafana/k6

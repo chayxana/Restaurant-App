@@ -22,7 +22,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-COPY .env .env.local .env.production ./
+COPY .env .env.production
 RUN yarn build
 
 # 3. Production image, copy all the files and run next

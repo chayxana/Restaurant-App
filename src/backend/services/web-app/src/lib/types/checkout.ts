@@ -15,7 +15,6 @@ export const creditCardSchema = z.object({
   credit_card_expiration_year: z.number().max(99),
   credit_card_number: z
     .string()
-    .trim()
     .regex(/^[0-9]{16}$/i, 'Invalid credit card number')
 });
 

@@ -56,6 +56,9 @@ public class OrdersServicesIml implements OrdersService {
     @Override
     public OrderDto getOrderByTransactionId(String transactionId) {
         var order = ordersRepository.getByTransactionId(UUID.fromString(transactionId));
+        if (order == null) {
+            return null;
+        }
         return mapper.mapOrderToDto(order);
     }
 }

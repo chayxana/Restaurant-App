@@ -1,4 +1,4 @@
-import { getOrderByTransactionID, sleep } from '@/lib/fetch';
+import { getOrderByTransactionID } from '@/lib/fetch';
 import CheckoutCompleted from '../../components/checkout/checkout-completed';
 import { revalidateTag } from 'next/cache';
 
@@ -10,7 +10,6 @@ export default async function Page({ searchParams }: { searchParams?: { [key: st
 
   if (searchParams?.transactionId) {
     const order = await getOrderByTransactionID(searchParams?.transactionId);
-    await sleep(4000);
     orderNumber = order.id;
     orderDate = order.orderedDate;
     const totalPrice = order.orderItems.reduce(

@@ -33,16 +33,16 @@ public class CheckoutService {
     @Transactional
     public void Checkout(UserCheckoutEvent checkoutInfo) {
         var order = mapper.mapDtoToOrder(checkoutInfo.getCustomerBasket());
-        order.setTransactionID(checkoutInfo.getTransactionId());
+        order.setTransactionId(checkoutInfo.getTransactionId());
         order.setBuyerId(UUID.fromString(checkoutInfo.getCheckOutInfo().getUserId()));
-        order.setCheckoutID(checkoutInfo.getCheckoutId());
+        order.setCheckoutId(checkoutInfo.getCheckoutId());
         
         for (var orderItems : order.getOrderItems()) {
             orderItems.setOrder(order);
         }
         ordersRepository.persist(order);
 
-        var event = new OrderCompleted(order.getId(), order.getCartId(), order.getBuyerId(), order.getTransactionID(),
+        var event = new OrderCompleted(order.getId(), order.getCartId(), order.getBuyerId(), order.getTransactionId(),
                 order.getOrderedDate());
 
         orderCompletedEventEmitter.send(event);

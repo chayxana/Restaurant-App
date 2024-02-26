@@ -50,23 +50,37 @@ export async function getUserInfo(userId: string) {
 }
 
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-const retryCount = 2;
 
-export async function getOrderByTransactionID(transactioId: string): Promise<CustomerOrder> {
-  const apiUrl = process.env.INTERNAL_API_BASE_URL + `/order/api/v1/orders/find?transactionId=${transactioId}`;
-  const res = await fetch(apiUrl);
-  if (res.ok) {
-    return OrderSchema.parse(await res.json());
-  }
+async function fetchWithRetry(url: string, retryCount = 5): Promise<any> {
+  let lastError: Error | undefined;
 
-  if (res.status == 500) {
-    for (let i = 0; i < retryCount; i++) {
-      await sleep(1000);
-      const res = await fetch(apiUrl);
-      if (res.ok) {
-        return OrderSchema.parse(await res.json());
+  for (let attempt = 0; attempt < retryCount; attempt++) {
+    try {
+      const response = await fetch(url);
+      if (response.ok) {
+        return await response.json();
+      } else if (response.status === 500) {
+        lastError = new Error('Server Error (500)');
+      } else {
+        // Handle other HTTP errors differently if needed
+        throw new Error(`HTTP Error: ${response.status}`);
       }
+    } catch (error) {
+      lastError = error as Error;
     }
+    // Wait before retrying
+    await sleep(1000);
   }
-  throw new Error('Failed to fetch user orders');
+  throw lastError;
+}
+
+export async function getOrderByTransactionID(transactionId: string): Promise<CustomerOrder> {
+  const apiUrl = `${process.env.INTERNAL_API_BASE_URL}/order/api/v1/orders/find?transactionId=${transactionId}`;
+  try {
+    const data = await fetchWithRetry(apiUrl);
+    return OrderSchema.parse(data);
+  } catch (error) {
+    console.error('Failed to fetch order:', error);
+    throw new Error('Failed to fetch user orders');
+  }
 }

@@ -9,6 +9,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.NotFoundException;
 
 import org.jboss.resteasy.reactive.RestQuery;
 import org.jurabek.restaurant.order.api.dtos.OrderDto;
@@ -32,7 +33,7 @@ public class OrdersController {
 		if (transactionId != null && !transactionId.isEmpty()) {
 			OrderDto order = ordersService.getOrderByTransactionId(transactionId);
 			if (order == null)
-				throw new IllegalArgumentException("transactionId is not found");
+				throw new NotFoundException("Order not found");
 			return order;
 		}
 		return null;

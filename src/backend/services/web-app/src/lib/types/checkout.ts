@@ -13,10 +13,8 @@ export const creditCardSchema = z.object({
   credit_card_cvv: z.number(),
   credit_card_expiration_month: z.number().min(1).max(12),
   credit_card_expiration_year: z.number().max(99),
-  credit_card_number: z
-    .string()
-    .regex(/^[0-9]{16}$/i, 'Invalid credit card number')
-});
+  credit_card_number: z.string().transform(v => v.replace(/\s+/g, '')).pipe(z.string().min(1, { message: 'This field is required' }))
+});;
 
 export const checkoutScheme = z.object({
   address: addressSchema,

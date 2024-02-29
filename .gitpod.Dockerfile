@@ -1,9 +1,8 @@
 FROM gitpod/workspace-full
 
-
 # Install Golang
 USER root
-ENV GO_VERSION=1.19
+ENV GO_VERSION=1.22.0
 
 # For ref, see: https://github.com/gitpod-io/workspace-images/blob/61df77aad71689504112e1087bb7e26d45a43d10/chunks/lang-go/Dockerfile#L10
 ENV GOPATH=$HOME/go-packages
@@ -14,7 +13,11 @@ RUN curl -fsSL https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz | tar
     'export PATH=$GOPATH/bin:$PATH' > $HOME/.bashrc.d/300-go
 
 #Installing Node 20
-ENV NODE_VERSION=20
+RUN bash -c 'VERSION="20" \
+    && source $HOME/.nvm/nvm.sh && nvm install $VERSION \
+    && nvm use $VERSION && nvm alias default $VERSION'
+
+RUN echo "nvm use default &>/dev/null" >> ~/.bashrc.d/51-nvm-fix
 
 # Install .NET
 # RUN wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb

@@ -23,13 +23,21 @@ tasks:
 
   - name: "Checkout API"
     before: |
-      cd src/backend/service/checkout-api
+      cd src/backend/services/checkout-api
     init: npm install
+
+  
+  - name: "Catalog API"
+    before: |
+      cd src/backend/services/catalog-api
+    init:
+      cargo run build
 
   - name: "Web App"
     before:
       cd src/backend/services/web-app
-    init: npm install 
+    init: npm install
+  
 
 vscode:
   extensions:

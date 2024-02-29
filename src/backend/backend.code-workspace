@@ -47,17 +47,13 @@
       "path": "./load-tests"
     },
     {
-      "name": "k8s-kustomize",
-      "path": "../../k8s-kustomize"
+      "name": "deployment-manifests",
+      "path": "../../manifests"
     },
     {
       "name": "docker",
       "path": "./docker"
     },
-    {
-      "name": "nginx",
-      "path": "./nginx"
-    }
   ],
   "settings": {
     "files.exclude": {

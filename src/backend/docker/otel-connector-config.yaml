@@ -28,12 +28,6 @@ exporters:
   loki:
     endpoint: http://loki:3100/loki/api/v1/push
 
-  otlphttp:
-    endpoint: "https://collector.gethelios.dev"
-    traces_endpoint: "https://collector.gethelios.dev/v1/traces"
-    headers:
-      Authorization: ${env:HS_API_TOKEN}
-  
   otlp/jaeger: # Jaeger supports OTLP directly
     endpoint: jaeger-all-in-one:4317
     tls:
@@ -66,7 +60,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlp, otlphttp, otlp/jaeger, zipkin]
+      exporters: [otlp, otlp/jaeger, zipkin]
 
     metrics:
       receivers: [otlp]

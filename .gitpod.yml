@@ -9,13 +9,11 @@ tasks:
       go mod tidy
     command: |
 
-
-  - name: "Basket API"
+  - name: "Cart API"
     before: |
-      cd src/backend/services/basket.api
+      cd src/backend/services/cart-api
     init: |
       go mod tidy
-
 
   - name: "Order API"
     before: |
@@ -23,7 +21,15 @@ tasks:
     init: |
       mvn package
 
+  - name: "Checkout API"
+    before: |
+      cd src/backend/service/checkout-api
+    init: npm install
 
+  - name: "Web App"
+    before:
+      cd src/backend/services/web-app
+    init: npm install 
 
 vscode:
   extensions:

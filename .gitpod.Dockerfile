@@ -11,18 +11,18 @@ ENV GOROOT=$HOME/go
 ENV PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 RUN curl -fsSL https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz | tar xzs \
     && printf '%s\n' 'export GOPATH=/workspace/go' \
-                      'export PATH=$GOPATH/bin:$PATH' > $HOME/.bashrc.d/300-go
+    'export PATH=$GOPATH/bin:$PATH' > $HOME/.bashrc.d/300-go
 
 #Installing Node 20
 ENV NODE_VERSION=20
 
 # Install .NET
-RUN wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-RUN dpkg -i packages-microsoft-prod.deb
-RUN apt-get update
-RUN apt-get install -y apt-transport-https
-RUN apt-get update
-RUN apt-get install -y dotnet-sdk-3.1
+# RUN wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+# RUN dpkg -i packages-microsoft-prod.deb
+# RUN apt-get update
+# RUN apt-get install -y apt-transport-https
+# RUN apt-get update
+# RUN apt-get install -y dotnet-sdk-3.1
 
 # Installing Docker-compose
 RUN sudo apt-get update && \

@@ -31,7 +31,7 @@
     },
     {
       "name": "dashboard-app",
-      "path": "./services/web.admin/dashboard"
+      "path": "./services/web.admin"
     },
     {
       "name": "frontend",

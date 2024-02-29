@@ -1,6 +1,8 @@
 image:
   file: .gitpod.Dockerfile
 
+workspaceLocation: src/backend/backend.code-workspace
+
 tasks:
   - name: "Payment API"
     before: |

@@ -1,5 +1,5 @@
 # Restaurant App 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/chayxana/Restaurant-App?workspace=/workspace/Restaurant-App/src/backend/backend.code-workspace)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/chayxana/Restaurant-App)
 
 if you have any questions, please reach me out:
 

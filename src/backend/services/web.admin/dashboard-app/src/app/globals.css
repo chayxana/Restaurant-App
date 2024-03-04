@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.bg-gray-50 {
+  background-color: #F9FAFB;
+}
+
+.text-gray-600 {
+  color: #4B5563;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.tracking-wider {
+  letter-spacing: 0.05em;
+}
+
+.border-gray-200 {
+  border-color: #E5E7EB;
+}

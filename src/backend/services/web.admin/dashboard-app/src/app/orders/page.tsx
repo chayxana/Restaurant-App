@@ -1,4 +1,3 @@
-// pages/orders.tsx
 import OrdersTable from "@/components/orders-table";
 import React from "react";
 

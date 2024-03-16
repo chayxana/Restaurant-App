@@ -4,7 +4,7 @@
 if you have any questions, please reach me out:
 
 [![](https://img.shields.io/badge/twitter-00ACEE?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/jurabek_az)
-[![](https://dcbadge.vercel.app/api/server/mhHvfkR2)](https://discord.gg/mhHvfkR2)
+[![](https://dcbadge.vercel.app/api/server/sy6ZGyPs)](https://discord.gg/mhHvfkR2)
 [![Gitter](https://badges.gitter.im/Restaurant-App-Community/community.svg)](https://gitter.im/Restaurant-App-Community/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Restaurant App is containerized polyglot microservices application that contains projects based on .NET Core, Golang, Java, Xamarin, React, Angular and etc. The project demonstrates how to develop small microservices for larger applications using containers, orchestration, service discovery, gateway, and best practices. You are always welcome to improve code quality and contribute it, if you have any questions or issues don't hesitate to ask in our [gitter](https://gitter.im/Restaurant-App-Community/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) chat.

@@ -27,6 +27,12 @@ services:
       - "traefik.http.routers.web.rule=PathPrefix(`/`)"
       - "traefik.port=3001"
 
+  payment-api:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.payment.rule=PathPrefix(`/payment/`)"
+      - "traefik.port=8980"
+
   identity-api:
     labels:
       - "traefik.enable=true"

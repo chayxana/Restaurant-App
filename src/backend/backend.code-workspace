@@ -47,7 +47,7 @@
       "path": "./load-tests"
     },
     {
-      "name": "deployment-manifests",
+      "name": "k8s-manifests",
       "path": "../../manifests"
     },
     {

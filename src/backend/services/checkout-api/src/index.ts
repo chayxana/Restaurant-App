@@ -1,10 +1,10 @@
-import { OpenTelemetry } from './tracer';
+import { OpenTelemetry } from './instrumentation';
 const otel = OpenTelemetry('checkout-api')
 otel.start();
 
-import router from './routes';
-import { logger } from './logger';
-import { config } from './config';
+import router from './routes/routes';
+import { logger } from './utils/logger';
+import { config } from './config/config';
 import express from 'express';
 
 const app = express();

@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { expect } from "chai";
 import type * as grpc from '@grpc/grpc-js'
 import { paymentService, pay } from "./paymentService";
-import { CartItem, UserCheckoutReq } from "../model";
+import { CartItem, UserCheckoutReq } from "../models/model";
 import { PaymentResponse } from '../gen/payment/PaymentResponse';
 import { PaymentRequest } from '../gen/payment/PaymentRequest';
 

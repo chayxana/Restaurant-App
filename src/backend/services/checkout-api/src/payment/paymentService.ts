@@ -1,9 +1,9 @@
-import { config } from '../config';
+import { config } from '../config/config';
 import * as grpc from '@grpc/grpc-js'
 import * as protoLoader from '@grpc/proto-loader'
 import { ProtoGrpcType } from '../gen/payments';
 import path from 'path'
-import { UserCheckoutReq } from '../model';
+import { UserCheckoutReq } from '../models/model';
 import { PaymentResponse__Output } from '../gen/payment/PaymentResponse';
 import { PaymentRequest } from '../gen/payment/PaymentRequest';
 import { CartItem } from '../gen/cart/CartItem';

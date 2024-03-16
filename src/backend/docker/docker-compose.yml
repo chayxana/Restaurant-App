@@ -36,6 +36,8 @@ services:
     depends_on:
       - redis
     restart: always
+    ports:
+      - 5200
 
   order-api:
     image: restaurant/order-api
@@ -57,6 +59,7 @@ services:
     build: ./services/payment-api
     ports:
       - 8083:8080
+      - 8980:8980
 
   # dashboard-app:
   #   image: restaurant/dashboard-app

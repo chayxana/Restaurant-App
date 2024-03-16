@@ -1,9 +1,9 @@
-import { config } from '../config';
+import { config } from '../config/config';
 import * as grpc from '@grpc/grpc-js'
 import * as protoLoader from '@grpc/proto-loader'
 import { ProtoGrpcType } from '../gen/cart';
 import path from 'path'
-import { logger } from '../logger';
+import { logger } from '../utils/logger';
 import { GetCartRequest } from '../gen/cart/GetCartRequest';
 import { GetCartResponse__Output } from '../gen/cart/GetCartResponse';
 

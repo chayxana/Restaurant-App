@@ -1,5 +1,5 @@
 #build stage
-FROM golang:1.21-alpine AS builder
+FROM golang:1.22-alpine AS builder
 
 RUN apk add --no-cache git
 
@@ -23,4 +23,3 @@ RUN apk --no-cache add ca-certificates
 COPY --from=builder /src ./
 CMD ["./payment-api"] 
 LABEL Name=payment-api Version=0.0.1
-EXPOSE 8080

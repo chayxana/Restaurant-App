@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
-import { CartItem, CheckoutEvent, UserCheckoutReq } from "../model";
+import { CartItem, CheckoutEvent, UserCheckoutReq } from "../models/model";
 import getCustomerCartItems from "../cart/cartService";
-import { logger } from "../logger";
+import { logger } from "../utils/logger";
 import checkoutPublisher from "../messagging/publisher";
 import { trace, context, ROOT_CONTEXT, SpanStatusCode } from "@opentelemetry/api";
 import { pay } from "../payment/paymentService";

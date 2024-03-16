@@ -1,5 +1,7 @@
 module github.com/jurabek/cart-api
 
+go 1.22
+
 require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/gomodule/redigo v2.0.0+incompatible
@@ -96,5 +98,3 @@ require (
 	google.golang.org/protobuf v1.32.0
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-go 1.19

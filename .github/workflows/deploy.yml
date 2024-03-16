@@ -29,7 +29,7 @@ jobs:
         env:
           IMG: ghcr.io/chayxana/${{ inputs.service-name }}:${{ inputs.version }}
         run: |
-          cd ./k8s-kustomize/services/${{ inputs.service-name }}/base
+          cd ./manifests/services/${{ inputs.service-name }}/base
           kustomize edit set image ${{ inputs.service-name }}=$IMG
           cat kustomization.yaml
 
@@ -37,7 +37,7 @@ jobs:
         uses: ./.github/actions/git-commit
         with:
           git-message: Deploying ${{ inputs.service-name }}:${{ inputs.version }}
-          directory: ./k8s-kustomize/services/${{ inputs.service-name }}/base
+          directory: ./manifests/services/${{ inputs.service-name }}/base
           origin-branch: develop
 
       - name: "Push changes"

@@ -6,7 +6,7 @@ services:
       - QUARKUS_DATASOURCE_JDBC_URL=jdbc:postgresql://order-db:5432/orderdb
       - QUARKUS_DATASOURCE_USERNAME=admin
       - QUARKUS_DATASOURCE_PASSWORD=Passw0rd!
-      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_BOOTSTRAP_SERVERS=broker:29092
       - QUARKUS_GRPC_CLIENTS_PAYMENTSERVICE_HOST=payment-api
       - QUARKUS_GRPC_CLIENTS_PAYMENTSERVICE_PORT=8080
       - QUARKUS_LOG_CONSOLE_JSON=true
@@ -16,10 +16,10 @@ services:
   cart-api:
     environment:
       - REDIS_HOST=redis:6379
-      - KAFKA_BROKER=kafka:9092
+      - KAFKA_BROKER=broker:29092
       - ORDERS_TOPIC=orders
-      - IDENTITY_URL=http://identity-api
-      - AUTH_URL=http://localhost:8080/identity
+      - IDENTITY_URL=http://keycloak:8080/identity
+      - AUTH_URL=http://localhost:8080/identity/realms/restaurant
       - BASE_PATH=/shoppingcart
       - OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector:4317
 
@@ -35,7 +35,7 @@ services:
       - HOST=0.0.0.0
       - CART_URL=cart-api:8081
       - PAYMENT_API_URL=payment-api:8080
-      - KAFKA_BROKER=kafka:9092
+      - KAFKA_BROKER=broker:29092
       - CHECKOUT_TOPIC=checkout
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
       - OTEL_EXPORTER_OTLP_ENDPOINT_HTTP=http://otel-collector:4318/v1/metrics
@@ -55,21 +55,19 @@ services:
     environment:
       - INTERNAL_API_BASE_URL=http://traefik:80
       - NEXT_SHARP_PATH=./node_modules/sharp
-      - AUTH_ISSUER=http://host.docker.internal:8080/identity
+      - AUTH_ISSUER=http://host.docker.internal:5001/identity/realms/restaurant
+      - AUTH_INTERNAL_ISSUER=http://keycloak:8080/identity/realms/restaurant
 
-  identity-api:
+  keycloak:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - DB_HOST=identity-db
-      - DB_NAME=identity_database
-      - DB_USER=admin
-      - DB_PASSWORD=Passw0rd!
-      - PATH_BASE=/identity
-      - MENU_API_URL=http://localhost:8080/menu
-      - ORDER_API_URL=http://localhost:8080/order
-      - BASKET_API_URL=http://localhost:8080/basket
-      - DASHBOARD_APP_URL=http://localhost:8080/dashboard
-      - IDENTITY_URL_PUB=http://localhost:8080/identity
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://identity-db:5432/keycloak
+      - KC_DB_USERNAME=admin
+      - KC_DB_PASSWORD=Passw0rd!
+      - KC_HTTP_RELATIVE_PATH=/identity
+      - KC_HOSTNAME=http://host.docker.internal:5001/identity
 
   # connect:
   # pgcli 'postgresql://admin:Passw0rd!@localhost:5433/orderdb'
@@ -81,13 +79,13 @@ services:
       - POSTGRES_DB=orderdb
 
   # connect:
-  # pgcli 'postgresql://admin:Passw0rd!@localhost:5435/identity_database'
+  # pgcli 'postgresql://admin:Passw0rd!@localhost:5435/keycloak'
   identity-db:
     environment:
       - POSTGRES_PASSWORD=Passw0rd!
       - POSTGRES_USER=admin
       - PGDATA=/pg
-      - POSTGRES_DB=identity_database
+      - POSTGRES_DB=keycloak
 
   # connect:
   # pgcli 'postgresql://admin:Passw0rd!@localhost:5434/catalogdb'

@@ -235,3 +235,4 @@ src/backend/services/.DS_Store
 src/backend/docker/.env
 src/backend/target
 *k6
+.DS_Store

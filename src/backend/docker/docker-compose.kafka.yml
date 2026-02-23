@@ -1,7 +1,7 @@
 ---
 version: "3.7"
 services:
-    broker:
+  broker:
     image: apache/kafka-native:3.8.0
     hostname: broker
     container_name: broker
@@ -30,18 +30,10 @@ services:
       - broker
     command: "bash -c 'echo Waiting for Kafka to be ready... && \
                cub kafka-ready -b broker:29092 1 30 && \
-               kafka-topics --create --topic test-topic --partitions 3 --replication-factor 1 --if-not-exists --bootstrap-server broker:29092'"
-
-  kafka-init-topics:
-    image: confluentinc/cp-kafka:7.2.1
-    depends_on:
-      - kafka
-    command: "bash -c 'echo Waiting for Kafka to be ready... && \
-               cub kafka-ready -b kafka:9092 1 30 && \
-               kafka-topics --create --topic checkout --partitions 3 --replication-factor 1 --if-not-exists --bootstrap-server kafka:9092 && \
-               kafka-topics --create --topic orders --partitions 3 --replication-factor 1 --if-not-exists --bootstrap-server kafka:9092 
+               kafka-topics --create --topic checkout --partitions 3 --replication-factor 1 --if-not-exists --bootstrap-server broker:29092 && \
+               kafka-topics --create --topic orders --partitions 3 --replication-factor 1 --if-not-exists --bootstrap-server broker:29092
                '"
-  
+
   kafka-ui:
     image: provectuslabs/kafka-ui
     container_name: kafka-ui
@@ -50,7 +42,7 @@ services:
     restart: always
     environment:
       - KAFKA_CLUSTERS_0_NAME=local
-      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=broker:29092
 
 volumes:
   kafka_data:

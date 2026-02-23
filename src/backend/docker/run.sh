@@ -4,28 +4,12 @@ set -e
 
 trap close INT
 
-dockerhost="127.0.0.1    host.docker.internal"
-hostfile="/etc/hosts"
-
-# Check for sudo permission and prompt if not present
-if [ "$EUID" -ne 0 ]; then
-  if ! grep -q "^$dockerhost" "$hostfile"; then
-    tput setaf 1
-    tput bold
-    echo "-----------------------------------------------------------------------------------------------------------"
-    echo "Note: This script needs sudo permission to append '127.0.0.1 host.docker.internal' into /etc/hosts"
-    echo "-----------------------------------------------------------------------------------------------------------"
-    tput sgr0
-    exit 1
-  fi
-else
-  if ! grep -q "^$dockerhost" "$hostfile"; then
-    tput bold
-    tput setaf 3 # yellow
-    echo "- Adding entry '$dockerhost'"
-    echo "$dockerhost" >>"$hostfile"
-    tput sgr0
-  fi
+# Ensure host.docker.internal is resolvable from the host
+if ! grep -q "host.docker.internal" /etc/hosts; then
+  echo "ERROR: host.docker.internal is missing from /etc/hosts."
+  echo "Run the following command and retry:"
+  echo "  echo '127.0.0.1 host.docker.internal' | sudo tee -a /etc/hosts"
+  exit 1
 fi
 
 # Run docker-compose with multiple files
@@ -34,5 +18,4 @@ docker-compose -f docker/docker-compose.yml -f docker/docker-compose.override.ym
   -f docker/docker-compose.kafka.yml \
   -f docker/docker-compose.grafana.yaml \
   -f docker/docker-compose.otel.yml \
-  -f docker/docker-compose.load-tests.yaml \
   --project-directory . up -d --build

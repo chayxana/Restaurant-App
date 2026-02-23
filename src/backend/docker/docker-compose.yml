@@ -1,13 +1,15 @@
 version: "3.7"
 
 services:
-  identity-api:
-    image: restaurant/identity-api
-    build: ./services/identity-api
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    command: start-dev --import-realm
     depends_on:
       - identity-db
+    volumes:
+      - ./docker/keycloak/realm.json:/opt/keycloak/data/import/realm.json
     ports:
-      - "5001:80"
+      - "5001:8080"
     restart: always
 
   checkout-api:
@@ -34,6 +36,7 @@ services:
     build: ./services/cart-api
     depends_on:
       - redis
+      - broker
     ports:
       - 5200:5200
     restart: always
@@ -48,6 +51,7 @@ services:
     depends_on:
       - order-db
       - payment-api
+      - broker
     ports:
       - 8082:8080
     restart: always
@@ -71,11 +75,10 @@ services:
     build:
       context: ./services/web-app
       dockerfile: local.Dockerfile
+    depends_on:
+      - keycloak
     ports:
       - 3000
-    extra_hosts:
-      - "host.docker.internal:host-gateway" # run in your host machine command:
-        # sudo sh -c "echo '127.0.0.1 \t host.docker.internal' >> /etc/hosts"
     restart: always
 
   order-db:

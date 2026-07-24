@@ -1,7 +1,7 @@
 # Restaurant App 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/chayxana/Restaurant-App)
 
-if you have any questions, please reach me out:
+if you have any questions, please reach out to me:
 
 [![](https://img.shields.io/badge/twitter-00ACEE?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/jurabek_az)
 [![](https://dcbadge.vercel.app/api/server/sy6ZGyPs)](https://discord.gg/mhHvfkR2)
